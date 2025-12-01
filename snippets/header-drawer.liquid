@@ -11,9 +11,9 @@
       class="header__icon header__icon--menu header__icon--summary link focus-inset"
       aria-label="{{ 'sections.header.menu' | t }}"
     >
-      <span>
-        {{- 'icon-hamburger.svg' | inline_asset_content -}}
-        {{- 'icon-close.svg' | inline_asset_content -}}
+      <span class="relative flex items-center justify-center">
+        {%- render 'icon', name: 'menu', size: '24' -%}
+        {%- render 'icon', name: 'close', size: '24', class: 'hidden' -%}
       </span>
     </summary>
     <div id="menu-drawer" class="gradient menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
@@ -31,10 +31,10 @@
                       >
                         {{ link.title | escape }}
                         <span class="svg-wrapper">
-                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                          {%- render 'icon', name: 'arrow-right', size: '16' -%}
                         </span>
-                        <span class="svg-wrapper">
-                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        <span class="svg-wrapper icon-caret">
+                          {%- render 'icon', name: 'caret-down', size: '16' -%}
                         </span>
                       </summary>
                       <div
@@ -45,7 +45,7 @@
                         <div class="menu-drawer__inner-submenu">
                           <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
                             <span class="svg-wrapper">
-                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                              {%- render 'icon', name: 'arrow-left', size: '16' -%}
                             </span>
                             {{ link.title | escape }}
                           </button>
@@ -71,10 +71,10 @@
                                     >
                                       {{ childlink.title | escape }}
                                       <span class="svg-wrapper">
-                                        {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                        {%- render 'icon', name: 'arrow-right', size: '16' -%}
                                       </span>
-                                      <span class="svg-wrapper">
-                                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                                      <span class="svg-wrapper icon-caret">
+                                        {%- render 'icon', name: 'caret-down', size: '16' -%}
                                       </span>
                                     </summary>
                                     <div
@@ -86,7 +86,7 @@
                                         aria-expanded="true"
                                       >
                                         <span class="svg-wrapper">
-                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                          {%- render 'icon', name: 'arrow-left', size: '16' -%}
                                         </span>
                                         {{ childlink.title | escape }}
                                       </button>
@@ -147,15 +147,11 @@
                     {%- if customer and customer.has_avatar? -%}
                       {{ customer | avatar }}
                     {%- else -%}
-                      <span class="svg-wrapper">
-                        {{- 'icon-account.svg' | inline_asset_content -}}
-                      </span>
+                      {%- render 'icon', name: 'user', size: '20' -%}
                     {%- endif -%}
                   </account-icon>
                 {%- else -%}
-                  <span class="svg-wrapper">
-                    {{- 'icon-account.svg' | inline_asset_content -}}
-                  </span>
+                  {%- render 'icon', name: 'user', size: '20' -%}
                 {%- endif -%}
                 {%- liquid
                   if customer
@@ -195,93 +191,75 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
-            <ul class="list list-social list-unstyled" role="list">
+            <ul class="list list-social list-unstyled flex flex-wrap gap-1" role="list">
               {%- if settings.social_twitter_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_twitter_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-twitter.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_twitter_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'twitter', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_facebook_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_facebook_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-facebook.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_facebook_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'facebook', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_pinterest_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_pinterest_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-pinterest.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_pinterest_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'pinterest', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_instagram_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_instagram_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-instagram.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_instagram_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'instagram', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_tiktok_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_tiktok_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-tiktok.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_tiktok_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'tiktok', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_tumblr_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_tumblr_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-tumblr.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_tumblr_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'tumblr', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_snapchat_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_snapchat_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-snapchat.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_snapchat_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'snapchat', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_youtube_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_youtube_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-youtube.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_youtube_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'youtube', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
                   </a>
                 </li>
               {%- endif -%}
               {%- if settings.social_vimeo_link != blank -%}
                 <li class="list-social__item">
-                  <a href="{{ settings.social_vimeo_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-vimeo.svg' | inline_asset_content -}}
-                    </span>
+                  <a href="{{ settings.social_vimeo_link }}" class="list-social__link link p-2 hover:opacity-70 transition-opacity">
+                    {%- render 'icon', name: 'vimeo', size: '20' -%}
                     <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
                   </a>
                 </li>

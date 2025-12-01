@@ -15,12 +15,10 @@
       aria-haspopup="dialog"
       aria-label="{{ 'general.search.search' | t }}"
     >
-      <span>
-        <span class="svg-wrapper">
-          {{- 'icon-search.svg' | inline_asset_content -}}
-        </span>
-        <span class="svg-wrapper header__icon-close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
+      <span class="relative flex items-center justify-center">
+        {%- render 'icon', name: 'search', size: '22' -%}
+        <span class="header__icon-close hidden absolute inset-0 flex items-center justify-center">
+          {%- render 'icon', name: 'close', size: '22' -%}
         </span>
       </span>
     </summary>
@@ -69,14 +67,10 @@
               class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
               aria-label="{{ 'general.search.reset' | t }}"
             >
-              <span class="svg-wrapper">
-                {{- 'icon-reset.svg' | inline_asset_content -}}
-              </span>
+              {%- render 'icon', name: 'close', size: '18' -%}
             </button>
             <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-              <span class="svg-wrapper">
-                {{- 'icon-search.svg' | inline_asset_content -}}
-              </span>
+              {%- render 'icon', name: 'search', size: '18' -%}
             </button>
           </div>
 
@@ -98,9 +92,7 @@
           class="search-modal__close-button modal__close-button link link--text focus-inset"
           aria-label="{{ 'accessibility.close' | t }}"
         >
-          <span class="svg-wrapper">
-            {{- 'icon-close.svg' | inline_asset_content -}}
-          </span>
+          {%- render 'icon', name: 'close', size: '22' -%}
         </button>
       </div>
     </div>

@@ -1,3 +1,7 @@
+/* ==========================================================================
+   SLIDER - Slider/carousel component
+   ========================================================================== */
+
 slider-component {
   --desktop-margin-left-first-item: max(
     5rem,
@@ -44,7 +48,6 @@ slider-component.slider-component-full-width {
     margin-bottom: 1rem;
   }
 
-  /* Fix to show some space at the end of our sliders in all browsers */
   .slider--mobile:after {
     content: '';
     width: 0;
@@ -94,7 +97,6 @@ slider-component.slider-component-full-width {
     margin-bottom: 1rem;
   }
 
-  /* Fix to show some space at the end of our sliders in all browsers */
   .slider--tablet:after {
     content: '';
     width: 0;
@@ -148,7 +150,6 @@ slider-component.slider-component-full-width {
     scroll-padding-left: var(--desktop-margin-left-first-item);
   }
 
-  /* Fix to show some space at the end of our sliders in all browsers */
   .slider--desktop:after {
     content: '';
     width: 0;
@@ -176,7 +177,6 @@ slider-component.slider-component-full-width {
     scroll-margin-left: 1.5rem;
   }
 
-  /* Fix to show some space at the end of our sliders in all browsers */
   .slider-component-full-width .slider--desktop:after {
     padding-left: 1.5rem;
   }
@@ -217,7 +217,6 @@ slider-component.slider-component-full-width {
 }
 
 /* Scrollbar */
-
 .slider {
   scrollbar-color: rgb(var(--color-foreground)) rgba(var(--color-foreground), 0.04);
   -ms-overflow-style: none;
