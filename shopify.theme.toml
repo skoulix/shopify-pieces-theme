@@ -1,0 +1,10 @@
+# Shopify Theme Configuration
+
+[environments.default]
+store = "evan-dev.myshopify.com"
+theme = "182319284529"
+# If your store has password protection, add it here:
+store-password = "seapixel"
+
+[environments.production]
+store = "evan-dev.myshopify.com"

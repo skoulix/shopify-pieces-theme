@@ -1,0 +1,120 @@
+{%- comment -%}
+  Pieces Product Card Component
+
+  Usage:
+  {% render 'pieces-product-card',
+    product: product,
+    show_secondary_image: true,
+    show_quick_add: true,
+    reveal_animation: 'fade-up',
+    reveal_delay: 0
+  %}
+{%- endcomment -%}
+
+{%- liquid
+  assign reveal_animation = reveal_animation | default: 'fade-up'
+  assign reveal_delay = reveal_delay | default: 0
+  assign show_secondary_image = show_secondary_image | default: true
+  assign show_quick_add = show_quick_add | default: true
+
+  assign first_variant = product.selected_or_first_available_variant
+  assign has_secondary_image = false
+  if product.media.size > 1 and show_secondary_image
+    assign has_secondary_image = true
+  endif
+-%}
+
+<c-product-card
+  class="group relative block"
+  data-reveal="{{ reveal_animation }}"
+  data-reveal-delay="{{ reveal_delay }}"
+>
+  <a href="{{ product.url }}" class="block">
+    {%- comment -%} Image Container {%- endcomment -%}
+    <div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
+      {%- comment -%} Primary Image {%- endcomment -%}
+      {%- if product.featured_media -%}
+        {{ product.featured_media | image_url: width: 800 | image_tag:
+          class: 'w-full h-full object-cover transition-transform duration-700 ease-out-expo',
+          loading: 'lazy',
+          widths: '400, 600, 800',
+          sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw'
+        }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+      {%- endif -%}
+
+      {%- comment -%} Secondary Image (on hover) {%- endcomment -%}
+      {%- if has_secondary_image -%}
+        <div
+          data-secondary-image
+          class="absolute inset-0 opacity-0 transition-opacity duration-500"
+        >
+          {{ product.media[1] | image_url: width: 800 | image_tag:
+            class: 'w-full h-full object-cover',
+            loading: 'lazy',
+            widths: '400, 600, 800',
+            sizes: '(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw'
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Quick Add Button {%- endcomment -%}
+      {%- if show_quick_add and first_variant.available -%}
+        <button
+          type="button"
+          data-quick-add
+          data-variant-id="{{ first_variant.id }}"
+          data-quantity="1"
+          class="absolute bottom-4 left-4 right-4 py-3 bg-white text-black text-center text-sm font-medium opacity-0 translate-y-2 transition-all duration-300 hover:bg-black hover:text-white"
+          aria-label="{{ 'products.product.add_to_cart' | t }}"
+        >
+          <span class="quick-add__text">{{ 'products.product.add_to_cart' | t }}</span>
+          <span class="quick-add__loading hidden">
+            <svg class="animate-spin h-4 w-4 mx-auto" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </span>
+          <span class="quick-add__added hidden">{{ 'products.product.added' | t | default: 'Added!' }}</span>
+        </button>
+      {%- endif -%}
+
+      {%- comment -%} Sale Badge {%- endcomment -%}
+      {%- if product.compare_at_price > product.price -%}
+        <span class="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-red-600 text-white">
+          {{ 'products.product.on_sale' | t | default: 'Sale' }}
+        </span>
+      {%- endif -%}
+
+      {%- comment -%} Sold Out Badge {%- endcomment -%}
+      {%- unless first_variant.available -%}
+        <span class="absolute top-3 left-3 px-2 py-1 text-xs font-medium bg-gray-900 text-white">
+          {{ 'products.product.sold_out' | t }}
+        </span>
+      {%- endunless -%}
+    </div>
+
+    {%- comment -%} Product Info {%- endcomment -%}
+    <div class="space-y-1">
+      {%- if product.vendor -%}
+        <p class="text-xs text-gray-500 uppercase tracking-wider">
+          {{ product.vendor }}
+        </p>
+      {%- endif -%}
+
+      <h3 data-product-title class="text-sm font-medium">
+        {{ product.title }}
+      </h3>
+
+      <div data-product-price class="text-sm">
+        {%- if product.compare_at_price > product.price -%}
+          <span class="text-red-600">{{ product.price | money }}</span>
+          <span class="line-through text-gray-400 ml-2">{{ product.compare_at_price | money }}</span>
+        {%- else -%}
+          <span>{{ product.price | money }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+</c-product-card>

@@ -1,0 +1,39 @@
+{
+  "name": "pieces-shopify-theme",
+  "version": "1.0.0",
+  "description": "Modern Shopify theme based on Dawn with SPA-like experience using piecesjs, GSAP, Lenis, and Swup",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "preview": "vite preview",
+    "theme:dev": "shopify theme dev",
+    "theme:push": "shopify theme push",
+    "theme:pull": "shopify theme pull",
+    "theme:check": "shopify theme check",
+    "theme:list": "shopify theme list",
+    "start": "npm run build && npm run theme:dev",
+    "develop": "concurrently \"npm run watch\" \"npm run theme:dev\" --names \"vite,shopify\" --prefix-colors \"cyan,magenta\""
+  },
+  "devDependencies": {
+    "@shopify/cli": "^3.87.4",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.4.32",
+    "postcss-import": "^15.1.0",
+    "postcss-nesting": "^12.0.2",
+    "tailwindcss": "^3.4.0",
+    "vite": "^5.0.10"
+  },
+  "dependencies": {
+    "@swup/body-class-plugin": "^3.1.1",
+    "@swup/head-plugin": "^2.2.0",
+    "@swup/js-plugin": "^3.1.2",
+    "@swup/preload-plugin": "^3.2.6",
+    "gsap": "^3.12.4",
+    "lenis": "^1.1.1",
+    "piecesjs": "^0.0.17",
+    "swup": "^4.6.1"
+  }
+}

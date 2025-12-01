@@ -1,0 +1,13 @@
+/* Pieces Theme - Main CSS Entry Point */
+
+/* Base styles - imports must come first */
+@import './base/reset.css';
+@import './base/transitions.css';
+@import './base/animations.css';
+
+/* Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Component styles will be imported dynamically via piecesjs */
