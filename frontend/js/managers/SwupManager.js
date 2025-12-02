@@ -16,6 +16,7 @@ class SwupManager {
     this.swup = null;
     this.isInitialized = false;
     this.pageTransitionDuration = 0.6;
+    this.skipAnimation = false; // Flag to skip default animations for custom transitions
   }
 
   init() {
@@ -114,6 +115,11 @@ class SwupManager {
    * @returns {Promise}
    */
   async animateOut() {
+    // Skip if custom animation is handling it
+    if (this.skipAnimation) {
+      return Promise.resolve();
+    }
+
     const container = document.querySelector('#swup-container');
     const overlay = document.querySelector('.page-transition-overlay');
 
@@ -150,6 +156,15 @@ class SwupManager {
   async animateIn() {
     const container = document.querySelector('#swup-container');
     const overlay = document.querySelector('.page-transition-overlay');
+
+    // Skip if custom animation is handling it
+    if (this.skipAnimation) {
+      // Reset skipAnimation flag for next navigation
+      this.skipAnimation = false;
+      // Just ensure container is visible
+      gsap.set(container, { opacity: 1, y: 0 });
+      return Promise.resolve();
+    }
 
     // Reset container position
     gsap.set(container, { opacity: 0, y: 20 });
@@ -232,9 +247,11 @@ class SwupManager {
   /**
    * Navigate to a URL programmatically
    * @param {string} url - URL to navigate to
+   * @param {boolean} skipAnimation - If true, skips default Swup animations (for custom transitions)
    */
-  navigateTo(url) {
+  navigateTo(url, skipAnimation = false) {
     if (this.swup) {
+      this.skipAnimation = skipAnimation;
       this.swup.navigate(url);
     } else {
       window.location.href = url;

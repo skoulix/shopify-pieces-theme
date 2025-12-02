@@ -24,7 +24,7 @@
   }
 
   /* Loading state - initial hidden state for reveal */
-  .collection-wrapper.is-loading .collection-item__imgwrap {
+  .collection-wrapper.is-loading .product-card-image {
     clip-path: inset(0 100% 0 0);
   }
 </style>
@@ -32,14 +32,14 @@
 <div class="collection-wrapper is-loading min-h-screen bg-white" data-collection-wrapper style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};">
   {%- comment -%} Header {%- endcomment -%}
   <header class="collection-header max-w-7xl mx-auto pt-16 pb-8 px-4 md:px-8">
-    <h1 class="collection-header__title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
+    <h1 class="collection-header-title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
       {%- assign title_words = collection.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
       {%- endfor -%}
     </h1>
     {% if collection.description != blank %}
-      <div class="collection-header__description mt-4 text-base text-gray-600 max-w-xl">
+      <div class="collection-header-description mt-4 text-base text-gray-600 max-w-xl">
         {%- assign desc_words = collection.description | strip_html | split: ' ' -%}
         {%- for word in desc_words -%}
           <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
@@ -52,36 +52,7 @@
   <div class="collection-grid max-w-7xl mx-auto px-4 md:px-8 pb-16" data-collection-grid>
     {% paginate collection.products by section.settings.products_per_page %}
       {% for product in collection.products %}
-        <article
-          class="collection-item cursor-pointer"
-          data-collection-item="{{ forloop.index0 }}"
-          data-product-url="{{ product.url }}"
-        >
-          <div class="collection-item__imgwrap relative overflow-hidden aspect-[3/4] bg-gray-100">
-            {% if product.featured_image %}
-              {{ product.featured_image | image_url: width: 1200 | image_tag:
-                class: 'w-full h-full object-cover',
-                loading: 'lazy',
-                sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
-                widths: '400, 600, 800, 1200',
-                alt: product.title
-              }}
-            {% else %}
-              <div class="w-full h-full flex items-center justify-center bg-gray-100">
-                <i class="ph ph-image text-5xl text-gray-300"></i>
-              </div>
-            {% endif %}
-          </div>
-          <h3 class="collection-item__title mt-3 text-xs md:text-sm font-semibold uppercase tracking-wide">
-            {%- assign title_words = product.title | split: ' ' -%}
-            {%- for word in title_words -%}
-              <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-            {%- endfor -%}
-          </h3>
-          <div class="collection-item__meta mt-2 text-sm text-gray-600 overflow-hidden">
-            <span class="inline-block">{{ product.price | money }}</span>
-          </div>
-        </article>
+        {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
       {% endfor %}
 
       {% if paginate.pages > 1 %}
@@ -132,7 +103,7 @@
       }
     }
 
-    const contentItems = wrapper.querySelectorAll('[data-collection-item]');
+    const contentItems = wrapper.querySelectorAll('[data-product-card]');
     let isAnimating = false;
 
     // Intro reveal animation
@@ -144,7 +115,7 @@
       });
 
       // Split text reveal for header title
-      const headerTitleSpans = wrapper.querySelectorAll('.collection-header__title .overflow-hidden span');
+      const headerTitleSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden span');
       if (headerTitleSpans.length) {
         gsap.set(headerTitleSpans, { yPercent: 100 });
         tl.to(headerTitleSpans, {
@@ -156,7 +127,7 @@
       }
 
       // Split text reveal for header description
-      const headerDescSpans = wrapper.querySelectorAll('.collection-header__description .overflow-hidden span');
+      const headerDescSpans = wrapper.querySelectorAll('.collection-header-description .overflow-hidden span');
       if (headerDescSpans.length) {
         gsap.set(headerDescSpans, { yPercent: 100 });
         tl.to(headerDescSpans, {
@@ -169,9 +140,9 @@
 
       // Animate each item with stagger
       contentItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.collection-item__imgwrap');
-        const titleSpans = item.querySelectorAll('.collection-item__title .overflow-hidden span');
-        const priceSpan = item.querySelector('.collection-item__meta span');
+        const imgWrap = item.querySelector('.product-card-image');
+        const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
+        const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
 
         const delay = 0.3 + index * 0.08;
 
@@ -194,12 +165,13 @@
         }
 
         // Split text reveal for price
-        if (priceSpan) {
-          gsap.set(priceSpan, { yPercent: 100 });
-          tl.to(priceSpan, {
+        if (priceSpans.length) {
+          gsap.set(priceSpans, { yPercent: 100 });
+          tl.to(priceSpans, {
             yPercent: 0,
             duration: 0.6,
-            ease: 'power4.out'
+            ease: 'power4.out',
+            stagger: 0.05
           }, delay + 0.3);
         }
       });
@@ -208,10 +180,10 @@
     // Run intro animation
     runIntroAnimation();
 
-    // Navigate to product page with Swup
+    // Navigate to product page with Swup (skip default animation since we have custom)
     function navigateToProduct(url) {
       if (window.pieces && window.pieces.swup && window.pieces.swup.swup) {
-        window.pieces.swup.navigateTo(url);
+        window.pieces.swup.navigateTo(url, true); // true = skip default animation
       } else {
         window.location.href = url;
       }
@@ -219,8 +191,8 @@
 
     // Hover effects - simple and subtle
     contentItems.forEach((item) => {
-      const imgWrap = item.querySelector('.collection-item__imgwrap');
-      const img = item.querySelector('.collection-item__imgwrap img');
+      const imgWrap = item.querySelector('.product-card-image');
+      const img = item.querySelector('.product-card-image img');
 
       item.addEventListener('mouseenter', () => {
         if (isAnimating) return;
@@ -285,7 +257,7 @@
       });
 
       // Animate out header title with split text
-      const headerTitleSpans = wrapper.querySelectorAll('.collection-header__title .overflow-hidden span');
+      const headerTitleSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden span');
       tl.to(headerTitleSpans, {
         yPercent: -100,
         duration: 0.5,
@@ -294,7 +266,7 @@
       }, 0);
 
       // Animate out header description with split text
-      const headerDescSpans = wrapper.querySelectorAll('.collection-header__description .overflow-hidden span');
+      const headerDescSpans = wrapper.querySelectorAll('.collection-header-description .overflow-hidden span');
       if (headerDescSpans.length) {
         tl.to(headerDescSpans, {
           yPercent: -100,
@@ -306,9 +278,9 @@
 
       // Animate all items out
       contentItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.collection-item__imgwrap');
-        const titleSpans = item.querySelectorAll('.collection-item__title .overflow-hidden span');
-        const priceSpan = item.querySelector('.collection-item__meta span');
+        const imgWrap = item.querySelector('.product-card-image');
+        const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
+        const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
 
         // Stagger based on distance from clicked item
         const distance = Math.abs(index - clickedIndex);
@@ -323,9 +295,10 @@
         }, delay);
 
         // Split text reveal out for price
-        if (priceSpan) {
-          tl.to(priceSpan, {
+        if (priceSpans.length) {
+          tl.to(priceSpans, {
             yPercent: -100,
+            stagger: 0.02,
             duration: 0.3,
             ease: 'power4.in'
           }, delay);

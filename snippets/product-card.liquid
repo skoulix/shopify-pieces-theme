@@ -1,0 +1,70 @@
+{%- comment -%}
+  Product Card Snippet
+  Renders a product card with split text reveal animation support
+
+  Usage:
+    {% render 'product-card', product: product, index: forloop.index0, collection: collection %}
+
+  Parameters:
+    - product: Product object (required)
+    - collection: Collection object (optional) - preserves collection context in URL
+    - index: Card index for animation stagger (optional, default: 0)
+    - show_vendor: Show vendor name (optional, default: false)
+    - lazy_load: Lazy load image (optional, default: true)
+{%- endcomment -%}
+
+{%- liquid
+  assign index = index | default: 0
+  assign show_vendor = show_vendor | default: false
+  assign lazy_load = lazy_load | default: true
+
+  if collection
+    assign product_url = product.url | within: collection
+  else
+    assign product_url = product.url
+  endif
+-%}
+
+<article
+  class="product-card cursor-pointer"
+  data-product-card="{{ index }}"
+  data-product-url="{{ product_url }}"
+>
+  <div class="product-card-image relative overflow-hidden aspect-[3/4] bg-gray-100">
+    {% if product.featured_image %}
+      {{ product.featured_image | image_url: width: 1200 | image_tag:
+        class: 'w-full h-full object-cover',
+        loading: lazy_load | default: 'lazy',
+        sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+        widths: '400, 600, 800, 1200',
+        alt: product.title
+      }}
+    {% else %}
+      <div class="w-full h-full flex items-center justify-center bg-gray-100">
+        <i class="ph ph-image text-5xl text-gray-300"></i>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if show_vendor and product.vendor != blank %}
+    <p class="product-card-vendor mt-2 text-xs text-gray-500 uppercase tracking-wide overflow-hidden">
+      <span class="inline-block">{{ product.vendor }}</span>
+    </p>
+  {% endif %}
+
+  <h3 class="product-card-title mt-3 text-xs md:text-sm font-semibold uppercase tracking-wide">
+    {%- assign title_words = product.title | split: ' ' -%}
+    {%- for word in title_words -%}
+      <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
+    {%- endfor -%}
+  </h3>
+
+  <div class="product-card-price mt-2 text-sm text-gray-600">
+    {% if product.compare_at_price > product.price %}
+      <span class="overflow-hidden inline-block"><span class="inline-block line-through text-gray-400 mr-2">{{ product.compare_at_price | money }}</span></span>
+      <span class="overflow-hidden inline-block"><span class="inline-block text-red-600">{{ product.price | money }}</span></span>
+    {% else %}
+      <span class="overflow-hidden inline-block"><span class="inline-block">{{ product.price | money }}</span></span>
+    {% endif %}
+  </div>
+</article>

@@ -3,7 +3,39 @@
   Integrates with Swup page transitions and Lenis smooth scroll
 {%- endcomment -%}
 
-<header class="sticky top-0 z-40 bg-white border-b border-gray-200">
+<style>
+  /* Active nav link styles */
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: currentColor;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link.is-active::after {
+    width: 100%;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Mobile active state */
+  .nav-link-mobile.is-active {
+    background-color: rgb(238 242 255); /* indigo-50 */
+    color: rgb(79 70 229); /* indigo-600 */
+  }
+</style>
+
+<header class="sticky top-0 z-40 bg-white border-b border-gray-200" data-header>
   <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
     {%- comment -%} Logo {%- endcomment -%}
     <div class="flex lg:flex-1">
@@ -36,7 +68,19 @@
     {%- comment -%} Desktop Navigation {%- endcomment -%}
     <div class="hidden lg:flex lg:gap-x-8">
       {% for link in section.settings.menu.links %}
-        <a href="{{ link.url }}" class="text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600 transition-colors">
+        {%- liquid
+          assign is_active = false
+          if link.url == request.path
+            assign is_active = true
+          elsif link.url != '/' and request.path contains link.url
+            assign is_active = true
+          endif
+        -%}
+        <a
+          href="{{ link.url }}"
+          class="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600 transition-colors{% if is_active %} is-active{% endif %}"
+          data-nav-link
+        >
           {{ link.title }}
         </a>
       {% endfor %}
@@ -97,7 +141,19 @@
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
             {% for link in section.settings.menu.links %}
-              <a href="{{ link.url }}" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+              {%- liquid
+                assign is_active = false
+                if link.url == request.path
+                  assign is_active = true
+                elsif link.url != '/' and request.path contains link.url
+                  assign is_active = true
+                endif
+              -%}
+              <a
+                href="{{ link.url }}"
+                class="nav-link-mobile -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50{% if is_active %} is-active{% endif %}"
+                data-nav-link
+              >
                 {{ link.title }}
               </a>
             {% endfor %}
@@ -118,6 +174,53 @@
     </div>
   </div>
 </header>
+
+<script>
+(function() {
+  /**
+   * Update active nav links based on current URL
+   * Called on initial load and after Swup page transitions
+   */
+  function updateActiveLinks() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('[data-nav-link]');
+
+    navLinks.forEach(link => {
+      const linkPath = new URL(link.href, window.location.origin).pathname;
+
+      // Remove trailing slashes for comparison
+      const normalizedCurrent = currentPath.replace(/\/$/, '') || '/';
+      const normalizedLink = linkPath.replace(/\/$/, '') || '/';
+
+      let isActive = false;
+
+      // Exact match
+      if (normalizedCurrent === normalizedLink) {
+        isActive = true;
+      }
+      // Partial match for nested pages (e.g., /collections matches /collections/all)
+      else if (normalizedLink !== '/' && normalizedCurrent.startsWith(normalizedLink + '/')) {
+        isActive = true;
+      }
+      // Special case: collection pages should match /collections link
+      else if (normalizedLink !== '/' && normalizedCurrent.startsWith(normalizedLink)) {
+        isActive = true;
+      }
+
+      link.classList.toggle('is-active', isActive);
+    });
+  }
+
+  // Update on initial page load
+  updateActiveLinks();
+
+  // Update after Swup page transitions
+  window.addEventListener('swup:contentReplaced', updateActiveLinks);
+
+  // Also listen for popstate (browser back/forward)
+  window.addEventListener('popstate', updateActiveLinks);
+})();
+</script>
 
 {% schema %}
 {

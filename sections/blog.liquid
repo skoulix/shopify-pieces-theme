@@ -23,7 +23,7 @@
   }
 
   /* Loading state - initial hidden state for reveal */
-  .blog-wrapper.is-loading .blog-item__imgwrap {
+  .blog-wrapper.is-loading .blog-item-imgwrap {
     clip-path: inset(0 100% 0 0);
   }
 
@@ -35,7 +35,7 @@
 
 <section class="blog-wrapper is-loading min-h-screen bg-white" data-blog-wrapper style="--columns-desktop: 3; --columns-tablet: 2; --columns-mobile: 1;">
   <div class="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-8">
-    <h1 class="blog-header__title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
+    <h1 class="blog-header-title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
       {%- assign title_words = blog.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
@@ -51,7 +51,7 @@
           data-blog-item="{{ forloop.index0 }}"
           data-article-url="{{ article.url }}"
         >
-          <a href="{{ article.url }}" class="blog-item__imgwrap block relative overflow-hidden aspect-video bg-gray-100 rounded-lg">
+          <a href="{{ article.url }}" data-no-swup class="blog-item-imgwrap block relative overflow-hidden aspect-video bg-gray-100 rounded-lg">
             {% if article.image %}
               {{ article.image | image_url: width: 800 | image_tag:
                 class: 'w-full h-full object-cover',
@@ -65,7 +65,7 @@
           </a>
 
           <div class="mt-4">
-            <div class="blog-item__date text-xs text-gray-500 overflow-hidden">
+            <div class="blog-item-date text-xs text-gray-500 overflow-hidden">
               <span class="inline-block">
                 <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
                   {{ article.published_at | date: '%B %d, %Y' }}
@@ -73,22 +73,22 @@
               </span>
             </div>
 
-            <h2 class="blog-item__title mt-2 text-lg font-semibold leading-6 text-gray-900">
+            <h2 class="blog-item-title mt-2 text-lg font-semibold leading-6 text-gray-900">
               {%- assign title_words = article.title | split: ' ' -%}
               {%- for word in title_words -%}
                 <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
               {%- endfor -%}
             </h2>
 
-            <div class="blog-item__excerpt mt-2 text-sm leading-6 text-gray-600 line-clamp-3">
+            <div class="blog-item-excerpt mt-2 text-sm leading-6 text-gray-600 line-clamp-3">
               {%- assign excerpt_words = article.excerpt_or_content | strip_html | truncate: 100 | split: ' ' -%}
               {%- for word in excerpt_words -%}
                 <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
               {%- endfor -%}
             </div>
 
-            <div class="blog-item__link mt-4 overflow-hidden">
-              <a href="{{ article.url }}" class="inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
+            <div class="blog-item-link mt-4 overflow-hidden">
+              <a href="{{ article.url }}" data-no-swup class="inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
                 Read more <span aria-hidden="true">→</span>
               </a>
             </div>
@@ -156,7 +156,7 @@
       });
 
       // Split text reveal for header title
-      const headerTitleSpans = wrapper.querySelectorAll('.blog-header__title .overflow-hidden span');
+      const headerTitleSpans = wrapper.querySelectorAll('.blog-header-title .overflow-hidden span');
       if (headerTitleSpans.length) {
         gsap.set(headerTitleSpans, { yPercent: 100 });
         tl.to(headerTitleSpans, {
@@ -169,11 +169,11 @@
 
       // Animate each item with stagger
       blogItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.blog-item__imgwrap');
-        const dateSpan = item.querySelector('.blog-item__date span');
-        const titleSpans = item.querySelectorAll('.blog-item__title .overflow-hidden span');
-        const excerptSpans = item.querySelectorAll('.blog-item__excerpt .overflow-hidden span');
-        const linkEl = item.querySelector('.blog-item__link a');
+        const imgWrap = item.querySelector('.blog-item-imgwrap');
+        const dateSpan = item.querySelector('.blog-item-date span');
+        const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+        const excerptSpans = item.querySelectorAll('.blog-item-excerpt .overflow-hidden span');
+        const linkEl = item.querySelector('.blog-item-link a');
 
         const delay = 0.3 + index * 0.08;
 
@@ -231,10 +231,10 @@
     // Run intro animation
     runIntroAnimation();
 
-    // Navigate to article page with Swup
+    // Navigate to article page with Swup (skip default animation since we have custom)
     function navigateToArticle(url) {
       if (window.pieces && window.pieces.swup && window.pieces.swup.swup) {
-        window.pieces.swup.navigateTo(url);
+        window.pieces.swup.navigateTo(url, true); // true = skip default animation
       } else {
         window.location.href = url;
       }
@@ -242,8 +242,8 @@
 
     // Hover effects
     blogItems.forEach((item) => {
-      const imgWrap = item.querySelector('.blog-item__imgwrap');
-      const img = item.querySelector('.blog-item__imgwrap img');
+      const imgWrap = item.querySelector('.blog-item-imgwrap');
+      const img = item.querySelector('.blog-item-imgwrap img');
 
       item.addEventListener('mouseenter', () => {
         if (isAnimating) return;
@@ -284,10 +284,10 @@
 
     // Click handler - animate out then navigate
     function handleItemClick(e, clickedIndex) {
-      // Allow link clicks to work normally if not on the card itself
-      if (e.target.tagName === 'A') return;
-
+      // Always prevent default to stop Swup from intercepting anchor clicks
       e.preventDefault();
+      e.stopPropagation();
+
       if (isAnimating) return;
       isAnimating = true;
 
@@ -312,7 +312,7 @@
       });
 
       // Animate out header title with split text
-      const headerTitleSpans = wrapper.querySelectorAll('.blog-header__title .overflow-hidden span');
+      const headerTitleSpans = wrapper.querySelectorAll('.blog-header-title .overflow-hidden span');
       tl.to(headerTitleSpans, {
         yPercent: -100,
         duration: 0.5,
@@ -322,11 +322,11 @@
 
       // Animate all items out
       blogItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.blog-item__imgwrap');
-        const dateSpan = item.querySelector('.blog-item__date span');
-        const titleSpans = item.querySelectorAll('.blog-item__title .overflow-hidden span');
-        const excerptSpans = item.querySelectorAll('.blog-item__excerpt .overflow-hidden span');
-        const linkEl = item.querySelector('.blog-item__link a');
+        const imgWrap = item.querySelector('.blog-item-imgwrap');
+        const dateSpan = item.querySelector('.blog-item-date span');
+        const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+        const excerptSpans = item.querySelectorAll('.blog-item-excerpt .overflow-hidden span');
+        const linkEl = item.querySelector('.blog-item-link a');
 
         // Stagger based on distance from clicked item
         const distance = Math.abs(index - clickedIndex);

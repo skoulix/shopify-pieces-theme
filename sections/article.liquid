@@ -4,21 +4,21 @@
 
 <style>
   /* Article intro animation initial states */
-  .article-intro .article-intro__image {
+  .article-intro .article-intro-image {
     clip-path: inset(0 100% 0 0);
   }
 
-  .article-intro .article-intro__content {
+  .article-intro .article-intro-content {
     opacity: 0;
     transform: translateY(30px);
   }
 
   /* Animated states */
-  .article-intro--animated .article-intro__image {
+  .article-intro--animated .article-intro-image {
     clip-path: inset(0 0% 0 0);
   }
 
-  .article-intro--animated .article-intro__content {
+  .article-intro--animated .article-intro-content {
     opacity: 1;
     transform: translateY(0);
   }
@@ -27,21 +27,21 @@
 <article class="bg-white article-intro" data-article-intro>
   <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
     {% if article.image %}
-      <div class="mb-8 overflow-hidden rounded-lg article-intro__image">
+      <div class="mb-8 overflow-hidden rounded-lg article-intro-image">
         {{ article.image | image_url: width: 1200 | image_tag:
           class: 'w-full object-cover'
         }}
       </div>
     {% endif %}
 
-    <h1 class="article-intro__title text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <h1 class="article-intro-title text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
       {%- assign title_words = article.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
       {%- endfor -%}
     </h1>
 
-    <div class="article-intro__meta mt-4 flex items-center gap-x-4 text-sm text-gray-500">
+    <div class="article-intro-meta mt-4 flex items-center gap-x-4 text-sm text-gray-500">
       <span class="overflow-hidden">
         <time class="inline-block" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
           {{ article.published_at | date: '%B %d, %Y' }}
@@ -52,7 +52,7 @@
       </span>
     </div>
 
-    <div class="mt-8 prose prose-indigo max-w-none article-intro__content">
+    <div class="mt-8 prose prose-indigo max-w-none article-intro-content">
       {{ article.content }}
     </div>
 
@@ -154,10 +154,10 @@
 
       section.dataset.introInitialized = 'true';
 
-      const image = section.querySelector('.article-intro__image');
-      const titleSpans = section.querySelectorAll('.article-intro__title .overflow-hidden span');
-      const metaSpans = section.querySelectorAll('.article-intro__meta .overflow-hidden span, .article-intro__meta .overflow-hidden time');
-      const content = section.querySelector('.article-intro__content');
+      const image = section.querySelector('.article-intro-image');
+      const titleSpans = section.querySelectorAll('.article-intro-title .overflow-hidden span');
+      const metaSpans = section.querySelectorAll('.article-intro-meta .overflow-hidden span, .article-intro-meta .overflow-hidden time');
+      const content = section.querySelector('.article-intro-content');
 
       // Create timeline
       const tl = gsap.timeline({

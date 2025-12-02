@@ -7,23 +7,23 @@
 
 <style>
   /* Product intro animation initial states */
-  .product-intro .product-intro__image {
+  .product-intro .product-intro-image {
     clip-path: inset(0 100% 0 0);
     transform: scale(1.1);
   }
 
-  .product-intro .product-intro__form {
+  .product-intro .product-intro-form {
     opacity: 0;
     transform: translateY(30px);
   }
 
   /* Animated states */
-  .product-intro--animated .product-intro__image {
+  .product-intro--animated .product-intro-image {
     clip-path: inset(0 0% 0 0);
     transform: scale(1);
   }
 
-  .product-intro--animated .product-intro__form {
+  .product-intro--animated .product-intro-form {
     opacity: 1;
     transform: translateY(0);
   }
@@ -36,14 +36,14 @@
       {%- comment -%} Product Images {%- endcomment -%}
       <div class="space-y-4">
         {% for image in product.images %}
-          <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-100 product-intro__image">
+          <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-100 product-intro-image">
             {{ image | image_url: width: 1200 | image_tag:
               class: 'h-full w-full object-cover object-center',
               loading: forloop.first | default: 'lazy'
             }}
           </div>
         {% else %}
-          <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-100 product-intro__image">
+          <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-100 product-intro-image">
             <div class="flex h-full items-center justify-center">
               <i class="ph ph-image text-6xl text-gray-300"></i>
             </div>
@@ -53,7 +53,7 @@
 
       {%- comment -%} Product Info {%- endcomment -%}
       <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:sticky lg:top-24 lg:mt-0">
-        <h1 class="product-intro__title text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
+        <h1 class="product-intro-title text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
           {%- assign title_words = product.title | split: ' ' -%}
           {%- for word in title_words -%}
             <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
@@ -61,7 +61,7 @@
         </h1>
 
         {%- comment -%} Price {%- endcomment -%}
-        <div class="mt-3 product-intro__price" id="product-price">
+        <div class="mt-3 product-intro-price" id="product-price">
           <p class="text-3xl tracking-tight text-gray-900 overflow-hidden" data-product-price>
             <span class="inline-block">{{ current_variant.price | money }}</span>
           </p>
@@ -73,7 +73,7 @@
         </div>
 
         {%- comment -%} Description {%- endcomment -%}
-        <div class="mt-6 product-intro__description">
+        <div class="mt-6 product-intro-description">
           <div class="prose prose-sm text-gray-600">
             {%- assign desc_words = product.description | strip_html | split: ' ' -%}
             {%- for word in desc_words -%}
@@ -83,7 +83,7 @@
         </div>
 
         {%- comment -%} Product Form {%- endcomment -%}
-        <div class="mt-8 product-intro__form">
+        <div class="mt-8 product-intro-form">
           {% form 'product', product %}
             {%- comment -%} Variant Selector {%- endcomment -%}
             <div class="mb-6">
@@ -224,11 +224,11 @@
 
       section.dataset.introInitialized = 'true';
 
-      const images = section.querySelectorAll('.product-intro__image');
-      const titleSpans = section.querySelectorAll('.product-intro__title .overflow-hidden span');
-      const priceSpans = section.querySelectorAll('.product-intro__price .overflow-hidden span');
-      const descSpans = section.querySelectorAll('.product-intro__description .overflow-hidden span');
-      const form = section.querySelector('.product-intro__form');
+      const images = section.querySelectorAll('.product-intro-image');
+      const titleSpans = section.querySelectorAll('.product-intro-title .overflow-hidden span');
+      const priceSpans = section.querySelectorAll('.product-intro-price .overflow-hidden span');
+      const descSpans = section.querySelectorAll('.product-intro-description .overflow-hidden span');
+      const form = section.querySelector('.product-intro-form');
 
       // Create timeline
       const tl = gsap.timeline({
