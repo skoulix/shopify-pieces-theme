@@ -1,118 +1,47 @@
-{{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
-{{ 'component-slider.css' | asset_url | stylesheet_tag }}
-{{ 'component-slideshow.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Slideshow Section - Tailwind Version
+  Full-width or contained slideshow with autoplay support
+{%- endcomment -%}
 
 {%- if section.settings.slide_height == 'adapt_image' and section.blocks.first.settings.image != blank -%}
   {%- style -%}
     @media screen and (max-width: 749px) {
-      #Slider-{{ section.id }}::before,
-      #Slider-{{ section.id }} .media::before,
-      #Slider-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
-        padding-bottom: {{ 1 | divided_by: section.blocks.first.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
+      #Slideshow-{{ section.id }} {
+        aspect-ratio: {{ section.blocks.first.settings.image.aspect_ratio }};
       }
     }
-
     @media screen and (min-width: 750px) {
-      #Slider-{{ section.id }}::before,
-      #Slider-{{ section.id }} .media::before {
-        padding-bottom: {{ 1 | divided_by: section.blocks.first.settings.image.aspect_ratio | times: 100 }}%;
-        content: '';
-        display: block;
+      #Slideshow-{{ section.id }} {
+        aspect-ratio: {{ section.blocks.first.settings.image.aspect_ratio }};
       }
     }
   {%- endstyle -%}
 {%- endif -%}
 
 <slideshow-component
-  class="slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}{% if section.settings.show_text_below %} mobile-text-below{% endif %}"
+  class="block{% if section.settings.layout == 'grid' %} max-w-7xl mx-auto px-4 sm:px-6 lg:px-8{% endif %}"
   role="region"
   aria-roledescription="{{ 'sections.slideshow.carousel' | t }}"
   aria-label="{{ section.settings.accessibility_info | escape }}"
 >
-  {%- if section.settings.auto_rotate and section.blocks.size > 1 -%}
-    <div class="slideshow__controls slideshow__controls--top slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
-      <button
-        type="button"
-        class="slider-button slider-button--prev"
-        name="previous"
-        aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
-        aria-controls="Slider-{{ section.id }}"
-      >
-        <span class="svg-wrapper">
-          {%- render 'icon', name: 'caret-down', size: '16' -%}
-        </span>
-      </button>
-      <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
-        {%- if section.settings.slider_visual == 'counter' -%}
-          <span class="slider-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
-          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ section.blocks.size }}</span>
-        {%- else -%}
-          <div class="slideshow__control-wrapper">
-            {%- for block in section.blocks -%}
-              <button
-                class="slider-counter__link slider-counter__link--{{ section.settings.slider_visual }} link"
-                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
-                aria-controls="Slider-{{ section.id }}"
-              >
-                {%- if section.settings.slider_visual == 'numbers' -%}
-                  {{ forloop.index -}}
-                {%- else -%}
-                  <span class="dot"></span>
-                {%- endif -%}
-              </button>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-      </div>
-      <button
-        type="button"
-        class="slider-button slider-button--next"
-        name="next"
-        aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
-        aria-controls="Slider-{{ section.id }}"
-      >
-        <span class="svg-wrapper">
-          {%- render 'icon', name: 'caret-down', size: '16' -%}
-        </span>
-      </button>
-
-      {%- if section.settings.auto_rotate -%}
-        <button
-          type="button"
-          class="slideshow__autoplay slider-button{% if section.settings.auto_rotate == false %} slideshow__autoplay--paused{% endif %}"
-          aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
-        >
-          <span class="svg-wrapper">
-            {%- render 'icon', name: 'pause', size: '24' -%}
-          </span>
-          <span class="svg-wrapper">
-            {%- render 'icon', name: 'play', size: '24' -%}
-          </span>
-        </button>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-
+  {%- comment -%} Slideshow Container {%- endcomment -%}
   <div
-    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-    id="Slider-{{ section.id }}"
+    class="relative overflow-hidden {% if section.settings.layout == 'grid' %}rounded-xl{% endif %}
+      {% case section.settings.slide_height %}
+        {% when 'small' %}min-h-[300px] lg:min-h-[400px]
+        {% when 'medium' %}min-h-[400px] lg:min-h-[550px]
+        {% when 'large' %}min-h-[500px] lg:min-h-[700px]
+      {% endcase %}
+    "
+    id="Slideshow-{{ section.id }}"
     aria-live="polite"
     aria-atomic="true"
     data-autoplay="{{ section.settings.auto_rotate }}"
     data-speed="{{ section.settings.change_slides_speed }}"
   >
     {%- for block in section.blocks -%}
-      <style>
-        #Slide-{{ section.id }}-{{ forloop.index }} .banner__media::after {
-          opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};
-        }
-      </style>
       <div
-        class="slideshow__slide grid__item grid--1-col slider__slide"
+        class="slideshow__slide absolute inset-0 {% unless forloop.first %}opacity-0{% endunless %}"
         id="Slide-{{ section.id }}-{{ forloop.index }}"
         {{ block.shopify_attributes }}
         role="group"
@@ -120,67 +49,111 @@
         aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
         tabindex="-1"
       >
-        <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
+        {%- comment -%} Slide Background {%- endcomment -%}
+        <div class="absolute inset-0 bg-neutral-100">
           {%- if block.settings.image -%}
             {%- liquid
               assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
               if section.settings.image_behavior == 'ambient'
                 assign sizes = '120vw'
                 assign widths = '450, 660, 900, 1320, 1800, 2136, 2400, 3600, 7680'
+                assign extra_classes = 'animate-ambient-zoom'
               else
                 assign sizes = '100vw'
                 assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                assign extra_classes = ''
               endif
               assign fetch_priority = 'auto'
-              if section.index == 1
+              if section.index == 1 and forloop.first
                 assign fetch_priority = 'high'
               endif
             -%}
-            {%- if forloop.first %}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
-              }}
-            {%- else -%}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
-              }}
-            {%- endif -%}
+            {{
+              block.settings.image
+              | image_url: width: 3840
+              | image_tag:
+                class: extra_classes | append: ' w-full h-full object-cover',
+                height: height,
+                sizes: sizes,
+                widths: widths,
+                fetchpriority: fetch_priority,
+                loading: forloop.first | default: 'lazy'
+            }}
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
-            {%- if placeholder_slide == 1 -%}
-              {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg' }}
-            {%- else -%}
-              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-            {%- endif -%}
+            <div class="w-full h-full flex items-center justify-center">
+              {%- if placeholder_slide == 1 -%}
+                {{ 'hero-apparel-2' | placeholder_svg_tag: 'w-full h-full object-cover text-neutral-300' }}
+              {%- else -%}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover text-neutral-300' }}
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          {%- comment -%} Overlay {%- endcomment -%}
+          {%- if block.settings.image_overlay_opacity > 0 -%}
+            <div class="absolute inset-0 bg-black" style="opacity: {{ block.settings.image_overlay_opacity | divided_by: 100.0 }};"></div>
           {%- endif -%}
         </div>
-        <div class="slideshow__text-wrapper banner__content banner__content--{{ block.settings.box_align }} page-width{% if block.settings.show_text_box == false %} banner--desktop-transparent{% endif %}{% if settings.animations_reveal_on_scroll and forloop.index == 1 %} scroll-trigger animate--slide-in{% endif %}">
-          <div class="slideshow__text banner__box content-container content-container--full-width-mobile color-{{ block.settings.color_scheme }} gradient slideshow__text--{{ block.settings.text_alignment }} slideshow__text-mobile--{{ block.settings.text_alignment_mobile }}">
+
+        {%- comment -%} Slide Content {%- endcomment -%}
+        <div class="absolute inset-0 flex
+          {% case block.settings.box_align %}
+            {% when 'top-left' %}items-start justify-start
+            {% when 'top-center' %}items-start justify-center
+            {% when 'top-right' %}items-start justify-end
+            {% when 'middle-left' %}items-center justify-start
+            {% when 'middle-center' %}items-center justify-center
+            {% when 'middle-right' %}items-center justify-end
+            {% when 'bottom-left' %}items-end justify-start
+            {% when 'bottom-center' %}items-end justify-center
+            {% when 'bottom-right' %}items-end justify-end
+          {% endcase %}
+          p-6 lg:p-12
+        ">
+          <div class="
+            {% if block.settings.show_text_box %}bg-white/95 backdrop-blur-sm rounded-xl p-6 lg:p-8 shadow-lg max-w-xl{% else %}max-w-2xl{% endif %}
+            {% case block.settings.text_alignment %}
+              {% when 'left' %}text-left
+              {% when 'center' %}text-center
+              {% when 'right' %}text-right
+            {% endcase %}
+          ">
             {%- if block.settings.heading != blank -%}
-              <h2 class="banner__heading inline-richtext {{ block.settings.heading_size }}">
+              <h2 class="
+                {% unless block.settings.show_text_box %}text-white drop-shadow-lg{% else %}text-neutral-900{% endunless %}
+                {% case block.settings.heading_size %}
+                  {% when 'h2' %}text-2xl lg:text-3xl
+                  {% when 'h1' %}text-3xl lg:text-4xl
+                  {% when 'h0' %}text-4xl lg:text-5xl
+                  {% when 'hxl' %}text-5xl lg:text-6xl
+                  {% when 'hxxl' %}text-6xl lg:text-7xl
+                {% endcase %}
+                font-semibold leading-tight
+              ">
                 {{ block.settings.heading }}
               </h2>
             {%- endif -%}
+
             {%- if block.settings.subheading != blank -%}
-              <div class="banner__text rte">
-                <p>{{ block.settings.subheading }}</p>
-              </div>
+              <p class="mt-4 text-lg {% unless block.settings.show_text_box %}text-white/90 drop-shadow{% else %}text-neutral-600{% endunless %}">
+                {{ block.settings.subheading }}
+              </p>
             {%- endif -%}
+
             {%- if block.settings.button_label != blank -%}
-              <div class="banner__buttons">
+              <div class="mt-6">
                 <a
-                  {% if block.settings.link %}
-                    href="{{ block.settings.link }}"
-                  {% else %}
-                    role="link" aria-disabled="true"
-                  {% endif %}
-                  class="button {% if block.settings.button_style_secondary %}button--secondary{% else %}button--primary{% endif %}"
+                  {% if block.settings.link %}href="{{ block.settings.link }}"{% else %}role="link" aria-disabled="true"{% endif %}
+                  class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg transition-colors
+                    {% if block.settings.button_style_secondary %}
+                      {% if block.settings.show_text_box %}border border-neutral-300 text-neutral-900 hover:bg-neutral-50{% else %}border border-white/30 text-white hover:bg-white/10{% endif %}
+                    {% else %}
+                      bg-neutral-900 text-white hover:bg-neutral-800
+                    {% endif %}
+                  "
                 >
-                  {{- block.settings.button_label | escape -}}
+                  {{ block.settings.button_label | escape }}
                 </a>
               </div>
             {%- endif -%}
@@ -188,73 +161,76 @@
         </div>
       </div>
     {%- endfor -%}
-  </div>
 
-  {%- if section.blocks.size > 1 and section.settings.auto_rotate == false -%}
-    <div class="slideshow__controls slider-buttons{% if section.settings.show_text_below %} slideshow__controls--border-radius-mobile{% endif %}">
-      <button
-        type="button"
-        class="slider-button slider-button--prev"
-        name="previous"
-        aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
-        aria-controls="Slider-{{ section.id }}"
-      >
-        <span class="svg-wrapper">
-          {%- render 'icon', name: 'caret-down', size: '16' -%}
-        </span>
-      </button>
-      <div class="slider-counter slider-counter--{{ section.settings.slider_visual }}{% if section.settings.slider_visual == 'counter' or section.settings.slider_visual == 'numbers' %} caption{% endif %}">
-        {%- if section.settings.slider_visual == 'counter' -%}
-          <span class="slider-counter--current">1</span>
-          <span aria-hidden="true"> / </span>
-          <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
-          <span class="slider-counter--total">{{ section.blocks.size }}</span>
-        {%- else -%}
-          <div class="slideshow__control-wrapper">
-            {%- for block in section.blocks -%}
-              <button
-                class="slider-counter__link slider-counter__link--{{ section.settings.slider_visual }} link"
-                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
-                aria-controls="Slider-{{ section.id }}"
-              >
-                {%- if section.settings.slider_visual == 'numbers' -%}
-                  {{ forloop.index -}}
-                {%- else -%}
-                  <span class="dot"></span>
-                {%- endif -%}
-              </button>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-      </div>
-      <button
-        type="button"
-        class="slider-button slider-button--next"
-        name="next"
-        aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
-        aria-controls="Slider-{{ section.id }}"
-      >
-        <span class="svg-wrapper">
-          {%- render 'icon', name: 'caret-down', size: '16' -%}
-        </span>
-      </button>
-
-      {%- if section.settings.auto_rotate -%}
+    {%- comment -%} Navigation Controls {%- endcomment -%}
+    {%- if section.blocks.size > 1 -%}
+      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-white/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg z-10">
         <button
           type="button"
-          class="slideshow__autoplay slider-button{% if section.settings.auto_rotate == false %} slideshow__autoplay--paused{% endif %}"
-          aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
+          class="slider-button slider-button--prev p-1 text-neutral-600 hover:text-neutral-900 transition-colors"
+          name="previous"
+          aria-label="{{ 'sections.slideshow.previous_slideshow' | t }}"
+          aria-controls="Slideshow-{{ section.id }}"
         >
-          <span class="svg-wrapper">
-            {%- render 'icon', name: 'pause', size: '24' -%}
-          </span>
-          <span class="svg-wrapper">
-            {%- render 'icon', name: 'play', size: '24' -%}
-          </span>
+          {%- render 'icon', name: 'caret-left', size: '20' -%}
         </button>
-      {%- endif -%}
-    </div>
-  {%- endif -%}
+
+        {%- comment -%} Slide Indicators {%- endcomment -%}
+        <div class="flex items-center gap-2">
+          {%- if section.settings.slider_visual == 'counter' -%}
+            <span class="slider-counter--current text-sm font-medium text-neutral-900">1</span>
+            <span class="text-neutral-400">/</span>
+            <span class="slider-counter--total text-sm text-neutral-500">{{ section.blocks.size }}</span>
+          {%- elsif section.settings.slider_visual == 'numbers' -%}
+            {%- for block in section.blocks -%}
+              <button
+                class="slider-counter__link w-8 h-8 flex items-center justify-center text-sm font-medium rounded-full transition-colors {% if forloop.first %}bg-neutral-900 text-white{% else %}text-neutral-600 hover:bg-neutral-100{% endif %}"
+                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }}"
+                aria-controls="Slideshow-{{ section.id }}"
+              >
+                {{ forloop.index }}
+              </button>
+            {%- endfor -%}
+          {%- else -%}
+            {%- for block in section.blocks -%}
+              <button
+                class="slider-counter__link w-2.5 h-2.5 rounded-full transition-colors {% if forloop.first %}bg-neutral-900{% else %}bg-neutral-300 hover:bg-neutral-400{% endif %}"
+                aria-label="{{ 'sections.slideshow.load_slide' | t }} {{ forloop.index }}"
+                aria-controls="Slideshow-{{ section.id }}"
+              >
+                <span class="sr-only">{{ forloop.index }}</span>
+              </button>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        <button
+          type="button"
+          class="slider-button slider-button--next p-1 text-neutral-600 hover:text-neutral-900 transition-colors"
+          name="next"
+          aria-label="{{ 'sections.slideshow.next_slideshow' | t }}"
+          aria-controls="Slideshow-{{ section.id }}"
+        >
+          {%- render 'icon', name: 'caret-right', size: '20' -%}
+        </button>
+
+        {%- if section.settings.auto_rotate -%}
+          <button
+            type="button"
+            class="slideshow__autoplay p-1 text-neutral-600 hover:text-neutral-900 transition-colors border-l border-neutral-200 pl-3 ml-1"
+            aria-label="{{ 'sections.slideshow.pause_slideshow' | t }}"
+          >
+            <span class="pause-icon">
+              {%- render 'icon', name: 'pause', size: '18' -%}
+            </span>
+            <span class="play-icon hidden">
+              {%- render 'icon', name: 'play', size: '18' -%}
+            </span>
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
 </slideshow-component>
 
 {%- if request.design_mode -%}
@@ -452,12 +428,12 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_button.content"
-        },        
+        },
         {
           "type": "text",
           "id": "button_label",
           "default": "t:sections.slideshow.blocks.slide.settings.button_label.default",
-          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label", 
+          "label": "t:sections.slideshow.blocks.slide.settings.button_label.label",
           "info": "t:sections.slideshow.blocks.slide.settings.button_label.info"
         },
         {
@@ -474,7 +450,7 @@
         {
           "type": "header",
           "content": "t:sections.slideshow.blocks.slide.settings.header_layout.content"
-        },         
+        },
         {
           "type": "checkbox",
           "id": "show_text_box",
@@ -564,7 +540,7 @@
           ],
           "default": "center",
           "label": "t:sections.slideshow.blocks.slide.settings.text_alignment_mobile.label"
-        },        
+        },
         {
           "type": "color_scheme",
           "id": "color_scheme",

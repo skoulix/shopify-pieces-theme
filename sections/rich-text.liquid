@@ -1,89 +1,83 @@
-{{ 'section-rich-text.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+  Rich Text Section - Tailwind Version
+  Simple, elegant text section with heading, caption, text, and buttons
+{%- endcomment -%}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+{%- liquid
+  assign content_position = section.settings.desktop_content_position
+  assign text_alignment = section.settings.content_alignment
+-%}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
+<section class="py-12 lg:py-16">
+  <div class="{% if section.settings.full_width %}px-4 sm:px-6 lg:px-8{% else %}max-w-4xl mx-auto px-4 sm:px-6 lg:px-8{% endif %}">
+    <div class="{% if content_position == 'center' %}mx-auto max-w-3xl{% elsif content_position == 'right' %}ml-auto max-w-3xl{% else %}max-w-3xl{% endif %}
+      {% if text_alignment == 'center' %}text-center{% elsif text_alignment == 'right' %}text-right{% endif %}">
 
-<div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
-  <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
-    <div class="rich-text__wrapper rich-text__wrapper--{{ section.settings.desktop_content_position }}{% if section.settings.full_width %} page-width{% endif %}">
-      <div class="rich-text__blocks {{ section.settings.content_alignment }}">
+      <div class="space-y-4 lg:space-y-6">
         {%- for block in section.blocks -%}
           {%- case block.type -%}
-            {%- when 'heading' -%}
-              <h2
-                class="rich-text__heading rte inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {{ block.settings.heading }}
-              </h2>
             {%- when 'caption' -%}
               <p
-                class="rich-text__caption {{ block.settings.text_style }} {{ block.settings.text_style }}--{{ block.settings.text_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                class="text-sm font-medium uppercase tracking-wider text-neutral-500"
                 {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
               >
                 {{ block.settings.caption | escape }}
               </p>
+
+            {%- when 'heading' -%}
+              <h2
+                class="text-2xl lg:text-4xl font-semibold text-neutral-900"
+                {{ block.shopify_attributes }}
+              >
+                {{ block.settings.heading }}
+              </h2>
+
             {%- when 'text' -%}
               <div
-                class="rich-text__text rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                class="text-neutral-600 prose prose-neutral max-w-none {% if text_alignment == 'center' %}prose-center{% endif %}"
                 {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
               >
                 {{ block.settings.text }}
               </div>
+
             {%- when 'button' -%}
               <div
-                class="rich-text__buttons{% if block.settings.button_label != blank and block.settings.button_label_2 != blank %} rich-text__buttons--multiple{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                class="flex flex-wrap gap-4 pt-2 {% if text_alignment == 'center' %}justify-center{% elsif text_alignment == 'right' %}justify-end{% endif %}"
                 {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
               >
                 {%- if block.settings.button_label != blank -%}
                   <a
-                    {% if block.settings.button_link == blank %}
-                      role="link" aria-disabled="true"
-                    {% else %}
+                    {% if block.settings.button_link != blank %}
                       href="{{ block.settings.button_link }}"
+                    {% else %}
+                      role="link" aria-disabled="true"
                     {% endif %}
-                    class="button{% if block.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+                    class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg transition-colors
+                      {% if block.settings.button_style_secondary %}
+                        bg-white text-neutral-900 border border-neutral-300 hover:bg-neutral-50
+                      {% else %}
+                        bg-neutral-900 text-white hover:bg-neutral-800
+                      {% endif %}"
                   >
-                    {{- block.settings.button_label | escape -}}
+                    {{ block.settings.button_label | escape }}
                   </a>
                 {%- endif -%}
+
                 {%- if block.settings.button_label_2 != blank -%}
                   <a
-                    {% if block.settings.button_link_2 == blank %}
-                      role="link" aria-disabled="true"
-                    {% else %}
+                    {% if block.settings.button_link_2 != blank %}
                       href="{{ block.settings.button_link_2 }}"
+                    {% else %}
+                      role="link" aria-disabled="true"
                     {% endif %}
-                    class="button{% if block.settings.button_style_secondary_2 %} button--secondary{% else %} button--primary{% endif %}"
+                    class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg transition-colors
+                      {% if block.settings.button_style_secondary_2 %}
+                        bg-white text-neutral-900 border border-neutral-300 hover:bg-neutral-50
+                      {% else %}
+                        bg-neutral-900 text-white hover:bg-neutral-800
+                      {% endif %}"
                   >
-                    {{- block.settings.button_label_2 | escape -}}
+                    {{ block.settings.button_label_2 | escape }}
                   </a>
                 {%- endif -%}
               </div>
@@ -92,7 +86,7 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -144,40 +138,10 @@
       "label": "t:sections.rich-text.settings.content_alignment.label"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
       "type": "checkbox",
       "id": "full_width",
-      "default": true,
+      "default": false,
       "label": "t:sections.rich-text.settings.full_width.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 52
     }
   ],
   "blocks": [
@@ -191,34 +155,6 @@
           "id": "heading",
           "default": "t:sections.rich-text.blocks.heading.settings.heading.default",
           "label": "t:sections.rich-text.blocks.heading.settings.heading.label"
-        },
-        {
-          "type": "select",
-          "id": "heading_size",
-          "options": [
-            {
-              "value": "h2",
-              "label": "t:sections.all.heading_size.options__1.label"
-            },
-            {
-              "value": "h1",
-              "label": "t:sections.all.heading_size.options__2.label"
-            },
-            {
-              "value": "h0",
-              "label": "t:sections.all.heading_size.options__3.label"
-            },
-            {
-              "value": "hxl",
-              "label": "t:sections.all.heading_size.options__4.label"
-            },
-            {
-              "value": "hxxl",
-              "label": "t:sections.all.heading_size.options__5.label"
-            }
-          ],
-          "default": "h1",
-          "label": "t:sections.all.heading_size.label"
         }
       ]
     },
@@ -232,42 +168,6 @@
           "id": "caption",
           "default": "t:sections.rich-text.blocks.caption.settings.text.default",
           "label": "t:sections.rich-text.blocks.caption.settings.text.label"
-        },
-        {
-          "type": "select",
-          "id": "text_style",
-          "options": [
-            {
-              "value": "subtitle",
-              "label": "t:sections.rich-text.blocks.caption.settings.text_style.options__1.label"
-            },
-            {
-              "value": "caption-with-letter-spacing",
-              "label": "t:sections.rich-text.blocks.caption.settings.text_style.options__2.label"
-            }
-          ],
-          "default": "caption-with-letter-spacing",
-          "label": "t:sections.rich-text.blocks.caption.settings.text_style.label"
-        },
-        {
-          "type": "select",
-          "id": "text_size",
-          "options": [
-            {
-              "value": "small",
-              "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__1.label"
-            },
-            {
-              "value": "medium",
-              "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__2.label"
-            },
-            {
-              "value": "large",
-              "label": "t:sections.rich-text.blocks.caption.settings.caption_size.options__3.label"
-            }
-          ],
-          "default": "medium",
-          "label": "t:sections.rich-text.blocks.caption.settings.caption_size.label"
         }
       ]
     },
@@ -290,10 +190,6 @@
       "limit": 2,
       "settings": [
         {
-         "type": "header",
-         "content": "t:sections.rich-text.blocks.buttons.settings.header_button1.content"
-        },        
-        {
           "type": "text",
           "id": "button_label",
           "default": "t:sections.rich-text.blocks.buttons.settings.button_label_1.default",
@@ -311,10 +207,6 @@
           "default": false,
           "label": "t:sections.rich-text.blocks.buttons.settings.button_style_secondary_1.label"
         },
-        {
-         "type": "header",
-         "content": "t:sections.rich-text.blocks.buttons.settings.header_button2.content"
-        },          
         {
           "type": "text",
           "id": "button_label_2",

@@ -299,10 +299,15 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="focus-none" role="main" tabindex="-1">
-      {{ content_for_layout }}
+      <div id="swup-container">
+        {{ content_for_layout }}
+      </div>
     </main>
 
     {% sections 'footer-group' %}
+
+    {%- comment -%} Page transition overlay for Swup {%- endcomment -%}
+    <div class="page-transition-overlay fixed inset-0 z-[9999] pointer-events-none bg-white origin-bottom" style="transform: scaleY(0);"></div>
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>

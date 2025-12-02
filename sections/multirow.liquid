@@ -1,111 +1,145 @@
-{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
+{%- comment -%}
+  Multirow Section - Tailwind Version
+  Multiple rows of image + text content with alternating layouts
+{%- endcomment -%}
 
 {%- liquid
   if section.settings.image_layout contains 'right'
-    assign odd_class = ' image-with-text__grid--reverse'
-  else
-    assign even_class = ' image-with-text__grid--reverse'
+    assign first_image_right = true
   endif
-
-  if section.settings.row_color_scheme == section.settings.section_color_scheme
-    assign no_content_background = true
-  endif
-
-  if settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0
-    assign no_content_styles = true
-  endif
-
-  if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0
-    assign borders_class = ' collapse-borders'
-  endif
-
-  if no_content_background and no_content_styles
-    assign padding_class = ' collapse-padding'
-  endif
-
-  unless no_content_background and no_content_styles
-    assign corners_class = ' collapse-corners'
-  endunless
 -%}
 
-<div class="multirow section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="multirow__inner page-width">
-    {%- for block in section.blocks -%}
-      <div
-        class="image-with-text isolate{{ borders_class }}{{ corners_class }}{{ padding_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-        {{ block.shopify_attributes }}
-      >
-        <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.image_layout contains 'alternate' %}{% cycle odd_class, even_class %}{% else %}{{ odd_class }}{% endif %}">
-          <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
-            <div
-              class="image-with-text__media image-with-text__media--{{ section.settings.image_height }} gradient color-{{ section.settings.row_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
-              {% if section.settings.image_height == 'adapt' and block.settings.image != blank %}
-                style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
+<section class="py-12 lg:py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="space-y-12 lg:space-y-16">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          if section.settings.image_layout contains 'alternate'
+            assign is_even = forloop.index | modulo: 2
+            if is_even == 0
+              assign image_on_right = true
+            else
+              assign image_on_right = false
+            endif
+            if section.settings.image_layout == 'alternate-right'
+              if is_even == 0
+                assign image_on_right = false
+              else
+                assign image_on_right = true
+              endif
+            endif
+          else
+            if section.settings.image_layout == 'align-right'
+              assign image_on_right = true
+            else
+              assign image_on_right = false
+            endif
+          endif
+        -%}
+
+        <div
+          class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+          {{ block.shopify_attributes }}
+        >
+          {%- comment -%} Image {%- endcomment -%}
+          <div class="{% if image_on_right %}lg:order-2{% endif %}">
+            <div class="relative overflow-hidden rounded-xl bg-neutral-100
+              {% case section.settings.image_height %}
+                {% when 'small' %}aspect-[4/3]
+                {% when 'medium' %}aspect-square
+                {% when 'large' %}aspect-[3/4]
+              {% endcase %}
+            "
+            {% if section.settings.image_height == 'adapt' and block.settings.image != blank %}
+              style="aspect-ratio: {{ block.settings.image.aspect_ratio }};"
+            {% endif %}
             >
               {%- if block.settings.image != blank -%}
-                {%- capture sizes -%}
-                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
-                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
-                {%- endcapture -%}
                 {{
                   block.settings.image
                   | image_url: width: 1500
-                  | image_tag: sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500'
+                  | image_tag:
+                    class: 'w-full h-full object-cover',
+                    loading: 'lazy',
+                    widths: '375, 550, 750, 1000, 1250, 1500'
                 }}
               {%- else -%}
-                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'w-full h-full object-cover text-neutral-300' }}
               {%- endif -%}
             </div>
           </div>
-          <div class="image-with-text__text-item grid__item">
-            <div class="image-with-text__content image-with-text__content--{{ section.settings.desktop_content_position }} image-with-text__content--desktop-{{ section.settings.desktop_content_alignment }} image-with-text__content--mobile-{{ section.settings.mobile_content_alignment }} image-with-text__content--{{ section.settings.image_height }} content-container{% unless no_content_background and no_content_styles %} gradient color-{{ section.settings.row_color_scheme }}{% else %} background-transparent{% endunless %}">
-              {%- if block.settings.caption -%}
-                <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
+
+          {%- comment -%} Content {%- endcomment -%}
+          <div class="{% if image_on_right %}lg:order-1{% endif %}
+            {% case section.settings.desktop_content_alignment %}
+              {% when 'left' %}text-left
+              {% when 'center' %}text-center lg:text-center
+              {% when 'right' %}text-right
+            {% endcase %}
+            {% case section.settings.mobile_content_alignment %}
+              {% when 'left' %}text-left
+              {% when 'center' %}text-center
+              {% when 'right' %}text-right
+            {% endcase %}
+            lg:{% case section.settings.desktop_content_alignment %}{% when 'left' %}text-left{% when 'center' %}text-center{% when 'right' %}text-right{% endcase %}
+          ">
+            <div class="
+              {% case section.settings.desktop_content_position %}
+                {% when 'top' %}lg:self-start
+                {% when 'middle' %}lg:self-center
+                {% when 'bottom' %}lg:self-end
+              {% endcase %}
+            ">
+              {%- if block.settings.caption != blank -%}
+                <p class="text-sm font-medium tracking-wider uppercase text-neutral-500 mb-3">
                   {{ block.settings.caption | escape }}
                 </p>
               {%- endif -%}
-              {%- if block.settings.heading -%}
-                <h2 class="image-with-text__heading {{ section.settings.heading_size }} rte">
+
+              {%- if block.settings.heading != blank -%}
+                <h2 class="
+                  {% case section.settings.heading_size %}
+                    {% when 'h2' %}text-2xl lg:text-3xl
+                    {% when 'h1' %}text-3xl lg:text-4xl
+                    {% when 'h0' %}text-4xl lg:text-5xl
+                    {% when 'hxl' %}text-5xl lg:text-6xl
+                    {% when 'hxxl' %}text-6xl lg:text-7xl
+                  {% endcase %}
+                  font-semibold text-neutral-900 leading-tight
+                ">
                   {{ block.settings.heading }}
                 </h2>
               {%- endif -%}
-              {%- if block.settings.text -%}
-                <div class="image-with-text__text rte {{ section.settings.text_style }}">{{ block.settings.text }}</div>
+
+              {%- if block.settings.text != blank -%}
+                <div class="mt-4 text-neutral-600 {% if section.settings.text_style == 'subtitle' %}text-lg{% endif %} prose prose-neutral max-w-none">
+                  {{ block.settings.text }}
+                </div>
               {%- endif -%}
+
               {%- if block.settings.button_label != blank -%}
-                <a
-                  {% if block.settings.button_link == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link }}"
-                  {% endif %}
-                  class="button button--{{ section.settings.button_style }}"
-                >
-                  {{ block.settings.button_label | escape }}
-                </a>
+                <div class="mt-6">
+                  <a
+                    {% if block.settings.button_link == blank %}role="link" aria-disabled="true"{% else %}href="{{ block.settings.button_link }}"{% endif %}
+                    class="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg transition-colors
+                      {% if section.settings.button_style == 'secondary' %}
+                        border border-neutral-300 text-neutral-900 hover:bg-neutral-50
+                      {% else %}
+                        bg-neutral-900 text-white hover:bg-neutral-800
+                      {% endif %}
+                    "
+                  >
+                    {{ block.settings.button_label | escape }}
+                  </a>
+                </div>
               {%- endif -%}
             </div>
           </div>
         </div>
-      </div>
-    {%- endfor -%}
+      {%- endfor -%}
+    </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -384,7 +418,7 @@
           "type": "text",
           "id": "button_label",
           "default": "t:sections.multirow.blocks.row.settings.button_label.default",
-          "label": "t:sections.multirow.blocks.row.settings.button_label.label", 
+          "label": "t:sections.multirow.blocks.row.settings.button_label.label",
           "info": "t:sections.multirow.blocks.row.settings.button_label.info"
         },
         {
