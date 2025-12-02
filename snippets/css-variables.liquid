@@ -12,7 +12,7 @@
 
 {%- comment -%} Preload primary font {%- endcomment -%}
 {%- unless settings.type_body_font.system? -%}
-  <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
+  {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
 {%- endunless -%}
 
 <style>
@@ -22,7 +22,7 @@
     --font-heading: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
 
     /* Layout */
-    --page-max-width: {{ settings.page_width }}px;
-    --page-padding: {{ settings.page_padding }}px;
+    --page-max-width: {{ settings.page_width | default: 1280 }}px;
+    --page-padding: {{ settings.page_padding | default: 24 }}px;
   }
 </style>

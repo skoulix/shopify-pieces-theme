@@ -1,483 +1,79 @@
 {%- comment -%}
-  Collection Product Grid - Modern Tailwind Version
-  Clean, minimal design with responsive grid layout
+  Collection Section - Skeleton + Tailwind
 {%- endcomment -%}
 
-{%- if section.settings.quick_add == 'standard' -%}
-  <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+<section class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ collection.title }}</h1>
 
-{%- if section.settings.quick_add == 'bulk' -%}
-  <script src="{{ 'quick-add-bulk.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
-  <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
+    {% if collection.description != blank %}
+      <p class="mt-4 max-w-xl text-base text-gray-500">{{ collection.description }}</p>
+    {% endif %}
 
-<script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-
-{%- liquid
-  assign columns_desktop = section.settings.columns_desktop
-  assign columns_mobile = section.settings.columns_mobile
--%}
-
-<section class="py-8 md:py-12 lg:py-16">
-  {%- paginate collection.products by section.settings.products_per_page -%}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      {%- comment -%} Collection Header with Filters {%- endcomment -%}
-      {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-neutral-200">
-          {%- comment -%} Product Count {%- endcomment -%}
-          <div class="text-sm text-neutral-600">
-            {%- if collection.products_count == collection.all_products_count -%}
-              {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-            {%- else -%}
-              {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
-            {%- endif -%}
-          </div>
-
-          <div class="flex items-center gap-4">
-            {%- comment -%} Filter Button (Mobile) {%- endcomment -%}
-            {%- if section.settings.enable_filtering -%}
-              <button
-                type="button"
-                class="lg:hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
-                onclick="document.getElementById('filter-drawer').classList.toggle('hidden')"
-              >
-                {%- render 'icon', name: 'filter', size: '16' -%}
-                {{ 'products.facets.filter_button' | t }}
-              </button>
-            {%- endif -%}
-
-            {%- comment -%} Sort Dropdown {%- endcomment -%}
-            {%- if section.settings.enable_sorting -%}
-              <div class="relative">
-                <label for="SortBy" class="sr-only">{{ 'products.facets.sort_by_label' | t }}</label>
-                <select
-                  name="sort_by"
-                  id="SortBy"
-                  class="appearance-none bg-white border border-neutral-300 rounded-lg pl-4 pr-10 py-2 text-sm font-medium text-neutral-700 hover:border-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent cursor-pointer"
-                  onchange="window.location.href = this.value"
-                >
-                  {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-                  {%- for option in collection.sort_options -%}
-                    <option
-                      value="{{ collection.url }}?sort_by={{ option.value }}"
-                      {% if option.value == sort_by %}selected{% endif %}
-                    >
-                      {{ option.name | escape }}
-                    </option>
-                  {%- endfor -%}
-                </select>
-                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  {%- render 'icon', name: 'caret-down', size: '16' -%}
-                </div>
+    <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      {% paginate collection.products by 20 %}
+        {% for product in collection.products %}
+          <div class="group relative">
+            <a href="{{ product.url }}" class="block">
+              <div class="aspect-square w-full overflow-hidden rounded-lg bg-gray-100">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 600 | image_tag:
+                    class: 'h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity',
+                    loading: 'lazy'
+                  }}
+                {% else %}
+                  <div class="flex h-full items-center justify-center">
+                    <i class="ph ph-image text-4xl text-gray-300"></i>
+                  </div>
+                {% endif %}
               </div>
-            {%- endif -%}
+              <div class="mt-4">
+                <h3 class="text-sm font-medium text-gray-900">{{ product.title }}</h3>
+                <p class="mt-1 text-sm text-gray-500">{{ product.price | money }}</p>
+              </div>
+            </a>
           </div>
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} Filter Drawer (for drawer filter type) {%- endcomment -%}
-      {%- if section.settings.enable_filtering and section.settings.filter_type == 'drawer' -%}
-        <div id="filter-drawer" class="hidden fixed inset-0 z-50">
-          <div class="absolute inset-0 bg-black/50" onclick="this.parentElement.classList.add('hidden')"></div>
-          <div class="absolute right-0 top-0 h-full w-full max-w-sm bg-white shadow-xl">
-            <div class="flex items-center justify-between p-4 border-b border-neutral-200">
-              <h2 class="text-lg font-semibold text-neutral-900">{{ 'products.facets.filter_button' | t }}</h2>
-              <button
-                type="button"
-                class="p-2 hover:bg-neutral-100 rounded-full transition-colors"
-                onclick="this.closest('#filter-drawer').classList.add('hidden')"
-              >
-                {%- render 'icon', name: 'close', size: '20' -%}
-              </button>
-            </div>
-            <div class="overflow-y-auto h-[calc(100%-140px)] p-4 space-y-6">
-              {%- for filter in collection.filters -%}
-                <div class="border-b border-neutral-200 pb-6">
-                  <details class="group" open>
-                    <summary class="flex items-center justify-between cursor-pointer list-none py-2">
-                      <span class="text-sm font-medium text-neutral-900">{{ filter.label | escape }}</span>
-                      <span class="transform transition-transform group-open:rotate-180">
-                        {%- render 'icon', name: 'caret-down', size: '16' -%}
-                      </span>
-                    </summary>
-                    <div class="pt-4 space-y-3">
-                      {%- case filter.type -%}
-                        {%- when 'boolean' or 'list' -%}
-                          {%- for value in filter.values -%}
-                            <label class="flex items-center gap-3 cursor-pointer group/item">
-                              <input
-                                type="checkbox"
-                                name="{{ value.param_name }}"
-                                value="{{ value.value }}"
-                                {% if value.active %}checked{% endif %}
-                                class="w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900"
-                                onchange="this.form.submit()"
-                              >
-                              <span class="text-sm text-neutral-600 group-hover/item:text-neutral-900 transition-colors">
-                                {{ value.label | escape }}
-                              </span>
-                              <span class="text-xs text-neutral-400">({{ value.count }})</span>
-                            </label>
-                          {%- endfor -%}
-                        {%- when 'price_range' -%}
-                          <div class="flex items-center gap-2">
-                            <input
-                              type="number"
-                              name="{{ filter.min_value.param_name }}"
-                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                              placeholder="{{ filter.range_min | money_without_currency }}"
-                              class="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                            >
-                            <span class="text-neutral-400">-</span>
-                            <input
-                              type="number"
-                              name="{{ filter.max_value.param_name }}"
-                              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                              placeholder="{{ filter.range_max | money_without_currency }}"
-                              class="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                            >
-                          </div>
-                      {%- endcase -%}
-                    </div>
-                  </details>
-                </div>
-              {%- endfor -%}
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-neutral-200 bg-white flex gap-3">
-              <a
-                href="{{ collection.url }}"
-                class="flex-1 py-2.5 text-center text-sm font-medium text-neutral-700 border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
-              >
-                {{ 'products.facets.clear_all' | t }}
-              </a>
-              <button
-                type="button"
-                class="flex-1 py-2.5 text-center text-sm font-medium text-white bg-neutral-900 rounded-lg hover:bg-neutral-800 transition-colors"
-                onclick="this.closest('#filter-drawer').classList.add('hidden')"
-              >
-                {{ 'products.facets.apply' | t }}
-              </button>
-            </div>
-          </div>
-        </div>
-      {%- endif -%}
-
-      {%- comment -%} Main Content Area {%- endcomment -%}
-      <div class="{% if section.settings.enable_filtering and section.settings.filter_type == 'vertical' %}lg:grid lg:grid-cols-[240px_1fr] lg:gap-12{% endif %}">
-
-        {%- comment -%} Sidebar Filters (Desktop) {%- endcomment -%}
-        {%- if section.settings.enable_filtering and section.settings.filter_type == 'vertical' -%}
-          <aside class="hidden lg:block">
-            <div class="sticky top-24 space-y-6">
-              <h2 class="text-sm font-semibold text-neutral-900 uppercase tracking-wider">
-                {{ 'products.facets.filter_button' | t }}
-              </h2>
-
-              {%- for filter in collection.filters -%}
-                <div class="border-b border-neutral-200 pb-6">
-                  <details class="group" open>
-                    <summary class="flex items-center justify-between cursor-pointer list-none py-2">
-                      <span class="text-sm font-medium text-neutral-900">{{ filter.label | escape }}</span>
-                      <span class="transform transition-transform group-open:rotate-180">
-                        {%- render 'icon', name: 'caret-down', size: '16' -%}
-                      </span>
-                    </summary>
-                    <div class="pt-4 space-y-3">
-                      {%- case filter.type -%}
-                        {%- when 'boolean' or 'list' -%}
-                          {%- for value in filter.values -%}
-                            <label class="flex items-center gap-3 cursor-pointer group/item">
-                              <input
-                                type="checkbox"
-                                name="{{ value.param_name }}"
-                                value="{{ value.value }}"
-                                {% if value.active %}checked{% endif %}
-                                class="w-4 h-4 rounded border-neutral-300 text-neutral-900 focus:ring-neutral-900"
-                                onchange="this.form.submit()"
-                              >
-                              <span class="text-sm text-neutral-600 group-hover/item:text-neutral-900 transition-colors">
-                                {{ value.label | escape }}
-                              </span>
-                              <span class="text-xs text-neutral-400">({{ value.count }})</span>
-                            </label>
-                          {%- endfor -%}
-                        {%- when 'price_range' -%}
-                          <div class="flex items-center gap-2">
-                            <input
-                              type="number"
-                              name="{{ filter.min_value.param_name }}"
-                              value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                              placeholder="{{ filter.range_min | money_without_currency }}"
-                              class="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                            >
-                            <span class="text-neutral-400">-</span>
-                            <input
-                              type="number"
-                              name="{{ filter.max_value.param_name }}"
-                              value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                              placeholder="{{ filter.range_max | money_without_currency }}"
-                              class="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-900"
-                            >
-                          </div>
-                      {%- endcase -%}
-                    </div>
-                  </details>
-                </div>
-              {%- endfor -%}
-
-              {%- if collection.filters.size > 0 -%}
-                <a
-                  href="{{ collection.url }}"
-                  class="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
-                >
-                  {{ 'products.facets.clear_all' | t }}
-                </a>
-              {%- endif -%}
-            </div>
-          </aside>
-        {%- endif -%}
-
-        {%- comment -%} Product Grid {%- endcomment -%}
-        <div id="ProductGridContainer">
-          {%- if collection.products.size == 0 -%}
-            <div class="text-center py-16">
-              <p class="text-lg text-neutral-600 mb-4">{{ 'sections.collection_template.empty' | t }}</p>
-              <a
-                href="{{ collection.url }}"
-                class="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
-              >
-                {{ 'sections.collection_template.use_fewer_filters_html' | t: link: collection.url, class: '' }}
-              </a>
-            </div>
-          {%- else -%}
-            <ul
-              id="product-grid"
-              data-id="{{ section.id }}"
-              class="grid gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10
-                {% if columns_mobile == '1' %}grid-cols-1{% else %}grid-cols-2{% endif %}
-                {% case columns_desktop %}
-                  {% when 2 %}md:grid-cols-2
-                  {% when 3 %}md:grid-cols-3
-                  {% when 4 %}md:grid-cols-2 lg:grid-cols-4
-                  {% when 5 %}md:grid-cols-3 lg:grid-cols-5
-                  {% when 6 %}md:grid-cols-3 lg:grid-cols-6
-                {% endcase %}
-              "
-            >
-              {%- for product in collection.products -%}
-                <li>
-                  {% render 'card-product',
-                    card_product: product,
-                    media_aspect_ratio: section.settings.image_ratio,
-                    show_secondary_image: section.settings.show_secondary_image,
-                    show_vendor: section.settings.show_vendor,
-                    show_rating: section.settings.show_rating,
-                    lazy_load: forloop.index > 4,
-                    quick_add: section.settings.quick_add,
-                    section_id: section.id
-                  %}
-                </li>
-              {%- endfor -%}
-            </ul>
-
-            {%- comment -%} Pagination {%- endcomment -%}
-            {%- if paginate.pages > 1 -%}
-              <nav class="flex items-center justify-center gap-2 mt-12 pt-8 border-t border-neutral-200" aria-label="Pagination">
-                {%- if paginate.previous -%}
-                  <a
-                    href="{{ paginate.previous.url }}"
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
-                  >
-                    {%- render 'icon', name: 'arrow-left', size: '16' -%}
-                    {{ 'general.pagination.previous' | t }}
-                  </a>
-                {%- endif -%}
-
-                <div class="flex items-center gap-1">
-                  {%- for part in paginate.parts -%}
-                    {%- if part.is_link -%}
-                      <a
-                        href="{{ part.url }}"
-                        class="inline-flex items-center justify-center w-10 h-10 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors"
-                      >
-                        {{ part.title }}
-                      </a>
-                    {%- else -%}
-                      {%- if part.title == paginate.current_page -%}
-                        <span class="inline-flex items-center justify-center w-10 h-10 text-sm font-medium text-white bg-neutral-900 rounded-lg">
-                          {{ part.title }}
-                        </span>
-                      {%- else -%}
-                        <span class="inline-flex items-center justify-center w-10 h-10 text-sm text-neutral-400">
-                          {{ part.title }}
-                        </span>
-                      {%- endif -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                </div>
-
-                {%- if paginate.next -%}
-                  <a
-                    href="{{ paginate.next.url }}"
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 transition-colors"
-                  >
-                    {{ 'general.pagination.next' | t }}
-                    {%- render 'icon', name: 'arrow-right', size: '16' -%}
-                  </a>
-                {%- endif -%}
-              </nav>
-            {%- endif -%}
-          {%- endif -%}
-        </div>
-      </div>
+        {% endfor %}
+      {% endpaginate %}
     </div>
-  {%- endpaginate -%}
+
+    {% if paginate.pages > 1 %}
+      <nav class="mt-10 flex items-center justify-center gap-2">
+        {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+            <i class="ph ph-arrow-left"></i>
+          </a>
+        {% endif %}
+
+        {% for part in paginate.parts %}
+          {% if part.is_link %}
+            <a href="{{ part.url }}" class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+              {{ part.title }}
+            </a>
+          {% else %}
+            {% if part.title == paginate.current_page %}
+              <span class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white">
+                {{ part.title }}
+              </span>
+            {% else %}
+              <span class="px-4 py-2 text-sm text-gray-500">{{ part.title }}</span>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+
+        {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "t:sections.main-collection-product-grid.name",
-  "class": "section",
-  "settings": [
-    {
-      "type": "range",
-      "id": "products_per_page",
-      "min": 8,
-      "max": 36,
-      "step": 4,
-      "default": 16,
-      "label": "t:sections.main-collection-product-grid.settings.products_per_page.label"
-    },
-    {
-      "type": "range",
-      "id": "columns_desktop",
-      "min": 2,
-      "max": 6,
-      "step": 1,
-      "default": 4,
-      "label": "t:sections.main-collection-product-grid.settings.columns_desktop.label"
-    },
-    {
-      "type": "select",
-      "id": "columns_mobile",
-      "default": "2",
-      "label": "t:sections.main-collection-product-grid.settings.columns_mobile.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__1.label"
-        },
-        {
-          "value": "2",
-          "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
-        }
-      ]
-    },
-    {
-      "type": "header",
-      "content": "t:sections.main-collection-product-grid.settings.header__3.content"
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__1.label"
-        },
-        {
-          "value": "portrait",
-          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__2.label"
-        },
-        {
-          "value": "square",
-          "label": "t:sections.main-collection-product-grid.settings.image_ratio.options__3.label"
-        }
-      ],
-      "default": "adapt",
-      "label": "t:sections.main-collection-product-grid.settings.image_ratio.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_secondary_image",
-      "default": true,
-      "label": "t:sections.main-collection-product-grid.settings.show_secondary_image.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "default": false,
-      "label": "t:sections.main-collection-product-grid.settings.show_vendor.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "default": false,
-      "label": "t:sections.main-collection-product-grid.settings.show_rating.label",
-      "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
-    },
-    {
-      "type": "select",
-      "id": "quick_add",
-      "default": "standard",
-      "label": "t:sections.main-collection-product-grid.settings.quick_add.label",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_1"
-        },
-        {
-          "value": "standard",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_2"
-        },
-        {
-          "value": "bulk",
-          "label": "t:sections.main-collection-product-grid.settings.quick_add.options.option_3"
-        }
-      ]
-    },
-    {
-      "type": "header",
-      "content": "t:sections.main-collection-product-grid.settings.header__1.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_filtering",
-      "default": true,
-      "label": "t:sections.main-collection-product-grid.settings.enable_filtering.label",
-      "info": "t:sections.main-collection-product-grid.settings.enable_filtering.info"
-    },
-    {
-      "type": "select",
-      "id": "filter_type",
-      "options": [
-        {
-          "value": "horizontal",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__1.label"
-        },
-        {
-          "value": "vertical",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__2.label"
-        },
-        {
-          "value": "drawer",
-          "label": "t:sections.main-collection-product-grid.settings.filter_type.options__3.label"
-        }
-      ],
-      "default": "drawer",
-      "label": "t:sections.main-collection-product-grid.settings.filter_type.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sorting",
-      "default": true,
-      "label": "t:sections.main-collection-product-grid.settings.enable_sorting.label"
-    }
-  ]
+  "name": "Collection",
+  "settings": []
 }
 {% endschema %}

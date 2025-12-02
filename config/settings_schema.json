@@ -56,15 +56,14 @@
     "name": "Layout",
     "settings": [
       {
-        "type": "select",
+        "type": "range",
         "id": "page_width",
-        "label": "Page width",
-        "default": "1280",
-        "options": [
-          { "value": "1024", "label": "Narrow (1024px)" },
-          { "value": "1280", "label": "Default (1280px)" },
-          { "value": "1536", "label": "Wide (1536px)" }
-        ]
+        "min": 1000,
+        "max": 1600,
+        "step": 40,
+        "default": 1280,
+        "unit": "px",
+        "label": "Page width"
       },
       {
         "type": "range",
