@@ -1,6 +1,6 @@
 {% comment %}
   Renders a product media gallery - Tailwind version
-  Modern, minimal design with smooth interactions
+  Modern, minimal design with GLightbox integration
 
   Accepts:
   - product: {Object} Product liquid object
@@ -34,7 +34,7 @@
   endif
 -%}
 
-<media-gallery
+<product-lightbox
   id="MediaGallery-{{ section.id }}"
   role="region"
   class="{% if section.settings.enable_sticky_info %}lg:sticky lg:top-24{% endif %}"
@@ -269,7 +269,7 @@
       </div>
     </slider-component>
   {%- endif -%}
-</media-gallery>
+</product-lightbox>
 
 <style>
   .scrollbar-hide::-webkit-scrollbar {

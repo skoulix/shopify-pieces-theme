@@ -269,7 +269,6 @@
       </div>
     </div>
 
-    {% render 'product-media-modal', product: product, variant_images: variant_images %}
   </div>
 
   {%- if first_3d_model -%}
@@ -279,10 +278,7 @@
     <script src="{{ 'product-model.js' | asset_url }}" defer></script>
   {%- endif -%}
 
-  {% if product.media.size > 0 %}
-    <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
-  {% endif %}
+  {%- comment -%} Lightbox is loaded via Pieces bundle {%- endcomment -%}
 
   <script type="application/ld+json">
     {{ product | structured_data }}

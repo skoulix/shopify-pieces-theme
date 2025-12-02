@@ -332,9 +332,6 @@
       </div>
     </div>
 
-    {%- comment -%} Product Media Modal {%- endcomment -%}
-    {% render 'product-media-modal', variant_images: variant_images %}
-
     {%- comment -%} Popup Modals {%- endcomment -%}
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
@@ -365,10 +362,7 @@
       </modal-dialog>
     {%- endfor -%}
 
-    {%- if product.media.size > 0 -%}
-      <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
-      <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+    {%- comment -%} Lightbox is loaded via Pieces bundle, no additional scripts needed {%- endcomment -%}
 
     {%- if first_3d_model -%}
       <script type="application/json" id="ProductJSON-{{ product.id }}">

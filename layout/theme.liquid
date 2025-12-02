@@ -35,6 +35,7 @@
     {%- comment -%} Pieces theme bundle - SPA layer with Swup, Lenis, GSAP, piecesjs {%- endcomment -%}
     <script src="{{ 'pieces-app.js' | asset_url }}" type="module"></script>
     {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
+    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%} Modular Shopify components (loaded on-demand) {%- endcomment -%}
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
@@ -265,10 +266,6 @@
       <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
-
-    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
-      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
 
     <script>
       if (Shopify.designMode) {

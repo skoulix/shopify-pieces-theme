@@ -1,24 +1,24 @@
-import { Piece } from 'piecesjs';
-
 /**
  * Share Button Component
  * Native share API with clipboard fallback
  */
-class ShareButton extends Piece {
+class ShareButton extends HTMLElement {
   constructor() {
-    super('ShareButton', {
-      stylesheets: [],
-    });
+    super();
+    this.boundNativeShare = this.nativeShare.bind(this);
+    this.boundOnToggle = this.onToggle.bind(this);
+    this.boundCopyToClipboard = this.copyToClipboard.bind(this);
+    this.boundClose = this.close.bind(this);
   }
 
-  mount() {
-    this.$shareButton = this.$('button')[0];
-    this.$summary = this.$('summary')[0];
-    this.$details = this.$('details')[0];
-    this.$closeButton = this.$('.share-button__close')[0];
-    this.$successMessage = this.$('[id^="ShareMessage"]')[0];
-    this.$urlInput = this.$('input')[0];
-    this.$copyButton = this.$('.share-button__copy')[0];
+  connectedCallback() {
+    this.$shareButton = this.querySelector('button');
+    this.$summary = this.querySelector('summary');
+    this.$details = this.querySelector('details');
+    this.$closeButton = this.querySelector('.share-button__close');
+    this.$successMessage = this.querySelector('[id^="ShareMessage"]');
+    this.$urlInput = this.querySelector('input');
+    this.$copyButton = this.querySelector('.share-button__copy');
 
     this.urlToShare = this.$urlInput?.value || window.location.href;
 
@@ -29,36 +29,36 @@ class ShareButton extends Piece {
       }
       if (this.$shareButton) {
         this.$shareButton.classList.remove('hidden');
-        this.on('click', this.$shareButton, this.nativeShare);
+        this.$shareButton.addEventListener('click', this.boundNativeShare);
       }
     } else {
       // Fallback to copy-to-clipboard
       if (this.$details) {
-        this.on('toggle', this.$details, this.onToggle);
+        this.$details.addEventListener('toggle', this.boundOnToggle);
       }
       if (this.$copyButton) {
-        this.on('click', this.$copyButton, this.copyToClipboard);
+        this.$copyButton.addEventListener('click', this.boundCopyToClipboard);
       }
       if (this.$closeButton) {
-        this.on('click', this.$closeButton, this.close);
+        this.$closeButton.addEventListener('click', this.boundClose);
       }
     }
   }
 
-  unmount() {
+  disconnectedCallback() {
     if (navigator.share) {
       if (this.$shareButton) {
-        this.off('click', this.$shareButton, this.nativeShare);
+        this.$shareButton.removeEventListener('click', this.boundNativeShare);
       }
     } else {
       if (this.$details) {
-        this.off('toggle', this.$details, this.onToggle);
+        this.$details.removeEventListener('toggle', this.boundOnToggle);
       }
       if (this.$copyButton) {
-        this.off('click', this.$copyButton, this.copyToClipboard);
+        this.$copyButton.removeEventListener('click', this.boundCopyToClipboard);
       }
       if (this.$closeButton) {
-        this.off('click', this.$closeButton, this.close);
+        this.$closeButton.removeEventListener('click', this.boundClose);
       }
     }
   }

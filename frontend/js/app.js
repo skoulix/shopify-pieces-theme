@@ -8,12 +8,13 @@
  * - GSAP for animations
  */
 
-import { loadDynamically, piecesManager } from 'piecesjs';
+import { piecesManager } from 'piecesjs';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Import styles
 import '../css/app.css';
+// PhotoSwipe CSS loaded directly in theme.liquid from assets/photoswipe.css
 
 // Import managers
 import { lenisManager } from './managers/LenisManager.js';
@@ -27,32 +28,45 @@ import './utils/index.js';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
+ * Dynamic component loader
+ * Loads component when the custom element exists in the DOM
+ */
+function loadComponentIfExists(tagName, importFn) {
+  if (document.getElementsByTagName(tagName).length > 0) {
+    importFn();
+  }
+}
+
+/**
  * Load piecesjs components
  * Components are dynamically imported for code splitting
  */
 function loadComponents() {
   // Core components
-  loadDynamically('c-header', () => import('./components/Header.js'));
-  loadDynamically('c-hero', () => import('./components/Hero.js'));
-  loadDynamically('c-product-card', () => import('./components/ProductCard.js'));
+  loadComponentIfExists('c-header', () => import('./components/Header.js'));
+  loadComponentIfExists('c-hero', () => import('./components/Hero.js'));
+  loadComponentIfExists('c-product-card', () => import('./components/ProductCard.js'));
 
   // UI components (migrated from global.js)
-  loadDynamically('c-quantity-input', () => import('./components/QuantityInput.js'));
-  loadDynamically('c-modal', () => import('./components/Modal.js'));
-  loadDynamically('c-slider', () => import('./components/Slider.js'));
-  loadDynamically('c-slideshow', () => import('./components/Slideshow.js'));
+  loadComponentIfExists('c-quantity-input', () => import('./components/QuantityInput.js'));
+  loadComponentIfExists('c-modal', () => import('./components/Modal.js'));
+  loadComponentIfExists('c-slider', () => import('./components/Slider.js'));
+  loadComponentIfExists('c-slideshow', () => import('./components/Slideshow.js'));
 
   // Animation components
-  loadDynamically('c-scroll-reveal', () => import('./components/ScrollReveal.js'));
-  loadDynamically('c-image-reveal', () => import('./components/ImageReveal.js'));
-  loadDynamically('c-magnetic', () => import('./components/Magnetic.js'));
+  loadComponentIfExists('c-scroll-reveal', () => import('./components/ScrollReveal.js'));
+  loadComponentIfExists('c-image-reveal', () => import('./components/ImageReveal.js'));
+  loadComponentIfExists('c-magnetic', () => import('./components/Magnetic.js'));
 
   // Utility components (migrated from assets)
-  loadDynamically('c-show-more', () => import('./components/ShowMore.js'));
-  loadDynamically('c-share-button', () => import('./components/ShareButton.js'));
-  loadDynamically('c-pickup-availability', () => import('./components/PickupAvailability.js'));
-  loadDynamically('c-pickup-drawer', () => import('./components/PickupAvailability.js'));
-  loadDynamically('c-localization-form', () => import('./components/LocalizationForm.js'));
+  loadComponentIfExists('show-more-button', () => import('./components/ShowMore.js'));
+  loadComponentIfExists('share-button', () => import('./components/ShareButton.js'));
+  loadComponentIfExists('pickup-availability', () => import('./components/PickupAvailability.js'));
+  loadComponentIfExists('pickup-availability-drawer', () => import('./components/PickupAvailability.js'));
+  loadComponentIfExists('localization-form', () => import('./components/LocalizationForm.js'));
+
+  // Product components
+  loadComponentIfExists('product-lightbox', () => import('./components/ProductLightbox.js'));
 }
 
 /**

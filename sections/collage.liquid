@@ -1,6 +1,6 @@
 {%- comment -%}
   Collage Section - Tailwind Version
-  Modern grid layout for images, products, collections, and videos
+  Flexbox layout with equal columns for images, products, collections, and videos
 {%- endcomment -%}
 
 <section class="py-8 lg:py-12">
@@ -13,51 +13,36 @@
 
     {%- liquid
       assign block_count = section.blocks.size
-      assign desktop_layout = section.settings.desktop_layout
       assign mobile_layout = section.settings.mobile_layout
     -%}
 
-    {%- comment -%} Grid Layout {%- endcomment -%}
-    <div class="grid gap-4 lg:gap-6
-      {%- if mobile_layout == 'collage' %} grid-cols-2{% else %} grid-cols-1{% endif %}
-      lg:grid-cols-3 lg:grid-rows-2">
+    {%- comment -%} Flexbox Layout - Equal Columns {%- endcomment -%}
+    <div class="flex flex-wrap gap-4 lg:gap-6
+      {%- if mobile_layout == 'collage' %} -mx-2{% endif %}">
 
       {%- for block in section.blocks -%}
         {%- liquid
-          # Determine if this is the large block
-          if desktop_layout == 'left'
-            assign is_large = forloop.first
-          else
-            assign is_large = forloop.last
-          endif
-
-          # Grid classes for large vs small blocks
-          if is_large
-            if block_count == 1
-              assign grid_classes = 'lg:col-span-3 lg:row-span-2'
-            else
-              if desktop_layout == 'left'
-                assign grid_classes = 'lg:col-span-2 lg:row-span-2'
-              else
-                assign grid_classes = 'lg:col-start-2 lg:col-span-2 lg:row-span-2'
-              endif
-            endif
-          else
-            assign grid_classes = ''
-          endif
-
-          # Mobile collage layout adjustments
-          if mobile_layout == 'collage' and block_count == 3 and forloop.first
-            assign mobile_classes = 'col-span-2 lg:col-span-auto'
-          else
-            assign mobile_classes = ''
-          endif
-
           assign placeholder_image_index = forloop.index0 | modulo: 4 | plus: 1
+
+          # Calculate flex basis for equal columns
+          if block_count == 1
+            assign flex_basis = 'w-full'
+          elsif block_count == 2
+            assign flex_basis = 'w-full lg:w-[calc(50%-0.75rem)]'
+          else
+            assign flex_basis = 'w-full lg:w-[calc(33.333%-1rem)]'
+          endif
+
+          # Mobile layout adjustments
+          if mobile_layout == 'collage'
+            assign mobile_flex = 'w-[calc(50%-0.5rem)] mx-2 lg:mx-0'
+          else
+            assign mobile_flex = ''
+          endif
         -%}
 
         <div
-          class="group {{ grid_classes }} {{ mobile_classes }}"
+          class="group flex-shrink-0 {{ flex_basis }} {{ mobile_flex }}"
           {{ block.shopify_attributes }}
         >
           {%- case block.type -%}
@@ -203,26 +188,6 @@
       "id": "heading",
       "default": "t:sections.collage.settings.heading.default",
       "label": "t:sections.collage.settings.heading.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.collage.settings.header_layout.content"
-    },
-    {
-      "type": "select",
-      "id": "desktop_layout",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.collage.settings.desktop_layout.options__1.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.collage.settings.desktop_layout.options__2.label"
-        }
-      ],
-      "default": "left",
-      "label": "t:sections.collage.settings.desktop_layout.label"
     },
     {
       "type": "select",

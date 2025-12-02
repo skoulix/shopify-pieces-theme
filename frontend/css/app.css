@@ -27,6 +27,7 @@
 @import './components/icons.css';
 @import './components/disclosure.css';
 @import './components/modal.css';
+/* lightbox.css imported separately in app.js after photoswipe.css */
 @import './components/loading.css';
 @import './components/cart.css';
 @import './components/shopify.css';
