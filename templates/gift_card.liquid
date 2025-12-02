@@ -76,7 +76,7 @@
       {% comment %}theme-check-enable AssetPreload{% endcomment %}
     {%- endunless -%}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
   </head>
 
   <body class="min-h-screen bg-[rgb(var(--color-background))] text-[rgb(var(--color-foreground))] font-[family-name:var(--font-body-family)]" style="background: var(--gradient-background); background-attachment: fixed;">

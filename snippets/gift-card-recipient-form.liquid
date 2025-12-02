@@ -21,12 +21,16 @@
       id="Recipient-checkbox-{{ section.id }}"
       type="checkbox"
       name="{{ gift_card_recipient_control_flag }}"
+      class="peer sr-only"
       disabled
     >
-    <label class="recipient-checkbox" for="Recipient-checkbox-{{ section.id }}">
-      {{ 'square.svg' | inline_asset_content }}
-      {%- render 'icon', name: 'check', size: '16' -%}
-      <span>{{ 'recipient.form.checkbox' | t }}</span>
+    <label class="flex items-center gap-3 cursor-pointer select-none" for="Recipient-checkbox-{{ section.id }}">
+      <span class="relative flex items-center justify-center w-5 h-5 border border-neutral-300 rounded peer-checked:bg-neutral-900 peer-checked:border-neutral-900 transition-colors">
+        <span class="absolute inset-0 flex items-center justify-center text-white opacity-0 peer-checked:opacity-100">
+          {%- render 'icon', name: 'check', size: '14' -%}
+        </span>
+      </span>
+      <span class="text-sm">{{ 'recipient.form.checkbox' | t }}</span>
     </label>
     <div
       class="product-form__recipient-error-message-wrapper"
