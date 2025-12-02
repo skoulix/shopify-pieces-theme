@@ -1,5 +1,5 @@
-{% comment %}
-  Renders product variant-picker
+{%- comment -%}
+  Renders product variant-picker - Tailwind Version
 
   Accepts:
   - product: {Object} product object.
@@ -7,12 +7,14 @@
   - product_form_id: {String} Id of the product form to which the variant picker is associated.
   Usage:
   {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-{% endcomment %}
+{%- endcomment -%}
+
 {%- unless product.has_only_default_variant -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
     {{ block.shopify_attributes }}
+    class="block"
   >
     {%- for option in product.options_with_values -%}
       {%- liquid
@@ -27,48 +29,55 @@
           endif
         endif
       -%}
+
       {%- if picker_type == 'swatch' -%}
-        <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
+        <fieldset class="js product-form__input product-form__input--swatch mb-6">
+          <legend class="block text-sm font-medium text-neutral-900 mb-3">
             {{ option.name }}:
-            <span data-selected-value>
-              {{- option.selected_value -}}
+            <span class="font-normal text-neutral-600" data-selected-value>
+              {{ option.selected_value }}
             </span>
           </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+          <div class="flex flex-wrap gap-2">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
         </fieldset>
+
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+        <fieldset class="js product-form__input product-form__input--pill mb-6">
+          <legend class="block text-sm font-medium text-neutral-900 mb-3">{{ option.name }}</legend>
+          <div class="flex flex-wrap gap-2">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
         </fieldset>
+
       {%- else -%}
-        <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+        <div class="product-form__input product-form__input--dropdown mb-6">
+          <label class="block text-sm font-medium text-neutral-900 mb-2" for="Option-{{ section.id }}-{{ forloop.index0 }}">
             {{ option.name }}
           </label>
-          <div class="select">
+          <div class="relative">
             {%- if picker_type == 'swatch_dropdown' -%}
               <span
                 data-selected-value
-                class="dropdown-swatch"
+                class="absolute left-3 top-1/2 -translate-y-1/2 z-10"
               >
                 {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
               </span>
             {%- endif -%}
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
+              class="w-full h-12 {% if picker_type == 'swatch_dropdown' %}pl-12{% else %}pl-4{% endif %} pr-10 bg-white border border-neutral-300 rounded-lg text-neutral-900 appearance-none focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent transition-shadow"
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >
@@ -79,8 +88,8 @@
                 picker_type: picker_type
               %}
             </select>
-            <span class="svg-wrapper">
-              {%- render 'icon', name: 'caret-down', size: '16' -%}
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none">
+              {%- render 'icon', name: 'caret-down', size: '20' -%}
             </span>
           </div>
         </div>
