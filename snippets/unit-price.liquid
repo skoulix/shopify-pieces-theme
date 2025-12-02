@@ -13,7 +13,7 @@
 {%- enddoc -%}
 <small class="unit-price caption">
   {%- unless hide_accessibility_label -%}
-    <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+    <span class="sr-only">{{ 'products.product.price.unit_price' | t }}</span>
   {%- endunless -%}
   <span class="price-item price-item--last">
     {{ price | unit_price_with_measurement: measurement }}
