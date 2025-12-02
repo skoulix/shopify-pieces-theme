@@ -35,10 +35,6 @@
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
-    {%- if settings.animations_reveal_on_scroll -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-
     {%- comment -%} Pieces theme bundle - SPA layer with Swup, Lenis, GSAP, piecesjs {%- endcomment -%}
     <script src="{{ 'pieces-app.js' | asset_url }}" type="module"></script>
     {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
@@ -252,8 +248,6 @@
         font-weight: var(--font-body-weight);
       }
     {% endstyle %}
-
-    {%- comment -%} Cart and other component styles migrated to Tailwind {%- endcomment -%}
 
     {%- unless settings.type_body_font.system? -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}

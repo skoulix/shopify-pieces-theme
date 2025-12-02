@@ -20,6 +20,9 @@ import { lenisManager } from './managers/LenisManager.js';
 import { swupManager } from './managers/SwupManager.js';
 import { animationManager } from './managers/AnimationManager.js';
 
+// Import utilities (makes them available globally for backwards compatibility)
+import './utils/index.js';
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,6 +35,11 @@ function loadComponents() {
   loadDynamically('c-header', () => import('./components/Header.js'));
   loadDynamically('c-hero', () => import('./components/Hero.js'));
   loadDynamically('c-product-card', () => import('./components/ProductCard.js'));
+
+  // UI components (migrated from global.js)
+  loadDynamically('c-quantity-input', () => import('./components/QuantityInput.js'));
+  loadDynamically('c-modal', () => import('./components/Modal.js'));
+  loadDynamically('c-slider', () => import('./components/Slider.js'));
 
   // Animation components
   loadDynamically('c-scroll-reveal', () => import('./components/ScrollReveal.js'));

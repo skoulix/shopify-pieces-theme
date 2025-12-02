@@ -1,9 +1,11 @@
 import { Piece } from 'piecesjs';
 import { gsap } from 'gsap';
+import { trapFocus, removeTrapFocus } from '../utils/focus.js';
 
 /**
  * Header Component
  * Manages header animations, scroll behavior, and menu interactions
+ * Replaces: menu-drawer, header-drawer from global.js
  */
 class Header extends Piece {
   constructor() {
@@ -15,6 +17,7 @@ class Header extends Piece {
     this.lastScrollY = 0;
     this.scrollThreshold = 100;
     this.hideOnScroll = false;
+    this.breakpoint = 'tablet'; // matches data-breakpoint
   }
 
   mount() {
@@ -23,8 +26,12 @@ class Header extends Piece {
     this.$menuToggle = this.$('[data-menu-toggle]')[0];
     this.$menuDrawer = this.$('[data-menu-drawer]')[0];
     this.$menuOverlay = this.$('[data-menu-overlay]')[0];
+    this.$submenus = this.$$('details.has-submenu');
 
-    // Bind events
+    // Get breakpoint from data attribute
+    this.breakpoint = this.dataset.breakpoint || 'tablet';
+
+    // Bind main menu toggle
     if (this.$menuToggle) {
       this.on('click', this.$menuToggle, this.toggleMenu);
     }
@@ -33,11 +40,27 @@ class Header extends Piece {
       this.on('click', this.$menuOverlay, this.closeMenu);
     }
 
+    // Bind submenu toggles
+    this.$submenus.forEach((submenu) => {
+      const summary = submenu.querySelector('summary');
+      if (summary) {
+        this.on('click', summary, this.handleSubmenuClick);
+      }
+    });
+
+    // Close buttons within menu
+    this.$$('[data-menu-close]').forEach((btn) => {
+      this.on('click', btn, this.handleCloseClick);
+    });
+
     // Scroll behavior
     this.on('scroll', window, this.handleScroll);
 
     // Keyboard events
-    this.on('keydown', document, this.handleKeydown);
+    this.on('keyup', this, this.handleKeyUp);
+
+    // Focus out handling
+    this.on('focusout', this, this.handleFocusOut);
 
     // Initial state
     this.handleScroll();
@@ -48,7 +71,8 @@ class Header extends Piece {
 
   unmount() {
     this.off('scroll', window, this.handleScroll);
-    this.off('keydown', document, this.handleKeydown);
+    this.off('keyup', this, this.handleKeyUp);
+    this.off('focusout', this, this.handleFocusOut);
 
     if (this.$menuToggle) {
       this.off('click', this.$menuToggle, this.toggleMenu);
@@ -104,11 +128,16 @@ class Header extends Piece {
   }
 
   openMenu() {
+    // Set viewport height for mobile browsers
+    document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+
     this.$header.classList.add('menu-open');
-    document.body.classList.add('overflow-hidden');
+    document.body.classList.add(`overflow-hidden-${this.breakpoint}`);
 
     // Animate menu open
     if (this.$menuDrawer) {
+      this.$menuDrawer.classList.add('menu-opening');
+
       gsap.fromTo(
         this.$menuDrawer,
         { x: '100%' },
@@ -116,26 +145,25 @@ class Header extends Piece {
           x: '0%',
           duration: 0.5,
           ease: 'power2.out',
+          onComplete: () => {
+            // Trap focus when animation completes
+            trapFocus(this.$menuDrawer, this.$menuToggle);
+          },
         }
       );
     }
 
     if (this.$menuOverlay) {
-      gsap.fromTo(
-        this.$menuOverlay,
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.3,
-        }
-      );
+      gsap.fromTo(this.$menuOverlay, { opacity: 0 }, { opacity: 1, duration: 0.3 });
     }
+
+    this.$menuToggle?.setAttribute('aria-expanded', 'true');
 
     // Stop Lenis scroll
     this.emit('menu:open', document, {});
   }
 
-  closeMenu() {
+  closeMenu(returnFocus = true) {
     // Animate menu close
     if (this.$menuDrawer) {
       gsap.to(this.$menuDrawer, {
@@ -144,33 +172,115 @@ class Header extends Piece {
         ease: 'power2.in',
         onComplete: () => {
           this.$header.classList.remove('menu-open');
-          document.body.classList.remove('overflow-hidden');
+          this.$menuDrawer.classList.remove('menu-opening');
+          document.body.classList.remove(`overflow-hidden-${this.breakpoint}`);
+
+          // Close all submenus
+          this.closeAllSubmenus();
+
+          // Release focus trap
+          if (returnFocus) {
+            removeTrapFocus(this.$menuToggle);
+          }
         },
       });
+    } else {
+      this.$header.classList.remove('menu-open');
+      document.body.classList.remove(`overflow-hidden-${this.breakpoint}`);
     }
 
     if (this.$menuOverlay) {
-      gsap.to(this.$menuOverlay, {
-        opacity: 0,
-        duration: 0.3,
-      });
+      gsap.to(this.$menuOverlay, { opacity: 0, duration: 0.3 });
     }
+
+    this.$menuToggle?.setAttribute('aria-expanded', 'false');
 
     // Resume Lenis scroll
     this.emit('menu:close', document, {});
   }
 
-  handleKeydown(e) {
-    if (e.key === 'Escape' && this.$header.classList.contains('menu-open')) {
+  handleSubmenuClick(event) {
+    const summary = event.currentTarget;
+    const details = summary.parentElement;
+    const isOpen = details.hasAttribute('open');
+
+    // If opening, add animation class
+    if (!isOpen) {
+      setTimeout(() => {
+        details.classList.add('menu-opening');
+        summary.setAttribute('aria-expanded', 'true');
+
+        // Trap focus in submenu
+        const firstButton = details.querySelector('button, a');
+        trapFocus(details.querySelector('.submenu') || details, firstButton);
+      }, 100);
+    }
+  }
+
+  handleCloseClick(event) {
+    const details = event.currentTarget.closest('details');
+    if (details) {
+      this.closeSubmenu(details);
+    } else {
       this.closeMenu();
     }
   }
 
+  closeSubmenu(details) {
+    details.classList.remove('menu-opening');
+    details.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+
+    // Animate close
+    setTimeout(() => {
+      details.removeAttribute('open');
+      removeTrapFocus(details.querySelector('summary'));
+    }, 300);
+  }
+
+  closeAllSubmenus() {
+    this.$submenus.forEach((submenu) => {
+      submenu.removeAttribute('open');
+      submenu.classList.remove('menu-opening');
+      submenu.querySelector('summary')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  handleKeyUp(event) {
+    if (event.code.toUpperCase() !== 'ESCAPE') return;
+
+    // Check for open submenu first
+    const openSubmenu = event.target.closest('details[open]');
+    if (openSubmenu && openSubmenu !== this.$menuDrawer?.closest('details')) {
+      this.closeSubmenu(openSubmenu);
+      return;
+    }
+
+    // Close main menu
+    if (this.$header.classList.contains('menu-open')) {
+      this.closeMenu();
+    }
+  }
+
+  handleFocusOut() {
+    // Close menu if focus leaves the header entirely
+    setTimeout(() => {
+      if (this.$header.classList.contains('menu-open') && !this.contains(document.activeElement)) {
+        this.closeMenu(false);
+      }
+    });
+  }
+
   // Reset method for Swup page transitions
   reset() {
-    this.closeMenu();
+    this.closeMenu(false);
+    this.closeAllSubmenus();
     this.isScrolled = false;
     this.lastScrollY = 0;
+  }
+
+  // Reveal method (called by cart notification)
+  reveal() {
+    this.$header.classList.remove('is-hidden');
   }
 }
 
