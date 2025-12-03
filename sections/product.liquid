@@ -5,6 +5,14 @@
 
 {% assign current_variant = product.selected_or_first_available_variant %}
 
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'px-4 md:px-8'
+  else
+    assign container_class = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
+  endif
+-%}
+
 <style>
   /* Product intro animation initial states */
   .product-intro .product-intro-image {
@@ -30,7 +38,7 @@
 </style>
 
 <section class="bg-white product-intro" data-product-intro>
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+  <div class="{{ container_class }} py-16 sm:py-24">
     <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12">
 
       {%- comment -%} Product Images {%- endcomment -%}
@@ -305,7 +313,14 @@
 {% schema %}
 {
   "name": "Product",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    }
+  ],
   "disabled_on": {
     "groups": ["header", "footer"]
   }

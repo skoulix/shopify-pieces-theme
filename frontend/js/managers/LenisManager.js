@@ -87,6 +87,16 @@ class LenisManager {
   }
 
   /**
+   * Resize/recalculate scroll bounds
+   * Call this after content changes that affect page height
+   */
+  resize() {
+    if (this.lenis) {
+      this.lenis.resize();
+    }
+  }
+
+  /**
    * Destroy the Lenis instance
    */
   destroy() {

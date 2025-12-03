@@ -5,7 +5,10 @@ import SwupPreloadPlugin from '@swup/preload-plugin';
 import SwupBodyClassPlugin from '@swup/body-class-plugin';
 import SwupScriptsPlugin from '@swup/scripts-plugin';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lenisManager } from './LenisManager.js';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * SwupManager - Page transition management
@@ -84,11 +87,23 @@ class SwupManager {
 
     // After new content is replaced
     this.swup.hooks.on('content:replace', () => {
+      // Kill old ScrollTriggers before content change
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
       // Scroll to top
       lenisManager.scrollTo(0, { immediate: true });
 
       // Re-initialize components on new page
       this.reinitializeComponents();
+
+      // Refresh ScrollTrigger and Lenis after DOM updates
+      requestAnimationFrame(() => {
+        // Recalculate Lenis scroll bounds for new page height
+        lenisManager.resize();
+
+        // Refresh ScrollTrigger to recalculate positions
+        ScrollTrigger.refresh();
+      });
     });
 
     // After transition is complete

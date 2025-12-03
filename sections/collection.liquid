@@ -23,7 +23,6 @@
     position: relative;
     padding-top: 6rem;
     padding-bottom: 4rem;
-    min-height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -107,7 +106,6 @@
     .collection-header {
       padding-top: 4rem;
       padding-bottom: 3rem;
-      min-height: 30vh;
     }
 
     .collection-header-description {
@@ -308,7 +306,7 @@
       {%- endfor -%}
     </h1>
     {% if collection.description != blank %}
-      <div class="collection-header-description">
+      <div class="collection-header-description" data-shuffle-text>
         {{ collection.description | strip_html }}
       </div>
     {% endif %}
@@ -389,23 +387,49 @@
 
     {%- comment -%} Pagination {%- endcomment -%}
     {% if paginate.pages > 1 %}
-      <nav class="flex items-center justify-center gap-2 py-16" style="{% if layout_style == 'grid' %}grid-column: 1 / -1;{% endif %}">
-        {% if paginate.previous %}
-          <a href="{{ paginate.previous.url }}" class="px-6 py-3 text-sm border border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
-            <i class="ph ph-arrow-left mr-2"></i>Previous
-          </a>
-        {% endif %}
+      {% if section.settings.pagination_type == 'load_more' %}
+        {%- comment -%} Load More Button {%- endcomment -%}
+        <div class="flex flex-col items-center justify-center py-16 {{ container_class }}" data-pagination-load-more>
+          {% if paginate.next %}
+            <button
+              type="button"
+              class="load-more-btn btn-secondary px-8 py-4 text-sm font-medium transition-colors hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-contrast)] hover:border-[var(--color-primary)] min-w-[140px]"
+              data-next-url="{{ paginate.next.url }}"
+            >
+              <span class="load-more-text">Load More</span>
+              <span class="load-more-loading hidden items-center">
+                <svg class="animate-spin -ml-1 mr-2 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading...
+              </span>
+            </button>
+          {% endif %}
+          <span class="mt-4 text-sm text-gray-500">
+            Showing {{ paginate.current_offset | plus: 1 }}-{{ paginate.current_offset | plus: paginate.page_size | at_most: paginate.items }} of {{ paginate.items }} products
+          </span>
+        </div>
+      {% else %}
+        {%- comment -%} Previous / Next Navigation {%- endcomment -%}
+        <nav class="flex items-center justify-center gap-2 py-16 {{ container_class }}">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="btn-secondary px-6 py-3 text-sm transition-colors hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-contrast)] hover:border-[var(--color-primary)]">
+              <i class="ph ph-arrow-left mr-2"></i>Previous
+            </a>
+          {% endif %}
 
-        <span class="px-4 py-2 text-sm text-gray-500">
-          Page {{ paginate.current_page }} of {{ paginate.pages }}
-        </span>
+          <span class="px-4 py-2 text-sm text-gray-500">
+            Page {{ paginate.current_page }} of {{ paginate.pages }}
+          </span>
 
-        {% if paginate.next %}
-          <a href="{{ paginate.next.url }}" class="px-6 py-3 text-sm border border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
-            Next<i class="ph ph-arrow-right ml-2"></i>
-          </a>
-        {% endif %}
-      </nav>
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="btn-secondary px-6 py-3 text-sm transition-colors hover:bg-[var(--color-primary)] hover:text-[var(--color-primary-contrast)] hover:border-[var(--color-primary)]">
+              Next<i class="ph ph-arrow-right ml-2"></i>
+            </a>
+          {% endif %}
+        </nav>
+      {% endif %}
     {% endif %}
 
   {% endpaginate %}
@@ -488,16 +512,46 @@
         });
       }
 
-      // Header description fade in
-      const headerDesc = wrapper.querySelector('.collection-header-description');
+      // Header description - fade in with text shuffle animation
+      const headerDesc = wrapper.querySelector('[data-shuffle-text]');
       if (headerDesc) {
-        gsap.set(headerDesc, { opacity: 0, y: 20 });
+        const originalText = headerDesc.textContent.trim();
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+
+        // Start with scrambled text and hidden
+        headerDesc.textContent = originalText.split('').map(char =>
+          char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]
+        ).join('');
+        gsap.set(headerDesc, { opacity: 0 });
+
+        // Fade in
         tl.to(headerDesc, {
           opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out'
-        }, 0.4);
+          duration: 0.4,
+          ease: 'power2.out'
+        }, 0.6);
+
+        // Shuffle animation - characters reveal left to right with scrambling
+        const shuffleObj = { progress: 0 };
+        tl.to(shuffleObj, {
+          progress: 1,
+          duration: 1.8,
+          ease: 'none',
+          onUpdate: () => {
+            const progress = shuffleObj.progress;
+            const revealedCount = Math.floor(progress * originalText.length);
+
+            headerDesc.textContent = originalText.split('').map((char, i) => {
+              if (char === ' ') return ' ';
+              if (i < revealedCount) return char;
+              // Keep scrambling unrevealed characters
+              return chars[Math.floor(Math.random() * chars.length)];
+            }).join('');
+          },
+          onComplete: () => {
+            headerDesc.textContent = originalText;
+          }
+        }, 0.6);
       }
     }
 
@@ -551,6 +605,14 @@
       }
     }
 
+    // Check if element is in viewport
+    function isInViewport(element, threshold = 0.85) {
+      const rect = element.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      // Element is in viewport if its top is above the threshold line
+      return rect.top < windowHeight * threshold;
+    }
+
     // Set initial states and create ScrollTriggers for each item
     function initScrollAnimations() {
       wrapper.classList.remove('is-loading');
@@ -567,21 +629,41 @@
         return columnsMobile;
       }
 
+      const cols = getColumnCount();
+
       if (layoutStyle === 'metro') {
         // Metro: Set initial clip-path and create ScrollTrigger per item
+        const inViewItems = [];
+        const outOfViewItems = [];
+
         items.forEach((item, index) => {
           const inner = item.querySelector('.metro-item-inner');
           if (inner) {
             gsap.set(inner, { clipPath: 'inset(0 100% 0 0)' });
           }
 
+          // Check if item is already in viewport
+          if (isInViewport(item)) {
+            inViewItems.push({ item, index });
+          } else {
+            outOfViewItems.push({ item, index });
+          }
+        });
+
+        // Animate items already in viewport immediately with stagger
+        inViewItems.forEach(({ item, index }, i) => {
+          const colIndex = index % cols;
+          const delay = colIndex * 0.08;
+          gsap.delayedCall(delay, () => animateMetroItem(item));
+        });
+
+        // Create ScrollTriggers only for items not yet in viewport
+        outOfViewItems.forEach(({ item, index }) => {
           ScrollTrigger.create({
             trigger: item,
             start: 'top 85%',
             once: true,
             onEnter: () => {
-              // Stagger based on column position
-              const cols = getColumnCount();
               const colIndex = index % cols;
               const delay = colIndex * 0.08;
               gsap.delayedCall(delay, () => animateMetroItem(item));
@@ -590,6 +672,9 @@
         });
       } else {
         // Grid: Set initial states and create ScrollTrigger per card
+        const inViewItems = [];
+        const outOfViewItems = [];
+
         items.forEach((item, index) => {
           const imgWrap = item.querySelector('.product-card-image');
           const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
@@ -606,14 +691,28 @@
             gsap.set(priceSpans, { yPercent: 100 });
           }
 
-          // Create ScrollTrigger for this card
+          // Check if item is already in viewport
+          if (isInViewport(item)) {
+            inViewItems.push({ item, index });
+          } else {
+            outOfViewItems.push({ item, index });
+          }
+        });
+
+        // Animate items already in viewport immediately with stagger
+        inViewItems.forEach(({ item, index }) => {
+          const colIndex = index % cols;
+          const delay = colIndex * 0.1;
+          gsap.delayedCall(delay, () => animateProductCard(item));
+        });
+
+        // Create ScrollTriggers only for items not yet in viewport
+        outOfViewItems.forEach(({ item, index }) => {
           ScrollTrigger.create({
             trigger: item,
             start: 'top 85%',
             once: true,
             onEnter: () => {
-              // Stagger based on column position
-              const cols = getColumnCount();
               const colIndex = index % cols;
               const delay = colIndex * 0.1;
               gsap.delayedCall(delay, () => animateProductCard(item));
@@ -785,28 +884,187 @@
       item.addEventListener('click', (e) => handleItemClick(e, index));
     });
 
-    // Cleanup on Swup navigation
+    // Load More functionality
+    function initLoadMore() {
+      const loadMoreContainer = wrapper.querySelector('[data-pagination-load-more]');
+      if (!loadMoreContainer) return;
+
+      const loadMoreBtn = loadMoreContainer.querySelector('.load-more-btn');
+      if (!loadMoreBtn) return;
+
+      loadMoreBtn.addEventListener('click', async function() {
+        const nextUrl = this.dataset.nextUrl;
+        if (!nextUrl || isAnimating) return;
+
+        const textSpan = this.querySelector('.load-more-text');
+        const loadingSpan = this.querySelector('.load-more-loading');
+
+        // Show loading state
+        textSpan.classList.add('hidden');
+        loadingSpan.classList.remove('hidden');
+        loadingSpan.classList.add('inline-flex');
+        this.disabled = true;
+
+        try {
+          // Fetch the next page
+          const response = await fetch(nextUrl);
+          const html = await response.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          // Get new products from the fetched page
+          const newWrapper = doc.querySelector('[data-collection-wrapper]');
+          const contentContainer = wrapper.querySelector('[data-collection-content]');
+          const newContent = newWrapper?.querySelector('[data-collection-content]');
+
+          if (newContent && contentContainer) {
+            const newItems = newContent.querySelectorAll('[data-collection-item], [data-product-card]');
+            const cols = getColumnCount();
+
+            // Append new items to the grid
+            newItems.forEach((item, index) => {
+              // Clone and append
+              const clone = item.cloneNode(true);
+              contentContainer.appendChild(clone);
+
+              // Set initial states for animation
+              if (layoutStyle === 'metro') {
+                const inner = clone.querySelector('.metro-item-inner');
+                if (inner) {
+                  gsap.set(inner, { clipPath: 'inset(0 100% 0 0)' });
+                }
+              } else {
+                const imgWrap = clone.querySelector('.product-card-image');
+                const titleSpans = clone.querySelectorAll('.product-card-title .overflow-hidden span');
+                const priceSpans = clone.querySelectorAll('.product-card-price .overflow-hidden span');
+
+                if (imgWrap) gsap.set(imgWrap, { clipPath: 'inset(0 100% 0 0)' });
+                if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100 });
+                if (priceSpans.length) gsap.set(priceSpans, { yPercent: 100 });
+              }
+
+              // Animate in with stagger
+              const colIndex = index % cols;
+              const delay = colIndex * 0.1;
+
+              gsap.delayedCall(delay, () => {
+                if (layoutStyle === 'metro') {
+                  animateMetroItem(clone);
+                } else {
+                  animateProductCard(clone);
+                }
+              });
+
+              // Attach click handler
+              const newIndex = contentContainer.querySelectorAll('[data-collection-item], [data-product-card]').length - 1;
+              clone.addEventListener('click', (e) => handleItemClick(e, newIndex));
+
+              // Add hover effects for grid layout
+              if (layoutStyle !== 'metro') {
+                const imgWrap = clone.querySelector('.product-card-image');
+                const img = clone.querySelector('.product-card-image img');
+
+                clone.addEventListener('mouseenter', () => {
+                  if (isAnimating) return;
+                  gsap.to(imgWrap, { scale: 0.98, duration: 0.5, ease: 'power2.out' });
+                  if (img) gsap.to(img, { scale: 1.08, duration: 0.5, ease: 'power2.out' });
+                });
+
+                clone.addEventListener('mouseleave', () => {
+                  if (isAnimating) return;
+                  gsap.to(imgWrap, { scale: 1, duration: 0.5, ease: 'power2.out' });
+                  if (img) gsap.to(img, { scale: 1, duration: 0.5, ease: 'power2.out' });
+                });
+              }
+            });
+
+            // Update the pagination
+            const newPagination = newWrapper.querySelector('[data-pagination-load-more]');
+            if (newPagination) {
+              loadMoreContainer.innerHTML = newPagination.innerHTML;
+              // Reinitialize load more for the new button
+              initLoadMore();
+            } else {
+              // No more pages, hide the button
+              loadMoreBtn.style.display = 'none';
+            }
+
+            // Update the count text
+            const countSpan = loadMoreContainer.querySelector('span:last-child');
+            const newCountSpan = newPagination?.querySelector('span:last-child');
+            if (countSpan && newCountSpan) {
+              countSpan.textContent = newCountSpan.textContent;
+            }
+
+            // Refresh Lenis scroll bounds
+            if (window.pieces && window.pieces.lenis) {
+              window.pieces.lenis.resize();
+            }
+          }
+        } catch (error) {
+          console.error('Error loading more products:', error);
+          // Reset button state on error
+          textSpan.classList.remove('hidden');
+          loadingSpan.classList.add('hidden');
+          loadingSpan.classList.remove('inline-flex');
+          this.disabled = false;
+        }
+      });
+    }
+
+    // Helper function accessible to load more
+    function getColumnCount() {
+      const columnsDesktop = parseInt(wrapper.style.getPropertyValue('--columns-desktop')) || 4;
+      const columnsTablet = parseInt(wrapper.style.getPropertyValue('--columns-tablet')) || 2;
+      const columnsMobile = parseInt(wrapper.style.getPropertyValue('--columns-mobile')) || 1;
+
+      if (window.innerWidth >= 1024) return columnsDesktop;
+      if (window.innerWidth >= 768) return columnsTablet;
+      return columnsMobile;
+    }
+
+    // Initialize load more
+    initLoadMore();
+
+    // Cleanup ScrollTriggers
     function cleanup() {
       isAnimating = false;
       // Kill all ScrollTriggers associated with this collection
       if (ScrollTrigger) {
         ScrollTrigger.getAll().forEach(trigger => {
-          if (wrapper.contains(trigger.trigger)) {
+          if (wrapper && wrapper.contains(trigger.trigger)) {
             trigger.kill();
           }
         });
       }
     }
 
+    // Listen for cleanup before content is replaced
     window.addEventListener('swup:contentReplaced', cleanup, { once: true });
+  }
+
+  // Initialize on page load
+  function init() {
+    initCollection();
+  }
+
+  // Reinitialize after Swup page transitions
+  function handleSwupContentReplaced() {
+    // Small delay to ensure DOM is fully updated
+    requestAnimationFrame(() => {
+      initCollection();
+    });
   }
 
   // Initialize
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCollection);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initCollection();
+    init();
   }
+
+  // Listen for Swup content replacement to reinitialize
+  window.addEventListener('swup:contentReplaced', handleSwupContentReplaced);
 })();
 </script>
 
@@ -879,6 +1137,22 @@
     {
       "type": "header",
       "content": "Pagination"
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination type",
+      "options": [
+        {
+          "value": "load_more",
+          "label": "Load more"
+        },
+        {
+          "value": "prev_next",
+          "label": "Previous / Next"
+        }
+      ],
+      "default": "load_more"
     },
     {
       "type": "range",
