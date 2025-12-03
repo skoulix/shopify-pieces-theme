@@ -162,9 +162,12 @@
 
   /* Metro item sizes */
   .metro-item {
+    display: block;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
   }
 
   .metro-item-image {
@@ -340,10 +343,10 @@
               endif
             -%}
 
-            <article
+            <a
+              href="{{ product_url }}"
               class="metro-item {{ item_class }}"
               data-collection-item="{{ forloop.index0 }}"
-              data-product-url="{{ product_url }}"
             >
               <div class="metro-item-inner relative overflow-hidden bg-gray-100">
                 {% if product.featured_image %}
@@ -371,7 +374,7 @@
                   </p>
                 </div>
               </div>
-            </article>
+            </a>
           {% endfor %}
         </div>
 
@@ -729,15 +732,6 @@
     runHeaderAnimation();
     initScrollAnimations();
 
-    // Navigate to product page
-    function navigateToProduct(url) {
-      if (window.pieces && window.pieces.swup && window.pieces.swup.swup) {
-        window.pieces.swup.navigateTo(url, true);
-      } else {
-        window.location.href = url;
-      }
-    }
-
     // Hover effects for grid layout
     if (layoutStyle !== 'metro') {
       items.forEach((item) => {
@@ -781,136 +775,6 @@
         });
       });
     }
-
-    // Click handler - animate out then navigate (direct element version)
-    function handleItemClickDirect(e, clickedItem) {
-      // For metro items, prevent default since they're article elements
-      if (layoutStyle === 'metro') {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-
-      if (isAnimating) return;
-      isAnimating = true;
-
-      const productUrl = clickedItem.dataset.productUrl;
-
-      wrapper.classList.add('is-transitioning');
-
-      // Lock scroll
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.setProperty('--scrollbar-width', scrollbarWidth + 'px');
-
-      if (window.pieces && window.pieces.lenis) {
-        window.pieces.lenis.stop();
-      }
-      document.documentElement.classList.add('scroll-locked');
-
-      const tl = gsap.timeline({
-        onComplete: () => navigateToProduct(productUrl)
-      });
-
-      // Animate out header title + count
-      const headerSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden > span');
-      tl.to(headerSpans, {
-        yPercent: -100,
-        duration: 0.5,
-        ease: 'power4.in',
-        stagger: 0.02
-      }, 0);
-
-      const headerDesc = wrapper.querySelector('.collection-header-description');
-      if (headerDesc) {
-        tl.to(headerDesc, {
-          opacity: 0,
-          y: -20,
-          duration: 0.4,
-          ease: 'power4.in'
-        }, 0);
-      }
-
-      // Animate out "Showing X products" text
-      const productsShowing = wrapper.querySelector('[data-products-showing]');
-      if (productsShowing) {
-        tl.to(productsShowing, {
-          opacity: 0,
-          y: 20,
-          duration: 0.4,
-          ease: 'power4.in'
-        }, 0);
-      }
-
-      // Animate out Load More button
-      const loadMoreBtn = wrapper.querySelector('.load-more-btn');
-      if (loadMoreBtn) {
-        tl.to(loadMoreBtn, {
-          opacity: 0,
-          y: 20,
-          duration: 0.4,
-          ease: 'power4.in'
-        }, 0);
-      }
-
-      // Get all current items (including dynamically loaded ones)
-      const allItems = wrapper.querySelectorAll('[data-collection-item], [data-product-card]');
-      const clickedIndex = Array.from(allItems).indexOf(clickedItem);
-
-      // Animate out items based on layout style
-      if (layoutStyle === 'metro') {
-        allItems.forEach((item, index) => {
-          const inner = item.querySelector('.metro-item-inner');
-          const distance = Math.abs(index - clickedIndex);
-          const delay = distance * 0.03;
-
-          tl.to(inner, {
-            clipPath: 'inset(0 0 0 100%)',
-            duration: 0.6,
-            ease: 'power3.inOut'
-          }, delay);
-        });
-      } else {
-        allItems.forEach((item, index) => {
-          const imgWrap = item.querySelector('.product-card-image');
-          const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
-          const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
-
-          const distance = Math.abs(index - clickedIndex);
-          const delay = distance * 0.04;
-
-          // Split text reveal out for title words
-          tl.to(titleSpans, {
-            yPercent: -100,
-            stagger: 0.02,
-            duration: 0.4,
-            ease: 'power4.in'
-          }, delay);
-
-          // Split text reveal out for price
-          if (priceSpans.length) {
-            tl.to(priceSpans, {
-              yPercent: -100,
-              stagger: 0.02,
-              duration: 0.3,
-              ease: 'power4.in'
-            }, delay);
-          }
-
-          // Horizontal swipe - clip from right to left
-          if (imgWrap) {
-            tl.to(imgWrap, {
-              clipPath: 'inset(0 0 0 100%)',
-              duration: 0.6,
-              ease: 'power3.inOut'
-            }, delay + 0.05);
-          }
-        });
-      }
-    }
-
-    // Attach click handlers
-    items.forEach((item) => {
-      item.addEventListener('click', (e) => handleItemClickDirect(e, item));
-    });
 
     // Load More functionality
     function initLoadMore() {
@@ -982,9 +846,6 @@
                   animateProductCard(clone);
                 }
               });
-
-              // Attach click handler - pass the clone element directly
-              clone.addEventListener('click', (e) => handleItemClickDirect(e, clone));
 
               // Add hover effects for grid layout
               if (layoutStyle !== 'metro') {

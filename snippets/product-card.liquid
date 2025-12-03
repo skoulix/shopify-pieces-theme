@@ -25,10 +25,10 @@
   endif
 -%}
 
-<article
-  class="product-card cursor-pointer"
+<a
+  href="{{ product_url }}"
+  class="product-card block cursor-pointer no-underline text-inherit"
   data-product-card="{{ index }}"
-  data-product-url="{{ product_url }}"
 >
   <div class="product-card-image relative overflow-hidden aspect-[3/4]">
     {% if product.featured_image %}
@@ -67,4 +67,4 @@
       <span class="overflow-hidden inline-block"><span class="inline-block">{{ product.price | money }}</span></span>
     {% endif %}
   </div>
-</article>
+</a>
