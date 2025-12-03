@@ -9,8 +9,10 @@
     else
       assign container_class = 'lg:pl-8'
     endif
+    assign content_class = 'px-4 sm:px-6 lg:px-0'
   else
     assign container_class = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
+    assign content_class = ''
   endif
 -%}
 
@@ -66,11 +68,6 @@
   .iwt-image {
     aspect-ratio: {{ section.settings.image_ratio }};
     overflow: hidden;
-  }
-
-  /* Initial animation state - only when JS is ready */
-  .iwt-section[data-iwt-anim-ready] .iwt-image {
-    clip-path: inset(0 100% 0 0);
   }
 
   .iwt-image img,
@@ -200,7 +197,7 @@
     </div>
 
     {%- comment -%} Content {%- endcomment -%}
-    <div class="iwt-content max-w-2xl mx-auto" data-iwt-content>
+    <div class="iwt-content max-w-2xl lg:mx-auto {{ content_class }}" data-iwt-content>
       {% if section.settings.label != blank %}
         <span class="iwt-label" data-iwt-label>{{ section.settings.label }}</span>
       {% endif %}
@@ -279,6 +276,7 @@
       const statNumbers = section.querySelectorAll('[data-iwt-stat-number]');
 
       // Set initial states
+      if (image) gsap.set(image, { clipPath: 'inset(0 100% 0 0)' });
       if (label) gsap.set(label, { opacity: 0, y: 20 });
       if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100 });
       if (text) gsap.set(text, { opacity: 0, y: 30 });
