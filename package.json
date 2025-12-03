@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "@shopify/cli": "^3.87.4",
+    "@tailwindcss/typography": "^0.5.19",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "postcss": "^8.4.32",

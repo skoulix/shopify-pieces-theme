@@ -1,124 +1,393 @@
 {%- comment -%}
-  Blog Section - Grid with Split Text Reveal Animations
+  Blog Section - Modern Editorial Grid Layout
+  Awwwards-style design with creative typography and animations
 {%- endcomment -%}
 
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'px-4 md:px-8'
+  else
+    assign container_class = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
+  endif
+-%}
+
 <style>
-  /* Content Grid - CSS Grid with custom properties */
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
-    gap: 2rem;
+  /* Blog Hero Header */
+  .blog-hero {
+    padding: 8rem 0 4rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  @media (min-width: 640px) {
+  .blog-hero-title {
+    font-size: clamp(3rem, 12vw, 10rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    color: var(--color-text);
+  }
+
+  .blog-hero-title-line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .blog-hero-title-line:nth-child(2) {
+    margin-left: clamp(2rem, 10vw, 8rem);
+  }
+
+  .blog-hero-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-secondary);
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .blog-hero-subtitle::before {
+    content: '';
+    width: 3rem;
+    height: 1px;
+    background: var(--color-text-secondary);
+  }
+
+  /* Blog Grid - Editorial Layout */
+  .blog-grid {
+    display: grid;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
     .blog-grid {
-      grid-template-columns: repeat(var(--columns-tablet, 2), 1fr);
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
     }
   }
 
   @media (min-width: 1024px) {
     .blog-grid {
-      grid-template-columns: repeat(var(--columns-desktop, 3), 1fr);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
     }
   }
 
-  /* Loading state - initial hidden state for reveal */
-  .blog-wrapper.is-loading .blog-item-imgwrap {
+  /* Featured Article - First item spans full width on desktop */
+  .blog-item--featured {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 1024px) {
+    .blog-item--featured {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+  }
+
+  /* Blog Item */
+  .blog-item {
+    position: relative;
+  }
+
+  .blog-item-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-background-secondary, #f5f5f5);
+  }
+
+  .blog-item--featured .blog-item-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .blog-item:hover .blog-item-image img {
+    transform: scale(1.05);
+  }
+
+  /* Image reveal animation */
+  .blog-item-image {
     clip-path: inset(0 100% 0 0);
   }
 
-  /* Transitioning state */
-  .blog-wrapper.is-transitioning {
-    pointer-events: none;
+  /* Blog Item Content */
+  .blog-item-content {
+    padding-top: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .blog-item--featured .blog-item-content {
+      padding-top: 0;
+    }
+  }
+
+  .blog-item-category {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-item-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-item--featured .blog-item-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .blog-item-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-item--featured .blog-item-excerpt {
+    font-size: 0.9375rem;
+    -webkit-line-clamp: 4;
+  }
+
+  .blog-item-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+  }
+
+  .blog-item-date {
+    font-weight: 500;
+  }
+
+  .blog-item-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .blog-item-author::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-text-secondary);
+  }
+
+  .blog-item-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text);
+    transition: gap 0.3s ease;
+  }
+
+  .blog-item-link:hover {
+    gap: 0.75rem;
+  }
+
+  .blog-item-link i {
+    transition: transform 0.3s ease;
+  }
+
+  .blog-item-link:hover i {
+    transform: translateX(2px);
+  }
+
+  /* Pagination */
+  .blog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 4rem 0;
+  }
+
+  .blog-pagination-item {
+    min-width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .blog-pagination-item:hover {
+    border-color: var(--color-border);
+  }
+
+  .blog-pagination-item.is-active {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+
+  .blog-pagination-arrow {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+  }
+
+  .blog-pagination-arrow:hover {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-color: var(--color-primary);
+  }
+
+  /* Loading state */
+  .blog-wrapper.is-loading .blog-item-image {
+    clip-path: inset(0 100% 0 0);
   }
 </style>
 
-<section class="blog-wrapper is-loading min-h-screen bg-white" data-blog-wrapper style="--columns-desktop: 3; --columns-tablet: 2; --columns-mobile: 1;">
-  <div class="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-8">
-    <h1 class="blog-header-title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
-      {%- assign title_words = blog.title | split: ' ' -%}
-      {%- for word in title_words -%}
-        <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-      {%- endfor -%}
-    </h1>
+<section class="blog-wrapper is-loading" data-blog-wrapper>
+  {%- comment -%} Hero Header {%- endcomment -%}
+  <div class="blog-hero">
+    <div class="{{ container_class }}">
+      <h1 class="blog-hero-title">
+        {%- assign title_words = blog.title | split: ' ' -%}
+        {%- for word in title_words -%}
+          <span class="blog-hero-title-line">
+            <span class="inline-block">{{ word }}</span>
+          </span>
+        {%- endfor -%}
+      </h1>
+
+      {% if section.settings.show_article_count %}
+        <p class="blog-hero-subtitle overflow-hidden">
+          <span class="inline-block">{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span>
+        </p>
+      {% endif %}
+    </div>
   </div>
 
-  {% paginate blog.articles by 9 %}
-    <div class="blog-grid max-w-7xl mx-auto px-4 md:px-8 pb-16" data-blog-grid>
-      {% for article in blog.articles %}
-        <article
-          class="blog-item cursor-pointer"
-          data-blog-item="{{ forloop.index0 }}"
-          data-article-url="{{ article.url }}"
-        >
-          <a href="{{ article.url }}" data-no-swup class="blog-item-imgwrap block relative overflow-hidden aspect-video bg-gray-100 rounded-lg">
-            {% if article.image %}
-              {{ article.image | image_url: width: 800 | image_tag:
-                class: 'w-full h-full object-cover',
-                loading: 'lazy'
-              }}
-            {% else %}
-              <div class="w-full h-full flex items-center justify-center bg-gray-100">
-                <i class="ph ph-article text-5xl text-gray-300"></i>
+  {%- comment -%} Articles Grid {%- endcomment -%}
+  {% paginate blog.articles by section.settings.articles_per_page %}
+    <div class="{{ container_class }} pb-8">
+      <div class="blog-grid" data-blog-grid>
+        {% for article in blog.articles %}
+          <article
+            class="blog-item{% if forloop.first and section.settings.feature_first %} blog-item--featured{% endif %}"
+            data-blog-item="{{ forloop.index0 }}"
+            data-article-url="{{ article.url }}"
+          >
+            <a href="{{ article.url }}" class="blog-item-image block">
+              {% if article.image %}
+                {{ article.image | image_url: width: 1200 | image_tag:
+                  class: 'w-full h-full object-cover',
+                  loading: forloop.first | default: 'lazy',
+                  sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
+                  widths: '400, 600, 800, 1200'
+                }}
+              {% else %}
+                <div class="w-full h-full flex items-center justify-center">
+                  <i class="ph ph-article text-5xl text-gray-300"></i>
+                </div>
+              {% endif %}
+            </a>
+
+            <div class="blog-item-content">
+              {% if article.tags.size > 0 %}
+                <p class="blog-item-category overflow-hidden">
+                  <span class="inline-block">{{ article.tags.first }}</span>
+                </p>
+              {% endif %}
+
+              <h2 class="blog-item-title">
+                <a href="{{ article.url }}">
+                  {%- assign title_words = article.title | split: ' ' -%}
+                  {%- for word in title_words -%}
+                    <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
+                  {%- endfor -%}
+                </a>
+              </h2>
+
+              {% if section.settings.show_excerpt %}
+                <p class="blog-item-excerpt">
+                  {{ article.excerpt_or_content | strip_html | truncate: 160 }}
+                </p>
+              {% endif %}
+
+              <div class="blog-item-meta overflow-hidden">
+                <span class="blog-item-date inline-block">
+                  <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                    {{ article.published_at | date: '%b %d, %Y' }}
+                  </time>
+                </span>
+                {% if section.settings.show_author %}
+                  <span class="blog-item-author inline-block">{{ article.author }}</span>
+                {% endif %}
               </div>
-            {% endif %}
-          </a>
 
-          <div class="mt-4">
-            <div class="blog-item-date text-xs text-gray-500 overflow-hidden">
-              <span class="inline-block">
-                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-                  {{ article.published_at | date: '%B %d, %Y' }}
-                </time>
-              </span>
-            </div>
-
-            <h2 class="blog-item-title mt-2 text-lg font-semibold leading-6 text-gray-900">
-              {%- assign title_words = article.title | split: ' ' -%}
-              {%- for word in title_words -%}
-                <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-              {%- endfor -%}
-            </h2>
-
-            <div class="blog-item-excerpt mt-2 text-sm leading-6 text-gray-600 line-clamp-3">
-              {%- assign excerpt_words = article.excerpt_or_content | strip_html | truncate: 100 | split: ' ' -%}
-              {%- for word in excerpt_words -%}
-                <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-              {%- endfor -%}
-            </div>
-
-            <div class="blog-item-link mt-4 overflow-hidden">
-              <a href="{{ article.url }}" data-no-swup class="inline-block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-                Read more <span aria-hidden="true">→</span>
+              <a href="{{ article.url }}" class="blog-item-link overflow-hidden">
+                <span class="inline-block">Read Article</span>
+                <i class="ph ph-arrow-right"></i>
               </a>
             </div>
-          </div>
-        </article>
-      {% endfor %}
+          </article>
+        {% endfor %}
+      </div>
     </div>
 
+    {%- comment -%} Pagination {%- endcomment -%}
     {% if paginate.pages > 1 %}
-      <nav class="flex items-center justify-center gap-2 pb-16">
+      <nav class="blog-pagination {{ container_class }}">
         {% if paginate.previous %}
-          <a href="{{ paginate.previous.url }}" class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">
+          <a href="{{ paginate.previous.url }}" class="blog-pagination-arrow" aria-label="Previous page">
             <i class="ph ph-arrow-left"></i>
           </a>
         {% endif %}
 
         {% for part in paginate.parts %}
           {% if part.is_link %}
-            <a href="{{ part.url }}" class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">{{ part.title }}</a>
+            <a href="{{ part.url }}" class="blog-pagination-item">{{ part.title }}</a>
           {% else %}
             {% if part.title == paginate.current_page %}
-              <span class="px-4 py-2 text-sm bg-black text-white rounded">{{ part.title }}</span>
+              <span class="blog-pagination-item is-active">{{ part.title }}</span>
             {% else %}
-              <span class="px-4 py-2 text-sm">{{ part.title }}</span>
+              <span class="blog-pagination-item">{{ part.title }}</span>
             {% endif %}
           {% endif %}
         {% endfor %}
 
         {% if paginate.next %}
-          <a href="{{ paginate.next.url }}" class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">
+          <a href="{{ paginate.next.url }}" class="blog-pagination-arrow" aria-label="Next page">
             <i class="ph ph-arrow-right"></i>
           </a>
         {% endif %}
@@ -128,268 +397,191 @@
 </section>
 
 <script>
+/**
+ * Blog Grid Animation
+ * Awwwards-style reveal with GSAP
+ */
 (function() {
-  const wrapper = document.querySelector('[data-blog-wrapper]');
-  if (!wrapper) return;
-  if (wrapper.dataset.blogInitialized) return;
-  wrapper.dataset.blogInitialized = 'true';
+  function initBlogAnimation() {
+    const wrapper = document.querySelector('[data-blog-wrapper]');
+    if (!wrapper) return;
+    if (wrapper.dataset.blogAnimInitialized) return;
 
-  function initBlog() {
-    if (typeof gsap === 'undefined') {
-      if (window.pieces && window.pieces.gsap) {
-        window.gsap = window.pieces.gsap;
-      } else {
-        setTimeout(initBlog, 100);
-        return;
-      }
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
     }
 
+    if (!gsap) {
+      setTimeout(initBlogAnimation, 50);
+      return;
+    }
+
+    wrapper.dataset.blogAnimInitialized = 'true';
+
+    const heroTitle = wrapper.querySelectorAll('.blog-hero-title-line > span');
+    const heroSubtitle = wrapper.querySelector('.blog-hero-subtitle span');
     const blogItems = wrapper.querySelectorAll('[data-blog-item]');
-    let isAnimating = false;
 
-    // Intro reveal animation
-    function runIntroAnimation() {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          wrapper.classList.remove('is-loading');
-        }
-      });
-
-      // Split text reveal for header title
-      const headerTitleSpans = wrapper.querySelectorAll('.blog-header-title .overflow-hidden span');
-      if (headerTitleSpans.length) {
-        gsap.set(headerTitleSpans, { yPercent: 100 });
-        tl.to(headerTitleSpans, {
-          yPercent: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-          stagger: 0.1
-        }, 0);
-      }
-
-      // Animate each item with stagger
-      blogItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.blog-item-imgwrap');
-        const dateSpan = item.querySelector('.blog-item-date span');
-        const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
-        const excerptSpans = item.querySelectorAll('.blog-item-excerpt .overflow-hidden span');
-        const linkEl = item.querySelector('.blog-item-link a');
-
-        const delay = 0.3 + index * 0.08;
-
-        // Horizontal reveal - clip from left to right
-        tl.to(imgWrap, {
-          clipPath: 'inset(0 0% 0 0)',
-          duration: 0.8,
-          ease: 'power3.out'
-        }, delay);
-
-        // Split text reveal for date
-        if (dateSpan) {
-          gsap.set(dateSpan, { yPercent: 100 });
-          tl.to(dateSpan, {
-            yPercent: 0,
-            duration: 0.6,
-            ease: 'power4.out'
-          }, delay + 0.2);
-        }
-
-        // Split text reveal for title words
-        if (titleSpans.length) {
-          gsap.set(titleSpans, { yPercent: 100 });
-          tl.to(titleSpans, {
-            yPercent: 0,
-            duration: 0.8,
-            ease: 'power4.out',
-            stagger: 0.05
-          }, delay + 0.25);
-        }
-
-        // Split text reveal for excerpt words
-        if (excerptSpans.length) {
-          gsap.set(excerptSpans, { yPercent: 100 });
-          tl.to(excerptSpans, {
-            yPercent: 0,
-            duration: 0.6,
-            ease: 'power4.out',
-            stagger: 0.01
-          }, delay + 0.35);
-        }
-
-        // Reveal link
-        if (linkEl) {
-          gsap.set(linkEl, { yPercent: 100 });
-          tl.to(linkEl, {
-            yPercent: 0,
-            duration: 0.5,
-            ease: 'power4.out'
-          }, delay + 0.45);
-        }
-      });
+    // Set initial states
+    if (heroTitle.length) {
+      gsap.set(heroTitle, { yPercent: 100 });
+    }
+    if (heroSubtitle) {
+      gsap.set(heroSubtitle, { yPercent: 100 });
     }
 
-    // Run intro animation
-    runIntroAnimation();
+    blogItems.forEach(item => {
+      const image = item.querySelector('.blog-item-image');
+      const category = item.querySelector('.blog-item-category span');
+      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const meta = item.querySelector('.blog-item-meta');
+      const link = item.querySelector('.blog-item-link span');
 
-    // Navigate to article page with Swup (skip default animation since we have custom)
-    function navigateToArticle(url) {
-      if (window.pieces && window.pieces.swup && window.pieces.swup.swup) {
-        window.pieces.swup.navigateTo(url, true); // true = skip default animation
-      } else {
-        window.location.href = url;
-      }
-    }
-
-    // Hover effects
-    blogItems.forEach((item) => {
-      const imgWrap = item.querySelector('.blog-item-imgwrap');
-      const img = item.querySelector('.blog-item-imgwrap img');
-
-      item.addEventListener('mouseenter', () => {
-        if (isAnimating) return;
-
-        gsap.to(imgWrap, {
-          scale: 0.98,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
-
-        if (img) {
-          gsap.to(img, {
-            scale: 1.08,
-            duration: 0.5,
-            ease: 'power2.out'
-          });
-        }
-      });
-
-      item.addEventListener('mouseleave', () => {
-        if (isAnimating) return;
-
-        gsap.to(imgWrap, {
-          scale: 1,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
-
-        if (img) {
-          gsap.to(img, {
-            scale: 1,
-            duration: 0.5,
-            ease: 'power2.out'
-          });
-        }
-      });
+      if (category) gsap.set(category, { yPercent: 100 });
+      if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100 });
+      if (meta) gsap.set(meta.querySelectorAll('.inline-block'), { yPercent: 100 });
+      if (link) gsap.set(link, { yPercent: 100 });
     });
 
-    // Click handler - animate out then navigate
-    function handleItemClick(e, clickedIndex) {
-      // Always prevent default to stop Swup from intercepting anchor clicks
-      e.preventDefault();
-      e.stopPropagation();
+    // Create intro timeline
+    const tl = gsap.timeline({
+      onComplete: () => wrapper.classList.remove('is-loading')
+    });
 
-      if (isAnimating) return;
-      isAnimating = true;
-
-      const clickedItem = blogItems[clickedIndex];
-      const articleUrl = clickedItem.dataset.articleUrl;
-
-      wrapper.classList.add('is-transitioning');
-
-      // Lock scroll to prevent scrollbar jump during transition
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.setProperty('--scrollbar-width', scrollbarWidth + 'px');
-
-      if (window.pieces && window.pieces.lenis) {
-        window.pieces.lenis.stop();
-      }
-      document.documentElement.classList.add('scroll-locked');
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          navigateToArticle(articleUrl);
-        }
-      });
-
-      // Animate out header title with split text
-      const headerTitleSpans = wrapper.querySelectorAll('.blog-header-title .overflow-hidden span');
-      tl.to(headerTitleSpans, {
-        yPercent: -100,
-        duration: 0.5,
-        ease: 'power4.in',
-        stagger: 0.02
+    // Animate hero title
+    if (heroTitle.length) {
+      tl.to(heroTitle, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
       }, 0);
-
-      // Animate all items out
-      blogItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.blog-item-imgwrap');
-        const dateSpan = item.querySelector('.blog-item-date span');
-        const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
-        const excerptSpans = item.querySelectorAll('.blog-item-excerpt .overflow-hidden span');
-        const linkEl = item.querySelector('.blog-item-link a');
-
-        // Stagger based on distance from clicked item
-        const distance = Math.abs(index - clickedIndex);
-        const delay = distance * 0.04;
-
-        // Split text reveal out
-        if (dateSpan) {
-          tl.to(dateSpan, {
-            yPercent: -100,
-            duration: 0.3,
-            ease: 'power4.in'
-          }, delay);
-        }
-
-        tl.to(titleSpans, {
-          yPercent: -100,
-          stagger: 0.02,
-          duration: 0.4,
-          ease: 'power4.in'
-        }, delay);
-
-        tl.to(excerptSpans, {
-          yPercent: -100,
-          stagger: 0.005,
-          duration: 0.3,
-          ease: 'power4.in'
-        }, delay);
-
-        if (linkEl) {
-          tl.to(linkEl, {
-            yPercent: -100,
-            duration: 0.3,
-            ease: 'power4.in'
-          }, delay);
-        }
-
-        // Horizontal swipe - clip from right to left
-        tl.to(imgWrap, {
-          clipPath: 'inset(0 0 0 100%)',
-          duration: 0.6,
-          ease: 'power3.inOut'
-        }, delay + 0.05);
-      });
     }
 
-    // Attach click handlers
+    // Animate subtitle
+    if (heroSubtitle) {
+      tl.to(heroSubtitle, {
+        yPercent: 0,
+        duration: 0.8,
+        ease: 'power4.out'
+      }, 0.4);
+    }
+
+    // Animate blog items with stagger
     blogItems.forEach((item, index) => {
-      item.addEventListener('click', (e) => handleItemClick(e, index));
+      const image = item.querySelector('.blog-item-image');
+      const category = item.querySelector('.blog-item-category span');
+      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const meta = item.querySelector('.blog-item-meta');
+      const link = item.querySelector('.blog-item-link span');
+
+      const delay = 0.5 + index * 0.1;
+
+      // Image reveal
+      tl.to(image, {
+        clipPath: 'inset(0 0% 0 0)',
+        duration: 1,
+        ease: 'power3.out'
+      }, delay);
+
+      // Category
+      if (category) {
+        tl.to(category, {
+          yPercent: 0,
+          duration: 0.6,
+          ease: 'power4.out'
+        }, delay + 0.2);
+      }
+
+      // Title
+      if (titleSpans.length) {
+        tl.to(titleSpans, {
+          yPercent: 0,
+          duration: 0.8,
+          ease: 'power4.out',
+          stagger: 0.03
+        }, delay + 0.25);
+      }
+
+      // Meta
+      if (meta) {
+        tl.to(meta.querySelectorAll('.inline-block'), {
+          yPercent: 0,
+          duration: 0.6,
+          ease: 'power4.out',
+          stagger: 0.05
+        }, delay + 0.4);
+      }
+
+      // Link
+      if (link) {
+        tl.to(link, {
+          yPercent: 0,
+          duration: 0.5,
+          ease: 'power4.out'
+        }, delay + 0.5);
+      }
     });
   }
 
   // Initialize
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initBlog);
+    document.addEventListener('DOMContentLoaded', initBlogAnimation);
   } else {
-    initBlog();
+    initBlogAnimation();
   }
+
+  // Reinitialize after Swup
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initBlogAnimation);
+  });
 })();
 </script>
 
 {% schema %}
 {
   "name": "Blog",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "min": 3,
+      "max": 24,
+      "step": 3,
+      "default": 9,
+      "label": "Articles per page"
+    },
+    {
+      "type": "checkbox",
+      "id": "feature_first",
+      "default": true,
+      "label": "Feature first article"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "default": true,
+      "label": "Show excerpt"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_article_count",
+      "default": true,
+      "label": "Show article count"
+    }
+  ]
 }
 {% endschema %}

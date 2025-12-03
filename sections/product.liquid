@@ -511,6 +511,37 @@
     }
   }
 
+  /* Initial animation states - prevent flash before JS */
+  .product-gallery-main {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .product-vendor,
+  .product-title,
+  .product-price,
+  [data-shuffle-text],
+  [data-product-form],
+  [data-thumbnails],
+  [data-image-counter],
+  .product-scroll-hint {
+    opacity: 0;
+  }
+
+  /* Remove initial states when animation complete */
+  .product-hero.is-ready .product-gallery-main {
+    clip-path: none;
+  }
+
+  .product-hero.is-ready .product-vendor,
+  .product-hero.is-ready .product-title,
+  .product-hero.is-ready .product-price,
+  .product-hero.is-ready [data-shuffle-text],
+  .product-hero.is-ready [data-product-form],
+  .product-hero.is-ready [data-thumbnails],
+  .product-hero.is-ready [data-image-counter],
+  .product-hero.is-ready .product-scroll-hint {
+    opacity: 1;
+  }
 </style>
 
 <section class="product-hero" data-product-section>
@@ -822,8 +853,10 @@
     section.dataset.animInitialized = 'true';
 
     const galleryMain = section.querySelector('[data-gallery-main]');
+    const titleContainer = section.querySelector('.product-title');
     const titleLines = section.querySelectorAll('.product-title-line > span');
     const vendor = section.querySelector('.product-vendor');
+    const priceContainer = section.querySelector('.product-price');
     const priceDisplay = section.querySelector('[data-price-display]');
     const description = section.querySelector('[data-shuffle-text]');
     const form = section.querySelector('[data-product-form]');
@@ -831,15 +864,21 @@
     const counter = section.querySelector('[data-image-counter]');
     const scrollHint = section.querySelector('.product-scroll-hint');
 
-    // Set initial animation states via GSAP (not CSS class, for reliability)
+    // Set initial animation states via GSAP (overrides CSS for reliability)
     if (galleryMain) {
       gsap.set(galleryMain, { clipPath: 'inset(0 100% 0 0)' });
+    }
+    if (titleContainer) {
+      gsap.set(titleContainer, { opacity: 1 }); // Override CSS opacity: 0
     }
     if (titleLines.length) {
       gsap.set(titleLines, { yPercent: 100 });
     }
     if (vendor) {
       gsap.set(vendor, { opacity: 0, y: 20 });
+    }
+    if (priceContainer) {
+      gsap.set(priceContainer, { opacity: 1 }); // Override CSS opacity: 0
     }
     if (priceDisplay) {
       const priceSpan = priceDisplay.querySelector('.inline-block');
@@ -861,7 +900,11 @@
       gsap.set(scrollHint, { opacity: 0 });
     }
 
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete: () => {
+        section.classList.add('is-ready');
+      }
+    });
 
     // Image reveal - dramatic clip-path
     if (galleryMain) {

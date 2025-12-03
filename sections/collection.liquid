@@ -781,8 +781,8 @@
       });
     }
 
-    // Click handler - animate out then navigate
-    function handleItemClick(e, clickedIndex) {
+    // Click handler - animate out then navigate (direct element version)
+    function handleItemClickDirect(e, clickedItem) {
       // For metro items, prevent default since they're article elements
       if (layoutStyle === 'metro') {
         e.preventDefault();
@@ -792,7 +792,6 @@
       if (isAnimating) return;
       isAnimating = true;
 
-      const clickedItem = items[clickedIndex];
       const productUrl = clickedItem.dataset.productUrl;
 
       wrapper.classList.add('is-transitioning');
@@ -829,9 +828,13 @@
         }, 0);
       }
 
+      // Get all current items (including dynamically loaded ones)
+      const allItems = wrapper.querySelectorAll('[data-collection-item], [data-product-card]');
+      const clickedIndex = Array.from(allItems).indexOf(clickedItem);
+
       // Animate out items based on layout style
       if (layoutStyle === 'metro') {
-        items.forEach((item, index) => {
+        allItems.forEach((item, index) => {
           const inner = item.querySelector('.metro-item-inner');
           const distance = Math.abs(index - clickedIndex);
           const delay = distance * 0.03;
@@ -843,7 +846,7 @@
           }, delay);
         });
       } else {
-        items.forEach((item, index) => {
+        allItems.forEach((item, index) => {
           const imgWrap = item.querySelector('.product-card-image');
           const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
           const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
@@ -882,8 +885,8 @@
     }
 
     // Attach click handlers
-    items.forEach((item, index) => {
-      item.addEventListener('click', (e) => handleItemClick(e, index));
+    items.forEach((item) => {
+      item.addEventListener('click', (e) => handleItemClickDirect(e, item));
     });
 
     // Load More functionality
@@ -957,9 +960,8 @@
                 }
               });
 
-              // Attach click handler
-              const newIndex = contentContainer.querySelectorAll('[data-collection-item], [data-product-card]').length - 1;
-              clone.addEventListener('click', (e) => handleItemClick(e, newIndex));
+              // Attach click handler - pass the clone element directly
+              clone.addEventListener('click', (e) => handleItemClickDirect(e, clone));
 
               // Add hover effects for grid layout
               if (layoutStyle !== 'metro') {
