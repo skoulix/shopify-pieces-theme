@@ -164,6 +164,43 @@ class AnimationManager {
   }
 
   /**
+   * Animate a page header subtitle with line draw effect
+   * @param {GSAPTimeline} tl - GSAP timeline to add animations to
+   * @param {HTMLElement} container - Container element with data attributes
+   * @param {number} startTime - Position in timeline to start (default: 0.4)
+   */
+  animateHeaderSubtitle(tl, container, startTime = 0.4) {
+    const subtitleLine = container.querySelector('[data-subtitle-line]');
+    const subtitleText = container.querySelector('[data-subtitle-text]');
+
+    // Set initial states
+    if (subtitleLine) {
+      gsap.set(subtitleLine, { scaleX: 0 });
+    }
+    if (subtitleText) {
+      gsap.set(subtitleText, { yPercent: 100 });
+    }
+
+    // Animate line draw
+    if (subtitleLine) {
+      tl.to(subtitleLine, {
+        scaleX: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, startTime);
+    }
+
+    // Animate text reveal
+    if (subtitleText) {
+      tl.to(subtitleText, {
+        yPercent: 0,
+        duration: 0.8,
+        ease: 'power4.out'
+      }, startTime + 0.2);
+    }
+  }
+
+  /**
    * Create a hero entrance animation
    * @param {HTMLElement} container - Hero container element
    * @returns {GSAPTimeline}
