@@ -53,16 +53,13 @@
   }
 
   /* Link hover effects */
-  .featured-collection-link {
-    overflow: hidden;
-  }
-
   .featured-collection-link:hover {
     opacity: 1;
   }
 
-  .featured-collection-link:hover i {
-    transform: translateX(4px);
+  .fc-link-text-wrapper {
+    overflow: hidden;
+    display: inline-block;
   }
 
   .featured-collection-link .fc-link-text {
@@ -76,6 +73,7 @@
     position: absolute;
     left: 0;
     top: 100%;
+    white-space: nowrap;
   }
 
   .featured-collection-link:hover .fc-link-text {
@@ -129,7 +127,9 @@
 
       {% if section.settings.show_view_all and collection %}
         <a href="{{ collection.url }}" class="featured-collection-link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text] opacity-70 transition-opacity duration-300" data-fc-link>
-          <span class="fc-link-text" data-hover="{{ 'general.view_all' | t }}">{{ 'general.view_all' | t }}</span>
+          <span class="fc-link-text-wrapper">
+            <span class="fc-link-text" data-hover="{{ section.settings.view_all_text }}">{{ section.settings.view_all_text }}</span>
+          </span>
           <i class="ph ph-arrow-right transition-transform duration-300"></i>
         </a>
       {% endif %}
@@ -345,6 +345,12 @@
       "id": "show_view_all",
       "default": true,
       "label": "Show 'View All' link"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "default": "View All",
+      "label": "View all text"
     },
     {
       "type": "checkbox",

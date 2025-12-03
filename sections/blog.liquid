@@ -61,11 +61,12 @@
     gap: 1rem;
   }
 
-  .blog-hero-subtitle::before {
-    content: '';
+  .blog-hero-subtitle-line {
     width: 3rem;
     height: 1px;
     background: var(--color-text-secondary);
+    transform: scaleX(0);
+    transform-origin: left;
   }
 
   /* Blog Grid - Editorial Layout */
@@ -302,8 +303,9 @@
       </h1>
 
       {% if section.settings.show_article_count %}
-        <p class="blog-hero-subtitle overflow-hidden">
-          <span class="inline-block">{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span>
+        <p class="blog-hero-subtitle">
+          <span class="blog-hero-subtitle-line" data-subtitle-line></span>
+          <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span></span>
         </p>
       {% endif %}
     </div>
@@ -432,15 +434,19 @@
     wrapper.dataset.blogAnimInitialized = 'true';
 
     const heroTitle = wrapper.querySelectorAll('.blog-hero-title-line > span');
-    const heroSubtitle = wrapper.querySelector('.blog-hero-subtitle span');
+    const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
+    const subtitleText = wrapper.querySelector('[data-subtitle-text]');
     const blogItems = wrapper.querySelectorAll('[data-blog-item]');
 
     // Set initial states
     if (heroTitle.length) {
       gsap.set(heroTitle, { yPercent: 100 });
     }
-    if (heroSubtitle) {
-      gsap.set(heroSubtitle, { yPercent: 100 });
+    if (subtitleLine) {
+      gsap.set(subtitleLine, { scaleX: 0 });
+    }
+    if (subtitleText) {
+      gsap.set(subtitleText, { yPercent: 100 });
     }
 
     blogItems.forEach(item => {
@@ -471,13 +477,22 @@
       }, 0);
     }
 
-    // Animate subtitle
-    if (heroSubtitle) {
-      tl.to(heroSubtitle, {
+    // Animate subtitle line (draw from left)
+    if (subtitleLine) {
+      tl.to(subtitleLine, {
+        scaleX: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, 0.4);
+    }
+
+    // Animate subtitle text
+    if (subtitleText) {
+      tl.to(subtitleText, {
         yPercent: 0,
         duration: 0.8,
         ease: 'power4.out'
-      }, 0.4);
+      }, 0.6);
     }
 
     // Animate blog items with stagger

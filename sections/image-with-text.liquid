@@ -96,16 +96,13 @@
   }
 
   /* CTA hover effects */
-  .iwt-cta {
-    overflow: hidden;
-  }
-
   .iwt-cta:hover {
     opacity: 0.7;
   }
 
-  .iwt-cta:hover i {
-    transform: translateX(4px);
+  .iwt-cta-text-wrapper {
+    overflow: hidden;
+    display: inline-block;
   }
 
   .iwt-cta .iwt-cta-text {
@@ -119,6 +116,7 @@
     position: absolute;
     left: 0;
     top: 100%;
+    white-space: nowrap;
   }
 
   .iwt-cta:hover .iwt-cta-text {
@@ -196,7 +194,9 @@
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
         <a href="{{ section.settings.button_link }}" class="iwt-cta inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em] border-b border-current pb-2 transition-opacity duration-300" data-iwt-cta>
-          <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
+          <span class="iwt-cta-text-wrapper">
+            <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
+          </span>
           <i class="ph ph-arrow-right transition-transform duration-300"></i>
         </a>
       {% endif %}

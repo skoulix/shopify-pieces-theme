@@ -39,28 +39,25 @@
     }
   }
 
-  /* Header Count - requires clamp() */
-  .collection-header-count {
-    font-size: clamp(0.875rem, 1.5vw, 1.25rem);
-  }
-
-  /* Rolling counter - animation specific styles (generated via JS) */
-  .rolling-counter-digit {
-    height: 1.2em;
-    line-height: 1.2;
-    display: inline-block;
-    overflow: hidden;
-  }
-
-  .rolling-counter-column {
+  /* Header Subtitle (product count) - blog style */
+  .collection-header-subtitle {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-secondary);
+    margin-top: 2rem;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .rolling-counter-column span {
-    display: block;
-    height: 1.2em;
-    line-height: 1.2;
+  .collection-header-subtitle-line {
+    width: 3rem;
+    height: 1px;
+    background: var(--color-text-secondary);
+    transform: scaleX(0);
+    transform-origin: left;
   }
 
   /* Title line indentation - requires clamp() */
@@ -226,16 +223,17 @@
     <h1 class="collection-header-title font-bold uppercase">
       {%- assign title_words = collection.title | split: ' ' -%}
       {%- for word in title_words -%}
-        <span class="collection-header-title-line block overflow-hidden last:inline-flex last:items-baseline last:gap-[0.2em]">
+        <span class="collection-header-title-line block overflow-hidden">
           <span class="inline-block">{{ word }}</span>
-          {%- if forloop.last -%}
-            <span class="collection-header-count font-semibold uppercase tracking-[0.05em] text-[--color-text] opacity-50 whitespace-nowrap self-start pt-[0.3em] overflow-hidden">
-              <span class="inline-block">(<span class="rolling-counter inline-flex items-center" data-counter-value="{{ collection.products_count }}"></span>)</span>
-            </span>
-          {%- endif -%}
         </span>
       {%- endfor -%}
     </h1>
+
+    <p class="collection-header-subtitle">
+      <span class="collection-header-subtitle-line" data-subtitle-line></span>
+      <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}</span></span>
+    </p>
+
     {% if collection.description != blank %}
       <div class="collection-header-description mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em]" data-shuffle-text data-original-text="{{ collection.description | strip_html | escape }}">
         {{ collection.description | strip_html }}
@@ -397,7 +395,7 @@
     function runHeaderAnimation() {
       const tl = gsap.timeline();
 
-      // Header title + count split text reveal
+      // Header title split text reveal
       const headerSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden > span');
       if (headerSpans.length) {
         gsap.set(headerSpans, { yPercent: 100 });
@@ -409,40 +407,26 @@
         }, 0);
       }
 
-      // Rolling counter - slot machine style
-      const counterEl = wrapper.querySelector('.rolling-counter');
-      if (counterEl) {
-        const targetValue = parseInt(counterEl.dataset.counterValue, 10);
-        const digits = String(targetValue).split('');
+      // Subtitle line draw animation
+      const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
+      if (subtitleLine) {
+        gsap.set(subtitleLine, { scaleX: 0 });
+        tl.to(subtitleLine, {
+          scaleX: 1,
+          duration: 0.8,
+          ease: 'power3.out'
+        }, 0.4);
+      }
 
-        // Build the digit columns HTML
-        counterEl.innerHTML = digits.map((digit, i) => {
-          // Create 0-9 then repeat 0 to target for smooth landing
-          const allNums = [];
-          for (let n = 0; n <= 9; n++) allNums.push(n);
-          for (let n = 0; n <= parseInt(digit, 10); n++) allNums.push(n);
-          const spans = allNums.map(n => `<span>${n}</span>`).join('');
-
-          return `<span class="rolling-counter-digit">
-            <span class="rolling-counter-column" data-target="${digit}" data-total="${allNums.length}">
-              ${spans}
-            </span>
-          </span>`;
-        }).join('');
-
-        // Animate each digit column
-        const columns = counterEl.querySelectorAll('.rolling-counter-column');
-        columns.forEach((col, i) => {
-          const total = parseInt(col.dataset.total, 10);
-          const yOffset = -(total - 1) * 1.2; // 1.2em per digit
-
-          gsap.set(col, { y: 0 });
-          tl.to(col, {
-            y: `${yOffset}em`,
-            duration: 1.8 + (i * 0.2), // Stagger: later digits take longer
-            ease: 'expo.out',
-          }, 0.5 + (i * 0.1)); // Stagger start times
-        });
+      // Subtitle text reveal
+      const subtitleText = wrapper.querySelector('[data-subtitle-text]');
+      if (subtitleText) {
+        gsap.set(subtitleText, { yPercent: 100 });
+        tl.to(subtitleText, {
+          yPercent: 0,
+          duration: 0.8,
+          ease: 'power4.out'
+        }, 0.6);
       }
 
       // Header description - fade in with text shuffle animation
