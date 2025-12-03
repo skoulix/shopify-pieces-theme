@@ -1,5 +1,6 @@
 {%- comment -%}
-  Footer Section - Minimal Skeleton + Tailwind UI Design
+  Footer Section - Modern Awwwards-style Footer
+  ClaPat-inspired layout: Back to top (left), Copyright (center), Socials (right)
 {%- endcomment -%}
 
 {%- liquid
@@ -10,85 +11,307 @@
   endif
 -%}
 
-<footer class="bg-white border-t border-gray-200">
-  <div class="{{ container_class }} py-12">
-    <div class="flex flex-col items-center space-y-8">
+<style>
+  /* ==========================================================================
+     Footer Section - Custom CSS for animations and clamp()
+     ========================================================================== */
 
-      {%- comment -%} Navigation Links {%- endcomment -%}
-      {% if section.settings.menu != blank %}
-        <nav class="flex flex-wrap justify-center gap-x-8 gap-y-2">
-          {% for link in section.settings.menu.links %}
-            <a href="{{ link.url }}" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">
-              {{ link.title }}
-            </a>
-          {% endfor %}
-        </nav>
-      {% endif %}
+  /* Footer padding - requires clamp() */
+  .footer-section {
+    padding: clamp(4rem, 10vh, 8rem) 0 clamp(2rem, 4vh, 3rem);
+    background-color: {{ section.settings.background_color }};
+  }
 
-      {%- comment -%} Social Icons {%- endcomment -%}
+  /* Back to top - horizontal layout */
+  .footer-back-to-top {
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer-back-to-top:hover .footer-back-to-top-icon {
+    transform: translateY(-4px);
+  }
+
+  .footer-back-to-top:hover .footer-back-to-top-text span {
+    transform: translateY(-100%);
+  }
+
+  .footer-back-to-top:hover .footer-back-to-top-text span::after {
+    transform: translateY(0);
+  }
+
+  .footer-back-to-top-text {
+    overflow: hidden;
+  }
+
+  .footer-back-to-top-text span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .footer-back-to-top-text span::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    transform: translateY(0);
+  }
+
+  /* Newsletter input */
+  .footer-newsletter-input {
+    background: transparent;
+    border-color: {{ section.settings.text_color }}30;
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer-newsletter-input::placeholder {
+    color: {{ section.settings.text_color }}60;
+  }
+
+  .footer-newsletter-input:focus {
+    outline: none;
+    border-color: {{ section.settings.text_color }};
+  }
+
+  /* Links */
+  .footer-link {
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer-link:hover {
+    opacity: 0.6;
+  }
+
+  /* Social hover */
+  .footer-social-link {
+    overflow: hidden;
+  }
+
+  .footer-social-link span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .footer-social-link span::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+
+  .footer-social-link:hover span {
+    transform: translateY(-100%);
+  }
+
+  /* Divider */
+  .footer-divider {
+    background-color: {{ section.settings.text_color }}15;
+  }
+
+  /* Text colors */
+  .footer-text-primary {
+    color: {{ section.settings.text_color }};
+  }
+
+  .footer-text-secondary {
+    color: {{ section.settings.text_color }};
+    opacity: 0.5;
+  }
+</style>
+
+<footer class="footer-section" data-footer-section>
+  <div class="{{ container_class }}">
+    {%- comment -%} Upper Footer Content - Newsletter & Navigation {%- endcomment -%}
+    {% if section.settings.show_newsletter or section.blocks.size > 0 %}
+      <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12 lg:gap-8 mb-16">
+        {%- comment -%} Newsletter Section {%- endcomment -%}
+        {% if section.settings.show_newsletter %}
+          <div class="lg:max-w-md">
+            <h3 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+              {% if section.settings.newsletter_title != blank %}{{ section.settings.newsletter_title }}{% else %}{{ 'general.newsletter.label' | t }}{% endif %}
+            </h3>
+            <p class="footer-text-secondary text-sm mb-6">
+              {% if section.settings.newsletter_text != blank %}{{ section.settings.newsletter_text }}{% else %}{{ 'general.newsletter.confirmation' | t }}{% endif %}
+            </p>
+            {% form 'customer', id: 'footer-newsletter' %}
+              <div class="flex gap-3">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  placeholder="{{ 'customers.register.email' | t }}"
+                  required
+                  class="footer-newsletter-input flex-1 px-4 py-3 text-sm border transition-colors duration-300"
+                >
+                <input type="hidden" name="contact[tags]" value="newsletter">
+                <button type="submit" class="footer-text-primary px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.15em] border border-current hover:bg-current hover:text-[{{ section.settings.background_color }}] transition-all duration-300">
+                  {{ 'general.newsletter.submit' | t }}
+                </button>
+              </div>
+            {% endform %}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Navigation Columns {%- endcomment -%}
+        {% if section.blocks.size > 0 %}
+          <div class="grid grid-cols-2 md:grid-cols-{{ section.blocks.size | at_most: 4 }} gap-8">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'menu' %}
+                  <div {{ block.shopify_attributes }}>
+                    {% if block.settings.title != blank %}
+                      <h4 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                        {{ block.settings.title }}
+                      </h4>
+                    {% endif %}
+                    {% if block.settings.menu != blank %}
+                      <ul class="space-y-3">
+                        {% for link in block.settings.menu.links %}
+                          <li>
+                            <a href="{{ link.url }}" class="footer-link text-sm transition-opacity duration-300">
+                              {{ link.title }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+
+                {% when 'text' %}
+                  <div {{ block.shopify_attributes }}>
+                    {% if block.settings.title != blank %}
+                      <h4 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                        {{ block.settings.title }}
+                      </h4>
+                    {% endif %}
+                    {% if block.settings.text != blank %}
+                      <div class="footer-text-secondary text-sm leading-relaxed">
+                        {{ block.settings.text }}
+                      </div>
+                    {% endif %}
+                  </div>
+              {% endcase %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Divider {%- endcomment -%}
+    <div class="footer-divider h-px w-full mb-8"></div>
+
+    {%- comment -%} Bottom Bar - ClaPat Style: Back to Top | Copyright | Socials {%- endcomment -%}
+    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
+      {%- comment -%} Back to Top - Left {%- endcomment -%}
+      <div class="order-3 md:order-1">
+        <button
+          type="button"
+          class="footer-back-to-top group flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.15em] cursor-pointer transition-all duration-300"
+          data-back-to-top
+        >
+          <span class="footer-back-to-top-icon inline-flex items-center justify-center w-10 h-10 border border-current rounded-full transition-transform duration-300">
+            <i class="ph ph-arrow-up"></i>
+          </span>
+          <span class="footer-back-to-top-text relative">
+            <span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span>
+          </span>
+        </button>
+      </div>
+
+      {%- comment -%} Copyright - Center {%- endcomment -%}
+      <div class="order-1 md:order-2 text-center">
+        <p class="footer-text-secondary text-xs">
+          <a href="{{ routes.root_url }}" class="footer-link transition-opacity duration-300">{{ shop.name }}</a> &copy; {{ 'now' | date: '%Y' }}. {{ 'general.copyright' | t }}
+        </p>
+        {% if section.settings.show_payment_icons %}
+          <div class="flex flex-wrap justify-center gap-2 mt-4">
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag: class: 'h-5 opacity-50' }}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Social Links - Right {%- endcomment -%}
       {% if section.settings.show_social %}
-        <div class="flex gap-x-6">
-          {% if settings.social_facebook_link != blank %}
-            <a href="{{ settings.social_facebook_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">Facebook</span>
-              <i class="ph ph-facebook-logo text-xl"></i>
-            </a>
-          {% endif %}
-          {% if settings.social_instagram_link != blank %}
-            <a href="{{ settings.social_instagram_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">Instagram</span>
-              <i class="ph ph-instagram-logo text-xl"></i>
-            </a>
-          {% endif %}
-          {% if settings.social_twitter_link != blank %}
-            <a href="{{ settings.social_twitter_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">X</span>
-              <i class="ph ph-x-logo text-xl"></i>
-            </a>
-          {% endif %}
-          {% if settings.social_tiktok_link != blank %}
-            <a href="{{ settings.social_tiktok_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">TikTok</span>
-              <i class="ph ph-tiktok-logo text-xl"></i>
-            </a>
-          {% endif %}
-          {% if settings.social_youtube_link != blank %}
-            <a href="{{ settings.social_youtube_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">YouTube</span>
-              <i class="ph ph-youtube-logo text-xl"></i>
-            </a>
-          {% endif %}
-          {% if settings.social_pinterest_link != blank %}
-            <a href="{{ settings.social_pinterest_link }}" class="text-gray-400 hover:text-gray-500 transition-colors">
-              <span class="sr-only">Pinterest</span>
-              <i class="ph ph-pinterest-logo text-xl"></i>
-            </a>
-          {% endif %}
+        <div class="order-2 md:order-3">
+          <div class="flex items-center gap-6">
+            {% if settings.social_instagram_link != blank %}
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="Instagram">Instagram</span>
+              </a>
+            {% endif %}
+            {% if settings.social_facebook_link != blank %}
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="Facebook">Facebook</span>
+              </a>
+            {% endif %}
+            {% if settings.social_twitter_link != blank %}
+              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="X">X</span>
+              </a>
+            {% endif %}
+            {% if settings.social_tiktok_link != blank %}
+              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="TikTok">TikTok</span>
+              </a>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="Pinterest">Pinterest</span>
+              </a>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+                <span data-hover="YouTube">YouTube</span>
+              </a>
+            {% endif %}
+          </div>
         </div>
       {% endif %}
-
-      {%- comment -%} Payment Icons {%- endcomment -%}
-      {% if section.settings.show_payment_icons %}
-        <div class="flex flex-wrap justify-center gap-2">
-          {% for type in shop.enabled_payment_types %}
-            {{ type | payment_type_svg_tag: class: 'h-6' }}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      {%- comment -%} Copyright {%- endcomment -%}
-      <p class="text-center text-xs text-gray-500">
-        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
-      </p>
-
     </div>
+
+    {%- comment -%} Legal Links {%- endcomment -%}
+    {% if section.settings.legal_menu != blank %}
+      <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6">
+        {% for link in section.settings.legal_menu.links %}
+          <a href="{{ link.url }}" class="footer-link text-xs opacity-50 hover:opacity-100 transition-opacity duration-300">
+            {{ link.title }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </footer>
+
+<script>
+(function() {
+  const footer = document.querySelector('[data-footer-section]');
+  if (!footer || footer.dataset.footerInitialized) return;
+  footer.dataset.footerInitialized = 'true';
+
+  // Back to top functionality
+  const backToTopButtons = footer.querySelectorAll('[data-back-to-top]');
+  backToTopButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Use Lenis if available for smooth scroll
+      if (window.pieces && window.pieces.lenis) {
+        window.pieces.lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
     {
       "type": "checkbox",
       "id": "full_width",
@@ -96,14 +319,33 @@
       "label": "Full width"
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu"
+      "type": "header",
+      "content": "Newsletter"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "default": true,
+      "label": "Show newsletter signup"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter title"
+    },
+    {
+      "type": "textarea",
+      "id": "newsletter_text",
+      "label": "Newsletter text"
+    },
+    {
+      "type": "header",
+      "content": "Social & Payment"
     },
     {
       "type": "checkbox",
       "id": "show_social",
-      "label": "Show social icons",
+      "label": "Show social links",
       "default": true
     },
     {
@@ -111,6 +353,94 @@
       "id": "show_payment_icons",
       "label": "Show payment icons",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Legal"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Legal menu",
+      "info": "Privacy Policy, Terms of Service, etc."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "About"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add a description about your store, brand story, or any relevant information.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "menu",
+          "settings": {
+            "title": "Shop"
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "title": "Help"
+          }
+        },
+        {
+          "type": "menu",
+          "settings": {
+            "title": "Company"
+          }
+        }
+      ]
     }
   ]
 }
