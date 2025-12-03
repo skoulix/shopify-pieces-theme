@@ -4,9 +4,13 @@
 
 {%- liquid
   if section.settings.full_width
-    assign container_class = ''
+    if section.settings.layout == 'image_left'
+      assign container_class = 'lg:pr-8'
+    else
+      assign container_class = 'lg:pl-8'
+    endif
   else
-    assign container_class = 'max-w-7xl mx-auto'
+    assign container_class = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
   endif
 -%}
 
@@ -15,9 +19,21 @@
      Image with Text Section
      ========================================================================== */
   .iwt-section {
+    {% if section.settings.remove_padding %}
+    padding: 0 0 clamp(2rem, 5vh, 4rem) 0;
+    {% else %}
     padding: clamp(4rem, 10vh, 8rem) 0;
+    {% endif %}
     background-color: {{ section.settings.background_color }};
     overflow: hidden;
+  }
+
+  @media (min-width: 1024px) {
+    .iwt-section {
+      {% if section.settings.remove_padding %}
+      padding: 0;
+      {% endif %}
+    }
   }
 
   .iwt-container {
@@ -65,19 +81,6 @@
   }
 
   /* Content Side */
-  .iwt-content {
-    padding: 0 clamp(1rem, 4vw, 4rem);
-  }
-
-  @media (min-width: 1024px) {
-    .iwt-content {
-      max-width: 540px;
-    }
-
-    .iwt-section[data-layout="image_right"] .iwt-content {
-      margin-left: auto;
-    }
-  }
 
   .iwt-label {
     display: inline-block;
@@ -197,7 +200,7 @@
     </div>
 
     {%- comment -%} Content {%- endcomment -%}
-    <div class="iwt-content" data-iwt-content>
+    <div class="iwt-content max-w-2xl mx-auto" data-iwt-content>
       {% if section.settings.label != blank %}
         <span class="iwt-label" data-iwt-label>{{ section.settings.label }}</span>
       {% endif %}
@@ -432,8 +435,14 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "default": false,
+      "default": true,
       "label": "Full width"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_padding",
+      "default": false,
+      "label": "Remove vertical padding"
     },
     {
       "type": "header",
