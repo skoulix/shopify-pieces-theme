@@ -1,6 +1,6 @@
 {%- comment -%}
-  CSS Variables - Minimal settings for Tailwind-based theme
-  Only includes variables that can't be handled by Tailwind config
+  CSS Variables - Theme settings to CSS custom properties
+  Generates all CSS variables from theme settings for styling
 {%- endcomment -%}
 
 {%- comment -%} Font Loading {%- endcomment -%}
@@ -10,19 +10,197 @@
   {{ settings.type_header_font | font_face: font_display: 'swap' }}
 {% endstyle %}
 
-{%- comment -%} Preload primary font {%- endcomment -%}
+{%- comment -%} Preload primary fonts using link rel=preload {%- endcomment -%}
 {%- unless settings.type_body_font.system? -%}
-  {{ settings.type_body_font | font_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+  <link rel="preload" href="{{ settings.type_body_font | font_url }}" as="font" type="font/woff2" crossorigin>
 {%- endunless -%}
+{%- unless settings.type_header_font.system? -%}
+  <link rel="preload" href="{{ settings.type_header_font | font_url }}" as="font" type="font/woff2" crossorigin>
+{%- endunless -%}
+
+{%- comment -%} Shadow presets {%- endcomment -%}
+{%- liquid
+  case settings.button_shadow
+    when 'sm'
+      assign button_shadow_value = '0 1px 2px 0 rgb(0 0 0 / 0.05)'
+    when 'md'
+      assign button_shadow_value = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
+    when 'hard'
+      assign button_shadow_value = '4px 4px 0 0 ' | append: settings.color_text
+    else
+      assign button_shadow_value = 'none'
+  endcase
+
+  case settings.card_shadow
+    when 'sm'
+      assign card_shadow_value = '0 1px 2px 0 rgb(0 0 0 / 0.05)'
+    when 'md'
+      assign card_shadow_value = '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)'
+    when 'lg'
+      assign card_shadow_value = '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
+    when 'hard'
+      assign card_shadow_value = '4px 4px 0 0 ' | append: settings.color_text
+    else
+      assign card_shadow_value = 'none'
+  endcase
+
+  assign body_font_scale = settings.body_scale | divided_by: 100.0
+  assign heading_font_scale = settings.heading_scale | divided_by: 100.0
+-%}
 
 <style>
   :root {
     /* Typography */
     --font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+    --font-body-weight: {{ settings.type_body_font.weight }};
+    --font-body-style: {{ settings.type_body_font.style }};
     --font-heading: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+    --font-heading-weight: {{ settings.type_header_font.weight }};
+    --font-heading-style: {{ settings.type_header_font.style }};
+    --body-font-scale: {{ body_font_scale }};
+    --heading-font-scale: {{ heading_font_scale }};
+
+    /* Colors */
+    --color-background: {{ settings.color_background }};
+    --color-background-secondary: {{ settings.color_background_secondary }};
+    --color-text: {{ settings.color_text }};
+    --color-text-secondary: {{ settings.color_text_secondary }};
+    --color-primary: {{ settings.color_primary }};
+    --color-primary-contrast: {{ settings.color_primary_contrast }};
+    --color-border: {{ settings.color_border }};
+    --color-sale: {{ settings.color_sale }};
 
     /* Layout */
-    --page-max-width: {{ settings.page_width | default: 1280 }}px;
-    --page-padding: {{ settings.page_padding | default: 24 }}px;
+    --page-max-width: {{ settings.page_width }}px;
+    --page-padding: {{ settings.page_padding }}px;
+    --section-spacing: {{ settings.section_spacing }}px;
+
+    /* Buttons */
+    --button-radius: {{ settings.button_radius }}px;
+    --button-border-width: {{ settings.button_border_width }}px;
+    --button-shadow: {{ button_shadow_value }};
+
+    /* Cards */
+    --card-radius: {{ settings.card_radius }}px;
+    --card-border-width: {{ settings.card_border_width }}px;
+    --card-shadow: {{ card_shadow_value }};
+
+    /* Inputs */
+    --input-radius: {{ settings.input_radius }}px;
+    --input-border-width: {{ settings.input_border_width }}px;
+
+    /* Logo */
+    --logo-width: {{ settings.logo_width }}px;
+  }
+
+  /* Apply base styles */
+  html {
+    font-size: calc(1rem * var(--body-font-scale));
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: var(--font-body-weight);
+    font-style: var(--font-body-style);
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .heading {
+    font-family: var(--font-heading);
+    font-weight: var(--font-heading-weight);
+    font-style: var(--font-heading-style);
+  }
+
+  /* Heading scale */
+  h1 { font-size: calc(2.25rem * var(--heading-font-scale)); }
+  h2 { font-size: calc(1.875rem * var(--heading-font-scale)); }
+  h3 { font-size: calc(1.5rem * var(--heading-font-scale)); }
+  h4 { font-size: calc(1.25rem * var(--heading-font-scale)); }
+  h5 { font-size: calc(1.125rem * var(--heading-font-scale)); }
+  h6 { font-size: calc(1rem * var(--heading-font-scale)); }
+
+  /* Links */
+  a {
+    color: inherit;
+  }
+
+  a:hover {
+    color: var(--color-primary);
+  }
+
+  /* Buttons - Primary */
+  .btn-primary,
+  button[type="submit"]:not(.btn-secondary) {
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border: var(--button-border-width) solid var(--color-primary);
+    border-radius: var(--button-radius);
+    box-shadow: var(--button-shadow);
+  }
+
+  .btn-primary:hover,
+  button[type="submit"]:not(.btn-secondary):hover {
+    opacity: 0.9;
+  }
+
+  /* Buttons - Secondary */
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-text);
+    border: var(--button-border-width) solid var(--color-border);
+    border-radius: var(--button-radius);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-background-secondary);
+  }
+
+  /* Cards */
+  .card {
+    background-color: var(--color-background);
+    border: var(--card-border-width) solid var(--color-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+  }
+
+  /* Inputs */
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    background-color: var(--color-background);
+    border: var(--input-border-width) solid var(--color-border);
+    border-radius: var(--input-radius);
+    color: var(--color-text);
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]):focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  /* Sale prices */
+  .sale-price,
+  .price--on-sale {
+    color: var(--color-sale);
+  }
+
+  /* Secondary text */
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  /* Background utilities */
+  .bg-secondary {
+    background-color: var(--color-background-secondary);
+  }
+
+  /* Border utilities */
+  .border-theme {
+    border-color: var(--color-border);
   }
 </style>

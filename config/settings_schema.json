@@ -34,21 +34,126 @@
     ]
   },
   {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Base colors"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_background_secondary",
+        "label": "Secondary background",
+        "default": "#f9fafb",
+        "info": "Used for cards, inputs, and alternate sections"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#111827"
+      },
+      {
+        "type": "color",
+        "id": "color_text_secondary",
+        "label": "Secondary text",
+        "default": "#6b7280"
+      },
+      {
+        "type": "header",
+        "content": "Accent colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary accent",
+        "default": "#4f46e5",
+        "info": "Used for buttons, links, and highlights"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_contrast",
+        "label": "Primary contrast",
+        "default": "#ffffff",
+        "info": "Text color on primary buttons"
+      },
+      {
+        "type": "header",
+        "content": "UI colors"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#e5e7eb"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "label": "Sale",
+        "default": "#dc2626"
+      },
+      {
+        "type": "header",
+        "content": "Dark mode"
+      },
+      {
+        "type": "checkbox",
+        "id": "dark_mode_enabled",
+        "label": "Enable dark mode",
+        "default": false,
+        "info": "Enables dark mode based on system preference"
+      }
+    ]
+  },
+  {
     "name": "Typography",
     "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
       {
         "type": "font_picker",
         "id": "type_body_font",
         "default": "inter_n4",
-        "label": "Body font",
-        "info": "Used for body text throughout the theme"
+        "label": "Body font"
       },
       {
         "type": "font_picker",
         "id": "type_header_font",
         "default": "inter_n6",
-        "label": "Heading font",
-        "info": "Used for headings and titles"
+        "label": "Heading font"
+      },
+      {
+        "type": "header",
+        "content": "Scale"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Body font size"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Heading font size"
       }
     ]
   },
@@ -75,30 +180,116 @@
         "unit": "px",
         "label": "Page padding",
         "info": "Horizontal padding on mobile"
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "min": 0,
+        "max": 100,
+        "step": 10,
+        "default": 40,
+        "unit": "px",
+        "label": "Section spacing"
       }
     ]
   },
   {
-    "name": "Colors",
+    "name": "Buttons",
     "settings": [
       {
-        "type": "color",
-        "id": "color_background",
-        "label": "Background",
-        "default": "#ffffff"
+        "type": "range",
+        "id": "button_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 0,
+        "unit": "px",
+        "label": "Corner radius"
       },
       {
-        "type": "color",
-        "id": "color_text",
-        "label": "Text",
-        "default": "#111827"
+        "type": "range",
+        "id": "button_border_width",
+        "min": 0,
+        "max": 3,
+        "step": 1,
+        "default": 1,
+        "unit": "px",
+        "label": "Border width"
       },
       {
-        "type": "color",
-        "id": "color_primary",
-        "label": "Primary accent",
-        "default": "#4f46e5",
-        "info": "Used for buttons, links, and highlights"
+        "type": "select",
+        "id": "button_shadow",
+        "label": "Shadow",
+        "default": "none",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "sm", "label": "Small" },
+          { "value": "md", "label": "Medium" },
+          { "value": "hard", "label": "Hard offset" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Cards",
+    "settings": [
+      {
+        "type": "range",
+        "id": "card_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "default": 0,
+        "unit": "px",
+        "label": "Corner radius"
+      },
+      {
+        "type": "range",
+        "id": "card_border_width",
+        "min": 0,
+        "max": 3,
+        "step": 1,
+        "default": 0,
+        "unit": "px",
+        "label": "Border width"
+      },
+      {
+        "type": "select",
+        "id": "card_shadow",
+        "label": "Shadow",
+        "default": "none",
+        "options": [
+          { "value": "none", "label": "None" },
+          { "value": "sm", "label": "Small" },
+          { "value": "md", "label": "Medium" },
+          { "value": "lg", "label": "Large" },
+          { "value": "hard", "label": "Hard offset" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Inputs",
+    "settings": [
+      {
+        "type": "range",
+        "id": "input_radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "default": 0,
+        "unit": "px",
+        "label": "Corner radius"
+      },
+      {
+        "type": "range",
+        "id": "input_border_width",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 1,
+        "unit": "px",
+        "label": "Border width"
       }
     ]
   },

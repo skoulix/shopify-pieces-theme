@@ -30,7 +30,7 @@
   data-product-card="{{ index }}"
   data-product-url="{{ product_url }}"
 >
-  <div class="product-card-image relative overflow-hidden aspect-[3/4] bg-gray-100">
+  <div class="product-card-image relative overflow-hidden aspect-[3/4]">
     {% if product.featured_image %}
       {{ product.featured_image | image_url: width: 1200 | image_tag:
         class: 'w-full h-full object-cover',
@@ -40,7 +40,7 @@
         alt: product.title
       }}
     {% else %}
-      <div class="w-full h-full flex items-center justify-center bg-gray-100">
+      <div class="w-full h-full flex items-center justify-center">
         <i class="ph ph-image text-5xl text-gray-300"></i>
       </div>
     {% endif %}

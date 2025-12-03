@@ -3,6 +3,14 @@
   Integrates with Swup page transitions and Lenis smooth scroll
 {%- endcomment -%}
 
+{%- liquid
+  if section.settings.full_width
+    assign nav_class = 'px-4 md:px-8'
+  else
+    assign nav_class = 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
+  endif
+-%}
+
 <style>
   /* Active nav link styles */
   .nav-link {
@@ -28,15 +36,25 @@
     width: 100%;
   }
 
+  .nav-link:hover {
+    color: var(--color-primary);
+  }
+
   /* Mobile active state */
   .nav-link-mobile.is-active {
-    background-color: rgb(238 242 255); /* indigo-50 */
-    color: rgb(79 70 229); /* indigo-600 */
+    background-color: var(--color-background-secondary);
+    color: var(--color-primary);
+  }
+
+  /* Header styling */
+  .header {
+    background-color: var(--color-background);
+    border-color: var(--color-border);
   }
 </style>
 
-<header class="sticky top-0 z-40 bg-white border-b border-gray-200" data-header>
-  <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<header class="header sticky top-0 z-40 border-b" data-header>
+  <nav class="{{ nav_class }} flex items-center justify-between py-4">
     {%- comment -%} Logo {%- endcomment -%}
     <div class="flex lg:flex-1">
       <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
@@ -78,7 +96,8 @@
         -%}
         <a
           href="{{ link.url }}"
-          class="nav-link text-sm font-semibold leading-6 text-gray-900 hover:text-indigo-600 transition-colors{% if is_active %} is-active{% endif %}"
+          class="nav-link text-sm font-semibold leading-6 transition-colors{% if is_active %} is-active{% endif %}"
+          style="--hover-color: var(--color-primary);"
           data-nav-link
         >
           {{ link.title }}
@@ -226,6 +245,12 @@
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    },
     {
       "type": "link_list",
       "id": "menu",

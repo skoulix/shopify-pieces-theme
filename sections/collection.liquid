@@ -1,10 +1,123 @@
 {%- comment -%}
-  Collection Section - Grid with Modern Transitions
+  Collection Section - Multiple Layout Styles
+  Styles: grid, metro, parallax, creative
   Features intro/outro animations and smooth page transitions
 {%- endcomment -%}
 
+{%- liquid
+  assign layout_style = section.settings.layout_style
+  assign full_width = section.settings.full_width
+
+  if full_width
+    assign container_class = 'px-4 md:px-8'
+  else
+    assign container_class = 'max-w-7xl mx-auto px-4 md:px-8'
+  endif
+-%}
+
 <style>
-  /* Content Grid - CSS Grid with custom properties */
+  /* ==========================================================================
+     Creative Header - Staggered Giant Typography (shared across all styles)
+     ========================================================================== */
+  .collection-header {
+    position: relative;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .collection-header-title {
+    font-size: clamp(3rem, 12vw, 10rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+  }
+
+  .collection-header-title-line {
+    display: block;
+  }
+
+  .collection-header-title-line:last-child {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.2em;
+  }
+
+  .collection-header-count {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    opacity: 0.5;
+    white-space: nowrap;
+    align-self: flex-start;
+    padding-top: 0.3em;
+  }
+
+  /* Rolling counter styles */
+  .rolling-counter {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .rolling-counter-digit {
+    display: inline-block;
+    height: 1.2em;
+    overflow: hidden;
+    line-height: 1.2;
+  }
+
+  .rolling-counter-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rolling-counter-column span {
+    display: block;
+    height: 1.2em;
+    line-height: 1.2;
+  }
+
+  .collection-header-title-line:nth-child(2) {
+    margin-left: clamp(2rem, 15vw, 12rem);
+  }
+
+  .collection-header-title-line:nth-child(3) {
+    margin-left: clamp(4rem, 25vw, 20rem);
+  }
+
+  .collection-header-description {
+    margin-top: 2rem;
+    max-width: 280px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    /* Slight indent to align with the visual weight of the large title */
+    padding-left: 0.15em;
+  }
+
+  @media (max-width: 768px) {
+    .collection-header {
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+      min-height: 30vh;
+    }
+
+    .collection-header-description {
+      max-width: 100%;
+    }
+  }
+
+  /* ==========================================================================
+     Grid Layout Style
+     ========================================================================== */
   .collection-grid {
     display: grid;
     grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
@@ -23,67 +136,279 @@
     }
   }
 
-  /* Loading state - initial hidden state for reveal */
+  /* Loading state for grid */
   .collection-wrapper.is-loading .product-card-image {
     clip-path: inset(0 100% 0 0);
   }
+
+  /* ==========================================================================
+     Metro Layout Style - Bento/Asymmetric Grid
+     ========================================================================== */
+  .collection-metro {
+    display: grid;
+    grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
+    gap: 4px;
+  }
+
+  @media (min-width: 768px) {
+    .collection-metro {
+      grid-template-columns: repeat(var(--columns-tablet, 2), 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .collection-metro {
+      grid-template-columns: repeat(var(--columns-desktop, 4), 1fr);
+    }
+  }
+
+  /* Metro item sizes */
+  .metro-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .metro-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Large items span 2x2 */
+  .metro-item-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Wide items span 2x1 */
+  .metro-item-wide {
+    grid-column: span 2;
+  }
+
+  /* Tall items span 1x2 */
+  .metro-item-tall {
+    grid-row: span 2;
+  }
+
+  /* On mobile, reset to single column items */
+  @media (max-width: 767px) {
+    .metro-item-large,
+    .metro-item-wide,
+    .metro-item-tall {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+
+  /* Aspect ratios */
+  .metro-item-large .metro-item-inner,
+  .metro-item-wide .metro-item-inner {
+    aspect-ratio: 16/9;
+  }
+
+  .metro-item-tall .metro-item-inner {
+    aspect-ratio: 3/5;
+  }
+
+  .metro-item-normal .metro-item-inner {
+    aspect-ratio: 1/1;
+  }
+
+  @media (max-width: 640px) {
+    .metro-item .metro-item-inner {
+      aspect-ratio: 4/5;
+    }
+  }
+
+  /* Metro overlay */
+  .metro-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .metro-item:hover .metro-item-overlay {
+    opacity: 1;
+  }
+
+  .metro-item:hover .metro-item-image {
+    transform: scale(1.05);
+  }
+
+  /* Metro content */
+  .metro-item-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .metro-item:hover .metro-item-content {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .metro-item-title {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .metro-item-large .metro-item-title {
+    font-size: 1.5rem;
+  }
+
+  .metro-item-price {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  /* Loading state for metro */
+  .collection-wrapper.is-loading .metro-item-inner {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  /* ==========================================================================
+     Shared States
+     ========================================================================== */
+  .collection-wrapper.is-transitioning {
+    pointer-events: none;
+  }
 </style>
 
-<div class="collection-wrapper is-loading min-h-screen bg-white" data-collection-wrapper style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};">
-  {%- comment -%} Header {%- endcomment -%}
-  <header class="collection-header max-w-7xl mx-auto pt-16 pb-8 px-4 md:px-8">
-    <h1 class="collection-header-title text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight">
+<div
+  class="collection-wrapper is-loading min-h-screen"
+  data-collection-wrapper
+  data-layout-style="{{ layout_style }}"
+  style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
+>
+  {%- comment -%} Creative Header - Staggered Giant Typography {%- endcomment -%}
+  <header class="collection-header {{ container_class }}">
+    <h1 class="collection-header-title">
       {%- assign title_words = collection.title | split: ' ' -%}
       {%- for word in title_words -%}
-        <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
+        <span class="collection-header-title-line overflow-hidden">
+          <span class="inline-block">{{ word }}</span>
+          {%- if forloop.last -%}
+            <span class="collection-header-count overflow-hidden">
+              <span class="inline-block">(<span class="rolling-counter" data-counter-value="{{ collection.products_count }}"></span>)</span>
+            </span>
+          {%- endif -%}
+        </span>
       {%- endfor -%}
     </h1>
     {% if collection.description != blank %}
-      <div class="collection-header-description mt-4 text-base text-gray-600 max-w-xl">
-        {%- assign desc_words = collection.description | strip_html | split: ' ' -%}
-        {%- for word in desc_words -%}
-          <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-        {%- endfor -%}
+      <div class="collection-header-description">
+        {{ collection.description | strip_html }}
       </div>
     {% endif %}
   </header>
 
-  {%- comment -%} Product Grid {%- endcomment -%}
-  <div class="collection-grid max-w-7xl mx-auto px-4 md:px-8 pb-16" data-collection-grid>
-    {% paginate collection.products by section.settings.products_per_page %}
-      {% for product in collection.products %}
-        {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
-      {% endfor %}
+  {%- comment -%} Product Display - Conditional based on layout style {%- endcomment -%}
+  {% paginate collection.products by section.settings.products_per_page %}
 
-      {% if paginate.pages > 1 %}
-        <nav class="flex items-center justify-center gap-2 py-8" style="grid-column: 1 / -1;">
-          {% if paginate.previous %}
-            <a href="{{ paginate.previous.url }}" data-no-swup class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">
-              <i class="ph ph-arrow-left"></i>
-            </a>
-          {% endif %}
+    {% case layout_style %}
 
-          {% for part in paginate.parts %}
-            {% if part.is_link %}
-              <a href="{{ part.url }}" data-no-swup class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">{{ part.title }}</a>
-            {% else %}
-              {% if part.title == paginate.current_page %}
-                <span class="px-4 py-2 text-sm bg-black text-white rounded">{{ part.title }}</span>
-              {% else %}
-                <span class="px-4 py-2 text-sm">{{ part.title }}</span>
-              {% endif %}
-            {% endif %}
+      {% when 'metro' %}
+        {%- comment -%} Metro/Bento Grid Layout {%- endcomment -%}
+        <div class="collection-metro {{ container_class }} pb-16" data-collection-content>
+          {% for product in collection.products %}
+            {%- liquid
+              assign item_class = 'metro-item-normal'
+              assign mod = forloop.index0 | modulo: 6
+
+              if mod == 0
+                assign item_class = 'metro-item-large'
+              elsif mod == 3
+                assign item_class = 'metro-item-wide'
+              elsif mod == 4
+                assign item_class = 'metro-item-tall'
+              endif
+
+              if collection
+                assign product_url = product.url | within: collection
+              else
+                assign product_url = product.url
+              endif
+            -%}
+
+            <article
+              class="metro-item {{ item_class }}"
+              data-collection-item="{{ forloop.index0 }}"
+              data-product-url="{{ product_url }}"
+            >
+              <div class="metro-item-inner relative overflow-hidden bg-gray-100">
+                {% if product.featured_image %}
+                  {{ product.featured_image | image_url: width: 1200 | image_tag:
+                    class: 'metro-item-image',
+                    loading: 'lazy',
+                    sizes: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw',
+                    widths: '400, 600, 800, 1200'
+                  }}
+                {% else %}
+                  <div class="w-full h-full flex items-center justify-center bg-gray-100 metro-item-image">
+                    <i class="ph ph-image text-6xl text-gray-300"></i>
+                  </div>
+                {% endif %}
+
+                <div class="metro-item-overlay"></div>
+
+                <div class="metro-item-content">
+                  <h3 class="metro-item-title">{{ product.title }}</h3>
+                  <p class="metro-item-price">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="line-through opacity-60 mr-2">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                    {{ product.price | money }}
+                  </p>
+                </div>
+              </div>
+            </article>
           {% endfor %}
+        </div>
 
-          {% if paginate.next %}
-            <a href="{{ paginate.next.url }}" data-no-swup class="px-4 py-2 text-sm border border-gray-200 rounded hover:bg-gray-50 transition-colors">
-              <i class="ph ph-arrow-right"></i>
-            </a>
-          {% endif %}
-        </nav>
-      {% endif %}
-    {% endpaginate %}
-  </div>
+      {% else %}
+        {%- comment -%} Default Grid Layout {%- endcomment -%}
+        <div class="collection-grid {{ container_class }} pb-16" data-collection-content>
+          {% for product in collection.products %}
+            {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
+          {% endfor %}
+        </div>
+
+    {% endcase %}
+
+    {%- comment -%} Pagination {%- endcomment -%}
+    {% if paginate.pages > 1 %}
+      <nav class="flex items-center justify-center gap-2 py-16" style="{% if layout_style == 'grid' %}grid-column: 1 / -1;{% endif %}">
+        {% if paginate.previous %}
+          <a href="{{ paginate.previous.url }}" class="px-6 py-3 text-sm border border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
+            <i class="ph ph-arrow-left mr-2"></i>Previous
+          </a>
+        {% endif %}
+
+        <span class="px-4 py-2 text-sm text-gray-500">
+          Page {{ paginate.current_page }} of {{ paginate.pages }}
+        </span>
+
+        {% if paginate.next %}
+          <a href="{{ paginate.next.url }}" class="px-6 py-3 text-sm border border-gray-900 rounded-full hover:bg-gray-900 hover:text-white transition-colors">
+            Next<i class="ph ph-arrow-right ml-2"></i>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+
+  {% endpaginate %}
 </div>
 
 <script>
@@ -92,6 +417,8 @@
   if (!wrapper) return;
   if (wrapper.dataset.collectionInitialized) return;
   wrapper.dataset.collectionInitialized = 'true';
+
+  const layoutStyle = wrapper.dataset.layoutStyle;
 
   function initCollection() {
     if (typeof gsap === 'undefined') {
@@ -103,22 +430,21 @@
       }
     }
 
-    const contentItems = wrapper.querySelectorAll('[data-product-card]');
+    const items = wrapper.querySelectorAll('[data-collection-item], [data-product-card]');
     let isAnimating = false;
 
-    // Intro reveal animation
-    function runIntroAnimation() {
-      const tl = gsap.timeline({
-        onComplete: () => {
-          wrapper.classList.remove('is-loading');
-        }
-      });
+    // Get ScrollTrigger from pieces or window
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
 
-      // Split text reveal for header title
-      const headerTitleSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden span');
-      if (headerTitleSpans.length) {
-        gsap.set(headerTitleSpans, { yPercent: 100 });
-        tl.to(headerTitleSpans, {
+    // Header intro animation (always runs immediately)
+    function runHeaderAnimation() {
+      const tl = gsap.timeline();
+
+      // Header title + count split text reveal
+      const headerSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden > span');
+      if (headerSpans.length) {
+        gsap.set(headerSpans, { yPercent: 100 });
+        tl.to(headerSpans, {
           yPercent: 0,
           duration: 1.2,
           ease: 'power4.out',
@@ -126,122 +452,251 @@
         }, 0);
       }
 
-      // Split text reveal for header description
-      const headerDescSpans = wrapper.querySelectorAll('.collection-header-description .overflow-hidden span');
-      if (headerDescSpans.length) {
-        gsap.set(headerDescSpans, { yPercent: 100 });
-        tl.to(headerDescSpans, {
-          yPercent: 0,
-          duration: 0.8,
-          ease: 'power4.out',
-          stagger: 0.01
-        }, 0.2);
+      // Rolling counter - slot machine style
+      const counterEl = wrapper.querySelector('.rolling-counter');
+      if (counterEl) {
+        const targetValue = parseInt(counterEl.dataset.counterValue, 10);
+        const digits = String(targetValue).split('');
+
+        // Build the digit columns HTML
+        counterEl.innerHTML = digits.map((digit, i) => {
+          // Create 0-9 then repeat 0 to target for smooth landing
+          const allNums = [];
+          for (let n = 0; n <= 9; n++) allNums.push(n);
+          for (let n = 0; n <= parseInt(digit, 10); n++) allNums.push(n);
+          const spans = allNums.map(n => `<span>${n}</span>`).join('');
+
+          return `<span class="rolling-counter-digit">
+            <span class="rolling-counter-column" data-target="${digit}" data-total="${allNums.length}">
+              ${spans}
+            </span>
+          </span>`;
+        }).join('');
+
+        // Animate each digit column
+        const columns = counterEl.querySelectorAll('.rolling-counter-column');
+        columns.forEach((col, i) => {
+          const total = parseInt(col.dataset.total, 10);
+          const yOffset = -(total - 1) * 1.2; // 1.2em per digit
+
+          gsap.set(col, { y: 0 });
+          tl.to(col, {
+            y: `${yOffset}em`,
+            duration: 1.8 + (i * 0.2), // Stagger: later digits take longer
+            ease: 'expo.out',
+          }, 0.5 + (i * 0.1)); // Stagger start times
+        });
       }
 
-      // Animate each item with stagger
-      contentItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.product-card-image');
-        const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
-        const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
+      // Header description fade in
+      const headerDesc = wrapper.querySelector('.collection-header-description');
+      if (headerDesc) {
+        gsap.set(headerDesc, { opacity: 0, y: 20 });
+        tl.to(headerDesc, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out'
+        }, 0.4);
+      }
+    }
 
-        const delay = 0.3 + index * 0.08;
+    // Animate single product card when it enters viewport
+    function animateProductCard(item) {
+      const imgWrap = item.querySelector('.product-card-image');
+      const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
+      const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
 
-        // Horizontal reveal - clip from left to right
+      const tl = gsap.timeline();
+
+      // Horizontal reveal - clip from left to right
+      if (imgWrap) {
         tl.to(imgWrap, {
           clipPath: 'inset(0 0% 0 0)',
           duration: 0.8,
           ease: 'power3.out'
-        }, delay);
+        }, 0);
+      }
 
-        // Split text reveal for title words
-        if (titleSpans.length) {
-          gsap.set(titleSpans, { yPercent: 100 });
-          tl.to(titleSpans, {
-            yPercent: 0,
-            duration: 0.8,
-            ease: 'power4.out',
-            stagger: 0.05
-          }, delay + 0.2);
-        }
+      // Split text reveal for title words
+      if (titleSpans.length) {
+        tl.to(titleSpans, {
+          yPercent: 0,
+          duration: 0.8,
+          ease: 'power4.out',
+          stagger: 0.05
+        }, 0.2);
+      }
 
-        // Split text reveal for price
-        if (priceSpans.length) {
-          gsap.set(priceSpans, { yPercent: 100 });
-          tl.to(priceSpans, {
-            yPercent: 0,
-            duration: 0.6,
-            ease: 'power4.out',
-            stagger: 0.05
-          }, delay + 0.3);
-        }
-      });
+      // Split text reveal for price
+      if (priceSpans.length) {
+        tl.to(priceSpans, {
+          yPercent: 0,
+          duration: 0.6,
+          ease: 'power4.out',
+          stagger: 0.05
+        }, 0.3);
+      }
     }
 
-    // Run intro animation
-    runIntroAnimation();
+    // Animate single metro item when it enters viewport
+    function animateMetroItem(item) {
+      const inner = item.querySelector('.metro-item-inner');
+      if (inner) {
+        gsap.to(inner, {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 1,
+          ease: 'power3.out'
+        });
+      }
+    }
 
-    // Navigate to product page with Swup (skip default animation since we have custom)
+    // Set initial states and create ScrollTriggers for each item
+    function initScrollAnimations() {
+      wrapper.classList.remove('is-loading');
+
+      // Get column count for stagger calculation
+      const columnsDesktop = parseInt(wrapper.style.getPropertyValue('--columns-desktop')) || 4;
+      const columnsTablet = parseInt(wrapper.style.getPropertyValue('--columns-tablet')) || 2;
+      const columnsMobile = parseInt(wrapper.style.getPropertyValue('--columns-mobile')) || 1;
+
+      // Determine current column count based on viewport
+      function getColumnCount() {
+        if (window.innerWidth >= 1024) return columnsDesktop;
+        if (window.innerWidth >= 768) return columnsTablet;
+        return columnsMobile;
+      }
+
+      if (layoutStyle === 'metro') {
+        // Metro: Set initial clip-path and create ScrollTrigger per item
+        items.forEach((item, index) => {
+          const inner = item.querySelector('.metro-item-inner');
+          if (inner) {
+            gsap.set(inner, { clipPath: 'inset(0 100% 0 0)' });
+          }
+
+          ScrollTrigger.create({
+            trigger: item,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+              // Stagger based on column position
+              const cols = getColumnCount();
+              const colIndex = index % cols;
+              const delay = colIndex * 0.08;
+              gsap.delayedCall(delay, () => animateMetroItem(item));
+            }
+          });
+        });
+      } else {
+        // Grid: Set initial states and create ScrollTrigger per card
+        items.forEach((item, index) => {
+          const imgWrap = item.querySelector('.product-card-image');
+          const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
+          const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
+
+          // Set initial states
+          if (imgWrap) {
+            gsap.set(imgWrap, { clipPath: 'inset(0 100% 0 0)' });
+          }
+          if (titleSpans.length) {
+            gsap.set(titleSpans, { yPercent: 100 });
+          }
+          if (priceSpans.length) {
+            gsap.set(priceSpans, { yPercent: 100 });
+          }
+
+          // Create ScrollTrigger for this card
+          ScrollTrigger.create({
+            trigger: item,
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+              // Stagger based on column position
+              const cols = getColumnCount();
+              const colIndex = index % cols;
+              const delay = colIndex * 0.1;
+              gsap.delayedCall(delay, () => animateProductCard(item));
+            }
+          });
+        });
+      }
+    }
+
+    // Run animations
+    runHeaderAnimation();
+    initScrollAnimations();
+
+    // Navigate to product page
     function navigateToProduct(url) {
       if (window.pieces && window.pieces.swup && window.pieces.swup.swup) {
-        window.pieces.swup.navigateTo(url, true); // true = skip default animation
+        window.pieces.swup.navigateTo(url, true);
       } else {
         window.location.href = url;
       }
     }
 
-    // Hover effects - simple and subtle
-    contentItems.forEach((item) => {
-      const imgWrap = item.querySelector('.product-card-image');
-      const img = item.querySelector('.product-card-image img');
+    // Hover effects for grid layout
+    if (layoutStyle !== 'metro') {
+      items.forEach((item) => {
+        const imgWrap = item.querySelector('.product-card-image');
+        const img = item.querySelector('.product-card-image img');
 
-      item.addEventListener('mouseenter', () => {
-        if (isAnimating) return;
+        item.addEventListener('mouseenter', () => {
+          if (isAnimating) return;
 
-        gsap.to(imgWrap, {
-          scale: 0.98,
-          duration: 0.5,
-          ease: 'power2.out'
-        });
-
-        if (img) {
-          gsap.to(img, {
-            scale: 1.08,
+          gsap.to(imgWrap, {
+            scale: 0.98,
             duration: 0.5,
             ease: 'power2.out'
           });
-        }
-      });
 
-      item.addEventListener('mouseleave', () => {
-        if (isAnimating) return;
-
-        gsap.to(imgWrap, {
-          scale: 1,
-          duration: 0.5,
-          ease: 'power2.out'
+          if (img) {
+            gsap.to(img, {
+              scale: 1.08,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
         });
 
-        if (img) {
-          gsap.to(img, {
+        item.addEventListener('mouseleave', () => {
+          if (isAnimating) return;
+
+          gsap.to(imgWrap, {
             scale: 1,
             duration: 0.5,
             ease: 'power2.out'
           });
-        }
+
+          if (img) {
+            gsap.to(img, {
+              scale: 1,
+              duration: 0.5,
+              ease: 'power2.out'
+            });
+          }
+        });
       });
-    });
+    }
 
     // Click handler - animate out then navigate
-    function handleItemClick(clickedIndex) {
+    function handleItemClick(e, clickedIndex) {
+      // For metro items, prevent default since they're article elements
+      if (layoutStyle === 'metro') {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
       if (isAnimating) return;
       isAnimating = true;
 
-      const clickedItem = contentItems[clickedIndex];
+      const clickedItem = items[clickedIndex];
       const productUrl = clickedItem.dataset.productUrl;
 
       wrapper.classList.add('is-transitioning');
 
-      // Lock scroll to prevent scrollbar jump during transition
+      // Lock scroll
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.setProperty('--scrollbar-width', scrollbarWidth + 'px');
 
@@ -251,77 +706,99 @@
       document.documentElement.classList.add('scroll-locked');
 
       const tl = gsap.timeline({
-        onComplete: () => {
-          navigateToProduct(productUrl);
-        }
+        onComplete: () => navigateToProduct(productUrl)
       });
 
-      // Animate out header title with split text
-      const headerTitleSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden span');
-      tl.to(headerTitleSpans, {
+      // Animate out header title + count
+      const headerSpans = wrapper.querySelectorAll('.collection-header-title .overflow-hidden > span');
+      tl.to(headerSpans, {
         yPercent: -100,
         duration: 0.5,
         ease: 'power4.in',
         stagger: 0.02
       }, 0);
 
-      // Animate out header description with split text
-      const headerDescSpans = wrapper.querySelectorAll('.collection-header-description .overflow-hidden span');
-      if (headerDescSpans.length) {
-        tl.to(headerDescSpans, {
-          yPercent: -100,
+      const headerDesc = wrapper.querySelector('.collection-header-description');
+      if (headerDesc) {
+        tl.to(headerDesc, {
+          opacity: 0,
+          y: -20,
           duration: 0.4,
-          ease: 'power4.in',
-          stagger: 0.005
+          ease: 'power4.in'
         }, 0);
       }
 
-      // Animate all items out
-      contentItems.forEach((item, index) => {
-        const imgWrap = item.querySelector('.product-card-image');
-        const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
-        const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
+      // Animate out items based on layout style
+      if (layoutStyle === 'metro') {
+        items.forEach((item, index) => {
+          const inner = item.querySelector('.metro-item-inner');
+          const distance = Math.abs(index - clickedIndex);
+          const delay = distance * 0.03;
 
-        // Stagger based on distance from clicked item
-        const distance = Math.abs(index - clickedIndex);
-        const delay = distance * 0.04;
+          tl.to(inner, {
+            clipPath: 'inset(0 0 0 100%)',
+            duration: 0.6,
+            ease: 'power3.inOut'
+          }, delay);
+        });
+      } else {
+        items.forEach((item, index) => {
+          const imgWrap = item.querySelector('.product-card-image');
+          const titleSpans = item.querySelectorAll('.product-card-title .overflow-hidden span');
+          const priceSpans = item.querySelectorAll('.product-card-price .overflow-hidden span');
 
-        // Split text reveal out for title words
-        tl.to(titleSpans, {
-          yPercent: -100,
-          stagger: 0.02,
-          duration: 0.4,
-          ease: 'power4.in'
-        }, delay);
+          const distance = Math.abs(index - clickedIndex);
+          const delay = distance * 0.04;
 
-        // Split text reveal out for price
-        if (priceSpans.length) {
-          tl.to(priceSpans, {
+          // Split text reveal out for title words
+          tl.to(titleSpans, {
             yPercent: -100,
             stagger: 0.02,
-            duration: 0.3,
+            duration: 0.4,
             ease: 'power4.in'
           }, delay);
-        }
 
-        // Horizontal swipe - clip from right to left
-        tl.to(imgWrap, {
-          clipPath: 'inset(0 0 0 100%)',
-          duration: 0.6,
-          ease: 'power3.inOut'
-        }, delay + 0.05);
-      });
+          // Split text reveal out for price
+          if (priceSpans.length) {
+            tl.to(priceSpans, {
+              yPercent: -100,
+              stagger: 0.02,
+              duration: 0.3,
+              ease: 'power4.in'
+            }, delay);
+          }
+
+          // Horizontal swipe - clip from right to left
+          if (imgWrap) {
+            tl.to(imgWrap, {
+              clipPath: 'inset(0 0 0 100%)',
+              duration: 0.6,
+              ease: 'power3.inOut'
+            }, delay + 0.05);
+          }
+        });
+      }
     }
 
     // Attach click handlers
-    contentItems.forEach((item, index) => {
-      item.addEventListener('click', () => handleItemClick(index));
+    items.forEach((item, index) => {
+      item.addEventListener('click', (e) => handleItemClick(e, index));
     });
 
     // Cleanup on Swup navigation
-    window.addEventListener('swup:contentReplaced', () => {
+    function cleanup() {
       isAnimating = false;
-    });
+      // Kill all ScrollTriggers associated with this collection
+      if (ScrollTrigger) {
+        ScrollTrigger.getAll().forEach(trigger => {
+          if (wrapper.contains(trigger.trigger)) {
+            trigger.kill();
+          }
+        });
+      }
+    }
+
+    window.addEventListener('swup:contentReplaced', cleanup, { once: true });
   }
 
   // Initialize
@@ -338,13 +815,41 @@
   "name": "Collection",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true,
+      "info": "Remove max-width container constraint"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid"
+        },
+        {
+          "value": "metro",
+          "label": "Metro"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "header",
+      "content": "Layout settings"
+    },
+    {
       "type": "range",
       "id": "columns_desktop",
       "min": 2,
       "max": 5,
       "step": 1,
-      "default": 3,
-      "label": "Columns on desktop"
+      "default": 4,
+      "label": "Columns on desktop",
+      "info": "For Metro style, 4 columns recommended"
     },
     {
       "type": "range",
@@ -370,6 +875,10 @@
         }
       ],
       "default": "1"
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
     },
     {
       "type": "range",
