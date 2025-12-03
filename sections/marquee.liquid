@@ -5,25 +5,20 @@
 
 <style>
   /* ==========================================================================
-     Marquee Section
+     Marquee Section - Custom CSS for animation, clamp(), and Liquid values
      ========================================================================== */
+
+  /* Section padding - requires clamp() and Liquid color */
   .marquee-section {
     padding: clamp(1.5rem, 3vh, 3rem) 0;
     background-color: {{ section.settings.background_color }};
-    overflow: hidden;
   }
 
-  .marquee-wrapper {
-    display: flex;
-    width: max-content;
-  }
-
+  /* Animation - requires Liquid dynamic speed and @keyframes */
   .marquee-content {
-    display: flex;
-    align-items: center;
     gap: clamp(2rem, 5vw, 5rem);
-    animation: marquee {{ section.settings.speed }}s linear infinite;
     padding-right: clamp(2rem, 5vw, 5rem);
+    animation: marquee {{ section.settings.speed }}s linear infinite;
   }
 
   .marquee-section[data-direction="right"] .marquee-content {
@@ -35,28 +30,20 @@
   }
 
   @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-100%);
-    }
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
   }
 
+  /* Item gap - requires clamp() */
   .marquee-item {
-    display: flex;
-    align-items: center;
     gap: clamp(2rem, 5vw, 5rem);
-    white-space: nowrap;
   }
 
+  /* Text - requires clamp() and Liquid color */
   .marquee-text {
     font-size: clamp(1.5rem, 6vw, 3rem);
-    font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.03em;
     color: {{ section.settings.text_color }};
-    line-height: 1;
   }
 
   @media (min-width: 1024px) {
@@ -71,24 +58,23 @@
     }
   }
 
+  /* Outline text - requires -webkit-text-stroke with Liquid color */
   .marquee-text.outline {
     color: transparent;
     -webkit-text-stroke: 1px {{ section.settings.text_color }};
   }
 
+  /* Separator - requires clamp() and Liquid color */
   .marquee-separator {
     width: clamp(6px, 1vw, 12px);
     height: clamp(6px, 1vw, 12px);
-    border-radius: 50%;
     background-color: {{ section.settings.text_color }};
-    opacity: 0.4;
-    flex-shrink: 0;
   }
 
+  /* Icon - requires clamp() and Liquid color */
   .marquee-icon {
     font-size: clamp(1.25rem, 3vw, 2rem);
     color: {{ section.settings.text_color }};
-    opacity: 0.6;
   }
 
   @media (min-width: 1536px) {
@@ -99,27 +85,27 @@
 </style>
 
 <section
-  class="marquee-section"
+  class="marquee-section overflow-hidden"
   data-marquee-section="{{ section.id }}"
   data-direction="{{ section.settings.direction }}"
   data-pause-on-hover="{{ section.settings.pause_on_hover }}"
 >
-  <div class="marquee-wrapper">
+  <div class="marquee-wrapper flex w-max">
     {%- comment -%} Duplicate content for seamless loop {%- endcomment -%}
     {% for i in (1..4) %}
-      <div class="marquee-content">
+      <div class="marquee-content flex items-center">
         {% for block in section.blocks %}
-          <div class="marquee-item" {{ block.shopify_attributes }}>
+          <div class="marquee-item flex items-center whitespace-nowrap" {{ block.shopify_attributes }}>
             {% case block.type %}
               {% when 'text' %}
-                <span class="marquee-text {% if block.settings.outline %}outline{% endif %}">
+                <span class="marquee-text font-bold uppercase leading-none {% if block.settings.outline %}outline{% endif %}">
                   {{ block.settings.text }}
                 </span>
               {% when 'separator' %}
                 {% if block.settings.style == 'dot' %}
-                  <span class="marquee-separator"></span>
+                  <span class="marquee-separator rounded-full opacity-40 shrink-0"></span>
                 {% elsif block.settings.style == 'icon' %}
-                  <i class="marquee-icon ph ph-{{ block.settings.icon }}"></i>
+                  <i class="marquee-icon ph ph-{{ block.settings.icon }} opacity-60"></i>
                 {% endif %}
             {% endcase %}
           </div>

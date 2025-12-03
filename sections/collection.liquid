@@ -17,21 +17,12 @@
 
 <style>
   /* ==========================================================================
-     Creative Header - Staggered Giant Typography (shared across all styles)
+     Collection Section - Custom CSS for clamp(), animations, and CSS vars
      ========================================================================== */
-  .collection-header {
-    position: relative;
-    padding-top: 6rem;
-    padding-bottom: 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
 
+  /* Header Title - requires clamp() */
   .collection-header-title {
     font-size: clamp(2.5rem, 10vw, 4.5rem);
-    font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.03em;
     line-height: 0.9;
   }
@@ -48,39 +39,17 @@
     }
   }
 
-  .collection-header-title-line {
-    display: block;
-  }
-
-  .collection-header-title-line:last-child {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.2em;
-  }
-
+  /* Header Count - requires clamp() */
   .collection-header-count {
     font-size: clamp(0.875rem, 1.5vw, 1.25rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    opacity: 0.5;
-    white-space: nowrap;
-    align-self: flex-start;
-    padding-top: 0.3em;
   }
 
-  /* Rolling counter styles */
-  .rolling-counter {
-    display: inline-flex;
-    align-items: center;
-  }
-
+  /* Rolling counter - animation specific styles (generated via JS) */
   .rolling-counter-digit {
-    display: inline-block;
     height: 1.2em;
-    overflow: hidden;
     line-height: 1.2;
+    display: inline-block;
+    overflow: hidden;
   }
 
   .rolling-counter-column {
@@ -94,6 +63,7 @@
     line-height: 1.2;
   }
 
+  /* Title line indentation - requires clamp() */
   .collection-header-title-line:nth-child(2) {
     margin-left: clamp(1.5rem, 10vw, 8rem);
   }
@@ -102,18 +72,7 @@
     margin-left: clamp(3rem, 18vw, 14rem);
   }
 
-  .collection-header-description {
-    margin-top: 2rem;
-    max-width: 380px;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    /* Slight indent to align with the visual weight of the large title */
-    padding-left: 0.15em;
-  }
-
+  /* Mobile header adjustments */
   @media (max-width: 768px) {
     .collection-header {
       padding-top: 4rem;
@@ -126,12 +85,10 @@
   }
 
   /* ==========================================================================
-     Grid Layout Style
+     Grid Layout - requires CSS custom properties
      ========================================================================== */
   .collection-grid {
-    display: grid;
     grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
-    gap: 2rem;
   }
 
   @media (min-width: 768px) {
@@ -146,18 +103,16 @@
     }
   }
 
-  /* Loading state for grid */
+  /* Loading state - animation specific */
   .collection-wrapper.is-loading .product-card-image {
     clip-path: inset(0 100% 0 0);
   }
 
   /* ==========================================================================
-     Metro Layout Style - Bento/Asymmetric Grid
+     Metro Layout - requires CSS custom properties
      ========================================================================== */
   .collection-metro {
-    display: grid;
     grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
-    gap: 4px;
   }
 
   @media (min-width: 768px) {
@@ -172,40 +127,25 @@
     }
   }
 
-  /* Metro item sizes */
-  .metro-item {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-  }
-
+  /* Metro item image transition */
   .metro-item-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Large items span 2x2 */
+  /* Metro item spanning - grid-specific */
   .metro-item-large {
     grid-column: span 2;
     grid-row: span 2;
   }
 
-  /* Wide items span 2x1 */
   .metro-item-wide {
     grid-column: span 2;
   }
 
-  /* Tall items span 1x2 */
   .metro-item-tall {
     grid-row: span 2;
   }
 
-  /* On mobile, reset to single column items */
   @media (max-width: 767px) {
     .metro-item-large,
     .metro-item-wide,
@@ -215,7 +155,7 @@
     }
   }
 
-  /* Aspect ratios */
+  /* Metro aspect ratios */
   .metro-item-large .metro-item-inner,
   .metro-item-wide .metro-item-inner {
     aspect-ratio: 16/9;
@@ -235,15 +175,12 @@
     }
   }
 
-  /* Metro overlay */
+  /* Metro overlay gradient - requires linear-gradient */
   .metro-item-overlay {
-    position: absolute;
-    inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
-    opacity: 0;
-    transition: opacity 0.5s ease;
   }
 
+  /* Metro hover states */
   .metro-item:hover .metro-item-overlay {
     opacity: 1;
   }
@@ -252,15 +189,8 @@
     transform: scale(1.05);
   }
 
-  /* Metro content */
+  /* Metro content transition */
   .metro-item-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1.5rem;
-    transform: translateY(20px);
-    opacity: 0;
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -269,31 +199,17 @@
     opacity: 1;
   }
 
-  .metro-item-title {
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
+  /* Metro large title size */
   .metro-item-large .metro-item-title {
     font-size: 1.5rem;
   }
 
-  .metro-item-price {
-    color: rgba(255,255,255,0.8);
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-
-  /* Loading state for metro */
+  /* Loading state for metro - animation specific */
   .collection-wrapper.is-loading .metro-item-inner {
     clip-path: inset(0 100% 0 0);
   }
 
-  /* ==========================================================================
-     Shared States
-     ========================================================================== */
+  /* Transition state */
   .collection-wrapper.is-transitioning {
     pointer-events: none;
   }
@@ -306,22 +222,22 @@
   style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
 >
   {%- comment -%} Creative Header - Staggered Giant Typography {%- endcomment -%}
-  <header class="collection-header {{ container_class }}">
-    <h1 class="collection-header-title">
+  <header class="collection-header relative pt-24 pb-16 flex flex-col justify-center {{ container_class }}">
+    <h1 class="collection-header-title font-bold uppercase">
       {%- assign title_words = collection.title | split: ' ' -%}
       {%- for word in title_words -%}
-        <span class="collection-header-title-line overflow-hidden">
+        <span class="collection-header-title-line block overflow-hidden last:inline-flex last:items-baseline last:gap-[0.2em]">
           <span class="inline-block">{{ word }}</span>
           {%- if forloop.last -%}
-            <span class="collection-header-count overflow-hidden">
-              <span class="inline-block">(<span class="rolling-counter" data-counter-value="{{ collection.products_count }}"></span>)</span>
+            <span class="collection-header-count font-semibold uppercase tracking-[0.05em] text-[--color-text] opacity-50 whitespace-nowrap self-start pt-[0.3em] overflow-hidden">
+              <span class="inline-block">(<span class="rolling-counter inline-flex items-center" data-counter-value="{{ collection.products_count }}"></span>)</span>
             </span>
           {%- endif -%}
         </span>
       {%- endfor -%}
     </h1>
     {% if collection.description != blank %}
-      <div class="collection-header-description" data-shuffle-text data-original-text="{{ collection.description | strip_html | escape }}">
+      <div class="collection-header-description mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em]" data-shuffle-text data-original-text="{{ collection.description | strip_html | escape }}">
         {{ collection.description | strip_html }}
       </div>
     {% endif %}
@@ -334,7 +250,7 @@
 
       {% when 'metro' %}
         {%- comment -%} Metro/Bento Grid Layout {%- endcomment -%}
-        <div class="collection-metro {{ container_class }} pb-16" data-collection-content>
+        <div class="collection-metro grid gap-1 {{ container_class }} pb-16" data-collection-content>
           {% for product in collection.products %}
             {%- liquid
               assign item_class = 'metro-item-normal'
@@ -357,28 +273,28 @@
 
             <a
               href="{{ product_url }}"
-              class="metro-item {{ item_class }}"
+              class="metro-item block relative overflow-hidden cursor-pointer no-underline text-inherit {{ item_class }}"
               data-collection-item="{{ forloop.index0 }}"
             >
               <div class="metro-item-inner relative overflow-hidden bg-gray-100">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 1200 | image_tag:
-                    class: 'metro-item-image',
+                    class: 'metro-item-image w-full h-full object-cover',
                     loading: 'lazy',
                     sizes: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw',
                     widths: '400, 600, 800, 1200'
                   }}
                 {% else %}
-                  <div class="w-full h-full flex items-center justify-center bg-gray-100 metro-item-image">
+                  <div class="metro-item-image w-full h-full flex items-center justify-center bg-gray-100">
                     <i class="ph ph-image text-6xl text-gray-300"></i>
                   </div>
                 {% endif %}
 
-                <div class="metro-item-overlay"></div>
+                <div class="metro-item-overlay absolute inset-0 opacity-0 transition-opacity duration-500"></div>
 
-                <div class="metro-item-content">
-                  <h3 class="metro-item-title">{{ product.title }}</h3>
-                  <p class="metro-item-price">
+                <div class="metro-item-content absolute bottom-0 left-0 right-0 p-6 translate-y-5 opacity-0">
+                  <h3 class="metro-item-title text-white font-semibold uppercase tracking-[0.05em]">{{ product.title }}</h3>
+                  <p class="metro-item-price text-white/80 text-sm mt-1">
                     {% if product.compare_at_price > product.price %}
                       <span class="line-through opacity-60 mr-2">{{ product.compare_at_price | money }}</span>
                     {% endif %}
@@ -392,7 +308,7 @@
 
       {% else %}
         {%- comment -%} Default Grid Layout {%- endcomment -%}
-        <div class="collection-grid {{ container_class }} pb-16" data-collection-content>
+        <div class="collection-grid grid gap-8 {{ container_class }} pb-16" data-collection-content>
           {% for product in collection.products %}
             {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
           {% endfor %}

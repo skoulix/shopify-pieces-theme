@@ -15,36 +15,24 @@
 
 <style>
   /* ==========================================================================
-     Featured Collection Section
+     Featured Collection Section - Custom CSS for clamp() and Liquid values
      ========================================================================== */
+
+  /* Section padding - requires clamp() */
   .featured-collection {
     padding: clamp(4rem, 10vh, 8rem) 0;
-    background-color: var(--color-background);
   }
 
-  /* Header */
+  /* Header margin - requires clamp() */
   .featured-collection-header {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     margin-bottom: clamp(2rem, 5vh, 4rem);
   }
 
-  @media (min-width: 768px) {
-    .featured-collection-header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-end;
-    }
-  }
-
+  /* Title - requires clamp() */
   .featured-collection-title {
     font-size: clamp(1.75rem, 7vw, 3rem);
-    font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.03em;
     line-height: 0.9;
-    color: var(--color-text);
   }
 
   @media (min-width: 1024px) {
@@ -59,51 +47,23 @@
     }
   }
 
-  .featured-collection-title-line {
-    display: block;
-    overflow: hidden;
-  }
-
+  /* Title line indent - requires clamp() */
   .featured-collection-title-line:nth-child(2) {
     margin-left: clamp(1rem, 6vw, 4rem);
   }
 
-  .featured-collection-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text);
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-  }
-
+  /* Link hover effects */
   .featured-collection-link:hover {
     opacity: 1;
-  }
-
-  .featured-collection-link i {
-    transition: transform 0.3s ease;
   }
 
   .featured-collection-link:hover i {
     transform: translateX(4px);
   }
 
-  /* Product Grid */
+  /* Grid gap and columns - requires clamp() and Liquid columns */
   .featured-collection-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: clamp(1rem, 3vw, 2rem);
-  }
-
-  @media (min-width: 768px) {
-    .featured-collection-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
   }
 
   @media (min-width: 1024px) {
@@ -112,76 +72,21 @@
     }
   }
 
-  /* Product Card */
-  .featured-product-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-  }
-
-  .featured-product-card-image {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 3/4;
-    background-color: var(--color-background-secondary, #f5f5f5);
-  }
-
-  .featured-product-card-image img,
-  .featured-product-card-image svg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-
+  /* Card hover effect */
   .featured-product-card:hover .featured-product-card-image img,
   .featured-product-card:hover .featured-product-card-image svg {
     transform: scale(1.05);
   }
-
-  .featured-product-card-title {
-    margin-top: 1rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-  }
-
-  .featured-product-card-title span {
-    display: inline-block;
-  }
-
-  .featured-product-card-price {
-    margin-top: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--color-text-secondary);
-  }
-
-  .featured-product-card-price span {
-    display: inline-block;
-  }
-
-  .featured-product-card-price .compare-price {
-    text-decoration: line-through;
-    opacity: 0.5;
-    margin-right: 0.5rem;
-  }
-
-  .featured-product-card-price .sale-price {
-    color: var(--color-error, #dc2626);
-  }
 </style>
 
 <section
-  class="featured-collection"
+  class="featured-collection bg-[--color-background]"
   data-featured-collection="{{ section.id }}"
 >
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
-    <header class="featured-collection-header">
-      <h2 class="featured-collection-title" data-fc-title>
+    <header class="featured-collection-header flex flex-col gap-4 md:flex-row md:justify-between md:items-end">
+      <h2 class="featured-collection-title font-bold uppercase text-[--color-text]" data-fc-title>
         {% if section.settings.title != blank %}
           {%- assign title_words = section.settings.title | split: ' ' -%}
           {%- for word in title_words -%}
@@ -202,48 +107,48 @@
       </h2>
 
       {% if section.settings.show_view_all and collection %}
-        <a href="{{ collection.url }}" class="featured-collection-link" data-fc-link>
+        <a href="{{ collection.url }}" class="featured-collection-link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text] opacity-70 transition-opacity duration-300" data-fc-link>
           <span>View All</span>
-          <i class="ph ph-arrow-right"></i>
+          <i class="ph ph-arrow-right transition-transform duration-300"></i>
         </a>
       {% endif %}
     </header>
 
     {%- comment -%} Product Grid {%- endcomment -%}
-    <div class="featured-collection-grid" data-fc-grid>
+    <div class="featured-collection-grid grid grid-cols-2 md:grid-cols-3" data-fc-grid>
       {% if collection != blank %}
         {% for product in collection.products limit: products_to_show %}
           <a
             href="{{ product.url | within: collection }}"
-            class="featured-product-card"
+            class="featured-product-card block no-underline text-inherit cursor-pointer"
             data-fc-card="{{ forloop.index0 }}"
           >
-            <div class="featured-product-card-image">
+            <div class="featured-product-card-image relative overflow-hidden aspect-[3/4] bg-[--color-background-secondary]">
               {% if product.featured_image %}
                 {{ product.featured_image | image_url: width: 800 | image_tag:
-                  class: 'w-full h-full object-cover',
+                  class: 'w-full h-full object-cover transition-transform duration-[600ms] ease-out',
                   loading: 'lazy',
                   sizes: '(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw',
                   widths: '300, 400, 600, 800'
                 }}
               {% else %}
-                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover transition-transform duration-[600ms] ease-out' }}
               {% endif %}
             </div>
 
-            <h3 class="featured-product-card-title overflow-hidden">
+            <h3 class="featured-product-card-title mt-4 text-xs font-semibold uppercase tracking-[0.05em] text-[--color-text] overflow-hidden">
               {%- assign title_words = product.title | split: ' ' -%}
               {%- for word in title_words -%}
-                <span>{{ word }}</span>{% unless forloop.last %} {% endunless %}
+                <span class="inline-block">{{ word }}</span>{% unless forloop.last %} {% endunless %}
               {%- endfor -%}
             </h3>
 
-            <div class="featured-product-card-price overflow-hidden">
+            <div class="featured-product-card-price mt-2 text-sm text-[--color-text-secondary] overflow-hidden">
               {% if product.compare_at_price > product.price %}
-                <span class="compare-price">{{ product.compare_at_price | money }}</span>
-                <span class="sale-price">{{ product.price | money }}</span>
+                <span class="inline-block line-through opacity-50 mr-2">{{ product.compare_at_price | money }}</span>
+                <span class="inline-block text-[--color-error]">{{ product.price | money }}</span>
               {% else %}
-                <span>{{ product.price | money }}</span>
+                <span class="inline-block">{{ product.price | money }}</span>
               {% endif %}
             </div>
           </a>
@@ -252,15 +157,15 @@
         {%- comment -%} Placeholder cards {%- endcomment -%}
         {% for i in (1..products_to_show) %}
           {%- assign placeholder_index = forloop.index | modulo: 6 | plus: 1 -%}
-          <article class="featured-product-card" data-fc-card="{{ forloop.index0 }}">
-            <div class="featured-product-card-image">
-              {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover' }}
+          <article class="featured-product-card block cursor-pointer" data-fc-card="{{ forloop.index0 }}">
+            <div class="featured-product-card-image relative overflow-hidden aspect-[3/4] bg-[--color-background-secondary]">
+              {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover transition-transform duration-[600ms] ease-out' }}
             </div>
-            <h3 class="featured-product-card-title overflow-hidden">
-              <span>Product</span> <span>{{ forloop.index }}</span>
+            <h3 class="featured-product-card-title mt-4 text-xs font-semibold uppercase tracking-[0.05em] text-[--color-text] overflow-hidden">
+              <span class="inline-block">Product</span> <span class="inline-block">{{ forloop.index }}</span>
             </h3>
-            <div class="featured-product-card-price overflow-hidden">
-              <span>$99.00</span>
+            <div class="featured-product-card-price mt-2 text-sm text-[--color-text-secondary] overflow-hidden">
+              <span class="inline-block">$99.00</span>
             </div>
           </article>
         {% endfor %}

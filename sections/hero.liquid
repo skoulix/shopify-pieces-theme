@@ -12,19 +12,11 @@
 -%}
 
 <style>
-  /* ==========================================================================
-     Hero Section Styles
-     ========================================================================== */
+  /* Hero Section - requires 100svh with fallback */
   .hero-section {
-    position: relative;
     min-height: 100svh;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    background-color: var(--color-background);
   }
 
-  /* Fallback for browsers that don't support svh */
   @supports not (min-height: 100svh) {
     .hero-section {
       min-height: 100vh;
@@ -35,13 +27,7 @@
     opacity: 0;
   }
 
-  /* Background Media */
-  .hero-media {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
+  /* Overlay gradient - requires Liquid dynamic values */
   .hero-media::after {
     content: '';
     position: absolute;
@@ -55,33 +41,14 @@
     z-index: 1;
   }
 
-  .hero-media img,
-  .hero-media video,
-  .hero-media svg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .hero-media video {
-    position: absolute;
-    inset: 0;
-  }
-
-  /* Content */
+  /* Hero Content - requires clamp() for padding */
   .hero-content {
-    position: relative;
-    z-index: 10;
-    width: 100%;
     padding-bottom: clamp(3rem, 10vh, 8rem);
-    padding-top: 8rem;
   }
 
-  /* Title Styling */
+  /* Title - requires clamp() for fluid typography and Liquid color */
   .hero-title {
     font-size: clamp(2.5rem, 12vw, 5rem);
-    font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.04em;
     line-height: 0.85;
     color: {{ section.settings.text_color }};
@@ -99,11 +66,7 @@
     }
   }
 
-  .hero-title-line {
-    display: block;
-    overflow: hidden;
-  }
-
+  /* Title line indentation - requires clamp() */
   .hero-title-line:nth-child(2) {
     margin-left: clamp(1rem, 8vw, 5rem);
   }
@@ -112,34 +75,16 @@
     margin-left: clamp(2rem, 12vw, 8rem);
   }
 
-  /* Subtitle */
+  /* Subtitle - requires clamp() and Liquid color */
   .hero-subtitle {
-    margin-top: 2rem;
-    max-width: 480px;
     font-size: clamp(0.75rem, 1.5vw, 1rem);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    line-height: 1.6;
     color: {{ section.settings.text_color }};
-    opacity: 0.8;
   }
 
-  /* CTA Button */
+  /* CTA Button - requires Liquid colors */
   .hero-cta {
-    margin-top: 3rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 2rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
     color: {{ section.settings.button_text_color }};
     background-color: {{ section.settings.button_background }};
-    border: none;
-    cursor: pointer;
-    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   .hero-cta:hover {
@@ -147,61 +92,34 @@
     opacity: 0.9;
   }
 
-  .hero-cta i {
-    font-size: 1.25em;
-    transition: transform 0.3s ease;
-  }
-
   .hero-cta:hover i {
     transform: translateX(4px);
   }
 
-  /* Scroll Indicator */
+  /* Scroll Indicator - requires Liquid color */
   .hero-scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
     color: {{ section.settings.text_color }};
-    opacity: 0.6;
-    z-index: 10;
-  }
-
-  .hero-scroll-indicator span {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    writing-mode: vertical-rl;
-  }
-
-  .hero-scroll-line {
-    width: 1px;
-    height: 60px;
-    background: currentColor;
-    transform-origin: top;
   }
 </style>
 
 <section
-  class="hero-section is-loading"
+  class="hero-section is-loading relative flex items-end overflow-hidden bg-[--color-background]"
   data-hero-section="{{ section.id }}"
 >
   {%- comment -%} Background Media {%- endcomment -%}
-  <div class="hero-media" data-hero-media>
+  <div class="hero-media absolute inset-0 z-0" data-hero-media>
     {% if section.settings.video != blank %}
       {{ section.settings.video | video_tag:
         autoplay: true,
         loop: true,
         muted: true,
         playsinline: true,
-        poster: section.settings.image
+        poster: section.settings.image,
+        class: 'w-full h-full object-cover absolute inset-0'
       }}
     {% elsif section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 2400 | image_tag:
-        class: 'hero-image',
+        class: 'w-full h-full object-cover',
         loading: 'eager',
         fetchpriority: 'high',
         sizes: '100vw',
@@ -213,16 +131,16 @@
   </div>
 
   {%- comment -%} Content {%- endcomment -%}
-  <div class="hero-content {{ container_class }}">
+  <div class="hero-content relative z-10 w-full pt-32 {{ container_class }}">
     {%- comment -%} Title {%- endcomment -%}
     {% if section.settings.title != blank %}
-      <h1 class="hero-title" data-hero-title>
+      <h1 class="hero-title font-bold uppercase" data-hero-title>
         {%- assign title_words = section.settings.title | split: ' ' -%}
         {%- assign words_per_line = section.settings.words_per_line | default: 2 -%}
         {%- for word in title_words -%}
           {%- assign word_index = forloop.index0 | modulo: words_per_line -%}
           {%- if word_index == 0 -%}
-            <span class="hero-title-line overflow-hidden">
+            <span class="hero-title-line block overflow-hidden">
           {%- endif -%}
           <span class="inline-block">{{ word }}</span>{% unless forloop.last %} {% endunless %}
           {%- assign next_index = forloop.index | modulo: words_per_line -%}
@@ -235,25 +153,25 @@
 
     {%- comment -%} Subtitle {%- endcomment -%}
     {% if section.settings.subtitle != blank %}
-      <p class="hero-subtitle" data-hero-subtitle>
+      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80" data-hero-subtitle>
         {{ section.settings.subtitle }}
       </p>
     {% endif %}
 
     {%- comment -%} CTA Button {%- endcomment -%}
     {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="hero-cta" data-hero-cta>
+      <a href="{{ section.settings.button_link }}" class="hero-cta mt-12 inline-flex items-center gap-4 py-4 px-8 text-xs font-semibold uppercase tracking-[0.15em] border-none cursor-pointer transition-all duration-300" data-hero-cta>
         <span>{{ section.settings.button_text }}</span>
-        <i class="ph ph-arrow-right"></i>
+        <i class="ph ph-arrow-right text-[1.25em] transition-transform duration-300"></i>
       </a>
     {% endif %}
   </div>
 
   {%- comment -%} Scroll Indicator {%- endcomment -%}
   {% if section.settings.show_scroll_indicator %}
-    <div class="hero-scroll-indicator" data-hero-scroll>
-      <span>Scroll</span>
-      <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-indicator absolute bottom-8 right-8 flex flex-col items-center gap-2 opacity-60 z-10" data-hero-scroll>
+      <span class="text-[0.65rem] uppercase tracking-[0.2em] [writing-mode:vertical-rl]">Scroll</span>
+      <div class="hero-scroll-line w-px h-[60px] bg-current origin-top"></div>
     </div>
   {% endif %}
 </section>

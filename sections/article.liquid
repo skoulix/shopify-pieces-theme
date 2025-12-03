@@ -12,82 +12,15 @@
 -%}
 
 <style>
-  /* Reading Progress Bar */
-  .article-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    z-index: 9999;
-    background: transparent;
-    pointer-events: none;
-  }
-
+  /* Reading Progress Bar - needs custom width animation */
   .article-progress-bar {
-    height: 100%;
-    width: 0%;
-    background: var(--color-primary);
     transition: width 0.1s ease-out;
   }
 
-  /* Article Hero */
-  .article-hero {
-    position: relative;
-    padding: 6rem 0 4rem;
-  }
-
-  .article-hero-back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text-secondary);
-    margin-bottom: 3rem;
-    transition: gap 0.3s ease;
-  }
-
-  .article-hero-back:hover {
-    gap: 0.75rem;
-  }
-
-  .article-hero-back i {
-    transition: transform 0.3s ease;
-  }
-
-  .article-hero-back:hover i {
-    transform: translateX(-2px);
-  }
-
-  .article-hero-category {
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .article-hero-category::before {
-    content: '';
-    width: 2rem;
-    height: 1px;
-    background: var(--color-text-secondary);
-  }
-
+  /* Article Hero Title - requires clamp() for fluid typography */
   .article-hero-title {
     font-size: clamp(1.75rem, 5vw, 2.75rem);
-    font-weight: 700;
-    line-height: 1.05;
     letter-spacing: -0.03em;
-    color: var(--color-text);
-    max-width: 900px;
   }
 
   @media (min-width: 1024px) {
@@ -102,65 +35,16 @@
     }
   }
 
-  .article-hero-title-line {
-    display: block;
-    overflow: hidden;
-  }
-
-  .article-hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-    font-size: 0.8125rem;
-    color: var(--color-text-secondary);
-  }
-
-  .article-hero-author {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .article-hero-author-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background: var(--color-background-secondary, #f5f5f5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--color-text);
-  }
-
-  .article-hero-author-name {
-    font-weight: 600;
-    color: var(--color-text);
-  }
-
-  .article-hero-date {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .article-hero-date::before {
+  /* Category pseudo-element */
+  .article-hero-category::before {
     content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
+    width: 2rem;
+    height: 1px;
     background: var(--color-text-secondary);
   }
 
-  .article-hero-reading-time {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
+  /* Meta dots pseudo-elements */
+  .article-hero-date::before,
   .article-hero-reading-time::before {
     content: '';
     width: 4px;
@@ -169,296 +53,89 @@
     background: var(--color-text-secondary);
   }
 
-  /* Featured Image */
-  .article-image {
-    position: relative;
-    margin: 0 auto 4rem;
-    overflow: hidden;
-    clip-path: inset(0 100% 0 0);
+  /* Back link hover animation */
+  .article-hero-back:hover {
+    gap: 0.75rem;
   }
 
-  .article-image img {
-    width: 100%;
-    height: auto;
-    display: block;
+  .article-hero-back:hover i {
+    transform: translateX(-2px);
   }
 
-  /* Article Tags */
-  .article-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 4rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--color-border);
+  /* Navigation arrow animations */
+  .article-nav-item:hover .ph-arrow-left {
+    transform: translateX(-4px);
   }
 
-  .article-tag {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.5rem 1rem;
-    background: var(--color-background-secondary, #f5f5f5);
-    color: var(--color-text-secondary);
-    transition: all 0.3s ease;
+  .article-nav-item:hover .ph-arrow-right {
+    transform: translateX(4px);
   }
 
+  /* Tag hover state */
   .article-tag:hover {
     background: var(--color-primary);
     color: var(--color-primary-contrast);
   }
 
-  /* Share Section */
-  .article-share {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .article-share-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text-secondary);
-  }
-
-  .article-share-links {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .article-share-link {
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    transition: all 0.3s ease;
-  }
-
+  /* Share link hover state */
   .article-share-link:hover {
     background: var(--color-primary);
     color: var(--color-primary-contrast);
     border-color: var(--color-primary);
   }
 
-  /* Navigation */
-  .article-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 4rem;
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .article-nav-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .article-nav-item--next {
-    text-align: right;
-    align-items: flex-end;
-  }
-
-  .article-nav-label {
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--color-text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .article-nav-item--next .article-nav-label {
-    /* Arrow comes after "Next" text naturally */
-  }
-
-  .article-nav-link {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .article-nav-label i {
-    transition: transform 0.3s ease;
-  }
-
-  .article-nav-item:hover .article-nav-label .ph-arrow-left {
-    transform: translateX(-4px);
-  }
-
-  .article-nav-item:hover .article-nav-label .ph-arrow-right {
-    transform: translateX(4px);
-  }
-
-  .article-nav-title-text {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--color-text);
-    transition: color 0.3s ease;
-  }
-
+  /* Nav title hover */
   .article-nav-link:hover .article-nav-title-text {
     color: var(--color-primary);
   }
 
-  /* Comments Section */
-  .article-comments {
-    margin-top: 6rem;
-    padding-top: 4rem;
-    border-top: 1px solid var(--color-border);
-  }
-
-  .article-comments-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-
-  .article-comment {
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .article-comment:last-child {
-    border-bottom: none;
-  }
-
-  .article-comment-header {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .article-comment-avatar {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    background: var(--color-background-secondary, #f5f5f5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 0.75rem;
-  }
-
-  .article-comment-author {
-    font-weight: 600;
-    font-size: 0.875rem;
-  }
-
-  .article-comment-date {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-  }
-
-  .article-comment-content {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-  }
-
-  /* Comment Form */
-  .article-comment-form {
-    margin-top: 3rem;
-  }
-
-  .article-comment-form-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-
-  .article-form-grid {
-    display: grid;
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 640px) {
-    .article-form-grid--2col {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .article-form-label {
-    display: block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.5rem;
-  }
-
-  .article-form-input,
-  .article-form-textarea {
-    width: 100%;
-    padding: 1rem;
-    font-size: 0.9375rem;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    transition: border-color 0.3s ease;
-  }
-
+  /* Form focus states */
   .article-form-input:focus,
   .article-form-textarea:focus {
     outline: none;
     border-color: var(--color-primary);
   }
 
-  .article-form-textarea {
-    min-height: 150px;
-    resize: vertical;
+  /* Animation states - clip-path for image reveal */
+  .article-image {
+    clip-path: inset(0 100% 0 0);
   }
 
-  /* Animation initial states */
   .article-wrapper.is-loading .article-image {
     clip-path: inset(0 100% 0 0);
   }
 </style>
 
 {%- comment -%} Reading Progress Bar {%- endcomment -%}
-<div class="article-progress" data-article-progress>
-  <div class="article-progress-bar" data-article-progress-bar></div>
+<div class="article-progress fixed top-0 left-0 w-full h-[3px] z-[9999] bg-transparent pointer-events-none" data-article-progress>
+  <div class="article-progress-bar h-full w-0 bg-[--color-primary]" data-article-progress-bar></div>
 </div>
 
 <article class="article-wrapper is-loading" data-article-wrapper>
   {%- comment -%} Hero Section {%- endcomment -%}
-  <header class="article-hero">
+  <header class="article-hero relative pt-24 pb-16">
     <div class="{{ container_class }}">
       {%- comment -%} Back Link {%- endcomment -%}
-      <a href="{{ blog.url }}" class="article-hero-back overflow-hidden">
-        <i class="ph ph-arrow-left"></i>
+      <a href="{{ blog.url }}" class="article-hero-back inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-12 transition-all duration-300 overflow-hidden">
+        <i class="ph ph-arrow-left transition-transform duration-300"></i>
         <span class="inline-block">Back to {{ blog.title }}</span>
       </a>
 
       {%- comment -%} Category {%- endcomment -%}
       {% if article.tags.size > 0 %}
-        <p class="article-hero-category overflow-hidden">
+        <p class="article-hero-category text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[--color-text-secondary] mb-6 flex items-center gap-4 overflow-hidden">
           <span class="inline-block">{{ article.tags.first }}</span>
         </p>
       {% endif %}
 
       {%- comment -%} Title {%- endcomment -%}
-      <h1 class="article-hero-title">
+      <h1 class="article-hero-title font-bold leading-[1.05] text-[--color-text] max-w-[900px]">
         {%- assign title_words = article.title | split: ' ' -%}
         {%- assign words_per_line = title_words.size | divided_by: 2 | plus: 1 -%}
         {%- for word in title_words -%}
           {%- assign word_index = forloop.index0 | modulo: words_per_line -%}
           {%- if word_index == 0 -%}
-            <span class="article-hero-title-line">
+            <span class="block overflow-hidden">
           {%- endif -%}
           <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
           {%- assign next_index = forloop.index | modulo: words_per_line -%}
@@ -469,30 +146,30 @@
       </h1>
 
       {%- comment -%} Meta {%- endcomment -%}
-      <div class="article-hero-meta" data-article-meta>
-        <div class="article-hero-author">
-          <div class="article-hero-author-avatar">
+      <div class="article-hero-meta flex flex-wrap items-center gap-6 mt-10 text-[0.8125rem] text-[--color-text-secondary]" data-article-meta>
+        <div class="article-hero-author flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-[--color-background-secondary] flex items-center justify-center font-semibold text-sm text-[--color-text]">
             {{ article.author | slice: 0 | upcase }}
           </div>
           <div>
-            <p class="article-hero-author-name">{{ article.author }}</p>
+            <p class="font-semibold text-[--color-text]">{{ article.author }}</p>
           </div>
         </div>
-        <time class="article-hero-date" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+        <time class="article-hero-date flex items-center gap-2" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
           {{ article.published_at | date: '%B %d, %Y' }}
         </time>
         {% assign words = article.content | strip_html | split: ' ' | size %}
         {% assign reading_time = words | divided_by: 200 | plus: 1 %}
-        <span class="article-hero-reading-time">{{ reading_time }} min read</span>
+        <span class="article-hero-reading-time flex items-center gap-2">{{ reading_time }} min read</span>
       </div>
     </div>
   </header>
 
   {%- comment -%} Featured Image {%- endcomment -%}
   {% if article.image %}
-    <div class="article-image {{ container_class }}">
+    <div class="article-image relative mx-auto mb-16 overflow-hidden {{ container_class }}">
       {{ article.image | image_url: width: 1600 | image_tag:
-        class: 'w-full',
+        class: 'w-full h-auto block',
         loading: 'eager',
         sizes: '100vw',
         widths: '600, 900, 1200, 1600'
@@ -509,28 +186,28 @@
 
       {%- comment -%} Tags {%- endcomment -%}
       {% if article.tags.size > 0 %}
-        <div class="article-tags">
+        <div class="article-tags flex flex-wrap gap-2 mt-16 pt-8 border-t border-[--color-border]">
           {% for tag in article.tags %}
-            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article-tag">{{ tag }}</a>
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article-tag text-[0.6875rem] font-semibold uppercase tracking-widest py-2 px-4 bg-[--color-background-secondary] text-[--color-text-secondary] transition-all duration-300">{{ tag }}</a>
           {% endfor %}
         </div>
       {% endif %}
 
       {%- comment -%} Share {%- endcomment -%}
       {% if section.settings.show_share %}
-        <div class="article-share">
-          <span class="article-share-label">Share</span>
-          <div class="article-share-links">
-            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link" aria-label="Share on Twitter">
+        <div class="article-share flex items-center gap-4 mt-8">
+          <span class="text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary]">Share</span>
+          <div class="flex gap-3">
+            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on Twitter">
               <i class="ph ph-x-logo"></i>
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="article-share-link" aria-label="Share on Facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on Facebook">
               <i class="ph ph-facebook-logo"></i>
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link" aria-label="Share on LinkedIn">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on LinkedIn">
               <i class="ph ph-linkedin-logo"></i>
             </a>
-            <button type="button" class="article-share-link" aria-label="Copy link" data-copy-link="{{ shop.url }}{{ article.url }}">
+            <button type="button" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Copy link" data-copy-link="{{ shop.url }}{{ article.url }}">
               <i class="ph ph-link"></i>
             </button>
           </div>
@@ -539,26 +216,26 @@
 
       {%- comment -%} Article Navigation {%- endcomment -%}
       {% if blog.previous_article or blog.next_article %}
-        <nav class="article-nav">
+        <nav class="article-nav grid grid-cols-2 gap-8 mt-16 pt-16 pb-16 border-t border-[--color-border]">
           {% if blog.previous_article %}
-            <a href="{{ blog.previous_article.url }}" class="article-nav-item article-nav-link">
-              <span class="article-nav-label">
-                <i class="ph ph-arrow-left"></i>
+            <a href="{{ blog.previous_article.url }}" class="article-nav-item flex flex-col gap-2 no-underline text-inherit">
+              <span class="article-nav-label text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
+                <i class="ph ph-arrow-left transition-transform duration-300"></i>
                 Previous
               </span>
-              <span class="article-nav-title-text">{{ blog.previous_article.title | truncate: 50 }}</span>
+              <span class="article-nav-title-text text-base font-semibold text-[--color-text] transition-colors duration-300">{{ blog.previous_article.title | truncate: 50 }}</span>
             </a>
           {% else %}
             <div></div>
           {% endif %}
 
           {% if blog.next_article %}
-            <a href="{{ blog.next_article.url }}" class="article-nav-item article-nav-item--next article-nav-link">
-              <span class="article-nav-label">
+            <a href="{{ blog.next_article.url }}" class="article-nav-item flex flex-col gap-2 text-right items-end no-underline text-inherit">
+              <span class="article-nav-label text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 Next
-                <i class="ph ph-arrow-right"></i>
+                <i class="ph ph-arrow-right transition-transform duration-300"></i>
               </span>
-              <span class="article-nav-title-text">{{ blog.next_article.title | truncate: 50 }}</span>
+              <span class="article-nav-title-text text-base font-semibold text-[--color-text] transition-colors duration-300">{{ blog.next_article.title | truncate: 50 }}</span>
             </a>
           {% endif %}
         </nav>
@@ -566,8 +243,8 @@
 
       {%- comment -%} Comments {%- endcomment -%}
       {% if blog.comments_enabled? %}
-        <section class="article-comments">
-          <h2 class="article-comments-title">
+        <section class="article-comments mt-24 pt-16 border-t border-[--color-border]">
+          <h2 class="text-2xl font-bold mb-8">
             Comments{% if article.comments_count > 0 %} ({{ article.comments_count }}){% endif %}
           </h2>
 
@@ -575,15 +252,15 @@
             <div class="article-comments-list">
               {% paginate article.comments by 10 %}
                 {% for comment in article.comments %}
-                  <div class="article-comment">
-                    <div class="article-comment-header">
-                      <div class="article-comment-avatar">
+                  <div class="article-comment py-6 border-b border-[--color-border] last:border-b-0">
+                    <div class="flex items-center gap-3 mb-3">
+                      <div class="w-8 h-8 rounded-full bg-[--color-background-secondary] flex items-center justify-center font-semibold text-xs">
                         {{ comment.author | slice: 0 | upcase }}
                       </div>
-                      <span class="article-comment-author">{{ comment.author }}</span>
-                      <span class="article-comment-date">{{ comment.created_at | date: '%b %d, %Y' }}</span>
+                      <span class="font-semibold text-sm">{{ comment.author }}</span>
+                      <span class="text-xs text-[--color-text-secondary]">{{ comment.created_at | date: '%b %d, %Y' }}</span>
                     </div>
-                    <div class="article-comment-content">
+                    <div class="text-[0.9375rem] leading-relaxed text-[--color-text-secondary]">
                       {{ comment.content }}
                     </div>
                   </div>
@@ -594,44 +271,44 @@
 
           {%- comment -%} Comment Form {%- endcomment -%}
           {% form 'new_comment', article %}
-            <div class="article-comment-form">
-              <h3 class="article-comment-form-title">Leave a comment</h3>
+            <div class="article-comment-form mt-12">
+              <h3 class="text-lg font-semibold mb-6">Leave a comment</h3>
 
               {{ form.errors | default_errors }}
 
-              <div class="article-form-grid">
-                <div class="article-form-grid article-form-grid--2col">
+              <div class="grid gap-6">
+                <div class="grid gap-6 sm:grid-cols-2">
                   <div>
-                    <label for="comment-author" class="article-form-label">Name</label>
+                    <label for="comment-author" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Name</label>
                     <input
                       type="text"
                       name="comment[author]"
                       id="comment-author"
                       value="{{ form.author }}"
                       required
-                      class="article-form-input"
+                      class="article-form-input w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300"
                     >
                   </div>
                   <div>
-                    <label for="comment-email" class="article-form-label">Email</label>
+                    <label for="comment-email" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Email</label>
                     <input
                       type="email"
                       name="comment[email]"
                       id="comment-email"
                       value="{{ form.email }}"
                       required
-                      class="article-form-input"
+                      class="article-form-input w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300"
                     >
                   </div>
                 </div>
 
                 <div>
-                  <label for="comment-body" class="article-form-label">Comment</label>
+                  <label for="comment-body" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Comment</label>
                   <textarea
                     name="comment[body]"
                     id="comment-body"
                     required
-                    class="article-form-textarea"
+                    class="article-form-textarea w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300 min-h-[150px] resize-y"
                   >{{ form.body }}</textarea>
                 </div>
 

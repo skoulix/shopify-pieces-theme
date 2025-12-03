@@ -18,8 +18,10 @@
 
 <style>
   /* ==========================================================================
-     Image with Text Section
+     Image with Text Section - Custom CSS for Liquid values & clamp()
      ========================================================================== */
+
+  /* Section padding - requires Liquid conditionals and clamp() */
   .iwt-section {
     {% if section.settings.remove_padding %}
     padding: 0 0 clamp(2rem, 5vh, 4rem) 0;
@@ -27,7 +29,6 @@
     padding: clamp(4rem, 10vh, 8rem) 0;
     {% endif %}
     background-color: {{ section.settings.background_color }};
-    overflow: hidden;
   }
 
   @media (min-width: 1024px) {
@@ -36,20 +37,8 @@
       padding: 0;
       {% endif %}
     }
-  }
 
-  .iwt-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-  }
-
-  @media (min-width: 1024px) {
-    .iwt-container {
-      grid-template-columns: 1fr 1fr;
-    }
-
+    /* Layout direction for image_right - requires data attribute */
     .iwt-section[data-layout="image_right"] .iwt-container {
       direction: rtl;
     }
@@ -59,45 +48,22 @@
     }
   }
 
-  /* Image Side */
-  .iwt-image-wrapper {
-    position: relative;
-    overflow: hidden;
+  /* Grid gap - requires clamp() */
+  .iwt-container {
+    gap: clamp(2rem, 5vw, 4rem);
   }
 
+  /* Image aspect ratio - requires Liquid dynamic value */
   .iwt-image {
     aspect-ratio: {{ section.settings.image_ratio }};
-    overflow: hidden;
   }
 
-  .iwt-image img,
-  .iwt-image svg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Content Side */
-
-  .iwt-label {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: {{ section.settings.text_color }};
-    opacity: 0.6;
-    margin-bottom: 1.5rem;
-  }
-
+  /* Title - requires clamp() and Liquid color */
   .iwt-title {
     font-size: clamp(1.75rem, 5vw, 2.5rem);
-    font-weight: 700;
-    text-transform: uppercase;
     letter-spacing: -0.03em;
     line-height: 0.95;
     color: {{ section.settings.text_color }};
-    margin-bottom: 1.5rem;
   }
 
   @media (min-width: 1024px) {
@@ -112,89 +78,58 @@
     }
   }
 
-  .iwt-title-line {
-    display: block;
-    overflow: hidden;
-  }
-
+  /* Title line indent - requires clamp() */
   .iwt-title-line:nth-child(2) {
     margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
+  /* Text - requires clamp() and Liquid color */
   .iwt-text {
     font-size: clamp(0.875rem, 1.5vw, 1rem);
-    line-height: 1.8;
     color: {{ section.settings.text_color }};
-    opacity: 0.8;
-    margin-bottom: 2rem;
   }
 
+  /* Label and CTA - require Liquid color */
+  .iwt-label,
   .iwt-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: {{ section.settings.text_color }};
-    border-bottom: 1px solid currentColor;
-    padding-bottom: 0.5rem;
-    transition: opacity 0.3s ease;
   }
 
+  /* CTA hover effects */
   .iwt-cta:hover {
     opacity: 0.7;
-  }
-
-  .iwt-cta i {
-    transition: transform 0.3s ease;
   }
 
   .iwt-cta:hover i {
     transform: translateX(4px);
   }
 
-  /* Stats */
+  /* Stats - requires clamp() and Liquid color */
   .iwt-stats {
-    display: flex;
     gap: clamp(2rem, 4vw, 4rem);
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid {{ section.settings.text_color }}20;
-  }
-
-  .iwt-stat {
-    overflow: hidden;
+    border-top-color: {{ section.settings.text_color }}20;
   }
 
   .iwt-stat-number {
     font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
     letter-spacing: -0.03em;
-    line-height: 1;
     color: {{ section.settings.text_color }};
   }
 
   .iwt-stat-label {
-    margin-top: 0.5rem;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: {{ section.settings.text_color }};
-    opacity: 0.6;
   }
 </style>
 
 <section
-  class="iwt-section"
+  class="iwt-section overflow-hidden"
   data-iwt-section="{{ section.id }}"
   data-layout="{{ section.settings.layout }}"
 >
-  <div class="iwt-container {{ container_class }}">
+  <div class="iwt-container grid grid-cols-1 lg:grid-cols-2 items-center {{ container_class }}">
     {%- comment -%} Image {%- endcomment -%}
-    <div class="iwt-image-wrapper">
-      <div class="iwt-image" data-iwt-image>
+    <div class="iwt-image-wrapper relative overflow-hidden">
+      <div class="iwt-image overflow-hidden" data-iwt-image>
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1200 | image_tag:
             class: 'w-full h-full object-cover',
@@ -211,11 +146,11 @@
     {%- comment -%} Content {%- endcomment -%}
     <div class="iwt-content max-w-2xl lg:mx-auto {{ content_class }}" data-iwt-content>
       {% if section.settings.label != blank %}
-        <span class="iwt-label" data-iwt-label>{{ section.settings.label }}</span>
+        <span class="iwt-label inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-6" data-iwt-label>{{ section.settings.label }}</span>
       {% endif %}
 
       {% if section.settings.title != blank %}
-        <h2 class="iwt-title" data-iwt-title>
+        <h2 class="iwt-title font-bold uppercase mb-6" data-iwt-title>
           {%- assign title_words = section.settings.title | split: ' ' -%}
           {%- assign words_per_line = 3 -%}
           {%- for word in title_words -%}
@@ -233,28 +168,28 @@
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <div class="iwt-text" data-iwt-text>
+        <div class="iwt-text leading-relaxed opacity-80 mb-8" data-iwt-text>
           {{ section.settings.text }}
         </div>
       {% endif %}
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="iwt-cta" data-iwt-cta>
+        <a href="{{ section.settings.button_link }}" class="iwt-cta inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em] border-b border-current pb-2 transition-opacity duration-300" data-iwt-cta>
           <span>{{ section.settings.button_text }}</span>
-          <i class="ph ph-arrow-right"></i>
+          <i class="ph ph-arrow-right transition-transform duration-300"></i>
         </a>
       {% endif %}
 
       {%- comment -%} Stats {%- endcomment -%}
       {% if section.blocks.size > 0 %}
-        <div class="iwt-stats" data-iwt-stats>
+        <div class="iwt-stats flex mt-12 pt-8 border-t" data-iwt-stats>
           {% for block in section.blocks %}
             {% if block.type == 'stat' %}
-              <div class="iwt-stat" {{ block.shopify_attributes }}>
-                <div class="iwt-stat-number overflow-hidden">
+              <div class="iwt-stat overflow-hidden" {{ block.shopify_attributes }}>
+                <div class="iwt-stat-number font-bold leading-none overflow-hidden">
                   <span class="inline-block" data-iwt-stat-number>{{ block.settings.number }}</span>
                 </div>
-                <div class="iwt-stat-label">{{ block.settings.label }}</div>
+                <div class="iwt-stat-label mt-2 text-[0.65rem] uppercase tracking-[0.1em] opacity-60">{{ block.settings.label }}</div>
               </div>
             {% endif %}
           {% endfor %}
