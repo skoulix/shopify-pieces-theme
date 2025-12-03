@@ -53,12 +53,33 @@
   }
 
   /* Link hover effects */
+  .featured-collection-link {
+    overflow: hidden;
+  }
+
   .featured-collection-link:hover {
     opacity: 1;
   }
 
   .featured-collection-link:hover i {
     transform: translateX(4px);
+  }
+
+  .featured-collection-link .fc-link-text {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .featured-collection-link .fc-link-text::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+
+  .featured-collection-link:hover .fc-link-text {
+    transform: translateY(-100%);
   }
 
   /* Grid gap and columns - requires clamp() and Liquid columns */
@@ -108,7 +129,7 @@
 
       {% if section.settings.show_view_all and collection %}
         <a href="{{ collection.url }}" class="featured-collection-link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text] opacity-70 transition-opacity duration-300" data-fc-link>
-          <span>View All</span>
+          <span class="fc-link-text" data-hover="{{ 'general.view_all' | t }}">{{ 'general.view_all' | t }}</span>
           <i class="ph ph-arrow-right transition-transform duration-300"></i>
         </a>
       {% endif %}

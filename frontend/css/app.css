@@ -184,6 +184,83 @@
     padding: 1.5rem 2.5rem;
     font-size: 0.875rem;
   }
+
+  /* ==========================================================================
+     Text Hover Reveal Effect
+     Usage: Add .text-hover-reveal to parent, wrap text in <span data-hover="Text">Text</span>
+     ========================================================================== */
+
+  .text-hover-reveal {
+    overflow: hidden;
+  }
+
+  .text-hover-reveal span {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .text-hover-reveal span::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+
+  .text-hover-reveal:hover span {
+    transform: translateY(-100%);
+  }
+
+  /* Link variant - for standalone link CTAs */
+  .link-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .link-cta:hover {
+    opacity: 0.7;
+  }
+
+  .link-cta i {
+    transition: transform 0.3s ease;
+  }
+
+  .link-cta:hover i {
+    transform: translateX(4px);
+  }
+
+  /* Link CTA with text hover reveal */
+  .link-cta--reveal {
+    overflow: hidden;
+  }
+
+  .link-cta--reveal .link-cta-text {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .link-cta--reveal .link-cta-text::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+  }
+
+  .link-cta--reveal:hover .link-cta-text {
+    transform: translateY(-100%);
+  }
+
+  .link-cta--reveal:hover i {
+    transform: translateX(4px);
+  }
 }
 
 /* ==========================================================================

@@ -54,21 +54,49 @@
   }
 
   /* Back link hover animation */
-  .article-hero-back:hover {
-    gap: 0.75rem;
+  .article-hero-back:hover .article-back-text span {
+    transform: translateY(-100%);
   }
 
-  .article-hero-back:hover i {
-    transform: translateX(-2px);
+  .article-back-text {
+    overflow: hidden;
   }
 
-  /* Navigation arrow animations */
-  .article-nav-item:hover .ph-arrow-left {
-    transform: translateX(-4px);
+  .article-back-text span {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s ease;
   }
 
-  .article-nav-item:hover .ph-arrow-right {
-    transform: translateX(4px);
+  .article-back-text span::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+  }
+
+  /* Navigation label text hover reveal */
+  .article-nav-item:hover .article-nav-label-text span {
+    transform: translateY(-100%);
+  }
+
+  .article-nav-label-text {
+    overflow: hidden;
+  }
+
+  .article-nav-label-text span {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s ease;
+  }
+
+  .article-nav-label-text span::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
   }
 
   /* Tag hover state */
@@ -116,9 +144,12 @@
   <header class="article-hero relative pt-24 pb-16">
     <div class="{{ container_class }}">
       {%- comment -%} Back Link {%- endcomment -%}
-      <a href="{{ blog.url }}" class="article-hero-back inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-12 transition-all duration-300 overflow-hidden">
+      {%- capture back_text -%}Back to {{ blog.title }}{%- endcapture -%}
+      <a href="{{ blog.url }}" class="article-hero-back inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-12 transition-all duration-300">
         <i class="ph ph-arrow-left transition-transform duration-300"></i>
-        <span class="inline-block">Back to {{ blog.title }}</span>
+        <span class="article-back-text">
+          <span data-hover="{{ back_text }}">{{ back_text }}</span>
+        </span>
       </a>
 
       {%- comment -%} Category {%- endcomment -%}
@@ -221,7 +252,9 @@
             <a href="{{ blog.previous_article.url }}" class="article-nav-item flex flex-col gap-2 no-underline text-inherit">
               <span class="article-nav-label text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 <i class="ph ph-arrow-left transition-transform duration-300"></i>
-                Previous
+                <span class="article-nav-label-text">
+                  <span data-hover="Previous">Previous</span>
+                </span>
               </span>
               <span class="article-nav-title-text text-base font-semibold text-[--color-text] transition-colors duration-300">{{ blog.previous_article.title | truncate: 50 }}</span>
             </a>
@@ -232,7 +265,9 @@
           {% if blog.next_article %}
             <a href="{{ blog.next_article.url }}" class="article-nav-item flex flex-col gap-2 text-right items-end no-underline text-inherit">
               <span class="article-nav-label text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
-                Next
+                <span class="article-nav-label-text">
+                  <span data-hover="Next">Next</span>
+                </span>
                 <i class="ph ph-arrow-right transition-transform duration-300"></i>
               </span>
               <span class="article-nav-title-text text-base font-semibold text-[--color-text] transition-colors duration-300">{{ blog.next_article.title | truncate: 50 }}</span>
