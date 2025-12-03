@@ -17,21 +17,23 @@
      ========================================================================== */
 
   /* Sticky reveal footer - fixed at bottom, revealed as content scrolls past */
-  .footer-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 0;
-  }
+  {% if section.settings.enable_reveal_effect %}
+    .footer-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 0;
+    }
 
-  /* Main content sits above footer and has bottom margin for reveal */
-  .site-content {
-    position: relative;
-    z-index: 1;
-    background-color: var(--color-background);
-    margin-bottom: var(--footer-height, 0px);
-  }
+    /* Main content sits above footer and has bottom margin for reveal */
+    .site-content {
+      position: relative;
+      z-index: 1;
+      background-color: var(--color-background);
+      margin-bottom: var(--footer-height, 0px);
+    }
+  {% endif %}
 
   /* Footer padding - requires clamp() */
   .footer-section {
@@ -145,12 +147,16 @@
         {%- comment -%} Newsletter Section {%- endcomment -%}
         {% if section.settings.show_newsletter %}
           <div class="lg:max-w-md">
-            <h3 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
-              {% if section.settings.newsletter_title != blank %}{{ section.settings.newsletter_title }}{% else %}{{ 'general.newsletter.label' | t }}{% endif %}
-            </h3>
-            <p class="footer-text-secondary text-sm mb-6">
-              {% if section.settings.newsletter_text != blank %}{{ section.settings.newsletter_text }}{% else %}{{ 'general.newsletter.confirmation' | t }}{% endif %}
-            </p>
+            {% if section.settings.newsletter_title != blank %}
+              <h3 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                {{ section.settings.newsletter_title }}
+              </h3>
+            {% endif %}
+            {% if section.settings.newsletter_text != blank %}
+              <p class="footer-text-secondary text-sm mb-6">
+                {{ section.settings.newsletter_text }}
+              </p>
+            {% endif %}
             {% form 'customer', id: 'footer-newsletter' %}
               <div class="flex gap-3">
                 <input
@@ -309,6 +315,7 @@
   if (!footer || footer.dataset.footerInitialized) return;
   footer.dataset.footerInitialized = 'true';
 
+  {% if section.settings.enable_reveal_effect %}
   // Calculate and set footer height for sticky reveal effect
   function updateFooterHeight() {
     if (footerWrapper) {
@@ -327,6 +334,7 @@
   window.addEventListener('swup:contentReplaced', () => {
     requestAnimationFrame(updateFooterHeight);
   });
+  {% endif %}
 
   // Back to top functionality
   const backToTopButtons = footer.querySelectorAll('[data-back-to-top]');
@@ -358,6 +366,13 @@
       "label": "Full width"
     },
     {
+      "type": "checkbox",
+      "id": "enable_reveal_effect",
+      "default": true,
+      "label": "Enable reveal effect",
+      "info": "Footer stays fixed at the bottom and is revealed as you scroll past the content"
+    },
+    {
       "type": "header",
       "content": "Newsletter"
     },
@@ -370,12 +385,14 @@
     {
       "type": "text",
       "id": "newsletter_title",
-      "label": "Newsletter title"
+      "label": "Newsletter title",
+      "default": "Stay Updated"
     },
     {
       "type": "textarea",
       "id": "newsletter_text",
-      "label": "Newsletter text"
+      "label": "Newsletter text",
+      "default": "Subscribe to our newsletter for exclusive updates and special offers."
     },
     {
       "type": "header",
