@@ -8,9 +8,9 @@
 
 <style>
   .article-progress-bar { transition: width 0.1s ease-out; }
-  .article-hero-title { font-size: clamp(1.75rem, 5vw, 2.75rem); letter-spacing: -0.03em; }
-  @media (min-width: 1024px) { .article-hero-title { font-size: clamp(2.5rem, 4vw, 3.5rem); } }
-  @media (min-width: 1536px) { .article-hero-title { font-size: clamp(3rem, 3.5vw, 4rem); } }
+  .article-hero-title { font-size: calc(clamp(1.75rem, 5vw, 2.75rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; }
+  @media (min-width: 1024px) { .article-hero-title { font-size: calc(clamp(2.5rem, 4vw, 3.5rem) * var(--heading-font-scale, 1)); } }
+  @media (min-width: 1536px) { .article-hero-title { font-size: calc(clamp(3rem, 3.5vw, 4rem) * var(--heading-font-scale, 1)); } }
   .article-hero-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--color-text-secondary); }
   .article-hero-date::before, .article-hero-reading-time::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); }
   .article-image { clip-path: inset(0 100% 0 0); }
