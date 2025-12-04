@@ -1,88 +1,435 @@
 {%- comment -%}
-  Search Section - Skeleton + Tailwind
+  Search Section - Modern design with GSAP animations and predictive search
 {%- endcomment -%}
 
-<section class="bg-[--color-background]">
-  <div class="page-container py-[--page-vertical-padding]">
-    <h1 class="text-3xl font-bold tracking-tight text-[--color-text] font-heading">{{ 'search.title' | t }}</h1>
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
 
-    <form action="{{ routes.search_url }}" method="get" role="search" class="mt-8">
-      <div class="flex gap-4">
-        <div class="flex-1">
-          <input
-            type="search"
-            name="q"
-            value="{{ search.terms | escape }}"
-            placeholder="{{ 'search.placeholder' | t }}"
-            class="block w-full py-3 px-4 text-[--color-text] placeholder:text-[--color-text-secondary] bg-[--color-background] border border-[--color-border] rounded-[--input-radius] focus:border-[--color-primary] focus:outline-none sm:text-sm"
-            style="border-width: var(--input-border-width);"
-          >
-        </div>
-        <button type="submit" class="btn btn--primary btn--sm">
-          <i class="ph ph-magnifying-glass"></i>
-          <span>{{ 'search.submit' | t }}</span>
-        </button>
-      </div>
-    </form>
+<style>
+  .search-page-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; line-height: 0.9; }
+  @media (min-width: 1024px) { .search-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
+  .search-page-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .search-wrapper.is-loading .search-result-image { clip-path: inset(0 100% 0 0); }
+  .search-form-wrapper { opacity: 0; transform: translateY(20px); }
+  .search-wrapper.is-ready .search-form-wrapper { opacity: 1; transform: translateY(0); }
+  .search-input-container { position: relative; }
+  .search-input { width: 100%; padding: 1.25rem 1.5rem; padding-right: 4rem; font-size: 1rem; background: transparent; border: 1px solid var(--color-border); color: var(--color-text); transition: border-color 0.2s; }
+  .search-input:focus { outline: none; border-color: var(--color-primary); }
+  .search-input::placeholder { color: var(--color-text-secondary); }
+  .search-submit { position: absolute; right: 0; top: 0; height: 100%; padding: 0 1.5rem; background: transparent; border: none; color: var(--color-text); cursor: pointer; transition: color 0.2s; }
+  .search-submit:hover { color: var(--color-primary); }
+  .search-result { opacity: 0; transform: translateY(30px); }
+  .search-result-image { clip-path: inset(0 100% 0 0); aspect-ratio: 1; overflow: hidden; background: var(--color-background-secondary); }
+  .search-wrapper.is-ready .search-result { opacity: 1; transform: translateY(0); }
+  .search-wrapper.is-ready .search-result-image { clip-path: inset(0 0% 0 0); }
+  .search-grid { display: grid; grid-template-columns: repeat(var(--columns-mobile, 1), 1fr); gap: 2rem; }
+  @media (min-width: 640px) { .search-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .search-grid { grid-template-columns: repeat(4, 1fr); } }
+  .search-no-results, .search-initial { opacity: 0; }
+  .search-wrapper.is-ready .search-no-results, .search-wrapper.is-ready .search-initial { opacity: 1; }
+  .search-filters { opacity: 0; transform: translateY(20px); }
+  .search-wrapper.is-ready .search-filters { opacity: 1; transform: translateY(0); }
+</style>
+
+<div class="search-wrapper is-loading min-h-screen" data-search-wrapper>
+  <header class="pt-[--page-vertical-padding] pb-16 {{ container_class }}">
+    <h1 class="search-page-title font-bold text-[--color-text] font-heading">
+      <span class="search-page-title-line block overflow-hidden">
+        <span class="inline-block">{{ 'search.title' | t }}</span>
+      </span>
+    </h1>
 
     {% if search.performed %}
-      {% if search.results_count == 0 %}
-        <p class="mt-8 text-[--color-text-secondary]">{{ 'search.no_results_html' | t: terms: search.terms }}</p>
-      {% else %}
-        <p class="mt-8 text-sm text-[--color-text-secondary]">{{ 'search.results_for_html' | t: terms: search.terms, count: search.results_count }}</p>
+      <p class="page-header-subtitle mt-6">
+        <span class="page-header-subtitle-line" data-subtitle-line></span>
+        <span class="overflow-hidden">
+          <span class="inline-block" data-subtitle-text>
+            {% if search.results_count > 0 %}
+              {{ 'search.results_for_html' | t: count: search.results_count, terms: search.terms }}
+            {% else %}
+              {{ 'search.no_results_html' | t: terms: search.terms }}
+            {% endif %}
+          </span>
+        </span>
+      </p>
+    {% endif %}
+  </header>
 
-        <div class="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {% paginate search.results by 20 %}
+  {%- comment -%} Search Form {%- endcomment -%}
+  <div class="{{ container_class }} pb-12">
+    <div class="search-form-wrapper max-w-2xl">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-input-container">
+        <input type="hidden" name="type" value="product,article,page">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ 'search.placeholder' | t }}"
+          class="search-input"
+          autocomplete="off"
+          data-search-input
+        >
+        <button type="submit" class="search-submit" aria-label="{{ 'search.submit' | t }}">
+          <i class="ph ph-magnifying-glass text-xl"></i>
+        </button>
+      </form>
+
+      {%- comment -%} Search Type Filters - Only show when there are results {%- endcomment -%}
+      {% if search.performed and search.results_count > 0 %}
+        <div class="search-filters flex flex-wrap gap-2 mt-6">
+          <a
+            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
+            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+          >
+            {{ 'search.filter_all' | t }}
+          </a>
+          <a
+            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
+            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+          >
+            {{ 'search.filter_products' | t }}
+          </a>
+          <a
+            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
+            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+          >
+            {{ 'search.filter_articles' | t }}
+          </a>
+          <a
+            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
+            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+          >
+            {{ 'search.filter_pages' | t }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  {%- comment -%} Search Results {%- endcomment -%}
+  <div class="{{ container_class }} pb-[--page-vertical-padding]">
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+        {% paginate search.results by 20 %}
+          <div class="search-grid" data-search-results>
             {% for result in search.results %}
-              <div class="group relative">
+              <article class="search-result group" data-search-result="{{ forloop.index0 }}">
                 <a href="{{ result.url }}" class="block">
-                  {% assign featured_image = result.featured_image | default: result.image %}
-                  <div class="aspect-square w-full overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]">
+                  {%- comment -%} Image {%- endcomment -%}
+                  <div class="search-result-image relative">
+                    {% assign featured_image = result.featured_image | default: result.image %}
                     {% if featured_image %}
-                      {{ featured_image | image_url: width: 400 | image_tag:
-                        class: 'h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity',
+                      {{ featured_image | image_url: width: 600 | image_tag:
+                        class: 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
                         loading: 'lazy'
                       }}
                     {% else %}
-                      <div class="flex h-full items-center justify-center">
-                        <i class="ph ph-file-text text-4xl text-gray-300"></i>
+                      <div class="w-full h-full flex items-center justify-center">
+                        {% if result.object_type == 'product' %}
+                          <i class="ph ph-package text-4xl text-[--color-text-secondary] opacity-30"></i>
+                        {% elsif result.object_type == 'article' %}
+                          <i class="ph ph-article text-4xl text-[--color-text-secondary] opacity-30"></i>
+                        {% else %}
+                          <i class="ph ph-file-text text-4xl text-[--color-text-secondary] opacity-30"></i>
+                        {% endif %}
                       </div>
                     {% endif %}
+
+                    {%- comment -%} Type Badge {%- endcomment -%}
+                    <span class="absolute top-3 left-3 px-2 py-1 text-[10px] uppercase tracking-wider font-medium bg-[--color-background] text-[--color-text]">
+                      {% if result.object_type == 'product' %}
+                        {{ 'search.type_product' | t }}
+                      {% elsif result.object_type == 'article' %}
+                        {{ 'search.type_article' | t }}
+                      {% else %}
+                        {{ 'search.type_page' | t }}
+                      {% endif %}
+                    </span>
                   </div>
+
+                  {%- comment -%} Content {%- endcomment -%}
                   <div class="mt-4">
-                    <h3 class="text-sm font-medium text-[--color-text]">{{ result.title }}</h3>
-                    {% if result.price %}
-                      <p class="mt-1 text-sm text-[--color-text-secondary]">{{ result.price | money }}</p>
+                    <h3 class="text-xs md:text-sm font-semibold tracking-wide text-[--color-text] font-heading group-hover:text-[--color-primary] transition-colors">
+                      {{ result.title }}
+                    </h3>
+
+                    {% if result.object_type == 'product' %}
+                      <p class="mt-1 text-sm text-[--color-text-secondary]">
+                        {% if result.compare_at_price > result.price %}
+                          <span class="line-through opacity-60 mr-2">{{ result.compare_at_price | money }}</span>
+                        {% endif %}
+                        {{ result.price | money }}
+                      </p>
+                    {% elsif result.object_type == 'article' %}
+                      <p class="mt-1 text-xs text-[--color-text-secondary]">
+                        {{ result.published_at | date: '%B %d, %Y' }}
+                      </p>
+                    {% endif %}
+
+                    {% if result.content != blank or result.description != blank %}
+                      <p class="mt-2 text-xs text-[--color-text-secondary] line-clamp-2">
+                        {{ result.content | default: result.description | strip_html | truncate: 100 }}
+                      </p>
                     {% endif %}
                   </div>
                 </a>
-              </div>
+              </article>
             {% endfor %}
-          {% endpaginate %}
-        </div>
+          </div>
 
-        {% if paginate.pages > 1 %}
-          <nav class="mt-10 flex items-center justify-center gap-2">
-            {% if paginate.previous %}
-              <a href="{{ paginate.previous.url }}" class="btn btn--secondary btn--sm">
-                <i class="ph ph-arrow-left"></i>
-              </a>
-            {% endif %}
-            {% if paginate.next %}
-              <a href="{{ paginate.next.url }}" class="btn btn--secondary btn--sm">
-                <i class="ph ph-arrow-right"></i>
-              </a>
-            {% endif %}
-          </nav>
-        {% endif %}
+          {%- comment -%} Pagination {%- endcomment -%}
+          {% if paginate.pages > 1 %}
+            <nav class="flex items-center justify-center gap-4 pt-16">
+              {% if paginate.previous %}
+                <a href="{{ paginate.previous.url }}" class="btn btn--secondary btn--sm">
+                  <i class="ph ph-arrow-left"></i>
+                  <span>Previous</span>
+                </a>
+              {% endif %}
+
+              <span class="px-4 py-2 text-sm text-[--color-text-secondary]">
+                Page {{ paginate.current_page }} of {{ paginate.pages }}
+              </span>
+
+              {% if paginate.next %}
+                <a href="{{ paginate.next.url }}" class="btn btn--secondary btn--sm">
+                  <span>Next</span>
+                  <i class="ph ph-arrow-right"></i>
+                </a>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% endpaginate %}
+      {% else %}
+        {%- comment -%} No Results {%- endcomment -%}
+        <div class="search-no-results max-w-2xl py-8">
+          <p class="text-[--color-text-secondary]">{{ 'search.no_results_description' | t }}</p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+              <i class="ph ph-storefront"></i>
+              <span>{{ '404.browse_products' | t }}</span>
+            </a>
+            <a href="{{ routes.root_url }}" class="btn btn--secondary">
+              <i class="ph ph-house"></i>
+              <span>{{ '404.back_home' | t }}</span>
+            </a>
+          </div>
+
+          {%- comment -%} Popular Searches {%- endcomment -%}
+          {% if section.settings.show_popular_searches %}
+            <div class="mt-12 pt-12 border-t border-[--color-border]">
+              <p class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+              <div class="flex flex-wrap gap-2">
+                {% assign popular_terms = section.settings.popular_searches | split: ',' %}
+                {% for term in popular_terms %}
+                  {% assign trimmed_term = term | strip %}
+                  {% if trimmed_term != blank %}
+                    <a
+                      href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
+                      class="px-4 py-2 text-sm border border-[--color-border] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                    >
+                      {{ trimmed_term }}
+                    </a>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
       {% endif %}
+    {% else %}
+      {%- comment -%} Initial State - No search performed yet {%- endcomment -%}
+      <div class="search-initial max-w-2xl py-8">
+        <p class="text-[--color-text-secondary]">{{ 'search.initial_prompt' | t }}</p>
+
+        {%- comment -%} Popular Searches {%- endcomment -%}
+        {% if section.settings.show_popular_searches %}
+          <div class="mt-12 pt-12 border-t border-[--color-border]">
+            <p class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+            <div class="flex flex-wrap gap-2">
+              {% assign popular_terms = section.settings.popular_searches | split: ',' %}
+              {% for term in popular_terms %}
+                {% assign trimmed_term = term | strip %}
+                {% if trimmed_term != blank %}
+                  <a
+                    href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
+                    class="px-4 py-2 text-sm border border-[--color-border] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                  >
+                    {{ trimmed_term }}
+                  </a>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
     {% endif %}
   </div>
-</section>
+</div>
+
+<script>
+(function() {
+  const wrapper = document.querySelector('[data-search-wrapper]');
+  if (!wrapper) return;
+  if (wrapper.dataset.searchInitialized) return;
+  wrapper.dataset.searchInitialized = 'true';
+
+  function initSearch() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    if (!gsap) {
+      setTimeout(initSearch, 50);
+      return;
+    }
+
+    const results = wrapper.querySelectorAll('[data-search-result]');
+    const formWrapper = wrapper.querySelector('.search-form-wrapper');
+    const filters = wrapper.querySelector('.search-filters');
+    const noResults = wrapper.querySelector('.search-no-results');
+    const initialState = wrapper.querySelector('.search-initial');
+
+    const tl = gsap.timeline({
+      onComplete: () => wrapper.classList.add('is-ready')
+    });
+
+    // Title reveal
+    const titleSpans = wrapper.querySelectorAll('.search-page-title .overflow-hidden > span');
+    if (titleSpans.length) {
+      gsap.set(titleSpans, { yPercent: 100 });
+      tl.to(titleSpans, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+      }, 0);
+    }
+
+    // Subtitle
+    const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
+    const subtitleText = wrapper.querySelector('[data-subtitle-text]');
+    if (subtitleLine) {
+      gsap.set(subtitleLine, { scaleX: 0 });
+      tl.to(subtitleLine, { scaleX: 1, duration: 0.8, ease: 'power3.out' }, 0.4);
+    }
+    if (subtitleText) {
+      gsap.set(subtitleText, { yPercent: 100 });
+      tl.to(subtitleText, { yPercent: 0, duration: 0.8, ease: 'power4.out' }, 0.6);
+    }
+
+    // Form wrapper
+    if (formWrapper) {
+      gsap.set(formWrapper, { opacity: 0, y: 20 });
+      tl.to(formWrapper, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out'
+      }, 0.4);
+    }
+
+    // Filters
+    if (filters) {
+      gsap.set(filters, { opacity: 0, y: 20 });
+      tl.to(filters, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power3.out'
+      }, 0.6);
+    }
+
+    // Search results
+    if (results.length) {
+      results.forEach((result, i) => {
+        const img = result.querySelector('.search-result-image');
+        gsap.set(result, { opacity: 0, y: 30 });
+        if (img) gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
+
+        const col = i % 4;
+        const delay = 0.7 + col * 0.1;
+
+        tl.to(result, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out'
+        }, delay);
+
+        if (img) {
+          tl.to(img, {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1,
+            ease: 'expo.inOut'
+          }, delay);
+        }
+      });
+    }
+
+    // No results / initial state
+    if (noResults) {
+      gsap.set(noResults, { opacity: 0 });
+      tl.to(noResults, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.6);
+    }
+    if (initialState) {
+      gsap.set(initialState, { opacity: 0 });
+      tl.to(initialState, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.6);
+    }
+
+    wrapper.classList.remove('is-loading');
+  }
+
+  // Focus search input on page load if empty
+  const searchInput = wrapper.querySelector('[data-search-input]');
+  if (searchInput && !searchInput.value) {
+    setTimeout(() => searchInput.focus(), 500);
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSearch);
+  } else {
+    initSearch();
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initSearch);
+  });
+})();
+</script>
 
 {% schema %}
 {
   "name": "Search",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popular_searches",
+      "label": "Show popular searches",
+      "default": true,
+      "info": "Displayed when no search has been performed"
+    },
+    {
+      "type": "text",
+      "id": "popular_searches",
+      "label": "Popular search terms",
+      "default": "New arrivals, Sale, Best sellers",
+      "info": "Comma-separated list of terms"
+    }
+  ]
 }
 {% endschema %}

@@ -637,6 +637,119 @@
 })();
 </script>
 
+<script>
+/**
+ * AJAX Add to Cart - Handles form submission and triggers drawer/notification
+ */
+(function() {
+  function initAddToCart() {
+    const section = document.querySelector('[data-product-section]');
+    if (!section) return;
+
+    const form = section.querySelector('form[action*="/cart/add"]');
+    if (!form) return;
+    if (form.dataset.ajaxInitialized) return;
+
+    form.dataset.ajaxInitialized = 'true';
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const addButton = form.querySelector('[data-add-to-cart]');
+      const originalText = addButton.innerHTML;
+
+      // Loading state
+      addButton.disabled = true;
+      addButton.innerHTML = '<span class="product-add-btn-text"><i class="ph ph-spinner animate-spin"></i><span>Adding...</span></span>';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to add to cart');
+        }
+
+        const item = await response.json();
+
+        // Get updated cart for count
+        const cartResponse = await fetch('/cart.js');
+        const cart = await cartResponse.json();
+
+        // Update cart count in header
+        document.querySelectorAll('[data-cart-count]').forEach(el => {
+          el.textContent = cart.item_count;
+        });
+
+        // Get product info for notification
+        const productInfo = {
+          title: item.product_title,
+          variant_title: item.variant_title !== 'Default Title' ? item.variant_title : null,
+          image: item.image ? item.image.replace(/(\.[^.]+)$/, '_200x$1') : null
+        };
+
+        // Trigger appropriate cart behavior based on theme settings
+        const cartType = window.themeSettings?.cartType || 'drawer';
+
+        if (cartType === 'drawer') {
+          // Refresh cart drawer content then open it
+          if (window.refreshCartDrawer) {
+            await window.refreshCartDrawer();
+          }
+          document.dispatchEvent(new CustomEvent('cart:open'));
+        } else if (cartType === 'notification') {
+          // Show notification
+          document.dispatchEvent(new CustomEvent('cart:notification', {
+            detail: {
+              product: productInfo,
+              cart: cart
+            }
+          }));
+        } else {
+          // cartType === 'page' - redirect to cart
+          window.location.href = '/cart';
+          return;
+        }
+
+        // Success state
+        addButton.innerHTML = '<span class="product-add-btn-text"><i class="ph ph-check"></i><span>Added!</span></span>';
+
+        setTimeout(() => {
+          addButton.innerHTML = originalText;
+          addButton.disabled = false;
+        }, 2000);
+
+      } catch (error) {
+        console.error('Add to cart error:', error);
+
+        // Error state
+        addButton.innerHTML = '<span class="product-add-btn-text"><i class="ph ph-x"></i><span>Error</span></span>';
+
+        setTimeout(() => {
+          addButton.innerHTML = originalText;
+          addButton.disabled = false;
+        }, 2000);
+      }
+    });
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAddToCart);
+  } else {
+    initAddToCart();
+  }
+
+  // Reinitialize after Swup
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initAddToCart);
+  });
+})();
+</script>
+
 {% schema %}
 {
   "name": "Product",

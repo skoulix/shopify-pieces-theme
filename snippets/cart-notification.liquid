@@ -1,0 +1,157 @@
+{%- comment -%}
+  Cart Notification - Mini popup when item is added
+  Renders when settings.cart_type == 'notification'
+{%- endcomment -%}
+
+<div id="cart-notification" class="cart-notification" role="alert" aria-live="polite" aria-hidden="true">
+  <div class="cart-notification__content">
+    {%- comment -%} Product that was just added (populated via JS) {%- endcomment -%}
+    <div class="cart-notification__product" data-notification-product>
+      <div class="cart-notification__image" data-notification-image></div>
+      <div class="cart-notification__details">
+        <p class="cart-notification__message">
+          <i class="ph ph-check-circle"></i>
+          <span>{{ 'cart.added_to_cart' | t }}</span>
+        </p>
+        <p class="cart-notification__title" data-notification-title></p>
+        <p class="cart-notification__variant" data-notification-variant></p>
+      </div>
+    </div>
+
+    {%- comment -%} Actions {%- endcomment -%}
+    <div class="cart-notification__actions">
+      <a href="{{ routes.cart_url }}" class="btn btn--secondary btn--sm btn--full">
+        {{ 'cart.view_cart' | t }}
+        (<span data-cart-count>{{ cart.item_count }}</span>)
+      </a>
+      <form action="{{ routes.cart_url }}" method="post">
+        <button type="submit" name="checkout" class="btn btn--primary btn--sm btn--full">
+          {{ 'cart.checkout' | t }}
+        </button>
+      </form>
+    </div>
+
+    {%- comment -%} Close button {%- endcomment -%}
+    <button type="button" class="cart-notification__close" data-notification-close aria-label="Close">
+      <i class="ph ph-x"></i>
+    </button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const notification = document.getElementById('cart-notification');
+  if (!notification) return;
+
+  let hideTimeout;
+  let isVisible = false;
+
+  /**
+   * Show the cart notification with product info
+   */
+  function showCartNotification(product) {
+    // Clear any existing timeout
+    if (hideTimeout) clearTimeout(hideTimeout);
+
+    // Update product info
+    if (product) {
+      const imageContainer = notification.querySelector('[data-notification-image]');
+      const titleEl = notification.querySelector('[data-notification-title]');
+      const variantEl = notification.querySelector('[data-notification-variant]');
+
+      if (imageContainer && product.image) {
+        imageContainer.innerHTML = `<img src="${product.image}" alt="${product.title}" loading="lazy">`;
+      }
+
+      if (titleEl) {
+        titleEl.textContent = product.title;
+      }
+
+      if (variantEl) {
+        variantEl.textContent = product.variant_title || '';
+        variantEl.style.display = product.variant_title ? '' : 'none';
+      }
+    }
+
+    // Show notification
+    notification.classList.add('is-visible');
+    notification.setAttribute('aria-hidden', 'false');
+    isVisible = true;
+
+    // Animate in with GSAP if available
+    if (window.gsap) {
+      gsap.fromTo(notification.querySelector('.cart-notification__content'),
+        { y: -20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' }
+      );
+    }
+
+    // Auto-hide after 5 seconds
+    hideTimeout = setTimeout(hideCartNotification, 5000);
+  }
+
+  /**
+   * Hide the cart notification
+   */
+  function hideCartNotification() {
+    if (!isVisible) return;
+
+    if (hideTimeout) clearTimeout(hideTimeout);
+
+    if (window.gsap) {
+      gsap.to(notification.querySelector('.cart-notification__content'), {
+        y: -20,
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.in',
+        onComplete: () => {
+          notification.classList.remove('is-visible');
+          notification.setAttribute('aria-hidden', 'true');
+          isVisible = false;
+        }
+      });
+    } else {
+      notification.classList.remove('is-visible');
+      notification.setAttribute('aria-hidden', 'true');
+      isVisible = false;
+    }
+  }
+
+  // Close button
+  notification.querySelector('[data-notification-close]')?.addEventListener('click', hideCartNotification);
+
+  // Pause auto-hide on hover
+  notification.addEventListener('mouseenter', () => {
+    if (hideTimeout) clearTimeout(hideTimeout);
+  });
+
+  notification.addEventListener('mouseleave', () => {
+    if (isVisible) {
+      hideTimeout = setTimeout(hideCartNotification, 3000);
+    }
+  });
+
+  /**
+   * Update cart count
+   */
+  function updateCartCount(count) {
+    document.querySelectorAll('[data-cart-count]').forEach(el => {
+      el.textContent = count;
+    });
+  }
+
+  // Listen for cart:notification event
+  document.addEventListener('cart:notification', (e) => {
+    showCartNotification(e.detail?.product);
+
+    // Update cart count
+    if (e.detail?.cart) {
+      updateCartCount(e.detail.cart.item_count);
+    }
+  });
+
+  // Make function globally available
+  window.showCartNotification = showCartNotification;
+  window.hideCartNotification = hideCartNotification;
+})();
+</script>

@@ -1,26 +1,71 @@
 {%- comment -%}
-  404 Section - Skeleton + Tailwind
+  404 Section - Simple, clean design with creative background
 {%- endcomment -%}
 
-<section class="bg-[--color-background]">
-  <div class="page-container py-[--page-vertical-padding]">
-    <div class="text-center">
-      <p class="text-base font-semibold text-[--color-primary]">404</p>
-      <h1 class="mt-4 text-3xl font-bold tracking-tight text-[--color-text] sm:text-5xl font-heading">{{ '404.title' | t }}</h1>
-      <p class="mt-6 text-base leading-7 text-[--color-text-secondary]">{{ '404.not_found' | t }}</p>
-      <div class="mt-10">
-        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
-          <i class="ph ph-arrow-left"></i>
-          <span>{{ '404.back_to_shopping' | t }}</span>
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .error-bg-text {
+    position: absolute;
+    font-size: clamp(20rem, 50vw, 60rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    opacity: 0.03;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<div class="min-h-screen flex items-center relative overflow-hidden">
+  {%- comment -%} Creative Background Text {%- endcomment -%}
+  <span class="error-bg-text text-[--color-text] font-heading">404</span>
+
+  <div class="{{ container_class }} py-[--page-vertical-padding] w-full relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      {%- comment -%} Content {%- endcomment -%}
+      <h1 class="text-3xl md:text-4xl font-semibold text-[--color-text] font-heading">
+        {{ '404.title' | t }}
+      </h1>
+      <p class="mt-4 text-lg text-[--color-text-secondary] max-w-md mx-auto">
+        {{ '404.description' | t }}
+      </p>
+
+      {%- comment -%} Actions {%- endcomment -%}
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-xs sm:max-w-none mx-auto">
+        <a href="{{ routes.root_url }}" class="btn btn--primary w-full sm:w-auto">
+          <i class="ph ph-house"></i>
+          <span>{{ '404.back_home' | t }}</span>
+        </a>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--secondary w-full sm:w-auto">
+          <i class="ph ph-storefront"></i>
+          <span>{{ '404.browse_products' | t }}</span>
         </a>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {
   "name": "404",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ]
 }
 {% endschema %}

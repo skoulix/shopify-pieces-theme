@@ -79,9 +79,13 @@
       {% endif %}
 
       {%- comment -%} Cart {%- endcomment -%}
-      <a href="{{ routes.cart_url }}" class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+      <a
+        href="{{ routes.cart_url }}"
+        class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+        {% if settings.cart_type == 'drawer' %}data-cart-drawer-toggle{% endif %}
+      >
         <i class="ph ph-bag text-xl"></i>
-        <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]">{{ cart.item_count }}</span>
+        <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
         <span class="sr-only">items in cart</span>
       </a>
     </div>
@@ -142,9 +146,14 @@
             <i class="ph ph-magnifying-glass"></i>
             <span>Search</span>
           </a>
-          <a href="{{ routes.cart_url }}" class="mobile-nav__footer-link" data-mobile-nav-close>
+          <a
+            href="{{ routes.cart_url }}"
+            class="mobile-nav__footer-link"
+            data-mobile-nav-close
+            {% if settings.cart_type == 'drawer' %}data-cart-drawer-toggle{% endif %}
+          >
             <i class="ph ph-bag"></i>
-            <span>Cart ({{ cart.item_count }})</span>
+            <span>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</span>
           </a>
         </div>
       </div>
@@ -289,6 +298,16 @@
   updateActiveLinks();
   window.addEventListener('swup:contentReplaced', updateActiveLinks);
   window.addEventListener('popstate', updateActiveLinks);
+
+  /**
+   * Cart drawer toggle (when cart_type is 'drawer')
+   */
+  document.querySelectorAll('[data-cart-drawer-toggle]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.dispatchEvent(new CustomEvent('cart:toggle'));
+    });
+  });
 })();
 </script>
 

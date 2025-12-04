@@ -11,8 +11,13 @@
     "view_all": "View All"
   },
   "404": {
-    "title": "404",
-    "not_found": "Page not found.",
+    "title": "Page not found",
+    "not_found": "Page not found",
+    "description": "Sorry, we couldn't find the page you're looking for. It might have been moved or deleted.",
+    "back_home": "Back to Home",
+    "browse_products": "Browse Products",
+    "suggestions_title": "You might be looking for",
+    "search_prompt": "Or try searching for what you need",
     "back_to_shopping": "Back to shopping"
   },
   "blog": {
@@ -28,7 +33,21 @@
     "checkout": "Checkout",
     "title": "Cart",
     "update": "Update",
-    "remove": "Remove"
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "taxes_shipping_note": "Taxes and shipping calculated at checkout",
+    "add_note": "Add a note",
+    "note_placeholder": "Special instructions...",
+    "continue_shopping": "Continue Shopping",
+    "empty": "Your cart is empty",
+    "empty_description": "Looks like you haven't added anything yet.",
+    "start_shopping": "Start Shopping",
+    "summary": "Order Summary",
+    "view_cart": "View cart",
+    "added_to_cart": "Added to cart",
+    "close": "Close cart",
+    "copied": "Copied!"
   },
   "customers": {
     "login": {
@@ -47,20 +66,41 @@
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",
     "card": "Gift card",
-    "expired": "This gift card has expired",
-    "expires_on": "Expires on {{ expires_on }}",
-    "use_at_checkout": "Use this gift card at checkout"
+    "balance": "Balance",
+    "expired": "Expired",
+    "expires_on_html": "Expires {{ expires_on }}",
+    "use_at_checkout": "Use this code at checkout to redeem your gift card",
+    "copy_code": "Copy Code",
+    "copied": "Copied!",
+    "shop_now": "Start Shopping",
+    "print_hint": "Print this page or save a screenshot for your records"
   },
   "password": {
-    "title": "This shop is private",
+    "title": "Opening Soon",
+    "subtitle": "We're working on something special. Enter the password to get early access.",
     "password": "Password",
-    "enter": "Enter"
+    "placeholder": "Enter store password",
+    "enter": "Enter",
+    "admin_link_html": "Are you the store owner?",
+    "login": "Log in here",
+    "newsletter_heading": "Be the first to know",
+    "newsletter_text": "Sign up for updates and get notified when we launch."
   },
   "search": {
     "title": "Search",
-    "placeholder": "Search articles, pages, or products",
+    "placeholder": "Search...",
     "submit": "Search",
-    "no_results_html": "No results found for {{ terms }}",
-    "results_for_html": "{{ count }} results found for {{ terms }}"
+    "no_results_html": "No results found for \"{{ terms }}\"",
+    "results_for_html": "{{ count }} results for \"{{ terms }}\"",
+    "no_results_description": "Try checking your spelling or using different keywords",
+    "initial_prompt": "Enter a search term above to find products, articles, and pages.",
+    "popular_searches": "Popular Searches",
+    "filter_all": "All",
+    "filter_products": "Products",
+    "filter_articles": "Articles",
+    "filter_pages": "Pages",
+    "type_product": "Product",
+    "type_article": "Article",
+    "type_page": "Page"
   }
 }

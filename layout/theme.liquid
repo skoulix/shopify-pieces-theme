@@ -68,6 +68,14 @@
 
     {% sections 'footer-group' %}
 
+    {%- comment -%} Cart Drawer or Notification based on theme settings {%- endcomment -%}
+    {% case settings.cart_type %}
+      {% when 'drawer' %}
+        {% render 'cart-drawer' %}
+      {% when 'notification' %}
+        {% render 'cart-notification' %}
+    {% endcase %}
+
     {%- comment -%} Page transition overlay for Swup (z-30 to stay below header z-40) {%- endcomment -%}
     {% if settings.enable_page_transitions %}
       <div class="page-transition-overlay fixed inset-0 z-30 pointer-events-none" style="background-color: {{ settings.page_transition_color | default: '#f5f5f5' }}; transform: scaleY(0);"></div>
@@ -79,6 +87,7 @@
         enableSmoothScroll: {{ settings.enable_smooth_scroll | default: true }},
         enablePageTransitions: {{ settings.enable_page_transitions | default: true }},
         pageTransitionStyle: '{{ settings.page_transition_style | default: "slide" }}',
+        cartType: '{{ settings.cart_type | default: "drawer" }}',
       };
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',

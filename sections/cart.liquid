@@ -1,104 +1,440 @@
 {%- comment -%}
-  Cart Section - Skeleton + Tailwind
+  Cart Section - Modern design with GSAP animations
 {%- endcomment -%}
 
-<section class="bg-[--color-background]">
-  <div class="page-container py-[--page-vertical-padding]">
-    <h1 class="text-3xl font-bold tracking-tight text-[--color-text] font-heading">{{ 'cart.title' | t }}</h1>
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
 
-    {% if cart.item_count > 0 %}
-      <form action="{{ routes.cart_url }}" method="post" class="mt-12">
-        <div class="flow-root">
-          <ul role="list" class="-my-6 divide-y divide-[--color-border]">
-            {% for item in cart.items %}
-              <li class="flex py-6">
-                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]">
-                  {% if item.image %}
-                    {{ item.image | image_url: width: 200 | image_tag:
-                      class: 'h-full w-full object-cover object-center'
-                    }}
-                  {% endif %}
-                </div>
+<style>
+  .cart-page-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; line-height: 0.9; }
+  @media (min-width: 1024px) { .cart-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
+  .cart-page-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .cart-wrapper.is-loading .cart-item-image { clip-path: inset(0 100% 0 0); }
+  .cart-item { opacity: 0; transform: translateY(30px); }
+  .cart-item-image { clip-path: inset(0 100% 0 0); }
+  .cart-wrapper.is-ready .cart-item { opacity: 1; transform: translateY(0); }
+  .cart-wrapper.is-ready .cart-item-image { clip-path: inset(0 0% 0 0); }
+  .cart-quantity { display: flex; align-items: center; border: 1px solid var(--color-border); }
+  .cart-quantity-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--color-text); transition: background 0.2s, color 0.2s; }
+  .cart-quantity-btn:hover { background: var(--color-primary); color: var(--color-primary-contrast); }
+  .cart-quantity-input { width: 50px; height: 36px; text-align: center; font-size: 0.875rem; font-weight: 500; background: transparent; border: none; border-left: 1px solid var(--color-border); border-right: 1px solid var(--color-border); color: var(--color-text); -moz-appearance: textfield; }
+  .cart-quantity-input::-webkit-outer-spin-button, .cart-quantity-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .cart-summary { opacity: 0; transform: translateY(30px); }
+  .cart-wrapper.is-ready .cart-summary { opacity: 1; transform: translateY(0); }
+  .cart-empty { opacity: 0; }
+  .cart-wrapper.is-ready .cart-empty { opacity: 1; }
+</style>
 
-                <div class="ml-4 flex flex-1 flex-col">
-                  <div>
-                    <div class="flex justify-between text-base font-medium text-[--color-text]">
-                      <h3>
-                        <a href="{{ item.url }}">{{ item.product.title }}</a>
-                      </h3>
-                      <p class="ml-4">{{ item.line_price | money }}</p>
+<div class="cart-wrapper is-loading min-h-screen" data-cart-wrapper>
+  <header class="pt-[--page-vertical-padding] pb-16 {{ container_class }}">
+    <h1 class="cart-page-title font-bold text-[--color-text] font-heading">
+      <span class="cart-page-title-line block overflow-hidden">
+        <span class="inline-block">{{ 'cart.title' | t }}</span>
+      </span>
+    </h1>
+
+    <p class="page-header-subtitle mt-6">
+      <span class="page-header-subtitle-line" data-subtitle-line></span>
+      <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ cart.item_count }} {{ cart.item_count | pluralize: 'Item', 'Items' }}</span></span>
+    </p>
+  </header>
+
+  {% if cart.item_count > 0 %}
+    <div class="{{ container_class }} pb-[--page-vertical-padding]">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-x-12">
+        {%- comment -%} Cart Items {%- endcomment -%}
+        <div class="lg:col-span-7">
+          <form action="{{ routes.cart_url }}" method="post" id="cart-form" data-cart-form>
+            <ul role="list" class="divide-y divide-[--color-border]">
+              {% for item in cart.items %}
+                <li class="cart-item py-8 first:pt-0" data-cart-item data-line="{{ forloop.index }}">
+                  <div class="flex gap-6">
+                    {%- comment -%} Image {%- endcomment -%}
+                    <div class="cart-item-image w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
+                      {% if item.image %}
+                        <a href="{{ item.url }}">
+                          {{ item.image | image_url: width: 300 | image_tag:
+                            class: 'w-full h-full object-cover',
+                            loading: 'lazy'
+                          }}
+                        </a>
+                      {% endif %}
                     </div>
-                    {% unless item.product.has_only_default_variant %}
-                      <p class="mt-1 text-sm text-[--color-text-secondary]">{{ item.variant.title }}</p>
-                    {% endunless %}
-                  </div>
-                  <div class="flex flex-1 items-end justify-between text-sm">
-                    <div class="flex items-center gap-2">
-                      <label for="quantity-{{ item.index }}" class="text-[--color-text-secondary]">Qty</label>
-                      <input
-                        type="number"
-                        id="quantity-{{ item.index }}"
-                        name="updates[]"
-                        value="{{ item.quantity }}"
-                        min="0"
-                        class="w-16 py-1.5 px-2 text-[--color-text] bg-[--color-background] border border-[--color-border] rounded-[--input-radius] focus:border-[--color-primary] focus:outline-none sm:text-sm"
-                        style="border-width: var(--input-border-width);"
-                      >
-                    </div>
 
-                    <a href="{{ item.url_to_remove }}" class="font-medium text-[--color-primary] hover:opacity-80">
-                      {{ 'cart.remove' | t }}
-                    </a>
+                    {%- comment -%} Details {%- endcomment -%}
+                    <div class="flex flex-1 flex-col justify-between">
+                      <div>
+                        <div class="flex justify-between">
+                          <div>
+                            <h3 class="text-base font-medium text-[--color-text]">
+                              <a href="{{ item.url }}" class="hover:text-[--color-primary] transition-colors">
+                                {{ item.product.title }}
+                              </a>
+                            </h3>
+                            {% unless item.product.has_only_default_variant %}
+                              <p class="mt-1 text-sm text-[--color-text-secondary]">{{ item.variant.title }}</p>
+                            {% endunless %}
+                            {% if item.selling_plan_allocation %}
+                              <p class="mt-1 text-xs text-[--color-text-secondary]">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="text-right">
+                            <p class="text-base font-medium text-[--color-text]">{{ item.final_line_price | money }}</p>
+                            {% if item.original_line_price != item.final_line_price %}
+                              <p class="text-sm text-[--color-text-secondary] line-through">{{ item.original_line_price | money }}</p>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="flex items-center justify-between mt-4">
+                        {%- comment -%} Quantity {%- endcomment -%}
+                        <div class="cart-quantity">
+                          <button type="button" class="cart-quantity-btn" data-quantity-minus aria-label="Decrease quantity">
+                            <i class="ph ph-minus text-sm"></i>
+                          </button>
+                          <input
+                            type="number"
+                            name="updates[]"
+                            value="{{ item.quantity }}"
+                            min="0"
+                            class="cart-quantity-input"
+                            data-quantity-input
+                            data-line="{{ forloop.index }}"
+                            aria-label="Quantity"
+                          >
+                          <button type="button" class="cart-quantity-btn" data-quantity-plus aria-label="Increase quantity">
+                            <i class="ph ph-plus text-sm"></i>
+                          </button>
+                        </div>
+
+                        {%- comment -%} Remove {%- endcomment -%}
+                        <button
+                          type="button"
+                          class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+                          data-remove-item
+                          data-line="{{ forloop.index }}"
+                        >
+                          {{ 'cart.remove' | t }}
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
+                </li>
+              {% endfor %}
+            </ul>
+          </form>
         </div>
 
-        <div class="mt-10 border-t border-[--color-border] pt-8">
-          <div class="flex justify-between text-base font-medium text-[--color-text]">
-            <p>Subtotal</p>
-            <p>{{ cart.total_price | money }}</p>
-          </div>
-          <p class="mt-0.5 text-sm text-[--color-text-secondary]">Shipping and taxes calculated at checkout.</p>
+        {%- comment -%} Summary {%- endcomment -%}
+        <div class="lg:col-span-5 mt-12 lg:mt-0">
+          <div class="cart-summary sticky top-24 bg-[--color-background-secondary] p-8">
+            <h2 class="text-lg font-semibold text-[--color-text] font-heading">{{ 'cart.summary' | t }}</h2>
 
-          <div class="mt-6 flex flex-col gap-3">
-            <button
-              type="submit"
-              name="checkout"
-              class="btn btn--primary btn--full"
-            >
-              <i class="ph ph-credit-card"></i>
-              <span>{{ 'cart.checkout' | t }}</span>
-            </button>
-            <button
-              type="submit"
-              name="update"
-              class="btn btn--secondary btn--full"
-            >
-              <i class="ph ph-arrows-clockwise"></i>
-              <span>{{ 'cart.update' | t }}</span>
-            </button>
+            <dl class="mt-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <dt class="text-sm text-[--color-text-secondary]">{{ 'cart.subtotal' | t }}</dt>
+                <dd class="text-sm font-medium text-[--color-text]" data-cart-subtotal>{{ cart.total_price | money }}</dd>
+              </div>
+              {% if cart.cart_level_discount_applications.size > 0 %}
+                {% for discount in cart.cart_level_discount_applications %}
+                  <div class="flex items-center justify-between">
+                    <dt class="text-sm text-[--color-text-secondary]">
+                      <i class="ph ph-tag mr-1"></i>
+                      {{ discount.title }}
+                    </dt>
+                    <dd class="text-sm font-medium text-green-600">-{{ discount.total_allocated_amount | money }}</dd>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </dl>
+
+            <div class="mt-6 pt-6 border-t border-[--color-border]">
+              <div class="flex items-center justify-between">
+                <dt class="text-base font-medium text-[--color-text]">{{ 'cart.total' | t }}</dt>
+                <dd class="text-base font-medium text-[--color-text]" data-cart-total>{{ cart.total_price | money }}</dd>
+              </div>
+              <p class="mt-1 text-xs text-[--color-text-secondary]">{{ 'cart.taxes_shipping_note' | t }}</p>
+            </div>
+
+            {%- comment -%} Cart Note {%- endcomment -%}
+            <details class="mt-6">
+              <summary class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] cursor-pointer hover:text-[--color-text] transition-colors flex items-center justify-between">
+                <span>{{ 'cart.add_note' | t }}</span>
+                <i class="ph ph-caret-down text-sm transition-transform"></i>
+              </summary>
+              <div class="mt-4">
+                <textarea
+                  name="note"
+                  form="cart-form"
+                  class="w-full p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-none focus:border-[--color-primary] focus:outline-none"
+                  rows="3"
+                  placeholder="{{ 'cart.note_placeholder' | t }}"
+                  data-cart-note
+                >{{ cart.note }}</textarea>
+              </div>
+            </details>
+
+            {%- comment -%} Actions {%- endcomment -%}
+            <div class="mt-8 space-y-3">
+              <form action="{{ routes.cart_url }}" method="post">
+                <button type="submit" name="checkout" class="btn btn--primary btn--full">
+                  <i class="ph ph-lock-simple"></i>
+                  <span>{{ 'cart.checkout' | t }}</span>
+                </button>
+              </form>
+
+              <a href="{{ routes.all_products_collection_url }}" class="btn btn--secondary btn--full">
+                <i class="ph ph-arrow-left"></i>
+                <span>{{ 'cart.continue_shopping' | t }}</span>
+              </a>
+            </div>
+
+            {%- comment -%} Trust Badges {%- endcomment -%}
+            <div class="mt-8 pt-6 border-t border-[--color-border]">
+              <div class="flex items-center justify-center gap-6 text-[--color-text-secondary]">
+                <div class="flex items-center gap-2 text-xs">
+                  <i class="ph ph-shield-check text-lg"></i>
+                  <span>Secure</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <i class="ph ph-truck text-lg"></i>
+                  <span>Fast Shipping</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs">
+                  <i class="ph ph-arrows-counter-clockwise text-lg"></i>
+                  <span>Easy Returns</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </form>
-    {% else %}
-      <div class="mt-12 text-center">
-        <i class="ph ph-bag text-6xl text-[--color-border]"></i>
-        <h2 class="mt-4 text-lg font-medium text-[--color-text] font-heading">Your cart is empty</h2>
-        <p class="mt-2 text-sm text-[--color-text-secondary]">Start shopping to add items to your cart.</p>
-        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary mt-6">
-          Continue shopping
+      </div>
+    </div>
+  {% else %}
+    <div class="cart-empty {{ container_class }} pb-[--page-vertical-padding]">
+      <div class="max-w-md mx-auto text-center py-16">
+        <div class="w-32 h-32 mx-auto mb-8 rounded-full bg-[--color-background-secondary] flex items-center justify-center">
+          <i class="ph ph-bag text-5xl text-[--color-text-secondary]"></i>
+        </div>
+        <h2 class="text-2xl font-semibold text-[--color-text] font-heading">{{ 'cart.empty' | t }}</h2>
+        <p class="mt-4 text-[--color-text-secondary]">{{ 'cart.empty_description' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary mt-8">
+          <i class="ph ph-storefront"></i>
+          <span>{{ 'cart.start_shopping' | t }}</span>
         </a>
       </div>
-    {% endif %}
-  </div>
-</section>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+(function() {
+  const wrapper = document.querySelector('[data-cart-wrapper]');
+  if (!wrapper) return;
+  if (wrapper.dataset.cartInitialized) return;
+  wrapper.dataset.cartInitialized = 'true';
+
+  function initCart() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    if (!gsap) {
+      setTimeout(initCart, 50);
+      return;
+    }
+
+    const items = wrapper.querySelectorAll('[data-cart-item]');
+    const summary = wrapper.querySelector('.cart-summary');
+    const emptyState = wrapper.querySelector('.cart-empty');
+
+    // Header animation
+    const tl = gsap.timeline({
+      onComplete: () => wrapper.classList.add('is-ready')
+    });
+
+    // Title reveal
+    const titleSpans = wrapper.querySelectorAll('.cart-page-title .overflow-hidden > span');
+    if (titleSpans.length) {
+      gsap.set(titleSpans, { yPercent: 100 });
+      tl.to(titleSpans, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+      }, 0);
+    }
+
+    // Subtitle
+    const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
+    const subtitleText = wrapper.querySelector('[data-subtitle-text]');
+    if (subtitleLine) {
+      gsap.set(subtitleLine, { scaleX: 0 });
+      tl.to(subtitleLine, { scaleX: 1, duration: 0.8, ease: 'power3.out' }, 0.4);
+    }
+    if (subtitleText) {
+      gsap.set(subtitleText, { yPercent: 100 });
+      tl.to(subtitleText, { yPercent: 0, duration: 0.8, ease: 'power4.out' }, 0.6);
+    }
+
+    // Cart items
+    if (items.length) {
+      items.forEach((item, i) => {
+        const img = item.querySelector('.cart-item-image');
+        gsap.set(item, { opacity: 0, y: 30 });
+        if (img) gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
+
+        tl.to(item, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out'
+        }, 0.5 + i * 0.1);
+
+        if (img) {
+          tl.to(img, {
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1,
+            ease: 'expo.inOut'
+          }, 0.5 + i * 0.1);
+        }
+      });
+    }
+
+    // Summary
+    if (summary) {
+      gsap.set(summary, { opacity: 0, y: 30 });
+      tl.to(summary, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, 0.7);
+    }
+
+    // Empty state
+    if (emptyState) {
+      gsap.set(emptyState, { opacity: 0 });
+      tl.to(emptyState, {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out'
+      }, 0.5);
+    }
+
+    wrapper.classList.remove('is-loading');
+  }
+
+  // AJAX cart functionality
+  function initCartAjax() {
+    const form = document.querySelector('[data-cart-form]');
+    if (!form) return;
+
+    // Quantity buttons
+    form.addEventListener('click', async (e) => {
+      const minus = e.target.closest('[data-quantity-minus]');
+      const plus = e.target.closest('[data-quantity-plus]');
+      const remove = e.target.closest('[data-remove-item]');
+
+      if (minus || plus || remove) {
+        e.preventDefault();
+        const item = e.target.closest('[data-cart-item]');
+        const line = parseInt(item?.dataset.line);
+        const input = item?.querySelector('[data-quantity-input]');
+        let quantity = parseInt(input?.value || 0);
+
+        if (minus && quantity > 0) quantity--;
+        if (plus) quantity++;
+        if (remove) quantity = 0;
+
+        await updateCartLine(line, quantity);
+      }
+    });
+
+    // Quantity input change
+    form.addEventListener('change', async (e) => {
+      if (e.target.matches('[data-quantity-input]')) {
+        const line = parseInt(e.target.dataset.line);
+        const quantity = parseInt(e.target.value) || 0;
+        await updateCartLine(line, quantity);
+      }
+    });
+
+    // Cart note
+    const noteInput = document.querySelector('[data-cart-note]');
+    if (noteInput) {
+      let noteTimeout;
+      noteInput.addEventListener('input', () => {
+        clearTimeout(noteTimeout);
+        noteTimeout = setTimeout(() => {
+          fetch('/cart/update.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ note: noteInput.value })
+          });
+        }, 500);
+      });
+    }
+  }
+
+  async function updateCartLine(line, quantity) {
+    wrapper.classList.add('is-updating');
+
+    try {
+      const response = await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ line, quantity })
+      });
+
+      if (response.ok) {
+        // Reload the page to show updated cart
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Error updating cart:', error);
+    } finally {
+      wrapper.classList.remove('is-updating');
+    }
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initCart();
+      initCartAjax();
+    });
+  } else {
+    initCart();
+    initCartAjax();
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(() => {
+      initCart();
+      initCartAjax();
+    });
+  });
+})();
+</script>
 
 {% schema %}
 {
   "name": "Cart",
-  "settings": []
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ]
 }
 {% endschema %}
