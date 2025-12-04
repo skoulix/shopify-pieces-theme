@@ -20,6 +20,7 @@ class SwupManager {
     this.isInitialized = false;
     this.pageTransitionDuration = 0.6;
     this.skipAnimation = false; // Flag to skip default animations for custom transitions
+    this.transitionStyle = window.themeSettings?.pageTransitionStyle || 'slide';
   }
 
   init() {
@@ -143,29 +144,49 @@ class SwupManager {
 
     const tl = gsap.timeline();
 
-    // Dramatic curtain wipe from bottom
-    if (overlay) {
-      // Reset overlay to bottom origin
-      gsap.set(overlay, { transformOrigin: 'bottom', scaleY: 0 });
+    switch (this.transitionStyle) {
+      case 'fade':
+        // Simple elegant fade
+        tl.to(container, {
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power2.inOut',
+        });
+        break;
 
-      // Curtain slides up to cover the page
-      tl.to(overlay, {
-        scaleY: 1,
-        duration: 0.6,
-        ease: 'power3.inOut',
-      });
+      case 'slide':
+        // Subtle slide up with fade
+        tl.to(container, {
+          y: -40,
+          opacity: 0,
+          duration: 0.25,
+          ease: 'power2.in',
+        });
+        break;
+
+      case 'curtain':
+      default:
+        // Curtain wipe from bottom with subtle slide up
+        if (overlay) {
+          gsap.set(overlay, { transformOrigin: 'bottom', scaleY: 0 });
+          tl.to(overlay, {
+            scaleY: 1,
+            duration: 0.4,
+            ease: 'power3.inOut',
+          });
+        }
+        tl.to(
+          container,
+          {
+            y: -40,
+            opacity: 0,
+            duration: 0.25,
+            ease: 'power2.in',
+          },
+          0.1
+        );
+        break;
     }
-
-    // Fade out content as curtain covers
-    tl.to(
-      container,
-      {
-        opacity: 0,
-        duration: 0.3,
-        ease: 'power2.in',
-      },
-      0.3
-    );
 
     return tl;
   }
@@ -183,31 +204,68 @@ class SwupManager {
       // Reset skipAnimation flag for next navigation
       this.skipAnimation = false;
       // Just ensure container is visible
-      gsap.set(container, { opacity: 1, y: 0 });
-      if (overlay) gsap.set(overlay, { scaleY: 0 });
+      gsap.set(container, { opacity: 1, y: 0, x: 0 });
+      if (overlay) gsap.set(overlay, { scaleY: 0, scaleX: 0 });
       return Promise.resolve();
     }
 
-    // Ensure container is ready but hidden
-    gsap.set(container, { opacity: 1, y: 0 });
-
     const tl = gsap.timeline();
 
-    // Curtain slides up to reveal new page
-    if (overlay) {
-      gsap.set(overlay, { transformOrigin: 'top', scaleY: 1 });
+    switch (this.transitionStyle) {
+      case 'fade':
+        // Simple elegant fade in
+        gsap.set(container, { opacity: 0, x: 0, y: 0 });
+        tl.to(container, {
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.inOut',
+        });
+        tl.add(() => {
+          this.animateRevealElements();
+        }, 0.1);
+        break;
 
-      tl.to(overlay, {
-        scaleY: 0,
-        duration: 0.6,
-        ease: 'power3.inOut',
-      });
+      case 'slide':
+        // Subtle slide down with fade (complement to slide up out)
+        gsap.set(container, { opacity: 0, y: 40, x: 0 });
+        tl.to(container, {
+          y: 0,
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        });
+        tl.add(() => {
+          this.animateRevealElements();
+        }, 0.1);
+        break;
+
+      case 'curtain':
+      default:
+        // Curtain slides up to reveal new page with subtle slide down
+        gsap.set(container, { opacity: 0, x: 0, y: 40 });
+        if (overlay) {
+          gsap.set(overlay, { transformOrigin: 'top', scaleY: 1 });
+          tl.to(overlay, {
+            scaleY: 0,
+            duration: 0.5,
+            ease: 'power3.inOut',
+          });
+        }
+        tl.to(
+          container,
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'power2.out',
+          },
+          0.2
+        );
+        tl.add(() => {
+          this.animateRevealElements();
+        }, 0.3);
+        break;
     }
-
-    // Animate reveal elements after curtain starts moving
-    tl.add(() => {
-      this.animateRevealElements();
-    }, 0.2);
 
     return tl;
   }

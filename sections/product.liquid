@@ -12,8 +12,8 @@
   .product-section-wrapper { max-width: var(--page-max-width); margin: 0 auto; padding: 0; }
   @media (min-width: 1024px) { .product-section-wrapper { padding: 0 var(--page-padding); } }
   .product-section-wrapper.is-full-width { max-width: none; padding: 0; }
-  .product-hero { min-height: 100vh; display: grid; grid-template-columns: 1fr; position: relative; overflow: hidden; }
-  @media (min-width: 1024px) { .product-hero { grid-template-columns: 1.2fr 1fr; min-height: calc(100vh - 80px); } }
+  .product-hero { display: grid; grid-template-columns: 1fr; position: relative; overflow: hidden; }
+  @media (min-width: 1024px) { .product-hero { grid-template-columns: 1.2fr 1fr; } }
   .product-info { container-type: inline-size; display: flex; flex-direction: column; justify-content: center; padding: 6rem var(--page-padding) 3rem; }
   @media (min-width: 1024px) { .product-info { padding: 4rem 0 4rem 4rem; } }
   .product-info.is-full-width { padding: 6rem var(--page-padding) 3rem; }
@@ -27,8 +27,8 @@
   .product-price-display { font-size: clamp(1rem, 5cqw, 1.75rem); font-weight: 300; letter-spacing: 0.02em; color: var(--color-text); opacity: 0.6; }
   @container (min-width: 400px) { .product-price-display { font-size: clamp(1.25rem, 4cqw, 2rem); } }
   .product-price-display .compare-price { font-size: 0.5em; text-decoration: line-through; opacity: 0.5; margin-right: 0.5em; }
-  .product-gallery { position: relative; height: 100%; min-height: 50vh; }
-  @media (min-width: 1024px) { .product-gallery { min-height: calc(100vh - 80px); } }
+  .product-gallery { position: relative; height: 100%; }
+  @media (max-width: 1023px) { .product-gallery { min-height: 50vh; } }
   .product-gallery-main { position: relative; width: 100%; height: 100%; overflow: hidden; clip-path: inset(0 100% 0 0); }
   .product-gallery-image { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; }
   .product-gallery-image.is-active { opacity: 1; }
@@ -73,11 +73,19 @@
   .product-vendor, .product-title, .product-price, [data-shuffle-text], [data-product-form], [data-thumbnails], [data-image-counter] { opacity: 0; }
   .product-hero.is-ready .product-gallery-main { clip-path: none; }
   .product-hero.is-ready .product-vendor, .product-hero.is-ready .product-title, .product-hero.is-ready .product-price, .product-hero.is-ready [data-shuffle-text], .product-hero.is-ready [data-product-form], .product-hero.is-ready [data-thumbnails], .product-hero.is-ready [data-image-counter] { opacity: 1; }
+  /* Image fit modes - controls how images display within gallery */
+  .product-gallery .product-gallery-image { display: flex; align-items: center; justify-content: center; }
+  .product-gallery .product-gallery-image img { object-fit: cover; object-position: center; }
+  .product-gallery.fit-contain .product-gallery-image img { object-fit: contain; }
+  .product-gallery.fit-cover .product-gallery-image img { object-fit: cover; }
+  .product-gallery.fit-square .product-gallery-image img { object-fit: cover; aspect-ratio: 1/1; width: auto; height: 100%; max-width: 100%; }
+  .product-gallery.fit-portrait .product-gallery-image img { object-fit: cover; aspect-ratio: 3/4; width: auto; height: 100%; max-width: 100%; }
+  .product-gallery.fit-landscape .product-gallery-image img { object-fit: cover; aspect-ratio: 4/3; width: 100%; height: auto; max-height: 100%; }
 </style>
 
 <div class="product-section-wrapper{% if section.settings.full_width %} is-full-width{% endif %}">
 <section class="product-hero" data-product-section>
-  <div class="product-gallery">
+  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}">
     <div class="product-gallery-main" data-gallery-main>
       {% for image in product.images %}
         <div class="product-gallery-image{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}">
@@ -116,7 +124,7 @@
 
   <div class="product-info {% if section.settings.full_width %} is-full-width{% endif %}">
     <div class="{% if section.settings.full_width %}lg:max-w-2xl{% endif %}">
-    {% if product.vendor != blank %}
+    {% if section.settings.show_vendor and product.vendor != blank %}
       <div class="product-vendor overflow-hidden">
         <span class="inline-block">{{ product.vendor }}</span>
       </div>
@@ -140,7 +148,7 @@
       </span>
     </div>
 
-    {% if product.description != blank %}
+    {% if section.settings.show_description and product.description != blank %}
       {%- assign desc_text = product.description | strip_html | truncate: 200 -%}
       {%- assign desc_length = desc_text | size -%}
       {%- assign estimated_lines = desc_length | divided_by: 50 | plus: 1 -%}
@@ -633,6 +641,35 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "default": "cover",
+      "options": [
+        { "value": "cover", "label": "Cover" },
+        { "value": "contain", "label": "Contain" },
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "landscape", "label": "Landscape" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": true,
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "default": true,
+      "label": "Show description"
     }
   ],
   "disabled_on": {

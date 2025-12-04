@@ -185,6 +185,41 @@
         "unit": "px",
         "label": "Page vertical padding",
         "info": "Top/bottom padding on templates and pages"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_smooth_scroll",
+        "default": true,
+        "label": "Enable smooth scrolling",
+        "info": "Enables buttery smooth scroll behavior"
+      },
+      {
+        "type": "header",
+        "content": "Page transitions"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_page_transitions",
+        "default": true,
+        "label": "Enable page transitions",
+        "info": "Smooth transitions between pages"
+      },
+      {
+        "type": "select",
+        "id": "page_transition_style",
+        "label": "Transition style",
+        "default": "slide",
+        "options": [
+          { "value": "slide", "label": "Slide" },
+          { "value": "fade", "label": "Fade" },
+          { "value": "curtain", "label": "Curtain" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "page_transition_color",
+        "label": "Transition overlay color",
+        "default": "#f5f5f5"
       }
     ]
   },

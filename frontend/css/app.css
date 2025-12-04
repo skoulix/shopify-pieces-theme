@@ -21,8 +21,8 @@
     font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   }
 
-  /* Smooth scrolling - disabled when Lenis is active */
-  html:not(.lenis) {
+  /* Smooth scrolling - only when enabled and Lenis is not active */
+  html.smooth-scroll-enabled:not(.lenis) {
     scroll-behavior: smooth;
   }
 

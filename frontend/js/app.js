@@ -69,13 +69,19 @@ function init() {
   // Check for reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Initialize smooth scroll (respect user preference)
-  if (!prefersReducedMotion) {
+  // Check theme setting for smooth scroll
+  const smoothScrollEnabled = window.themeSettings?.enableSmoothScroll !== false;
+
+  // Initialize smooth scroll (respect user preference and theme setting)
+  if (!prefersReducedMotion && smoothScrollEnabled) {
     lenisManager.init();
   }
 
-  // Initialize page transitions (respect user preference)
-  if (!prefersReducedMotion) {
+  // Check theme setting for page transitions
+  const pageTransitionsEnabled = window.themeSettings?.enablePageTransitions !== false;
+
+  // Initialize page transitions (respect user preference and theme setting)
+  if (!prefersReducedMotion && pageTransitionsEnabled) {
     swupManager.init();
 
     // Listen for content replacement
