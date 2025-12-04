@@ -72,8 +72,8 @@
 
     /* Layout */
     --page-max-width: {{ settings.page_width }}px;
-    --page-padding: {{ settings.page_padding }}px;
-    --section-spacing: {{ settings.section_spacing }}px;
+    --page-padding: 24px;
+    --page-vertical-padding: clamp({{ settings.page_vertical_padding | times: 0.5 }}px, 10vh, {{ settings.page_vertical_padding }}px);
 
     /* Buttons */
     --button-radius: {{ settings.button_radius }}px;
@@ -216,18 +216,5 @@
   .page-full {
     padding-left: var(--page-padding);
     padding-right: var(--page-padding);
-  }
-
-  .section-spacing {
-    padding-top: var(--section-spacing);
-    padding-bottom: var(--section-spacing);
-  }
-
-  .section-spacing-top {
-    padding-top: var(--section-spacing);
-  }
-
-  .section-spacing-bottom {
-    padding-bottom: var(--section-spacing);
   }
 </style>

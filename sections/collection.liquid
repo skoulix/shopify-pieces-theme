@@ -1,9 +1,3 @@
-{%- comment -%}
-  Collection Section - Multiple Layout Styles
-  Styles: grid, metro, parallax, creative
-  Features intro/outro animations and smooth page transitions
-{%- endcomment -%}
-
 {%- liquid
   assign layout_style = section.settings.layout_style
   assign full_width = section.settings.full_width
@@ -16,179 +10,35 @@
 -%}
 
 <style>
-  /* ==========================================================================
-     Collection Section - Custom CSS for clamp(), animations, and CSS vars
-     ========================================================================== */
-
-  /* Header Title - requires clamp() */
-  .collection-header-title {
-    font-size: clamp(2.5rem, 10vw, 4.5rem);
-    letter-spacing: -0.03em;
-    line-height: 0.9;
-  }
-
-  @media (min-width: 1024px) {
-    .collection-header-title {
-      font-size: clamp(3.5rem, 7vw, 6rem);
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .collection-header-title {
-      font-size: clamp(4.5rem, 6vw, 8rem);
-    }
-  }
-
-  /* Title line indentation - requires clamp() */
-  .collection-header-title-line:nth-child(2) {
-    margin-left: clamp(1.5rem, 10vw, 8rem);
-  }
-
-  .collection-header-title-line:nth-child(3) {
-    margin-left: clamp(3rem, 18vw, 14rem);
-  }
-
-  /* Mobile header adjustments */
-  @media (max-width: 768px) {
-    .collection-header {
-      padding-top: 4rem;
-      padding-bottom: 3rem;
-    }
-
-    .collection-header-description {
-      max-width: 100%;
-    }
-  }
-
-  /* ==========================================================================
-     Grid Layout - requires CSS custom properties
-     ========================================================================== */
-  .collection-grid {
-    grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
-  }
-
-  @media (min-width: 768px) {
-    .collection-grid {
-      grid-template-columns: repeat(var(--columns-tablet, 2), 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .collection-grid {
-      grid-template-columns: repeat(var(--columns-desktop, 3), 1fr);
-    }
-  }
-
-  /* Loading state - animation specific */
-  .collection-wrapper.is-loading .product-card-image {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  /* ==========================================================================
-     Metro Layout - requires CSS custom properties
-     ========================================================================== */
-  .collection-metro {
-    grid-template-columns: repeat(var(--columns-mobile, 1), 1fr);
-  }
-
-  @media (min-width: 768px) {
-    .collection-metro {
-      grid-template-columns: repeat(var(--columns-tablet, 2), 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .collection-metro {
-      grid-template-columns: repeat(var(--columns-desktop, 4), 1fr);
-    }
-  }
-
-  /* Metro item image transition */
-  .metro-item-image {
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* Metro item spanning - grid-specific */
-  .metro-item-large {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
-
-  .metro-item-wide {
-    grid-column: span 2;
-  }
-
-  .metro-item-tall {
-    grid-row: span 2;
-  }
-
-  @media (max-width: 767px) {
-    .metro-item-large,
-    .metro-item-wide,
-    .metro-item-tall {
-      grid-column: span 1;
-      grid-row: span 1;
-    }
-  }
-
-  /* Metro aspect ratios */
-  .metro-item-large .metro-item-inner,
-  .metro-item-wide .metro-item-inner {
-    aspect-ratio: 16/9;
-  }
-
-  .metro-item-tall .metro-item-inner {
-    aspect-ratio: 3/5;
-  }
-
-  .metro-item-normal .metro-item-inner {
-    aspect-ratio: 1/1;
-  }
-
-  @media (max-width: 640px) {
-    .metro-item .metro-item-inner {
-      aspect-ratio: 4/5;
-    }
-  }
-
-  /* Metro overlay gradient - requires linear-gradient */
-  .metro-item-overlay {
-    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
-  }
-
-  /* Metro hover states */
-  .metro-item:hover .metro-item-overlay {
-    opacity: 1;
-  }
-
-  .metro-item:hover .metro-item-image {
-    transform: scale(1.05);
-  }
-
-  /* Metro content transition */
-  .metro-item-content {
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .metro-item:hover .metro-item-content {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* Metro large title size */
-  .metro-item-large .metro-item-title {
-    font-size: 1.5rem;
-  }
-
-  /* Loading state for metro - animation specific */
-  .collection-wrapper.is-loading .metro-item-inner {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  /* Transition state */
-  .collection-wrapper.is-transitioning {
-    pointer-events: none;
-  }
+  .collection-header-title { font-size: clamp(2.5rem, 10vw, 4.5rem); letter-spacing: -0.03em; line-height: 0.9; }
+  @media (min-width: 1024px) { .collection-header-title { font-size: clamp(3.5rem, 7vw, 6rem); } }
+  @media (min-width: 1536px) { .collection-header-title { font-size: clamp(4.5rem, 6vw, 8rem); } }
+  .collection-header-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .collection-header-title-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
+  .collection-grid { grid-template-columns: repeat(var(--columns-mobile, 1), 1fr); }
+  @media (min-width: 768px) { .collection-grid { grid-template-columns: repeat(var(--columns-tablet, 2), 1fr); } }
+  @media (min-width: 1024px) { .collection-grid { grid-template-columns: repeat(var(--columns-desktop, 3), 1fr); } }
+  .collection-wrapper.is-loading .product-card-image { clip-path: inset(0 100% 0 0); }
+  .collection-metro { grid-template-columns: repeat(var(--columns-mobile, 1), 1fr); }
+  @media (min-width: 768px) { .collection-metro { grid-template-columns: repeat(var(--columns-tablet, 2), 1fr); } }
+  @media (min-width: 1024px) { .collection-metro { grid-template-columns: repeat(var(--columns-desktop, 4), 1fr); } }
+  .metro-item-image { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .metro-item-large { grid-column: span 2; grid-row: span 2; }
+  .metro-item-wide { grid-column: span 2; }
+  .metro-item-tall { grid-row: span 2; }
+  @media (max-width: 767px) { .metro-item-large, .metro-item-wide, .metro-item-tall { grid-column: span 1; grid-row: span 1; } }
+  .metro-item-large .metro-item-inner, .metro-item-wide .metro-item-inner { aspect-ratio: 16/9; }
+  .metro-item-tall .metro-item-inner { aspect-ratio: 3/5; }
+  .metro-item-normal .metro-item-inner { aspect-ratio: 1/1; }
+  @media (max-width: 640px) { .metro-item .metro-item-inner { aspect-ratio: 4/5; } }
+  .metro-item-overlay { background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%); }
+  .metro-item:hover .metro-item-overlay { opacity: 1; }
+  .metro-item:hover .metro-item-image { transform: scale(1.05); }
+  .metro-item-content { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+  .metro-item:hover .metro-item-content { transform: translateY(0); opacity: 1; }
+  .metro-item-large .metro-item-title { font-size: 1.5rem; }
+  .collection-wrapper.is-loading .metro-item-inner { clip-path: inset(0 100% 0 0); }
+  .collection-wrapper.is-transitioning { pointer-events: none; }
 </style>
 
 <div
@@ -197,9 +47,8 @@
   data-layout-style="{{ layout_style }}"
   style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
 >
-  {%- comment -%} Creative Header - Staggered Giant Typography {%- endcomment -%}
-  <header class="collection-header relative pt-24 pb-16 flex flex-col justify-center {{ container_class }}">
-    <h1 class="collection-header-title font-bold uppercase">
+  <header class="pt-[--page-vertical-padding] pb-16 {{ container_class }}">
+    <h1 class="collection-header-title font-bold uppercase text-[--color-text]">
       {%- assign title_words = collection.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="collection-header-title-line block overflow-hidden">
@@ -209,7 +58,7 @@
     </h1>
 
     {% if section.settings.show_product_count %}
-      <p class="page-header-subtitle">
+      <p class="page-header-subtitle mt-6">
         <span class="page-header-subtitle-line" data-subtitle-line></span>
         <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}</span></span>
       </p>
@@ -218,23 +67,19 @@
     {% if section.settings.show_description and collection.description != blank %}
       {%- assign desc_text = collection.description | strip_html -%}
       {%- assign desc_length = desc_text | size -%}
-      {%- comment -%} Estimate lines: ~45 chars per line at this width/font-size {%- endcomment -%}
       {%- assign estimated_lines = desc_length | divided_by: 45 | plus: 1 -%}
-      {%- comment -%} line-height is ~1.625 (leading-relaxed), font-size is 0.75rem (text-xs) {%- endcomment -%}
       {%- assign min_height = estimated_lines | times: 1.22 -%}
-      <div class="collection-header-description mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em]" style="min-height: {{ min_height }}rem;" data-shuffle-text data-original-text="{{ desc_text | escape }}">
+      <div class="mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em]" style="min-height: {{ min_height }}rem;" data-shuffle-text data-original-text="{{ desc_text | escape }}">
         {{ desc_text }}
       </div>
     {% endif %}
   </header>
 
-  {%- comment -%} Product Display - Conditional based on layout style {%- endcomment -%}
   {% paginate collection.products by section.settings.products_per_page %}
 
     {% case layout_style %}
 
       {% when 'metro' %}
-        {%- comment -%} Metro/Bento Grid Layout {%- endcomment -%}
         <div class="collection-metro grid gap-1 {{ container_class }} pb-16" data-collection-content>
           {% for product in collection.products %}
             {%- liquid
@@ -261,7 +106,7 @@
               class="metro-item block relative overflow-hidden cursor-pointer no-underline text-inherit {{ item_class }}"
               data-collection-item="{{ forloop.index0 }}"
             >
-              <div class="metro-item-inner relative overflow-hidden bg-gray-100">
+              <div class="metro-item-inner relative overflow-hidden bg-[--color-background-secondary]">
                 {% if product.featured_image %}
                   {{ product.featured_image | image_url: width: 1200 | image_tag:
                     class: 'metro-item-image w-full h-full object-cover',
@@ -270,8 +115,8 @@
                     widths: '400, 600, 800, 1200'
                   }}
                 {% else %}
-                  <div class="metro-item-image w-full h-full flex items-center justify-center bg-gray-100">
-                    <i class="ph ph-image text-6xl text-gray-300"></i>
+                  <div class="metro-item-image w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
+                    <i class="ph ph-image text-6xl text-[--color-text-secondary] opacity-30"></i>
                   </div>
                 {% endif %}
 
@@ -279,7 +124,7 @@
 
                 <div class="metro-item-content absolute bottom-0 left-0 right-0 p-6 translate-y-5 opacity-0">
                   <h3 class="metro-item-title text-white font-semibold uppercase tracking-[0.05em]">{{ product.title }}</h3>
-                  <p class="metro-item-price text-white/80 text-sm mt-1">
+                  <p class="text-white/80 text-sm mt-1">
                     {% if product.compare_at_price > product.price %}
                       <span class="line-through opacity-60 mr-2">{{ product.compare_at_price | money }}</span>
                     {% endif %}
@@ -292,7 +137,6 @@
         </div>
 
       {% else %}
-        {%- comment -%} Default Grid Layout {%- endcomment -%}
         <div class="collection-grid grid gap-8 {{ container_class }} pb-16" data-collection-content>
           {% for product in collection.products %}
             {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
@@ -301,17 +145,11 @@
 
     {% endcase %}
 
-    {%- comment -%} Pagination {%- endcomment -%}
     {% if paginate.pages > 1 %}
       {% if section.settings.pagination_type == 'load_more' %}
-        {%- comment -%} Load More Button {%- endcomment -%}
         <div class="flex flex-col items-center justify-center py-16 {{ container_class }}" data-pagination-load-more>
           {% if paginate.next %}
-            <button
-              type="button"
-              class="load-more-btn btn btn--secondary"
-              data-next-url="{{ paginate.next.url }}"
-            >
+            <button type="button" class="load-more-btn btn btn--secondary" data-next-url="{{ paginate.next.url }}">
               <span class="load-more-text">Load More</span>
               <span class="load-more-loading hidden items-center">
                 <svg class="animate-spin -ml-1 mr-2 h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -322,12 +160,11 @@
               </span>
             </button>
           {% endif %}
-          <span class="mt-4 text-sm text-gray-500" data-products-showing>
+          <span class="mt-4 text-sm text-[--color-text-secondary]" data-products-showing>
             Showing {{ paginate.current_offset | plus: 1 }}-{{ paginate.current_offset | plus: paginate.page_size | at_most: paginate.items }} of {{ paginate.items }} products
           </span>
         </div>
       {% else %}
-        {%- comment -%} Previous / Next Navigation {%- endcomment -%}
         <nav class="flex items-center justify-center gap-4 py-16 {{ container_class }}">
           {% if paginate.previous %}
             <a href="{{ paginate.previous.url }}" class="btn btn--secondary btn--sm">
@@ -336,7 +173,7 @@
             </a>
           {% endif %}
 
-          <span class="px-4 py-2 text-sm text-gray-500">
+          <span class="px-4 py-2 text-sm text-[--color-text-secondary]">
             Page {{ paginate.current_page }} of {{ paginate.pages }}
           </span>
 
@@ -863,7 +700,7 @@
       "type": "checkbox",
       "id": "full_width",
       "label": "Full width",
-      "default": true,
+      "default": false,
       "info": "Remove max-width container constraint"
     },
     {

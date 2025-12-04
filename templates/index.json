@@ -12,7 +12,7 @@
         "button_background": "#ffffff",
         "button_text_color": "#000000",
         "overlay_opacity": 40,
-        "full_width": true,
+        "full_width": false,
         "show_scroll_indicator": true
       }
     },
@@ -154,12 +154,5 @@
       "block_order": ["stat_3", "stat_4"]
     }
   },
-  "order": [
-    "hero",
-    "marquee",
-    "featured_collection",
-    "image_with_text",
-    "featured_collection_2",
-    "image_with_text_2"
-  ]
+  "order": ["hero", "marquee", "featured_collection", "image_with_text", "featured_collection_2", "image_with_text_2"]
 }

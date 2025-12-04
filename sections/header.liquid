@@ -11,49 +11,7 @@
   endif
 -%}
 
-<style>
-  /* Active nav link styles */
-  .nav-link {
-    position: relative;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: currentColor;
-    transition: width 0.3s ease;
-  }
-
-  .nav-link.is-active::after {
-    width: 100%;
-  }
-
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
-  .nav-link:hover {
-    color: var(--color-primary);
-  }
-
-  /* Mobile active state */
-  .nav-link-mobile.is-active {
-    background-color: var(--color-background-secondary);
-    color: var(--color-primary);
-  }
-
-  /* Header styling */
-  .header {
-    background-color: var(--color-background);
-    border-color: var(--color-border);
-  }
-</style>
-
-<header class="header sticky top-0 z-40 border-b" data-header>
+<header class="sticky top-0 z-40 border-b bg-[--color-background] border-[--color-border]" data-header>
   <nav class="{{ nav_class }} flex items-center justify-between py-4">
     {%- comment -%} Logo {%- endcomment -%}
     <div class="flex lg:flex-1">
@@ -66,7 +24,7 @@
             loading: 'eager'
           }}
         {% else %}
-          <span class="text-xl font-bold text-gray-900">{{ shop.name }}</span>
+          <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
         {% endif %}
       </a>
     </div>
@@ -75,7 +33,7 @@
     <div class="flex lg:hidden">
       <button
         type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
         onclick="document.getElementById('mobile-menu').classList.remove('hidden')"
       >
         <span class="sr-only">Open menu</span>
@@ -96,8 +54,7 @@
         -%}
         <a
           href="{{ link.url }}"
-          class="nav-link text-sm font-semibold leading-6 transition-colors{% if is_active %} is-active{% endif %}"
-          style="--hover-color: var(--color-primary);"
+          class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
           data-nav-link
         >
           {{ link.title }}
@@ -108,23 +65,23 @@
     {%- comment -%} Desktop Icons {%- endcomment -%}
     <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
       {%- comment -%} Search {%- endcomment -%}
-      <a href="{{ routes.search_url }}" class="p-2 text-gray-400 hover:text-gray-500 transition-colors">
+      <a href="{{ routes.search_url }}" class="p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
         <span class="sr-only">Search</span>
         <i class="ph ph-magnifying-glass text-xl"></i>
       </a>
 
       {%- comment -%} Account {%- endcomment -%}
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="p-2 text-gray-400 hover:text-gray-500 transition-colors">
+        <a href="{{ routes.account_url }}" class="p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
           <span class="sr-only">Account</span>
           <i class="ph ph-user text-xl"></i>
         </a>
       {% endif %}
 
       {%- comment -%} Cart {%- endcomment -%}
-      <a href="{{ routes.cart_url }}" class="group p-2 flex items-center text-gray-400 hover:text-gray-500 transition-colors">
+      <a href="{{ routes.cart_url }}" class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
         <i class="ph ph-bag text-xl"></i>
-        <span class="ml-1 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ cart.item_count }}</span>
+        <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]">{{ cart.item_count }}</span>
         <span class="sr-only">items in cart</span>
       </a>
     </div>
@@ -133,7 +90,7 @@
   {%- comment -%} Mobile Menu {%- endcomment -%}
   <div id="mobile-menu" class="hidden lg:hidden" role="dialog" aria-modal="true">
     <div class="fixed inset-0 z-50 bg-black/25" onclick="document.getElementById('mobile-menu').classList.add('hidden')"></div>
-    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-[--color-background] px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-[--color-border]">
       <div class="flex items-center justify-between">
         <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
           <span class="sr-only">{{ shop.name }}</span>
@@ -143,12 +100,12 @@
               alt: shop.name
             }}
           {% else %}
-            <span class="text-lg font-bold text-gray-900">{{ shop.name }}</span>
+            <span class="text-lg font-bold text-[--color-text]">{{ shop.name }}</span>
           {% endif %}
         </a>
         <button
           type="button"
-          class="-m-2.5 rounded-md p-2.5 text-gray-700"
+          class="-m-2.5 rounded-md p-2.5 text-[--color-text]"
           onclick="document.getElementById('mobile-menu').classList.add('hidden')"
         >
           <span class="sr-only">Close menu</span>
@@ -157,7 +114,7 @@
       </div>
 
       <div class="mt-6 flow-root">
-        <div class="-my-6 divide-y divide-gray-500/10">
+        <div class="-my-6 divide-y divide-[--color-border]">
           <div class="space-y-2 py-6">
             {% for link in section.settings.menu.links %}
               {%- liquid
@@ -170,7 +127,7 @@
               -%}
               <a
                 href="{{ link.url }}"
-                class="nav-link-mobile -mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50{% if is_active %} is-active{% endif %}"
+                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-[--color-text] hover:bg-[--color-background-secondary]{% if is_active %} bg-[--color-background-secondary] text-[--color-primary]{% endif %}"
                 data-nav-link
               >
                 {{ link.title }}
@@ -180,11 +137,11 @@
 
           <div class="py-6 space-y-2">
             {% if shop.customer_accounts_enabled %}
-              <a href="{{ routes.account_url }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+              <a href="{{ routes.account_url }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[--color-text] hover:bg-[--color-background-secondary]">
                 <i class="ph ph-user mr-2"></i>Account
               </a>
             {% endif %}
-            <a href="{{ routes.cart_url }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+            <a href="{{ routes.cart_url }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-[--color-text] hover:bg-[--color-background-secondary]">
               <i class="ph ph-bag mr-2"></i>Cart ({{ cart.item_count }})
             </a>
           </div>
@@ -248,7 +205,7 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "default": true,
+      "default": false,
       "label": "Full width"
     },
     {

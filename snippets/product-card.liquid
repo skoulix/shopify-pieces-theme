@@ -27,7 +27,8 @@
 
 <a
   href="{{ product_url }}"
-  class="product-card block cursor-pointer no-underline text-inherit"
+  class="product-card block cursor-pointer no-underline text-inherit rounded-[--card-radius] overflow-hidden"
+  style="border: var(--card-border-width) solid var(--color-border); box-shadow: var(--card-shadow);"
   data-product-card="{{ index }}"
 >
   <div class="product-card-image relative overflow-hidden aspect-[3/4]">
@@ -40,31 +41,33 @@
         alt: product.title
       }}
     {% else %}
-      <div class="w-full h-full flex items-center justify-center">
-        <i class="ph ph-image text-5xl text-gray-300"></i>
+      <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
+        <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30"></i>
       </div>
     {% endif %}
   </div>
 
-  {% if show_vendor and product.vendor != blank %}
-    <p class="product-card-vendor mt-2 text-xs text-gray-500 uppercase tracking-wide overflow-hidden">
-      <span class="inline-block">{{ product.vendor }}</span>
-    </p>
-  {% endif %}
-
-  <h3 class="product-card-title mt-3 text-xs md:text-sm font-semibold uppercase tracking-wide">
-    {%- assign title_words = product.title | split: ' ' -%}
-    {%- for word in title_words -%}
-      <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
-    {%- endfor -%}
-  </h3>
-
-  <div class="product-card-price mt-2 text-sm text-gray-600">
-    {% if product.compare_at_price > product.price %}
-      <span class="overflow-hidden inline-block"><span class="inline-block line-through text-gray-400 mr-2">{{ product.compare_at_price | money }}</span></span>
-      <span class="overflow-hidden inline-block"><span class="inline-block text-red-600">{{ product.price | money }}</span></span>
-    {% else %}
-      <span class="overflow-hidden inline-block"><span class="inline-block">{{ product.price | money }}</span></span>
+  <div class="product-card-content p-4 bg-[--color-background]">
+    {% if show_vendor and product.vendor != blank %}
+      <p class="product-card-vendor text-xs text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
+        <span class="inline-block">{{ product.vendor }}</span>
+      </p>
     {% endif %}
+
+    <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold uppercase tracking-wide text-[--color-text]">
+      {%- assign title_words = product.title | split: ' ' -%}
+      {%- for word in title_words -%}
+        <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
+      {%- endfor -%}
+    </h3>
+
+    <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+      {% if product.compare_at_price > product.price %}
+        <span class="overflow-hidden inline-block"><span class="inline-block line-through opacity-60 mr-2">{{ product.compare_at_price | money }}</span></span>
+        <span class="overflow-hidden inline-block"><span class="inline-block text-[--color-sale]">{{ product.price | money }}</span></span>
+      {% else %}
+        <span class="overflow-hidden inline-block"><span class="inline-block">{{ product.price | money }}</span></span>
+      {% endif %}
+    </div>
   </div>
 </a>

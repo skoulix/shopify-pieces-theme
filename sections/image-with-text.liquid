@@ -1,7 +1,3 @@
-{%- comment -%}
-  Image with Text Section - Modern split layout with parallax and reveal animations
-{%- endcomment -%}
-
 {%- liquid
   if section.settings.full_width
     if section.settings.layout == 'image_left'
@@ -17,127 +13,23 @@
 -%}
 
 <style>
-  /* ==========================================================================
-     Image with Text Section - Custom CSS for Liquid values & clamp()
-     ========================================================================== */
-
-  /* Section padding - requires Liquid conditionals and clamp() */
-  .iwt-section {
-    {% if section.settings.remove_padding %}
-    padding: 0 0 clamp(2rem, 5vh, 4rem) 0;
-    {% else %}
-    padding: clamp(4rem, 10vh, 8rem) 0;
-    {% endif %}
-    background-color: {{ section.settings.background_color }};
-  }
-
-  @media (min-width: 1024px) {
-    .iwt-section {
-      {% if section.settings.remove_padding %}
-      padding: 0;
-      {% endif %}
-    }
-
-    /* Layout direction for image_right - requires data attribute */
-    .iwt-section[data-layout="image_right"] .iwt-container {
-      direction: rtl;
-    }
-
-    .iwt-section[data-layout="image_right"] .iwt-container > * {
-      direction: ltr;
-    }
-  }
-
-  /* Grid gap - requires clamp() */
-  .iwt-container {
-    gap: clamp(2rem, 5vw, 4rem);
-  }
-
-  /* Image aspect ratio - requires Liquid dynamic value */
-  .iwt-image {
-    aspect-ratio: {{ section.settings.image_ratio }};
-  }
-
-  /* Title - requires clamp() and Liquid color */
-  .iwt-title {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-    letter-spacing: -0.03em;
-    line-height: 0.95;
-    color: {{ section.settings.text_color }};
-  }
-
-  @media (min-width: 1024px) {
-    .iwt-title {
-      font-size: clamp(2rem, 3.5vw, 3rem);
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .iwt-title {
-      font-size: clamp(2.5rem, 3vw, 3.5rem);
-    }
-  }
-
-  /* Title line indent - requires clamp() */
-  .iwt-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Text - requires clamp() and Liquid color */
-  .iwt-text {
-    font-size: clamp(0.875rem, 1.5vw, 1rem);
-    color: {{ section.settings.text_color }};
-  }
-
-  /* Label and CTA - require Liquid color */
-  .iwt-label,
-  .iwt-cta {
-    color: {{ section.settings.text_color }};
-  }
-
-  /* CTA hover effects */
-  .iwt-cta:hover {
-    opacity: 0.7;
-  }
-
-  .iwt-cta-text-wrapper {
-    overflow: hidden;
-    display: inline-block;
-  }
-
-  .iwt-cta .iwt-cta-text {
-    display: inline-block;
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .iwt-cta .iwt-cta-text::after {
-    content: attr(data-hover);
-    position: absolute;
-    left: 0;
-    top: 100%;
-    white-space: nowrap;
-  }
-
-  .iwt-cta:hover .iwt-cta-text {
-    transform: translateY(-100%);
-  }
-
-  /* Stats - requires clamp() and Liquid color */
-  .iwt-stats {
-    gap: clamp(2rem, 4vw, 4rem);
-    border-top-color: {{ section.settings.text_color }}20;
-  }
-
-  .iwt-stat-number {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    letter-spacing: -0.03em;
-    color: {{ section.settings.text_color }};
-  }
-
-  .iwt-stat-label {
-    color: {{ section.settings.text_color }};
-  }
+  .iwt-section { {% if section.settings.remove_padding %}padding: 0 0 clamp(2rem, 5vh, 4rem) 0;{% else %}padding: clamp(4rem, 10vh, 8rem) 0;{% endif %} background-color: {{ section.settings.background_color }}; }
+  @media (min-width: 1024px) { .iwt-section { {% if section.settings.remove_padding %}padding: 0;{% endif %} } .iwt-section[data-layout="image_right"] .iwt-container { direction: rtl; } .iwt-section[data-layout="image_right"] .iwt-container > * { direction: ltr; } }
+  .iwt-container { gap: clamp(2rem, 5vw, 4rem); }
+  .iwt-image { aspect-ratio: {{ section.settings.image_ratio }}; }
+  .iwt-title { font-size: clamp(1.75rem, 5vw, 2.5rem); letter-spacing: -0.03em; line-height: 0.95; color: {{ section.settings.text_color }}; }
+  @media (min-width: 1024px) { .iwt-title { font-size: clamp(2rem, 3.5vw, 3rem); } }
+  @media (min-width: 1536px) { .iwt-title { font-size: clamp(2.5rem, 3vw, 3.5rem); } }
+  .iwt-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+  .iwt-text { font-size: clamp(0.875rem, 1.5vw, 1rem); color: {{ section.settings.text_color }}; }
+  .iwt-label, .iwt-cta { color: {{ section.settings.text_color }}; }
+  .iwt-cta-text-wrapper { overflow: hidden; display: inline-block; }
+  .iwt-cta .iwt-cta-text { display: inline-block; position: relative; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .iwt-cta .iwt-cta-text::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; white-space: nowrap; }
+  .iwt-cta:hover .iwt-cta-text { transform: translateY(-100%); }
+  .iwt-stats { gap: clamp(2rem, 4vw, 4rem); border-top-color: {{ section.settings.text_color }}20; }
+  .iwt-stat-number { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.03em; color: {{ section.settings.text_color }}; }
+  .iwt-stat-label { color: {{ section.settings.text_color }}; }
 </style>
 
 <section
@@ -146,8 +38,7 @@
   data-layout="{{ section.settings.layout }}"
 >
   <div class="iwt-container grid grid-cols-1 lg:grid-cols-2 items-center {{ container_class }}">
-    {%- comment -%} Image {%- endcomment -%}
-    <div class="iwt-image-wrapper relative overflow-hidden">
+    <div class="relative overflow-hidden">
       <div class="iwt-image overflow-hidden" data-iwt-image>
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1200 | image_tag:
@@ -162,8 +53,7 @@
       </div>
     </div>
 
-    {%- comment -%} Content {%- endcomment -%}
-    <div class="iwt-content max-w-2xl lg:mx-auto {{ content_class }}" data-iwt-content>
+    <div class="max-w-2xl lg:mx-auto {{ content_class }}" data-iwt-content>
       {% if section.settings.label != blank %}
         <span class="iwt-label inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-6" data-iwt-label>{{ section.settings.label }}</span>
       {% endif %}
@@ -193,15 +83,14 @@
       {% endif %}
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="iwt-cta inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em] border-b border-current pb-2 transition-opacity duration-300" data-iwt-cta>
+        <a href="{{ section.settings.button_link }}" class="iwt-cta inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em]" data-iwt-cta>
           <span class="iwt-cta-text-wrapper">
             <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
           </span>
-          <i class="ph ph-arrow-right transition-transform duration-300"></i>
+          <i class="ph ph-arrow-right"></i>
         </a>
       {% endif %}
 
-      {%- comment -%} Stats {%- endcomment -%}
       {% if section.blocks.size > 0 %}
         <div class="iwt-stats flex mt-12 pt-8 border-t" data-iwt-stats>
           {% for block in section.blocks %}
@@ -401,7 +290,7 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "default": true,
+      "default": false,
       "label": "Full width"
     },
     {

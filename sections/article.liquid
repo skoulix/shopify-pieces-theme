@@ -1,8 +1,3 @@
-{%- comment -%}
-  Article Section - Modern Editorial Layout
-  Awwwards-style design with creative typography and animations
-{%- endcomment -%}
-
 {%- liquid
   if section.settings.full_width
     assign container_class = 'page-full'
@@ -12,93 +7,23 @@
 -%}
 
 <style>
-  /* Reading Progress Bar - needs custom width animation */
-  .article-progress-bar {
-    transition: width 0.1s ease-out;
-  }
-
-  /* Article Hero Title - requires clamp() for fluid typography */
-  .article-hero-title {
-    font-size: clamp(1.75rem, 5vw, 2.75rem);
-    letter-spacing: -0.03em;
-  }
-
-  @media (min-width: 1024px) {
-    .article-hero-title {
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .article-hero-title {
-      font-size: clamp(3rem, 3.5vw, 4rem);
-    }
-  }
-
-  /* Category pseudo-element */
-  .article-hero-category::before {
-    content: '';
-    width: 2rem;
-    height: 1px;
-    background: var(--color-text-secondary);
-  }
-
-  /* Meta dots pseudo-elements */
-  .article-hero-date::before,
-  .article-hero-reading-time::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--color-text-secondary);
-  }
-
-
-  /* Tag hover state */
-  .article-tag:hover {
-    background: var(--color-primary);
-    color: var(--color-primary-contrast);
-  }
-
-  /* Share link hover state */
-  .article-share-link:hover {
-    background: var(--color-primary);
-    color: var(--color-primary-contrast);
-    border-color: var(--color-primary);
-  }
-
-  /* Nav title hover */
-  .article-nav-link:hover .article-nav-title-text {
-    color: var(--color-primary);
-  }
-
-  /* Form focus states */
-  .article-form-input:focus,
-  .article-form-textarea:focus {
-    outline: none;
-    border-color: var(--color-primary);
-  }
-
-  /* Animation states - clip-path for image reveal */
-  .article-image {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  .article-wrapper.is-loading .article-image {
-    clip-path: inset(0 100% 0 0);
-  }
+  .article-progress-bar { transition: width 0.1s ease-out; }
+  .article-hero-title { font-size: clamp(1.75rem, 5vw, 2.75rem); letter-spacing: -0.03em; }
+  @media (min-width: 1024px) { .article-hero-title { font-size: clamp(2.5rem, 4vw, 3.5rem); } }
+  @media (min-width: 1536px) { .article-hero-title { font-size: clamp(3rem, 3.5vw, 4rem); } }
+  .article-hero-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--color-text-secondary); }
+  .article-hero-date::before, .article-hero-reading-time::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); }
+  .article-image { clip-path: inset(0 100% 0 0); }
+  .article-wrapper.is-loading .article-image { clip-path: inset(0 100% 0 0); }
 </style>
 
-{%- comment -%} Reading Progress Bar {%- endcomment -%}
-<div class="article-progress fixed top-0 left-0 w-full h-[3px] z-[9999] bg-transparent pointer-events-none" data-article-progress>
+<div class="fixed top-0 left-0 w-full h-[3px] z-[9999] bg-transparent pointer-events-none" data-article-progress>
   <div class="article-progress-bar h-full w-0 bg-[--color-primary]" data-article-progress-bar></div>
 </div>
 
 <article class="article-wrapper is-loading" data-article-wrapper>
-  {%- comment -%} Hero Section {%- endcomment -%}
-  <header class="article-hero relative pt-24 pb-16">
+  <header class="pt-[--page-vertical-padding] pb-16">
     <div class="{{ container_class }}">
-      {%- comment -%} Back Link {%- endcomment -%}
       {%- capture back_text -%}Back to {{ blog.title }}{%- endcapture -%}
       <div class="overflow-hidden mb-12">
         <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary]" data-back-link>
@@ -107,14 +32,12 @@
         </a>
       </div>
 
-      {%- comment -%} Category {%- endcomment -%}
       {% if article.tags.size > 0 %}
         <p class="article-hero-category text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[--color-text-secondary] mb-6 flex items-center gap-4 overflow-hidden">
           <span class="inline-block">{{ article.tags.first }}</span>
         </p>
       {% endif %}
 
-      {%- comment -%} Title {%- endcomment -%}
       <h1 class="article-hero-title font-bold leading-[1.05] text-[--color-text] max-w-[900px]">
         {%- assign title_words = article.title | split: ' ' -%}
         {%- assign words_per_line = title_words.size | divided_by: 2 | plus: 1 -%}
@@ -131,15 +54,12 @@
         {%- endfor -%}
       </h1>
 
-      {%- comment -%} Meta {%- endcomment -%}
-      <div class="article-hero-meta flex flex-wrap items-center gap-6 mt-10 text-[0.8125rem] text-[--color-text-secondary]" data-article-meta>
-        <div class="article-hero-author flex items-center gap-3">
+      <div class="flex flex-wrap items-center gap-6 mt-10 text-[0.8125rem] text-[--color-text-secondary]" data-article-meta>
+        <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-[--color-background-secondary] flex items-center justify-center font-semibold text-sm text-[--color-text]">
             {{ article.author | slice: 0 | upcase }}
           </div>
-          <div>
-            <p class="font-semibold text-[--color-text]">{{ article.author }}</p>
-          </div>
+          <p class="font-semibold text-[--color-text]">{{ article.author }}</p>
         </div>
         <time class="article-hero-date flex items-center gap-2" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
           {{ article.published_at | date: '%B %d, %Y' }}
@@ -151,7 +71,6 @@
     </div>
   </header>
 
-  {%- comment -%} Featured Image {%- endcomment -%}
   {% if article.image %}
     <div class="article-image relative mx-auto mb-16 overflow-hidden {{ container_class }}">
       {{ article.image | image_url: width: 1600 | image_tag:
@@ -163,82 +82,77 @@
     </div>
   {% endif %}
 
-  {%- comment -%} Content {%- endcomment -%}
   <div class="{{ container_class }}">
-    <div class="article-content" data-article-content>
-      <div class="article-content-body prose prose-lg max-w-none">
+    <div data-article-content>
+      <div class="prose prose-lg max-w-none">
         {{ article.content }}
       </div>
 
-      {%- comment -%} Tags {%- endcomment -%}
       {% if article.tags.size > 0 %}
-        <div class="article-tags flex flex-wrap gap-2 mt-16 pt-8 border-t border-[--color-border]">
+        <div class="flex flex-wrap gap-2 mt-16 pt-8 border-t border-[--color-border]">
           {% for tag in article.tags %}
-            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article-tag text-[0.6875rem] font-semibold uppercase tracking-widest py-2 px-4 bg-[--color-background-secondary] text-[--color-text-secondary] transition-all duration-300">{{ tag }}</a>
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="text-[0.6875rem] font-semibold uppercase tracking-widest py-2 px-4 bg-[--color-background-secondary] text-[--color-text-secondary] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] transition-all duration-300">{{ tag }}</a>
           {% endfor %}
         </div>
       {% endif %}
 
-      {%- comment -%} Share {%- endcomment -%}
       {% if section.settings.show_share %}
-        <div class="article-share flex items-center gap-4 mt-8">
+        <div class="flex items-center gap-4 mt-8">
           <span class="text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary]">Share</span>
           <div class="flex gap-3">
-            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on Twitter">
+            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] hover:border-[--color-primary] transition-all duration-300" aria-label="Share on Twitter">
               <i class="ph ph-x-logo"></i>
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on Facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] hover:border-[--color-primary] transition-all duration-300" aria-label="Share on Facebook">
               <i class="ph ph-facebook-logo"></i>
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Share on LinkedIn">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] hover:border-[--color-primary] transition-all duration-300" aria-label="Share on LinkedIn">
               <i class="ph ph-linkedin-logo"></i>
             </a>
-            <button type="button" class="article-share-link w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] transition-all duration-300" aria-label="Copy link" data-copy-link="{{ shop.url }}{{ article.url }}">
+            <button type="button" class="w-10 h-10 flex items-center justify-center border border-[--color-border] text-[--color-text] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] hover:border-[--color-primary] transition-all duration-300 cursor-pointer" aria-label="Copy link" data-copy-link="{{ shop.url }}{{ article.url }}">
               <i class="ph ph-link"></i>
             </button>
           </div>
         </div>
       {% endif %}
 
-      {%- comment -%} Article Navigation {%- endcomment -%}
       {% if blog.previous_article or blog.next_article %}
-        <nav class="article-nav grid grid-cols-2 gap-8 mt-16 pt-16 pb-16 border-t border-[--color-border]">
+        <nav class="grid grid-cols-2 gap-8 mt-16 pt-16 pb-16 border-t border-[--color-border]">
           {% if blog.previous_article %}
-            <a href="{{ blog.previous_article.url }}" class="flex flex-col gap-2 no-underline text-inherit group">
+            <a href="{{ blog.previous_article.url }}" class="flex flex-col gap-2 no-underline group">
               <span class="text-hover-reveal text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 <i class="ph ph-arrow-left"></i>
                 <span data-hover="Previous">Previous</span>
               </span>
-              <span class="text-base font-semibold text-[--color-text]">{{ blog.previous_article.title | truncate: 50 }}</span>
+              <span class="text-base font-semibold text-[--color-text] group-hover:text-[--color-primary] transition-colors">{{ blog.previous_article.title | truncate: 50 }}</span>
             </a>
           {% else %}
             <div></div>
           {% endif %}
 
           {% if blog.next_article %}
-            <a href="{{ blog.next_article.url }}" class="flex flex-col gap-2 text-right items-end no-underline text-inherit group">
+            <a href="{{ blog.next_article.url }}" class="flex flex-col gap-2 text-right items-end no-underline group">
               <span class="text-hover-reveal text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 <span data-hover="Next">Next</span>
                 <i class="ph ph-arrow-right"></i>
               </span>
-              <span class="text-base font-semibold text-[--color-text]">{{ blog.next_article.title | truncate: 50 }}</span>
+              <span class="text-base font-semibold text-[--color-text] group-hover:text-[--color-primary] transition-colors">{{ blog.next_article.title | truncate: 50 }}</span>
             </a>
           {% endif %}
         </nav>
       {% endif %}
 
-      {%- comment -%} Comments {%- endcomment -%}
       {% if blog.comments_enabled? %}
-        <section class="article-comments mt-24 pt-16 border-t border-[--color-border]">
+        <section class="mt-24 pt-16 border-t border-[--color-border]">
           <h2 class="text-2xl font-bold mb-8">
             Comments{% if article.comments_count > 0 %} ({{ article.comments_count }}){% endif %}
           </h2>
 
           {% if article.comments_count > 0 %}
-            <div class="article-comments-list">
+            <div>
               {% paginate article.comments by 10 %}
                 {% for comment in article.comments %}
-                  <div class="article-comment py-6 border-b border-[--color-border] last:border-b-0">
+                  <div class="py-6 border-b border-[--color-border] last:border-b-0">
                     <div class="flex items-center gap-3 mb-3">
                       <div class="w-8 h-8 rounded-full bg-[--color-background-secondary] flex items-center justify-center font-semibold text-xs">
                         {{ comment.author | slice: 0 | upcase }}
@@ -255,9 +169,8 @@
             </div>
           {% endif %}
 
-          {%- comment -%} Comment Form {%- endcomment -%}
           {% form 'new_comment', article %}
-            <div class="article-comment-form mt-12">
+            <div class="mt-12">
               <h3 class="text-lg font-semibold mb-6">Leave a comment</h3>
 
               {{ form.errors | default_errors }}
@@ -266,36 +179,17 @@
                 <div class="grid gap-6 sm:grid-cols-2">
                   <div>
                     <label for="comment-author" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Name</label>
-                    <input
-                      type="text"
-                      name="comment[author]"
-                      id="comment-author"
-                      value="{{ form.author }}"
-                      required
-                      class="article-form-input w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300"
-                    >
+                    <input type="text" name="comment[author]" id="comment-author" value="{{ form.author }}" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300">
                   </div>
                   <div>
                     <label for="comment-email" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Email</label>
-                    <input
-                      type="email"
-                      name="comment[email]"
-                      id="comment-email"
-                      value="{{ form.email }}"
-                      required
-                      class="article-form-input w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300"
-                    >
+                    <input type="email" name="comment[email]" id="comment-email" value="{{ form.email }}" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300">
                   </div>
                 </div>
 
                 <div>
                   <label for="comment-body" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">Comment</label>
-                  <textarea
-                    name="comment[body]"
-                    id="comment-body"
-                    required
-                    class="article-form-textarea w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] transition-colors duration-300 min-h-[150px] resize-y"
-                  >{{ form.body }}</textarea>
+                  <textarea name="comment[body]" id="comment-body" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300 min-h-[150px] resize-y">{{ form.body }}</textarea>
                 </div>
 
                 <div>
@@ -313,10 +207,6 @@
 </article>
 
 <script>
-/**
- * Article Animation
- * Awwwards-style reveal with GSAP
- */
 (function() {
   function initArticleAnimation() {
     const wrapper = document.querySelector('[data-article-wrapper]');

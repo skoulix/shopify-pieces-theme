@@ -12,134 +12,29 @@
 -%}
 
 <style>
-  /* ==========================================================================
-     Footer Section - Custom CSS for animations and clamp()
-     ========================================================================== */
-
-  /* Sticky reveal footer - fixed at bottom, revealed as content scrolls past */
+  /* Footer - only CSS that requires Liquid values or clamp() */
   {% if section.settings.enable_reveal_effect %}
-    .footer-wrapper {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 0;
-    }
-
-    /* Main content sits above footer and has bottom margin for reveal */
-    .site-content {
-      position: relative;
-      z-index: 1;
-      background-color: var(--color-background);
-      margin-bottom: var(--footer-height, 0px);
-    }
+  .footer-wrapper { position: fixed; bottom: 0; left: 0; right: 0; z-index: 0; }
+  .site-content { position: relative; z-index: 1; background-color: var(--color-background); margin-bottom: var(--footer-height, 0px); }
   {% endif %}
 
-  /* Footer padding - requires clamp() */
-  .footer-section {
-    padding: clamp(4rem, 10vh, 8rem) 0 clamp(2rem, 4vh, 3rem);
-    background-color: {{ section.settings.background_color }};
-  }
+  /* Padding requires clamp() */
+  .footer-section { padding: clamp(4rem, 10vh, 8rem) 0 clamp(2rem, 4vh, 3rem); }
 
-  /* Back to top - horizontal layout */
-  .footer-back-to-top {
-    color: {{ section.settings.text_color }};
-  }
+  /* Text hover reveal - same as image-with-text CTA */
+  .footer-back-to-top-text-wrapper { overflow: hidden; display: inline-block; }
+  .footer-back-to-top .footer-back-to-top-text { display: inline-block; position: relative; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .footer-back-to-top .footer-back-to-top-text::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; white-space: nowrap; }
+  .footer-back-to-top:hover .footer-back-to-top-text { transform: translateY(-100%); }
 
-  .footer-back-to-top:hover .footer-back-to-top-icon {
-    transform: translateY(-4px);
-  }
-
-  .footer-back-to-top:hover .footer-back-to-top-text span {
-    transform: translateY(-100%);
-  }
-
-  .footer-back-to-top:hover .footer-back-to-top-text span::after {
-    transform: translateY(0);
-  }
-
-  .footer-back-to-top-text {
-    overflow: hidden;
-  }
-
-  .footer-back-to-top-text span {
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-
-  .footer-back-to-top-text span::after {
-    content: attr(data-hover);
-    position: absolute;
-    left: 0;
-    top: 100%;
-    transform: translateY(0);
-  }
-
-  /* Newsletter input */
-  .footer-newsletter-input {
-    background: transparent;
-    border-color: {{ section.settings.text_color }}30;
-    color: {{ section.settings.text_color }};
-  }
-
-  .footer-newsletter-input::placeholder {
-    color: {{ section.settings.text_color }}60;
-  }
-
-  .footer-newsletter-input:focus {
-    outline: none;
-    border-color: {{ section.settings.text_color }};
-  }
-
-  /* Links */
-  .footer-link {
-    color: {{ section.settings.text_color }};
-  }
-
-  .footer-link:hover {
-    opacity: 0.6;
-  }
-
-  /* Social hover */
-  .footer-social-link {
-    overflow: hidden;
-  }
-
-  .footer-social-link span {
-    display: inline-block;
-    transition: transform 0.3s ease;
-    position: relative;
-  }
-
-  .footer-social-link span::after {
-    content: attr(data-hover);
-    position: absolute;
-    left: 0;
-    top: 100%;
-  }
-
-  .footer-social-link:hover span {
-    transform: translateY(-100%);
-  }
-
-  /* Divider */
-  .footer-divider {
-    background-color: {{ section.settings.text_color }}15;
-  }
-
-  /* Text colors */
-  .footer-text-primary {
-    color: {{ section.settings.text_color }};
-  }
-
-  .footer-text-secondary {
-    color: {{ section.settings.text_color }};
-    opacity: 0.5;
-  }
+  /* Social links text hover reveal */
+  .text-hover-reveal span { display: inline-block; transition: transform 0.3s ease; position: relative; }
+  .text-hover-reveal span::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; }
+  .text-hover-reveal:hover span { transform: translateY(-100%); }
 </style>
 
 <div class="footer-wrapper" data-footer-wrapper>
-<footer class="footer-section" data-footer-section>
+<footer class="footer-section" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};" data-footer-section>
   <div class="{{ container_class }}">
     {%- comment -%} Upper Footer Content - Newsletter & Navigation {%- endcomment -%}
     {% if section.settings.show_newsletter or section.blocks.size > 0 %}
@@ -148,12 +43,12 @@
         {% if section.settings.show_newsletter %}
           <div class="lg:max-w-md">
             {% if section.settings.newsletter_title != blank %}
-              <h3 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+              <h3 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
                 {{ section.settings.newsletter_title }}
               </h3>
             {% endif %}
             {% if section.settings.newsletter_text != blank %}
-              <p class="footer-text-secondary text-sm mb-6">
+              <p class="text-sm mb-6 opacity-50">
                 {{ section.settings.newsletter_text }}
               </p>
             {% endif %}
@@ -164,10 +59,10 @@
                   name="contact[email]"
                   placeholder="{{ 'customers.register.email' | t }}"
                   required
-                  class="footer-newsletter-input flex-1 px-4 py-3 text-sm border transition-colors duration-300"
+                  class="flex-1 px-4 py-3 text-sm border border-current/30 bg-transparent placeholder:opacity-60 focus:border-current focus:outline-none transition-colors duration-300"
                 >
                 <input type="hidden" name="contact[tags]" value="newsletter">
-                <button type="submit" class="footer-text-primary px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.15em] border border-current hover:bg-current hover:text-[{{ section.settings.background_color }}] transition-all duration-300">
+                <button type="submit" class="px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.15em] border border-current hover:bg-current hover:text-[{{ section.settings.background_color }}] transition-all duration-300">
                   {{ 'general.newsletter.submit' | t }}
                 </button>
               </div>
@@ -183,7 +78,7 @@
                 {% when 'menu' %}
                   <div {{ block.shopify_attributes }}>
                     {% if block.settings.title != blank %}
-                      <h4 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                      <h4 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
                         {{ block.settings.title }}
                       </h4>
                     {% endif %}
@@ -191,7 +86,7 @@
                       <ul class="space-y-3">
                         {% for link in block.settings.menu.links %}
                           <li>
-                            <a href="{{ link.url }}" class="footer-link text-sm transition-opacity duration-300">
+                            <a href="{{ link.url }}" class="text-sm hover:opacity-60 transition-opacity duration-300">
                               {{ link.title }}
                             </a>
                           </li>
@@ -203,12 +98,12 @@
                 {% when 'text' %}
                   <div {{ block.shopify_attributes }}>
                     {% if block.settings.title != blank %}
-                      <h4 class="footer-text-primary text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
+                      <h4 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
                         {{ block.settings.title }}
                       </h4>
                     {% endif %}
                     {% if block.settings.text != blank %}
-                      <div class="footer-text-secondary text-sm leading-relaxed">
+                      <div class="text-sm leading-relaxed opacity-50">
                         {{ block.settings.text }}
                       </div>
                     {% endif %}
@@ -221,7 +116,7 @@
     {% endif %}
 
     {%- comment -%} Divider {%- endcomment -%}
-    <div class="footer-divider h-px w-full mb-8"></div>
+    <div class="h-px w-full mb-8 bg-current opacity-15"></div>
 
     {%- comment -%} Bottom Bar - ClaPat Style: Back to Top | Copyright | Socials {%- endcomment -%}
     <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
@@ -229,22 +124,20 @@
       <div class="order-3 md:order-1">
         <button
           type="button"
-          class="footer-back-to-top group flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.15em] cursor-pointer transition-all duration-300"
+          class="footer-back-to-top inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em] cursor-pointer"
           data-back-to-top
         >
-          <span class="footer-back-to-top-icon inline-flex items-center justify-center w-10 h-10 border border-current rounded-full transition-transform duration-300">
-            <i class="ph ph-arrow-up"></i>
+          <span class="footer-back-to-top-text-wrapper">
+            <span class="footer-back-to-top-text" data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span>
           </span>
-          <span class="footer-back-to-top-text relative">
-            <span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span>
-          </span>
+          <i class="ph ph-arrow-up "></i>
         </button>
       </div>
 
       {%- comment -%} Copyright - Center {%- endcomment -%}
       <div class="order-1 md:order-2 text-center">
-        <p class="footer-text-secondary text-xs">
-          <a href="{{ routes.root_url }}" class="footer-link transition-opacity duration-300">{{ shop.name }}</a> &copy; {{ 'now' | date: '%Y' }}. {{ 'general.copyright' | t }}
+        <p class="text-xs opacity-50">
+          <a href="{{ routes.root_url }}" class="hover:opacity-60 transition-opacity duration-300">{{ shop.name }}</a> &copy; {{ 'now' | date: '%Y' }}. {{ 'general.copyright' | t }}
         </p>
         {% if section.settings.show_payment_icons %}
           <div class="flex flex-wrap justify-center gap-2 mt-4">
@@ -260,32 +153,32 @@
         <div class="order-2 md:order-3">
           <div class="flex items-center gap-6">
             {% if settings.social_instagram_link != blank %}
-              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="Instagram">Instagram</span>
               </a>
             {% endif %}
             {% if settings.social_facebook_link != blank %}
-              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="Facebook">Facebook</span>
               </a>
             {% endif %}
             {% if settings.social_twitter_link != blank %}
-              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="X">X</span>
               </a>
             {% endif %}
             {% if settings.social_tiktok_link != blank %}
-              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="TikTok">TikTok</span>
               </a>
             {% endif %}
             {% if settings.social_pinterest_link != blank %}
-              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="Pinterest">Pinterest</span>
               </a>
             {% endif %}
             {% if settings.social_youtube_link != blank %}
-              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="footer-social-link footer-text-secondary text-xs font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:opacity-100">
+              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
                 <span data-hover="YouTube">YouTube</span>
               </a>
             {% endif %}
@@ -298,7 +191,7 @@
     {% if section.settings.legal_menu != blank %}
       <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6">
         {% for link in section.settings.legal_menu.links %}
-          <a href="{{ link.url }}" class="footer-link text-xs opacity-50 hover:opacity-100 transition-opacity duration-300">
+          <a href="{{ link.url }}" class="text-xs opacity-50 hover:opacity-100 transition-opacity duration-300">
             {{ link.title }}
           </a>
         {% endfor %}
@@ -362,7 +255,7 @@
     {
       "type": "checkbox",
       "id": "full_width",
-      "default": true,
+      "default": false,
       "label": "Full width"
     },
     {

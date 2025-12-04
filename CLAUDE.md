@@ -75,13 +75,11 @@ The theme provides utility classes that respect theme settings:
 
 - `.page-container` - Centered container with max-width from theme settings (`--page-max-width`) and page padding (`--page-padding`)
 - `.page-full` - Full width with page padding only
-- `.section-spacing` - Vertical padding using theme's section spacing (`--section-spacing`)
-- `.section-spacing-top` - Top padding only
-- `.section-spacing-bottom` - Bottom padding only
+- `py-[--page-vertical-padding]` - Vertical padding for templates/pages using theme settings
 
 **DO:**
 ```liquid
-<div class="page-container section-spacing">
+<div class="page-container py-[--page-vertical-padding]">
 ```
 
 **DON'T:**
