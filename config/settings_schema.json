@@ -198,11 +198,14 @@
         "content": "Page transitions"
       },
       {
+        "type": "paragraph",
+        "content": "Preview page transitions on the live site. Transitions are disabled in the theme editor."
+      },
+      {
         "type": "checkbox",
         "id": "enable_page_transitions",
         "default": true,
-        "label": "Enable page transitions",
-        "info": "Smooth transitions between pages"
+        "label": "Enable page transitions"
       },
       {
         "type": "select",

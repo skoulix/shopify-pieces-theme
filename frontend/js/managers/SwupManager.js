@@ -26,6 +26,12 @@ class SwupManager {
   init() {
     if (this.isInitialized) return this.swup;
 
+    // Disable Swup in Shopify theme customizer - it conflicts with editor navigation
+    if (window.Shopify && window.Shopify.designMode) {
+      console.log('Swup disabled in theme customizer');
+      return null;
+    }
+
     // Animation options for the JS plugin
     const animationOptions = [
       {
