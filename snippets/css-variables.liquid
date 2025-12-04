@@ -107,10 +107,12 @@
   }
 
   h1, h2, h3, h4, h5, h6,
-  .heading {
+  .heading,
+  .font-heading {
     font-family: var(--font-heading);
     font-weight: var(--font-heading-weight);
     font-style: var(--font-heading-style);
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
   }
 
   /* Heading scale */
@@ -128,6 +130,14 @@
 
   a:hover {
     color: var(--color-primary);
+  }
+
+  /* Buttons - Base */
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  button[type="submit"] {
+    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
   }
 
   /* Buttons - Primary */
@@ -155,6 +165,12 @@
 
   .btn-secondary:hover {
     background-color: var(--color-background-secondary);
+  }
+
+  /* Section links */
+  .text-hover-reveal,
+  .section-link {
+    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
   }
 
   /* Cards */

@@ -143,6 +143,22 @@
         "default": 100,
         "unit": "%",
         "label": "Heading font size"
+      },
+      {
+        "type": "header",
+        "content": "Style"
+      },
+      {
+        "type": "checkbox",
+        "id": "headings_uppercase",
+        "default": true,
+        "label": "Uppercase headings"
+      },
+      {
+        "type": "checkbox",
+        "id": "buttons_uppercase",
+        "default": true,
+        "label": "Uppercase buttons"
       }
     ]
   },

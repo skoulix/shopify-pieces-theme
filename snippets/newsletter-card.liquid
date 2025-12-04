@@ -1,0 +1,60 @@
+{%- comment -%}
+  Newsletter Design 3: Card
+  Centered card with gradient background effect
+{%- endcomment -%}
+
+<div class="py-16 sm:py-24" style="background-color: {{ background_color }};">
+  <div class="page-container">
+    <div class="relative isolate overflow-hidden rounded-2xl px-6 py-16 sm:rounded-3xl sm:px-16 xl:py-24" style="background-color: {{ card_color }}; color: {{ text_color }};">
+      {% if title != blank %}
+        <h2 class="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl font-heading">
+          {{ title }}
+        </h2>
+      {% endif %}
+      {% if text != blank %}
+        <p class="mx-auto mt-6 max-w-lg text-center text-base opacity-70">{{ text }}</p>
+      {% endif %}
+      {% form 'customer', class: 'mx-auto mt-10 max-w-md' %}
+        <div class="flex gap-x-4">
+          <label for="newsletter-email-card" class="sr-only">{{ 'customers.register.email' | t }}</label>
+          <input
+            id="newsletter-email-card"
+            type="email"
+            name="contact[email]"
+            required
+            placeholder="{{ 'customers.register.email' | t }}"
+            autocomplete="email"
+            class="min-w-0 flex-auto rounded-md px-3.5 py-2.5 text-sm bg-current/10 border border-current/20 placeholder:opacity-70 focus:outline-none focus:border-current/50 transition-colors"
+            style="color: inherit;"
+          >
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <button type="submit" class="flex-none rounded-md px-4 py-2.5 text-sm font-semibold transition-opacity hover:opacity-80" style="background-color: {{ text_color }}; color: {{ card_color }};">
+            {{ button_text | default: 'Subscribe' }}
+          </button>
+        </div>
+        {% if privacy_link != blank %}
+          <p class="mt-4 text-center text-sm opacity-70">
+            {{ privacy_text }} <a href="{{ privacy_link }}" class="font-semibold underline hover:no-underline">{{ privacy_link_text }}</a>.
+          </p>
+        {% endif %}
+        {% if form.posted_successfully? %}
+          <p class="mt-4 text-center text-sm text-green-400">{{ 'general.newsletter.success' | t }}</p>
+        {% endif %}
+        {% if form.errors %}
+          <p class="mt-4 text-center text-sm text-red-400">{{ form.errors.messages['email'] }}</p>
+        {% endif %}
+      {% endform %}
+
+      {%- comment -%} Decorative gradient blob {%- endcomment -%}
+      <svg viewBox="0 0 1024 1024" aria-hidden="true" class="absolute left-1/2 top-1/2 -z-10 w-[64rem] max-w-none -translate-x-1/2 opacity-20">
+        <circle r="512" cx="512" cy="512" fill="url(#newsletter-gradient)" fill-opacity="0.7" />
+        <defs>
+          <radialGradient id="newsletter-gradient" r="1" cx="0" cy="0" gradientUnits="userSpaceOnUse" gradientTransform="translate(512 512) rotate(90) scale(512)">
+            <stop stop-color="{{ text_color }}" />
+            <stop offset="1" stop-color="{{ text_color }}" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
+</div>

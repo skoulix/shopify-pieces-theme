@@ -3,7 +3,8 @@
     "newsletter": {
       "label": "Stay Updated",
       "submit": "Subscribe",
-      "confirmation": "Subscribe to our newsletter for exclusive updates and special offers."
+      "confirmation": "Subscribe to our newsletter for exclusive updates and special offers.",
+      "success": "Thanks for subscribing!"
     },
     "copyright": "All rights reserved.",
     "back_to_top": "Back Top",

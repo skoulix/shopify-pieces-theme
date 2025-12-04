@@ -152,7 +152,19 @@
         }
       },
       "block_order": ["stat_3", "stat_4"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "card",
+        "title": "Stay Updated",
+        "text": "Subscribe to our newsletter for exclusive updates, new arrivals, and special offers.",
+        "button_text": "Subscribe",
+        "background_color": "#ffffff",
+        "card_color": "#000000",
+        "text_color": "#ffffff"
+      }
     }
   },
-  "order": ["hero", "marquee", "featured_collection", "image_with_text", "featured_collection_2", "image_with_text_2"]
+  "order": ["hero", "marquee", "featured_collection", "image_with_text", "featured_collection_2", "image_with_text_2", "newsletter"]
 }

@@ -59,7 +59,7 @@
       {% endif %}
 
       {% if section.settings.title != blank %}
-        <h2 class="iwt-title font-bold uppercase mb-6" data-iwt-title>
+        <h2 class="iwt-title font-bold mb-6 font-heading" data-iwt-title>
           {%- assign title_words = section.settings.title | split: ' ' -%}
           {%- assign words_per_line = 3 -%}
           {%- for word in title_words -%}
@@ -83,7 +83,7 @@
       {% endif %}
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="iwt-cta inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em]" data-iwt-cta>
+        <a href="{{ section.settings.button_link }}" class="iwt-cta section-link inline-flex items-center gap-3 text-xs font-semibold tracking-[0.1em]" data-iwt-cta>
           <span class="iwt-cta-text-wrapper">
             <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
           </span>

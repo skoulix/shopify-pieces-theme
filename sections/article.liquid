@@ -26,7 +26,7 @@
     <div class="{{ container_class }}">
       {%- capture back_text -%}Back to {{ blog.title }}{%- endcapture -%}
       <div class="overflow-hidden mb-12">
-        <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary]" data-back-link>
+        <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[--color-text-secondary]" data-back-link>
           <i class="ph ph-arrow-left"></i>
           <span data-hover="{{ back_text }}">{{ back_text }}</span>
         </a>
@@ -38,7 +38,7 @@
         </p>
       {% endif %}
 
-      <h1 class="article-hero-title font-bold leading-[1.05] text-[--color-text] max-w-[900px]">
+      <h1 class="article-hero-title font-bold leading-[1.05] text-[--color-text] max-w-[900px] font-heading">
         {%- assign title_words = article.title | split: ' ' -%}
         {%- assign words_per_line = title_words.size | divided_by: 2 | plus: 1 -%}
         {%- for word in title_words -%}
@@ -120,7 +120,7 @@
         <nav class="grid grid-cols-2 gap-8 mt-16 pt-16 pb-16 border-t border-[--color-border]">
           {% if blog.previous_article %}
             <a href="{{ blog.previous_article.url }}" class="flex flex-col gap-2 no-underline group">
-              <span class="text-hover-reveal text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
+              <span class="text-hover-reveal text-[0.65rem] font-semibold tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 <i class="ph ph-arrow-left"></i>
                 <span data-hover="Previous">Previous</span>
               </span>
@@ -132,7 +132,7 @@
 
           {% if blog.next_article %}
             <a href="{{ blog.next_article.url }}" class="flex flex-col gap-2 text-right items-end no-underline group">
-              <span class="text-hover-reveal text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
+              <span class="text-hover-reveal text-[0.65rem] font-semibold tracking-[0.15em] text-[--color-text-secondary] flex items-center gap-2">
                 <span data-hover="Next">Next</span>
                 <i class="ph ph-arrow-right"></i>
               </span>
@@ -144,7 +144,7 @@
 
       {% if blog.comments_enabled? %}
         <section class="mt-24 pt-16 border-t border-[--color-border]">
-          <h2 class="text-2xl font-bold mb-8">
+          <h2 class="text-2xl font-bold mb-8 font-heading">
             Comments{% if article.comments_count > 0 %} ({{ article.comments_count }}){% endif %}
           </h2>
 
@@ -171,7 +171,7 @@
 
           {% form 'new_comment', article %}
             <div class="mt-12">
-              <h3 class="text-lg font-semibold mb-6">Leave a comment</h3>
+              <h3 class="text-lg font-semibold mb-6 font-heading">Leave a comment</h3>
 
               {{ form.errors | default_errors }}
 

@@ -4,7 +4,7 @@
 
 <section class="bg-[--color-background]">
   <div class="page-container py-[--page-vertical-padding]">
-    <h1 class="text-3xl font-bold tracking-tight text-[--color-text]">{{ 'cart.title' | t }}</h1>
+    <h1 class="text-3xl font-bold tracking-tight text-[--color-text] font-heading">{{ 'cart.title' | t }}</h1>
 
     {% if cart.item_count > 0 %}
       <form action="{{ routes.cart_url }}" method="post" class="mt-12">
@@ -86,7 +86,7 @@
     {% else %}
       <div class="mt-12 text-center">
         <i class="ph ph-bag text-6xl text-[--color-border]"></i>
-        <h2 class="mt-4 text-lg font-medium text-[--color-text]">Your cart is empty</h2>
+        <h2 class="mt-4 text-lg font-medium text-[--color-text] font-heading">Your cart is empty</h2>
         <p class="mt-2 text-sm text-[--color-text-secondary]">Start shopping to add items to your cart.</p>
         <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary mt-6">
           Continue shopping

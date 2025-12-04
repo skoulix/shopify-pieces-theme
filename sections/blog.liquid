@@ -20,7 +20,7 @@
 <section class="blog-wrapper is-loading" data-blog-wrapper>
   <div class="pt-[--page-vertical-padding] pb-16">
     <div class="{{ container_class }}">
-      <h1 class="blog-hero-title font-bold uppercase text-[--color-text]">
+      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading">
         {%- assign title_words = blog.title | split: ' ' -%}
         {%- for word in title_words -%}
           <span class="blog-hero-title-line block overflow-hidden">
@@ -74,7 +74,7 @@
                 </p>
               {% endif %}
 
-              <h2 class="blog-item-title text-lg font-semibold leading-tight text-[--color-text]">
+              <h2 class="blog-item-title text-lg font-semibold leading-tight text-[--color-text] font-heading">
                 <a href="{{ article.url }}" class="hover:text-[--color-primary] transition-colors">
                   {%- assign title_words = article.title | split: ' ' -%}
                   {%- for word in title_words -%}
@@ -100,7 +100,7 @@
                 {% endif %}
               </div>
 
-              <a href="{{ article.url }}" class="text-hover-reveal inline-flex items-center gap-2 mt-6 text-xs font-semibold uppercase tracking-widest text-[--color-text]">
+              <a href="{{ article.url }}" class="text-hover-reveal inline-flex items-center gap-2 mt-6 text-xs font-semibold tracking-widest text-[--color-text]">
                 <span data-hover="Read Article">Read Article</span>
                 <i class="ph ph-arrow-right"></i>
               </a>

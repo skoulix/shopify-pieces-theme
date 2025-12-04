@@ -1,202 +1,101 @@
 {%- comment -%}
-  Footer Section - Modern Awwwards-style Footer
-  ClaPat-inspired layout: Back to top (left), Copyright (center), Socials (right)
+  Footer Section - Simple centered footer
+  Layout: Nav links (centered), Social icons, Copyright
 {%- endcomment -%}
 
-{%- liquid
-  if section.settings.full_width
-    assign container_class = 'page-full'
-  else
-    assign container_class = 'page-container'
-  endif
--%}
-
 <style>
-  /* Footer - only CSS that requires Liquid values or clamp() */
   {% if section.settings.enable_reveal_effect %}
   .footer-wrapper { position: fixed; bottom: 0; left: 0; right: 0; z-index: 0; }
   .site-content { position: relative; z-index: 1; background-color: var(--color-background); margin-bottom: var(--footer-height, 0px); }
   {% endif %}
-
-  /* Padding requires clamp() */
-  .footer-section { padding: clamp(4rem, 10vh, 8rem) 0 clamp(2rem, 4vh, 3rem); }
-
-  /* Text hover reveal - same as image-with-text CTA */
-  .footer-back-to-top-text-wrapper { overflow: hidden; display: inline-block; }
-  .footer-back-to-top .footer-back-to-top-text { display: inline-block; position: relative; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-  .footer-back-to-top .footer-back-to-top-text::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; white-space: nowrap; }
-  .footer-back-to-top:hover .footer-back-to-top-text { transform: translateY(-100%); }
-
-  /* Social links text hover reveal */
-  .text-hover-reveal span { display: inline-block; transition: transform 0.3s ease; position: relative; }
-  .text-hover-reveal span::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; }
-  .text-hover-reveal:hover span { transform: translateY(-100%); }
+  .footer-section { padding: clamp(4rem, 10vh, 6rem) 0; }
+  .back-to-top-text { position: relative; display: inline-block; overflow: hidden; }
+  .back-to-top-text span { display: inline-block; transition: transform 0.3s ease; }
+  .back-to-top-text span::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; white-space: nowrap; }
+  .back-to-top:hover .back-to-top-text span { transform: translateY(-100%); }
 </style>
 
 <div class="footer-wrapper" data-footer-wrapper>
-<footer class="footer-section" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};" data-footer-section>
-  <div class="{{ container_class }}">
-    {%- comment -%} Upper Footer Content - Newsletter & Navigation {%- endcomment -%}
-    {% if section.settings.show_newsletter or section.blocks.size > 0 %}
-      <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-12 lg:gap-8 mb-16">
-        {%- comment -%} Newsletter Section {%- endcomment -%}
-        {% if section.settings.show_newsletter %}
-          <div class="lg:max-w-md">
-            {% if section.settings.newsletter_title != blank %}
-              <h3 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
-                {{ section.settings.newsletter_title }}
-              </h3>
-            {% endif %}
-            {% if section.settings.newsletter_text != blank %}
-              <p class="text-sm mb-6 opacity-50">
-                {{ section.settings.newsletter_text }}
-              </p>
-            {% endif %}
-            {% form 'customer', id: 'footer-newsletter' %}
-              <div class="flex gap-3">
-                <input
-                  type="email"
-                  name="contact[email]"
-                  placeholder="{{ 'customers.register.email' | t }}"
-                  required
-                  class="flex-1 px-4 py-3 text-sm border border-current/30 bg-transparent placeholder:opacity-60 focus:border-current focus:outline-none transition-colors duration-300"
-                >
-                <input type="hidden" name="contact[tags]" value="newsletter">
-                <button type="submit" class="px-6 py-3 text-[0.7rem] font-semibold uppercase tracking-[0.15em] border border-current hover:bg-current hover:text-[{{ section.settings.background_color }}] transition-all duration-300">
-                  {{ 'general.newsletter.submit' | t }}
-                </button>
-              </div>
-            {% endform %}
-          </div>
-        {% endif %}
-
-        {%- comment -%} Navigation Columns {%- endcomment -%}
-        {% if section.blocks.size > 0 %}
-          <div class="grid grid-cols-2 md:grid-cols-{{ section.blocks.size | at_most: 4 }} gap-8">
-            {% for block in section.blocks %}
-              {% case block.type %}
-                {% when 'menu' %}
-                  <div {{ block.shopify_attributes }}>
-                    {% if block.settings.title != blank %}
-                      <h4 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
-                        {{ block.settings.title }}
-                      </h4>
-                    {% endif %}
-                    {% if block.settings.menu != blank %}
-                      <ul class="space-y-3">
-                        {% for link in block.settings.menu.links %}
-                          <li>
-                            <a href="{{ link.url }}" class="text-sm hover:opacity-60 transition-opacity duration-300">
-                              {{ link.title }}
-                            </a>
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    {% endif %}
-                  </div>
-
-                {% when 'text' %}
-                  <div {{ block.shopify_attributes }}>
-                    {% if block.settings.title != blank %}
-                      <h4 class="text-[0.7rem] font-semibold uppercase tracking-[0.2em] mb-4">
-                        {{ block.settings.title }}
-                      </h4>
-                    {% endif %}
-                    {% if block.settings.text != blank %}
-                      <div class="text-sm leading-relaxed opacity-50">
-                        {{ block.settings.text }}
-                      </div>
-                    {% endif %}
-                  </div>
-              {% endcase %}
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-
-    {%- comment -%} Divider {%- endcomment -%}
-    <div class="h-px w-full mb-8 bg-current opacity-15"></div>
-
-    {%- comment -%} Bottom Bar - ClaPat Style: Back to Top | Copyright | Socials {%- endcomment -%}
-    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-6">
-      {%- comment -%} Back to Top - Left {%- endcomment -%}
-      <div class="order-3 md:order-1">
-        <button
-          type="button"
-          class="footer-back-to-top inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.1em] cursor-pointer"
-          data-back-to-top
-        >
-          <span class="footer-back-to-top-text-wrapper">
-            <span class="footer-back-to-top-text" data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span>
-          </span>
-          <i class="ph ph-arrow-up "></i>
-        </button>
-      </div>
-
-      {%- comment -%} Copyright - Center {%- endcomment -%}
-      <div class="order-1 md:order-2 text-center">
-        <p class="text-xs opacity-50">
-          <a href="{{ routes.root_url }}" class="hover:opacity-60 transition-opacity duration-300">{{ shop.name }}</a> &copy; {{ 'now' | date: '%Y' }}. {{ 'general.copyright' | t }}
-        </p>
-        {% if section.settings.show_payment_icons %}
-          <div class="flex flex-wrap justify-center gap-2 mt-4">
-            {% for type in shop.enabled_payment_types %}
-              {{ type | payment_type_svg_tag: class: 'h-5 opacity-50' }}
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-
-      {%- comment -%} Social Links - Right {%- endcomment -%}
-      {% if section.settings.show_social %}
-        <div class="order-2 md:order-3">
-          <div class="flex items-center gap-6">
-            {% if settings.social_instagram_link != blank %}
-              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="Instagram">Instagram</span>
-              </a>
-            {% endif %}
-            {% if settings.social_facebook_link != blank %}
-              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="Facebook">Facebook</span>
-              </a>
-            {% endif %}
-            {% if settings.social_twitter_link != blank %}
-              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="X">X</span>
-              </a>
-            {% endif %}
-            {% if settings.social_tiktok_link != blank %}
-              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="TikTok">TikTok</span>
-              </a>
-            {% endif %}
-            {% if settings.social_pinterest_link != blank %}
-              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="Pinterest">Pinterest</span>
-              </a>
-            {% endif %}
-            {% if settings.social_youtube_link != blank %}
-              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="text-hover-reveal overflow-hidden text-xs font-semibold uppercase tracking-[0.1em] opacity-50 hover:opacity-100 transition-opacity duration-300">
-                <span data-hover="YouTube">YouTube</span>
-              </a>
-            {% endif %}
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
-    {%- comment -%} Legal Links {%- endcomment -%}
-    {% if section.settings.legal_menu != blank %}
-      <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mt-6">
-        {% for link in section.settings.legal_menu.links %}
-          <a href="{{ link.url }}" class="text-xs opacity-50 hover:opacity-100 transition-opacity duration-300">
+<footer class="footer-section overflow-hidden" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};" data-footer-section>
+  <div class="page-container">
+    {%- comment -%} Navigation Links - Centered {%- endcomment -%}
+    {% if section.settings.menu != blank %}
+      <nav aria-label="Footer" class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm">
+        {% for link in section.settings.menu.links %}
+          <a href="{{ link.url }}" class="opacity-60 hover:opacity-100 transition-opacity duration-300" {{ block.shopify_attributes }}>
             {{ link.title }}
           </a>
         {% endfor %}
+      </nav>
+    {% endif %}
+
+    {%- comment -%} Social Links - Centered {%- endcomment -%}
+    {% if section.settings.show_social %}
+      <div class="mt-16 flex justify-center gap-x-10">
+        {% if settings.social_instagram_link != blank %}
+          <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">Instagram</span>
+            <i class="ph ph-instagram-logo text-2xl"></i>
+          </a>
+        {% endif %}
+        {% if settings.social_facebook_link != blank %}
+          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">Facebook</span>
+            <i class="ph ph-facebook-logo text-2xl"></i>
+          </a>
+        {% endif %}
+        {% if settings.social_twitter_link != blank %}
+          <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">X</span>
+            <i class="ph ph-x-logo text-2xl"></i>
+          </a>
+        {% endif %}
+        {% if settings.social_tiktok_link != blank %}
+          <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">TikTok</span>
+            <i class="ph ph-tiktok-logo text-2xl"></i>
+          </a>
+        {% endif %}
+        {% if settings.social_pinterest_link != blank %}
+          <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">Pinterest</span>
+            <i class="ph ph-pinterest-logo text-2xl"></i>
+          </a>
+        {% endif %}
+        {% if settings.social_youtube_link != blank %}
+          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+            <span class="sr-only">YouTube</span>
+            <i class="ph ph-youtube-logo text-2xl"></i>
+          </a>
+        {% endif %}
       </div>
     {% endif %}
+
+    {%- comment -%} Payment Icons {%- endcomment -%}
+    {% if section.settings.show_payment_icons %}
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        {% for type in shop.enabled_payment_types %}
+          {{ type | payment_type_svg_tag: class: 'h-6' }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Copyright {%- endcomment -%}
+    <p class="mt-10 text-center text-sm opacity-60">
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'general.copyright' | t }}
+    </p>
+
+    {%- comment -%} Back to Top {%- endcomment -%}
+    <div class="mt-10 flex justify-center">
+      <button
+        type="button"
+        class="back-to-top section-link inline-flex items-center gap-2 text-xs font-medium tracking-widest opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+        data-back-to-top
+      >
+        <span class="back-to-top-text"><span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span></span>
+        <i class="ph ph-arrow-up"></i>
+      </button>
+    </div>
   </div>
 </footer>
 </div>
@@ -250,13 +149,17 @@
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "Navigation"
     },
     {
-      "type": "checkbox",
-      "id": "full_width",
-      "default": false,
-      "label": "Full width"
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "footer"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
     },
     {
       "type": "checkbox",
@@ -264,28 +167,6 @@
       "default": true,
       "label": "Enable reveal effect",
       "info": "Footer stays fixed at the bottom and is revealed as you scroll past the content"
-    },
-    {
-      "type": "header",
-      "content": "Newsletter"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_newsletter",
-      "default": true,
-      "label": "Show newsletter signup"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_title",
-      "label": "Newsletter title",
-      "default": "Stay Updated"
-    },
-    {
-      "type": "textarea",
-      "id": "newsletter_text",
-      "label": "Newsletter text",
-      "default": "Subscribe to our newsletter for exclusive updates and special offers."
     },
     {
       "type": "header",
@@ -305,16 +186,6 @@
     },
     {
       "type": "header",
-      "content": "Legal"
-    },
-    {
-      "type": "link_list",
-      "id": "legal_menu",
-      "label": "Legal menu",
-      "info": "Privacy Policy, Terms of Service, etc."
-    },
-    {
-      "type": "header",
       "content": "Colors"
     },
     {
@@ -330,66 +201,9 @@
       "label": "Text color"
     }
   ],
-  "blocks": [
-    {
-      "type": "menu",
-      "name": "Menu column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Shop"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu"
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "name": "Text column",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "About"
-        },
-        {
-          "type": "richtext",
-          "id": "text",
-          "label": "Text",
-          "default": "<p>Add a description about your store, brand story, or any relevant information.</p>"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Footer",
-      "blocks": [
-        {
-          "type": "menu",
-          "settings": {
-            "title": "Shop"
-          }
-        },
-        {
-          "type": "menu",
-          "settings": {
-            "title": "Help"
-          }
-        },
-        {
-          "type": "menu",
-          "settings": {
-            "title": "Company"
-          }
-        }
-      ]
+      "name": "Footer"
     }
   ]
 }

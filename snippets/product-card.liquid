@@ -54,7 +54,7 @@
       </p>
     {% endif %}
 
-    <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold uppercase tracking-wide text-[--color-text]">
+    <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold tracking-wide text-[--color-text] font-heading">
       {%- assign title_words = product.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}

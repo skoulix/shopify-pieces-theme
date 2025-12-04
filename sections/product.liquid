@@ -11,7 +11,7 @@
 <style>
   .product-hero { min-height: 100vh; display: grid; grid-template-columns: 1fr; position: relative; overflow: hidden; }
   @media (min-width: 1024px) { .product-hero { grid-template-columns: 1.2fr 1fr; min-height: calc(100vh - 80px); } }
-  .product-title { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 700; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85; color: var(--color-text); }
+  .product-title { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.85; color: var(--color-text); }
   @media (min-width: 1024px) { .product-title { font-size: clamp(3rem, 6vw, 5rem); } }
   @media (min-width: 1536px) { .product-title { font-size: clamp(4rem, 5vw, 6.5rem); } }
   .product-title-line { display: block; overflow: hidden; }
@@ -118,7 +118,7 @@
       </div>
     {% endif %}
 
-    <h1 class="product-title">
+    <h1 class="product-title font-heading">
       {%- assign title_words = product.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="product-title-line">

@@ -1,0 +1,140 @@
+{%- comment -%}
+  Newsletter Section - Standalone newsletter signup
+  Three design options: side-by-side, stacked, card
+{%- endcomment -%}
+
+<section class="newsletter-section">
+  {% case section.settings.design %}
+    {% when 'side-by-side' %}
+      {% render 'newsletter-side-by-side',
+        title: section.settings.title,
+        text: section.settings.text,
+        button_text: section.settings.button_text,
+        background_color: section.settings.background_color,
+        text_color: section.settings.text_color,
+        privacy_text: section.settings.privacy_text,
+        privacy_link: section.settings.privacy_link,
+        privacy_link_text: section.settings.privacy_link_text
+      %}
+
+    {% when 'stacked' %}
+      {% render 'newsletter-stacked',
+        title: section.settings.title,
+        text: section.settings.text,
+        button_text: section.settings.button_text,
+        background_color: section.settings.background_color,
+        text_color: section.settings.text_color,
+        privacy_text: section.settings.privacy_text,
+        privacy_link: section.settings.privacy_link,
+        privacy_link_text: section.settings.privacy_link_text
+      %}
+
+    {% when 'card' %}
+      {% render 'newsletter-card',
+        title: section.settings.title,
+        text: section.settings.text,
+        button_text: section.settings.button_text,
+        background_color: section.settings.background_color,
+        card_color: section.settings.card_color,
+        text_color: section.settings.text_color,
+        privacy_text: section.settings.privacy_text,
+        privacy_link: section.settings.privacy_link,
+        privacy_link_text: section.settings.privacy_link_text
+      %}
+  {% endcase %}
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "select",
+      "id": "design",
+      "label": "Design",
+      "default": "stacked",
+      "options": [
+        { "value": "side-by-side", "label": "Side by side" },
+        { "value": "stacked", "label": "Stacked" },
+        { "value": "card", "label": "Card" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Want product news and updates? Sign up for our newsletter."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Subscribe to our newsletter for exclusive updates and special offers.",
+      "info": "Used in Stacked and Card designs"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Privacy notice"
+    },
+    {
+      "type": "text",
+      "id": "privacy_text",
+      "label": "Privacy text",
+      "default": "We care about your data. Read our",
+      "info": "Displayed below the form"
+    },
+    {
+      "type": "url",
+      "id": "privacy_link",
+      "label": "Privacy policy link"
+    },
+    {
+      "type": "text",
+      "id": "privacy_link_text",
+      "label": "Privacy link text",
+      "default": "privacy policy"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "default": "#111111",
+      "label": "Card color",
+      "info": "Only used with Card design"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter",
+      "settings": {
+        "design": "stacked"
+      }
+    }
+  ]
+}
+{% endschema %}
