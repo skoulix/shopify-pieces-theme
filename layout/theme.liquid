@@ -24,6 +24,9 @@
 
     {% render 'meta-tags' %}
 
+    {%- comment -%} Structured Data (JSON-LD) {%- endcomment -%}
+    {% render 'structured-data' %}
+
     {%- comment -%} Preconnect to fonts {%- endcomment -%}
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
 
