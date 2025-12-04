@@ -11,10 +11,9 @@
   @media (min-width: 1024px) { .blog-hero-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .blog-hero-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
   .blog-hero-title-line:nth-child(2) { margin-left: clamp(1.5rem, 8vw, 6rem); }
-  .blog-item--featured .blog-item-title { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .blog-item--featured .blog-item-title { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
   .blog-item-author::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); margin-right: 0.5rem; vertical-align: middle; }
   .blog-item-image { clip-path: inset(0 100% 0 0); }
-  .blog-wrapper.is-loading .blog-item-image { clip-path: inset(0 100% 0 0); }
 </style>
 
 <section class="blog-wrapper is-loading" data-blog-wrapper>
@@ -84,7 +83,7 @@
               </h2>
 
               {% if section.settings.show_excerpt %}
-                <p class="mt-3 text-sm leading-relaxed text-[--color-text-secondary] line-clamp-3{% if is_featured %} lg:text-[0.9375rem] lg:line-clamp-6{% endif %}">
+                <p class="blog-item-excerpt mt-3 text-sm leading-relaxed text-[--color-text-secondary] line-clamp-3{% if is_featured %} lg:text-[0.9375rem] lg:line-clamp-6{% endif %}">
                   {{ article.excerpt_or_content | strip_html | truncate: 160 }}
                 </p>
               {% endif %}
@@ -166,27 +165,27 @@
 
     // Set initial states
     if (heroTitle.length) {
-      gsap.set(heroTitle, { yPercent: 100 });
+      gsap.set(heroTitle, { yPercent: 100, opacity: 0 });
     }
     if (subtitleLine) {
       gsap.set(subtitleLine, { scaleX: 0 });
     }
     if (subtitleText) {
-      gsap.set(subtitleText, { yPercent: 100 });
+      gsap.set(subtitleText, { yPercent: 100, opacity: 0 });
     }
 
     blogItems.forEach(item => {
       const image = item.querySelector('.blog-item-image');
       const category = item.querySelector('.blog-item-category span');
-      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden > span');
       const excerpt = item.querySelector('.blog-item-excerpt');
       const meta = item.querySelector('.blog-item-meta');
       const readLink = item.querySelector('.text-hover-reveal');
 
-      if (category) gsap.set(category, { yPercent: 100 });
-      if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100 });
+      if (category) gsap.set(category, { yPercent: 100, opacity: 0 });
+      if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100, opacity: 0 });
       if (excerpt) gsap.set(excerpt, { opacity: 0, y: 20 });
-      if (meta) gsap.set(meta.querySelectorAll('.inline-block'), { yPercent: 100 });
+      if (meta) gsap.set(meta.querySelectorAll('.inline-block'), { yPercent: 100, opacity: 0 });
       if (readLink) gsap.set(readLink, { opacity: 0, y: 10 });
     });
 
@@ -199,6 +198,7 @@
     if (heroTitle.length) {
       tl.to(heroTitle, {
         yPercent: 0,
+        opacity: 1,
         duration: 1.2,
         ease: 'power4.out',
         stagger: 0.1
@@ -218,6 +218,7 @@
     if (subtitleText) {
       tl.to(subtitleText, {
         yPercent: 0,
+        opacity: 1,
         duration: 0.8,
         ease: 'power4.out'
       }, 0.6);
@@ -227,7 +228,7 @@
     blogItems.forEach((item, index) => {
       const image = item.querySelector('.blog-item-image');
       const category = item.querySelector('.blog-item-category span');
-      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden > span');
       const excerpt = item.querySelector('.blog-item-excerpt');
       const meta = item.querySelector('.blog-item-meta');
       const readLink = item.querySelector('.text-hover-reveal');
@@ -245,6 +246,7 @@
       if (category) {
         tl.to(category, {
           yPercent: 0,
+          opacity: 1,
           duration: 0.6,
           ease: 'power4.out'
         }, delay + 0.2);
@@ -254,6 +256,7 @@
       if (titleSpans.length) {
         tl.to(titleSpans, {
           yPercent: 0,
+          opacity: 1,
           duration: 0.8,
           ease: 'power4.out',
           stagger: 0.03
@@ -274,6 +277,7 @@
       if (meta) {
         tl.to(meta.querySelectorAll('.inline-block'), {
           yPercent: 0,
+          opacity: 1,
           duration: 0.6,
           ease: 'power4.out',
           stagger: 0.05

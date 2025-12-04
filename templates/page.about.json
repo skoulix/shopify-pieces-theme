@@ -1,0 +1,203 @@
+{
+  "sections": {
+    "hero_xK9mL2": {
+      "type": "hero",
+      "settings": {
+        "title": "Our Story",
+        "words_per_line": 1,
+        "subtitle": "We believe in crafting timeless pieces that blend form and function, designed to elevate your everyday.",
+        "button_text": "Explore Collection",
+        "button_link": "shopify://collections/all",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_opacity": 40,
+        "full_width": false,
+        "show_scroll_indicator": true
+      }
+    },
+    "story_section_pQ3nR7": {
+      "type": "image-with-text",
+      "settings": {
+        "label": "The Beginning",
+        "title": "Founded On Passion",
+        "text": "<p>What started as a small workshop has grown into something we're truly proud of. Every piece we create carries the same attention to detail and commitment to quality that inspired us from day one.</p><p>We source only the finest materials and work with skilled artisans who share our vision for excellence.</p>",
+        "button_text": "Learn More",
+        "button_link": "",
+        "layout": "image_left",
+        "image_ratio": "4/5",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "stat_1_aB4cD8": {
+          "type": "stat",
+          "settings": {
+            "number": "2018",
+            "label": "Founded"
+          }
+        },
+        "stat_2_eF5gH9": {
+          "type": "stat",
+          "settings": {
+            "number": "50K+",
+            "label": "Happy Customers"
+          }
+        }
+      },
+      "block_order": ["stat_1_aB4cD8", "stat_2_eF5gH9"]
+    },
+    "values_section_iJ6kL0": {
+      "type": "image-with-text",
+      "settings": {
+        "label": "Our Values",
+        "title": "Quality Over Quantity",
+        "text": "<p>We don't chase trends. Instead, we focus on creating pieces that will last for years to come—both in durability and style. Sustainability isn't just a buzzword for us; it's woven into everything we do.</p>",
+        "button_text": "Our Process",
+        "button_link": "",
+        "layout": "image_right",
+        "image_ratio": "4/5",
+        "full_width": false,
+        "background_color": "#f5f5f5",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "stat_3_mN7oP1": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Sustainable"
+          }
+        },
+        "stat_4_qR8sT2": {
+          "type": "stat",
+          "settings": {
+            "number": "5yr",
+            "label": "Warranty"
+          }
+        }
+      },
+      "block_order": ["stat_3_mN7oP1", "stat_4_qR8sT2"]
+    },
+    "marquee_uV9wX3": {
+      "type": "marquee",
+      "settings": {
+        "speed": 25,
+        "direction": "left",
+        "pause_on_hover": true,
+        "background_color": "#000000",
+        "text_color": "#ffffff"
+      },
+      "blocks": {
+        "text_1_yZ0aB4": {
+          "type": "text",
+          "settings": {
+            "text": "Handcrafted",
+            "outline": false
+          }
+        },
+        "sep_1_cD5eF6": {
+          "type": "separator",
+          "settings": {
+            "style": "icon",
+            "icon": "star-four"
+          }
+        },
+        "text_2_gH7iJ8": {
+          "type": "text",
+          "settings": {
+            "text": "Sustainable",
+            "outline": true
+          }
+        },
+        "sep_2_kL9mN0": {
+          "type": "separator",
+          "settings": {
+            "style": "dot"
+          }
+        },
+        "text_3_oP1qR2": {
+          "type": "text",
+          "settings": {
+            "text": "Timeless Design",
+            "outline": false
+          }
+        },
+        "sep_3_sT3uV4": {
+          "type": "separator",
+          "settings": {
+            "style": "icon",
+            "icon": "star-four"
+          }
+        },
+        "text_4_wX5yZ6": {
+          "type": "text",
+          "settings": {
+            "text": "Premium Quality",
+            "outline": true
+          }
+        },
+        "sep_4_aB7cD8": {
+          "type": "separator",
+          "settings": {
+            "style": "dot"
+          }
+        }
+      },
+      "block_order": ["text_1_yZ0aB4", "sep_1_cD5eF6", "text_2_gH7iJ8", "sep_2_kL9mN0", "text_3_oP1qR2", "sep_3_sT3uV4", "text_4_wX5yZ6", "sep_4_aB7cD8"]
+    },
+    "team_section_eF9gH0": {
+      "type": "image-with-text",
+      "settings": {
+        "label": "The Team",
+        "title": "People Behind The Brand",
+        "text": "<p>Our small but dedicated team brings together decades of experience in design, craftsmanship, and customer care. We're not just colleagues—we're a family united by our love for what we create.</p>",
+        "button_text": "Join Us",
+        "button_link": "",
+        "layout": "image_left",
+        "image_ratio": "1/1",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "stat_5_iJ1kL2": {
+          "type": "stat",
+          "settings": {
+            "number": "12",
+            "label": "Team Members"
+          }
+        },
+        "stat_6_mN3oP4": {
+          "type": "stat",
+          "settings": {
+            "number": "4",
+            "label": "Countries"
+          }
+        }
+      },
+      "block_order": ["stat_5_iJ1kL2", "stat_6_mN3oP4"]
+    },
+    "newsletter_qR5sT6": {
+      "type": "newsletter",
+      "settings": {
+        "design": "card",
+        "title": "Stay Connected",
+        "text": "Join our community and be the first to know about new releases, behind-the-scenes stories, and exclusive offers.",
+        "button_text": "Subscribe",
+        "background_color": "#f5f5f5",
+        "card_color": "#000000",
+        "text_color": "#ffffff"
+      }
+    }
+  },
+  "order": [
+    "hero_xK9mL2",
+    "story_section_pQ3nR7",
+    "values_section_iJ6kL0",
+    "marquee_uV9wX3",
+    "team_section_eF9gH0",
+    "newsletter_qR5sT6"
+  ]
+}
