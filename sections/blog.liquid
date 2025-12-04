@@ -69,21 +69,12 @@
     }
   }
 
-  /* Featured Article - First item spans full width on desktop */
+  /* Featured Article - spans full width */
   .blog-item--featured {
     grid-column: 1 / -1;
   }
 
-  @media (min-width: 1024px) {
-    .blog-item--featured {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-  }
-
-  /* Blog Item */
+  /* Blog Item - card styles use CSS vars for theme compatibility */
   .blog-item {
     position: relative;
   }
@@ -92,11 +83,17 @@
     position: relative;
     overflow: hidden;
     aspect-ratio: 16 / 10;
-    background: var(--color-background-secondary, #f5f5f5);
+    background: var(--color-background-secondary);
   }
 
   .blog-item--featured .blog-item-image {
     aspect-ratio: 16 / 9;
+  }
+
+  @media (min-width: 1024px) {
+    .blog-item--featured .blog-item-image {
+      aspect-ratio: unset;
+    }
   }
 
   .blog-item-image img {
@@ -115,16 +112,6 @@
     clip-path: inset(0 100% 0 0);
   }
 
-  /* Blog Item Content */
-  .blog-item-content {
-    padding-top: 1.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .blog-item--featured .blog-item-content {
-      padding-top: 0;
-    }
-  }
 
   .blog-item-category {
     font-size: 0.65rem;
@@ -149,20 +136,6 @@
     line-height: 1.1;
   }
 
-  .blog-item-excerpt {
-    font-size: 0.875rem;
-    line-height: 1.7;
-    color: var(--color-text-secondary);
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .blog-item--featured .blog-item-excerpt {
-    font-size: 0.9375rem;
-    -webkit-line-clamp: 4;
-  }
 
   .blog-item-meta {
     display: flex;
@@ -189,31 +162,6 @@
     height: 4px;
     border-radius: 50%;
     background: var(--color-text-secondary);
-  }
-
-  .blog-item-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text);
-    transition: gap 0.3s ease;
-  }
-
-  .blog-item-link:hover {
-    gap: 0.75rem;
-  }
-
-  .blog-item-link i {
-    transition: transform 0.3s ease;
-  }
-
-  .blog-item-link:hover i {
-    transform: translateX(2px);
   }
 
   /* Pagination */
@@ -296,12 +244,16 @@
     <div class="{{ container_class }} pb-8">
       <div class="blog-grid" data-blog-grid>
         {% for article in blog.articles %}
+          {%- assign is_featured = false -%}
+          {%- if forloop.first and section.settings.feature_first -%}
+            {%- assign is_featured = true -%}
+          {%- endif -%}
           <article
-            class="blog-item{% if forloop.first and section.settings.feature_first %} blog-item--featured{% endif %}"
+            class="blog-item bg-[--color-background-secondary] rounded-[--card-radius] overflow-hidden{% if is_featured %} blog-item--featured lg:grid lg:grid-cols-2 lg:gap-16 lg:items-stretch{% endif %}"
             data-blog-item="{{ forloop.index0 }}"
             data-article-url="{{ article.url }}"
           >
-            <a href="{{ article.url }}" class="blog-item-image block">
+            <a href="{{ article.url }}" class="blog-item-image block{% if is_featured %} lg:h-full{% endif %}">
               {% if article.image %}
                 {{ article.image | image_url: width: 1200 | image_tag:
                   class: 'w-full h-full object-cover',
@@ -316,7 +268,7 @@
               {% endif %}
             </a>
 
-            <div class="blog-item-content">
+            <div class="blog-item-content p-6{% if is_featured %} lg:py-8 lg:pr-8 lg:pl-0 lg:flex lg:flex-col lg:justify-center{% endif %}">
               {% if article.tags.size > 0 %}
                 <p class="blog-item-category overflow-hidden">
                   <span class="inline-block">{{ article.tags.first }}</span>
@@ -333,7 +285,7 @@
               </h2>
 
               {% if section.settings.show_excerpt %}
-                <p class="blog-item-excerpt">
+                <p class="blog-item-excerpt text-sm leading-relaxed text-[--color-text-secondary] line-clamp-3{% if is_featured %} lg:text-[0.9375rem] lg:line-clamp-6{% endif %}">
                   {{ article.excerpt_or_content | strip_html | truncate: 160 }}
                 </p>
               {% endif %}
@@ -349,8 +301,8 @@
                 {% endif %}
               </div>
 
-              <a href="{{ article.url }}" class="blog-item-link overflow-hidden">
-                <span class="inline-block">Read Article</span>
+              <a href="{{ article.url }}" class="text-hover-reveal inline-flex items-center gap-2 mt-6 text-xs font-semibold uppercase tracking-widest text-[--color-text]">
+                <span data-hover="Read Article">Read Article</span>
                 <i class="ph ph-arrow-right"></i>
               </a>
             </div>
@@ -433,13 +385,15 @@
       const image = item.querySelector('.blog-item-image');
       const category = item.querySelector('.blog-item-category span');
       const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const excerpt = item.querySelector('.blog-item-excerpt');
       const meta = item.querySelector('.blog-item-meta');
-      const link = item.querySelector('.blog-item-link span');
+      const readLink = item.querySelector('.text-hover-reveal');
 
       if (category) gsap.set(category, { yPercent: 100 });
       if (titleSpans.length) gsap.set(titleSpans, { yPercent: 100 });
+      if (excerpt) gsap.set(excerpt, { opacity: 0, y: 20 });
       if (meta) gsap.set(meta.querySelectorAll('.inline-block'), { yPercent: 100 });
-      if (link) gsap.set(link, { yPercent: 100 });
+      if (readLink) gsap.set(readLink, { opacity: 0, y: 10 });
     });
 
     // Create intro timeline
@@ -480,8 +434,9 @@
       const image = item.querySelector('.blog-item-image');
       const category = item.querySelector('.blog-item-category span');
       const titleSpans = item.querySelectorAll('.blog-item-title .overflow-hidden span');
+      const excerpt = item.querySelector('.blog-item-excerpt');
       const meta = item.querySelector('.blog-item-meta');
-      const link = item.querySelector('.blog-item-link span');
+      const readLink = item.querySelector('.text-hover-reveal');
 
       const delay = 0.5 + index * 0.1;
 
@@ -511,6 +466,16 @@
         }, delay + 0.25);
       }
 
+      // Excerpt
+      if (excerpt) {
+        tl.to(excerpt, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power3.out'
+        }, delay + 0.35);
+      }
+
       // Meta
       if (meta) {
         tl.to(meta.querySelectorAll('.inline-block'), {
@@ -521,12 +486,13 @@
         }, delay + 0.4);
       }
 
-      // Link
-      if (link) {
-        tl.to(link, {
-          yPercent: 0,
+      // Read link
+      if (readLink) {
+        tl.to(readLink, {
+          opacity: 1,
+          y: 0,
           duration: 0.5,
-          ease: 'power4.out'
+          ease: 'power3.out'
         }, delay + 0.5);
       }
     });
