@@ -27,6 +27,12 @@ class LenisManager {
       wheelMultiplier: 1,
       touchMultiplier: 2,
       infinite: false,
+      prevent: (node) => {
+        // Prevent Lenis from intercepting scroll on these elements
+        return node.closest('.cart-drawer__content') ||
+               node.closest('.mobile-nav__content') ||
+               node.closest('[data-lenis-prevent]');
+      },
     });
 
     // Integrate with GSAP ScrollTrigger

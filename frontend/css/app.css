@@ -396,7 +396,7 @@ html.scroll-locked body {
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Drawer Panel - Slides from top, hidden by default */
+/* Drawer Panel - Expands from top, hidden by default */
 .mobile-nav__drawer {
   position: absolute;
   top: 0;
@@ -406,8 +406,8 @@ html.scroll-locked body {
   background: var(--color-background);
   display: flex;
   flex-direction: column;
-  transform: translate(0, -100%);
-  will-change: transform;
+  clip-path: inset(0 0 100% 0);
+  will-change: clip-path;
 }
 
 /* Header */
@@ -485,11 +485,9 @@ html.scroll-locked body {
   color: var(--color-primary);
 }
 
-/* Link Text - Hidden by default, GSAP animates to visible */
+/* Link Text */
 .mobile-nav__link-text {
   display: inline-block;
-  transform: translate(0, 100%);
-  will-change: transform;
 }
 
 /* Animated underline on hover */

@@ -12,10 +12,21 @@
 -%}
 
 <header class="sticky top-0 z-40 border-b bg-[--color-background] border-[--color-border]" data-header>
-  <nav class="{{ nav_class }} flex items-center justify-between py-4">
-    {%- comment -%} Logo {%- endcomment -%}
+  <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
+    {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
     <div class="flex lg:flex-1">
-      <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
+      {%- comment -%} Mobile hamburger {%- endcomment -%}
+      <button
+        type="button"
+        class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
+        data-mobile-nav-open
+      >
+        <span class="sr-only">Open menu</span>
+        <i class="ph ph-list text-2xl"></i>
+      </button>
+
+      {%- comment -%} Desktop logo {%- endcomment -%}
+      <a href="{{ routes.root_url }}" class="hidden lg:block -m-1.5 p-1.5">
         <span class="sr-only">{{ shop.name }}</span>
         {% if settings.logo != blank %}
           {{ settings.logo | image_url: width: 300 | image_tag:
@@ -29,16 +40,20 @@
       </a>
     </div>
 
-    {%- comment -%} Mobile menu button {%- endcomment -%}
-    <div class="flex lg:hidden">
-      <button
-        type="button"
-        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
-        onclick="document.getElementById('mobile-menu').classList.remove('hidden')"
-      >
-        <span class="sr-only">Open menu</span>
-        <i class="ph ph-list text-2xl"></i>
-      </button>
+    {%- comment -%} Mobile: Centered Logo {%- endcomment -%}
+    <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
+      <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
+        <span class="sr-only">{{ shop.name }}</span>
+        {% if settings.logo != blank %}
+          {{ settings.logo | image_url: width: 300 | image_tag:
+            class: 'h-8 w-auto',
+            alt: shop.name,
+            loading: 'eager'
+          }}
+        {% else %}
+          <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
+        {% endif %}
+      </a>
     </div>
 
     {%- comment -%} Desktop Navigation {%- endcomment -%}
@@ -62,23 +77,23 @@
       {% endfor %}
     </div>
 
-    {%- comment -%} Desktop Icons {%- endcomment -%}
-    <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
-      {%- comment -%} Search {%- endcomment -%}
-      <a href="{{ routes.search_url }}" class="p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+    {%- comment -%} Header Icons (Mobile + Desktop) {%- endcomment -%}
+    <div class="flex flex-1 justify-end gap-x-1 lg:gap-x-2">
+      {%- comment -%} Search - Desktop only {%- endcomment -%}
+      <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
         <span class="sr-only">Search</span>
         <i class="ph ph-magnifying-glass text-xl"></i>
       </a>
 
-      {%- comment -%} Account {%- endcomment -%}
+      {%- comment -%} Account - Desktop only {%- endcomment -%}
       {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+        <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
           <span class="sr-only">Account</span>
           <i class="ph ph-user text-xl"></i>
         </a>
       {% endif %}
 
-      {%- comment -%} Cart {%- endcomment -%}
+      {%- comment -%} Cart - Mobile + Desktop {%- endcomment -%}
       {% if settings.cart_type == 'drawer' %}
         <button
           type="button"
@@ -197,16 +212,17 @@
     const backdrop = mobileNav.querySelector('.mobile-nav__backdrop');
     const drawer = mobileNav.querySelector('.mobile-nav__drawer');
     const header = mobileNav.querySelector('.mobile-nav__header');
-    const linkTexts = mobileNav.querySelectorAll('.mobile-nav__link-text');
+    const linkItems = mobileNav.querySelectorAll('.mobile-nav__item');
     const footer = mobileNav.querySelector('.mobile-nav__footer');
 
     // Use GSAP if available, otherwise rely on CSS
     if (window.gsap) {
       // Set initial states BEFORE making visible
       gsap.set(backdrop, { opacity: 0 });
-      // drawer and linkTexts already hidden via CSS transform
-      gsap.set(header, { opacity: 0 });
-      gsap.set(footer, { opacity: 0 });
+      gsap.set(drawer, { clipPath: 'inset(0 0 100% 0)' });
+      gsap.set(header, { opacity: 0, y: -20 });
+      gsap.set(linkItems, { opacity: 0, y: 40 });
+      gsap.set(footer, { opacity: 0, y: 20 });
     }
 
     // Now make visible
@@ -221,11 +237,11 @@
       });
 
       openTimeline
-        .to(backdrop, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0)
-        .to(drawer, { y: 0, duration: 0.5, ease: 'power3.out' }, 0)
-        .to(header, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0.2)
-        .to(linkTexts, { y: 0, duration: 1.2, stagger: 0.1, ease: 'power4.out' }, 0.25)
-        .to(footer, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
+        .to(backdrop, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0)
+        .to(drawer, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'power4.inOut' }, 0)
+        .to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4)
+        .to(linkItems, { opacity: 1, y: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out' }, 0.45)
+        .to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.7);
     } else {
       isAnimating = false;
     }
@@ -252,7 +268,7 @@
         }
       })
         .to(backdrop, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0)
-        .to(drawer, { y: '-100%', duration: 0.4, ease: 'power3.in' }, 0);
+        .to(drawer, { clipPath: 'inset(0 0 100% 0)', duration: 0.4, ease: 'power3.in' }, 0);
     } else {
       mobileNav.classList.remove('is-open');
       mobileNav.setAttribute('aria-hidden', 'true');
@@ -262,7 +278,7 @@
   }
 
   // Open button (hamburger)
-  document.querySelector('.lg\\:hidden button')?.addEventListener('click', openMobileNav);
+  document.querySelector('[data-mobile-nav-open]')?.addEventListener('click', openMobileNav);
 
   // Close buttons (X, backdrop, links)
   closeBtns.forEach(btn => {
