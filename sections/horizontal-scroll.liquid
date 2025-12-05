@@ -260,9 +260,17 @@
                   widths: '800, 1000, 1200, 1400, 1600'
                 }}
               {% else %}
-                <div class="hscroll-placeholder-{{ section.id }}">
-                  <i class="ph ph-image"></i>
-                </div>
+                {%- assign placeholder_id = forloop.index | modulo: 4 -%}
+                {%- case placeholder_id -%}
+                  {%- when 0 -%}
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&h=1000&fit=crop" alt="Placeholder" loading="lazy">
+                  {%- when 1 -%}
+                    <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1600&h=1000&fit=crop" alt="Placeholder" loading="lazy">
+                  {%- when 2 -%}
+                    <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1600&h=1000&fit=crop" alt="Placeholder" loading="lazy">
+                  {%- when 3 -%}
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&h=1000&fit=crop" alt="Placeholder" loading="lazy">
+                {%- endcase -%}
               {% endif %}
 
               <div class="hscroll-item-overlay-{{ section.id }}"></div>
