@@ -11,7 +11,16 @@
   endif
 -%}
 
-<header class="sticky top-0 z-40 border-b bg-[--color-background] border-[--color-border]" data-header>
+<style>
+  [data-header] {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  [data-header].is-hidden {
+    transform: translateY(-100%);
+  }
+</style>
+
+<header class="{% if section.settings.sticky_header %}sticky top-0{% endif %} z-40 border-b bg-[--color-background] border-[--color-border]" data-header{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
     {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
     <div class="flex lg:flex-1">
@@ -416,6 +425,56 @@
       document.dispatchEvent(new CustomEvent('cart:toggle'));
     });
   });
+
+  /**
+   * Hide header on scroll down, reveal on scroll up
+   * Only enabled when data-hide-on-scroll attribute is present
+   */
+  const header = document.querySelector('[data-header]');
+  if (header && header.hasAttribute('data-hide-on-scroll')) {
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    const scrollThreshold = 50; // Min scroll before hiding
+
+    function updateHeaderVisibility() {
+      const currentScrollY = window.scrollY;
+
+      // Don't hide if mobile menu is open
+      if (mobileNav.classList.contains('is-open')) {
+        ticking = false;
+        return;
+      }
+
+      // Always show header when at top of page
+      if (currentScrollY < scrollThreshold) {
+        header.classList.remove('is-hidden');
+      }
+      // Scrolling down - hide header
+      else if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+        header.classList.add('is-hidden');
+      }
+      // Scrolling up - show header
+      else if (currentScrollY < lastScrollY) {
+        header.classList.remove('is-hidden');
+      }
+
+      lastScrollY = currentScrollY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeaderVisibility);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Reset on page transitions
+    window.addEventListener('swup:contentReplaced', () => {
+      lastScrollY = window.scrollY;
+      header.classList.remove('is-hidden');
+    });
+  }
 })();
 </script>
 
@@ -434,6 +493,24 @@
       "id": "menu",
       "default": "main-menu",
       "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Sticky behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "default": true,
+      "label": "Sticky header",
+      "info": "Keep header fixed at top while scrolling"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_on_scroll",
+      "default": true,
+      "label": "Hide on scroll down",
+      "info": "Hide header when scrolling down, reveal when scrolling up"
     }
   ]
 }
