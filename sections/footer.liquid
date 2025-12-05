@@ -7,6 +7,7 @@
   {% if section.settings.enable_reveal_effect %}
   .footer-wrapper { position: fixed; bottom: 0; left: 0; right: 0; z-index: 0; }
   .site-content { position: relative; z-index: 1; background-color: var(--color-background); margin-bottom: var(--footer-height, 0px); }
+  .footer-content-{{ section.id }}.has-reveal { opacity: 0; transform: translateY(40px); }
   {% endif %}
   .footer-section { padding: clamp(4rem, 10vh, 6rem) 0; }
   .back-to-top-text { position: relative; display: inline-block; overflow: hidden; }
@@ -17,7 +18,7 @@
 
 <div class="footer-wrapper" data-footer-wrapper>
 <footer class="footer-section overflow-hidden" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};" data-footer-section>
-  <div class="page-container">
+  <div class="page-container footer-content-{{ section.id }}" data-footer-content>
     {%- comment -%} Navigation Links - Centered {%- endcomment -%}
     {% if section.settings.menu != blank %}
       <nav aria-label="Footer" class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm">
@@ -104,6 +105,7 @@
 (function() {
   const footerWrapper = document.querySelector('[data-footer-wrapper]');
   const footer = document.querySelector('[data-footer-section]');
+  const footerContent = document.querySelector('[data-footer-content]');
   if (!footer || footer.dataset.footerInitialized) return;
   footer.dataset.footerInitialized = 'true';
 
@@ -126,6 +128,71 @@
   window.addEventListener('swup:contentReplaced', () => {
     requestAnimationFrame(updateFooterHeight);
   });
+
+  // ScrollTrigger reveal animation
+  function initFooterReveal() {
+    // Check for GSAP via window.pieces (exposed by app.js) or global
+    const _gsap = window.pieces?.gsap || window.gsap;
+    const _ScrollTrigger = window.pieces?.ScrollTrigger || window.ScrollTrigger;
+
+    if (!_gsap || !_ScrollTrigger) return;
+    if (!footerContent || !footerWrapper) return;
+
+    // Get the site content element that reveals the footer
+    const siteContent = document.querySelector('.site-content');
+    if (!siteContent) return;
+
+    // Register ScrollTrigger plugin
+    _gsap.registerPlugin(_ScrollTrigger);
+
+    // Add class to enable initial hidden state only when animation is ready
+    footerContent.classList.add('has-reveal');
+
+    // Set initial state explicitly
+    _gsap.set(footerContent, { y: 40, opacity: 0 });
+
+    // Create the scroll-triggered animation
+    _gsap.to(footerContent, {
+      y: 0,
+      opacity: 1,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: siteContent,
+        start: 'bottom bottom',
+        end: () => `bottom+=${footerWrapper.offsetHeight} bottom`,
+        scrub: true,
+        invalidateOnRefresh: true
+      }
+    });
+  }
+
+  // Initialize when GSAP is ready and fonts are loaded
+  function waitForGsapAndFonts() {
+    if (window.pieces?.gsap && window.pieces?.ScrollTrigger) {
+      // Wait for fonts before initializing
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(initFooterReveal);
+      } else {
+        initFooterReveal();
+      }
+    } else if (window.gsap && window.ScrollTrigger) {
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(initFooterReveal);
+      } else {
+        initFooterReveal();
+      }
+    } else {
+      // Check again after a short delay
+      setTimeout(waitForGsapAndFonts, 100);
+    }
+  }
+
+  // Start checking when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForGsapAndFonts);
+  } else {
+    waitForGsapAndFonts();
+  }
   {% endif %}
 
   // Back to top functionality

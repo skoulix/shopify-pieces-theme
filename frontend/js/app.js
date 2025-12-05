@@ -126,17 +126,27 @@ function initArticleProgressBar() {
  * Re-initialize animations after page transition
  */
 function handleContentReplaced() {
-  // Use requestAnimationFrame for smoother transitions
-  requestAnimationFrame(() => {
-    // Only run animations if enabled
-    if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
-      animationManager.refresh();
-      initAnimations();
-    }
-    initArticleProgressBar();
-    cartDrawerManager.reinit();
-    cartPageManager.reinit();
-  });
+  // Wait for fonts then reinitialize
+  const reinit = () => {
+    requestAnimationFrame(() => {
+      // Only run animations if enabled
+      if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+        animationManager.refresh();
+        initAnimations();
+        ScrollTrigger.refresh();
+      }
+      initArticleProgressBar();
+      cartDrawerManager.reinit();
+      cartPageManager.reinit();
+    });
+  };
+
+  // Wait for fonts to be ready before reinitializing
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(reinit);
+  } else {
+    reinit();
+  }
 }
 
 /**
@@ -197,10 +207,20 @@ function init() {
 
   // Initialize animations (respect user preference and theme setting)
   if (!prefersReducedMotion && scrollAnimationsEnabled) {
-    // Wait for DOM to be ready
-    requestAnimationFrame(() => {
-      initAnimations();
-    });
+    // Wait for fonts to load before initializing animations (prevents SplitText measurement issues)
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        requestAnimationFrame(() => {
+          initAnimations();
+          ScrollTrigger.refresh();
+        });
+      });
+    } else {
+      // Fallback for browsers without FontFaceSet API
+      requestAnimationFrame(() => {
+        initAnimations();
+      });
+    }
   }
 
   // Initialize article progress bar (works on any page, only activates on articles)
