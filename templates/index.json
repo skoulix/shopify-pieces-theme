@@ -95,6 +95,7 @@
         "title": "New Arrivals",
         "products_to_show": 4,
         "columns": 4,
+        "show_vendor": false,
         "show_view_all": true,
         "view_all_text": "View All",
         "full_width": false
@@ -144,6 +145,7 @@
         "title": "Best Sellers",
         "products_to_show": 4,
         "columns": 4,
+        "show_vendor": false,
         "show_view_all": true,
         "view_all_text": "View All",
         "full_width": false
@@ -196,7 +198,7 @@
         "privacy_text": "We care about your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "text_color": "#ffffff",
         "card_color": "#000000"
       }
