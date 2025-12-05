@@ -84,6 +84,9 @@
     if (!section || section.dataset.fcAnimInitialized) return;
     section.dataset.fcAnimInitialized = 'true';
 
+    // If animations disabled, skip
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
+
     function initAnimation() {
       // Get gsap from window.pieces or window
       if (typeof gsap === 'undefined') {

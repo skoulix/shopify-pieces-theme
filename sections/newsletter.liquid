@@ -54,6 +54,9 @@
   if (!section || section.dataset.newsletterAnimInitialized) return;
   section.dataset.newsletterAnimInitialized = 'true';
 
+  // If animations disabled, skip
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
+
   function initAnimation() {
     let gsap = window.gsap;
     if (!gsap && window.pieces && window.pieces.gsap) {

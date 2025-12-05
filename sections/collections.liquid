@@ -168,6 +168,12 @@
   if (wrapper.dataset.collectionsInitialized) return;
   wrapper.dataset.collectionsInitialized = 'true';
 
+  // If animations disabled, just show content
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+    wrapper.classList.remove('is-loading');
+    return;
+  }
+
   const layoutStyle = wrapper.dataset.layoutStyle;
 
   function initCollections() {

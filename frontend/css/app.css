@@ -1150,3 +1150,10 @@ html.scroll-locked body {
   }
 }
 
+/* Animations disabled via theme settings - show immediately */
+html.animations-disabled [data-intro] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+

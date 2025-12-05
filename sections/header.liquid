@@ -223,8 +223,11 @@
       SplitText = window.pieces.SplitText;
     }
 
-    // Use GSAP if available, otherwise rely on CSS
-    if (window.gsap) {
+    // Check if animations should run
+    const shouldAnimate = window.shouldAnimate && window.shouldAnimate();
+
+    // Use GSAP if available and animations enabled
+    if (window.gsap && shouldAnimate) {
       // Set initial states BEFORE making visible
       gsap.set(backdrop, { opacity: 0 });
       gsap.set(drawer, { clipPath: 'inset(0 0 100% 0)' });
@@ -267,7 +270,7 @@
     document.body.style.overflow = 'hidden';
     document.dispatchEvent(new CustomEvent('menu:open'));
 
-    if (window.gsap) {
+    if (window.gsap && shouldAnimate) {
       openTimeline = gsap.timeline({
         onComplete: () => { isAnimating = false; }
       });
@@ -304,8 +307,9 @@
 
     const backdrop = mobileNav.querySelector('.mobile-nav__backdrop');
     const drawer = mobileNav.querySelector('.mobile-nav__drawer');
+    const shouldAnimate = window.shouldAnimate && window.shouldAnimate();
 
-    if (window.gsap) {
+    if (window.gsap && shouldAnimate) {
       if (openTimeline) openTimeline.kill();
 
       gsap.timeline({

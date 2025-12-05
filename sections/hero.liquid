@@ -86,6 +86,12 @@
     if (!section || section.dataset.heroAnimInitialized) return;
     section.dataset.heroAnimInitialized = 'true';
 
+    // If animations disabled, just show content immediately
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+      section.classList.remove('is-loading');
+      return;
+    }
+
     // Wait for GSAP and SplitText
     function initAnimation() {
       if (typeof gsap === 'undefined') {

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js{% if settings.enable_smooth_scroll %} smooth-scroll-enabled{% endif %}" lang="{{ request.locale.iso_code }}">
+<html class="no-js{% if settings.enable_smooth_scroll %} smooth-scroll-enabled{% endif %}{% unless settings.enable_scroll_animations %} animations-disabled{% endunless %}" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,6 +90,11 @@
         pageTransitionStyle: '{{ settings.page_transition_style | default: "slide" }}',
         cartType: '{{ settings.cart_type | default: "drawer" }}',
         moneyFormat: {{ shop.money_format | json }},
+      };
+      // Global animation check - returns true if animations should run
+      window.shouldAnimate = function() {
+        return window.themeSettings.enableScrollAnimations !== false &&
+               !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       };
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',

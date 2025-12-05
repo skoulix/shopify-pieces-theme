@@ -103,6 +103,9 @@
     if (!section || section.dataset.iwtAnimInitialized) return;
     section.dataset.iwtAnimInitialized = 'true';
 
+    // If animations disabled, skip
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
+
     function initAnimation() {
       // Get gsap from window.pieces or window
       if (typeof gsap === 'undefined') {

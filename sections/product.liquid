@@ -529,6 +529,12 @@
     if (!section) return;
     if (section.dataset.animInitialized) return;
 
+    // If animations disabled, skip
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+      section.dataset.animInitialized = 'true';
+      return;
+    }
+
     // Check for GSAP
     let gsap = window.gsap;
     if (!gsap && window.pieces && window.pieces.gsap) {

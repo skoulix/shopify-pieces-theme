@@ -44,6 +44,12 @@
   if (!wrapper || wrapper.dataset.pageInitialized) return;
   wrapper.dataset.pageInitialized = 'true';
 
+  // If animations disabled, just show content
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+    wrapper.classList.remove('is-loading');
+    return;
+  }
+
   // Animate header on load
   function animateHeader() {
     const titleLines = wrapper.querySelectorAll('.page-header-title-line span');

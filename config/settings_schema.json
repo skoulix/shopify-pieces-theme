@@ -202,7 +202,7 @@
         "id": "enable_scroll_animations",
         "default": true,
         "label": "Enable scroll animations",
-        "info": "Elements fade up as they scroll into view"
+        "info": "Elements animate as they come into view"
       },
       {
         "type": "header",

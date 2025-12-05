@@ -171,12 +171,8 @@ class AnimationManager {
    * Respects theme setting for enable_scroll_animations
    */
   initIntroAnimations() {
-    // Check if scroll animations are enabled
-    const scrollAnimationsEnabled = window.themeSettings?.enableScrollAnimations !== false;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     // If disabled, immediately show all elements
-    if (!scrollAnimationsEnabled || prefersReducedMotion) {
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
       document.querySelectorAll('[data-intro]').forEach((el) => {
         el.classList.add('intro-visible');
       });

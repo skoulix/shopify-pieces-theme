@@ -137,6 +137,12 @@
   if (!wrapper || wrapper.dataset.contactInitialized) return;
   wrapper.dataset.contactInitialized = 'true';
 
+  // If animations disabled, just show content
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+    wrapper.classList.remove('is-loading');
+    return;
+  }
+
   function animateIntro() {
     const titleLines = wrapper.querySelectorAll('.contact-header-title-line span');
     const subheading = wrapper.querySelector('[data-contact-subheading]');

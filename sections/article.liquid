@@ -203,6 +203,13 @@
     if (!wrapper) return;
     if (!forceReinit && wrapper.dataset.articleAnimInitialized) return;
 
+    // If animations disabled, just show content immediately
+    if (!window.shouldAnimate()) {
+      wrapper.classList.remove('is-loading');
+      wrapper.dataset.articleAnimInitialized = 'true';
+      return;
+    }
+
     let gsap = window.gsap;
     if (!gsap && window.pieces && window.pieces.gsap) {
       gsap = window.pieces.gsap;
