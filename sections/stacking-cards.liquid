@@ -1,0 +1,549 @@
+{%- comment -%}
+  Stacking Cards Section - Cards that stack on scroll
+  Codrops-inspired scroll-pinned stacking effect
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .stacking-cards-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .stacking-cards-wrapper-{{ section.id }} {
+    min-height: {{ section.blocks.size | times: 100 }}vh;
+    position: relative;
+  }
+
+  .stacking-cards-header-{{ section.id }} {
+    padding: clamp(4rem, 10vh, 8rem) 0;
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .stacking-cards-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .stacking-cards-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .stacking-cards-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .stacking-cards-description-{{ section.id }} {
+    margin-top: 1.5rem;
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    opacity: 0.7;
+    max-width: 50ch;
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  .stacking-cards-sticky-{{ section.id }} {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .stacking-card-{{ section.id }} {
+    position: absolute;
+    width: 90%;
+    max-width: 900px;
+    background: {{ section.settings.card_background }};
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transform-origin: center top;
+  }
+
+  .stacking-card-inner-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 400px;
+  }
+
+  @media (min-width: 768px) {
+    .stacking-card-inner-{{ section.id }} {
+      grid-template-columns: 1fr 1fr;
+      min-height: 450px;
+    }
+  }
+
+  .stacking-card-image-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+    min-height: 250px;
+  }
+
+  .stacking-card-image-{{ section.id }} img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stacking-card-{{ section.id }}:hover .stacking-card-image-{{ section.id }} img {
+    transform: scale(1.05);
+  }
+
+  .stacking-card-content-{{ section.id }} {
+    padding: clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .stacking-card-number-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.4;
+    margin-bottom: 1.5rem;
+  }
+
+  .stacking-card-title-{{ section.id }} {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .stacking-card-text-{{ section.id }} {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    opacity: 0.75;
+  }
+
+  .stacking-card-link-{{ section.id }} {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .stacking-card-link-text-wrapper-{{ section.id }} {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .stacking-card-link-{{ section.id }} .stacking-card-link-text-{{ section.id }} {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .stacking-card-link-{{ section.id }} .stacking-card-link-text-{{ section.id }}::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+  }
+
+  .stacking-card-link-{{ section.id }}:hover .stacking-card-link-text-{{ section.id }} {
+    transform: translateY(-100%);
+  }
+
+  /* Card stacking animation states */
+  .stacking-card-{{ section.id }} {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95);
+  }
+
+  html.animations-disabled .stacking-card-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .stacking-cards-title-{{ section.id }},
+  html.animations-disabled .stacking-cards-label-{{ section.id }},
+  html.animations-disabled .stacking-cards-description-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<section
+  class="stacking-cards-{{ section.id }}"
+  data-stacking-cards="{{ section.id }}"
+>
+  {%- comment -%} Header {%- endcomment -%}
+  {% if section.settings.label != blank or section.settings.title != blank %}
+    <div class="{{ container_class }} stacking-cards-header-{{ section.id }}">
+      {% if section.settings.label != blank %}
+        <span class="stacking-cards-label-{{ section.id }}" data-intro>
+          {{ section.settings.label }}
+        </span>
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="stacking-cards-title-{{ section.id }} font-heading" data-stacking-title>
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="stacking-cards-description-{{ section.id }}" data-intro>
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} Cards {%- endcomment -%}
+  <div class="stacking-cards-wrapper-{{ section.id }}">
+    <div class="stacking-cards-sticky-{{ section.id }}" data-stacking-sticky>
+      {% for block in section.blocks %}
+        <div
+          class="stacking-card-{{ section.id }}"
+          data-stacking-card
+          data-card-index="{{ forloop.index0 }}"
+          style="z-index: {{ forloop.index }};"
+          {{ block.shopify_attributes }}
+        >
+          <div class="stacking-card-inner-{{ section.id }}">
+            <div class="stacking-card-image-{{ section.id }}">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 800 | image_tag:
+                  loading: 'lazy',
+                  sizes: '(max-width: 768px) 100vw, 50vw',
+                  widths: '400, 600, 800'
+                }}
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+              {% endif %}
+            </div>
+
+            <div class="stacking-card-content-{{ section.id }}">
+              <span class="stacking-card-number-{{ section.id }}">
+                {{ forloop.index | prepend: '00' | slice: -2, 2 }}
+              </span>
+
+              {% if block.settings.title != blank %}
+                <h3 class="stacking-card-title-{{ section.id }} font-heading">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <p class="stacking-card-text-{{ section.id }}">
+                  {{ block.settings.text }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.link != blank and block.settings.link_text != blank %}
+                <a href="{{ block.settings.link }}" class="stacking-card-link-{{ section.id }}">
+                  <span class="stacking-card-link-text-wrapper-{{ section.id }}">
+                    <span class="stacking-card-link-text-{{ section.id }}" data-hover="{{ block.settings.link_text }}">{{ block.settings.link_text }}</span>
+                  </span>
+                  <i class="ph ph-arrow-right"></i>
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-stacking-cards="{{ section.id }}"]');
+  if (!section || section.dataset.stackingInitialized) return;
+  section.dataset.stackingInitialized = 'true';
+
+  // If animations disabled, show cards immediately
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+    const cards = section.querySelectorAll('[data-stacking-card]');
+    cards.forEach((card, i) => {
+      card.style.opacity = '1';
+      card.style.transform = `translateY(${i * 20}px) scale(${1 - i * 0.02})`;
+    });
+    return;
+  }
+
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    if (!gsap || !ScrollTrigger) {
+      setTimeout(initAnimation, 50);
+      return;
+    }
+
+    const cards = section.querySelectorAll('[data-stacking-card]');
+    const wrapper = section.querySelector('.stacking-cards-wrapper-{{ section.id }}');
+    const title = section.querySelector('[data-stacking-title]');
+    const totalCards = cards.length;
+
+    // Title animation with SplitText
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'stacking-cards-title-line' });
+
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+
+    // Card stacking animation
+    cards.forEach((card, i) => {
+      const cardIndex = parseInt(card.dataset.cardIndex);
+
+      // Initial state - cards stacked below
+      gsap.set(card, {
+        opacity: 0,
+        y: 100,
+        scale: 0.95
+      });
+
+      // Animate card into view
+      ScrollTrigger.create({
+        trigger: wrapper,
+        start: () => `top+=${cardIndex * (window.innerHeight * 0.5)} top`,
+        end: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          const progress = self.progress;
+
+          // Fade in and move up
+          gsap.set(card, {
+            opacity: Math.min(progress * 2, 1),
+            y: 100 - (progress * 100),
+            scale: 0.95 + (progress * 0.05)
+          });
+        }
+      });
+
+      // After card is in view, scale it down as next cards come in
+      if (i < totalCards - 1) {
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
+          end: () => `top+=${(totalCards) * (window.innerHeight * 0.5)} top`,
+          scrub: 0.5,
+          onUpdate: (self) => {
+            const scaleReduction = (totalCards - 1 - cardIndex) * 0.02;
+            const yOffset = (totalCards - 1 - cardIndex) * 15;
+
+            gsap.set(card, {
+              scale: 1 - (self.progress * scaleReduction),
+              y: self.progress * yOffset
+            });
+          }
+        });
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initAnimation);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Stacking Cards",
+  "tag": "section",
+  "class": "stacking-cards-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Features",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Why Choose Us",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Discover what makes our products stand out from the rest.",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "default": 16,
+      "unit": "px",
+      "label": "Card corner radius"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "default": "#ffffff",
+      "label": "Card background"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "default": "#000000",
+      "label": "Card text color"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#f5f5f5",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Feature Title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Describe this feature and how it benefits your customers. Keep it concise and compelling.",
+          "label": "Text"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "default": "Learn More",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stacking Cards",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Premium Quality", "text": "We source only the finest materials and work with skilled artisans to create products that last." } },
+        { "type": "card", "settings": { "title": "Sustainable Practices", "text": "Every step of our process is designed with the environment in mind, from sourcing to shipping." } },
+        { "type": "card", "settings": { "title": "Customer First", "text": "Your satisfaction is our priority. We offer hassle-free returns and dedicated support." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

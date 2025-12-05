@@ -1,0 +1,535 @@
+{%- comment -%}
+  Before/After Comparison Section - Interactive image comparison slider
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .before-after-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(4rem, 10vh, 8rem) 0;
+  }
+
+  .before-after-header-{{ section.id }} {
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .before-after-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .before-after-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .before-after-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .before-after-description-{{ section.id }} {
+    margin-top: 1.5rem;
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    opacity: 0.7;
+    max-width: 50ch;
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  .before-after-container-{{ section.id }} {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    cursor: ew-resize;
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .before-after-image-{{ section.id }} {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: {{ section.settings.aspect_ratio }};
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .before-after-before-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    width: 50%;
+  }
+
+  .before-after-before-{{ section.id }} img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+  }
+
+  /* Adjust image width to match container */
+  .before-after-before-{{ section.id }} img {
+    width: auto;
+    min-width: 100%;
+  }
+
+  @supports (object-fit: cover) {
+    .before-after-before-{{ section.id }} img {
+      width: 100%;
+      object-fit: cover;
+      object-position: left center;
+    }
+  }
+
+  /* Handle / Slider */
+  .before-after-handle-{{ section.id }} {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    background: #ffffff;
+    transform: translateX(-50%);
+    cursor: ew-resize;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .before-after-handle-btn-{{ section.id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: none;
+    cursor: ew-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+  }
+
+  .before-after-handle-btn-{{ section.id }}:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .before-after-handle-btn-{{ section.id }} i {
+    font-size: 1rem;
+    color: #000000;
+  }
+
+  .before-after-handle-btn-{{ section.id }} i:first-child {
+    margin-right: -4px;
+  }
+
+  .before-after-handle-btn-{{ section.id }} i:last-child {
+    margin-left: -4px;
+  }
+
+  /* Labels */
+  .before-after-labels-{{ section.id }} {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .before-after-label-tag-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border-radius: 100px;
+    backdrop-filter: blur(10px);
+  }
+
+  /* Animation states */
+  html.animations-disabled .before-after-title-{{ section.id }},
+  html.animations-disabled .before-after-label-{{ section.id }},
+  html.animations-disabled .before-after-description-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<section
+  class="before-after-{{ section.id }}"
+  data-before-after-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    {% if section.settings.label != blank or section.settings.title != blank %}
+      <div class="before-after-header-{{ section.id }}">
+        {% if section.settings.label != blank %}
+          <span class="before-after-label-{{ section.id }}" data-intro>
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="before-after-title-{{ section.id }} font-heading" data-before-after-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <p class="before-after-description-{{ section.id }}" data-intro>
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Comparison Slider {%- endcomment -%}
+    <div
+      class="before-after-container-{{ section.id }}"
+      data-before-after-container
+      role="img"
+      aria-label="Image comparison slider: {{ section.settings.before_label }} vs {{ section.settings.after_label }}"
+    >
+      {%- comment -%} After Image (Background) {%- endcomment -%}
+      {% if section.settings.image_after != blank %}
+        {{ section.settings.image_after | image_url: width: 2000 | image_tag:
+          class: 'before-after-image-' | append: section.id,
+          loading: 'lazy',
+          sizes: '(max-width: 1000px) 100vw, 1000px',
+          widths: '600, 800, 1000, 1200, 1600, 2000',
+          alt: section.settings.after_label
+        }}
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'before-after-image-' | append: section.id }}
+      {% endif %}
+
+      {%- comment -%} Before Image (Overlay) {%- endcomment -%}
+      <div class="before-after-before-{{ section.id }}" data-before-after-before>
+        {% if section.settings.image_before != blank %}
+          {{ section.settings.image_before | image_url: width: 2000 | image_tag:
+            class: 'before-after-image-' | append: section.id,
+            loading: 'lazy',
+            sizes: '(max-width: 1000px) 100vw, 1000px',
+            widths: '600, 800, 1000, 1200, 1600, 2000',
+            alt: section.settings.before_label
+          }}
+        {% else %}
+          {{ 'product-2' | placeholder_svg_tag: 'before-after-image-' | append: section.id }}
+        {% endif %}
+      </div>
+
+      {%- comment -%} Handle {%- endcomment -%}
+      <div class="before-after-handle-{{ section.id }}" data-before-after-handle>
+        <button
+          class="before-after-handle-btn-{{ section.id }}"
+          aria-label="Drag to compare images"
+          tabindex="0"
+        >
+          <i class="ph ph-caret-left"></i>
+          <i class="ph ph-caret-right"></i>
+        </button>
+      </div>
+
+      {%- comment -%} Labels {%- endcomment -%}
+      {% if section.settings.show_labels %}
+        <div class="before-after-labels-{{ section.id }}">
+          <span class="before-after-label-tag-{{ section.id }}">{{ section.settings.before_label }}</span>
+          <span class="before-after-label-tag-{{ section.id }}">{{ section.settings.after_label }}</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-before-after-section="{{ section.id }}"]');
+  if (!section || section.dataset.beforeAfterInitialized) return;
+  section.dataset.beforeAfterInitialized = 'true';
+
+  function initBeforeAfter() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    // Title animation
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+    const title = section.querySelector('[data-before-after-title]');
+
+    if (shouldAnimate && title && gsap && SplitText && ScrollTrigger) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'before-after-title-line' });
+
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+  }
+
+  // Slider functionality
+  const container = section.querySelector('[data-before-after-container]');
+  const before = section.querySelector('[data-before-after-before]');
+  const handle = section.querySelector('[data-before-after-handle]');
+
+  if (!container || !before || !handle) return;
+
+  let isDragging = false;
+
+  function updatePosition(x) {
+    const rect = container.getBoundingClientRect();
+    let position = (x - rect.left) / rect.width;
+    position = Math.max(0, Math.min(1, position));
+
+    const percentage = position * 100;
+    before.style.width = `${percentage}%`;
+    handle.style.left = `${percentage}%`;
+  }
+
+  function startDrag(e) {
+    isDragging = true;
+    container.style.cursor = 'grabbing';
+
+    const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    updatePosition(x);
+  }
+
+  function onDrag(e) {
+    if (!isDragging) return;
+
+    const x = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+    updatePosition(x);
+  }
+
+  function endDrag() {
+    isDragging = false;
+    container.style.cursor = 'ew-resize';
+  }
+
+  // Mouse events
+  container.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', onDrag);
+  document.addEventListener('mouseup', endDrag);
+
+  // Touch events
+  container.addEventListener('touchstart', startDrag, { passive: true });
+  document.addEventListener('touchmove', onDrag, { passive: true });
+  document.addEventListener('touchend', endDrag);
+
+  // Keyboard support
+  handle.querySelector('button').addEventListener('keydown', (e) => {
+    const rect = container.getBoundingClientRect();
+    const currentLeft = parseFloat(handle.style.left) || 50;
+    let newPosition = currentLeft;
+
+    if (e.key === 'ArrowLeft') {
+      newPosition = Math.max(0, currentLeft - 5);
+    } else if (e.key === 'ArrowRight') {
+      newPosition = Math.min(100, currentLeft + 5);
+    }
+
+    before.style.width = `${newPosition}%`;
+    handle.style.left = `${newPosition}%`;
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBeforeAfter);
+  } else {
+    requestAnimationFrame(initBeforeAfter);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initBeforeAfter);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Before/After",
+  "tag": "section",
+  "class": "before-after-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Compare",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "See the Difference",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Drag the slider to compare before and after.",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Before image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "After image"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "options": [
+        { "value": "16/9", "label": "Landscape (16:9)" },
+        { "value": "4/3", "label": "Standard (4:3)" },
+        { "value": "1/1", "label": "Square (1:1)" },
+        { "value": "3/4", "label": "Portrait (3:4)" }
+      ],
+      "default": "16/9",
+      "label": "Aspect ratio"
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_labels",
+      "default": true,
+      "label": "Show labels"
+    },
+    {
+      "type": "text",
+      "id": "before_label",
+      "default": "Before",
+      "label": "Before label"
+    },
+    {
+      "type": "text",
+      "id": "after_label",
+      "default": "After",
+      "label": "After label"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "default": 16,
+      "unit": "px",
+      "label": "Corner radius"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before/After"
+    }
+  ]
+}
+{% endschema %}

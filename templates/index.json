@@ -26,66 +26,28 @@
         "show_scroll_indicator": true
       }
     },
-    "marquee": {
-      "type": "marquee",
+    "logo_marquee": {
+      "type": "logo-marquee",
       "blocks": {
-        "text_1": {
-          "type": "text",
-          "settings": {
-            "text": "Free Shipping",
-            "outline": false
-          }
-        },
-        "sep_1": {
-          "type": "separator",
-          "settings": {
-            "style": "dot",
-            "icon": "star-four"
-          }
-        },
-        "text_2": {
-          "type": "text",
-          "settings": {
-            "text": "New Arrivals",
-            "outline": true
-          }
-        },
-        "sep_2": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
-          }
-        },
-        "text_3": {
-          "type": "text",
-          "settings": {
-            "text": "Limited Edition",
-            "outline": false
-          }
-        },
-        "sep_3": {
-          "type": "separator",
-          "settings": {
-            "style": "dot",
-            "icon": "star-four"
-          }
-        }
+        "logo_1": { "type": "logo", "settings": { "alt": "Featured in Vogue" } },
+        "logo_2": { "type": "logo", "settings": { "alt": "Featured in GQ" } },
+        "logo_3": { "type": "logo", "settings": { "alt": "Featured in Hypebeast" } },
+        "logo_4": { "type": "logo", "settings": { "alt": "Featured in Elle" } },
+        "logo_5": { "type": "logo", "settings": { "alt": "Featured in Esquire" } },
+        "logo_6": { "type": "logo", "settings": { "alt": "Featured in Highsnobiety" } }
       },
-      "block_order": [
-        "text_1",
-        "sep_1",
-        "text_2",
-        "sep_2",
-        "text_3",
-        "sep_3"
-      ],
+      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4", "logo_5", "logo_6"],
       "settings": {
-        "speed": 30,
+        "label": "As Featured In",
         "direction": "left",
-        "pause_on_hover": true,
-        "background_color": "#000000",
-        "text_color": "#ffffff"
+        "speed": 30,
+        "logo_height": 40,
+        "logo_max_width": 120,
+        "logo_opacity": 50,
+        "grayscale": true,
+        "full_width": true,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
       }
     },
     "featured_collection": {
@@ -100,41 +62,38 @@
         "full_width": false
       }
     },
-    "image_with_text": {
-      "type": "image-with-text",
-      "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": {
-            "number": "10+",
-            "label": "Years"
-          }
-        },
-        "stat_2": {
-          "type": "stat",
-          "settings": {
-            "number": "50K",
-            "label": "Customers"
-          }
-        }
-      },
-      "block_order": [
-        "stat_1",
-        "stat_2"
-      ],
+    "text_reveal": {
+      "type": "text-reveal",
       "settings": {
-        "image": "shopify://shop_images/photo-1599751449029-e4ea8f21d966.jpg",
-        "image_ratio": "4/5",
-        "label": "Our Story",
-        "title": "Crafted With Purpose",
-        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-        "button_text": "Learn More",
+        "label": "Our Philosophy",
+        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
+        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter, and we obsess over every stitch, seam, and finish.",
+        "button_text": "Our Story",
         "button_link": "shopify://pages/about",
-        "layout": "image_left",
+        "show_background_number": false,
+        "full_width": false,
+        "background_color": "#000000",
+        "text_color": "#ffffff",
+        "accent_color": "#a3a3a3"
+      }
+    },
+    "horizontal_scroll": {
+      "type": "horizontal-scroll",
+      "blocks": {
+        "image_1": { "type": "image", "settings": { "label": "01", "title": "Curated Selection", "text": "Handpicked pieces that define modern style" } },
+        "image_2": { "type": "image", "settings": { "label": "02", "title": "Premium Materials", "text": "Only the finest fabrics and components" } },
+        "image_3": { "type": "image", "settings": { "label": "03", "title": "Timeless Design", "text": "Pieces that transcend trends and seasons" } },
+        "image_4": { "type": "image", "settings": { "label": "04", "title": "Sustainable Craft", "text": "Responsibly made for a better tomorrow" } }
+      },
+      "block_order": ["image_1", "image_2", "image_3", "image_4"],
+      "settings": {
+        "label": "Explore",
+        "title": "Discover Our World",
+        "description": "Scroll through our carefully curated collection of products and experiences that define the modern lifestyle.",
         "full_width": true,
-        "remove_padding": true,
-        "background_color": "#ffffff",
-        "text_color": "#000000"
+        "card_radius": 16,
+        "background_color": "#0a0a0a",
+        "text_color": "#ffffff"
       }
     },
     "featured_collection_2": {
@@ -149,66 +108,94 @@
         "full_width": false
       }
     },
-    "image_with_text_2": {
-      "type": "image-with-text",
+    "split_slider": {
+      "type": "split-slider",
       "blocks": {
-        "stat_3": {
-          "type": "stat",
-          "settings": {
-            "number": "100%",
-            "label": "Sustainable"
-          }
-        },
-        "stat_4": {
-          "type": "stat",
-          "settings": {
-            "number": "5yr",
-            "label": "Warranty"
-          }
-        }
+        "slide_1": { "type": "slide", "settings": { "label": "Spring Collection", "title": "New Season Essentials", "text": "Fresh arrivals for the warmer days ahead" } },
+        "slide_2": { "type": "slide", "settings": { "label": "Limited Edition", "title": "Exclusive Collaborations", "text": "Unique pieces you won't find anywhere else" } },
+        "slide_3": { "type": "slide", "settings": { "label": "Bestsellers", "title": "Customer Favorites", "text": "The pieces our community loves most" } }
       },
-      "block_order": [
-        "stat_3",
-        "stat_4"
-      ],
+      "block_order": ["slide_1", "slide_2", "slide_3"],
       "settings": {
-        "image": "shopify://shop_images/photo-1584890131712-18ee8e3ed49c.jpg",
-        "image_ratio": "4/5",
-        "label": "Quality",
-        "title": "Made To Last",
-        "text": "<p>Every product we create is built to last. We source only the finest materials and work with skilled artisans who share our commitment to excellence.</p>",
-        "button_text": "Our Process",
-        "button_link": "shopify://pages/about",
-        "layout": "image_right",
-        "full_width": true,
-        "remove_padding": true,
-        "background_color": "#f5f5f5",
-        "text_color": "#000000"
+        "autoplay": true,
+        "autoplay_speed": 5000,
+        "background_color": "#000000"
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": { "type": "feature", "settings": { "icon": "truck", "title": "Free Shipping", "text": "Complimentary shipping on all orders over $100. Fast, reliable delivery to your doorstep." } },
+        "feature_2": { "type": "feature", "settings": { "icon": "shield-check", "title": "Secure Checkout", "text": "Your payment information is protected with industry-leading encryption technology." } },
+        "feature_3": { "type": "feature", "settings": { "icon": "arrow-counter-clockwise", "title": "Easy Returns", "text": "Not satisfied? Return within 30 days for a full refund. No questions asked." } },
+        "feature_4": { "type": "feature", "settings": { "icon": "headset", "title": "24/7 Support", "text": "Our dedicated team is here to help you around the clock with any questions." } },
+        "feature_5": { "type": "feature", "settings": { "icon": "package", "title": "Premium Quality", "text": "We source only the finest materials for products built to last a lifetime." } },
+        "feature_6": { "type": "feature", "settings": { "icon": "leaf", "title": "Eco-Friendly", "text": "Committed to sustainable practices and reducing our environmental footprint." } }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4", "feature_5", "feature_6"],
+      "settings": {
+        "label": "Why Choose Us",
+        "title": "The Pieces Difference",
+        "description": "We're committed to providing an exceptional experience from start to finish.",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 3,
+        "card_radius": 16,
+        "card_background": "#f5f5f5",
+        "card_text_color": "#000000",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#000000"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": { "type": "testimonial", "settings": { "quote": "The quality is absolutely outstanding. I've never owned anything quite like this. Worth every penny and then some.", "author": "Sarah M.", "author_title": "Verified Buyer", "rating": 5 } },
+        "testimonial_2": { "type": "testimonial", "settings": { "quote": "Exceptional customer service and the product exceeded my expectations. This is my third purchase and I keep coming back.", "author": "James K.", "author_title": "Loyal Customer", "rating": 5 } },
+        "testimonial_3": { "type": "testimonial", "settings": { "quote": "Finally found a brand that actually delivers on its promises. The attention to detail is remarkable.", "author": "Emily R.", "author_title": "Verified Buyer", "rating": 5 } }
+      },
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "settings": {
+        "label": "Reviews",
+        "title": "What Our Customers Say",
+        "show_rating": true,
+        "card_radius": 20,
+        "card_background": "#f5f5f5",
+        "card_text_color": "#000000",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#f59e0b"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "card",
-        "title": "Stay Updated",
-        "text": "Subscribe to our newsletter for exclusive updates, new arrivals, and special offers.",
+        "title": "Join the Community",
+        "text": "Subscribe for exclusive updates, early access to new releases, and special offers.",
         "button_text": "Subscribe",
         "privacy_text": "We care about your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "background_color": "#ffffff",
+        "background_color": "#000000",
         "text_color": "#ffffff",
-        "card_color": "#000000"
+        "card_color": "#171717"
       }
     }
   },
   "order": [
     "hero",
-    "marquee",
+    "logo_marquee",
     "featured_collection",
-    "image_with_text",
+    "text_reveal",
+    "horizontal_scroll",
     "featured_collection_2",
-    "image_with_text_2",
+    "split_slider",
+    "features_grid",
+    "testimonials",
     "newsletter"
   ]
 }

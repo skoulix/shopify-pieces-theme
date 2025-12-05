@@ -1,0 +1,543 @@
+{%- comment -%}
+  Features Grid Section - Creative bento-style grid for features
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .features-grid-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(4rem, 10vh, 8rem) 0;
+  }
+
+  .features-grid-header-{{ section.id }} {
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .features-grid-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .features-grid-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .features-grid-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .features-grid-description-{{ section.id }} {
+    margin-top: 1.5rem;
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    opacity: 0.7;
+    max-width: 50ch;
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  .features-grid-container-{{ section.id }} {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  @media (min-width: 768px) {
+    .features-grid-container-{{ section.id }} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Bento layout for desktop */
+    .features-grid-container-{{ section.id }}.bento-layout {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, auto);
+    }
+
+    .features-grid-container-{{ section.id }}.bento-layout .feature-item-{{ section.id }}:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .features-grid-container-{{ section.id }}.bento-layout .feature-item-{{ section.id }}:nth-child(2),
+    .features-grid-container-{{ section.id }}.bento-layout .feature-item-{{ section.id }}:nth-child(3) {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid-container-{{ section.id }}.standard-layout {
+      grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    }
+  }
+
+  .feature-item-{{ section.id }} {
+    position: relative;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    background: {{ section.settings.card_background }};
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .feature-item-{{ section.id }}:hover {
+    transform: translateY(-4px);
+  }
+
+  /* Background gradient decoration */
+  .feature-item-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle at top right, {{ section.settings.accent_color }}15, transparent 70%);
+    pointer-events: none;
+  }
+
+  .feature-item-icon-{{ section.id }} {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: {{ section.settings.accent_color }}15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .feature-item-{{ section.id }}:hover .feature-item-icon-{{ section.id }} {
+    background: {{ section.settings.accent_color }};
+    transform: scale(1.1);
+  }
+
+  .feature-item-icon-{{ section.id }} i {
+    font-size: 1.5rem;
+    color: {{ section.settings.accent_color }};
+    transition: color 0.4s ease;
+  }
+
+  .feature-item-{{ section.id }}:hover .feature-item-icon-{{ section.id }} i {
+    color: #ffffff;
+  }
+
+  .feature-item-number-{{ section.id }} {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    opacity: 0.2;
+  }
+
+  .feature-item-title-{{ section.id }} {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .feature-item-text-{{ section.id }} {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    opacity: 0.7;
+    color: {{ section.settings.card_text_color }};
+  }
+
+  .feature-item-link-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: {{ section.settings.accent_color }};
+  }
+
+  .feature-item-link-text-wrapper-{{ section.id }} {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .feature-item-link-{{ section.id }} .feature-item-link-text-{{ section.id }} {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .feature-item-link-{{ section.id }} .feature-item-link-text-{{ section.id }}::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+  }
+
+  .feature-item-link-{{ section.id }}:hover .feature-item-link-text-{{ section.id }} {
+    transform: translateY(-100%);
+  }
+
+  /* Large featured item in bento */
+  .feature-item-{{ section.id }}.is-large {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .feature-item-{{ section.id }}.is-large .feature-item-icon-{{ section.id }} {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 2rem;
+  }
+
+  .feature-item-{{ section.id }}.is-large .feature-item-icon-{{ section.id }} i {
+    font-size: 2rem;
+  }
+
+  .feature-item-{{ section.id }}.is-large .feature-item-title-{{ section.id }} {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  /* Animation states */
+  html.animations-disabled .features-grid-title-{{ section.id }},
+  html.animations-disabled .features-grid-label-{{ section.id }},
+  html.animations-disabled .features-grid-description-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<section
+  class="features-grid-{{ section.id }}"
+  data-features-grid-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    {% if section.settings.label != blank or section.settings.title != blank %}
+      <div class="features-grid-header-{{ section.id }}">
+        {% if section.settings.label != blank %}
+          <span class="features-grid-label-{{ section.id }}" data-intro>
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="features-grid-title-{{ section.id }} font-heading" data-features-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <p class="features-grid-description-{{ section.id }}" data-intro>
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Features Grid {%- endcomment -%}
+    <div class="features-grid-container-{{ section.id }} {{ section.settings.layout }}-layout">
+      {% for block in section.blocks %}
+        <div
+          class="feature-item-{{ section.id }}{% if section.settings.layout == 'bento' and forloop.first %} is-large{% endif %}"
+          data-intro
+          {{ block.shopify_attributes }}
+        >
+          <span class="feature-item-number-{{ section.id }}">
+            {{ forloop.index | prepend: '00' | slice: -2, 2 }}
+          </span>
+
+          <div class="feature-item-icon-{{ section.id }}">
+            <i class="ph ph-{{ block.settings.icon | default: 'star' }}"></i>
+          </div>
+
+          {% if block.settings.title != blank %}
+            <h3 class="feature-item-title-{{ section.id }} font-heading">
+              {{ block.settings.title }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <p class="feature-item-text-{{ section.id }}">
+              {{ block.settings.text }}
+            </p>
+          {% endif %}
+
+          {% if block.settings.link != blank and block.settings.link_text != blank %}
+            <a href="{{ block.settings.link }}" class="feature-item-link-{{ section.id }}">
+              <span class="feature-item-link-text-wrapper-{{ section.id }}">
+                <span class="feature-item-link-text-{{ section.id }}" data-hover="{{ block.settings.link_text }}">{{ block.settings.link_text }}</span>
+              </span>
+              <i class="ph ph-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-features-grid-section="{{ section.id }}"]');
+  if (!section || section.dataset.featuresInitialized) return;
+  section.dataset.featuresInitialized = 'true';
+
+  // Skip if animations disabled
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
+
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    if (!gsap || !SplitText || !ScrollTrigger) {
+      setTimeout(initAnimation, 50);
+      return;
+    }
+
+    const title = section.querySelector('[data-features-title]');
+    if (!title) return;
+
+    const split = new SplitText(title, { type: 'lines', linesClass: 'features-grid-title-line' });
+
+    split.lines.forEach(line => {
+      const lineWrapper = document.createElement('div');
+      lineWrapper.style.overflow = 'hidden';
+      lineWrapper.style.display = 'block';
+      line.parentNode.insertBefore(lineWrapper, line);
+      lineWrapper.appendChild(line);
+    });
+
+    gsap.set(split.lines, { yPercent: 120 });
+
+    gsap.to(split.lines, {
+      yPercent: 0,
+      duration: 1.2,
+      ease: 'power4.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 70%',
+        once: true
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initAnimation);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Features Grid",
+  "tag": "section",
+  "class": "features-grid-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Why Choose Us",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Features That Set Us Apart",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Everything you need to create an amazing shopping experience.",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Grid Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        { "value": "standard", "label": "Standard Grid" },
+        { "value": "bento", "label": "Bento (Featured First)" }
+      ],
+      "default": "standard",
+      "label": "Layout style"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Columns (standard layout)"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "default": 16,
+      "unit": "px",
+      "label": "Card corner radius"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "default": "#f5f5f5",
+      "label": "Card background"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "default": "#000000",
+      "label": "Card text color"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#6366f1",
+      "label": "Accent color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "default": "star",
+          "label": "Icon name",
+          "info": "Phosphor icon name (e.g., star, truck, shield-check, package)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Feature Title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Describe this feature and how it benefits your customers.",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "default": "Learn More",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "blocks": [
+        { "type": "feature", "settings": { "icon": "truck", "title": "Free Shipping", "text": "Enjoy free shipping on all orders over $50. Fast and reliable delivery to your doorstep." } },
+        { "type": "feature", "settings": { "icon": "shield-check", "title": "Secure Payment", "text": "Your payment information is protected with industry-leading encryption." } },
+        { "type": "feature", "settings": { "icon": "arrow-counter-clockwise", "title": "Easy Returns", "text": "Not satisfied? Return within 30 days for a full refund, no questions asked." } },
+        { "type": "feature", "settings": { "icon": "headset", "title": "24/7 Support", "text": "Our customer support team is here to help you around the clock." } },
+        { "type": "feature", "settings": { "icon": "package", "title": "Quality Products", "text": "We source only the finest materials for products that last." } },
+        { "type": "feature", "settings": { "icon": "leaf", "title": "Eco-Friendly", "text": "Committed to sustainable practices and reducing our environmental impact." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

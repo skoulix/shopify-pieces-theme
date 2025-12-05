@@ -1,6 +1,6 @@
 {
   "sections": {
-    "hero_xK9mL2": {
+    "hero": {
       "type": "hero",
       "settings": {
         "title": "Our Story",
@@ -16,170 +16,149 @@
         "show_scroll_indicator": true
       }
     },
-    "story_section_pQ3nR7": {
-      "type": "image-with-text",
+    "text_reveal": {
+      "type": "text-reveal",
       "settings": {
-        "label": "The Beginning",
-        "title": "Founded On Passion",
-        "text": "<p>What started as a small workshop has grown into something we're truly proud of. Every piece we create carries the same attention to detail and commitment to quality that inspired us from day one.</p><p>We source only the finest materials and work with skilled artisans who share our vision for excellence.</p>",
-        "button_text": "Learn More",
+        "label": "Our Mission",
+        "text": "We exist to create *meaningful* products\nthat stand the test of *time*\nand bring joy to your life.",
+        "subtext": "Since our founding, we've been driven by a simple belief: that well-designed, thoughtfully crafted products can make a real difference in people's lives.",
+        "button_text": "",
         "button_link": "",
-        "layout": "image_left",
-        "image_ratio": "4/5",
+        "show_background_number": true,
+        "background_number": "01",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#6366f1"
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "milestone_1": { "type": "milestone", "settings": { "year": "2018", "title": "The Beginning", "text": "Started with a simple idea in a small workshop. Just two founders, one vision, and an obsession with quality." } },
+        "milestone_2": { "type": "milestone", "settings": { "year": "2019", "title": "First Collection", "text": "Launched our inaugural product line to overwhelming response. The community embraced our commitment to craftsmanship." } },
+        "milestone_3": { "type": "milestone", "settings": { "year": "2021", "title": "Going Global", "text": "Expanded to international markets and grew our community to over 50,000 customers across 30 countries." } },
+        "milestone_4": { "type": "milestone", "settings": { "year": "2023", "title": "Sustainability Focus", "text": "Achieved carbon-neutral operations and launched our recycled materials initiative." } },
+        "milestone_5": { "type": "milestone", "settings": { "year": "2024", "title": "Today & Beyond", "text": "Continuing to innovate and create products you love, while staying true to our founding principles." } }
+      },
+      "block_order": ["milestone_1", "milestone_2", "milestone_3", "milestone_4", "milestone_5"],
+      "settings": {
+        "label": "Our Journey",
+        "title": "How We Got Here",
+        "header_alignment": "center",
+        "card_radius": 12,
+        "full_width": false,
+        "background_color": "#f5f5f5",
+        "text_color": "#000000",
+        "accent_color": "#000000"
+      }
+    },
+    "stacking_cards": {
+      "type": "stacking-cards",
+      "blocks": {
+        "card_1": { "type": "card", "settings": { "title": "Quality First", "text": "We never compromise on materials or craftsmanship. Every product goes through rigorous quality checks before reaching you.", "link_text": "", "link": "" } },
+        "card_2": { "type": "card", "settings": { "title": "Sustainable By Design", "text": "From sourcing to shipping, sustainability is built into everything we do. We're committed to leaving a positive impact.", "link_text": "", "link": "" } },
+        "card_3": { "type": "card", "settings": { "title": "Customer Obsessed", "text": "Your satisfaction drives us. We listen, learn, and continuously improve based on your feedback and needs.", "link_text": "", "link": "" } }
+      },
+      "block_order": ["card_1", "card_2", "card_3"],
+      "settings": {
+        "label": "Our Values",
+        "title": "What We Stand For",
+        "description": "These principles guide every decision we make.",
+        "header_alignment": "center",
+        "card_radius": 20,
+        "card_background": "#ffffff",
+        "card_text_color": "#000000",
         "full_width": false,
         "background_color": "#ffffff",
         "text_color": "#000000"
-      },
-      "blocks": {
-        "stat_1_aB4cD8": {
-          "type": "stat",
-          "settings": {
-            "number": "2018",
-            "label": "Founded"
-          }
-        },
-        "stat_2_eF5gH9": {
-          "type": "stat",
-          "settings": {
-            "number": "50K+",
-            "label": "Happy Customers"
-          }
-        }
-      },
-      "block_order": ["stat_1_aB4cD8", "stat_2_eF5gH9"]
+      }
     },
-    "values_section_iJ6kL0": {
-      "type": "image-with-text",
+    "team": {
+      "type": "team",
+      "blocks": {
+        "member_1": { "type": "member", "settings": { "name": "Alex Thompson", "role": "Founder & CEO", "bio": "Passionate about creating exceptional products that make a difference." } },
+        "member_2": { "type": "member", "settings": { "name": "Sarah Chen", "role": "Creative Director", "bio": "Bringing creative visions to life with an eye for timeless design." } },
+        "member_3": { "type": "member", "settings": { "name": "Michael Brown", "role": "Head of Product", "bio": "Obsessed with user experience and product perfection." } },
+        "member_4": { "type": "member", "settings": { "name": "Emily Davis", "role": "Customer Success", "bio": "Dedicated to making sure every customer is happy." } }
+      },
+      "block_order": ["member_1", "member_2", "member_3", "member_4"],
       "settings": {
-        "label": "Our Values",
-        "title": "Quality Over Quantity",
-        "text": "<p>We don't chase trends. Instead, we focus on creating pieces that will last for years to come—both in durability and style. Sustainability isn't just a buzzword for us; it's woven into everything we do.</p>",
-        "button_text": "Our Process",
-        "button_link": "",
-        "layout": "image_right",
-        "image_ratio": "4/5",
+        "label": "The Team",
+        "title": "Meet the People Behind the Brand",
+        "description": "We're a small but passionate team united by our love for great products.",
+        "header_alignment": "center",
+        "columns": 4,
+        "card_radius": 16,
         "full_width": false,
         "background_color": "#f5f5f5",
         "text_color": "#000000"
-      },
-      "blocks": {
-        "stat_3_mN7oP1": {
-          "type": "stat",
-          "settings": {
-            "number": "100%",
-            "label": "Sustainable"
-          }
-        },
-        "stat_4_qR8sT2": {
-          "type": "stat",
-          "settings": {
-            "number": "5yr",
-            "label": "Warranty"
-          }
-        }
-      },
-      "block_order": ["stat_3_mN7oP1", "stat_4_qR8sT2"]
+      }
     },
-    "marquee_uV9wX3": {
+    "marquee": {
       "type": "marquee",
+      "blocks": {
+        "text_1": { "type": "text", "settings": { "text": "Handcrafted", "outline": false } },
+        "sep_1": { "type": "separator", "settings": { "style": "icon", "icon": "star-four" } },
+        "text_2": { "type": "text", "settings": { "text": "Sustainable", "outline": true } },
+        "sep_2": { "type": "separator", "settings": { "style": "dot" } },
+        "text_3": { "type": "text", "settings": { "text": "Timeless Design", "outline": false } },
+        "sep_3": { "type": "separator", "settings": { "style": "icon", "icon": "star-four" } },
+        "text_4": { "type": "text", "settings": { "text": "Premium Quality", "outline": true } },
+        "sep_4": { "type": "separator", "settings": { "style": "dot" } }
+      },
+      "block_order": ["text_1", "sep_1", "text_2", "sep_2", "text_3", "sep_3", "text_4", "sep_4"],
       "settings": {
         "speed": 25,
         "direction": "left",
         "pause_on_hover": true,
         "background_color": "#000000",
         "text_color": "#ffffff"
-      },
-      "blocks": {
-        "text_1_yZ0aB4": {
-          "type": "text",
-          "settings": {
-            "text": "Handcrafted",
-            "outline": false
-          }
-        },
-        "sep_1_cD5eF6": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
-          }
-        },
-        "text_2_gH7iJ8": {
-          "type": "text",
-          "settings": {
-            "text": "Sustainable",
-            "outline": true
-          }
-        },
-        "sep_2_kL9mN0": {
-          "type": "separator",
-          "settings": {
-            "style": "dot"
-          }
-        },
-        "text_3_oP1qR2": {
-          "type": "text",
-          "settings": {
-            "text": "Timeless Design",
-            "outline": false
-          }
-        },
-        "sep_3_sT3uV4": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
-          }
-        },
-        "text_4_wX5yZ6": {
-          "type": "text",
-          "settings": {
-            "text": "Premium Quality",
-            "outline": true
-          }
-        },
-        "sep_4_aB7cD8": {
-          "type": "separator",
-          "settings": {
-            "style": "dot"
-          }
-        }
-      },
-      "block_order": ["text_1_yZ0aB4", "sep_1_cD5eF6", "text_2_gH7iJ8", "sep_2_kL9mN0", "text_3_oP1qR2", "sep_3_sT3uV4", "text_4_wX5yZ6", "sep_4_aB7cD8"]
+      }
     },
-    "team_section_eF9gH0": {
+    "image_with_text": {
       "type": "image-with-text",
+      "blocks": {
+        "stat_1": { "type": "stat", "settings": { "number": "100%", "label": "Sustainable" } },
+        "stat_2": { "type": "stat", "settings": { "number": "5yr", "label": "Warranty" } }
+      },
+      "block_order": ["stat_1", "stat_2"],
       "settings": {
-        "label": "The Team",
-        "title": "People Behind The Brand",
-        "text": "<p>Our small but dedicated team brings together decades of experience in design, craftsmanship, and customer care. We're not just colleagues—we're a family united by our love for what we create.</p>",
-        "button_text": "Join Us",
-        "button_link": "",
+        "label": "Our Process",
+        "title": "Made With Care",
+        "text": "<p>Every product we create goes through a meticulous process of design, testing, and refinement. We work with skilled artisans who share our commitment to excellence.</p><p>From the initial sketch to the final stitch, quality is our obsession.</p>",
+        "button_text": "Shop Now",
+        "button_link": "shopify://collections/all",
         "layout": "image_left",
-        "image_ratio": "1/1",
-        "full_width": false,
+        "image_ratio": "4/5",
+        "full_width": true,
+        "remove_padding": false,
         "background_color": "#ffffff",
         "text_color": "#000000"
-      },
-      "blocks": {
-        "stat_5_iJ1kL2": {
-          "type": "stat",
-          "settings": {
-            "number": "12",
-            "label": "Team Members"
-          }
-        },
-        "stat_6_mN3oP4": {
-          "type": "stat",
-          "settings": {
-            "number": "4",
-            "label": "Countries"
-          }
-        }
-      },
-      "block_order": ["stat_5_iJ1kL2", "stat_6_mN3oP4"]
+      }
     },
-    "newsletter_qR5sT6": {
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": { "type": "testimonial", "settings": { "quote": "The attention to detail is remarkable. You can tell these products are made by people who truly care about their craft.", "author": "David L.", "author_title": "Customer since 2019", "rating": 5 } },
+        "testimonial_2": { "type": "testimonial", "settings": { "quote": "I've been a loyal customer for years. The quality is consistent, and the team is always helpful. Couldn't ask for more.", "author": "Rachel T.", "author_title": "Verified Buyer", "rating": 5 } },
+        "testimonial_3": { "type": "testimonial", "settings": { "quote": "Finally, a brand that actually lives up to its promises. These products are built to last.", "author": "Mark S.", "author_title": "Repeat Customer", "rating": 5 } }
+      },
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "settings": {
+        "label": "Community Love",
+        "title": "Words From Our Family",
+        "show_rating": true,
+        "card_radius": 20,
+        "card_background": "#f5f5f5",
+        "card_text_color": "#000000",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#f59e0b"
+      }
+    },
+    "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "card",
@@ -193,11 +172,14 @@
     }
   },
   "order": [
-    "hero_xK9mL2",
-    "story_section_pQ3nR7",
-    "values_section_iJ6kL0",
-    "marquee_uV9wX3",
-    "team_section_eF9gH0",
-    "newsletter_qR5sT6"
+    "hero",
+    "text_reveal",
+    "timeline",
+    "stacking_cards",
+    "team",
+    "marquee",
+    "image_with_text",
+    "testimonials",
+    "newsletter"
   ]
 }

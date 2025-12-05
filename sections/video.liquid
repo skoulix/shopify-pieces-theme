@@ -25,12 +25,21 @@
     border-radius: {{ section.settings.border_radius }}px;
   }
 
+  /* Allow controls to be visible when enabled */
+  {% if section.settings.show_controls %}
+  .video-container-{{ section.id }} {
+    overflow: visible;
+  }
+  {% endif %}
+
   .video-container-{{ section.id }} video {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: {{ section.settings.border_radius }}px;
+    z-index: 1;
   }
 
   .video-placeholder-{{ section.id }} {
@@ -202,6 +211,13 @@
     padding: clamp(2rem, 5vw, 4rem);
     color: {{ section.settings.text_color }};
     text-align: {% if section.settings.content_alignment == 'flex-start' %}left{% elsif section.settings.content_alignment == 'flex-end' %}right{% else %}center{% endif %};
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .video-content-{{ section.id }} a,
+  .video-content-{{ section.id }} button {
+    pointer-events: auto;
   }
 
   .video-title-{{ section.id }} {
@@ -255,14 +271,20 @@
   <div class="{{ container_class }}">
     <div class="video-container-{{ section.id }}" data-video-container>
       {% if section.settings.video != blank %}
-        {{ section.settings.video | video_tag:
-          autoplay: true,
-          loop: section.settings.loop,
-          muted: true,
-          playsinline: true,
-          controls: section.settings.show_controls,
-          preload: 'auto'
-        }}
+        {%- liquid
+          assign video_attrs = 'autoplay muted playsinline preload="auto"'
+          if section.settings.loop
+            assign video_attrs = video_attrs | append: ' loop'
+          endif
+          if section.settings.show_controls
+            assign video_attrs = video_attrs | append: ' controls'
+          endif
+        -%}
+        <video {{ video_attrs }}>
+          {% for source in section.settings.video.sources %}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+          {% endfor %}
+        </video>
       {% else %}
         <div class="video-placeholder-{{ section.id }}">
           <div class="video-placeholder-pattern-{{ section.id }}"></div>

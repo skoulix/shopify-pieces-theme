@@ -1,0 +1,511 @@
+{%- comment -%}
+  Timeline Section - Animated vertical timeline for brand story
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .timeline-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(4rem, 10vh, 8rem) 0;
+  }
+
+  .timeline-header-{{ section.id }} {
+    margin-bottom: clamp(4rem, 8vh, 6rem);
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .timeline-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .timeline-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .timeline-wrapper-{{ section.id }} {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Central line */
+  .timeline-line-{{ section.id }} {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: {{ section.settings.text_color }}15;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-line-{{ section.id }} {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .timeline-line-progress-{{ section.id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: {{ section.settings.accent_color }};
+    transition: height 0.1s linear;
+  }
+
+  /* Timeline items */
+  .timeline-item-{{ section.id }} {
+    position: relative;
+    padding-left: 60px;
+    padding-bottom: clamp(3rem, 6vh, 5rem);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-item-{{ section.id }} {
+      padding-left: 0;
+      padding-right: 0;
+      width: 50%;
+    }
+
+    .timeline-item-{{ section.id }}:nth-child(odd) {
+      margin-left: auto;
+      padding-left: calc(50px + 2rem);
+    }
+
+    .timeline-item-{{ section.id }}:nth-child(even) {
+      padding-right: calc(50px + 2rem);
+      text-align: right;
+    }
+  }
+
+  /* Dot marker */
+  .timeline-dot-{{ section.id }} {
+    position: absolute;
+    left: 12px;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: {{ section.settings.background_color }};
+    border: 3px solid {{ section.settings.text_color }}30;
+    z-index: 2;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (min-width: 768px) {
+    .timeline-item-{{ section.id }}:nth-child(odd) .timeline-dot-{{ section.id }} {
+      left: -9px;
+    }
+
+    .timeline-item-{{ section.id }}:nth-child(even) .timeline-dot-{{ section.id }} {
+      right: -9px;
+      left: auto;
+    }
+  }
+
+  .timeline-item-{{ section.id }}.is-active .timeline-dot-{{ section.id }} {
+    border-color: {{ section.settings.accent_color }};
+    background: {{ section.settings.accent_color }};
+    transform: scale(1.3);
+  }
+
+  .timeline-item-{{ section.id }}.is-active .timeline-dot-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 2px solid {{ section.settings.accent_color }}40;
+    animation: timeline-pulse-{{ section.id }} 2s ease-out infinite;
+  }
+
+  @keyframes timeline-pulse-{{ section.id }} {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  /* Year */
+  .timeline-year-{{ section.id }} {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    opacity: 0.15;
+    margin-bottom: 1rem;
+    transition: opacity 0.4s ease;
+  }
+
+  .timeline-item-{{ section.id }}.is-active .timeline-year-{{ section.id }} {
+    opacity: 0.3;
+  }
+
+  /* Content */
+  .timeline-content-{{ section.id }} {
+    opacity: 0.6;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .timeline-item-{{ section.id }}.is-active .timeline-content-{{ section.id }} {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-item-title-{{ section.id }} {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-item-text-{{ section.id }} {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    opacity: 0.8;
+  }
+
+  .timeline-item-image-{{ section.id }} {
+    margin-top: 1.5rem;
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    max-width: 300px;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-item-{{ section.id }}:nth-child(even) .timeline-item-image-{{ section.id }} {
+      margin-left: auto;
+    }
+  }
+
+  .timeline-item-image-{{ section.id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Animation states */
+  html.animations-disabled .timeline-content-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .timeline-dot-{{ section.id }} {
+    border-color: {{ section.settings.accent_color }};
+  }
+</style>
+
+<section
+  class="timeline-{{ section.id }}"
+  data-timeline-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    {% if section.settings.label != blank or section.settings.title != blank %}
+      <div class="timeline-header-{{ section.id }}">
+        {% if section.settings.label != blank %}
+          <span class="timeline-label-{{ section.id }}" data-intro>
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="timeline-title-{{ section.id }} font-heading" data-timeline-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Timeline {%- endcomment -%}
+    <div class="timeline-wrapper-{{ section.id }}" data-timeline-wrapper>
+      <div class="timeline-line-{{ section.id }}">
+        <div class="timeline-line-progress-{{ section.id }}" data-timeline-progress></div>
+      </div>
+
+      {% for block in section.blocks %}
+        <div
+          class="timeline-item-{{ section.id }}{% if forloop.first %} is-active{% endif %}"
+          data-timeline-item
+          {{ block.shopify_attributes }}
+        >
+          <div class="timeline-dot-{{ section.id }}" data-timeline-dot></div>
+
+          {% if block.settings.year != blank %}
+            <div class="timeline-year-{{ section.id }} font-heading">
+              {{ block.settings.year }}
+            </div>
+          {% endif %}
+
+          <div class="timeline-content-{{ section.id }}">
+            {% if block.settings.title != blank %}
+              <h3 class="timeline-item-title-{{ section.id }} font-heading">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+
+            {% if block.settings.text != blank %}
+              <p class="timeline-item-text-{{ section.id }}">
+                {{ block.settings.text }}
+              </p>
+            {% endif %}
+
+            {% if block.settings.image != blank %}
+              <div class="timeline-item-image-{{ section.id }}">
+                {{ block.settings.image | image_url: width: 600 | image_tag:
+                  loading: 'lazy',
+                  sizes: '300px',
+                  widths: '300, 600'
+                }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-timeline-section="{{ section.id }}"]');
+  if (!section || section.dataset.timelineInitialized) return;
+  section.dataset.timelineInitialized = 'true';
+
+  function initTimeline() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    if (!gsap || !ScrollTrigger) {
+      setTimeout(initTimeline, 50);
+      return;
+    }
+
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+    const items = section.querySelectorAll('[data-timeline-item]');
+    const progress = section.querySelector('[data-timeline-progress]');
+    const wrapper = section.querySelector('[data-timeline-wrapper]');
+    const title = section.querySelector('[data-timeline-title]');
+
+    // Title animation
+    if (shouldAnimate && title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'timeline-title-line' });
+
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+
+    // Progress line animation
+    if (progress && wrapper) {
+      ScrollTrigger.create({
+        trigger: wrapper,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 0.5,
+        onUpdate: (self) => {
+          progress.style.height = `${self.progress * 100}%`;
+        }
+      });
+    }
+
+    // Item activation on scroll
+    items.forEach((item, index) => {
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => {
+          items.forEach(i => i.classList.remove('is-active'));
+          item.classList.add('is-active');
+        },
+        onEnterBack: () => {
+          items.forEach(i => i.classList.remove('is-active'));
+          item.classList.add('is-active');
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTimeline);
+  } else {
+    requestAnimationFrame(initTimeline);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initTimeline);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Timeline",
+  "tag": "section",
+  "class": "timeline-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Our Journey",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "How We Got Here",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 24,
+      "step": 4,
+      "default": 8,
+      "unit": "px",
+      "label": "Image corner radius"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#6366f1",
+      "label": "Accent color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Milestone",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "default": "2020",
+          "label": "Year"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "default": "Milestone Title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Describe this milestone and what it meant for your brand's journey.",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Timeline",
+      "blocks": [
+        { "type": "milestone", "settings": { "year": "2018", "title": "The Beginning", "text": "Started with a simple idea and a passion for quality products." } },
+        { "type": "milestone", "settings": { "year": "2019", "title": "First Collection", "text": "Launched our inaugural product line to overwhelming response." } },
+        { "type": "milestone", "settings": { "year": "2021", "title": "Going Global", "text": "Expanded to international markets and grew our community." } },
+        { "type": "milestone", "settings": { "year": "2024", "title": "Today", "text": "Continuing to innovate and create products you love." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

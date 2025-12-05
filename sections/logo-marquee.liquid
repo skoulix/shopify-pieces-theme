@@ -1,0 +1,370 @@
+{%- comment -%}
+  Logo Marquee Section - Infinite scrolling logo carousel
+  For "As seen in", partners, or brand logos
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = ''
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .logo-marquee-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(3rem, 6vh, 5rem) 0;
+    overflow: hidden;
+  }
+
+  .logo-marquee-header-{{ section.id }} {
+    text-align: center;
+    margin-bottom: clamp(2rem, 4vh, 3rem);
+  }
+
+  .logo-marquee-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
+
+  .logo-marquee-track-wrapper-{{ section.id }} {
+    position: relative;
+  }
+
+  /* Gradient masks */
+  .logo-marquee-track-wrapper-{{ section.id }}::before,
+  .logo-marquee-track-wrapper-{{ section.id }}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: clamp(50px, 10vw, 150px);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .logo-marquee-track-wrapper-{{ section.id }}::before {
+    left: 0;
+    background: linear-gradient(to right, {{ section.settings.background_color }}, transparent);
+  }
+
+  .logo-marquee-track-wrapper-{{ section.id }}::after {
+    right: 0;
+    background: linear-gradient(to left, {{ section.settings.background_color }}, transparent);
+  }
+
+  .logo-marquee-track-{{ section.id }} {
+    display: flex;
+    width: max-content;
+    animation: logo-marquee-scroll-{{ section.id }} {{ section.settings.speed }}s linear infinite;
+  }
+
+  .logo-marquee-{{ section.id }}[data-direction="right"] .logo-marquee-track-{{ section.id }} {
+    animation-direction: reverse;
+  }
+
+  .logo-marquee-{{ section.id }}:hover .logo-marquee-track-{{ section.id }} {
+    animation-play-state: paused;
+  }
+
+  @keyframes logo-marquee-scroll-{{ section.id }} {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .logo-marquee-item-{{ section.id }} {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    height: {{ section.settings.logo_height }}px;
+  }
+
+  .logo-marquee-item-{{ section.id }} img {
+    max-height: 100%;
+    width: auto;
+    max-width: {{ section.settings.logo_max_width }}px;
+    object-fit: contain;
+    opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    {% if section.settings.grayscale %}
+    filter: grayscale(100%);
+    {% endif %}
+  }
+
+  .logo-marquee-item-{{ section.id }}:hover img {
+    opacity: 1;
+    transform: scale(1.05);
+    {% if section.settings.grayscale %}
+    filter: grayscale(0%);
+    {% endif %}
+  }
+
+  .logo-marquee-item-{{ section.id }} svg {
+    max-height: 100%;
+    width: auto;
+    max-width: {{ section.settings.logo_max_width }}px;
+    fill: {{ section.settings.text_color }};
+    opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-marquee-item-{{ section.id }}:hover svg {
+    opacity: 1;
+  }
+
+  /* Placeholder styling */
+  .logo-marquee-placeholder-{{ section.id }} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: {{ section.settings.logo_max_width }}px;
+    height: 100%;
+    background: {{ section.settings.text_color }}08;
+    border-radius: 8px;
+    opacity: 0.5;
+  }
+
+  .logo-marquee-placeholder-{{ section.id }} i {
+    font-size: 1.5rem;
+    opacity: 0.3;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee-track-{{ section.id }} {
+      animation: none;
+    }
+  }
+
+  html.animations-disabled .logo-marquee-track-{{ section.id }} {
+    animation: none;
+  }
+</style>
+
+<section
+  class="logo-marquee-{{ section.id }}"
+  data-logo-marquee="{{ section.id }}"
+  data-direction="{{ section.settings.direction }}"
+>
+  <div class="{{ container_class }}">
+    {% if section.settings.label != blank %}
+      <div class="logo-marquee-header-{{ section.id }}">
+        <span class="logo-marquee-label-{{ section.id }}" data-intro>
+          {{ section.settings.label }}
+        </span>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="logo-marquee-track-wrapper-{{ section.id }}">
+    <div class="logo-marquee-track-{{ section.id }}" data-logo-track>
+      {%- comment -%} First set of logos {%- endcomment -%}
+      {% for block in section.blocks %}
+        <div class="logo-marquee-item-{{ section.id }}" {{ block.shopify_attributes }}>
+          {% if block.settings.logo != blank %}
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" target="_blank" rel="noopener">
+            {% endif %}
+
+            {{ block.settings.logo | image_url: height: 200 | image_tag:
+              loading: 'lazy',
+              alt: block.settings.alt
+            }}
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          {% else %}
+            <div class="logo-marquee-placeholder-{{ section.id }}">
+              <i class="ph ph-image"></i>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      {%- comment -%} Duplicate set for seamless loop {%- endcomment -%}
+      {% for block in section.blocks %}
+        <div class="logo-marquee-item-{{ section.id }}" aria-hidden="true">
+          {% if block.settings.logo != blank %}
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" target="_blank" rel="noopener" tabindex="-1">
+            {% endif %}
+
+            {{ block.settings.logo | image_url: height: 200 | image_tag:
+              loading: 'lazy',
+              alt: block.settings.alt
+            }}
+
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          {% else %}
+            <div class="logo-marquee-placeholder-{{ section.id }}">
+              <i class="ph ph-image"></i>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Logo Marquee",
+  "tag": "section",
+  "class": "logo-marquee-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "As Featured In",
+      "label": "Label"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left",
+      "label": "Scroll direction"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "default": 30,
+      "unit": "s",
+      "label": "Animation speed",
+      "info": "Lower = faster"
+    },
+    {
+      "type": "header",
+      "content": "Logo Styling"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "default": 50,
+      "unit": "px",
+      "label": "Logo height"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 80,
+      "max": 200,
+      "step": 10,
+      "default": 120,
+      "unit": "px",
+      "label": "Logo max width"
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "%",
+      "label": "Logo opacity"
+    },
+    {
+      "type": "checkbox",
+      "id": "grayscale",
+      "default": true,
+      "label": "Grayscale logos",
+      "info": "Color on hover"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": true,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt text",
+          "info": "Describe the logo for accessibility"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Logo Marquee",
+      "blocks": [
+        { "type": "logo", "settings": { "alt": "Brand 1" } },
+        { "type": "logo", "settings": { "alt": "Brand 2" } },
+        { "type": "logo", "settings": { "alt": "Brand 3" } },
+        { "type": "logo", "settings": { "alt": "Brand 4" } },
+        { "type": "logo", "settings": { "alt": "Brand 5" } },
+        { "type": "logo", "settings": { "alt": "Brand 6" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

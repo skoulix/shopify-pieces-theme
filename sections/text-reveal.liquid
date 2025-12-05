@@ -1,0 +1,416 @@
+{%- comment -%}
+  Text Reveal Section - Large typography that reveals on scroll
+  Codrops-inspired scroll-triggered text animation
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .text-reveal-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(6rem, 15vh, 12rem) 0;
+    overflow: hidden;
+  }
+
+  .text-reveal-label-{{ section.id }} {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 3rem;
+  }
+
+  .text-reveal-heading-{{ section.id }} {
+    font-size: calc(clamp(2rem, 8vw, 6rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+  }
+
+  @media (min-width: 1024px) {
+    .text-reveal-heading-{{ section.id }} {
+      font-size: calc(clamp(3rem, 6vw, 5rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .text-reveal-heading-{{ section.id }} {
+      font-size: calc(clamp(4rem, 5vw, 6rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  .text-reveal-word-{{ section.id }} {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.1em;
+  }
+
+  .text-reveal-word-{{ section.id }} span {
+    display: inline-block;
+    transform: translateY(120%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .text-reveal-word-{{ section.id }}.is-visible span {
+    transform: translateY(0);
+  }
+
+  /* Highlight word styling */
+  .text-reveal-highlight-{{ section.id }} {
+    color: {{ section.settings.accent_color }};
+    font-style: italic;
+  }
+
+  .text-reveal-subtext-{{ section.id }} {
+    margin-top: 3rem;
+    max-width: 50ch;
+    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+    line-height: 1.8;
+    opacity: 0.7;
+  }
+
+  .text-reveal-cta-{{ section.id }} {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .text-reveal-cta-text-wrapper-{{ section.id }} {
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .text-reveal-cta-{{ section.id }} .text-reveal-cta-text-{{ section.id }} {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .text-reveal-cta-{{ section.id }} .text-reveal-cta-text-{{ section.id }}::after {
+    content: attr(data-hover);
+    position: absolute;
+    left: 0;
+    top: 100%;
+    white-space: nowrap;
+  }
+
+  .text-reveal-cta-{{ section.id }}:hover .text-reveal-cta-text-{{ section.id }} {
+    transform: translateY(-100%);
+  }
+
+  /* Staggered line offset */
+  .text-reveal-line-{{ section.id }}:nth-child(2) {
+    margin-left: clamp(1rem, 5vw, 4rem);
+  }
+
+  .text-reveal-line-{{ section.id }}:nth-child(3) {
+    margin-left: clamp(0.5rem, 2vw, 2rem);
+  }
+
+  /* Large background number */
+  .text-reveal-bg-number-{{ section.id }} {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    font-size: clamp(20rem, 40vw, 50rem);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.8;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Animation disabled state */
+  html.animations-disabled .text-reveal-word-{{ section.id }} span {
+    transform: none;
+  }
+
+  html.animations-disabled .text-reveal-subtext-{{ section.id }},
+  html.animations-disabled .text-reveal-cta-{{ section.id }},
+  html.animations-disabled .text-reveal-label-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<section
+  class="text-reveal-{{ section.id }} relative"
+  data-text-reveal-section="{{ section.id }}"
+>
+  {% if section.settings.show_background_number %}
+    <span class="text-reveal-bg-number-{{ section.id }} font-heading" aria-hidden="true">
+      {{ section.settings.background_number }}
+    </span>
+  {% endif %}
+
+  <div class="{{ container_class }} relative z-10">
+    {% if section.settings.label != blank %}
+      <p class="text-reveal-label-{{ section.id }}" data-text-reveal-label>
+        {{ section.settings.label }}
+      </p>
+    {% endif %}
+
+    <h2 class="text-reveal-heading-{{ section.id }} font-heading" data-text-reveal-heading>
+      {%- assign lines = section.settings.text | newline_to_br | split: '<br />' -%}
+      {%- for line in lines -%}
+        <div class="text-reveal-line-{{ section.id }}">
+          {%- assign words = line | strip | split: ' ' -%}
+          {%- for word in words -%}
+            {%- if word contains '*' -%}
+              {%- assign clean_word = word | remove: '*' -%}
+              <span class="text-reveal-word-{{ section.id }}" data-text-reveal-word>
+                <span class="text-reveal-highlight-{{ section.id }}">{{ clean_word }}</span>
+              </span>
+            {%- else -%}
+              <span class="text-reveal-word-{{ section.id }}" data-text-reveal-word>
+                <span>{{ word }}</span>
+              </span>
+            {%- endif -%}
+            {% unless forloop.last %}&nbsp;{% endunless %}
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </h2>
+
+    {% if section.settings.subtext != blank %}
+      <p class="text-reveal-subtext-{{ section.id }}" data-text-reveal-subtext>
+        {{ section.settings.subtext }}
+      </p>
+    {% endif %}
+
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="text-reveal-cta-{{ section.id }}" data-text-reveal-cta>
+        <span class="text-reveal-cta-text-wrapper-{{ section.id }}">
+          <span class="text-reveal-cta-text-{{ section.id }}" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
+        </span>
+        <i class="ph ph-arrow-right"></i>
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-text-reveal-section="{{ section.id }}"]');
+  if (!section || section.dataset.textRevealInitialized) return;
+  section.dataset.textRevealInitialized = 'true';
+
+  // If animations disabled, show content immediately
+  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+    const words = section.querySelectorAll('[data-text-reveal-word]');
+    words.forEach(word => word.classList.add('is-visible'));
+    return;
+  }
+
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    if (!gsap || !ScrollTrigger) {
+      setTimeout(initAnimation, 50);
+      return;
+    }
+
+    const words = section.querySelectorAll('[data-text-reveal-word]');
+    const label = section.querySelector('[data-text-reveal-label]');
+    const subtext = section.querySelector('[data-text-reveal-subtext]');
+    const cta = section.querySelector('[data-text-reveal-cta]');
+
+    // Label animation
+    if (label) {
+      gsap.set(label, { opacity: 0, y: 20 });
+      gsap.to(label, {
+        opacity: 0.5,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 80%',
+          once: true
+        }
+      });
+    }
+
+    // Word-by-word reveal with Intersection Observer for performance
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const word = entry.target;
+          const index = Array.from(words).indexOf(word);
+
+          setTimeout(() => {
+            word.classList.add('is-visible');
+          }, index * 60); // Stagger by 60ms
+
+          observer.unobserve(word);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -10% 0px'
+    });
+
+    words.forEach(word => observer.observe(word));
+
+    // Subtext animation
+    if (subtext) {
+      gsap.set(subtext, { opacity: 0, y: 30 });
+      gsap.to(subtext, {
+        opacity: 0.7,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: subtext,
+          start: 'top 85%',
+          once: true
+        }
+      });
+    }
+
+    // CTA animation
+    if (cta) {
+      gsap.set(cta, { opacity: 0, y: 20 });
+      gsap.to(cta, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: cta,
+          start: 'top 90%',
+          once: true
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initAnimation);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Text Reveal",
+  "tag": "section",
+  "class": "text-reveal-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "default": "Our Mission",
+      "label": "Label"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "default": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
+      "label": "Heading text",
+      "info": "Use * around words to highlight them (e.g., *word*). Use line breaks to create multiple lines."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "default": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+      "label": "Subtext"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "default": "Learn More",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Background Number"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_background_number",
+      "default": false,
+      "label": "Show background number"
+    },
+    {
+      "type": "text",
+      "id": "background_number",
+      "default": "01",
+      "label": "Background number"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "default": "#6366f1",
+      "label": "Accent color (highlighted words)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Reveal"
+    }
+  ]
+}
+{% endschema %}
