@@ -188,7 +188,7 @@ class AnimationManager {
     // Track animation queue for sequential staggering
     let animationQueue = [];
     let isAnimating = false;
-    const staggerDelay = 80; // ms between each element animation
+    const staggerDelay = 100; // ms between each element animation
 
     const processQueue = () => {
       if (animationQueue.length === 0) {

@@ -279,11 +279,10 @@
     {% endif %}
 
     {%- comment -%} Features Grid {%- endcomment -%}
-    <div class="features-grid-container-{{ section.id }} {{ section.settings.layout }}-layout">
+    <div class="features-grid-container-{{ section.id }} {{ section.settings.layout }}-layout" data-intro>
       {% for block in section.blocks %}
         <div
           class="feature-item-{{ section.id }}{% if section.settings.layout == 'bento' and forloop.first %} is-large{% endif %}"
-          data-intro
           {{ block.shopify_attributes }}
         >
           <span class="feature-item-number-{{ section.id }}">
