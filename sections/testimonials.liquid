@@ -44,30 +44,38 @@
 
   .testimonials-slider-{{ section.id }} {
     position: relative;
+    overflow: visible;
   }
 
   .testimonials-track-{{ section.id }} {
     display: flex;
+    gap: 1.5rem;
     transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
   .testimonial-{{ section.id }} {
     flex-shrink: 0;
-    width: 100%;
-    padding: 0 1rem;
+    width: calc(100% - 2rem);
   }
 
   @media (min-width: 768px) {
+    .testimonials-track-{{ section.id }} {
+      gap: 2rem;
+    }
+
     .testimonial-{{ section.id }} {
-      width: 80%;
-      padding: 0 2rem;
+      width: calc(50% - 1rem);
     }
   }
 
   @media (min-width: 1024px) {
     .testimonial-{{ section.id }} {
-      width: 60%;
+      width: calc(45% - 1rem);
     }
+  }
+
+  .testimonial-{{ section.id }} {
+    display: flex;
   }
 
   .testimonial-inner-{{ section.id }} {
@@ -75,6 +83,14 @@
     padding: clamp(2rem, 4vw, 3rem);
     background: {{ section.settings.card_background }};
     border-radius: {{ section.settings.card_radius }}px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  .testimonial-text-wrapper-{{ section.id }} {
+    flex: 1;
   }
 
   .testimonial-quote-icon-{{ section.id }} {
@@ -263,21 +279,23 @@
             <div class="testimonial-inner-{{ section.id }}">
               <span class="testimonial-quote-icon-{{ section.id }}" aria-hidden="true">"</span>
 
-              {% if section.settings.show_rating %}
-                <div class="testimonial-rating-{{ section.id }}" aria-label="{{ block.settings.rating }} out of 5 stars">
-                  {% for i in (1..5) %}
-                    {% if i <= block.settings.rating %}
-                      <i class="ph-fill ph-star"></i>
-                    {% else %}
-                      <i class="ph ph-star"></i>
-                    {% endif %}
-                  {% endfor %}
-                </div>
-              {% endif %}
+              <div class="testimonial-text-wrapper-{{ section.id }}">
+                {% if section.settings.show_rating %}
+                  <div class="testimonial-rating-{{ section.id }}" aria-label="{{ block.settings.rating }} out of 5 stars">
+                    {% for i in (1..5) %}
+                      {% if i <= block.settings.rating %}
+                        <i class="ph-fill ph-star"></i>
+                      {% else %}
+                        <i class="ph ph-star"></i>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
 
-              <blockquote class="testimonial-text-{{ section.id }}">
-                "{{ block.settings.quote }}"
-              </blockquote>
+                <blockquote class="testimonial-text-{{ section.id }}">
+                  "{{ block.settings.quote }}"
+                </blockquote>
+              </div>
 
               <div class="testimonial-author-{{ section.id }}">
                 <div class="testimonial-avatar-{{ section.id }}">
@@ -400,22 +418,34 @@
 
   function getSlideWidth() {
     const slide = slides[0];
-    const style = getComputedStyle(slide);
-    const width = slide.offsetWidth;
-    const marginLeft = parseFloat(style.marginLeft) || 0;
-    const marginRight = parseFloat(style.marginRight) || 0;
-    return width + marginLeft + marginRight;
+    const trackStyle = getComputedStyle(track);
+    const gap = parseFloat(trackStyle.gap) || 0;
+    return slide.offsetWidth + gap;
+  }
+
+  function getMaxTranslate() {
+    // Calculate total track width
+    const slideWidth = slides[0].offsetWidth;
+    const trackStyle = getComputedStyle(track);
+    const gap = parseFloat(trackStyle.gap) || 0;
+    const totalTrackWidth = (slideWidth * totalSlides) + (gap * (totalSlides - 1));
+    const containerWidth = track.parentElement.offsetWidth;
+
+    // Max translate is when the last slide's right edge aligns with container's right edge
+    return Math.max(0, totalTrackWidth - containerWidth);
   }
 
   function updateSlider(index) {
     const slideWidth = getSlideWidth();
 
-    // Center the current slide
-    const containerWidth = track.parentElement.offsetWidth;
-    const offset = (containerWidth - slideWidth) / 2;
-    const translateX = -(index * slideWidth) + offset;
+    // Start from left edge (no offset for first slide)
+    let translateX = index * slideWidth;
 
-    track.style.transform = `translateX(${translateX}px)`;
+    // Clamp to max translate so last slide ends within container
+    const maxTranslate = getMaxTranslate();
+    translateX = Math.min(translateX, maxTranslate);
+
+    track.style.transform = `translateX(${-translateX}px)`;
 
     // Update dots
     dots.forEach((dot, i) => {
@@ -616,9 +646,12 @@
     {
       "name": "Testimonials",
       "blocks": [
-        { "type": "testimonial", "settings": { "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected.", "author": "Sarah Johnson", "author_title": "Verified Buyer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "Best customer service I've ever experienced. They went above and beyond to help me.", "author": "Michael Chen", "author_title": "Loyal Customer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "I've recommended this to all my friends. The attention to detail is remarkable.", "author": "Emily Davis", "author_title": "Repeat Customer", "rating": 5 } }
+        { "type": "testimonial", "settings": { "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.", "author": "Sarah Johnson", "author_title": "Verified Buyer", "rating": 5 } },
+        { "type": "testimonial", "settings": { "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.", "author": "Michael Chen", "author_title": "Loyal Customer", "rating": 5 } },
+        { "type": "testimonial", "settings": { "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.", "author": "Emily Davis", "author_title": "Repeat Customer", "rating": 5 } },
+        { "type": "testimonial", "settings": { "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.", "author": "David Wilson", "author_title": "Verified Buyer", "rating": 5 } },
+        { "type": "testimonial", "settings": { "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.", "author": "Rachel Thompson", "author_title": "First-time Buyer", "rating": 5 } },
+        { "type": "testimonial", "settings": { "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.", "author": "James Martinez", "author_title": "Repeat Customer", "rating": 5 } }
       ]
     }
   ]

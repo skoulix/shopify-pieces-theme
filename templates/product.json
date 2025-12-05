@@ -111,9 +111,12 @@
       "blocks": {
         "testimonial_1": { "type": "testimonial", "settings": { "quote": "Exceeded all my expectations. The quality is immediately apparent the moment you hold it in your hands.", "author": "Michael R.", "author_title": "Verified Buyer", "rating": 5 } },
         "testimonial_2": { "type": "testimonial", "settings": { "quote": "I've bought many similar products before, but nothing comes close to this level of craftsmanship.", "author": "Sarah L.", "author_title": "Repeat Customer", "rating": 5 } },
-        "testimonial_3": { "type": "testimonial", "settings": { "quote": "Worth every penny. This is exactly what I was looking for - no compromises.", "author": "David K.", "author_title": "Verified Buyer", "rating": 5 } }
+        "testimonial_3": { "type": "testimonial", "settings": { "quote": "Worth every penny. This is exactly what I was looking for - no compromises.", "author": "David K.", "author_title": "Verified Buyer", "rating": 5 } },
+        "testimonial_4": { "type": "testimonial", "settings": { "quote": "The attention to detail is remarkable. You can tell this was made by people who truly care about their craft.", "author": "Emily T.", "author_title": "First-time Buyer", "rating": 5 } },
+        "testimonial_5": { "type": "testimonial", "settings": { "quote": "Finally, a product that lives up to the hype. Fast shipping and beautiful packaging too.", "author": "James W.", "author_title": "Loyal Customer", "rating": 5 } },
+        "testimonial_6": { "type": "testimonial", "settings": { "quote": "I've recommended this to everyone I know. The quality speaks for itself.", "author": "Amanda C.", "author_title": "Repeat Customer", "rating": 5 } }
       },
-      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4", "testimonial_5", "testimonial_6"],
       "settings": {
         "label": "Reviews",
         "title": "What Customers Are Saying",
