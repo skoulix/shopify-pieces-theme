@@ -7,7 +7,53 @@
         "subheading": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
         "full_width": false
       }
+    },
+    "map": {
+      "type": "map",
+      "blocks": {
+        "address": {
+          "type": "address",
+          "settings": {
+            "title": "Address",
+            "address": "123 Main Street\nNew York, NY 10001"
+          }
+        },
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "title": "Hours",
+            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "phone": "(555) 123-4567",
+            "email": "hello@example.com"
+          }
+        }
+      },
+      "block_order": ["address", "hours", "contact"],
+      "settings": {
+        "label": "Visit Us",
+        "title": "Our Location",
+        "header_alignment": "left",
+        "location_name": "Our Store",
+        "address": "123 Main Street\nNew York, NY 10001",
+        "latitude": "40.7128",
+        "longitude": "-74.0060",
+        "zoom": 14,
+        "show_popup": true,
+        "map_height": 450,
+        "border_radius": 16,
+        "marker_color": "#000000",
+        "grayscale": false,
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000"
+      }
     }
   },
-  "order": ["contact_form_abc123"]
+  "order": ["contact_form_abc123", "map"]
 }

@@ -1,0 +1,565 @@
+{%- comment -%}
+  Interactive Map Section
+  Uses OpenStreetMap with Leaflet.js (free, no API key required)
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = ''
+  else
+    assign container_class = 'page-container'
+  endif
+
+  # Default coordinates (New York City) if none provided
+  assign default_lat = 40.7128
+  assign default_lng = -74.0060
+
+  assign lat = section.settings.latitude | default: default_lat
+  assign lng = section.settings.longitude | default: default_lng
+-%}
+
+<style>
+  .map-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .map-container-{{ section.id }} {
+    height: {{ section.settings.map_height }}px;
+    border-radius: {{ section.settings.border_radius }}px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+
+  .map-container-{{ section.id }}.full-width {
+    border-radius: 0;
+  }
+
+  /* Leaflet overrides for dark/light theme */
+  .map-container-{{ section.id }} .leaflet-control-zoom a {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    border-color: {{ section.settings.text_color }}20;
+  }
+
+  .map-container-{{ section.id }} .leaflet-control-zoom a:hover {
+    background-color: {{ section.settings.text_color }}10;
+  }
+
+  .map-container-{{ section.id }} .leaflet-control-attribution {
+    background-color: {{ section.settings.background_color }}cc;
+    color: {{ section.settings.text_color }}80;
+    font-size: 10px;
+  }
+
+  .map-container-{{ section.id }} .leaflet-control-attribution a {
+    color: {{ section.settings.text_color }};
+  }
+
+  /* Custom marker popup */
+  .map-popup-{{ section.id }} {
+    font-family: inherit;
+  }
+
+  .map-popup-{{ section.id }} .leaflet-popup-content-wrapper {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+
+  .map-popup-{{ section.id }} .leaflet-popup-tip {
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .map-popup-{{ section.id }} .leaflet-popup-content {
+    margin: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .map-popup-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .map-popup-address {
+    opacity: 0.7;
+    font-size: 13px;
+  }
+
+  .map-info-{{ section.id }} {
+    margin-top: 2rem;
+  }
+
+  .map-info-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .map-info-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+  }
+
+  .map-info-item h3 {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .map-info-item p,
+  .map-info-item a {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .map-info-item a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.3s ease;
+  }
+
+  .map-info-item a:hover {
+    opacity: 0.7;
+  }
+
+  /* Grayscale map option */
+  .map-container-{{ section.id }}.grayscale .leaflet-tile {
+    filter: grayscale(100%);
+  }
+</style>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+<section class="map-section-{{ section.id }} py-16 sm:py-24">
+  {% if section.settings.label != blank or section.settings.title != blank %}
+    <div class="page-container mb-8 {% if section.settings.header_alignment == 'center' %}text-center{% endif %}">
+      {% if section.settings.label != blank %}
+        <span class="block text-xs font-semibold uppercase tracking-[0.2em] opacity-50 mb-3" data-intro>
+          {{ section.settings.label }}
+        </span>
+      {% endif %}
+      {% if section.settings.title != blank %}
+        <h2 class="text-3xl sm:text-4xl font-semibold font-heading tracking-tight" data-intro>
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="{{ container_class }}">
+    <div
+      id="map-{{ section.id }}"
+      class="map-container-{{ section.id }} {% if section.settings.full_width %}full-width{% endif %} {% if section.settings.grayscale %}grayscale{% endif %}"
+      data-map
+      data-lat="{{ lat }}"
+      data-lng="{{ lng }}"
+      data-zoom="{{ section.settings.zoom }}"
+      data-address="{{ section.settings.address | escape }}"
+      data-location-name="{{ section.settings.location_name | escape }}"
+      data-marker-color="{{ section.settings.marker_color }}"
+      data-section-id="{{ section.id }}"
+    ></div>
+  </div>
+
+  {% if section.blocks.size > 0 %}
+    <div class="map-info-{{ section.id }} page-container">
+      <div class="map-info-grid">
+        {% for block in section.blocks %}
+          <div class="map-info-item" {{ block.shopify_attributes }} data-intro>
+            {% if block.settings.title != blank %}
+              <h3>{{ block.settings.title }}</h3>
+            {% endif %}
+            {% case block.type %}
+              {% when 'address' %}
+                <p style="white-space: pre-line;">{{ block.settings.address }}</p>
+              {% when 'hours' %}
+                <p style="white-space: pre-line;">{{ block.settings.hours }}</p>
+              {% when 'contact' %}
+                {% if block.settings.phone != blank %}
+                  <p><a href="tel:{{ block.settings.phone | remove: ' ' | remove: '-' | remove: '(' | remove: ')' }}">{{ block.settings.phone }}</a></p>
+                {% endif %}
+                {% if block.settings.email != blank %}
+                  <p><a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a></p>
+                {% endif %}
+              {% when 'custom' %}
+                <div>{{ block.settings.content }}</div>
+            {% endcase %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+(function() {
+  const mapContainer = document.getElementById('map-{{ section.id }}');
+  if (!mapContainer || mapContainer.dataset.mapInitialized) return;
+  mapContainer.dataset.mapInitialized = 'true';
+
+  function initMap() {
+    if (typeof L === 'undefined') {
+      setTimeout(initMap, 100);
+      return;
+    }
+
+    const lat = parseFloat(mapContainer.dataset.lat);
+    const lng = parseFloat(mapContainer.dataset.lng);
+    const zoom = parseInt(mapContainer.dataset.zoom) || 14;
+    const address = mapContainer.dataset.address;
+    const locationName = mapContainer.dataset.locationName;
+    const markerColor = mapContainer.dataset.markerColor || '#000000';
+    const sectionId = mapContainer.dataset.sectionId;
+
+    // Initialize map
+    const map = L.map(mapContainer, {
+      scrollWheelZoom: false,
+      zoomControl: true
+    }).setView([lat, lng], zoom);
+
+    // Add tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // Custom marker icon
+    const markerIcon = L.divIcon({
+      className: 'custom-map-marker',
+      html: `<div style="
+        width: 32px;
+        height: 32px;
+        background-color: ${markerColor};
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      ">
+        <div style="
+          width: 12px;
+          height: 12px;
+          background-color: white;
+          border-radius: 50%;
+          transform: rotate(45deg);
+        "></div>
+      </div>`,
+      iconSize: [32, 32],
+      iconAnchor: [16, 32],
+      popupAnchor: [0, -32]
+    });
+
+    // Add marker
+    const marker = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
+
+    // Add popup if location name or address exists
+    if (locationName || address) {
+      const popupContent = `
+        <div class="map-popup-${sectionId}">
+          ${locationName ? `<div class="map-popup-title">${locationName}</div>` : ''}
+          ${address ? `<div class="map-popup-address">${address.replace(/\n/g, '<br>')}</div>` : ''}
+        </div>
+      `;
+      marker.bindPopup(popupContent, {
+        className: `map-popup-${sectionId}`
+      });
+
+      // Open popup by default if setting enabled
+      {% if section.settings.show_popup %}
+      marker.openPopup();
+      {% endif %}
+    }
+
+    // Enable scroll zoom on click
+    map.on('click', function() {
+      map.scrollWheelZoom.enable();
+    });
+
+    // Disable scroll zoom when mouse leaves
+    map.on('mouseout', function() {
+      map.scrollWheelZoom.disable();
+    });
+
+    // Handle resize
+    window.addEventListener('resize', function() {
+      map.invalidateSize();
+    });
+
+    // Handle Swup transitions
+    window.addEventListener('swup:contentReplaced', function() {
+      map.invalidateSize();
+    });
+  }
+
+  // Initialize map
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMap);
+  } else {
+    initMap();
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Map",
+  "tag": "section",
+  "class": "map-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Visit Us"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Our Location"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Location"
+    },
+    {
+      "type": "text",
+      "id": "location_name",
+      "label": "Location name",
+      "default": "Our Store",
+      "info": "Shown in the map popup"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "123 Main Street\nNew York, NY 10001",
+      "info": "Shown in the map popup"
+    },
+    {
+      "type": "text",
+      "id": "latitude",
+      "label": "Latitude",
+      "default": "40.7128",
+      "info": "Get coordinates from Google Maps or similar"
+    },
+    {
+      "type": "text",
+      "id": "longitude",
+      "label": "Longitude",
+      "default": "-74.0060",
+      "info": "Right-click location on Google Maps → 'What's here?'"
+    },
+    {
+      "type": "range",
+      "id": "zoom",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "default": 14,
+      "label": "Zoom level",
+      "info": "Higher = more zoomed in"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popup",
+      "label": "Show popup by default",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "range",
+      "id": "map_height",
+      "min": 300,
+      "max": 700,
+      "step": 50,
+      "default": 450,
+      "unit": "px",
+      "label": "Map height"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 4,
+      "default": 16,
+      "unit": "px",
+      "label": "Border radius"
+    },
+    {
+      "type": "color",
+      "id": "marker_color",
+      "label": "Marker color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "grayscale",
+      "label": "Grayscale map",
+      "default": false,
+      "info": "Apply grayscale filter to map tiles"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "address",
+      "name": "Address",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Address"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "123 Main Street\nNew York, NY 10001"
+        }
+      ]
+    },
+    {
+      "type": "hours",
+      "name": "Hours",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Hours"
+        },
+        {
+          "type": "textarea",
+          "id": "hours",
+          "label": "Hours",
+          "default": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Info",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Contact"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email"
+        }
+      ]
+    },
+    {
+      "type": "custom",
+      "name": "Custom Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Map",
+      "blocks": [
+        {
+          "type": "address",
+          "settings": {
+            "title": "Address",
+            "address": "123 Main Street\nNew York, NY 10001"
+          }
+        },
+        {
+          "type": "hours",
+          "settings": {
+            "title": "Hours",
+            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+          }
+        },
+        {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "phone": "(555) 123-4567",
+            "email": "hello@example.com"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
