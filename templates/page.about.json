@@ -361,12 +361,42 @@
             "author": "Mark S.",
             "author_title": "Repeat Customer"
           }
+        },
+        "testimonial_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Exceptional quality and beautiful design. Every detail has been carefully considered.",
+            "rating": 5,
+            "author": "Jessica M.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_5": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I've recommended this brand to everyone I know. The customer service is just as impressive as the products.",
+            "rating": 5,
+            "author": "Chris P.",
+            "author_title": "Customer since 2020"
+          }
+        },
+        "testimonial_6": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Worth every penny. These are the kind of products you keep for years and still love.",
+            "rating": 5,
+            "author": "Amanda K.",
+            "author_title": "Loyal Customer"
+          }
         }
       },
       "block_order": [
         "testimonial_1",
         "testimonial_2",
-        "testimonial_3"
+        "testimonial_3",
+        "testimonial_4",
+        "testimonial_5",
+        "testimonial_6"
       ],
       "settings": {
         "label": "Community Love",
