@@ -22,6 +22,10 @@
   .contact-wrapper.is-loading [data-contact-subheading] { opacity: 0; }
   .contact-wrapper.is-loading .contact-form-group { opacity: 0; transform: translateY(20px); }
   .contact-wrapper.is-loading .contact-form-submit { opacity: 0; transform: translateY(20px); }
+  html.animations-disabled .contact-wrapper.is-loading .contact-header-title-line span,
+  html.animations-disabled .contact-wrapper.is-loading [data-contact-subheading],
+  html.animations-disabled .contact-wrapper.is-loading .contact-form-group,
+  html.animations-disabled .contact-wrapper.is-loading .contact-form-submit { opacity: 1; transform: none; }
   .contact-form-input { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
   .contact-form-input:focus { box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb, 79, 70, 229), 0.1); }
 </style>

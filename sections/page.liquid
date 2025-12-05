@@ -17,6 +17,7 @@
   .page-header-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
   .page-header-title-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
   .page-wrapper.is-loading .page-header-title-line span { opacity: 0; transform: translateY(100%); }
+  html.animations-disabled .page-wrapper.is-loading .page-header-title-line span { opacity: 1; transform: none; }
 </style>
 
 <section class="page-wrapper is-loading bg-[--color-background]" data-page-wrapper>

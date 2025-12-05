@@ -14,6 +14,8 @@
   .blog-item--featured .blog-item-title { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
   .blog-item-author::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); margin-right: 0.5rem; vertical-align: middle; }
   .blog-item-image { clip-path: inset(0 100% 0 0); }
+  /* Show images immediately when animations disabled */
+  html.animations-disabled .blog-item-image { clip-path: none; }
 </style>
 
 <section class="blog-wrapper is-loading" data-blog-wrapper>

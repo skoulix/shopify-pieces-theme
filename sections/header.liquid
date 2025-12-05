@@ -223,44 +223,48 @@
       SplitText = window.pieces.SplitText;
     }
 
-    // Check if animations should run
-    const shouldAnimate = window.shouldAnimate && window.shouldAnimate();
+    // Check if scroll animations should run (for link text reveal)
+    const shouldAnimateContent = window.shouldAnimate && window.shouldAnimate();
 
-    // Use GSAP if available and animations enabled
-    if (window.gsap && shouldAnimate) {
+    // Use GSAP for drawer transition (always, if available)
+    if (window.gsap) {
       // Set initial states BEFORE making visible
       gsap.set(backdrop, { opacity: 0 });
       gsap.set(drawer, { clipPath: 'inset(0 0 100% 0)' });
-      gsap.set(header, { opacity: 0, y: -20 });
-      gsap.set(linkItems, { opacity: 1 }); // Items visible, chars will animate
-      gsap.set(footer, { opacity: 0, y: 20 });
 
-      // Clean up previous splits
-      linkSplits.forEach(split => {
-        if (split.element && split.inner) {
-          const text = split.inner.textContent;
-          split.element.textContent = text;
-        }
-      });
-      linkSplits = [];
+      // Only animate content elements if scroll animations enabled
+      if (shouldAnimateContent) {
+        gsap.set(header, { opacity: 0, y: -20 });
+        gsap.set(linkItems, { opacity: 1 }); // Items visible, chars will animate
+        gsap.set(footer, { opacity: 0, y: 20 });
 
-      // Set link texts to hidden initially, will reveal by line
-      if (SplitText) {
-        linkTexts.forEach(text => {
-          // Wrap content in a line wrapper for the reveal
-          const wrapper = document.createElement('span');
-          wrapper.className = 'mobile-nav-line-wrapper';
-          wrapper.style.cssText = 'display: block; overflow: hidden;';
-          const inner = document.createElement('span');
-          inner.className = 'mobile-nav-line';
-          inner.style.cssText = 'display: block;';
-          inner.textContent = text.textContent;
-          text.textContent = '';
-          wrapper.appendChild(inner);
-          text.appendChild(wrapper);
-          linkSplits.push({ element: text, inner });
-          gsap.set(inner, { yPercent: 100 });
+        // Clean up previous splits
+        linkSplits.forEach(split => {
+          if (split.element && split.inner) {
+            const text = split.inner.textContent;
+            split.element.textContent = text;
+          }
         });
+        linkSplits = [];
+
+        // Set link texts to hidden initially, will reveal by line
+        if (SplitText) {
+          linkTexts.forEach(text => {
+            // Wrap content in a line wrapper for the reveal
+            const wrapper = document.createElement('span');
+            wrapper.className = 'mobile-nav-line-wrapper';
+            wrapper.style.cssText = 'display: block; overflow: hidden;';
+            const inner = document.createElement('span');
+            inner.className = 'mobile-nav-line';
+            inner.style.cssText = 'display: block;';
+            inner.textContent = text.textContent;
+            text.textContent = '';
+            wrapper.appendChild(inner);
+            text.appendChild(wrapper);
+            linkSplits.push({ element: text, inner });
+            gsap.set(inner, { yPercent: 100 });
+          });
+        }
       }
     }
 
@@ -270,30 +274,34 @@
     document.body.style.overflow = 'hidden';
     document.dispatchEvent(new CustomEvent('menu:open'));
 
-    if (window.gsap && shouldAnimate) {
+    if (window.gsap) {
       openTimeline = gsap.timeline({
         onComplete: () => { isAnimating = false; }
       });
 
+      // Always animate drawer open
       openTimeline
         .to(backdrop, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0)
         .to(drawer, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'power4.inOut' }, 0);
 
-      // Animate header
-      openTimeline.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4);
+      // Only animate content if scroll animations enabled
+      if (shouldAnimateContent) {
+        // Animate header
+        openTimeline.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4);
 
-      // Animate each link line reveal with stagger
-      if (linkSplits.length > 0) {
-        const lines = linkSplits.map(s => s.inner);
-        openTimeline.to(lines, {
-          yPercent: 0,
-          duration: 0.8,
-          stagger: 0.08,
-          ease: 'power4.out'
-        }, 0.5);
+        // Animate each link line reveal with stagger
+        if (linkSplits.length > 0) {
+          const lines = linkSplits.map(s => s.inner);
+          openTimeline.to(lines, {
+            yPercent: 0,
+            duration: 0.8,
+            stagger: 0.08,
+            ease: 'power4.out'
+          }, 0.5);
+        }
+
+        openTimeline.to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.9);
       }
-
-      openTimeline.to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.9);
     } else {
       isAnimating = false;
     }
@@ -307,9 +315,9 @@
 
     const backdrop = mobileNav.querySelector('.mobile-nav__backdrop');
     const drawer = mobileNav.querySelector('.mobile-nav__drawer');
-    const shouldAnimate = window.shouldAnimate && window.shouldAnimate();
 
-    if (window.gsap && shouldAnimate) {
+    // Always animate drawer close if GSAP available
+    if (window.gsap) {
       if (openTimeline) openTimeline.kill();
 
       gsap.timeline({

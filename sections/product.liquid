@@ -118,6 +118,9 @@
   .variant-picker__select-icon { position: absolute; right: 0; pointer-events: none; color: var(--color-text-secondary); }
   .product-hero.is-ready .product-gallery-main { clip-path: none; }
   .product-hero.is-ready [data-thumbnails], .product-hero.is-ready [data-image-counter] { opacity: 1; }
+  /* Show elements immediately when animations disabled */
+  html.animations-disabled .product-gallery-main { clip-path: none; }
+  html.animations-disabled [data-thumbnails], html.animations-disabled [data-image-counter] { opacity: 1; }
   /* Image fit modes - controls how images display within gallery */
   .product-gallery .product-gallery-image { display: flex; align-items: center; justify-content: center; }
   .product-gallery .product-gallery-image img { object-fit: cover; object-position: center; }

@@ -128,8 +128,11 @@ function initArticleProgressBar() {
 function handleContentReplaced() {
   // Use requestAnimationFrame for smoother transitions
   requestAnimationFrame(() => {
-    animationManager.refresh();
-    initAnimations();
+    // Only run animations if enabled
+    if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+      animationManager.refresh();
+      initAnimations();
+    }
     initArticleProgressBar();
     cartDrawerManager.reinit();
     cartPageManager.reinit();
@@ -189,8 +192,11 @@ function init() {
     window.addEventListener('swup:transitionEnd', handleTransitionEnd);
   }
 
-  // Initialize animations
-  if (!prefersReducedMotion) {
+  // Check theme setting for scroll animations
+  const scrollAnimationsEnabled = window.themeSettings?.enableScrollAnimations !== false;
+
+  // Initialize animations (respect user preference and theme setting)
+  if (!prefersReducedMotion && scrollAnimationsEnabled) {
     // Wait for DOM to be ready
     requestAnimationFrame(() => {
       initAnimations();
@@ -279,8 +285,10 @@ if (document.readyState === 'loading') {
 // Handle Shopify theme editor
 if (window.Shopify && window.Shopify.designMode) {
   document.addEventListener('shopify:section:load', () => {
-    animationManager.refresh();
-    initAnimations();
+    if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+      animationManager.refresh();
+      initAnimations();
+    }
   });
 
   document.addEventListener('shopify:section:unload', () => {
@@ -288,6 +296,8 @@ if (window.Shopify && window.Shopify.designMode) {
   });
 
   document.addEventListener('shopify:section:reorder', () => {
-    animationManager.refresh();
+    if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+      animationManager.refresh();
+    }
   });
 }
