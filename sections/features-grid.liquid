@@ -8,6 +8,17 @@
   else
     assign container_class = 'page-container'
   endif
+
+  # Use section card_radius if set, otherwise fall back to global theme setting
+  if section.settings.card_radius != blank
+    assign card_radius = section.settings.card_radius
+  else
+    assign card_radius = settings.card_radius
+  endif
+
+  # Get global border settings
+  assign card_border_width = settings.card_border_width
+  assign card_shadow = settings.card_shadow
 -%}
 
 <style>
@@ -92,9 +103,22 @@
     position: relative;
     padding: clamp(1.5rem, 3vw, 2.5rem);
     background: {{ section.settings.card_background }};
-    border-radius: {{ section.settings.card_radius }}px;
+    border-radius: {{ card_radius }}px;
     overflow: hidden;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid {{ section.settings.card_text_color }}15;
+    {% endif %}
+    {% case card_shadow %}
+      {% when 'sm' %}
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      {% when 'md' %}
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      {% when 'lg' %}
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+      {% when 'hard' %}
+      box-shadow: 4px 4px 0 0 {{ section.settings.card_text_color }}15;
+    {% endcase %}
   }
 
   .feature-item-{{ section.id }}:hover {
