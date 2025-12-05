@@ -110,6 +110,9 @@
   footer.dataset.footerInitialized = 'true';
 
   {% if section.settings.enable_reveal_effect %}
+  // Store the current ScrollTrigger instance for cleanup
+  let footerScrollTrigger = null;
+
   // Calculate and set footer height for sticky reveal effect
   function updateFooterHeight() {
     if (footerWrapper) {
@@ -123,11 +126,6 @@
 
   // Recalculate on resize
   window.addEventListener('resize', updateFooterHeight);
-
-  // Recalculate after Swup page transitions
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(updateFooterHeight);
-  });
 
   // ScrollTrigger reveal animation
   function initFooterReveal() {
@@ -145,6 +143,12 @@
     // Register ScrollTrigger plugin
     _gsap.registerPlugin(_ScrollTrigger);
 
+    // Kill previous ScrollTrigger if exists
+    if (footerScrollTrigger) {
+      footerScrollTrigger.kill();
+      footerScrollTrigger = null;
+    }
+
     // Add class to enable initial hidden state only when animation is ready
     footerContent.classList.add('has-reveal');
 
@@ -152,7 +156,7 @@
     _gsap.set(footerContent, { y: 40, opacity: 0 });
 
     // Create the scroll-triggered animation
-    _gsap.to(footerContent, {
+    const tween = _gsap.to(footerContent, {
       y: 0,
       opacity: 1,
       ease: 'none',
@@ -164,35 +168,47 @@
         invalidateOnRefresh: true
       }
     });
+
+    // Store reference for cleanup
+    footerScrollTrigger = tween.scrollTrigger;
   }
 
   // Initialize when GSAP is ready and fonts are loaded
-  function waitForGsapAndFonts() {
+  function waitForGsapAndFonts(callback) {
     if (window.pieces?.gsap && window.pieces?.ScrollTrigger) {
       // Wait for fonts before initializing
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(initFooterReveal);
+        document.fonts.ready.then(callback);
       } else {
-        initFooterReveal();
+        callback();
       }
     } else if (window.gsap && window.ScrollTrigger) {
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(initFooterReveal);
+        document.fonts.ready.then(callback);
       } else {
-        initFooterReveal();
+        callback();
       }
     } else {
       // Check again after a short delay
-      setTimeout(waitForGsapAndFonts, 100);
+      setTimeout(() => waitForGsapAndFonts(callback), 100);
     }
   }
 
   // Start checking when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', waitForGsapAndFonts);
+    document.addEventListener('DOMContentLoaded', () => waitForGsapAndFonts(initFooterReveal));
   } else {
-    waitForGsapAndFonts();
+    waitForGsapAndFonts(initFooterReveal);
   }
+
+  // Reinitialize after Swup page transitions
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(() => {
+      updateFooterHeight();
+      // Reinitialize the footer reveal with the new .site-content element
+      waitForGsapAndFonts(initFooterReveal);
+    });
+  });
   {% endif %}
 
   // Back to top functionality
