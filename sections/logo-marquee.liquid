@@ -34,6 +34,12 @@
 
   .logo-marquee-track-wrapper-{{ section.id }} {
     position: relative;
+    overflow: hidden;
+    {% unless section.settings.full_width %}
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 2rem);
+    {% endunless %}
   }
 
   /* Gradient masks */
@@ -49,12 +55,12 @@
   }
 
   .logo-marquee-track-wrapper-{{ section.id }}::before {
-    left: 0;
+    left: {% if section.settings.full_width %}0{% else %}clamp(1rem, 3vw, 2rem){% endif %};
     background: linear-gradient(to right, {{ section.settings.background_color }}, transparent);
   }
 
   .logo-marquee-track-wrapper-{{ section.id }}::after {
-    right: 0;
+    right: {% if section.settings.full_width %}0{% else %}clamp(1rem, 3vw, 2rem){% endif %};
     background: linear-gradient(to left, {{ section.settings.background_color }}, transparent);
   }
 
