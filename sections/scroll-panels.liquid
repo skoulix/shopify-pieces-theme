@@ -192,22 +192,6 @@
       transform: none !important;
     }
   }
-
-  html.animations-disabled .scroll-panels-wrapper-{{ section.id }} {
-    height: auto;
-  }
-
-  html.animations-disabled .scroll-panels-sticky-{{ section.id }} {
-    position: relative;
-    height: auto;
-  }
-
-  html.animations-disabled .scroll-panel-{{ section.id }} {
-    position: relative;
-    height: 100vh;
-    opacity: 1 !important;
-    transform: none !important;
-  }
 </style>
 
 <section class="scroll-panels-{{ section.id }}" data-scroll-panels="{{ section.id }}">
@@ -292,9 +276,6 @@
   const section = document.querySelector('[data-scroll-panels="{{ section.id }}"]');
   if (!section || section.dataset.scrollPanelsInitialized) return;
   section.dataset.scrollPanelsInitialized = 'true';
-
-  // Skip animation setup if disabled
-  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
 
   const wrapper = section.querySelector('[data-panels-wrapper]');
   const sticky = section.querySelector('[data-panels-sticky]');

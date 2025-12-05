@@ -204,16 +204,24 @@
     transform: translateY(100px) scale(0.95);
   }
 
-  html.animations-disabled .stacking-card-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .stacking-cards-wrapper-{{ section.id }} {
+      min-height: auto;
+    }
 
-  html.animations-disabled .stacking-cards-title-{{ section.id }},
-  html.animations-disabled .stacking-cards-label-{{ section.id }},
-  html.animations-disabled .stacking-cards-description-{{ section.id }} {
-    opacity: 1;
-    transform: none;
+    .stacking-cards-sticky-{{ section.id }} {
+      position: relative;
+      height: auto;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .stacking-card-{{ section.id }} {
+      position: relative;
+      opacity: 1;
+      transform: none;
+    }
   }
 </style>
 
@@ -319,16 +327,6 @@
   const section = document.querySelector('[data-stacking-cards="{{ section.id }}"]');
   if (!section || section.dataset.stackingInitialized) return;
   section.dataset.stackingInitialized = 'true';
-
-  // If animations disabled, show cards immediately
-  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-    const cards = section.querySelectorAll('[data-stacking-card]');
-    cards.forEach((card, i) => {
-      card.style.opacity = '1';
-      card.style.transform = `translateY(${i * 20}px) scale(${1 - i * 0.02})`;
-    });
-    return;
-  }
 
   function initAnimation() {
     let gsap = window.gsap;
