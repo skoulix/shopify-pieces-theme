@@ -142,29 +142,32 @@ Example:
 
 ### Global Intro Animation (`data-intro`)
 
-Use `data-intro` attribute for fade-up intro animations on any element. This is a global system that can be applied anywhere.
+Use `data-intro` attribute for scroll-triggered fade-up animations on any element. This is a global system that can be applied anywhere.
 
 **Usage:**
 ```liquid
-<div data-intro>Content fades up on page load</div>
-<div data-intro style="--intro-delay: 0.2s">With 0.2s delay</div>
-<div data-intro style="--intro-delay: 0.4s">With 0.4s delay</div>
+<div data-intro>Content fades up when scrolled into view</div>
 ```
 
 **How it works:**
 - Elements with `data-intro` start with `opacity: 0` and `transform: translateY(20px)`
-- When the parent container gets `.is-ready` class, elements animate in
-- Optional delay via `--intro-delay` CSS variable in the style attribute
-- CSS handles the animation, no JavaScript required per-element
+- Elements animate sequentially as they scroll into view (staggered 80ms apart)
+- Controlled by Intersection Observer in `AnimationManager.js`
+- Can be disabled via theme setting: Layout > "Enable scroll animations"
+- Respects `prefers-reduced-motion` media query
 
 **CSS (defined in frontend/css/app.css):**
 ```css
 [data-intro] {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: var(--intro-delay, 0s);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.is-ready [data-intro] { opacity: 1; transform: translateY(0); }
+[data-intro].intro-visible { opacity: 1; transform: translateY(0); }
 ```
+
+**Important for block-based sections:**
+- Place `data-intro` directly on each block wrapper
+- The order elements appear in the DOM determines animation order
+- The JavaScript automatically staggers elements as they become visible

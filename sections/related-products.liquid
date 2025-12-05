@@ -194,13 +194,13 @@
     <div class="flex items-end justify-between gap-6 mb-12 lg:mb-16 max-w-none {{ content_class }}">
       <div>
         {% if section.settings.label != blank %}
-          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4">
+          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="related-products__title font-bold font-heading">
+          <h2 class="related-products__title font-bold font-heading" data-intro>
             {{ section.settings.title }}
           </h2>
         {% endif %}

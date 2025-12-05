@@ -175,13 +175,13 @@
 
           {%- when 'vendor' -%}
             {% if product.vendor != blank %}
-              <div class="product-vendor overflow-hidden" data-intro style="--intro-delay: 0.3s" {{ block.shopify_attributes }}>
+              <div class="product-vendor overflow-hidden" data-intro {{ block.shopify_attributes }}>
                 <span class="inline-block">{{ product.vendor }}</span>
               </div>
             {% endif %}
 
           {%- when 'title' -%}
-            <h1 class="product-title font-heading" data-intro style="--intro-delay: 0.35s" {{ block.shopify_attributes }}>
+            <h1 class="product-title font-heading" data-intro {{ block.shopify_attributes }}>
               {%- assign title_words = product.title | split: ' ' -%}
               {%- for word in title_words -%}
                 <span class="product-title-line">
@@ -191,7 +191,7 @@
             </h1>
 
           {%- when 'price' -%}
-            <div class="product-price-display mt-6 overflow-hidden" data-intro style="--intro-delay: 0.4s" data-price-display {{ block.shopify_attributes }}>
+            <div class="product-price-display mt-6 overflow-hidden" data-intro data-price-display {{ block.shopify_attributes }}>
               <span class="inline-block">
                 {% if current_variant.compare_at_price > current_variant.price %}
                   <span class="compare-price" data-compare-price>{{ current_variant.compare_at_price | money }}</span>
@@ -203,14 +203,14 @@
           {%- when 'description' -%}
             {% if product.description != blank %}
               {%- assign desc_text = product.description | strip_html | truncate: block.settings.truncate_length -%}
-              <div class="product-description" data-intro style="--intro-delay: 0.45s" data-shuffle-text data-original-text="{{ desc_text | escape }}" {{ block.shopify_attributes }}>
+              <div class="product-description" data-intro data-shuffle-text data-original-text="{{ desc_text | escape }}" {{ block.shopify_attributes }}>
                 {{ desc_text }}
               </div>
             {% endif %}
 
           {%- when 'variant_picker' -%}
             {% if product.variants.size > 1 %}
-              <div class="mt-8" data-intro style="--intro-delay: 0.5s">
+              <div class="mt-8" data-intro>
                 {% render 'product-variant-picker',
                   product: product,
                   block: block,
@@ -221,7 +221,7 @@
             {% endif %}
 
           {%- when 'quantity_selector' -%}
-            <div class="product-form-group" data-intro style="--intro-delay: 0.55s" {{ block.shopify_attributes }}>
+            <div class="product-form-group" data-intro {{ block.shopify_attributes }}>
               <label class="product-form-label">{{ block.settings.label | default: 'Quantity' }}</label>
               <div class="product-quantity" data-quantity-wrapper>
                 <button type="button" class="product-quantity-btn" data-quantity-minus aria-label="Decrease quantity">
@@ -237,7 +237,7 @@
             </div>
 
           {%- when 'buy_buttons' -%}
-            <div class="product-form" data-intro style="--intro-delay: 0.6s" data-product-form {{ block.shopify_attributes }}>
+            <div class="product-form" data-intro data-product-form {{ block.shopify_attributes }}>
               {% form 'product', product, id: product_form_id %}
                 {%- comment -%} Hidden variant input if no variant picker block {%- endcomment -%}
                 {% unless product.has_only_default_variant %}
@@ -275,12 +275,12 @@
             </div>
 
           {%- when 'text' -%}
-            <div class="product-custom-text mt-4 text-sm text-[--color-text-secondary]" data-intro style="--intro-delay: 0.65s" {{ block.shopify_attributes }}>
+            <div class="product-custom-text mt-4 text-sm text-[--color-text-secondary]" data-intro {{ block.shopify_attributes }}>
               {{ block.settings.text }}
             </div>
 
           {%- when 'collapsible_tab' -%}
-            <details class="product-accordion mt-4 border-t border-[--color-border]" data-intro style="--intro-delay: 0.65s" {{ block.shopify_attributes }}>
+            <details class="product-accordion mt-4 border-t border-[--color-border]" data-intro {{ block.shopify_attributes }}>
               <summary class="flex items-center justify-between py-4 cursor-pointer">
                 <span class="text-sm font-medium">{{ block.settings.heading }}</span>
                 <i class="ph ph-plus text-sm transition-transform"></i>

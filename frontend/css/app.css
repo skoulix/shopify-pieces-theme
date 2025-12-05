@@ -1118,22 +1118,29 @@ html.scroll-locked body {
 }
 
 /* ==========================================================================
-   Global Intro Animation - Fade up effect for any element
+   Global Intro Animation - Scroll-triggered fade up effect
    Usage: <div data-intro>Content</div>
-          <div data-intro="0.2">Content with 0.2s delay</div>
-   Parent must receive .is-ready class to trigger animation
+   Elements animate sequentially as they scroll into view
    ========================================================================== */
 
 [data-intro] {
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: var(--intro-delay, 0s);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.is-ready [data-intro] {
+[data-intro].intro-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Reduced motion - show immediately */
+@media (prefers-reduced-motion: reduce) {
+  [data-intro] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 

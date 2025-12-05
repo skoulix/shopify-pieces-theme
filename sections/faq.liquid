@@ -119,19 +119,19 @@
     {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
       <div class="mb-12 lg:mb-16">
         {% if section.settings.label != blank %}
-          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4">
+          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="faq-title font-bold font-heading">
+          <h2 class="faq-title font-bold font-heading" data-intro>
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl">
+          <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl" data-intro>
             {{ section.settings.description }}
           </p>
         {% endif %}
@@ -143,7 +143,7 @@
       <div class="faq-list">
         {% for block in section.blocks %}
           {% if block.type == 'faq_item' %}
-            <details class="faq-item" {{ block.shopify_attributes }}>
+            <details class="faq-item" data-intro {{ block.shopify_attributes }}>
               <summary class="faq-question">
                 <span class="faq-question-text">{{ block.settings.question }}</span>
                 <span class="faq-icon">
