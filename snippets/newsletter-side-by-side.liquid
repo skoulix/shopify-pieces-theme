@@ -4,7 +4,7 @@
 {%- endcomment -%}
 
 <div class="py-16 sm:py-24 lg:py-32" style="background-color: {{ background_color }}; color: {{ text_color }};">
-  <div class="page-container grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8">
+  <div class="page-container grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-8 lg:items-center">
     <div class="lg:col-span-7">
       {% if title != blank %}
         <h2 class="max-w-xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl font-heading" data-newsletter-title>
@@ -15,7 +15,7 @@
         <p class="mt-4 max-w-xl text-base opacity-70" data-intro>{{ text }}</p>
       {% endif %}
     </div>
-    <div class="w-full max-w-md lg:col-span-5 lg:pt-2" data-intro>
+    <div class="w-full max-w-md lg:col-span-5" data-intro>
     {% form 'customer' %}
       <div class="flex gap-x-4">
         <label for="newsletter-email-side" class="sr-only">{{ 'customers.register.email' | t }}</label>
