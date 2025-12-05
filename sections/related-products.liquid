@@ -1,0 +1,493 @@
+{%- comment -%}
+  Related Products Section - Carousel with GSAP animations
+  Uses Shopify Product Recommendations API
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+    assign content_class = ''
+  else
+    assign container_class = 'page-container'
+    assign content_class = 'mx-auto'
+  endif
+-%}
+
+<style>
+  .related-products-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: clamp(4rem, 10vh, 8rem) 0;
+    overflow: hidden;
+  }
+
+  .related-products-{{ section.id }} .related-products__title {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+
+  @media (min-width: 1024px) {
+    .related-products-{{ section.id }} .related-products__title {
+      font-size: calc(clamp(2.5rem, 4vw, 4rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  .related-products-{{ section.id }} .related-products__carousel {
+    display: flex;
+    gap: 1.5rem;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .related-products-{{ section.id }} .related-products__slide {
+    flex: 0 0 calc(100% - 2rem);
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .related-products-{{ section.id }} .related-products__slide {
+      flex: 0 0 calc(50% - 0.75rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .related-products-{{ section.id }} .related-products__slide {
+      flex: 0 0 calc(33.333% - 1rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .related-products-{{ section.id }} .related-products__slide {
+      flex: 0 0 calc(25% - 1.125rem);
+    }
+  }
+
+  .related-products-{{ section.id }} .related-products__nav-btn {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid {{ section.settings.text_color }}30;
+    border-radius: 50%;
+    background: transparent;
+    color: {{ section.settings.text_color }};
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .related-products-{{ section.id }} .related-products__nav-btn:hover:not(:disabled) {
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.background_color }};
+  }
+
+  .related-products-{{ section.id }} .related-products__nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .related-products-{{ section.id }} .related-products__nav-btn i {
+    font-size: 1.25rem;
+  }
+
+  /* Product card overrides for this section */
+  .related-products-{{ section.id }} .product-card {
+    background: {{ section.settings.background_color }};
+  }
+
+  .related-products-{{ section.id }} .product-card-content {
+    background: transparent;
+  }
+
+  /* Product card hover effects */
+  .related-products-{{ section.id }} .product-card-image img {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .related-products-{{ section.id }} .product-card:hover .product-card-image img {
+    transform: scale(1.05);
+  }
+
+  .related-products-{{ section.id }} .product-card-title {
+    transition: opacity 0.3s ease;
+  }
+
+  .related-products-{{ section.id }} .product-card:hover .product-card-title {
+    opacity: 0.7;
+  }
+
+  /* Progress bar */
+  .related-products-{{ section.id }} .related-products__progress {
+    height: 2px;
+    background: {{ section.settings.text_color }}15;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .related-products-{{ section.id }} .related-products__progress-bar {
+    height: 100%;
+    background: {{ section.settings.text_color }};
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Loading state */
+  .related-products-{{ section.id }} .related-products__loading {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .related-products-{{ section.id }} .related-products__skeleton {
+    flex: 0 0 calc(100% - 2rem);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @media (min-width: 640px) {
+    .related-products-{{ section.id }} .related-products__skeleton {
+      flex: 0 0 calc(50% - 0.75rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .related-products-{{ section.id }} .related-products__skeleton {
+      flex: 0 0 calc(33.333% - 1rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .related-products-{{ section.id }} .related-products__skeleton {
+      flex: 0 0 calc(25% - 1.125rem);
+    }
+  }
+
+  .related-products-{{ section.id }} .related-products__skeleton-image {
+    aspect-ratio: 3/4;
+    background: {{ section.settings.text_color }}10;
+  }
+
+  .related-products-{{ section.id }} .related-products__skeleton-text {
+    height: 1rem;
+    margin-top: 1rem;
+    background: {{ section.settings.text_color }}10;
+    width: 70%;
+  }
+
+  .related-products-{{ section.id }} .related-products__skeleton-price {
+    height: 0.875rem;
+    margin-top: 0.5rem;
+    background: {{ section.settings.text_color }}10;
+    width: 40%;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+</style>
+
+<section
+  class="related-products-{{ section.id }}"
+  data-related-products
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ product.id }}"
+  data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="flex items-end justify-between gap-6 mb-12 lg:mb-16 max-w-none {{ content_class }}">
+      <div>
+        {% if section.settings.label != blank %}
+          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4">
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="related-products__title font-bold font-heading">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Navigation {%- endcomment -%}
+      <div class="flex items-center gap-3" data-carousel-nav>
+        <button
+          type="button"
+          class="related-products__nav-btn"
+          data-carousel-prev
+          aria-label="Previous products"
+          disabled
+        >
+          <i class="ph ph-arrow-left"></i>
+        </button>
+        <button
+          type="button"
+          class="related-products__nav-btn"
+          data-carousel-next
+          aria-label="Next products"
+        >
+          <i class="ph ph-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} Carousel Container {%- endcomment -%}
+    <div class="relative max-w-none {{ content_class }}">
+      <div class="overflow-hidden" data-carousel-viewport>
+        {%- comment -%} Loading State {%- endcomment -%}
+        <div class="related-products__loading" data-carousel-loading>
+          {% for i in (1..4) %}
+            <div class="related-products__skeleton">
+              <div class="related-products__skeleton-image"></div>
+              <div class="related-products__skeleton-text"></div>
+              <div class="related-products__skeleton-price"></div>
+            </div>
+          {% endfor %}
+        </div>
+
+        {%- comment -%} Products will be loaded here via JS {%- endcomment -%}
+        <div class="related-products__carousel" data-carousel-track style="display: none;">
+          {% if recommendations.performed and recommendations.products_count > 0 %}
+            {% for recommendation in recommendations.products %}
+              <div class="related-products__slide">
+                {% render 'product-card',
+                  product: recommendation,
+                  index: forloop.index0,
+                  show_vendor: section.settings.show_vendor,
+                  lazy_load: true
+                %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      {%- comment -%} Progress Bar {%- endcomment -%}
+      <div class="related-products__progress mt-8" data-carousel-progress>
+        <div class="related-products__progress-bar" data-carousel-progress-bar style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const section = document.querySelector('[data-related-products][data-section-id="{{ section.id }}"]');
+    if (!section) return;
+
+    const productId = section.dataset.productId;
+    const baseUrl = section.dataset.url;
+    const sectionId = section.dataset.sectionId;
+
+    const track = section.querySelector('[data-carousel-track]');
+    const loading = section.querySelector('[data-carousel-loading]');
+    const prevBtn = section.querySelector('[data-carousel-prev]');
+    const nextBtn = section.querySelector('[data-carousel-next]');
+    const progressBar = section.querySelector('[data-carousel-progress-bar]');
+    const nav = section.querySelector('[data-carousel-nav]');
+
+    let currentIndex = 0;
+    let slidesPerView = 4;
+    let totalSlides = 0;
+
+    function updateSlidesPerView() {
+      const width = window.innerWidth;
+      if (width < 640) slidesPerView = 1;
+      else if (width < 1024) slidesPerView = 2;
+      else if (width < 1280) slidesPerView = 3;
+      else slidesPerView = 4;
+    }
+
+    function updateCarousel() {
+      if (totalSlides === 0) return;
+
+      const maxIndex = Math.max(0, totalSlides - slidesPerView);
+      currentIndex = Math.min(currentIndex, maxIndex);
+
+      const slideWidth = track.children[0]?.offsetWidth || 0;
+      const gap = 24; // 1.5rem
+      const offset = currentIndex * (slideWidth + gap);
+
+      track.style.transform = `translateX(-${offset}px)`;
+
+      // Update buttons
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex;
+
+      // Update progress
+      const progress = maxIndex > 0 ? ((currentIndex + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
+
+    function loadRecommendations() {
+      const url = `${baseUrl}&product_id=${productId}&section_id=${sectionId}`;
+
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const newTrack = doc.querySelector('[data-carousel-track]');
+
+          if (newTrack && newTrack.children.length > 0) {
+            track.innerHTML = newTrack.innerHTML;
+            totalSlides = track.children.length;
+
+            loading.style.display = 'none';
+            track.style.display = 'flex';
+
+            updateSlidesPerView();
+            updateCarousel();
+
+            // Hide nav if not enough slides
+            if (totalSlides <= slidesPerView) {
+              nav.style.display = 'none';
+            }
+          } else {
+            // No recommendations, hide the entire section
+            section.style.display = 'none';
+          }
+        })
+        .catch(error => {
+          console.error('Error loading recommendations:', error);
+          section.style.display = 'none';
+        });
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const maxIndex = Math.max(0, totalSlides - slidesPerView);
+      currentIndex = Math.min(maxIndex, currentIndex + 1);
+      updateCarousel();
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          // Swipe left - next
+          nextBtn.click();
+        } else {
+          // Swipe right - prev
+          prevBtn.click();
+        }
+      }
+    }, { passive: true });
+
+    // Resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        updateSlidesPerView();
+        updateCarousel();
+
+        // Update nav visibility
+        if (totalSlides <= slidesPerView) {
+          nav.style.display = 'none';
+        } else {
+          nav.style.display = 'flex';
+        }
+      }, 100);
+    });
+
+    // Initialize with Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          loadRecommendations();
+          observer.unobserve(section);
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "tag": "section",
+  "class": "related-products-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Dynamic recommendations are based on the current product. To preview, view this section on a product page."
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "You may also like"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Related Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Products"
+    }
+  ],
+  "templates": ["product"]
+}
+{% endschema %}
