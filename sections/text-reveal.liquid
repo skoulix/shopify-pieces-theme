@@ -69,7 +69,7 @@
   /* Highlight word styling */
   .text-reveal-highlight-{{ section.id }} {
     color: {{ section.settings.accent_color }};
-    font-style: italic;
+    /* font-style: italic; */
   }
 
   .text-reveal-subtext-{{ section.id }} {
@@ -331,7 +331,6 @@
   "name": "Text Reveal",
   "tag": "section",
   "class": "text-reveal-section",
-  "category": "Scrolling & animation",
   "settings": [
     {
       "type": "header",
@@ -428,7 +427,8 @@
   ],
   "presets": [
     {
-      "name": "Text Reveal"
+      "name": "Text Reveal",
+      "category": "Scrolling & animation"
     }
   ]
 }
