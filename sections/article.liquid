@@ -208,10 +208,10 @@
 
 <script>
 (function() {
-  function initArticleAnimation() {
+  function initArticleAnimation(forceReinit = false) {
     const wrapper = document.querySelector('[data-article-wrapper]');
     if (!wrapper) return;
-    if (wrapper.dataset.articleAnimInitialized) return;
+    if (!forceReinit && wrapper.dataset.articleAnimInitialized) return;
 
     let gsap = window.gsap;
     if (!gsap && window.pieces && window.pieces.gsap) {
@@ -219,7 +219,7 @@
     }
 
     if (!gsap) {
-      setTimeout(initArticleAnimation, 50);
+      setTimeout(() => initArticleAnimation(forceReinit), 50);
       return;
     }
 
@@ -324,90 +324,19 @@
     });
   }
 
-  // Reading Progress Bar
-  function initProgressBar() {
-    const progressBar = document.querySelector('[data-article-progress-bar]');
-    const wrapper = document.querySelector('[data-article-wrapper]');
-    if (!progressBar || !wrapper) return;
-
-    // Track if we've cleaned up
-    let isDestroyed = false;
-
-    function updateProgress() {
-      if (isDestroyed) return;
-
-      const wrapperRect = wrapper.getBoundingClientRect();
-      const wrapperTop = window.scrollY + wrapperRect.top;
-      const wrapperHeight = wrapper.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const scrollY = window.scrollY;
-
-      // Calculate progress based on article content
-      const start = wrapperTop;
-      const end = wrapperTop + wrapperHeight - windowHeight;
-      const current = scrollY;
-
-      let progress = 0;
-      if (current >= start && current <= end) {
-        progress = ((current - start) / (end - start)) * 100;
-      } else if (current > end) {
-        progress = 100;
-      }
-
-      progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
-    }
-
-    // Use requestAnimationFrame for smooth updates
-    let ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateProgress();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    updateProgress(); // Initial update
-
-    // Cleanup function for Swup navigation
-    function cleanup() {
-      isDestroyed = true;
-      window.removeEventListener('scroll', onScroll);
-    }
-
-    // Store cleanup function
-    window._articleProgressCleanup = cleanup;
-  }
-
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initArticleAnimation();
-      initCopyLink();
-      initProgressBar();
-    });
-  } else {
-    initArticleAnimation();
+  // Initialize - always run immediately since script only exists on article pages
+  // Use slight delay to ensure DOM is fully ready after Swup transition
+  function init() {
+    initArticleAnimation(true);
     initCopyLink();
-    initProgressBar();
   }
 
-  // Reinitialize after Swup
-  window.addEventListener('swup:contentReplaced', () => {
-    // Cleanup previous progress bar listener
-    if (window._articleProgressCleanup) {
-      window._articleProgressCleanup();
-    }
-
-    requestAnimationFrame(() => {
-      initArticleAnimation();
-      initCopyLink();
-      initProgressBar();
-    });
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    // Small delay to ensure Swup has finished all DOM operations
+    requestAnimationFrame(init);
+  }
 })();
 </script>
 

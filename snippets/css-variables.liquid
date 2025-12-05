@@ -237,15 +237,20 @@
     padding-right: var(--page-padding);
   }
 
-  /* Policy pages styling */
+  /* Policy pages styling - use !important to override Shopify's default 65ch max-width */
   .shopify-policy__container {
-    max-width: var(--page-max-width);
+    max-width: var(--page-max-width) !important;
     margin-left: auto;
     margin-right: auto;
     padding-left: var(--page-padding);
     padding-right: var(--page-padding);
     padding-top: var(--page-vertical-padding);
     padding-bottom: var(--page-vertical-padding);
+  }
+
+  .shopify-policy__body {
+    max-width: none !important;
+    color: var(--color-text);
   }
 
   .shopify-policy__title {

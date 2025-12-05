@@ -42,6 +42,82 @@ function initAnimations() {
 }
 
 /**
+ * Initialize article progress bar
+ * Handles scroll progress indicator on article pages
+ */
+function initArticleProgressBar() {
+  // Cleanup any previous instance first
+  if (window._articleProgressCleanup) {
+    window._articleProgressCleanup();
+    window._articleProgressCleanup = null;
+  }
+
+  const progressBar = document.querySelector('[data-article-progress-bar]');
+  const progressContainer = document.querySelector('[data-article-progress]');
+  const wrapper = document.querySelector('[data-article-wrapper]');
+
+  // If no article on page, exit (no need to hide - element won't exist)
+  if (!wrapper || !progressBar) {
+    return;
+  }
+
+  // Show progress bar and reset width
+  progressBar.style.width = '0%';
+
+  // Track if we've cleaned up
+  let isDestroyed = false;
+
+  function updateProgress() {
+    if (isDestroyed) return;
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperTop = window.scrollY + wrapperRect.top;
+    const wrapperHeight = wrapper.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+
+    // Calculate progress based on article content
+    const start = wrapperTop;
+    const end = wrapperTop + wrapperHeight - windowHeight;
+    const current = scrollY;
+
+    let progress = 0;
+    if (current >= start && current <= end) {
+      progress = ((current - start) / (end - start)) * 100;
+    } else if (current > end) {
+      progress = 100;
+    }
+
+    progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  }
+
+  // Use native scroll event - works with both Lenis and without
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateProgress();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  updateProgress(); // Initial update
+
+  // Cleanup function for navigation
+  function cleanup() {
+    isDestroyed = true;
+    window.removeEventListener('scroll', onScroll);
+    if (progressBar) progressBar.style.width = '0%';
+  }
+
+  // Store cleanup function
+  window._articleProgressCleanup = cleanup;
+}
+
+/**
  * Handle Swup content replacement
  * Re-initialize animations after page transition
  */
@@ -50,9 +126,21 @@ function handleContentReplaced() {
   requestAnimationFrame(() => {
     animationManager.refresh();
     initAnimations();
+    initArticleProgressBar();
     cartDrawerManager.reinit();
     cartPageManager.reinit();
   });
+}
+
+/**
+ * Handle Swup transition end
+ * Initialize components that need the page to be fully visible
+ */
+function handleTransitionEnd() {
+  // Use setTimeout to ensure DOM is fully settled
+  setTimeout(() => {
+    initArticleProgressBar();
+  }, 50);
 }
 
 /**
@@ -92,6 +180,9 @@ function init() {
 
     // Listen for content replacement
     window.addEventListener('swup:contentReplaced', handleContentReplaced);
+
+    // Listen for transition end (after animations complete)
+    window.addEventListener('swup:transitionEnd', handleTransitionEnd);
   }
 
   // Initialize animations
@@ -101,6 +192,11 @@ function init() {
       initAnimations();
     });
   }
+
+  // Initialize article progress bar (works on any page, only activates on articles)
+  requestAnimationFrame(() => {
+    initArticleProgressBar();
+  });
 
   // Handle menu events
   handleMenuEvents();

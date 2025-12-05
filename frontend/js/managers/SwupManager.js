@@ -127,6 +127,9 @@ class SwupManager {
       document.documentElement.classList.remove('scroll-locked');
       document.body.style.removeProperty('--scrollbar-width');
       lenisManager.start();
+
+      // Dispatch event for components that need to initialize after transition completes
+      window.dispatchEvent(new CustomEvent('swup:transitionEnd'));
     });
 
     // Handle page view for analytics
