@@ -30,6 +30,11 @@
   .iwt-stats { gap: clamp(2rem, 4vw, 4rem); border-top-color: {{ section.settings.text_color }}20; }
   .iwt-stat-number { font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -0.03em; color: {{ section.settings.text_color }}; }
   .iwt-stat-label { color: {{ section.settings.text_color }}; }
+
+  /* Initial clip-path state for swipe animation */
+  [data-iwt-section="{{ section.id }}"] [data-iwt-image] {
+    clip-path: inset(0 100% 0 0);
+  }
 </style>
 
 <section
@@ -136,10 +141,8 @@
       const image = section.querySelector('[data-iwt-image]');
       const title = section.querySelector('[data-iwt-title]');
 
-      // Animate image with clip-path swipe
+      // Animate image with clip-path swipe (initial state set in CSS)
       if (image) {
-        gsap.set(image, { clipPath: 'inset(0 100% 0 0)' });
-
         gsap.to(image, {
           clipPath: 'inset(0 0% 0 0)',
           duration: 1.6,

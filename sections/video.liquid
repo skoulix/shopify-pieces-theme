@@ -378,10 +378,8 @@
     const container = section.querySelector('[data-video-container]');
     const title = section.querySelector('[data-video-title]');
 
-    // Animate container with clip-path swipe
+    // Animate container with clip-path swipe (initial state set in CSS)
     if (container) {
-      gsap.set(container, { clipPath: 'inset(0 100% 0 0)' });
-
       gsap.to(container, {
         clipPath: 'inset(0 0% 0 0)',
         duration: 1.6,

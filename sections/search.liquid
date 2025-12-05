@@ -358,12 +358,11 @@
       }, 0.6);
     }
 
-    // Search results
+    // Search results (initial clip-path set in CSS)
     if (results.length) {
       results.forEach((result, i) => {
         const img = result.querySelector('.search-result-image');
         gsap.set(result, { opacity: 0, y: 30 });
-        if (img) gsap.set(img, { clipPath: 'inset(0 100% 0 0)' });
 
         const col = i % 4;
         const delay = 0.7 + col * 0.1;

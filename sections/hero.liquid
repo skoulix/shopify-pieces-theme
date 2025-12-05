@@ -23,6 +23,11 @@
   .hero-cta::before { content: ''; position: absolute; inset: 0; background: {{ section.settings.button_text_color }}; transform: scaleX(0); transform-origin: right; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); z-index: 0; }
   .hero-cta:hover::before { transform: scaleX(1); transform-origin: left; }
   .hero-cta:hover, .hero-cta:hover span, .hero-cta:hover i { color: {{ section.settings.button_background }}; }
+
+  /* Initial clip-path state for swipe animation */
+  [data-hero-section="{{ section.id }}"] [data-hero-media] {
+    clip-path: inset(0 0 100% 0);
+  }
 </style>
 
 <section
@@ -127,9 +132,8 @@
 
       const tl = gsap.timeline();
 
-      // Animate media with clip-path swipe
+      // Animate media with clip-path swipe (initial state set in CSS)
       if (media) {
-        gsap.set(media, { clipPath: 'inset(0 0 100% 0)' });
         tl.to(media, {
           clipPath: 'inset(0 0 0% 0)',
           duration: 1.6,
