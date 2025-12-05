@@ -10,6 +10,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
+import { SplitText } from 'gsap/SplitText';
 import Lenis from 'lenis';
 
 // Import styles
@@ -24,11 +25,12 @@ import { cartDrawerManager } from './managers/CartDrawerManager.js';
 import { cartPageManager } from './managers/CartPageManager.js';
 
 // Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, Flip);
+gsap.registerPlugin(ScrollTrigger, Flip, SplitText);
 
 // Expose globally for section scripts
 window.gsap = gsap;
 window.Flip = Flip;
+window.SplitText = SplitText;
 window.Lenis = Lenis;
 
 /**
@@ -40,6 +42,7 @@ function initAnimations() {
   animationManager.initParallax();
   animationManager.initImageReveals();
   animationManager.initIntroAnimations();
+  animationManager.initSplitTextAnimations();
 }
 
 /**
@@ -254,6 +257,7 @@ function init() {
     gsap,
     ScrollTrigger,
     Flip,
+    SplitText,
     Lenis,
   };
 

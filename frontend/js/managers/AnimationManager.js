@@ -1,7 +1,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /**
  * AnimationManager - GSAP animation utilities
@@ -239,6 +240,103 @@ class AnimationManager {
     // Observe all intro elements
     document.querySelectorAll('[data-intro]:not(.intro-visible)').forEach((el) => {
       this.introObserver.observe(el);
+    });
+  }
+
+  /**
+   * Split text into lines and animate with reveal effect
+   * @param {HTMLElement} element - The text element to split and animate
+   * @param {Object} options - Animation options
+   * @param {GSAPTimeline} options.timeline - Optional timeline to add animation to
+   * @param {number} options.duration - Animation duration (default: 1.2)
+   * @param {number} options.stagger - Stagger delay between lines (default: 0.1)
+   * @param {string} options.ease - Easing function (default: 'power4.out')
+   * @param {number} options.delay - Initial delay (default: 0)
+   * @param {string} options.lineClass - CSS class for split lines (default: 'split-line')
+   * @returns {Object} - { split: SplitText instance, animation: GSAP animation }
+   */
+  splitTextReveal(element, options = {}) {
+    if (!element) return null;
+
+    const {
+      timeline = null,
+      duration = 1.2,
+      stagger = 0.1,
+      ease = 'power4.out',
+      delay = 0,
+      lineClass = 'split-line'
+    } = options;
+
+    // Create SplitText instance
+    const split = new SplitText(element, {
+      type: 'lines',
+      linesClass: lineClass
+    });
+
+    // Wrap each line in an overflow-hidden container for the reveal effect
+    split.lines.forEach((line, index) => {
+      const wrapper = document.createElement('div');
+      wrapper.style.overflow = 'hidden';
+      wrapper.style.display = 'block';
+      // Apply staggered margin for visual interest (optional, based on nth-child CSS)
+      line.parentNode.insertBefore(wrapper, line);
+      wrapper.appendChild(line);
+    });
+
+    // Set initial state
+    gsap.set(split.lines, { yPercent: 100 });
+
+    // Create animation
+    const animationConfig = {
+      yPercent: 0,
+      duration,
+      ease,
+      stagger
+    };
+
+    let animation;
+    if (timeline) {
+      animation = timeline.to(split.lines, animationConfig, delay);
+    } else {
+      animationConfig.delay = delay;
+      animation = gsap.to(split.lines, animationConfig);
+    }
+
+    return { split, animation };
+  }
+
+  /**
+   * Initialize all elements with [data-split-text] attribute
+   * Call this after page load and after Swup content replace
+   */
+  initSplitTextAnimations() {
+    const elements = document.querySelectorAll('[data-split-text]:not([data-split-initialized])');
+
+    elements.forEach((el) => {
+      const lineClass = el.dataset.splitLineClass || 'split-line';
+      const duration = parseFloat(el.dataset.splitDuration) || 1.2;
+      const stagger = parseFloat(el.dataset.splitStagger) || 0.1;
+      const delay = parseFloat(el.dataset.splitDelay) || 0;
+      const scrollTrigger = el.dataset.splitScrollTrigger !== 'false';
+
+      // Mark as initialized
+      el.dataset.splitInitialized = 'true';
+
+      if (scrollTrigger) {
+        // Use ScrollTrigger for scroll-based animation
+        const trigger = ScrollTrigger.create({
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            this.splitTextReveal(el, { duration, stagger, delay, lineClass });
+          }
+        });
+        this.scrollTriggers.push(trigger);
+      } else {
+        // Animate immediately
+        this.splitTextReveal(el, { duration, stagger, delay, lineClass });
+      }
     });
   }
 

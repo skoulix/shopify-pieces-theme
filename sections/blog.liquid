@@ -19,7 +19,7 @@
 <section class="blog-wrapper is-loading" data-blog-wrapper>
   <div class="pt-[--page-vertical-padding] pb-16">
     <div class="{{ container_class }}">
-      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading" data-intro>
+      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading" data-blog-title>
         {{ blog.title }}
       </h1>
 
@@ -147,7 +147,13 @@
       gsap = window.pieces.gsap;
     }
 
-    if (!gsap) {
+    // Get SplitText from pieces or window
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    if (!gsap || !SplitText) {
       setTimeout(() => initBlogAnimation(forceReinit), 50);
       return;
     }
@@ -162,7 +168,30 @@
     wrapper.dataset.blogAnimInitialized = 'true';
     wrapper.classList.remove('is-loading');
 
+    const title = wrapper.querySelector('[data-blog-title]');
     const blogItems = wrapper.querySelectorAll('[data-blog-item]');
+
+    // Animate title with SplitText line reveal
+    if (title) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'blog-hero-title-line' });
+
+      // Wrap each line in an overflow-hidden container for the reveal effect
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 100 });
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+      });
+    }
 
     // Only animate blog item images with clip-path swipe
     blogItems.forEach((item, index) => {

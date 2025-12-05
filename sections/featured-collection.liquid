@@ -27,23 +27,11 @@
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     <header class="featured-collection-header flex flex-col gap-4 md:flex-row md:justify-between md:items-end">
-      <h2 class="featured-collection-title font-bold text-[--color-text] font-heading" data-intro>
+      <h2 class="featured-collection-title font-bold text-[--color-text] font-heading" data-fc-title>
         {% if section.settings.title != blank %}
-          {%- assign title_words = section.settings.title | split: ' ' -%}
-          {%- for word in title_words -%}
-            {%- assign line_break = forloop.index | modulo: 2 -%}
-            {%- if forloop.index == 1 or line_break == 1 -%}
-              <span class="featured-collection-title-line overflow-hidden">
-            {%- endif -%}
-            <span class="inline-block">{{ word }}</span>{% unless forloop.last %} {% endunless %}
-            {%- if line_break == 0 or forloop.last -%}
-              </span>
-            {%- endif -%}
-          {%- endfor -%}
+          {{ section.settings.title }}
         {% else %}
-          <span class="featured-collection-title-line overflow-hidden">
-            <span class="inline-block">{{ collection.title | default: 'Featured' }}</span>
-          </span>
+          {{ collection.title | default: 'Featured' }}
         {% endif %}
       </h2>
 
@@ -107,9 +95,15 @@
         }
       }
 
+      // Get SplitText from pieces or window
+      let SplitText = window.SplitText;
+      if (!SplitText && window.pieces && window.pieces.SplitText) {
+        SplitText = window.pieces.SplitText;
+      }
+
       // Get ScrollTrigger from window.pieces or window
       const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-      if (!ScrollTrigger) {
+      if (!ScrollTrigger || !SplitText) {
         requestAnimationFrame(initAnimation);
         return;
       }
@@ -117,9 +111,38 @@
       // Mark section as ready for animations
       section.dataset.fcAnimReady = 'true';
 
+      const title = section.querySelector('[data-fc-title]');
       const cards = section.querySelectorAll('[data-product-card]');
 
-      // Only animate product card images with clip-path swipe
+      // Animate title with SplitText line reveal
+      if (title) {
+        const split = new SplitText(title, { type: 'lines', linesClass: 'featured-collection-title-line' });
+
+        // Wrap each line in an overflow-hidden container for the reveal effect
+        split.lines.forEach(line => {
+          const lineWrapper = document.createElement('div');
+          lineWrapper.style.overflow = 'hidden';
+          lineWrapper.style.display = 'block';
+          line.parentNode.insertBefore(lineWrapper, line);
+          lineWrapper.appendChild(line);
+        });
+
+        gsap.set(split.lines, { yPercent: 100 });
+
+        gsap.to(split.lines, {
+          yPercent: 0,
+          duration: 1.2,
+          ease: 'power4.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            once: true
+          }
+        });
+      }
+
+      // Animate product card images with clip-path swipe
       cards.forEach((card, index) => {
         const image = card.querySelector('.product-card-image');
         if (!image) return;

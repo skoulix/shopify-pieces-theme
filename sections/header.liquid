@@ -151,7 +151,7 @@
                 data-nav-link
                 data-mobile-nav-close
               >
-                <span class="mobile-nav__link-text">{{ link.title }}</span>
+                <span class="mobile-nav__link-text" data-mobile-nav-link-text>{{ link.title }}</span>
                 <span class="mobile-nav__link-line"></span>
               </a>
             </li>
@@ -204,6 +204,7 @@
   const closeBtns = document.querySelectorAll('[data-mobile-nav-close]');
   let isAnimating = false;
   let openTimeline = null;
+  let linkSplits = []; // Store SplitText instances for cleanup
 
   function openMobileNav() {
     if (isAnimating || mobileNav.classList.contains('is-open')) return;
@@ -213,7 +214,14 @@
     const drawer = mobileNav.querySelector('.mobile-nav__drawer');
     const header = mobileNav.querySelector('.mobile-nav__header');
     const linkItems = mobileNav.querySelectorAll('.mobile-nav__item');
+    const linkTexts = mobileNav.querySelectorAll('[data-mobile-nav-link-text]');
     const footer = mobileNav.querySelector('.mobile-nav__footer');
+
+    // Get SplitText
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
 
     // Use GSAP if available, otherwise rely on CSS
     if (window.gsap) {
@@ -221,8 +229,21 @@
       gsap.set(backdrop, { opacity: 0 });
       gsap.set(drawer, { clipPath: 'inset(0 0 100% 0)' });
       gsap.set(header, { opacity: 0, y: -20 });
-      gsap.set(linkItems, { opacity: 0, y: 40 });
+      gsap.set(linkItems, { opacity: 1 }); // Items visible, chars will animate
       gsap.set(footer, { opacity: 0, y: 20 });
+
+      // Clean up previous splits
+      linkSplits.forEach(split => split.revert());
+      linkSplits = [];
+
+      // Split each link text into chars
+      if (SplitText) {
+        linkTexts.forEach(text => {
+          const split = new SplitText(text, { type: 'chars', charsClass: 'mobile-nav-char' });
+          linkSplits.push(split);
+          gsap.set(split.chars, { yPercent: 100, opacity: 0 });
+        });
+      }
     }
 
     // Now make visible
@@ -238,10 +259,25 @@
 
       openTimeline
         .to(backdrop, { opacity: 1, duration: 0.5, ease: 'power2.out' }, 0)
-        .to(drawer, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'power4.inOut' }, 0)
-        .to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4)
-        .to(linkItems, { opacity: 1, y: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out' }, 0.45)
-        .to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.7);
+        .to(drawer, { clipPath: 'inset(0 0 0% 0)', duration: 0.7, ease: 'power4.inOut' }, 0);
+
+      // Animate header
+      openTimeline.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4);
+
+      // Animate each link's chars with stagger
+      if (SplitText && linkSplits.length > 0) {
+        linkSplits.forEach((split, index) => {
+          openTimeline.to(split.chars, {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.03,
+            ease: 'power3.out'
+          }, 0.5 + (index * 0.08));
+        });
+      }
+
+      openTimeline.to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.8);
     } else {
       isAnimating = false;
     }

@@ -3,7 +3,11 @@
   Three design options: side-by-side, stacked, card
 {%- endcomment -%}
 
-<section class="newsletter-section">
+<style>
+  .newsletter-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+</style>
+
+<section class="newsletter-section" data-newsletter-section="{{ section.id }}">
   {% case section.settings.design %}
     {% when 'side-by-side' %}
       {% render 'newsletter-side-by-side',
@@ -43,6 +47,70 @@
       %}
   {% endcase %}
 </section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-newsletter-section="{{ section.id }}"]');
+  if (!section || section.dataset.newsletterAnimInitialized) return;
+  section.dataset.newsletterAnimInitialized = 'true';
+
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+    if (!gsap || !SplitText || !ScrollTrigger) {
+      setTimeout(initAnimation, 50);
+      return;
+    }
+
+    const title = section.querySelector('[data-newsletter-title]');
+    if (!title) return;
+
+    const split = new SplitText(title, { type: 'lines', linesClass: 'newsletter-title-line' });
+
+    split.lines.forEach(line => {
+      const lineWrapper = document.createElement('div');
+      lineWrapper.style.overflow = 'hidden';
+      lineWrapper.style.display = 'block';
+      line.parentNode.insertBefore(lineWrapper, line);
+      lineWrapper.appendChild(line);
+    });
+
+    gsap.set(split.lines, { yPercent: 100 });
+
+    gsap.to(split.lines, {
+      yPercent: 0,
+      duration: 1.2,
+      ease: 'power4.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 70%',
+        once: true
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+
+  window.addEventListener('swup:contentReplaced', () => {
+    requestAnimationFrame(initAnimation);
+  });
+})();
+</script>
 
 {% schema %}
 {
