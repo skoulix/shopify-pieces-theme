@@ -34,8 +34,11 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    opacity: 0.5;
     margin-bottom: 1.5rem;
+  }
+
+  .testimonials-label-{{ section.id }}.intro-visible {
+    opacity: 0.5;
   }
 
   .testimonials-title-{{ section.id }} {
@@ -267,9 +270,13 @@
     transform: none;
   }
 
-  html.animations-disabled .testimonials-title-{{ section.id }},
-  html.animations-disabled .testimonials-label-{{ section.id }} {
+  html.animations-disabled .testimonials-title-{{ section.id }} {
     opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .testimonials-label-{{ section.id }} {
+    opacity: 0.5;
     transform: none;
   }
 </style>

@@ -28,8 +28,11 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    opacity: 0.5;
     margin-bottom: 1.5rem;
+  }
+
+  .timeline-label-{{ section.id }}.intro-visible {
+    opacity: 0.5;
   }
 
   .timeline-title-{{ section.id }} {
@@ -210,6 +213,16 @@
 
   html.animations-disabled .timeline-dot-{{ section.id }} {
     border-color: {{ section.settings.accent_color }};
+  }
+
+  html.animations-disabled .timeline-label-{{ section.id }} {
+    opacity: 0.5;
+    transform: none;
+  }
+
+  html.animations-disabled .timeline-title-{{ section.id }} {
+    opacity: 1;
+    transform: none;
   }
 </style>
 
