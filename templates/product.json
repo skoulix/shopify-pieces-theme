@@ -274,6 +274,28 @@
         "text_color": "#000000"
       }
     },
+    "video": {
+      "type": "video",
+      "settings": {
+        "loop": true,
+        "show_controls": false,
+        "aspect_ratio": "16/9",
+        "border_radius": 0,
+        "overlay_color": "#000000",
+        "overlay_opacity": 30,
+        "label": "",
+        "title": "",
+        "text": "",
+        "button_text": "",
+        "button_link": "",
+        "content_position": "center",
+        "content_alignment": "center",
+        "full_width": true,
+        "remove_padding": true,
+        "background_color": "#000000",
+        "text_color": "#ffffff"
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -293,6 +315,7 @@
     "text_reveal",
     "testimonials",
     "faq",
+    "video",
     "related-products"
   ]
 }
