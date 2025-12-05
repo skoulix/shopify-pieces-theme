@@ -66,6 +66,67 @@
         "image_fit": "cover"
       }
     },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": { "type": "feature", "settings": { "icon": "package", "title": "Premium Quality", "text": "Crafted with the finest materials for lasting durability and exceptional performance." } },
+        "feature_2": { "type": "feature", "settings": { "icon": "shield-check", "title": "2-Year Warranty", "text": "Shop with confidence knowing your purchase is protected against defects." } },
+        "feature_3": { "type": "feature", "settings": { "icon": "truck", "title": "Free Shipping", "text": "Complimentary shipping on all orders over $100 with fast delivery." } },
+        "feature_4": { "type": "feature", "settings": { "icon": "arrow-counter-clockwise", "title": "Easy Returns", "text": "Not satisfied? Return within 30 days for a full refund, no questions asked." } }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
+      "settings": {
+        "label": "Why Choose This Product",
+        "title": "Built Different",
+        "description": "Every detail has been carefully considered to deliver an exceptional experience.",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 4,
+        "card_radius": 12,
+        "card_background": "#f5f5f5",
+        "card_text_color": "#000000",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#000000"
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "The Details",
+        "text": "Designed with *intention*\ncrafted with *precision*\nmade to *last*.",
+        "subtext": "We obsess over every detail, from material selection to finishing touches. The result is a product that not only looks exceptional but performs flawlessly day after day.",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "full_width": false,
+        "background_color": "#0a0a0a",
+        "text_color": "#ffffff",
+        "accent_color": "#a3a3a3"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": { "type": "testimonial", "settings": { "quote": "Exceeded all my expectations. The quality is immediately apparent the moment you hold it in your hands.", "author": "Michael R.", "author_title": "Verified Buyer", "rating": 5 } },
+        "testimonial_2": { "type": "testimonial", "settings": { "quote": "I've bought many similar products before, but nothing comes close to this level of craftsmanship.", "author": "Sarah L.", "author_title": "Repeat Customer", "rating": 5 } },
+        "testimonial_3": { "type": "testimonial", "settings": { "quote": "Worth every penny. This is exactly what I was looking for - no compromises.", "author": "David K.", "author_title": "Verified Buyer", "rating": 5 } }
+      },
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3"],
+      "settings": {
+        "label": "Reviews",
+        "title": "What Customers Are Saying",
+        "show_rating": true,
+        "card_radius": 16,
+        "card_background": "#f5f5f5",
+        "card_text_color": "#000000",
+        "full_width": false,
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#f59e0b"
+      }
+    },
     "faq": {
       "type": "faq",
       "blocks": {
@@ -89,49 +150,35 @@
             "question": "Do you offer international shipping?",
             "answer": "<p>Yes, we ship to most countries worldwide. Shipping rates and delivery times vary by location.</p>"
           }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Is this product covered by warranty?",
+            "answer": "<p>Yes, all our products come with a 2-year warranty that covers manufacturing defects. Extended warranty options are also available at checkout.</p>"
+          }
         }
       },
       "block_order": [
         "faq_1",
         "faq_2",
-        "faq_3"
+        "faq_3",
+        "faq_4"
       ],
       "settings": {
         "full_width": false,
         "label": "Support",
         "title": "Frequently Asked Questions",
-        "description": "",
+        "description": "Everything you need to know about this product.",
         "background_color": "#f5f5f5",
         "text_color": "#000000"
-      }
-    },
-    "video": {
-      "type": "video",
-      "settings": {
-        "loop": true,
-        "show_controls": true,
-        "aspect_ratio": "16/9",
-        "border_radius": 0,
-        "overlay_color": "#000000",
-        "overlay_opacity": 30,
-        "label": "",
-        "title": "",
-        "text": "",
-        "button_text": "Tes",
-        "button_link": "",
-        "content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
-        "remove_padding": true,
-        "background_color": "#000000",
-        "text_color": "#ffffff"
       }
     },
     "related-products": {
       "type": "related-products",
       "settings": {
         "full_width": false,
-        "label": "You may also like",
+        "label": "You May Also Like",
         "title": "Related Products",
         "products_to_show": 8,
         "show_vendor": false,
@@ -142,8 +189,10 @@
   },
   "order": [
     "main",
+    "features_grid",
+    "text_reveal",
+    "testimonials",
     "faq",
-    "video",
     "related-products"
   ]
 }
