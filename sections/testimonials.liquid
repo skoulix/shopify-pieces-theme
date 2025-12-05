@@ -242,6 +242,11 @@
   }
 
   /* Animation states */
+  html.animations-disabled .testimonials-{{ section.id }} [data-intro] {
+    opacity: 1;
+    transform: none;
+  }
+
   html.animations-disabled .testimonials-title-{{ section.id }},
   html.animations-disabled .testimonials-label-{{ section.id }} {
     opacity: 1;
@@ -272,7 +277,7 @@
     {% endif %}
 
     {%- comment -%} Slider {%- endcomment -%}
-    <div class="testimonials-slider-{{ section.id }}">
+    <div class="testimonials-slider-{{ section.id }}" data-intro>
       <div class="testimonials-track-{{ section.id }}" data-testimonials-track>
         {% for block in section.blocks %}
           <div class="testimonial-{{ section.id }}" data-testimonial {{ block.shopify_attributes }}>
@@ -331,7 +336,7 @@
 
     {%- comment -%} Navigation {%- endcomment -%}
     {% if section.blocks.size > 1 %}
-      <div class="testimonials-nav-{{ section.id }}">
+      <div class="testimonials-nav-{{ section.id }}" data-intro>
         <button class="testimonials-nav-btn-{{ section.id }}" data-testimonials-prev aria-label="Previous testimonial">
           <i class="ph ph-arrow-left"></i>
         </button>
