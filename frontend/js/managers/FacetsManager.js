@@ -291,6 +291,13 @@ class FacetFiltersForm extends HTMLElement {
 
   onFormChange(event) {
     const formData = new FormData(this.form);
+
+    // Explicitly add sort_by from desktop select (it's outside the form in DOM due to drawer move)
+    const sortSelect = document.querySelector('#SortBy');
+    if (sortSelect && sortSelect.value) {
+      formData.set('sort_by', sortSelect.value);
+    }
+
     const searchParams = new URLSearchParams(formData).toString();
     this.renderPage(searchParams);
   }
@@ -329,6 +336,9 @@ class FacetFiltersForm extends HTMLElement {
 
       // Update product count
       this.updateProductCount(doc);
+
+      // Update pagination (load more button with new URLs)
+      this.updatePagination(doc);
 
       // Update URL
       if (updateURL) {
@@ -482,6 +492,31 @@ class FacetFiltersForm extends HTMLElement {
 
     if (newCount && currentCount) {
       currentCount.innerHTML = newCount.innerHTML;
+    }
+  }
+
+  updatePagination(doc) {
+    // Update load more pagination
+    const newPagination = doc.querySelector('[data-pagination-load-more]');
+    const currentPagination = document.querySelector('[data-pagination-load-more]');
+
+    if (currentPagination) {
+      if (newPagination) {
+        currentPagination.innerHTML = newPagination.innerHTML;
+      } else {
+        // No more pagination needed (fewer results than page size)
+        currentPagination.innerHTML = '';
+      }
+    }
+
+    // Update prev/next pagination
+    const newPrevNext = doc.querySelector('.collection-wrapper nav');
+    const currentPrevNext = document.querySelector('.collection-wrapper nav');
+
+    if (currentPrevNext && newPrevNext) {
+      currentPrevNext.innerHTML = newPrevNext.innerHTML;
+    } else if (currentPrevNext && !newPrevNext) {
+      currentPrevNext.remove();
     }
   }
 
