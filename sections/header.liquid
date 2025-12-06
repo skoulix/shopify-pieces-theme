@@ -12,17 +12,32 @@
 -%}
 
 <style>
-  /* Header group wrapper - handles sticky and hide/reveal */
+  /* Header group wrapper - handles fixed positioning and hide/reveal */
   .header-group {
+    position: relative;
     z-index: 40;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  /* Fixed header with hide/reveal uses position: fixed */
   .header-group.is-sticky {
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
   .header-group.is-hidden {
     transform: translateY(-100%);
+  }
+
+  /* Spacer to prevent content jump when header becomes fixed */
+  .header-spacer {
+    display: none;
+  }
+
+  .header-group.is-sticky + .header-spacer {
+    display: block;
   }
 </style>
 
@@ -216,6 +231,11 @@
   </div>
 </header>
 </div>
+
+{%- comment -%} Spacer to prevent content jump when header is fixed {%- endcomment -%}
+{% if section.settings.sticky_header %}
+  <div class="header-spacer" data-header-spacer></div>
+{% endif %}
 
 <script>
 (function() {
@@ -439,59 +459,44 @@
   /**
    * Hide header on scroll down, reveal on scroll up
    * Only enabled when data-hide-on-scroll attribute is present
-   * Works with both native scroll and Lenis smooth scroll
+   * Uses Lenis direction property (1 = up, -1 = down) for reliable detection
    */
   const headerGroup = document.querySelector('[data-header-group]');
   if (headerGroup && headerGroup.hasAttribute('data-hide-on-scroll')) {
-    let lastScrollY = 0;
     const scrollThreshold = 50; // Min scroll before hiding
-    const scrollDelta = 5; // Min scroll delta to trigger hide/show
     let lenisAttached = false;
-    let nativeAttached = false;
 
-    function updateHeaderVisibility(currentScrollY) {
-      const scrollDiff = currentScrollY - lastScrollY;
-
+    // Lenis scroll handler - uses direction property
+    function onLenisScroll(e) {
       // Don't hide if mobile menu is open
       if (mobileNav && mobileNav.classList.contains('is-open')) {
-        lastScrollY = currentScrollY;
         return;
       }
 
       // Always show header when at top of page
-      if (currentScrollY < scrollThreshold) {
+      if (e.scroll < scrollThreshold) {
         headerGroup.classList.remove('is-hidden');
+        return;
       }
-      // Scrolling down past threshold - hide header
-      else if (scrollDiff > scrollDelta) {
+
+      // Use Lenis direction: 1 = scrolling down, -1 = scrolling up
+      if (e.direction === 1) {
+        // Scrolling down - hide header
         headerGroup.classList.add('is-hidden');
-      }
-      // Scrolling up - show header
-      else if (scrollDiff < -scrollDelta) {
+      } else if (e.direction === -1) {
+        // Scrolling up - show header
         headerGroup.classList.remove('is-hidden');
       }
-
-      lastScrollY = currentScrollY;
-    }
-
-    // Lenis scroll handler function
-    function onLenisScroll(lenisInstance) {
-      updateHeaderVisibility(lenisInstance.scroll);
     }
 
     // Try to attach to Lenis scroll event
     function attachToLenis() {
-      // Check if Lenis is available via window.pieces
       if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
         const lenis = window.pieces.lenis.lenis;
 
         if (!lenisAttached) {
-          // Attach to Lenis scroll event
           lenis.on('scroll', onLenisScroll);
           lenisAttached = true;
-
-          // Initialize with current scroll position
-          lastScrollY = lenis.scroll;
         }
 
         return true;
@@ -499,58 +504,82 @@
       return false;
     }
 
-    // Fallback to native scroll for when Lenis is not available
-    let ticking = false;
+    // Fallback for when Lenis is not available (respects prefers-reduced-motion)
+    let lastScrollY = 0;
+    let nativeAttached = false;
+
     function onNativeScroll() {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateHeaderVisibility(window.scrollY);
-          ticking = false;
-        });
-        ticking = true;
+      const currentScrollY = window.scrollY;
+
+      // Don't hide if mobile menu is open
+      if (mobileNav && mobileNav.classList.contains('is-open')) {
+        lastScrollY = currentScrollY;
+        return;
       }
+
+      // Always show header when at top
+      if (currentScrollY < scrollThreshold) {
+        headerGroup.classList.remove('is-hidden');
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down
+        headerGroup.classList.add('is-hidden');
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        headerGroup.classList.remove('is-hidden');
+      }
+
+      lastScrollY = currentScrollY;
     }
 
     function attachNativeScroll() {
       if (!nativeAttached) {
         window.addEventListener('scroll', onNativeScroll, { passive: true });
         nativeAttached = true;
+        lastScrollY = window.scrollY;
       }
     }
 
-    // Try to attach to Lenis, poll until available or fall back to native
+    // Poll for Lenis, fall back to native scroll
     let attempts = 0;
-    const maxAttempts = 50; // 5 seconds max
+    const maxAttempts = 30;
 
     function tryAttach() {
       if (attachToLenis()) {
-        // Also attach native scroll as backup (some browsers/edge cases)
-        attachNativeScroll();
-        return; // Successfully attached to Lenis
+        return;
       }
 
       attempts++;
       if (attempts < maxAttempts) {
         setTimeout(tryAttach, 100);
       } else {
-        // Fall back to native scroll if Lenis never becomes available
+        // Lenis not available, use native scroll
         attachNativeScroll();
       }
     }
 
-    // Start trying to attach
     tryAttach();
 
     // Reset on page transitions
     window.addEventListener('swup:contentReplaced', () => {
-      // Re-attach to Lenis after page transition (Lenis instance persists)
-      if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
-        lastScrollY = window.pieces.lenis.lenis.scroll;
-      } else {
+      headerGroup.classList.remove('is-hidden');
+      if (!lenisAttached) {
         lastScrollY = window.scrollY;
       }
-      headerGroup.classList.remove('is-hidden');
     });
+  }
+
+  // Set spacer height to match header height (for fixed positioning)
+  const header = document.querySelector('[data-header]');
+  const spacer = document.querySelector('[data-header-spacer]');
+
+  if (header && spacer) {
+    function updateSpacerHeight() {
+      spacer.style.height = header.offsetHeight + 'px';
+    }
+
+    updateSpacerHeight();
+    window.addEventListener('resize', updateSpacerHeight);
+    window.addEventListener('swup:contentReplaced', updateSpacerHeight);
   }
 })();
 </script>
