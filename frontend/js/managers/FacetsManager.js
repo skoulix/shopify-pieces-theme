@@ -120,16 +120,76 @@ class FacetFiltersForm extends HTMLElement {
     viewBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         const view = btn.dataset.viewToggle;
+        const currentView = wrapper.dataset.view;
 
-        // Update wrapper
-        wrapper.dataset.view = view;
+        // Skip if already in this view
+        if (view === currentView) return;
 
-        // Update buttons
+        const grid = wrapper.querySelector('[data-collection-content]');
+        const shouldAnimate = typeof window.shouldAnimate === 'function' && window.shouldAnimate();
+        const gsap = window.gsap || window.pieces?.gsap;
+
+        // Update buttons immediately
         viewBtns.forEach((b) => {
           const isActive = b.dataset.viewToggle === view;
           b.classList.toggle('is-active', isActive);
           b.setAttribute('aria-pressed', isActive);
         });
+
+        if (shouldAnimate && gsap && grid) {
+          // Capture current height
+          const startHeight = grid.offsetHeight;
+
+          // Fade out content
+          gsap.to(grid, {
+            opacity: 0,
+            duration: 0.2,
+            ease: 'power2.in',
+            onComplete: () => {
+              // Lock height before layout change
+              grid.style.height = `${startHeight}px`;
+              grid.style.overflow = 'hidden';
+
+              // Change layout
+              wrapper.dataset.view = view;
+
+              // Get new height
+              grid.style.height = 'auto';
+              const endHeight = grid.offsetHeight;
+              grid.style.height = `${startHeight}px`;
+
+              // Animate height and fade in
+              gsap.to(grid, {
+                height: endHeight,
+                duration: 0.4,
+                ease: 'power3.inOut',
+              });
+
+              gsap.to(grid, {
+                opacity: 1,
+                duration: 0.3,
+                delay: 0.2,
+                ease: 'power2.out',
+                onComplete: () => {
+                  // Clean up
+                  grid.style.height = '';
+                  grid.style.overflow = '';
+
+                  // Refresh Lenis
+                  if (window.pieces?.lenis) {
+                    window.pieces.lenis.resize();
+                  }
+                },
+              });
+            },
+          });
+        } else {
+          // No animation
+          wrapper.dataset.view = view;
+          if (window.pieces?.lenis) {
+            window.pieces.lenis.resize();
+          }
+        }
 
         // Save preference
         localStorage.setItem('collection-view', view);

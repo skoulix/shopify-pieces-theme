@@ -265,11 +265,11 @@ function init() {
     window.addEventListener('swup:transitionEnd', handleTransitionEnd);
   }
 
-  // Check theme setting for scroll animations
-  const scrollAnimationsEnabled = window.themeSettings?.enableScrollAnimations !== false;
+  // Check theme setting for animations
+  const animationsEnabled = window.themeSettings?.enableAnimations !== false;
 
   // Initialize animations (respect user preference and theme setting)
-  if (!prefersReducedMotion && scrollAnimationsEnabled) {
+  if (!prefersReducedMotion && animationsEnabled) {
     // Wait for fonts to load before initializing animations (prevents SplitText measurement issues)
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(() => {

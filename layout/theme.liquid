@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js{% if settings.enable_smooth_scroll %} smooth-scroll-enabled{% endif %}{% if settings.enable_scroll_animations == false %} animations-disabled{% endif %}" lang="{{ request.locale.iso_code }}">
+<html class="no-js{% if settings.enable_smooth_scroll %} smooth-scroll-enabled{% endif %}{% if settings.enable_animations == false %} animations-disabled{% endif %}" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -51,7 +51,7 @@
       // Theme settings - defined early so section scripts can access them
       window.themeSettings = {
         enableSmoothScroll: {{ settings.enable_smooth_scroll }},
-        enableScrollAnimations: {{ settings.enable_scroll_animations }},
+        enableAnimations: {{ settings.enable_animations }},
         enablePageTransitions: {{ settings.enable_page_transitions }},
         pageTransitionStyle: '{{ settings.page_transition_style | default: "slide" }}',
         cartType: '{{ settings.cart_type | default: "drawer" }}',
@@ -60,7 +60,7 @@
 
       // Global animation check - returns true if animations should run
       window.shouldAnimate = function() {
-        return window.themeSettings.enableScrollAnimations !== false &&
+        return window.themeSettings.enableAnimations !== false &&
                !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       };
     </script>

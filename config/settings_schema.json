@@ -247,14 +247,14 @@
       },
       {
         "type": "header",
-        "content": "Scroll animations"
+        "content": "Animations"
       },
       {
         "type": "checkbox",
-        "id": "enable_scroll_animations",
+        "id": "enable_animations",
         "default": true,
-        "label": "Enable scroll animations",
-        "info": "Elements animate as they come into view"
+        "label": "Enable animations",
+        "info": "Enables scroll-triggered reveals, layout transitions, and other motion effects throughout the theme."
       }
     ]
   },

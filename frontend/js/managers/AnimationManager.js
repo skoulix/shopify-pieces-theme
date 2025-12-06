@@ -168,7 +168,7 @@ class AnimationManager {
   /**
    * Initialize global intro animations for elements with [data-intro]
    * Uses Intersection Observer for scroll-triggered animations
-   * Respects theme setting for enable_scroll_animations
+   * Respects theme setting for enable_animations
    */
   initIntroAnimations() {
     // If disabled, immediately show all elements

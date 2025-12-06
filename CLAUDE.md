@@ -137,7 +137,7 @@ Example:
 
 The theme has a two-tier animation control system:
 
-1. **Theme Setting**: `settings.enable_scroll_animations` (Layout > "Enable scroll animations")
+1. **Theme Setting**: `settings.enable_animations` (Layout > "Enable animations")
 2. **User Preference**: `prefers-reduced-motion` media query
 
 **Global helper function** (`window.shouldAnimate()`):
