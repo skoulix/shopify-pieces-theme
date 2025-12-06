@@ -23,7 +23,7 @@
     {% if section.settings.menu != blank %}
       <nav aria-label="Footer" class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm">
         {% for link in section.settings.menu.links %}
-          <a href="{{ link.url }}" class="opacity-60 hover:opacity-100 transition-opacity duration-300" {{ block.shopify_attributes }}>
+          <a href="{{ link.url }}" {{ block.shopify_attributes }}>
             {{ link.title }}
           </a>
         {% endfor %}
@@ -82,7 +82,7 @@
     {% endif %}
 
     {%- comment -%} Copyright {%- endcomment -%}
-    <p class="mt-10 text-center text-sm opacity-60">
+    <p class="mt-10 text-center text-sm">
       &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'general.copyright' | t }}
     </p>
 
@@ -90,7 +90,7 @@
     <div class="mt-10 flex justify-center">
       <button
         type="button"
-        class="back-to-top section-link inline-flex items-center gap-2 text-xs font-medium tracking-widest opacity-60 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+        class="back-to-top section-link inline-flex items-center gap-2 text-xs font-medium tracking-widest cursor-pointer"
         data-back-to-top
       >
         <span class="back-to-top-text"><span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span></span>
