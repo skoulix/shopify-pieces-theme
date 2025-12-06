@@ -47,7 +47,7 @@
         "back_to_top"
       ],
       "settings": {
-        "enable_reveal_effect": true,
+        "enable_reveal_effect": false,
         "background_color": "#000000",
         "text_color": "#ffffff"
       }

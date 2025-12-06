@@ -486,11 +486,16 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   updateURL(searchParams) {
-    const url = searchParams
-      ? `${window.location.pathname}?${searchParams}`
+    // Remove section_id from URL params - it's only needed for fetch, not browser URL
+    const params = new URLSearchParams(searchParams);
+    params.delete('section_id');
+
+    const cleanParams = params.toString();
+    const url = cleanParams
+      ? `${window.location.pathname}?${cleanParams}`
       : window.location.pathname;
 
-    history.pushState({ searchParams }, '', url);
+    history.pushState({ searchParams: cleanParams }, '', url);
   }
 
   showLoading() {
