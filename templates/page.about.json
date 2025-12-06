@@ -15,6 +15,7 @@
         "panel_YdyzBG": {
           "type": "panel",
           "settings": {
+            "image": "shopify://shop_images/Snowboarder_in_Serene_Snowy_Landscape.png",
             "title": "Discover Our Story",
             "text": "Every great brand has a story. This is where yours begins.",
             "button_text": "Learn More",
@@ -24,6 +25,7 @@
         "panel_LYWUQm": {
           "type": "panel",
           "settings": {
+            "image": "shopify://shop_images/Mid-Air_Majesty__Snowboarders_Flight_Against_the_Blue.png",
             "title": "Crafted With Care",
             "text": "We believe in quality over quantity. Each product is made to last.",
             "button_text": "Our Process",
@@ -33,6 +35,7 @@
         "panel_FQybEd": {
           "type": "panel",
           "settings": {
+            "image": "shopify://shop_images/hamish-duncan-XO6FSH3H5CE-unsplash.jpg",
             "title": "Join the Movement",
             "text": "Be part of something bigger. Shop consciously, live intentionally.",
             "button_text": "Shop Now",
@@ -49,9 +52,9 @@
       "settings": {
         "show_numbers": true,
         "show_progress": true,
-        "overlay_color": "#000000",
+        "overlay_color": "#0a0a0a",
         "overlay_opacity": 80,
-        "background_color": "#000000",
+        "background_color": "#0a0a0a",
         "text_color": "#ffffff"
       }
     },
@@ -137,9 +140,22 @@
     "stacking_cards": {
       "type": "stacking-cards",
       "blocks": {
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Snowboarder_in_Serene_Snowy_Landscape.png",
+            "title": "Customer Obsessed",
+            "text": "Your satisfaction drives us. We listen, learn, and continuously improve based on your feedback and needs.",
+            "link_text": "",
+            "link": "",
+            "card_background": "#f5f5f5",
+            "card_text_color": ""
+          }
+        },
         "card_1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/photo-1617939532603-2905b4eeb788.jpg",
             "title": "Quality First",
             "text": "We never compromise on materials or craftsmanship. Every product goes through rigorous quality checks before reaching you.",
             "link_text": "",
@@ -151,19 +167,9 @@
         "card_2": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/premium_photo-1664303349447-dbec6205a7b5.jpg",
             "title": "Sustainable By Design",
             "text": "From sourcing to shipping, sustainability is built into everything we do. We're committed to leaving a positive impact.",
-            "link_text": "",
-            "link": "",
-            "card_background": "#f5f5f5",
-            "card_text_color": ""
-          }
-        },
-        "card_3": {
-          "type": "card",
-          "settings": {
-            "title": "Customer Obsessed",
-            "text": "Your satisfaction drives us. We listen, learn, and continuously improve based on your feedback and needs.",
             "link_text": "",
             "link": "",
             "card_background": "#f5f5f5",
@@ -172,9 +178,9 @@
         }
       },
       "block_order": [
+        "card_3",
         "card_1",
-        "card_2",
-        "card_3"
+        "card_2"
       ],
       "settings": {
         "label": "Our Values",
@@ -185,8 +191,8 @@
         "card_background": "#ffffff",
         "card_text_color": "#000000",
         "full_width": false,
-        "background_color": "#ffffff",
-        "text_color": "#000000"
+        "background_color": "#0a0a0a",
+        "text_color": "#ffffff"
       }
     },
     "team": {
@@ -195,6 +201,7 @@
         "member_1": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Cheerful_Sophisticate_in_Pink.png",
             "name": "Alex Thompson",
             "role": "Founder & CEO",
             "bio": "Passionate about creating exceptional products that make a difference.",
@@ -206,6 +213,7 @@
         "member_2": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Professional_Portrait.png",
             "name": "Sarah Chen",
             "role": "Creative Director",
             "bio": "Bringing creative visions to life with an eye for timeless design.",
@@ -217,6 +225,7 @@
         "member_3": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Warm_Portrait_of_a_Smiling_Man.png",
             "name": "Michael Brown",
             "role": "Head of Product",
             "bio": "Obsessed with user experience and product perfection.",
@@ -228,6 +237,7 @@
         "member_4": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Joyful_Portrait.png",
             "name": "Emily Davis",
             "role": "Customer Success",
             "bio": "Dedicated to making sure every customer is happy.",
@@ -356,6 +366,7 @@
         "stat_2"
       ],
       "settings": {
+        "image": "shopify://shop_images/dina-badamshina-vY1dgT-eeSI-unsplash.jpg",
         "image_ratio": "4/5",
         "label": "Our Process",
         "title": "Made With Care",
@@ -364,7 +375,7 @@
         "button_link": "shopify://collections/all",
         "layout": "image_left",
         "full_width": true,
-        "remove_padding": false,
+        "remove_padding": true,
         "background_color": "#ffffff",
         "text_color": "#000000"
       }

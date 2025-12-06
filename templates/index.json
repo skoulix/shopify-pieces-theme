@@ -274,9 +274,9 @@
         "privacy_text": "We care about your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "background_color": "#000000",
+        "background_color": "#0a0a0a",
         "text_color": "#ffffff",
-        "card_color": "#000000"
+        "card_color": "rgba(0,0,0,0)"
       }
     }
   },

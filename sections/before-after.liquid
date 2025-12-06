@@ -15,6 +15,9 @@
     background-color: {{ section.settings.background_color }};
     color: {{ section.settings.text_color }};
     padding: var(--section-vertical-padding) 0;
+    {% if section.settings.full_width %}
+    padding-bottom: 0;
+    {% endif %}
   }
 
   .before-after-header-{{ section.id }} {
