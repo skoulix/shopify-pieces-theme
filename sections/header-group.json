@@ -19,8 +19,7 @@
         "sticky_header": true,
         "hide_on_scroll": true,
         "transparent_home": true,
-        "transparent_text_color": "#ffffff",
-        "transparent_logo_color": "#ffffff"
+        "transparent_text_color": "#ffffff"
       }
     }
   },
