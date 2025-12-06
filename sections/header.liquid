@@ -9,6 +9,11 @@
   else
     assign nav_class = 'page-container'
   endif
+
+  assign is_transparent = false
+  if section.settings.transparent_home and request.page_type == 'index'
+    assign is_transparent = true
+  endif
 -%}
 
 <style>
@@ -24,7 +29,7 @@
     top: 0;
     left: 0;
     right: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
   }
 
   .header-group.is-hidden {
@@ -39,10 +44,48 @@
   .header-group.is-sticky + .header-spacer {
     display: block;
   }
+
+  /* Transparent header styles */
+  .header-group.is-transparent .header-inner {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .header-group.is-transparent .header-inner,
+  .header-group.is-transparent .header-inner a,
+  .header-group.is-transparent .header-inner button,
+  .header-group.is-transparent .header-inner [data-cart-count] {
+    color: {{ section.settings.transparent_text_color }};
+  }
+
+
+  /* When scrolled, revert to solid background */
+  .header-group.is-transparent.is-scrolled .header-inner {
+    background: var(--color-background);
+    border-color: var(--color-border);
+  }
+
+  .header-group.is-transparent.is-scrolled .header-inner,
+  .header-group.is-transparent.is-scrolled .header-inner a,
+  .header-group.is-transparent.is-scrolled .header-inner button,
+  .header-group.is-transparent.is-scrolled .header-inner [data-cart-count] {
+    color: var(--color-text);
+  }
+
+
+  .header-group.is-transparent.is-scrolled .header-inner a:hover,
+  .header-group.is-transparent.is-scrolled .header-inner button:hover {
+    color: var(--color-primary);
+  }
+
+  /* Transparent header spacer should be hidden */
+  .header-group.is-transparent + .header-spacer {
+    display: none;
+  }
 </style>
 
-<div class="header-group{% if section.settings.sticky_header %} is-sticky{% endif %}" data-header-group{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}>
-  <header class="border-b bg-[--color-background] border-[--color-border]" data-header>
+<div class="header-group{% if section.settings.sticky_header %} is-sticky{% endif %}{% if is_transparent %} is-transparent{% endif %}" data-header-group{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}{% if is_transparent %} data-transparent-header{% endif %}>
+  <header class="header-inner border-b bg-[--color-background] border-[--color-border] transition-colors duration-300" data-header>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
     {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
     <div class="flex lg:flex-1">
@@ -581,6 +624,53 @@
     window.addEventListener('resize', updateSpacerHeight);
     window.addEventListener('swup:contentReplaced', updateSpacerHeight);
   }
+
+  /**
+   * Transparent header scroll state
+   * Adds is-scrolled class when user scrolls past threshold
+   */
+  const transparentHeader = document.querySelector('[data-transparent-header]');
+  if (transparentHeader) {
+    const scrolledThreshold = 50;
+
+    function updateScrolledState(scrollY) {
+      if (scrollY > scrolledThreshold) {
+        transparentHeader.classList.add('is-scrolled');
+      } else {
+        transparentHeader.classList.remove('is-scrolled');
+      }
+    }
+
+    // Try Lenis first, fall back to native scroll
+    function attachTransparentScroll() {
+      if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
+        window.pieces.lenis.lenis.on('scroll', (e) => {
+          updateScrolledState(e.scroll);
+        });
+        return true;
+      }
+      return false;
+    }
+
+    let transparentAttempts = 0;
+    function tryAttachTransparent() {
+      if (attachTransparentScroll()) return;
+      transparentAttempts++;
+      if (transparentAttempts < 30) {
+        setTimeout(tryAttachTransparent, 100);
+      } else {
+        // Fallback to native scroll
+        window.addEventListener('scroll', () => {
+          updateScrolledState(window.scrollY);
+        }, { passive: true });
+      }
+    }
+
+    tryAttachTransparent();
+
+    // Check initial state
+    updateScrolledState(window.scrollY);
+  }
 })();
 </script>
 
@@ -617,6 +707,24 @@
       "default": true,
       "label": "Hide on scroll down",
       "info": "Hide header when scrolling down, reveal when scrolling up"
+    },
+    {
+      "type": "header",
+      "content": "Transparent header"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_home",
+      "default": false,
+      "label": "Transparent on homepage",
+      "info": "Header overlays content with transparent background on homepage"
+    },
+    {
+      "type": "color",
+      "id": "transparent_text_color",
+      "label": "Text color",
+      "default": "#ffffff",
+      "info": "Color for links, text, and icons when transparent"
     }
   ]
 }
