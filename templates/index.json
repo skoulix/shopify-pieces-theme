@@ -251,31 +251,32 @@
         "logo_6"
       ],
       "settings": {
-        "label": "As Seen In",
+        "label": "",
         "header_alignment": "center",
         "direction": "left",
         "speed": 30,
         "logo_height": 40,
         "logo_max_width": 200,
         "logo_opacity": 100,
-        "grayscale": false,
+        "grayscale": true,
+        "invert": false,
         "full_width": true,
-        "background_color": "#ffffff",
-        "text_color": "#000000"
+        "background_color": "#efe3a4",
+        "text_color": "#ffffff"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "card",
+        "design": "side-by-side",
         "title": "Stay Updated",
         "text": "Subscribe to our newsletter for exclusive updates, new arrivals, and special offers.",
         "button_text": "Subscribe",
         "privacy_text": "We care about your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "background_color": "#0a0a0a",
-        "text_color": "#ffffff",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
         "card_color": "rgba(0,0,0,0)"
       }
     }
