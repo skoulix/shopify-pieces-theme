@@ -1,0 +1,804 @@
+{%- comment -%}
+  Hero Orbit Section
+  Inspired by tympanus.net/Development/EntranceAnimationForImages
+  Three animation styles: Orbit, Cascade, Spiral
+{%- endcomment -%}
+
+<style>
+  .hero-orbit-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .hero-orbit-scene-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    perspective: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-orbit-container-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-orbit-group-{{ section.id }} {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 1px;
+    transform-style: preserve-3d;
+  }
+
+  .hero-orbit-card-{{ section.id }} {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    will-change: transform, opacity;
+    transform-style: preserve-3d;
+  }
+
+  .hero-orbit-card-inner-{{ section.id }} {
+    width: clamp(80px, 15vw, 120px);
+    aspect-ratio: 2/3;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background: {{ section.settings.card_background }};
+  }
+
+  .hero-orbit-card-img-{{ section.id }} {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: {{ section.settings.image_fit }};
+    object-position: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero-orbit-card-inner-{{ section.id }} {
+      width: clamp(100px, 12vw, 140px);
+    }
+  }
+
+  .hero-orbit-overlay-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.overlay_color }};
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .hero-orbit-content-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--page-padding);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .hero-orbit-headings-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-orbit-title-{{ section.id }} {
+    font-size: calc(clamp(3rem, 15vw, 8rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.85;
+    margin: 0;
+    opacity: 0;
+    filter: blur(10px);
+    will-change: opacity, filter;
+  }
+
+  .hero-orbit-subtitle-{{ section.id }} {
+    font-size: clamp(0.875rem, 2vw, 1.25rem);
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0;
+    filter: blur(5px);
+    will-change: opacity, filter;
+  }
+
+  .hero-orbit-cta-{{ section.id }} {
+    margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: auto;
+    will-change: opacity, transform;
+  }
+
+  .hero-orbit-cta-{{ section.id }} .btn--secondary {
+    color: {{ section.settings.text_color }};
+    border-color: {{ section.settings.text_color }};
+  }
+
+  .hero-orbit-cta-{{ section.id }} .btn--secondary::before {
+    background: {{ section.settings.text_color }};
+  }
+
+  .hero-orbit-cta-{{ section.id }} .btn--secondary:hover,
+  .hero-orbit-cta-{{ section.id }} .btn--secondary:hover span,
+  .hero-orbit-cta-{{ section.id }} .btn--secondary:hover i {
+    color: {{ section.settings.background_color }};
+  }
+
+  .hero-orbit-scroll-{{ section.id }} {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    pointer-events: auto;
+    z-index: 10;
+  }
+
+  .hero-orbit-scroll-{{ section.id }} span {
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .hero-orbit-scroll-{{ section.id }} i {
+    font-size: 1.25rem;
+    animation: hero-orbit-bounce-{{ section.id }} 2s ease-in-out infinite;
+  }
+
+  @keyframes hero-orbit-bounce-{{ section.id }} {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* Loading state */
+  .hero-orbit-{{ section.id }}.is-loading .hero-orbit-card-{{ section.id }} {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  /* Note: This section requires animation to function - ignores theme animation settings */
+</style>
+
+<section
+  class="hero-orbit-{{ section.id }} is-loading"
+  data-hero-orbit="{{ section.id }}"
+  data-animation-style="{{ section.settings.animation_style }}"
+>
+  <div class="hero-orbit-scene-{{ section.id }}" data-orbit-scene>
+    <div class="hero-orbit-container-{{ section.id }}" data-orbit-container>
+      <div class="hero-orbit-group-{{ section.id }}" data-orbit-group>
+        {% for block in section.blocks %}
+          <div
+            class="hero-orbit-card-{{ section.id }}"
+            data-orbit-card="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="hero-orbit-card-inner-{{ section.id }}">
+              {% if block.settings.image != blank %}
+                <img
+                  class="hero-orbit-card-img-{{ section.id }}"
+                  src="{{ block.settings.image | image_url: width: 400 }}"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
+                  loading="eager"
+                >
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% if section.settings.overlay_opacity > 0 %}
+    <div class="hero-orbit-overlay-{{ section.id }}"></div>
+  {% endif %}
+
+  <div class="hero-orbit-content-{{ section.id }}">
+    <div class="hero-orbit-headings-{{ section.id }}">
+      {% if section.settings.title_line_1 != blank %}
+        <h1 class="hero-orbit-title-{{ section.id }} font-heading" data-orbit-title>
+          {{ section.settings.title_line_1 }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.title_line_2 != blank %}
+        <h1 class="hero-orbit-title-{{ section.id }} font-heading" data-orbit-title>
+          {{ section.settings.title_line_2 }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <p class="hero-orbit-subtitle-{{ section.id }}" data-orbit-subtitle>
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+    </div>
+
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <div class="hero-orbit-cta-{{ section.id }}" data-orbit-cta>
+        <a href="{{ section.settings.button_link }}" class="btn btn--secondary">
+          <span>{{ section.settings.button_text }}</span>
+          <i class="ph ph-arrow-right"></i>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.show_scroll_indicator %}
+    <div class="hero-orbit-scroll-{{ section.id }}" data-orbit-scroll>
+      <span>Scroll</span>
+      <i class="ph ph-caret-down"></i>
+    </div>
+  {% endif %}
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-hero-orbit="{{ section.id }}"]');
+  if (!section || section.dataset.heroOrbitInitialized) return;
+  section.dataset.heroOrbitInitialized = 'true';
+
+  const animationStyle = section.dataset.animationStyle || 'orbit';
+
+  function initAnimation() {
+    const gsap = window.gsap || (window.pieces && window.pieces.gsap);
+    if (!gsap) {
+      setTimeout(initAnimation, 50);
+      return;
+    }
+
+    const group = section.querySelector('[data-orbit-group]');
+    const cards = section.querySelectorAll('[data-orbit-card]');
+    const titles = section.querySelectorAll('[data-orbit-title]');
+    const subtitle = section.querySelector('[data-orbit-subtitle]');
+    const cta = section.querySelector('[data-orbit-cta]');
+    const scroll = section.querySelector('[data-orbit-scroll]');
+
+    const cardCount = cards.length;
+    if (cardCount === 0) return;
+
+    // Get card dimensions for calculations
+    const cardImg = cards[0]?.querySelector('div');
+    const cardHeight = cardImg?.offsetHeight || 180;
+
+    // Responsive radius
+    const isMobile = window.innerWidth < 768;
+    const radius = isMobile ? Math.min(window.innerWidth * 0.35, 150) : Math.min(window.innerWidth * 0.25, 280);
+    const radius2 = isMobile ? Math.min(window.innerWidth * 0.3, 130) : Math.min(window.innerWidth * 0.2, 220);
+
+    // Calculate positions for each card in a circle
+    const sliceAngle = (2 * Math.PI) / cardCount;
+    const cardTilt = {{ section.settings.card_tilt }};
+
+    // Preload images
+    const images = section.querySelectorAll('[data-orbit-card] img');
+    let loadedCount = 0;
+    const totalImages = images.length || 1;
+
+    function checkAllLoaded() {
+      loadedCount++;
+      if (loadedCount >= totalImages) {
+        runAnimation();
+      }
+    }
+
+    // Check if images are already loaded or wait for them
+    if (images.length === 0) {
+      // No images, just placeholders
+      runAnimation();
+    } else {
+      images.forEach(img => {
+        if (img.complete) {
+          checkAllLoaded();
+        } else {
+          img.onload = checkAllLoaded;
+          img.onerror = checkAllLoaded;
+        }
+      });
+    }
+
+    function runAnimation() {
+      section.classList.remove('is-loading');
+
+      switch(animationStyle) {
+        case 'cascade':
+          runCascadeAnimation();
+          break;
+        case 'spiral':
+          runSpiralAnimation();
+          break;
+        default:
+          runOrbitAnimation();
+      }
+    }
+
+    // Animation Style 1: Orbit - Cards expand from center in a circle
+    function runOrbitAnimation() {
+      const tl = gsap.timeline();
+      const entranceDuration = 1.2;
+      const staggerDelay = 0.08;
+
+      // Set initial card states
+      cards.forEach((card) => {
+        gsap.set(card, {
+          opacity: 0,
+          scale: 0,
+          x: 0,
+          y: 0,
+          rotation: 0
+        });
+      });
+
+      // Animate cards from center to circular positions
+      cards.forEach((card, index) => {
+        const angle = sliceAngle * index - Math.PI / 2; // Start from top
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        tl.to(card, {
+          opacity: 1,
+          scale: 1,
+          x: x,
+          y: y,
+          rotation: cardTilt,
+          duration: entranceDuration,
+          ease: 'expo.out'
+        }, index * staggerDelay);
+      });
+
+      animateContent(tl, 0.6);
+
+      // Start continuous animation after entrance completes
+      tl.add(() => {
+        setupContinuousAnimation();
+      });
+    }
+
+    // Animation Style 2: Cascade - Cards flip up from below with 3D rotation
+    function runCascadeAnimation() {
+      const tl = gsap.timeline();
+      const viewportHeight = window.innerHeight;
+
+      // Set initial card states - below viewport with rotation
+      cards.forEach((card) => {
+        gsap.set(card, {
+          opacity: 0,
+          y: viewportHeight / 2 + cardHeight * 1.5,
+          rotateX: -180,
+          scale: 2.5
+        });
+      });
+
+      // Phase 1: Cards flip up from below
+      cards.forEach((card, index) => {
+        tl.to(card, {
+          opacity: 1,
+          y: -radius,
+          rotateX: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: 'power2.out'
+        }, index * 0.1);
+      });
+
+      // Phase 2: Cards spread into circle
+      cards.forEach((card, index) => {
+        const angle = sliceAngle * index - Math.PI / 4;
+        const x = radius2 * Math.cos(angle);
+        const y = radius2 * Math.sin(angle) - radius * 0.3;
+
+        tl.to(card, {
+          x: x,
+          y: y,
+          rotation: cardTilt,
+          duration: 1,
+          ease: 'expo.out'
+        }, 0.6 + index * 0.05);
+      });
+
+      // Phase 3: Flip cards
+      cards.forEach((card, index) => {
+        const cardInner = card.querySelector('div');
+        if (cardInner) {
+          tl.to(cardInner, {
+            rotationY: 180,
+            duration: 0.8,
+            ease: 'power2.inOut'
+          }, 1.2 + index * 0.05);
+        }
+      });
+
+      animateContent(tl, 1.4);
+
+      // Start continuous animation after entrance completes
+      tl.add(() => {
+        setupContinuousAnimation();
+      });
+    }
+
+    // Animation Style 3: Spiral - Cards enter from sides and spiral in
+    function runSpiralAnimation() {
+      const tl = gsap.timeline();
+      const viewportWidth = window.innerWidth;
+
+      // Set initial card states - off screen left/right alternating
+      cards.forEach((card, index) => {
+        const isOdd = index % 2 === 1;
+        gsap.set(card, {
+          opacity: 0,
+          x: isOdd ? -viewportWidth / 2 : viewportWidth / 2,
+          y: 0,
+          rotation: isOdd ? -90 : 90,
+          scale: 3
+        });
+      });
+
+      // Phase 1: Cards fly in from sides with stagger
+      cards.forEach((card, index) => {
+        const pairIndex = Math.floor(index / 2);
+        tl.to(card, {
+          opacity: 1,
+          x: 0,
+          rotation: 0,
+          scale: 1,
+          duration: 0.7,
+          ease: 'power3.out'
+        }, pairIndex * 0.15);
+      });
+
+      // Phase 2: Cards move to top position
+      cards.forEach((card, index) => {
+        tl.to(card, {
+          y: -radius,
+          duration: 0.5,
+          ease: 'power2.out'
+        }, 0.8);
+      });
+
+      // Phase 3: Cards spiral into circle formation
+      cards.forEach((card, index) => {
+        const angle = sliceAngle * index - Math.PI / 2;
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+
+        tl.to(card, {
+          x: x,
+          y: y,
+          rotation: cardTilt,
+          duration: 1.2,
+          ease: 'expo.out'
+        }, 1.3 + index * 0.06);
+      });
+
+      animateContent(tl, 1.6);
+
+      // Start continuous animation after entrance completes
+      tl.add(() => {
+        setupContinuousAnimation();
+      });
+    }
+
+    // Animate text content
+    function animateContent(tl, startTime) {
+      // Fade in titles with blur removal
+      if (titles.length) {
+        tl.to(titles, {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power2.out'
+        }, startTime);
+      }
+
+      // Fade in subtitle
+      if (subtitle) {
+        tl.to(subtitle, {
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 0.6,
+          ease: 'power2.out'
+        }, startTime + 0.3);
+      }
+
+      // Fade in CTA
+      if (cta) {
+        tl.to(cta, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out'
+        }, startTime + 0.4);
+      }
+
+      // Fade in scroll indicator
+      if (scroll) {
+        tl.to(scroll, {
+          opacity: 0.6,
+          duration: 0.6,
+          ease: 'power2.out'
+        }, startTime + 0.6);
+      }
+    }
+
+    // Setup continuous animations
+    function setupContinuousAnimation() {
+      // Continuous slow rotation
+      {% if section.settings.enable_rotation %}
+      gsap.to(group, {
+        rotation: '-=360',
+        duration: {{ section.settings.rotation_speed }},
+        ease: 'none',
+        repeat: -1
+      });
+
+      // Counter-rotate cards to keep them upright while preserving their tilt
+      cards.forEach((card, index) => {
+        gsap.to(card, {
+          rotation: '+=' + 360,
+          duration: {{ section.settings.rotation_speed }},
+          ease: 'none',
+          repeat: -1
+        });
+      });
+      {% endif %}
+
+      // Random card flip effect
+      {% if section.settings.enable_flip %}
+      function flipRandomCard() {
+        const randomIndex = Math.floor(Math.random() * cardCount);
+        const card = cards[randomIndex];
+        const cardInner = card.querySelector('div');
+
+        if (cardInner) {
+          gsap.to(cardInner, {
+            rotationY: '+=180',
+            duration: 0.6,
+            ease: 'power2.inOut'
+          });
+        }
+      }
+
+      // Flip a random card every 2 seconds
+      setInterval(flipRandomCard, 2000);
+      {% endif %}
+    }
+  }
+
+  // Start when ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    initAnimation();
+  }
+
+  // Cleanup on Swup navigation
+  window.addEventListener('swup:willReplaceContent', function cleanup() {
+    window.removeEventListener('swup:willReplaceContent', cleanup);
+  }, { once: true });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hero Orbit",
+  "tag": "section",
+  "class": "hero-orbit-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "default": "Celestial",
+      "label": "Title line 1"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "default": "Visions",
+      "label": "Title line 2"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "2024",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "default": true,
+      "label": "Show scroll indicator"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "animation_style",
+      "label": "Animation style",
+      "options": [
+        {
+          "value": "orbit",
+          "label": "Orbit - Expand from center"
+        },
+        {
+          "value": "cascade",
+          "label": "Cascade - Flip up from below"
+        },
+        {
+          "value": "spiral",
+          "label": "Spiral - Enter from sides"
+        }
+      ],
+      "default": "orbit",
+      "info": "Choose how images animate into the circle"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_rotation",
+      "default": true,
+      "label": "Enable continuous rotation"
+    },
+    {
+      "type": "range",
+      "id": "rotation_speed",
+      "min": 20,
+      "max": 120,
+      "step": 10,
+      "default": 60,
+      "unit": "s",
+      "label": "Rotation speed",
+      "info": "Time for one full rotation"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_flip",
+      "default": false,
+      "label": "Enable random card flips"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#0a0a0a",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#ffffff",
+      "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "default": "#000000",
+      "label": "Overlay color"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "info": "Darkens the background for better text readability"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Image fit",
+      "options": [
+        {
+          "value": "cover",
+          "label": "Cover"
+        },
+        {
+          "value": "contain",
+          "label": "Contain"
+        }
+      ],
+      "default": "cover",
+      "info": "Cover fills the card, Contain shows the full image"
+    },
+    {
+      "type": "range",
+      "id": "card_tilt",
+      "min": -30,
+      "max": 30,
+      "step": 1,
+      "default": -15,
+      "unit": "°",
+      "label": "Card tilt",
+      "info": "Subtle creative tilt applied to all cards"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Orbit",
+      "category": "Image & media",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
