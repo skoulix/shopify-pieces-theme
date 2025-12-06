@@ -62,15 +62,27 @@
     {% endif %}
   </div>
 
-  <div class="hero-content relative z-10 w-full pt-32 {{ container_class }}" style="color: {{ section.settings.text_color }};">
+  {%- liquid
+    case section.settings.content_alignment
+      when 'center'
+        assign align_class = 'items-center text-center'
+        assign title_align = 'text-center'
+        assign subtitle_align = 'mx-auto text-center'
+      else
+        assign align_class = 'items-start text-left'
+        assign title_align = ''
+        assign subtitle_align = ''
+    endcase
+  -%}
+  <div class="hero-content relative z-10 w-full pt-32 flex flex-col {{ align_class }} {{ container_class }}" style="color: {{ section.settings.text_color }};">
     {% if section.settings.title != blank %}
-      <h1 class="hero-title font-bold font-heading" data-hero-title>
+      <h1 class="hero-title font-bold font-heading {{ title_align }}" data-hero-title>
         {{ section.settings.title }}
       </h1>
     {% endif %}
 
     {% if section.settings.subtitle != blank %}
-      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80" data-hero-subtitle>
+      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80 {{ subtitle_align }}" data-hero-subtitle>
         {{ section.settings.subtitle }}
       </p>
     {% endif %}
@@ -84,7 +96,7 @@
   </div>
 
   {% if section.settings.show_scroll_indicator %}
-    <div class="absolute bottom-8 right-[--page-padding] flex flex-col items-center gap-2 opacity-60 z-10" data-hero-scroll>
+    <div class="absolute bottom-8 right-[--page-padding] flex flex-col items-center gap-2 opacity-60 z-10" style="color: {{ section.settings.text_color }};" data-hero-scroll>
       <span class="text-[0.65rem] uppercase tracking-[0.2em] [writing-mode:vertical-rl]">Scroll</span>
       <div class="hero-scroll-line w-px h-[60px] bg-current origin-top"></div>
     </div>
@@ -261,6 +273,16 @@
       "id": "subtitle",
       "default": "Discover our curated collection of premium products designed for the modern lifestyle.",
       "label": "Subtitle"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left",
+      "label": "Content alignment"
     },
     {
       "type": "text",
