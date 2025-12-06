@@ -36,11 +36,25 @@
     display: flex;
     gap: 1.5rem;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    align-items: stretch;
   }
 
   .related-products-{{ section.id }} .related-products__slide {
     flex: 0 0 calc(100% - 2rem);
     min-width: 0;
+    display: flex;
+  }
+
+  .related-products-{{ section.id }} .related-products__slide .product-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .related-products-{{ section.id }} .related-products__slide .product-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   @media (min-width: 640px) {
@@ -246,7 +260,7 @@
         </div>
 
         {%- comment -%} Products will be loaded here via JS {%- endcomment -%}
-        <div class="related-products__carousel" data-carousel-track style="display: none;">
+        <div class="related-products__carousel p-1.5" data-carousel-track style="display: none;">
           {% if recommendations.performed and recommendations.products_count > 0 %}
             {% for recommendation in recommendations.products %}
               <div class="related-products__slide">

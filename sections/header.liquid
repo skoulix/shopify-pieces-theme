@@ -446,7 +446,8 @@
     let lastScrollY = 0;
     const scrollThreshold = 50; // Min scroll before hiding
     const scrollDelta = 5; // Min scroll delta to trigger hide/show
-    let lenisScrollHandler = null;
+    let lenisAttached = false;
+    let nativeAttached = false;
 
     function updateHeaderVisibility(currentScrollY) {
       const scrollDiff = currentScrollY - lastScrollY;
@@ -473,27 +474,25 @@
       lastScrollY = currentScrollY;
     }
 
+    // Lenis scroll handler function
+    function onLenisScroll(lenisInstance) {
+      updateHeaderVisibility(lenisInstance.scroll);
+    }
+
     // Try to attach to Lenis scroll event
     function attachToLenis() {
       // Check if Lenis is available via window.pieces
       if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
         const lenis = window.pieces.lenis.lenis;
 
-        // Remove any previous handler
-        if (lenisScrollHandler) {
-          lenis.off('scroll', lenisScrollHandler);
+        if (!lenisAttached) {
+          // Attach to Lenis scroll event
+          lenis.on('scroll', onLenisScroll);
+          lenisAttached = true;
+
+          // Initialize with current scroll position
+          lastScrollY = lenis.scroll;
         }
-
-        // Create scroll handler - Lenis passes the lenis instance as the argument
-        lenisScrollHandler = function(lenisInstance) {
-          updateHeaderVisibility(lenisInstance.scroll);
-        };
-
-        // Attach to Lenis scroll event
-        lenis.on('scroll', lenisScrollHandler);
-
-        // Initialize with current scroll position
-        lastScrollY = lenis.scroll;
 
         return true;
       }
@@ -501,18 +500,22 @@
     }
 
     // Fallback to native scroll for when Lenis is not available
-    function attachNativeScroll() {
-      let ticking = false;
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            updateHeaderVisibility(window.scrollY);
-            ticking = false;
-          });
-          ticking = true;
-        }
+    let ticking = false;
+    function onNativeScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateHeaderVisibility(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
       }
-      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    function attachNativeScroll() {
+      if (!nativeAttached) {
+        window.addEventListener('scroll', onNativeScroll, { passive: true });
+        nativeAttached = true;
+      }
     }
 
     // Try to attach to Lenis, poll until available or fall back to native
@@ -521,6 +524,8 @@
 
     function tryAttach() {
       if (attachToLenis()) {
+        // Also attach native scroll as backup (some browsers/edge cases)
+        attachNativeScroll();
         return; // Successfully attached to Lenis
       }
 
