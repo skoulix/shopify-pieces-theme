@@ -13,11 +13,41 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "navigation": {
+          "type": "navigation",
+          "settings": {
+            "menu": "footer"
+          }
+        },
+        "social": {
+          "type": "social",
+          "settings": {}
+        },
+        "payment": {
+          "type": "payment",
+          "settings": {
+            "grayscale": false
+          }
+        },
+        "copyright": {
+          "type": "copyright",
+          "settings": {}
+        },
+        "back_to_top": {
+          "type": "back_to_top",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "navigation",
+        "social",
+        "payment",
+        "copyright",
+        "back_to_top"
+      ],
       "settings": {
-        "menu": "footer",
         "enable_reveal_effect": true,
-        "show_social": true,
-        "show_payment_icons": true,
         "background_color": "#000000",
         "text_color": "#ffffff"
       }

@@ -1,6 +1,6 @@
 {%- comment -%}
-  Footer Section - Simple centered footer
-  Layout: Nav links (centered), Social icons, Copyright
+  Footer Section - Block-based footer
+  Each element (nav, socials, payment, copyright, back to top) is a separate block
 {%- endcomment -%}
 
 <style>
@@ -14,89 +14,112 @@
   .back-to-top-text span { display: inline-block; transition: transform 0.3s ease; }
   .back-to-top-text span::after { content: attr(data-hover); position: absolute; left: 0; top: 100%; white-space: nowrap; }
   .back-to-top:hover .back-to-top-text span { transform: translateY(-100%); }
+  .footer-block + .footer-block { margin-top: 2.5rem; }
 </style>
 
 <div class="footer-wrapper" data-footer-wrapper>
 <footer class="footer-section overflow-hidden" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};" data-footer-section>
   <div class="page-container footer-content-{{ section.id }}" data-footer-content>
-    {%- comment -%} Navigation Links - Centered {%- endcomment -%}
-    {% if section.settings.menu != blank %}
-      <nav aria-label="Footer" class="-mb-6 flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm">
-        {% for link in section.settings.menu.links %}
-          <a href="{{ link.url }}" {{ block.shopify_attributes }}>
-            {{ link.title }}
-          </a>
-        {% endfor %}
-      </nav>
-    {% endif %}
+    {% for block in section.blocks %}
+      {% case block.type %}
 
-    {%- comment -%} Social Links - Centered {%- endcomment -%}
-    {% if section.settings.show_social %}
-      <div class="mt-16 flex justify-center gap-x-5">
-        {% if settings.social_instagram_link != blank %}
-          <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">Instagram</span>
-            <i class="ph ph-instagram-logo text-2xl"></i>
-          </a>
-        {% endif %}
-        {% if settings.social_facebook_link != blank %}
-          <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">Facebook</span>
-            <i class="ph ph-facebook-logo text-2xl"></i>
-          </a>
-        {% endif %}
-        {% if settings.social_twitter_link != blank %}
-          <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">X</span>
-            <i class="ph ph-x-logo text-2xl"></i>
-          </a>
-        {% endif %}
-        {% if settings.social_tiktok_link != blank %}
-          <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">TikTok</span>
-            <i class="ph ph-tiktok-logo text-2xl"></i>
-          </a>
-        {% endif %}
-        {% if settings.social_pinterest_link != blank %}
-          <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">Pinterest</span>
-            <i class="ph ph-pinterest-logo text-2xl"></i>
-          </a>
-        {% endif %}
-        {% if settings.social_youtube_link != blank %}
-          <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span class="sr-only">YouTube</span>
-            <i class="ph ph-youtube-logo text-2xl"></i>
-          </a>
-        {% endif %}
-      </div>
-    {% endif %}
+        {% when 'navigation' %}
+          {%- comment -%} Navigation Links {%- endcomment -%}
+          {% if block.settings.menu != blank %}
+            <nav
+              aria-label="Footer"
+              class="footer-block flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm {% if block.settings.uppercase %}uppercase tracking-wider{% endif %}"
+              {% if block.settings.color != blank %}style="color: {{ block.settings.color }};"{% endif %}
+              {{ block.shopify_attributes }}
+            >
+              {% for link in block.settings.menu.links %}
+                <a href="{{ link.url }}">
+                  {{ link.title }}
+                </a>
+              {% endfor %}
+            </nav>
+          {% endif %}
 
-    {%- comment -%} Payment Icons {%- endcomment -%}
-    {% if section.settings.show_payment_icons %}
-      <div class="mt-10 flex flex-wrap justify-center gap-3 {% if section.settings.grayscale_payment_icons %}grayscale opacity-60{% endif %}">
-        {% for type in shop.enabled_payment_types %}
-          {{ type | payment_type_svg_tag: class: 'h-6' }}
-        {% endfor %}
-      </div>
-    {% endif %}
+        {% when 'social' %}
+          {%- comment -%} Social Links {%- endcomment -%}
+          <div class="footer-block flex justify-center gap-x-5" {{ block.shopify_attributes }}>
+            {% if settings.social_instagram_link != blank %}
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">Instagram</span>
+                <i class="ph ph-instagram-logo text-2xl"></i>
+              </a>
+            {% endif %}
+            {% if settings.social_facebook_link != blank %}
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">Facebook</span>
+                <i class="ph ph-facebook-logo text-2xl"></i>
+              </a>
+            {% endif %}
+            {% if settings.social_twitter_link != blank %}
+              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">X</span>
+                <i class="ph ph-x-logo text-2xl"></i>
+              </a>
+            {% endif %}
+            {% if settings.social_tiktok_link != blank %}
+              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">TikTok</span>
+                <i class="ph ph-tiktok-logo text-2xl"></i>
+              </a>
+            {% endif %}
+            {% if settings.social_pinterest_link != blank %}
+              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">Pinterest</span>
+                <i class="ph ph-pinterest-logo text-2xl"></i>
+              </a>
+            {% endif %}
+            {% if settings.social_youtube_link != blank %}
+              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <span class="sr-only">YouTube</span>
+                <i class="ph ph-youtube-logo text-2xl"></i>
+              </a>
+            {% endif %}
+          </div>
 
-    {%- comment -%} Copyright {%- endcomment -%}
-    <p class="mt-10 text-center text-sm">
-      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'general.copyright' | t }}
-    </p>
+        {% when 'payment' %}
+          {%- comment -%} Payment Icons {%- endcomment -%}
+          <div class="footer-block flex flex-wrap justify-center gap-3 {% if block.settings.grayscale %}grayscale opacity-60{% endif %}" {{ block.shopify_attributes }}>
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag: class: 'h-6' }}
+            {% endfor %}
+          </div>
 
-    {%- comment -%} Back to Top {%- endcomment -%}
-    <div class="mt-10 flex justify-center">
-      <button
-        type="button"
-        class="back-to-top section-link inline-flex items-center gap-2 text-xs font-medium tracking-widest cursor-pointer"
-        data-back-to-top
-      >
-        <span class="back-to-top-text"><span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span></span>
-        <i class="ph ph-arrow-up"></i>
-      </button>
-    </div>
+        {% when 'copyright' %}
+          {%- comment -%} Copyright {%- endcomment -%}
+          <p class="footer-block text-center text-sm" {{ block.shopify_attributes }}>
+            &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ 'general.copyright' | t }}
+          </p>
+
+        {% when 'back_to_top' %}
+          {%- comment -%} Back to Top {%- endcomment -%}
+          <div class="footer-block flex justify-center" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="back-to-top section-link inline-flex items-center gap-2 text-xs font-medium tracking-widest cursor-pointer"
+              data-back-to-top
+            >
+              <span class="back-to-top-text"><span data-hover="{{ 'general.back_to_top' | t }}">{{ 'general.back_to_top' | t }}</span></span>
+              <i class="ph ph-arrow-up"></i>
+            </button>
+          </div>
+
+        {% when 'text' %}
+          {%- comment -%} Custom Text {%- endcomment -%}
+          <div class="footer-block text-center text-sm" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </div>
+
+        {% when 'spacer' %}
+          {%- comment -%} Spacer {%- endcomment -%}
+          <div class="footer-block" style="height: {{ block.settings.height }}px;" {{ block.shopify_attributes }}></div>
+
+      {% endcase %}
+    {% endfor %}
   </div>
 </footer>
 </div>
@@ -232,16 +255,6 @@
   "settings": [
     {
       "type": "header",
-      "content": "Navigation"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "footer"
-    },
-    {
-      "type": "header",
       "content": "Layout"
     },
     {
@@ -250,29 +263,6 @@
       "default": true,
       "label": "Enable reveal effect",
       "info": "Footer stays fixed at the bottom and is revealed as you scroll past the content"
-    },
-    {
-      "type": "header",
-      "content": "Social & Payment"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social",
-      "label": "Show social links",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "Show payment icons",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "grayscale_payment_icons",
-      "label": "Grayscale payment icons",
-      "default": false,
-      "info": "Display payment icons in grayscale for a more minimal look"
     },
     {
       "type": "header",
@@ -291,9 +281,107 @@
       "label": "Text color"
     }
   ],
+  "blocks": [
+    {
+      "type": "navigation",
+      "name": "Navigation",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu",
+          "default": "footer"
+        },
+        {
+          "type": "checkbox",
+          "id": "uppercase",
+          "label": "Uppercase",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "color",
+          "label": "Link color",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social links",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Social links can be managed in Theme settings > Social media"
+        }
+      ]
+    },
+    {
+      "type": "payment",
+      "name": "Payment icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "grayscale",
+          "label": "Grayscale",
+          "default": false,
+          "info": "Display payment icons in grayscale for a more minimal look"
+        }
+      ]
+    },
+    {
+      "type": "copyright",
+      "name": "Copyright",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "back_to_top",
+      "name": "Back to top",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Custom footer text</p>"
+        }
+      ]
+    },
+    {
+      "type": "spacer",
+      "name": "Spacer",
+      "settings": [
+        {
+          "type": "range",
+          "id": "height",
+          "min": 10,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Height",
+          "default": 40
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Footer"
+      "name": "Footer",
+      "blocks": [
+        { "type": "navigation" },
+        { "type": "social" },
+        { "type": "payment" },
+        { "type": "copyright" },
+        { "type": "back_to_top" }
+      ]
     }
   ]
 }
