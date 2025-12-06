@@ -23,13 +23,20 @@
   }
 
   .stacking-cards-wrapper-{{ section.id }} {
-    min-height: {{ section.blocks.size | times: 100 }}vh;
+    min-height: calc({{ section.blocks.size | times: 70 }}vh + var(--section-vertical-padding) * 2);
     position: relative;
   }
 
   .stacking-cards-header-{{ section.id }} {
     padding: var(--section-vertical-padding) 0;
     text-align: {{ section.settings.header_alignment }};
+  }
+
+  .stacking-cards-header-content-{{ section.id }} {
+    position: sticky;
+    top: var(--section-vertical-padding);
+    z-index: 1;
+    transition: opacity 0.1s ease, transform 0.1s ease;
   }
 
   .stacking-cards-label-{{ section.id }} {
@@ -78,6 +85,8 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    perspective: 1200px;
+    perspective-origin: center 40%;
   }
 
   .stacking-card-{{ section.id }} {
@@ -87,7 +96,9 @@
     background: {{ section.settings.card_background }};
     border-radius: {{ card_radius }}px;
     overflow: hidden;
-    transform-origin: center top;
+    transform-origin: center bottom;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
     {% if card_border_width > 0 %}
     border: {{ card_border_width }}px solid currentColor;
     border-color: {{ section.settings.card_text_color }}20;
@@ -204,16 +215,17 @@
     transform: translateY(-100%);
   }
 
-  /* Card stacking animation states */
-  .stacking-card-{{ section.id }} {
-    opacity: 0;
-    transform: translateY(100px) scale(0.95);
-  }
+  /* Card stacking animation states - JS handles initial positioning */
 
   /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .stacking-cards-wrapper-{{ section.id }} {
       min-height: auto;
+    }
+
+    .stacking-cards-header-content-{{ section.id }} {
+      position: relative;
+      top: 0;
     }
 
     .stacking-cards-sticky-{{ section.id }} {
@@ -230,57 +242,38 @@
     }
   }
 
-  /* Animation states */
-  html.animations-disabled .stacking-cards-title-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
-
-  html.animations-disabled .stacking-cards-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
-
-  html.animations-disabled .stacking-cards-description-{{ section.id }} {
-    opacity: 0.7;
-    transform: none;
-  }
-
-  html.animations-disabled .stacking-card-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
 </style>
 
 <section
   class="stacking-cards-{{ section.id }}"
   data-stacking-cards="{{ section.id }}"
 >
-  {%- comment -%} Header {%- endcomment -%}
-  {% if section.settings.label != blank or section.settings.title != blank %}
-    <div class="{{ container_class }} stacking-cards-header-{{ section.id }}">
-      {% if section.settings.label != blank %}
-        <span class="stacking-cards-label-{{ section.id }}" data-intro>
-          {{ section.settings.label }}
-        </span>
-      {% endif %}
-
-      {% if section.settings.title != blank %}
-        <h2 class="stacking-cards-title-{{ section.id }} font-heading" data-stacking-title>
-          {{ section.settings.title }}
-        </h2>
-      {% endif %}
-
-      {% if section.settings.description != blank %}
-        <p class="stacking-cards-description-{{ section.id }}" data-intro>
-          {{ section.settings.description }}
-        </p>
-      {% endif %}
-    </div>
-  {% endif %}
-
-  {%- comment -%} Cards {%- endcomment -%}
+  {%- comment -%} Wrapper contains both header and cards for scroll tracking {%- endcomment -%}
   <div class="stacking-cards-wrapper-{{ section.id }}">
+    {%- comment -%} Sticky Header {%- endcomment -%}
+    {% if section.settings.label != blank or section.settings.title != blank %}
+      <div class="stacking-cards-header-{{ section.id }}" data-stacking-header>
+        <div class="{{ container_class }} stacking-cards-header-content-{{ section.id }}" data-stacking-header-content>
+          {% if section.settings.label != blank %}
+            <span class="stacking-cards-label-{{ section.id }}" data-intro>
+              {{ section.settings.label }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.title != blank %}
+            <h2 class="stacking-cards-title-{{ section.id }} font-heading" data-stacking-title>
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+
+          {% if section.settings.description != blank %}
+            <p class="stacking-cards-description-{{ section.id }}" data-intro>
+              {{ section.settings.description }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
     <div class="stacking-cards-sticky-{{ section.id }}" data-stacking-sticky>
       {% for block in section.blocks %}
         {%- liquid
@@ -375,8 +368,28 @@
 
     const cards = section.querySelectorAll('[data-stacking-card]');
     const wrapper = section.querySelector('.stacking-cards-wrapper-{{ section.id }}');
+    const headerContent = section.querySelector('[data-stacking-header-content]');
     const title = section.querySelector('[data-stacking-title]');
     const totalCards = cards.length;
+
+    // Header fade-out animation on scroll
+    // Header stays sticky at the top, then fades out as we scroll toward the cards
+    const header = section.querySelector('[data-stacking-header]');
+    if (headerContent && header) {
+      ScrollTrigger.create({
+        trigger: header,
+        start: 'bottom 80%',
+        end: 'bottom 30%',
+        scrub: true,
+        onUpdate: (self) => {
+          const progress = self.progress;
+          gsap.set(headerContent, {
+            opacity: 1 - progress,
+            y: progress * -30
+          });
+        }
+      });
+    }
 
     // Title animation with SplitText
     if (title && SplitText) {
@@ -406,30 +419,41 @@
     }
 
     // Card stacking animation
+    // Header scroll space is based on header height
+    const headerEl = section.querySelector('[data-stacking-header]');
+    const headerScrollSpace = headerEl ? headerEl.offsetHeight : 0;
+
     cards.forEach((card, i) => {
       const cardIndex = parseInt(card.dataset.cardIndex);
 
-      // Initial state - cards stacked below
+      // Initial state - cards positioned far below with rotation for depth
       gsap.set(card, {
         opacity: 0,
-        y: 100,
-        scale: 0.95
+        y: window.innerHeight * 0.8,
+        scale: 0.85,
+        rotateX: 15
       });
 
-      // Animate card into view
+      // Animate card into view (offset by header scroll space)
+      // Using larger scroll distance per card for smoother animation
+      const scrollPerCard = window.innerHeight * 0.7;
+
       ScrollTrigger.create({
         trigger: wrapper,
-        start: () => `top+=${cardIndex * (window.innerHeight * 0.5)} top`,
-        end: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
-        scrub: 0.5,
+        start: () => `top+=${headerScrollSpace + cardIndex * scrollPerCard} top`,
+        end: () => `top+=${headerScrollSpace + (cardIndex + 0.8) * scrollPerCard} top`,
+        scrub: 0.8,
         onUpdate: (self) => {
+          // Use eased progress for more natural feel
           const progress = self.progress;
+          const easedProgress = 1 - Math.pow(1 - progress, 3); // easeOutCubic
 
-          // Fade in and move up
+          // Card rises from bottom with rotation flattening out
           gsap.set(card, {
-            opacity: Math.min(progress * 2, 1),
-            y: 100 - (progress * 100),
-            scale: 0.95 + (progress * 0.05)
+            opacity: Math.min(progress * 2.5, 1),
+            y: (window.innerHeight * 0.8) * (1 - easedProgress),
+            scale: 0.85 + (easedProgress * 0.15),
+            rotateX: 15 * (1 - easedProgress)
           });
         }
       });
@@ -438,12 +462,12 @@
       if (i < totalCards - 1) {
         ScrollTrigger.create({
           trigger: wrapper,
-          start: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
-          end: () => `top+=${(totalCards) * (window.innerHeight * 0.5)} top`,
+          start: () => `top+=${headerScrollSpace + (cardIndex + 0.8) * scrollPerCard} top`,
+          end: () => `top+=${headerScrollSpace + (totalCards) * scrollPerCard} top`,
           scrub: 0.5,
           onUpdate: (self) => {
-            const scaleReduction = (totalCards - 1 - cardIndex) * 0.02;
-            const yOffset = (totalCards - 1 - cardIndex) * 15;
+            const scaleReduction = (totalCards - 1 - cardIndex) * 0.025;
+            const yOffset = (totalCards - 1 - cardIndex) * 20;
 
             gsap.set(card, {
               scale: 1 - (self.progress * scaleReduction),

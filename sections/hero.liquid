@@ -28,6 +28,11 @@
   [data-hero-section="{{ section.id }}"] [data-hero-media] {
     clip-path: inset(0 0 100% 0);
   }
+
+  /* When animations disabled, show everything immediately */
+  html.animations-disabled [data-hero-section="{{ section.id }}"] [data-hero-media] {
+    clip-path: none;
+  }
 </style>
 
 <section

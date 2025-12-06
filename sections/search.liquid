@@ -15,6 +15,7 @@
   @media (min-width: 1024px) { .search-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   .search-page-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
   .search-wrapper.is-loading .search-result-image { clip-path: inset(0 100% 0 0); }
+  html.animations-disabled .search-result-image,
   html.animations-disabled .search-wrapper.is-loading .search-result-image { clip-path: none; }
   .search-form-wrapper { opacity: 0; transform: translateY(20px); }
   html.animations-disabled .search-form-wrapper { opacity: 1; transform: none; }

@@ -23,6 +23,11 @@
   [data-featured-collection="{{ section.id }}"] .product-card-image {
     clip-path: inset(0 100% 0 0);
   }
+
+  /* When animations disabled, show images immediately */
+  html.animations-disabled [data-featured-collection="{{ section.id }}"] .product-card-image {
+    clip-path: none;
+  }
 </style>
 
 <section

@@ -35,6 +35,11 @@
   [data-iwt-section="{{ section.id }}"] [data-iwt-image] {
     clip-path: inset(0 100% 0 0);
   }
+
+  /* When animations disabled, show image immediately */
+  html.animations-disabled [data-iwt-section="{{ section.id }}"] [data-iwt-image] {
+    clip-path: none;
+  }
 </style>
 
 <section
