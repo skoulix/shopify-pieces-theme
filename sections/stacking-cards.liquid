@@ -28,12 +28,8 @@
   }
 
   .stacking-cards-header-{{ section.id }} {
-    height: 100vh;
+    padding: var(--section-vertical-padding) 0;
     text-align: {{ section.settings.header_alignment }};
-  }
-
-  .stacking-cards-header-content-{{ section.id }} {
-    padding-top: var(--section-vertical-padding);
   }
 
   .stacking-cards-label-{{ section.id }} {
@@ -208,41 +204,44 @@
     transform: translateY(-100%);
   }
 
-  /* Card stacking animation states - JS handles initial positioning */
-  /* Note: This section requires scroll animation to function - no reduced motion fallback */
+  /* Card stacking animation states */
+  .stacking-card-{{ section.id }} {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95);
+  }
 
+  /* Note: This section requires scroll animation to function - no reduced motion fallback */
 </style>
 
 <section
   class="stacking-cards-{{ section.id }}"
   data-stacking-cards="{{ section.id }}"
 >
-  {%- comment -%} Wrapper contains both header and cards for scroll tracking {%- endcomment -%}
+  {%- comment -%} Header {%- endcomment -%}
+  {% if section.settings.label != blank or section.settings.title != blank %}
+    <div class="{{ container_class }} stacking-cards-header-{{ section.id }}">
+      {% if section.settings.label != blank %}
+        <span class="stacking-cards-label-{{ section.id }}" data-intro>
+          {{ section.settings.label }}
+        </span>
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="stacking-cards-title-{{ section.id }} font-heading" data-stacking-title>
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="stacking-cards-description-{{ section.id }}" data-intro>
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} Cards {%- endcomment -%}
   <div class="stacking-cards-wrapper-{{ section.id }}">
-    {%- comment -%} Sticky Header {%- endcomment -%}
-    {% if section.settings.label != blank or section.settings.title != blank %}
-      <div class="stacking-cards-header-{{ section.id }}" data-stacking-header>
-        <div class="{{ container_class }} stacking-cards-header-content-{{ section.id }}" data-stacking-header-content>
-          {% if section.settings.label != blank %}
-            <span class="stacking-cards-label-{{ section.id }}" data-intro>
-              {{ section.settings.label }}
-            </span>
-          {% endif %}
-
-          {% if section.settings.title != blank %}
-            <h2 class="stacking-cards-title-{{ section.id }} font-heading" data-stacking-title>
-              {{ section.settings.title }}
-            </h2>
-          {% endif %}
-
-          {% if section.settings.description != blank %}
-            <p class="stacking-cards-description-{{ section.id }}" data-intro>
-              {{ section.settings.description }}
-            </p>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
     <div class="stacking-cards-sticky-{{ section.id }}" data-stacking-sticky>
       {% for block in section.blocks %}
         {%- liquid
@@ -337,59 +336,37 @@
 
     const cards = section.querySelectorAll('[data-stacking-card]');
     const wrapper = section.querySelector('.stacking-cards-wrapper-{{ section.id }}');
-    const headerContent = section.querySelector('[data-stacking-header-content]');
     const title = section.querySelector('[data-stacking-title]');
     const totalCards = cards.length;
 
-    // Header animation on scroll
-    // Header starts at top, moves to center, then fades out before cards appear
-    const header = section.querySelector('[data-stacking-header]');
-    if (headerContent && header) {
-      // Calculate the vertical distance to move to center
-      const calculateCenterOffset = () => {
-        const headerHeight = header.offsetHeight;
-        const contentHeight = headerContent.offsetHeight;
-        const paddingTop = parseFloat(getComputedStyle(headerContent).paddingTop) || 0;
-        // Target Y is the center of the viewport minus half the content height, minus current padding
-        return (headerHeight / 2) - (contentHeight / 2) - paddingTop;
-      };
+    // Title animation with SplitText
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'stacking-cards-title-line' });
 
-      // Phase 1: Move header content to center (first 60% of header scroll)
-      ScrollTrigger.create({
-        trigger: header,
-        start: 'top top',
-        end: 'center top',
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const centerOffset = calculateCenterOffset();
-          gsap.set(headerContent, {
-            y: progress * centerOffset
-          });
-        }
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
       });
 
-      // Phase 2: Fade out header content (last 40% of header scroll)
-      ScrollTrigger.create({
-        trigger: header,
-        start: 'center top',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          gsap.set(headerContent, {
-            opacity: 1 - progress,
-            scale: 1 - (progress * 0.1)
-          });
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
         }
       });
     }
 
     // Card stacking animation
-    // Header scroll space is based on header height
-    const headerEl = section.querySelector('[data-stacking-header]');
-    const headerScrollSpace = headerEl ? headerEl.offsetHeight : 0;
-
     cards.forEach((card, i) => {
       const cardIndex = parseInt(card.dataset.cardIndex);
 
@@ -400,11 +377,11 @@
         scale: 0.95
       });
 
-      // Animate card into view (offset by header scroll space)
+      // Animate card into view
       ScrollTrigger.create({
         trigger: wrapper,
-        start: () => `top+=${headerScrollSpace + cardIndex * (window.innerHeight * 0.5)} top`,
-        end: () => `top+=${headerScrollSpace + (cardIndex + 1) * (window.innerHeight * 0.5)} top`,
+        start: () => `top+=${cardIndex * (window.innerHeight * 0.5)} top`,
+        end: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
         scrub: 0.5,
         onUpdate: (self) => {
           const progress = self.progress;
@@ -422,8 +399,8 @@
       if (i < totalCards - 1) {
         ScrollTrigger.create({
           trigger: wrapper,
-          start: () => `top+=${headerScrollSpace + (cardIndex + 1) * (window.innerHeight * 0.5)} top`,
-          end: () => `top+=${headerScrollSpace + (totalCards) * (window.innerHeight * 0.5)} top`,
+          start: () => `top+=${(cardIndex + 1) * (window.innerHeight * 0.5)} top`,
+          end: () => `top+=${(totalCards) * (window.innerHeight * 0.5)} top`,
           scrub: 0.5,
           onUpdate: (self) => {
             const scaleReduction = (totalCards - 1 - cardIndex) * 0.02;
