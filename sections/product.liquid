@@ -282,10 +282,11 @@
             </div>
 
           {%- when 'collapsible_tab' -%}
-            <details class="product-accordion mt-4 border-t border-[--color-border]" data-intro {{ block.shopify_attributes }}>
-              <summary class="flex items-center justify-between py-4 cursor-pointer">
+            <details class="product-accordion border-t border-[--color-border] group first-of-type:mt-4" data-intro {{ block.shopify_attributes }}>
+              <summary class="flex items-center justify-between py-4 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                 <span class="text-sm font-medium">{{ block.settings.heading }}</span>
-                <i class="ph ph-plus text-sm transition-transform"></i>
+                <i class="ph ph-plus text-sm group-open:hidden"></i>
+                <i class="ph ph-minus text-sm hidden group-open:inline"></i>
               </summary>
               <div class="pb-4 text-sm text-[--color-text-secondary] leading-relaxed">
                 {{ block.settings.content }}
