@@ -142,14 +142,57 @@
           elsif link.url != '/' and request.path contains link.url
             assign is_active = true
           endif
+          assign has_children = false
+          if link.links.size > 0
+            assign has_children = true
+          endif
         -%}
-        <a
-          href="{{ link.url }}"
-          class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
-          data-nav-link
-        >
-          {{ link.title }}
-        </a>
+        {% if has_children %}
+          {%- comment -%} Dropdown trigger {%- endcomment -%}
+          <div class="dropdown-wrapper relative" data-dropdown>
+            <button
+              type="button"
+              class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+              data-dropdown-trigger
+              aria-expanded="false"
+            >
+              <span>{{ link.title }}</span>
+              <i class="ph ph-caret-down text-xs transition-transform duration-300 group-aria-expanded:rotate-180"></i>
+            </button>
+
+            {%- comment -%} Dropdown panel {%- endcomment -%}
+            <div class="dropdown-panel" data-dropdown-panel>
+              <div class="dropdown-panel__inner">
+                {%- comment -%} Featured/Parent link {%- endcomment -%}
+                {% if link.url != '#' and link.url != '' %}
+                  <a href="{{ link.url }}" class="dropdown-featured" data-dropdown-item>
+                    <span class="dropdown-featured__label">Explore</span>
+                    <span class="dropdown-featured__title font-heading">{{ link.title }}</span>
+                    <i class="ph ph-arrow-right dropdown-featured__arrow"></i>
+                  </a>
+                {% endif %}
+
+                {%- comment -%} Child links {%- endcomment -%}
+                <div class="dropdown-links">
+                  {% for child in link.links %}
+                    <a href="{{ child.url }}" class="dropdown-link" data-dropdown-item style="--item-index: {{ forloop.index0 }}">
+                      <span class="dropdown-link__text">{{ child.title }}</span>
+                      <span class="dropdown-link__line"></span>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <a
+            href="{{ link.url }}"
+            class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
+            data-nav-link
+          >
+            {{ link.title }}
+          </a>
+        {% endif %}
       {% endfor %}
     </div>
 
@@ -219,17 +262,71 @@
               elsif link.url != '/' and request.path contains link.url
                 assign is_active = true
               endif
+              assign has_children = false
+              if link.links.size > 0
+                assign has_children = true
+              endif
             -%}
             <li class="mobile-nav__item" style="--item-index: {{ forloop.index0 }}">
-              <a
-                href="{{ link.url }}"
-                class="mobile-nav__link font-heading{% if is_active %} is-active{% endif %}"
-                data-nav-link
-                data-mobile-nav-close
-              >
-                <span class="mobile-nav__link-text" data-mobile-nav-link-text>{{ link.title }}</span>
-                <span class="mobile-nav__link-line"></span>
-              </a>
+              {% if has_children %}
+                {%- comment -%} Parent with submenu {%- endcomment -%}
+                <div class="mobile-nav__parent" data-mobile-submenu>
+                  <button
+                    type="button"
+                    class="mobile-nav__link mobile-nav__link--parent font-heading{% if is_active %} is-active{% endif %}"
+                    data-mobile-submenu-toggle
+                    aria-expanded="false"
+                  >
+                    <span class="mobile-nav__link-text" data-mobile-nav-link-text>{{ link.title }}</span>
+                    <i class="ph ph-plus mobile-nav__toggle-icon"></i>
+                    <span class="mobile-nav__link-line"></span>
+                  </button>
+
+                  {%- comment -%} Submenu {%- endcomment -%}
+                  <div class="mobile-nav__submenu" data-mobile-submenu-panel>
+                    {%- comment -%} View all link if parent has URL {%- endcomment -%}
+                    {% if link.url != '#' and link.url != '' %}
+                      <a
+                        href="{{ link.url }}"
+                        class="mobile-nav__submenu-all"
+                        data-mobile-nav-close
+                      >
+                        <span>View All {{ link.title }}</span>
+                        <i class="ph ph-arrow-right"></i>
+                      </a>
+                    {% endif %}
+
+                    {%- comment -%} Child links {%- endcomment -%}
+                    {% for child in link.links %}
+                      {%- liquid
+                        assign child_active = false
+                        if child.url == request.path
+                          assign child_active = true
+                        endif
+                      -%}
+                      <a
+                        href="{{ child.url }}"
+                        class="mobile-nav__submenu-link{% if child_active %} is-active{% endif %}"
+                        data-mobile-nav-close
+                        style="--child-index: {{ forloop.index0 }}"
+                      >
+                        <span class="mobile-nav__submenu-link-text">{{ child.title }}</span>
+                        <span class="mobile-nav__submenu-link-line"></span>
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% else %}
+                <a
+                  href="{{ link.url }}"
+                  class="mobile-nav__link font-heading{% if is_active %} is-active{% endif %}"
+                  data-nav-link
+                  data-mobile-nav-close
+                >
+                  <span class="mobile-nav__link-text" data-mobile-nav-link-text>{{ link.title }}</span>
+                  <span class="mobile-nav__link-line"></span>
+                </a>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
@@ -714,6 +811,143 @@
   // Re-initialize after page transitions (for when navigating back to homepage)
   window.addEventListener('swup:contentReplaced', () => {
     requestAnimationFrame(initTransparentScroll);
+  });
+
+  /**
+   * Desktop Dropdown Navigation
+   * Hover-triggered dropdowns with animated reveal
+   */
+  const dropdowns = document.querySelectorAll('[data-dropdown]');
+  let activeDropdown = null;
+  let closeTimeout = null;
+
+  function openDropdown(dropdown) {
+    if (activeDropdown === dropdown) return;
+
+    // Close any open dropdown first
+    if (activeDropdown) {
+      closeDropdown(activeDropdown, true);
+    }
+
+    clearTimeout(closeTimeout);
+    activeDropdown = dropdown;
+
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    trigger.setAttribute('aria-expanded', 'true');
+    dropdown.classList.add('is-open');
+  }
+
+  function closeDropdown(dropdown, immediate = false) {
+    if (!dropdown) return;
+
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    trigger.setAttribute('aria-expanded', 'false');
+    dropdown.classList.remove('is-open');
+
+    if (activeDropdown === dropdown) {
+      activeDropdown = null;
+    }
+  }
+
+  dropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    const panel = dropdown.querySelector('[data-dropdown-panel]');
+
+    // Mouse enter - open dropdown
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(closeTimeout);
+      openDropdown(dropdown);
+    });
+
+    // Mouse leave - close dropdown with delay
+    dropdown.addEventListener('mouseleave', () => {
+      closeTimeout = setTimeout(() => {
+        closeDropdown(dropdown);
+      }, 150);
+    });
+
+    // Keyboard support - toggle on Enter/Space
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (dropdown.classList.contains('is-open')) {
+          closeDropdown(dropdown);
+        } else {
+          openDropdown(dropdown);
+        }
+      }
+
+      // Close on Escape
+      if (e.key === 'Escape' && dropdown.classList.contains('is-open')) {
+        closeDropdown(dropdown);
+        trigger.focus();
+      }
+    });
+
+    // Close on escape when focused within panel
+    panel.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDropdown(dropdown);
+        trigger.focus();
+      }
+    });
+
+    // Click outside to close (for touch devices that also trigger hover)
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (dropdown.classList.contains('is-open')) {
+        closeDropdown(dropdown);
+      } else {
+        openDropdown(dropdown);
+      }
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (activeDropdown && !activeDropdown.contains(e.target)) {
+      closeDropdown(activeDropdown);
+    }
+  });
+
+  /**
+   * Mobile Submenu Toggle
+   * Accordion-style expand/collapse for nested navigation
+   */
+  const mobileSubmenuToggles = document.querySelectorAll('[data-mobile-submenu-toggle]');
+
+  mobileSubmenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      const parent = toggle.closest('[data-mobile-submenu]');
+      const panel = parent.querySelector('[data-mobile-submenu-panel]');
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+      // Toggle state
+      toggle.setAttribute('aria-expanded', !isExpanded);
+      panel.classList.toggle('is-open', !isExpanded);
+
+      // Optional: Close other submenus (accordion behavior)
+      if (!isExpanded) {
+        mobileSubmenuToggles.forEach(otherToggle => {
+          if (otherToggle !== toggle) {
+            const otherParent = otherToggle.closest('[data-mobile-submenu]');
+            const otherPanel = otherParent.querySelector('[data-mobile-submenu-panel]');
+            otherToggle.setAttribute('aria-expanded', 'false');
+            otherPanel.classList.remove('is-open');
+          }
+        });
+      }
+    });
+  });
+
+  // Reset mobile submenus when drawer closes
+  document.addEventListener('menu:close', () => {
+    mobileSubmenuToggles.forEach(toggle => {
+      const parent = toggle.closest('[data-mobile-submenu]');
+      const panel = parent.querySelector('[data-mobile-submenu-panel]');
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.classList.remove('is-open');
+    });
   });
 })();
 </script>

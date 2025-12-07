@@ -41,4 +41,4 @@ pnpm-debug.log*
 
 # Showcase templates (internal use only) #
 ##########################################
-templates/page.showcase-*.json
+templates/page.sections-*.json
