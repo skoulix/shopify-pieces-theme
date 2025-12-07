@@ -39,7 +39,6 @@
     height: 100%;
     object-fit: cover;
     border-radius: {{ section.settings.border_radius }}px;
-    z-index: 1;
   }
 
   .video-placeholder-{{ section.id }} {
@@ -198,6 +197,7 @@
     background: {{ section.settings.overlay_color }};
     opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     pointer-events: none;
+    z-index: 1;
   }
 
   /* Content */
