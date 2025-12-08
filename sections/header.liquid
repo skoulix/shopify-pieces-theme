@@ -382,9 +382,15 @@
   <div class="header-spacer" data-header-spacer></div>
 {% endif %}
 
-<script>
+<script data-swup-ignore-script>
 (function() {
   const mobileNav = document.getElementById('mobile-menu');
+  if (!mobileNav) return;
+
+  // Prevent duplicate initialization (header is outside swup container but ScriptsPlugin may re-run body scripts)
+  if (mobileNav.dataset.initialized) return;
+  mobileNav.dataset.initialized = 'true';
+
   const closeBtns = document.querySelectorAll('[data-mobile-nav-close]');
   let isAnimating = false;
   let openTimeline = null;
@@ -517,12 +523,24 @@
     const backdrop = mobileNav.querySelector('.mobile-nav__backdrop');
     const drawer = mobileNav.querySelector('.mobile-nav__drawer');
 
+    // Clean up text wrappers created during open animation
+    function cleanupTextWrappers() {
+      linkSplits.forEach(split => {
+        if (split.element && split.inner) {
+          const text = split.inner.textContent;
+          split.element.textContent = text;
+        }
+      });
+      linkSplits = [];
+    }
+
     // Always animate drawer close if GSAP available
     if (window.gsap) {
       if (openTimeline) openTimeline.kill();
 
       gsap.timeline({
         onComplete: () => {
+          cleanupTextWrappers();
           mobileNav.classList.remove('is-open');
           mobileNav.setAttribute('inert', '');
           document.body.style.overflow = '';
@@ -532,6 +550,7 @@
         .to(backdrop, { opacity: 0, duration: 0.3, ease: 'power2.in' }, 0)
         .to(drawer, { clipPath: 'inset(0 0 100% 0)', duration: 0.4, ease: 'power3.in' }, 0);
     } else {
+      cleanupTextWrappers();
       mobileNav.classList.remove('is-open');
       mobileNav.setAttribute('inert', '');
       document.body.style.overflow = '';
@@ -932,40 +951,54 @@
   /**
    * Mobile Submenu Toggle
    * Accordion-style expand/collapse for nested navigation
+   * Uses event delegation - attached once to mobileNav container
    */
-  const mobileSubmenuToggles = document.querySelectorAll('[data-mobile-submenu-toggle]');
+  function handleSubmenuClick(e) {
+    const toggle = e.target.closest('[data-mobile-submenu-toggle]');
+    if (!toggle) return;
 
-  mobileSubmenuToggles.forEach(toggle => {
-    toggle.addEventListener('click', () => {
-      const parent = toggle.closest('[data-mobile-submenu]');
-      const panel = parent.querySelector('[data-mobile-submenu-panel]');
-      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    e.preventDefault();
+    e.stopPropagation();
 
-      // Toggle state
-      toggle.setAttribute('aria-expanded', !isExpanded);
-      panel.classList.toggle('is-open', !isExpanded);
+    const parent = toggle.closest('[data-mobile-submenu]');
+    const panel = parent?.querySelector('[data-mobile-submenu-panel]');
+    if (!parent || !panel) return;
 
-      // Optional: Close other submenus (accordion behavior)
-      if (!isExpanded) {
-        mobileSubmenuToggles.forEach(otherToggle => {
-          if (otherToggle !== toggle) {
-            const otherParent = otherToggle.closest('[data-mobile-submenu]');
-            const otherPanel = otherParent.querySelector('[data-mobile-submenu-panel]');
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+    // Toggle state
+    toggle.setAttribute('aria-expanded', !isExpanded);
+    panel.classList.toggle('is-open', !isExpanded);
+
+    // Close other submenus (accordion behavior)
+    if (!isExpanded) {
+      mobileNav.querySelectorAll('[data-mobile-submenu-toggle]').forEach(otherToggle => {
+        if (otherToggle !== toggle) {
+          const otherParent = otherToggle.closest('[data-mobile-submenu]');
+          const otherPanel = otherParent?.querySelector('[data-mobile-submenu-panel]');
+          if (otherPanel) {
             otherToggle.setAttribute('aria-expanded', 'false');
             otherPanel.classList.remove('is-open');
           }
-        });
-      }
-    });
-  });
+        }
+      });
+    }
+  }
+
+  // Attach event delegation once (works across Swup navigations since header is outside swup container)
+  if (mobileNav) {
+    mobileNav.addEventListener('click', handleSubmenuClick);
+  }
 
   // Reset mobile submenus when drawer closes
   document.addEventListener('menu:close', () => {
-    mobileSubmenuToggles.forEach(toggle => {
+    document.querySelectorAll('[data-mobile-submenu-toggle]').forEach(toggle => {
       const parent = toggle.closest('[data-mobile-submenu]');
-      const panel = parent.querySelector('[data-mobile-submenu-panel]');
-      toggle.setAttribute('aria-expanded', 'false');
-      panel.classList.remove('is-open');
+      const panel = parent?.querySelector('[data-mobile-submenu-panel]');
+      if (panel) {
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.classList.remove('is-open');
+      }
     });
   });
 })();
