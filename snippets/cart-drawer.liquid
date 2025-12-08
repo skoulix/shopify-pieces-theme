@@ -3,7 +3,7 @@
   Renders when settings.cart_type == 'drawer'
 {%- endcomment -%}
 
-<div id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" inert aria-label="{{ 'cart.title' | t }}">
+<div id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-busy="false" inert aria-label="{{ 'cart.title' | t }}">
   {%- comment -%} Backdrop {%- endcomment -%}
   <div class="cart-drawer__backdrop" data-cart-drawer-close></div>
 

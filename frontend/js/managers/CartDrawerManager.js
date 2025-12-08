@@ -45,11 +45,13 @@ class CartDrawerManager {
   onCartStateChange(cart, isUpdating) {
     if (!this.drawer) return;
 
-    // Update loading state
+    // Update loading state and aria-busy for accessibility
     if (isUpdating) {
       this.drawer.classList.add('is-loading');
+      this.drawer.setAttribute('aria-busy', 'true');
     } else {
       this.drawer.classList.remove('is-loading');
+      this.drawer.setAttribute('aria-busy', 'false');
     }
 
     // Re-render if drawer is open

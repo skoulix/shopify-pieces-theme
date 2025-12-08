@@ -171,9 +171,19 @@ class AnimationManager {
    * Respects theme setting for enable_animations
    */
   initIntroAnimations() {
+    const introElements = document.querySelectorAll('[data-intro]:not(.intro-visible)');
+
     // If disabled, immediately show all elements
     if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-      document.querySelectorAll('[data-intro]').forEach((el) => {
+      introElements.forEach((el) => {
+        el.classList.add('intro-visible');
+      });
+      return;
+    }
+
+    // Fallback for browsers without Intersection Observer support
+    if (!('IntersectionObserver' in window)) {
+      introElements.forEach((el) => {
         el.classList.add('intro-visible');
       });
       return;
@@ -234,7 +244,7 @@ class AnimationManager {
     );
 
     // Observe all intro elements
-    document.querySelectorAll('[data-intro]:not(.intro-visible)').forEach((el) => {
+    introElements.forEach((el) => {
       this.introObserver.observe(el);
     });
   }

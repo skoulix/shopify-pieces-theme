@@ -3,11 +3,14 @@
   Generates all CSS variables from theme settings for styling
 {%- endcomment -%}
 
-{%- comment -%} Font Loading {%- endcomment -%}
+{%- comment -%}
+  Font Loading - Uses 'fallback' for better perceived performance
+  'fallback' shows system font for ~100ms, then swaps (reduces layout shift vs 'swap')
+{%- endcomment -%}
 {% style %}
-  {{ settings.type_body_font | font_face: font_display: 'swap' }}
-  {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
-  {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {{ settings.type_body_font | font_face: font_display: 'fallback' }}
+  {{ settings.type_body_font | font_modify: 'weight', 'bold' | font_face: font_display: 'fallback' }}
+  {{ settings.type_header_font | font_face: font_display: 'fallback' }}
 {% endstyle %}
 
 {%- comment -%} Preload primary fonts {%- endcomment -%}

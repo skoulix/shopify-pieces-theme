@@ -9,6 +9,46 @@ class CartState {
     this.cart = null;
     this.listeners = new Set();
     this.isUpdating = false;
+    this.requestTimeout = 8000; // 8 second timeout
+  }
+
+  /**
+   * Fetch with timeout and abort controller
+   * @param {string} url - URL to fetch
+   * @param {Object} options - Fetch options
+   * @returns {Promise<Response>}
+   */
+  async fetchWithTimeout(url, options = {}) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.requestTimeout);
+
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      throw error;
+    }
+  }
+
+  /**
+   * Handle API error responses with appropriate messages
+   * @param {Response} response - Fetch response
+   * @param {string} defaultMessage - Fallback error message
+   */
+  async handleErrorResponse(response, defaultMessage) {
+    if (response.status === 429) {
+      toast.error('Too many requests. Please wait a moment and try again.');
+    } else if (response.status >= 500) {
+      toast.error('Server error. Please try again later.');
+    } else {
+      const errorData = await response.json().catch(() => ({}));
+      toast.error(errorData.description || defaultMessage);
+    }
   }
 
   /**
@@ -23,11 +63,17 @@ class CartState {
    */
   async fetch() {
     try {
-      const response = await fetch('/cart.js');
-      this.cart = await response.json();
-      this.notify();
-      return this.cart;
-    } catch {
+      const response = await this.fetchWithTimeout('/cart.js');
+      if (response.ok) {
+        this.cart = await response.json();
+        this.notify();
+        return this.cart;
+      }
+      return null;
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        console.warn('Cart fetch timed out');
+      }
       return null;
     }
   }
@@ -60,8 +106,10 @@ class CartState {
     this.isUpdating = true;
     this.notify();
 
+    const defaultError = window.cartStrings?.error || 'Could not update cart';
+
     try {
-      const response = await fetch('/cart/change.js', {
+      const response = await this.fetchWithTimeout('/cart/change.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ line, quantity })
@@ -71,12 +119,14 @@ class CartState {
         this.cart = await response.json();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        const errorMessage = errorData.description || window.cartStrings?.error || 'Could not update cart';
-        toast.error(errorMessage);
+        await this.handleErrorResponse(response, defaultError);
       }
-    } catch {
-      toast.error(window.cartStrings?.error || 'Could not update cart. Please try again.');
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        toast.error('Request timed out. Please check your connection.');
+      } else {
+        toast.error(defaultError + '. Please try again.');
+      }
     } finally {
       this.isUpdating = false;
       this.notify();
@@ -92,8 +142,10 @@ class CartState {
     this.isUpdating = true;
     this.notify();
 
+    const defaultError = window.cartStrings?.error || 'Could not add to cart';
+
     try {
-      const response = await fetch('/cart/add.js', {
+      const response = await this.fetchWithTimeout('/cart/add.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -108,12 +160,14 @@ class CartState {
         await this.fetch();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
       } else {
-        const errorData = await response.json().catch(() => ({}));
-        const errorMessage = errorData.description || window.cartStrings?.error || 'Could not add to cart';
-        toast.error(errorMessage);
+        await this.handleErrorResponse(response, defaultError);
       }
-    } catch {
-      toast.error(window.cartStrings?.error || 'Could not add to cart. Please try again.');
+    } catch (error) {
+      if (error.name === 'AbortError') {
+        toast.error('Request timed out. Please check your connection.');
+      } else {
+        toast.error(defaultError + '. Please try again.');
+      }
     } finally {
       this.isUpdating = false;
       this.notify();

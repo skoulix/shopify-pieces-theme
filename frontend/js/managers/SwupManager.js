@@ -106,6 +106,18 @@ class SwupManager {
       // Re-initialize components on new page
       this.reinitializeComponents();
 
+      // Focus management for accessibility - move focus to main content
+      // This helps screen reader and keyboard users after navigation
+      const main = document.querySelector('main');
+      if (main) {
+        // Ensure main is focusable
+        main.setAttribute('tabindex', '-1');
+        main.focus({ preventScroll: true });
+
+        // Announce page change to screen readers
+        this.announcePageChange();
+      }
+
       // Refresh ScrollTrigger and Lenis after DOM updates
       requestAnimationFrame(() => {
         // Recalculate Lenis scroll bounds for new page height
@@ -299,6 +311,31 @@ class SwupManager {
         ease: 'power2.out',
       });
     });
+  }
+
+  /**
+   * Announce page change to screen readers via live region
+   */
+  announcePageChange() {
+    // Get or create live region for announcements
+    let liveRegion = document.getElementById('swup-announce');
+    if (!liveRegion) {
+      liveRegion = document.createElement('div');
+      liveRegion.id = 'swup-announce';
+      liveRegion.setAttribute('role', 'status');
+      liveRegion.setAttribute('aria-live', 'polite');
+      liveRegion.setAttribute('aria-atomic', 'true');
+      liveRegion.className = 'sr-only';
+      document.body.appendChild(liveRegion);
+    }
+
+    // Announce the new page title
+    const pageTitle = document.title || 'Page loaded';
+    liveRegion.textContent = '';
+    // Use setTimeout to ensure screen readers detect the change
+    setTimeout(() => {
+      liveRegion.textContent = pageTitle;
+    }, 100);
   }
 
   /**
