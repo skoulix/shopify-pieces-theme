@@ -129,12 +129,24 @@
     <div class="product-gallery-main" data-gallery-main>
       {% for image in product.images %}
         <div class="product-gallery-image{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}">
-          {{ image | image_url: width: 1800 | image_tag:
-            class: '',
-            loading: forloop.first | default: 'lazy',
-            sizes: '(max-width: 1024px) 100vw, 55vw',
-            widths: '600, 900, 1200, 1800'
-          }}
+          {%- if forloop.first -%}
+            {{ image | image_url: width: 1800 | image_tag:
+              class: '',
+              loading: 'eager',
+              fetchpriority: 'high',
+              decoding: 'async',
+              sizes: '(max-width: 1024px) 100vw, 55vw',
+              widths: '600, 900, 1200, 1800'
+            }}
+          {%- else -%}
+            {{ image | image_url: width: 1800 | image_tag:
+              class: '',
+              loading: 'lazy',
+              decoding: 'async',
+              sizes: '(max-width: 1024px) 100vw, 55vw',
+              widths: '600, 900, 1200, 1800'
+            }}
+          {%- endif -%}
         </div>
       {% else %}
         <div class="product-gallery-image is-active">

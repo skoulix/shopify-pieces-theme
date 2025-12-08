@@ -9,6 +9,8 @@ Implementation plan for performance, accessibility, security, and code quality i
 - [x] **Phase 2.3** - Removed console statements from production code
 - [x] **Phase 2.4** - Fixed localStorage error handling with `safeLocalStorage` utility
 - [x] **Phase 3.1** - Added comprehensive ARIA labels to locales
+- [x] **Phase 3.3** - Added proper image lazy loading with `decoding: 'async'`
+- [x] **Phase 2.1** - Lazy-load Leaflet for map section with IntersectionObserver
 - [x] **Phase 5.1** - Added FAQPage structured data (JSON-LD)
 - [x] **Phase 5.3** - Enabled theme check validations
 
@@ -21,8 +23,6 @@ Implementation plan for performance, accessibility, security, and code quality i
 ## Remaining Tasks
 
 ### Phase 1.3: Extract Critical CSS (Priority: HIGH)
-### Phase 2.1: Lazy-load Leaflet (Priority: MEDIUM)
-### Phase 3.3: Add Image Lazy Loading (Priority: MEDIUM)
 
 ---
 

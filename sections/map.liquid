@@ -133,10 +133,37 @@
   .map-container-{{ section.id }}.grayscale .leaflet-tile {
     filter: grayscale(100%);
   }
-</style>
 
-<!-- Leaflet CSS -->
-{{ 'leaflet.css' | asset_url | stylesheet_tag }}
+  /* Loading state */
+  .map-container-{{ section.id }} .map-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.background_color }};
+    z-index: 10;
+    transition: opacity 0.3s ease;
+  }
+
+  .map-container-{{ section.id }} .map-loading.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .map-loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid {{ section.settings.text_color }}20;
+    border-top-color: {{ section.settings.text_color }};
+    border-radius: 50%;
+    animation: map-spin 0.8s linear infinite;
+  }
+
+  @keyframes map-spin {
+    to { transform: rotate(360deg); }
+  }
+</style>
 
 <section class="map-section-{{ section.id }} py-16 sm:py-24">
   {% if section.settings.label != blank or section.settings.title != blank %}
@@ -166,7 +193,13 @@
       data-location-name="{{ section.settings.location_name | escape }}"
       data-marker-color="{{ section.settings.marker_color }}"
       data-section-id="{{ section.id }}"
-    ></div>
+      data-leaflet-css="{{ 'leaflet.css' | asset_url }}"
+      data-leaflet-js="{{ 'leaflet.js' | asset_url }}"
+    >
+      <div class="map-loading" data-map-loading>
+        <div class="map-loading-spinner"></div>
+      </div>
+    </div>
   </div>
 
   {% if section.blocks.size > 0 %}
@@ -199,20 +232,65 @@
   {% endif %}
 </section>
 
-<!-- Leaflet JS -->
-<script src="{{ 'leaflet.js' | asset_url }}" defer></script>
-
 <script>
 (function() {
   const mapContainer = document.getElementById('map-{{ section.id }}');
   if (!mapContainer || mapContainer.dataset.mapInitialized) return;
   mapContainer.dataset.mapInitialized = 'true';
 
+  const loadingEl = mapContainer.querySelector('[data-map-loading]');
+  let leafletLoaded = false;
+  let mapInstance = null;
+
+  /**
+   * Load Leaflet CSS dynamically
+   */
+  function loadLeafletCSS() {
+    return new Promise((resolve) => {
+      const cssUrl = mapContainer.dataset.leafletCss;
+      if (!cssUrl || document.querySelector(`link[href="${cssUrl}"]`)) {
+        resolve();
+        return;
+      }
+
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = cssUrl;
+      link.addEventListener('load', resolve, { once: true });
+      link.addEventListener('error', resolve, { once: true });
+      document.head.appendChild(link);
+    });
+  }
+
+  /**
+   * Load Leaflet JS dynamically
+   */
+  function loadLeafletJS() {
+    return new Promise((resolve, reject) => {
+      if (typeof L !== 'undefined') {
+        resolve();
+        return;
+      }
+
+      const jsUrl = mapContainer.dataset.leafletJs;
+      if (!jsUrl) {
+        reject(new Error('Leaflet JS URL not found'));
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = jsUrl;
+      script.addEventListener('load', resolve, { once: true });
+      script.addEventListener('error', reject, { once: true });
+      document.head.appendChild(script);
+    });
+  }
+
+  /**
+   * Initialize the map once Leaflet is loaded
+   */
   function initMap() {
-    if (typeof L === 'undefined') {
-      setTimeout(initMap, 100);
-      return;
-    }
+    if (mapInstance) return;
 
     const lat = parseFloat(mapContainer.dataset.lat);
     const lng = parseFloat(mapContainer.dataset.lng);
@@ -223,7 +301,7 @@
     const sectionId = mapContainer.dataset.sectionId;
 
     // Initialize map
-    const map = L.map(mapContainer, {
+    mapInstance = L.map(mapContainer, {
       scrollWheelZoom: false,
       zoomControl: true
     }).setView([lat, lng], zoom);
@@ -232,7 +310,7 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+    }).addTo(mapInstance);
 
     // Custom marker icon
     const markerIcon = L.divIcon({
@@ -262,7 +340,7 @@
     });
 
     // Add marker
-    const marker = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
+    const marker = L.marker([lat, lng], { icon: markerIcon }).addTo(mapInstance);
 
     // Add popup if location name or address exists
     if (locationName || address) {
@@ -283,33 +361,91 @@
     }
 
     // Enable scroll zoom on click
-    map.on('click', function() {
-      map.scrollWheelZoom.enable();
+    mapInstance.on('click', function() {
+      mapInstance.scrollWheelZoom.enable();
     });
 
     // Disable scroll zoom when mouse leaves
-    map.on('mouseout', function() {
-      map.scrollWheelZoom.disable();
+    mapInstance.on('mouseout', function() {
+      mapInstance.scrollWheelZoom.disable();
     });
 
     // Handle resize
-    window.addEventListener('resize', function() {
-      map.invalidateSize();
-    });
+    function handleResize() {
+      if (mapInstance) mapInstance.invalidateSize();
+    }
+    window.addEventListener('resize', handleResize);
 
     // Handle Swup transitions
     if (window.onSwupContentReplaced) {
-      window.onSwupContentReplaced('map-resize-{{ section.id }}', function() {
-        map.invalidateSize();
-      });
+      window.onSwupContentReplaced('map-resize-{{ section.id }}', handleResize);
+    }
+
+    // Hide loading spinner
+    if (loadingEl) {
+      loadingEl.classList.add('is-hidden');
     }
   }
 
-  // Initialize map
+  /**
+   * Load Leaflet and initialize map
+   */
+  async function loadAndInitMap() {
+    if (leafletLoaded) return;
+    leafletLoaded = true;
+
+    try {
+      // Load CSS and JS in parallel
+      await Promise.all([
+        loadLeafletCSS(),
+        loadLeafletJS()
+      ]);
+
+      // Small delay to ensure Leaflet is fully initialized
+      requestAnimationFrame(() => {
+        initMap();
+      });
+    } catch (error) {
+      // Hide loading spinner on error
+      if (loadingEl) {
+        loadingEl.classList.add('is-hidden');
+      }
+    }
+  }
+
+  /**
+   * Set up IntersectionObserver for lazy loading
+   */
+  function setupLazyLoad() {
+    // Use IntersectionObserver to load only when map is near viewport
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              loadAndInitMap();
+              observer.disconnect();
+            }
+          });
+        },
+        {
+          rootMargin: '200px 0px', // Start loading 200px before visible
+          threshold: 0
+        }
+      );
+
+      observer.observe(mapContainer);
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      loadAndInitMap();
+    }
+  }
+
+  // Initialize lazy loading
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMap);
+    document.addEventListener('DOMContentLoaded', setupLazyLoad);
   } else {
-    initMap();
+    setupLazyLoad();
   }
 })();
 </script>

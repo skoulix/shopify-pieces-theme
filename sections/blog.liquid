@@ -53,7 +53,8 @@
               {% if article.image %}
                 {{ article.image | image_url: width: 1200 | image_tag:
                   class: 'w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-105',
-                  loading: forloop.first | default: 'lazy',
+                  loading: 'lazy',
+                  decoding: 'async',
                   sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
                   widths: '400, 600, 800, 1200'
                 }}

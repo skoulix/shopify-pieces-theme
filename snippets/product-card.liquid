@@ -10,13 +10,11 @@
     - collection: Collection object (optional) - preserves collection context in URL
     - index: Card index for animation stagger (optional, default: 0)
     - show_vendor: Show vendor name (optional, default: false)
-    - lazy_load: Lazy load image (optional, default: true)
 {%- endcomment -%}
 
 {%- liquid
   assign index = index | default: 0
   assign show_vendor = show_vendor | default: false
-  assign lazy_load = lazy_load | default: true
 
   if collection
     assign product_url = product.url | within: collection
@@ -35,7 +33,8 @@
     {% if product.featured_image %}
       {{ product.featured_image | image_url: width: 1200 | image_tag:
         class: 'w-full h-full object-cover',
-        loading: lazy_load | default: 'lazy',
+        loading: 'lazy',
+        decoding: 'async',
         sizes: '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw',
         widths: '400, 600, 800, 1200',
         alt: product.title
