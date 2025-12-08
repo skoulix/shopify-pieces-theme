@@ -354,8 +354,6 @@ function init() {
   window.openCartDrawer = () => cartDrawerManager.open();
   window.closeCartDrawer = () => cartDrawerManager.close();
   window.refreshCartDrawer = () => cartDrawerManager.refresh();
-
-  console.log('Pieces theme initialized');
 }
 
 // Initialize when DOM is ready

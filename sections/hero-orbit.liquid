@@ -318,8 +318,8 @@
         if (img.complete) {
           checkAllLoaded();
         } else {
-          img.onload = checkAllLoaded;
-          img.onerror = checkAllLoaded;
+          img.addEventListener('load', checkAllLoaded, { once: true });
+          img.addEventListener('error', checkAllLoaded, { once: true });
         }
       });
     }

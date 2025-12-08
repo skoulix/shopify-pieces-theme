@@ -3,6 +3,8 @@
  * Handles AJAX-based product filtering with drawer UI
  */
 
+import { safeLocalStorage } from '../utils/storage.js';
+
 // Debounce helper
 function debounce(fn, wait) {
   let timeout;
@@ -108,7 +110,7 @@ class FacetFiltersForm extends HTMLElement {
     if (!viewBtns.length || !wrapper) return;
 
     // Restore saved view preference
-    const savedView = localStorage.getItem('collection-view') || 'grid';
+    const savedView = safeLocalStorage('collection-view') || 'grid';
     wrapper.dataset.view = savedView;
     viewBtns.forEach((btn) => {
       const isActive = btn.dataset.viewToggle === savedView;
@@ -192,7 +194,7 @@ class FacetFiltersForm extends HTMLElement {
         }
 
         // Save preference
-        localStorage.setItem('collection-view', view);
+        safeLocalStorage('collection-view', view);
       });
     });
   }
@@ -349,8 +351,8 @@ class FacetFiltersForm extends HTMLElement {
       if (window.pieces?.lenis) {
         window.pieces.lenis.resize();
       }
-    } catch (error) {
-      console.error('Error filtering products:', error);
+    } catch {
+      // Silently handle filter errors - UI will remain in previous state
     } finally {
       this.hideLoading();
     }
@@ -367,8 +369,8 @@ class FacetFiltersForm extends HTMLElement {
         wrapper.classList.add('is-transitioning');
       }
 
-      // Replace content
-      currentContent.innerHTML = newContent.innerHTML;
+      // Replace content safely
+      currentContent.replaceChildren(...newContent.cloneNode(true).childNodes);
 
       // Trigger animation for new items
       requestAnimationFrame(() => {
@@ -443,7 +445,7 @@ class FacetFiltersForm extends HTMLElement {
       const openFilters = [...currentFilters.querySelectorAll('details[open]')]
         .map((d) => d.id);
 
-      currentFilters.innerHTML = newFilters.innerHTML;
+      currentFilters.replaceChildren(...newFilters.cloneNode(true).childNodes);
 
       // Restore open states
       openFilters.forEach((id) => {
@@ -481,7 +483,7 @@ class FacetFiltersForm extends HTMLElement {
     if (openBtn) {
       const newBtn = doc.querySelector('[data-facets-open]');
       if (newBtn) {
-        openBtn.innerHTML = newBtn.innerHTML;
+        openBtn.replaceChildren(...newBtn.cloneNode(true).childNodes);
       }
     }
   }
@@ -491,7 +493,7 @@ class FacetFiltersForm extends HTMLElement {
     const currentCount = this.querySelector('#ProductCount');
 
     if (newCount && currentCount) {
-      currentCount.innerHTML = newCount.innerHTML;
+      currentCount.replaceChildren(...newCount.cloneNode(true).childNodes);
     }
   }
 
@@ -502,10 +504,10 @@ class FacetFiltersForm extends HTMLElement {
 
     if (currentPagination) {
       if (newPagination) {
-        currentPagination.innerHTML = newPagination.innerHTML;
+        currentPagination.replaceChildren(...newPagination.cloneNode(true).childNodes);
       } else {
         // No more pagination needed (fewer results than page size)
-        currentPagination.innerHTML = '';
+        currentPagination.replaceChildren();
       }
     }
 
@@ -514,7 +516,7 @@ class FacetFiltersForm extends HTMLElement {
     const currentPrevNext = document.querySelector('.collection-wrapper nav');
 
     if (currentPrevNext && newPrevNext) {
-      currentPrevNext.innerHTML = newPrevNext.innerHTML;
+      currentPrevNext.replaceChildren(...newPrevNext.cloneNode(true).childNodes);
     } else if (currentPrevNext && !newPrevNext) {
       currentPrevNext.remove();
     }

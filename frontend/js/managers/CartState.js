@@ -25,8 +25,7 @@ class CartState {
       this.cart = await response.json();
       this.notify();
       return this.cart;
-    } catch (error) {
-      console.error('Error fetching cart:', error);
+    } catch {
       return null;
     }
   }
@@ -70,8 +69,8 @@ class CartState {
         this.cart = await response.json();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
       }
-    } catch (error) {
-      console.error('Error updating cart:', error);
+    } catch {
+      // Cart update failed - state remains unchanged
     } finally {
       this.isUpdating = false;
       this.notify();
@@ -103,8 +102,8 @@ class CartState {
         await this.fetch();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
       }
-    } catch (error) {
-      console.error('Error adding to cart:', error);
+    } catch {
+      // Add to cart failed
     } finally {
       this.isUpdating = false;
       this.notify();
@@ -127,8 +126,8 @@ class CartState {
       if (this.cart) {
         this.cart.note = note;
       }
-    } catch (error) {
-      console.error('Error updating cart note:', error);
+    } catch {
+      // Note update failed
     }
   }
 
@@ -148,8 +147,8 @@ class CartState {
     this.listeners.forEach(callback => {
       try {
         callback(this.cart, this.isUpdating);
-      } catch (error) {
-        console.error('Error in cart state listener:', error);
+      } catch {
+        // Listener error - continue notifying other listeners
       }
     });
   }

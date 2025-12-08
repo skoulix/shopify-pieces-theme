@@ -253,9 +253,9 @@
                   <span class="product-add-btn-text">
                     {% if current_variant.available %}
                       <i class="ph ph-bag"></i>
-                      <span>{{ block.settings.add_to_cart_text | default: 'products.product.add_to_cart' | t }}</span>
+                      <span>{% if block.settings.add_to_cart_text != blank %}{{ block.settings.add_to_cart_text }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endif %}</span>
                     {% else %}
-                      <span>{{ block.settings.sold_out_text | default: 'products.product.sold_out' | t }}</span>
+                      <span>{% if block.settings.sold_out_text != blank %}{{ block.settings.sold_out_text }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
                     {% endif %}
                   </span>
                 </button>
@@ -949,13 +949,13 @@
           "type": "text",
           "id": "add_to_cart_text",
           "label": "Add to cart text",
-          "default": "Add to Cart"
+          "info": "Leave blank to use translation"
         },
         {
           "type": "text",
           "id": "sold_out_text",
           "label": "Sold out text",
-          "default": "Sold Out"
+          "info": "Leave blank to use translation"
         },
         {
           "type": "checkbox",

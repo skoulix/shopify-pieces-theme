@@ -239,8 +239,8 @@
     const imagePromises = Array.from(images).map(function(img) {
       if (img.complete) return Promise.resolve();
       return new Promise(function(resolve) {
-        img.onload = resolve;
-        img.onerror = resolve;
+        img.addEventListener('load', resolve, { once: true });
+        img.addEventListener('error', resolve, { once: true });
       });
     });
 

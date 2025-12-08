@@ -745,7 +745,7 @@
 
     // Navigation buttons
     if (prevBtn) {
-      prevBtn.onclick = function(e) {
+      prevBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         loop.previous({
@@ -757,11 +757,11 @@
             }
           }
         });
-      };
+      });
     }
 
     if (nextBtn) {
-      nextBtn.onclick = function(e) {
+      nextBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         loop.next({
@@ -773,7 +773,7 @@
             }
           }
         });
-      };
+      });
     }
 
     // Touch/drag support with Draggable if available

@@ -303,7 +303,7 @@ class CartDrawerManager {
         const footer = this.drawer.querySelector('.cart-drawer__footer');
 
         if (newContent && content) {
-          content.innerHTML = newContent.innerHTML;
+          content.replaceChildren(...newContent.cloneNode(true).childNodes);
         }
 
         if (newFooter) {
@@ -317,9 +317,8 @@ class CartDrawerManager {
           footer.remove();
         }
       }
-    } catch (error) {
-      console.error('Error rendering cart drawer:', error);
-      // Fallback to JS rendering
+    } catch {
+      // Fallback to JS rendering on error
       this.renderFallback();
     }
   }
