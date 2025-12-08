@@ -4,15 +4,15 @@ A high-performance Shopify theme with SPA-like page transitions, smooth scrollin
 
 ## Core Technologies
 
-| Library | Version | Purpose |
-|---------|---------|---------|
-| [Swup](https://swup.js.org/) | 4.6.1 | SPA page transitions |
-| [GSAP](https://gsap.com/) | 3.12.4 | Professional animations |
-| [Lenis](https://lenis.darkroom.engineering/) | 1.1.1 | Smooth scrolling |
-| [PhotoSwipe](https://photoswipe.com/) | 5.4.4 | Lightbox gallery |
-| [Phosphor Icons](https://phosphoricons.com/) | 2.1.2 | Icon system |
-| [Tailwind CSS](https://tailwindcss.com/) | 3.4.0 | Utility-first styling |
-| [Vite](https://vitejs.dev/) | 5.0.10 | Build tooling |
+| Library                                      | Version | Purpose                 |
+| -------------------------------------------- | ------- | ----------------------- |
+| [Swup](https://swup.js.org/)                 | 4.6.1   | SPA page transitions    |
+| [GSAP](https://gsap.com/)                    | 3.12.4  | Professional animations |
+| [Lenis](https://lenis.darkroom.engineering/) | 1.1.1   | Smooth scrolling        |
+| [PhotoSwipe](https://photoswipe.com/)        | 5.4.4   | Lightbox gallery        |
+| [Phosphor Icons](https://phosphoricons.com/) | 2.1.2   | Icon system             |
+| [Tailwind CSS](https://tailwindcss.com/)     | 3.4.0   | Utility-first styling   |
+| [Vite](https://vitejs.dev/)                  | 5.0.10  | Build tooling           |
 
 ---
 
@@ -26,13 +26,13 @@ Seamless page navigation without full page reloads. Three transition styles avai
 
 ### Swup Plugins Used
 
-| Plugin | Purpose |
-|--------|---------|
-| [@swup/js-plugin](https://swup.js.org/plugins/js-plugin/) | Custom JavaScript animations |
-| [@swup/head-plugin](https://swup.js.org/plugins/head-plugin/) | Meta tag and asset management |
-| [@swup/preload-plugin](https://swup.js.org/plugins/preload-plugin/) | Link preloading on hover |
-| [@swup/body-class-plugin](https://swup.js.org/plugins/body-class-plugin/) | Dynamic body class updates |
-| [@swup/scripts-plugin](https://swup.js.org/plugins/scripts-plugin/) | Script re-execution |
+| Plugin                                                                    | Purpose                       |
+| ------------------------------------------------------------------------- | ----------------------------- |
+| [@swup/js-plugin](https://swup.js.org/plugins/js-plugin/)                 | Custom JavaScript animations  |
+| [@swup/head-plugin](https://swup.js.org/plugins/head-plugin/)             | Meta tag and asset management |
+| [@swup/preload-plugin](https://swup.js.org/plugins/preload-plugin/)       | Link preloading on hover      |
+| [@swup/body-class-plugin](https://swup.js.org/plugins/body-class-plugin/) | Dynamic body class updates    |
+| [@swup/scripts-plugin](https://swup.js.org/plugins/scripts-plugin/)       | Script re-execution           |
 
 ### Content Replaced Handler
 
@@ -54,11 +54,11 @@ Professional-grade animations powered by GSAP with ScrollTrigger.
 
 ### GSAP Plugins
 
-| Plugin | Purpose |
-|--------|---------|
-| [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) | Scroll-based animations |
-| [SplitText](https://gsap.com/docs/v3/Plugins/SplitText/) | Text line/word/character splitting |
-| [Flip](https://gsap.com/docs/v3/Plugins/Flip/) | Layout animations |
+| Plugin                                                           | Purpose                            |
+| ---------------------------------------------------------------- | ---------------------------------- |
+| [ScrollTrigger](https://gsap.com/docs/v3/Plugins/ScrollTrigger/) | Scroll-based animations            |
+| [SplitText](https://gsap.com/docs/v3/Plugins/SplitText/)         | Text line/word/character splitting |
+| [Flip](https://gsap.com/docs/v3/Plugins/Flip/)                   | Layout animations                  |
 
 ### Data Attribute Animation System
 
@@ -70,18 +70,18 @@ Add animations declaratively via HTML attributes:
 
 <!-- Custom reveal animation -->
 <div data-reveal="fade-up" data-reveal-delay="0.2" data-reveal-duration="0.8">
+  <!-- Staggered children -->
+  <div data-stagger="0.1">
+    <div>Item 1</div>
+    <div>Item 2</div>
+  </div>
 
-<!-- Staggered children -->
-<div data-stagger="0.1">
-  <div>Item 1</div>
-  <div>Item 2</div>
+  <!-- Parallax effect -->
+  <img data-parallax="0.5" src="..." />
+
+  <!-- Split text reveal -->
+  <h2 data-split-text data-split-stagger="0.1">Animated Heading</h2>
 </div>
-
-<!-- Parallax effect -->
-<img data-parallax="0.5" src="...">
-
-<!-- Split text reveal -->
-<h2 data-split-text data-split-stagger="0.1">Animated Heading</h2>
 ```
 
 ### Available Reveal Types
@@ -120,11 +120,11 @@ Add to any element to prevent smooth scroll behavior:
 
 Three cart types available via theme settings:
 
-| Type | Behavior |
-|------|----------|
-| **Drawer** | Slide-out cart drawer (default) |
-| **Page** | Redirect to /cart page |
-| **Notification** | Toast notification on add |
+| Type             | Behavior                        |
+| ---------------- | ------------------------------- |
+| **Drawer**       | Slide-out cart drawer (default) |
+| **Page**         | Redirect to /cart page          |
+| **Notification** | Toast notification on add       |
 
 ### Cart State API
 
@@ -159,11 +159,13 @@ document.addEventListener('cart:notification', (e) => {
 ## Sections (44 Total)
 
 ### Hero & Landing
+
 - `hero` - Full-viewport hero with image/video
 - `hero-orbit` - Animated orbiting elements
 - `banner` - Smaller promotional banner
 
 ### Products & Collections
+
 - `product` - Product page with variants, gallery
 - `collection` - Collection with filtering
 - `collections` - Collection list/grid
@@ -171,6 +173,7 @@ document.addEventListener('cart:notification', (e) => {
 - `related-products` - Related products carousel
 
 ### Interactive
+
 - `hotspots` - Clickable image hotspots
 - `shop-the-look` - Shoppable image overlays
 - `before-after` - Image comparison slider
@@ -178,6 +181,7 @@ document.addEventListener('cart:notification', (e) => {
 - `pinned-image-reveal` - Scrollytelling layout
 
 ### Content
+
 - `image-with-text` - Split image + text
 - `text-reveal` - Animated text on scroll
 - `video` - Video player section
@@ -186,6 +190,7 @@ document.addEventListener('cart:notification', (e) => {
 - `team` - Team member grid
 
 ### Animation Showcase
+
 - `stacking-cards` - Scroll-stacking cards
 - `rolling-numbers` - Animated counters
 - `horizontal-scroll` - Horizontal gallery
@@ -193,11 +198,13 @@ document.addEventListener('cart:notification', (e) => {
 - `logo-marquee` - Infinite logo carousel
 
 ### Conversion
+
 - `newsletter` - Email signup forms
 - `contact-form` - Contact form
 - `countdown` - Launch countdown
 
 ### Structure
+
 - `header` - Navigation header
 - `footer` - Site footer
 - `page` - Generic page template
@@ -212,7 +219,7 @@ document.addEventListener('cart:notification', (e) => {
 Use Tailwind utilities with CSS variables:
 
 ```html
-<div class="bg-[--color-background] text-[--color-text] rounded-[--card-radius]">
+<div class="bg-[--color-background] text-[--color-text] rounded-[--card-radius]"></div>
 ```
 
 ### CSS Variables
@@ -268,7 +275,7 @@ window.themeSettings = {
   enablePageTransitions: boolean,
   pageTransitionStyle: 'slide' | 'fade' | 'curtain',
   cartType: 'drawer' | 'page' | 'notification',
-  moneyFormat: string
+  moneyFormat: string,
 };
 
 // Animation check
@@ -282,7 +289,7 @@ window.pieces = {
   cartState,
   gsap,
   ScrollTrigger,
-  SplitText
+  SplitText,
 };
 
 // Cart drawer controls
@@ -392,17 +399,17 @@ Translation files located in `/locales/`.
 
 Configurable via Shopify theme customizer:
 
-| Section | Options |
-|---------|---------|
-| **Logo** | Image, sizing, favicon |
-| **Colors** | Background, text, primary, borders |
-| **Typography** | Font families, size scaling |
-| **Layout** | Page width, padding, smooth scroll |
-| **Buttons** | Radius, border, shadow |
-| **Cards** | Radius, border, shadow |
-| **Inputs** | Radius, border width |
-| **Cart** | Drawer, page, or notification |
-| **Social** | Social media links |
+| Section        | Options                            |
+| -------------- | ---------------------------------- |
+| **Logo**       | Image, sizing, favicon             |
+| **Colors**     | Background, text, primary, borders |
+| **Typography** | Font families, size scaling        |
+| **Layout**     | Page width, padding, smooth scroll |
+| **Buttons**    | Radius, border, shadow             |
+| **Cards**      | Radius, border, shadow             |
+| **Inputs**     | Radius, border width               |
+| **Cart**       | Drawer, page, or notification      |
+| **Social**     | Social media links                 |
 
 ---
 
@@ -419,11 +426,12 @@ Configurable via Shopify theme customizer:
 
 **Proprietary License**
 
-Copyright (c) 2024 [SEAPIXEL](https://seapixel.com). All rights reserved.
+Copyright (c) 2025 [SEAPIXEL](https://seapixel.com). All rights reserved.
 
 This software and associated documentation files (the "Software") are the exclusive property of SEAPIXEL. The Software is protected by copyright laws and international treaty provisions.
 
 **You may NOT:**
+
 - Copy, modify, or distribute the Software
 - Reverse engineer, decompile, or disassemble the Software
 - Sublicense, sell, resell, or transfer the Software
