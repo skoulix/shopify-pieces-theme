@@ -417,4 +417,19 @@ Configurable via Shopify theme customizer:
 
 ## License
 
-Proprietary - All rights reserved.
+**Proprietary License**
+
+Copyright (c) 2024 [SEAPIXEL](https://seapixel.com). All rights reserved.
+
+This software and associated documentation files (the "Software") are the exclusive property of SEAPIXEL. The Software is protected by copyright laws and international treaty provisions.
+
+**You may NOT:**
+- Copy, modify, or distribute the Software
+- Reverse engineer, decompile, or disassemble the Software
+- Sublicense, sell, resell, or transfer the Software
+- Use the Software to create derivative works
+- Remove or alter any proprietary notices
+
+**Usage:** This Software may only be used with a valid license purchased from SEAPIXEL. Unauthorized reproduction, distribution, or use of this Software is strictly prohibited and may result in severe civil and criminal penalties.
+
+For licensing inquiries, visit [seapixel.com](https://seapixel.com) or contact the owner directly.
