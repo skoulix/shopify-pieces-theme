@@ -126,6 +126,7 @@
   }
 
   .countdown-cta-{{ section.id }} .btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
@@ -138,12 +139,35 @@
     background: transparent;
     border: 1px solid {{ section.settings.text_color }};
     border-radius: var(--button-radius, 4px);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+
+  .countdown-cta-{{ section.id }} .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.text_color }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .countdown-cta-{{ section.id }} .btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .countdown-cta-{{ section.id }} .btn:hover {
-    background-color: {{ section.settings.text_color }};
     color: {{ section.settings.background_color }};
+  }
+
+  .countdown-cta-{{ section.id }} .btn span,
+  .countdown-cta-{{ section.id }} .btn i {
+    position: relative;
+    z-index: 1;
   }
 
   /* Divider style for hero */
@@ -280,6 +304,7 @@
   }
 
   .countdown-cta-{{ section.id }} .btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -292,12 +317,35 @@
     background: transparent;
     border: 1px solid {{ section.settings.text_color }};
     border-radius: var(--button-radius, 4px);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+
+  .countdown-cta-{{ section.id }} .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.text_color }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .countdown-cta-{{ section.id }} .btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .countdown-cta-{{ section.id }} .btn:hover {
-    background-color: {{ section.settings.text_color }};
     color: {{ section.settings.background_color }};
+  }
+
+  .countdown-cta-{{ section.id }} .btn span,
+  .countdown-cta-{{ section.id }} .btn i {
+    position: relative;
+    z-index: 1;
   }
 
   /* Divider style for compact */

@@ -106,6 +106,7 @@
   }
 
   .scroll-panel-button-{{ section.id }} .btn {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
@@ -118,12 +119,35 @@
     background: transparent;
     border: 1px solid {{ section.settings.text_color }};
     border-radius: var(--button-radius, 4px);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+
+  .scroll-panel-button-{{ section.id }} .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.text_color }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .scroll-panel-button-{{ section.id }} .btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
   }
 
   .scroll-panel-button-{{ section.id }} .btn:hover {
-    background-color: {{ section.settings.text_color }};
     color: {{ section.settings.background_color }};
+  }
+
+  .scroll-panel-button-{{ section.id }} .btn span,
+  .scroll-panel-button-{{ section.id }} .btn i {
+    position: relative;
+    z-index: 1;
   }
 
   /* Placeholder styling */
@@ -248,7 +272,7 @@
             {% if block.settings.button_text != blank and block.settings.button_link != blank %}
               <div class="scroll-panel-button-{{ section.id }}">
                 <a href="{{ block.settings.button_link }}" class="btn">
-                  {{ block.settings.button_text }}
+                  <span>{{ block.settings.button_text }}</span>
                   <i class="ph ph-arrow-right"></i>
                 </a>
               </div>
