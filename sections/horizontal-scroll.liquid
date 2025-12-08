@@ -3,13 +3,9 @@
   Scrolls horizontally while the user scrolls vertically
 {%- endcomment -%}
 
-{%- liquid
-  if section.settings.full_width
-    assign container_class = ''
-  else
-    assign container_class = 'page-container'
-  endif
--%}
+{%- comment -%}
+  Horizontal Scroll Gallery is always full-width by design
+{%- endcomment -%}
 
 <style>
   .hscroll-section-{{ section.id }} {
@@ -18,9 +14,10 @@
   }
 
   .hscroll-wrapper-{{ section.id }} {
-    /* Height = scroll distance (panels * 100vw) + viewport height for sticky */
+    /* Height = scroll distance (intro + image panels * 100vw) + viewport height for sticky */
     /* This ensures enough scroll room even when section is last on page */
-    height: calc({{ section.blocks.size | times: 100 }}vw + 100vh);
+    /* blocks.size + 1 accounts for the intro panel */
+    height: calc({{ section.blocks.size | plus: 1 | times: 100 }}vw + 100vh);
   }
 
   .hscroll-sticky-{{ section.id }} {
@@ -50,8 +47,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: {% if section.settings.header_alignment == 'center' %}center{% else %}flex-start{% endif %};
-    text-align: {{ section.settings.header_alignment }};
+    align-items: flex-start;
+    text-align: left;
     padding: clamp(2rem, 5vw, 6rem);
   }
 
@@ -226,7 +223,7 @@
     <div class="hscroll-sticky-{{ section.id }}">
       <div class="hscroll-track-{{ section.id }}" data-hscroll-track>
         {%- comment -%} Intro Panel {%- endcomment -%}
-        <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }} {{ container_class }}">
+        <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }}">
           <div>
             {% if section.settings.label != blank %}
               <span class="hscroll-label-{{ section.id }}" data-hscroll-label>
@@ -336,7 +333,8 @@
     const description = section.querySelector('[data-hscroll-description]');
 
     const totalPanels = panels.length;
-    const scrollDistance = (totalPanels - 1) * window.innerWidth;
+    // scrollDistance = panels.length * viewport width (intro panel is not counted in panels)
+    const scrollDistance = totalPanels * window.innerWidth;
 
     // Check if animations should run
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
@@ -494,26 +492,6 @@
       "id": "description",
       "default": "Scroll to discover our carefully curated selection of products and experiences.",
       "label": "Description"
-    },
-    {
-      "type": "select",
-      "id": "header_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
-      "default": "left",
-      "label": "Header alignment"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "default": true,
-      "label": "Full width"
     },
     {
       "type": "header",

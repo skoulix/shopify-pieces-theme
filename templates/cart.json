@@ -1,8 +1,26 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "cart",
-      "settings": {}
+      "settings": {
+        "full_width": false,
+        "show_trust_badges": true,
+        "badge_1_icon": "shield-check",
+        "badge_1_text": "Secure",
+        "badge_2_icon": "truck",
+        "badge_2_text": "Fast Shipping",
+        "badge_3_icon": "arrows-counter-clockwise",
+        "badge_3_text": "Easy Returns"
+      }
     }
   },
   "order": [
