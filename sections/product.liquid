@@ -613,10 +613,12 @@
     initProductAnimation();
   }
 
-  // Reinitialize after Swup
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initProductAnimation);
-  });
+  // Reinitialize after Swup (use helper to prevent duplicate listeners)
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('product-animation', () => {
+      requestAnimationFrame(initProductAnimation);
+    });
+  }
 })();
 </script>
 
@@ -702,9 +704,11 @@
   observer.observe(document.body, { childList: true, subtree: true });
 
   // Reinitialize after Swup page transitions
-  window.addEventListener('swup:contentReplaced', () => {
-    setTimeout(setupBuyButton, 100);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('product-buy-button', () => {
+      setTimeout(setupBuyButton, 100);
+    });
+  }
 })();
 </script>
 
@@ -815,9 +819,11 @@
   }
 
   // Reinitialize after Swup
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initAddToCart);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('product-add-to-cart', () => {
+      requestAnimationFrame(initAddToCart);
+    });
+  }
 })();
 </script>
 

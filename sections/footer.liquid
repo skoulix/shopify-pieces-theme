@@ -220,13 +220,15 @@
   }
 
   // Reinitialize after Swup page transitions
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(() => {
-      updateFooterHeight();
-      // Reinitialize the footer reveal with the new .site-content element
-      waitForGsapAndFonts(initFooterReveal);
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('footer-reveal', () => {
+      requestAnimationFrame(() => {
+        updateFooterHeight();
+        // Reinitialize the footer reveal with the new .site-content element
+        waitForGsapAndFonts(initFooterReveal);
+      });
     });
-  });
+  }
   {% endif %}
 
   // Back to top functionality

@@ -619,7 +619,9 @@
   }
 
   updateActiveLinks();
-  window.addEventListener('swup:contentReplaced', updateActiveLinks);
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('header-active-links', updateActiveLinks);
+  }
   window.addEventListener('popstate', updateActiveLinks);
 
   /**
@@ -741,12 +743,14 @@
     tryAttach();
 
     // Reset on page transitions
-    window.addEventListener('swup:contentReplaced', () => {
-      headerGroup.classList.remove('is-hidden');
-      if (!lenisAttached) {
-        lastScrollY = window.scrollY;
-      }
-    });
+    if (window.onSwupContentReplaced) {
+      window.onSwupContentReplaced('header-scroll-visibility', () => {
+        headerGroup.classList.remove('is-hidden');
+        if (!lenisAttached) {
+          lastScrollY = window.scrollY;
+        }
+      });
+    }
   }
 
   // Set spacer height to match header height (for fixed positioning)
@@ -760,7 +764,9 @@
 
     updateSpacerHeight();
     window.addEventListener('resize', updateSpacerHeight);
-    window.addEventListener('swup:contentReplaced', updateSpacerHeight);
+    if (window.onSwupContentReplaced) {
+      window.onSwupContentReplaced('header-spacer-height', updateSpacerHeight);
+    }
   }
 
   /**
@@ -769,8 +775,8 @@
    */
   {% if section.settings.transparent_home %}
   const headerGroupEl = document.querySelector('[data-header-group]');
-  if (headerGroupEl) {
-    window.addEventListener('swup:contentReplaced', () => {
+  if (headerGroupEl && window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('header-transparent-state', () => {
       // Check if we're now on the homepage
       const isHomepage = window.location.pathname === '/' || window.location.pathname === '';
 
@@ -847,9 +853,11 @@
   initTransparentScroll();
 
   // Re-initialize after page transitions (for when navigating back to homepage)
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initTransparentScroll);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('header-transparent-scroll', () => {
+      requestAnimationFrame(initTransparentScroll);
+    });
+  }
 
   /**
    * Desktop Dropdown Navigation

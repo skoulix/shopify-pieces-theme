@@ -65,6 +65,20 @@
         return window.themeSettings.enableAnimations !== false &&
                !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       };
+
+      // Registry for swup event listeners to prevent duplicates
+      window._swupListeners = window._swupListeners || {};
+
+      /**
+       * Register a swup:contentReplaced listener that only runs once per key
+       * @param {string} key - Unique identifier for this listener
+       * @param {Function} callback - Function to call on content replaced
+       */
+      window.onSwupContentReplaced = function(key, callback) {
+        if (window._swupListeners[key]) return; // Already registered
+        window._swupListeners[key] = true;
+        window.addEventListener('swup:contentReplaced', callback);
+      };
     </script>
   </head>
 

@@ -258,9 +258,11 @@
   }
 
   // Reinitialize after Swup - force reinit on new content
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(() => initBlogAnimation(true));
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('blog-animation', () => {
+      requestAnimationFrame(() => initBlogAnimation(true));
+    });
+  }
 })();
 </script>
 

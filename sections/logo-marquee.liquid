@@ -194,7 +194,8 @@
 
 <script>
 (function() {
-  const section = document.querySelector('[data-logo-marquee="{{ section.id }}"]');
+  const sectionId = '{{ section.id }}';
+  const section = document.querySelector(`[data-logo-marquee="${sectionId}"]`);
   if (!section || section.dataset.marqueeInitialized) return;
   section.dataset.marqueeInitialized = 'true';
 
@@ -208,64 +209,84 @@
   const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
   if (!shouldAnimate) return;
 
+  let tween = null;
+  let isInitialized = false;
+
   function initMarquee() {
+    // Re-query section in case DOM was replaced
+    const currentSection = document.querySelector(`[data-logo-marquee="${sectionId}"]`);
+    const currentTrack = currentSection?.querySelector('[data-logo-track]');
+    if (!currentSection || !currentTrack) return;
+
+    // Kill existing animation
+    if (tween) {
+      tween.kill();
+      tween = null;
+    }
+
     const gsap = window.pieces?.gsap || window.gsap;
     if (!gsap) {
       setTimeout(initMarquee, 100);
       return;
     }
 
-    const items = track.querySelectorAll('[class*="logo-marquee-item-"]');
+    const items = currentTrack.querySelectorAll('[class*="logo-marquee-item-"]');
     if (items.length === 0) return;
 
-    // Calculate total width of one set of items
-    let totalWidth = 0;
-    items.forEach(item => {
-      totalWidth += item.offsetWidth;
-    });
-
-    // Clone items to fill the track for seamless loop
-    const viewportWidth = window.innerWidth;
-    const clonesNeeded = Math.ceil((viewportWidth * 2) / totalWidth) + 1;
-
-    for (let i = 0; i < clonesNeeded; i++) {
+    // Only clone items on first init (check if already has clones)
+    if (!isInitialized) {
+      // Calculate total width of one set of items
+      let totalWidth = 0;
       items.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.setAttribute('aria-hidden', 'true');
-        clone.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
-        track.appendChild(clone);
+        totalWidth += item.offsetWidth;
       });
+
+      // Clone items to fill the track for seamless loop
+      const viewportWidth = window.innerWidth;
+      const clonesNeeded = Math.ceil((viewportWidth * 2) / totalWidth) + 1;
+
+      for (let i = 0; i < clonesNeeded; i++) {
+        items.forEach(item => {
+          const clone = item.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          clone.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+          currentTrack.appendChild(clone);
+        });
+      }
     }
 
-    // Calculate animation duration based on speed setting
-    // Speed setting is in seconds for full loop - higher = slower
-    const duration = speed;
+    // Calculate total width after cloning
+    let totalWidth = 0;
+    const allItems = currentTrack.querySelectorAll('[class*="logo-marquee-item-"]');
+    // Only count original items (first set)
+    const originalCount = items.length;
+    for (let i = 0; i < originalCount; i++) {
+      totalWidth += allItems[i].offsetWidth;
+    }
 
     // Create the infinite scroll animation
-    const tween = gsap.to(track, {
+    tween = gsap.to(currentTrack, {
       x: direction === -1 ? -totalWidth : totalWidth,
-      duration: duration,
+      duration: speed,
       ease: 'none',
       repeat: -1,
       modifiers: {
-        x: gsap.utils.unitize(x => {
-          // Use modulo for seamless looping
-          return parseFloat(x) % totalWidth;
-        })
+        x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
       }
     });
 
-    // Pause on hover
-    section.addEventListener('mouseenter', () => {
-      gsap.to(tween, { timeScale: 0, duration: 0.5, ease: 'power2.out' });
-    });
+    // Pause on hover (use currentSection)
+    if (!isInitialized) {
+      currentSection.addEventListener('mouseenter', () => {
+        if (tween) gsap.to(tween, { timeScale: 0, duration: 0.5, ease: 'power2.out' });
+      });
 
-    section.addEventListener('mouseleave', () => {
-      gsap.to(tween, { timeScale: 1, duration: 0.5, ease: 'power2.out' });
-    });
+      currentSection.addEventListener('mouseleave', () => {
+        if (tween) gsap.to(tween, { timeScale: 1, duration: 0.5, ease: 'power2.out' });
+      });
+    }
 
-    // Store reference for cleanup
-    section._marqueeAnimation = tween;
+    isInitialized = true;
   }
 
   // Wait for GSAP to be available
@@ -274,14 +295,6 @@
   } else {
     requestAnimationFrame(initMarquee);
   }
-
-  // Reinitialize after Swup transitions
-  window.addEventListener('swup:contentReplaced', () => {
-    if (section._marqueeAnimation) {
-      section._marqueeAnimation.kill();
-    }
-    requestAnimationFrame(initMarquee);
-  });
 })();
 </script>
 
