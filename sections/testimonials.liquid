@@ -541,9 +541,11 @@
     requestAnimationFrame(initTestimonials);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('testimonials_animation', () => {
     requestAnimationFrame(initTestimonials);
   });
+  }
 })();
 </script>
 

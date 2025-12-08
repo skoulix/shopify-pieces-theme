@@ -414,9 +414,11 @@
     requestAnimationFrame(initTitleAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initTitleAnimation);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('before-after-animation', () => {
+      requestAnimationFrame(initTitleAnimation);
+    });
+  }
 })();
 </script>
 

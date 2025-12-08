@@ -320,9 +320,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('text_reveal_animation', () => {
     requestAnimationFrame(initAnimation);
   });
+  }
 })();
 </script>
 

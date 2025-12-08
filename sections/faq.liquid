@@ -250,9 +250,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('faq_animation', () => {
     requestAnimationFrame(initAnimation);
   });
+  }
 })();
 </script>
 

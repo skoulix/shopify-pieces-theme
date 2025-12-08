@@ -413,9 +413,11 @@
     initSearch();
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initSearch);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('search-init', () => {
+      requestAnimationFrame(initSearch);
+    });
+  }
 })();
 </script>
 

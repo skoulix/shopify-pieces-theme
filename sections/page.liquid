@@ -82,7 +82,8 @@
   }
 
   // Re-run on Swup content replace
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('page_animation', () => {
     const newWrapper = document.querySelector('[data-page-wrapper]');
     if (newWrapper && !newWrapper.dataset.pageInitialized) {
       newWrapper.dataset.pageInitialized = 'true';

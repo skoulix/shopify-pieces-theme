@@ -452,9 +452,11 @@
     requestAnimationFrame(initHorizontalScroll);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('horizontal_scroll_animation', () => {
     requestAnimationFrame(initHorizontalScroll);
   });
+  }
 })();
 </script>
 

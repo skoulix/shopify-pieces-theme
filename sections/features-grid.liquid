@@ -393,9 +393,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('features_grid_animation', () => {
     requestAnimationFrame(initAnimation);
   });
+  }
 })();
 </script>
 

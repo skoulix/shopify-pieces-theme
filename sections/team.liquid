@@ -419,9 +419,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initAnimation);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('team-animation', () => {
+      requestAnimationFrame(initAnimation);
+    });
+  }
 })();
 </script>
 

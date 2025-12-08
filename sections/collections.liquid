@@ -488,18 +488,14 @@
       }
     }
 
-    window.addEventListener('swup:contentReplaced', cleanup, { once: true });
+    if (window.onSwupContentReplaced) {
+      window.onSwupContentReplaced('collections-cleanup-' + wrapper.dataset.layoutStyle, cleanup);
+    }
   }
 
   // Initialize
   function init() {
     initCollections();
-  }
-
-  function handleSwupContentReplaced() {
-    requestAnimationFrame(() => {
-      initCollections();
-    });
   }
 
   if (document.readyState === 'loading') {
@@ -508,7 +504,11 @@
     init();
   }
 
-  window.addEventListener('swup:contentReplaced', handleSwupContentReplaced);
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('collections-init', () => {
+      requestAnimationFrame(initCollections);
+    });
+  }
 })();
 </script>
 

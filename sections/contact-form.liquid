@@ -237,13 +237,15 @@
     window.addEventListener('load', animateIntro);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
-    const newWrapper = document.querySelector('[data-contact-wrapper]');
-    if (newWrapper && !newWrapper.dataset.contactInitialized) {
-      newWrapper.dataset.contactInitialized = 'true';
-      animateIntro();
-    }
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('contact_form_animation', () => {
+      const newWrapper = document.querySelector('[data-contact-wrapper]');
+      if (newWrapper && !newWrapper.dataset.contactInitialized) {
+        newWrapper.dataset.contactInitialized = 'true';
+        animateIntro();
+      }
+    });
+  }
 })();
 </script>
 

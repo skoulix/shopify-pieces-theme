@@ -391,9 +391,11 @@
     requestAnimationFrame(initTimeline);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('timeline_animation', () => {
     requestAnimationFrame(initTimeline);
   });
+  }
 })();
 </script>
 

@@ -109,9 +109,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('newsletter_animation', () => {
     requestAnimationFrame(initAnimation);
   });
+  }
 })();
 </script>
 

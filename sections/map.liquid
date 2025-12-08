@@ -298,9 +298,11 @@
     });
 
     // Handle Swup transitions
-    window.addEventListener('swup:contentReplaced', function() {
-      map.invalidateSize();
-    });
+    if (window.onSwupContentReplaced) {
+      window.onSwupContentReplaced('map-resize-{{ section.id }}', function() {
+        map.invalidateSize();
+      });
+    }
   }
 
   // Initialize map

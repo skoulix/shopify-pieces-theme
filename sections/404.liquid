@@ -141,9 +141,11 @@
     requestAnimationFrame(initAnimation);
   }
 
-  window.addEventListener('swup:contentReplaced', () => {
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('404_animation', () => {
     requestAnimationFrame(initAnimation);
   });
+  }
 })();
 </script>
 

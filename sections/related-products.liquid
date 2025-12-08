@@ -494,7 +494,8 @@
       requestAnimationFrame(initTitleAnimation);
     }
 
-    window.addEventListener('swup:contentReplaced', () => {
+    if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('related_products_animation', () => {
       requestAnimationFrame(initTitleAnimation);
     });
   })();

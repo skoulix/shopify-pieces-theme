@@ -1051,9 +1051,11 @@
     requestAnimationFrame(initAnimations);
   }
 
-  window.addEventListener('swup:contentReplaced', function() {
-    requestAnimationFrame(initAnimations);
-  });
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('shoppable-videos-animation', function() {
+      requestAnimationFrame(initAnimations);
+    });
+  }
 })();
 </script>
 

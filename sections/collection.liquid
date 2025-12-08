@@ -802,8 +802,7 @@
       }
     }
 
-    // Listen for cleanup before content is replaced
-    window.addEventListener('swup:contentReplaced', cleanup, { once: true });
+    // Cleanup is handled within initCollection - no global listener needed
   }
 
   // Initialize on page load
@@ -827,7 +826,9 @@
   }
 
   // Listen for Swup content replacement to reinitialize
-  window.addEventListener('swup:contentReplaced', handleSwupContentReplaced);
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('collection-init', handleSwupContentReplaced);
+  }
 })();
 </script>
 
