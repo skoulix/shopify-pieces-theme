@@ -622,51 +622,63 @@
     // Hide nav if only one slide
     if (prevBtn) prevBtn.style.display = 'none';
     if (nextBtn) nextBtn.style.display = 'none';
-  } else {
-    let currentIndex = 0;
-    const totalSlides = slides.length;
+  }
 
-    function getSlideWidth() {
-      const slide = slides[0];
-      const trackStyle = getComputedStyle(track);
-      const gap = parseFloat(trackStyle.gap) || 0;
-      return slide.offsetWidth + gap;
-    }
+  let currentIndex = 0;
+  const totalSlides = slides.length;
 
-    function getMaxTranslate() {
-      const slideWidth = slides[0].offsetWidth;
-      const trackStyle = getComputedStyle(track);
-      const gap = parseFloat(trackStyle.gap) || 0;
-      const totalTrackWidth = (slideWidth * totalSlides) + (gap * (totalSlides - 1));
-      const containerWidth = track.parentElement.offsetWidth;
-      return Math.max(0, totalTrackWidth - containerWidth);
-    }
+  function getSlideWidth() {
+    const slide = slides[0];
+    const trackStyle = getComputedStyle(track);
+    const gap = parseFloat(trackStyle.gap) || 0;
+    return slide.offsetWidth + gap;
+  }
 
-    function updateSlider(index) {
-      const slideWidth = getSlideWidth();
-      let translateX = index * slideWidth;
-      const maxTranslate = getMaxTranslate();
-      translateX = Math.min(translateX, maxTranslate);
-      track.style.transform = 'translateX(' + (-translateX) + 'px)';
-      currentIndex = index;
-    }
+  function getMaxTranslate() {
+    const slideWidth = slides[0].offsetWidth;
+    const trackStyle = getComputedStyle(track);
+    const gap = parseFloat(trackStyle.gap) || 0;
+    const totalTrackWidth = (slideWidth * totalSlides) + (gap * (totalSlides - 1));
+    const containerWidth = track.parentElement.offsetWidth;
+    return Math.max(0, totalTrackWidth - containerWidth);
+  }
 
-    function nextSlide() {
-      const next = (currentIndex + 1) % totalSlides;
-      updateSlider(next);
-    }
+  function updateSlider(index) {
+    const slideWidth = getSlideWidth();
+    let translateX = index * slideWidth;
+    const maxTranslate = getMaxTranslate();
+    translateX = Math.min(translateX, maxTranslate);
+    track.style.transform = 'translateX(' + (-translateX) + 'px)';
+    currentIndex = index;
+  }
 
-    function prevSlide() {
-      const prev = (currentIndex - 1 + totalSlides) % totalSlides;
-      updateSlider(prev);
-    }
+  function nextSlide() {
+    const next = (currentIndex + 1) % totalSlides;
+    updateSlider(next);
+  }
 
-    // Event listeners
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+  function prevSlide() {
+    const prev = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateSlider(prev);
+  }
 
-    // Touch/swipe support
-    let touchStartX = 0;
+  // Event listeners - attach directly to buttons
+  if (prevBtn) {
+    prevBtn.onclick = function(e) {
+      e.preventDefault();
+      prevSlide();
+    };
+  }
+  if (nextBtn) {
+    nextBtn.onclick = function(e) {
+      e.preventDefault();
+      nextSlide();
+    };
+  }
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  if (track) {
     track.addEventListener('touchstart', function(e) {
       touchStartX = e.touches[0].clientX;
     }, { passive: true });
@@ -682,15 +694,15 @@
         }
       }
     }, { passive: true });
-
-    // Initial position
-    updateSlider(0);
-
-    // Recalculate on resize
-    window.addEventListener('resize', function() {
-      updateSlider(currentIndex);
-    });
   }
+
+  // Initial position
+  updateSlider(0);
+
+  // Recalculate on resize
+  window.addEventListener('resize', function() {
+    updateSlider(currentIndex);
+  });
 
   // Video autoplay on visibility
   const videoObserver = new IntersectionObserver((entries) => {
