@@ -448,9 +448,11 @@
                       playsinline
                       preload="metadata"
                       {% if video_hosted.alt != blank %}aria-label="{{ video_hosted.alt }}"{% endif %}>
+                      {%- comment -%} theme-check-disable RemoteAsset - video.sources returns Shopify CDN URLs {%- endcomment -%}
                       {%- for source in video_hosted.sources -%}
                         <source src="{{ source.url }}" type="{{ source.mime_type }}">
                       {%- endfor -%}
+                      {%- comment -%} theme-check-enable RemoteAsset {%- endcomment -%}
                     </video>
                   {% else %}
                     <div class="absolute inset-0 w-full h-full flex items-center justify-center z-0" style="background: {{ section.settings.text_color }}08;">
@@ -520,9 +522,11 @@
 
   <div class="shoppable-lightbox-content">
     <div class="shoppable-lightbox-video">
+      {%- comment -%} theme-check-disable RemoteAsset - src populated dynamically via JavaScript {%- endcomment -%}
       <video controls autoplay muted playsinline preload="none" id="shoppable-lightbox-video-{{ section.id }}">
         <source src="" type="video/mp4">
       </video>
+      {%- comment -%} theme-check-enable RemoteAsset {%- endcomment -%}
     </div>
 
     <div class="shoppable-lightbox-product">
@@ -606,187 +610,267 @@
     }
   }
 
-  // Infinite carousel with transform and cloned slides
+  // GSAP-powered infinite carousel
   const slider = section.querySelector('[data-shoppable-videos-slider]');
   const track = section.querySelector('[data-shoppable-videos-track]');
   const originalSlides = Array.from(section.querySelectorAll('[data-video-slide]'));
   const prevBtn = section.querySelector('[data-shoppable-videos-prev]');
   const nextBtn = section.querySelector('[data-shoppable-videos-next]');
+  const totalOriginal = originalSlides.length;
 
-  if (originalSlides.length <= 1) {
+  // Settings
+  const autoplayEnabled = {{ section.settings.autoplay | json }};
+  const autoplaySpeed = {{ section.settings.autoplay_speed | default: 5 }};
+  const pauseOnHover = {{ section.settings.pause_on_hover | json }};
+
+  // State
+  let loop = null;
+  let autoplayTl = null;
+  let isPaused = false;
+
+  if (totalOriginal <= 1) {
     if (prevBtn) prevBtn.style.display = 'none';
     if (nextBtn) nextBtn.style.display = 'none';
   }
 
-  const totalOriginal = originalSlides.length;
-  let currentIndex = 0;
-  let isTransitioning = false;
-
-  // Clone slides for infinite effect
-  function setupInfiniteSlider() {
-    if (totalOriginal <= 1) return;
-
-    // Clone last few slides to prepend
-    const clonesAtStart = [];
-    for (let i = totalOriginal - 1; i >= Math.max(0, totalOriginal - 3); i--) {
-      const clone = originalSlides[i].cloneNode(true);
-      clone.setAttribute('data-clone', 'start');
-      clone.removeAttribute('data-video-slide');
-      clonesAtStart.unshift(clone);
+  function initGsapCarousel() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
     }
 
-    // Clone first few slides to append
-    const clonesAtEnd = [];
-    for (let i = 0; i < Math.min(3, totalOriginal); i++) {
-      const clone = originalSlides[i].cloneNode(true);
-      clone.setAttribute('data-clone', 'end');
-      clone.removeAttribute('data-video-slide');
-      clonesAtEnd.push(clone);
-    }
+    if (!gsap || totalOriginal <= 1 || !track) return;
 
-    // Prepend clones
-    clonesAtStart.forEach(clone => track.insertBefore(clone, track.firstChild));
+    // Get the gap value from the track for seamless looping
+    const trackStyles = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyles.gap) || parseFloat(trackStyles.columnGap) || 0;
 
-    // Append clones
-    clonesAtEnd.forEach(clone => track.appendChild(clone));
+    // GSAP horizontalLoop helper - creates seamless infinite carousel
+    // Based on GSAP's official helper: https://gsap.com/docs/v3/HelperFunctions/helpers/seamlessLoop
+    function horizontalLoop(items, config) {
+      items = gsap.utils.toArray(items);
+      config = config || {};
+      let tl = gsap.timeline({
+        repeat: config.repeat,
+        paused: config.paused,
+        defaults: { ease: 'none' },
+        onReverseComplete: function() {
+          tl.totalTime(tl.rawTime() + tl.duration() * 100);
+        }
+      });
+      let length = items.length;
+      let startX = items[0].offsetLeft;
+      let times = [];
+      let widths = [];
+      let xPercents = [];
+      let curIndex = 0;
+      let pixelsPerSecond = (config.speed || 1) * 100;
+      let snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1);
+      let totalWidth;
+      let curX;
+      let distanceToStart;
+      let distanceToLoop;
+      let item;
+      let i;
 
-    // Set initial position to first real slide (after prepended clones)
-    currentIndex = clonesAtStart.length;
-    updatePosition(false);
-  }
+      gsap.set(items, {
+        xPercent: function(i, el) {
+          let w = widths[i] = parseFloat(gsap.getProperty(el, 'width', 'px'));
+          xPercents[i] = snap(parseFloat(gsap.getProperty(el, 'x', 'px')) / w * 100 + gsap.getProperty(el, 'xPercent'));
+          return xPercents[i];
+        }
+      });
 
-  function getSlideWidth() {
-    const allSlides = track.children;
-    if (!allSlides[0]) return 0;
-    const trackStyle = getComputedStyle(track);
-    const gap = parseFloat(trackStyle.gap) || 0;
-    return allSlides[0].offsetWidth + gap;
-  }
+      gsap.set(items, { x: 0 });
 
-  function getCenterOffset() {
-    // On mobile (< 768px), center the active slide
-    // On desktop, align to left (no offset)
-    if (window.innerWidth < 768) {
-      const allSlides = track.children;
-      if (!allSlides[0]) return 0;
-      const slideWidth = allSlides[0].offsetWidth;
-      const sliderWidth = slider.offsetWidth;
-      // Offset = (container width - slide width) / 2
-      return (sliderWidth - slideWidth) / 2;
-    }
-    return 0;
-  }
+      totalWidth = items[length - 1].offsetLeft + xPercents[length - 1] / 100 * widths[length - 1] - startX + items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], 'scaleX') + (parseFloat(config.paddingRight) || 0);
 
-  function updatePosition(animate = true) {
-    const slideWidth = getSlideWidth();
-    const centerOffset = getCenterOffset();
-    const translateX = -currentIndex * slideWidth + centerOffset;
-
-    if (animate) {
-      track.classList.add('is-animating');
-    } else {
-      track.classList.remove('is-animating');
-    }
-
-    track.style.transform = 'translateX(' + translateX + 'px)';
-  }
-
-  function handleTransitionEnd() {
-    const allSlides = track.children;
-    const numClonesAtStart = track.querySelectorAll('[data-clone="start"]').length;
-    const numClonesAtEnd = track.querySelectorAll('[data-clone="end"]').length;
-    const totalSlides = allSlides.length;
-
-    // If at a clone at the end, jump to the real slide at the start
-    if (currentIndex >= totalSlides - numClonesAtEnd) {
-      currentIndex = numClonesAtStart + (currentIndex - (totalSlides - numClonesAtEnd));
-      updatePosition(false);
-    }
-    // If at a clone at the start, jump to the real slide at the end
-    else if (currentIndex < numClonesAtStart) {
-      currentIndex = totalSlides - numClonesAtEnd - (numClonesAtStart - currentIndex);
-      updatePosition(false);
-    }
-
-    isTransitioning = false;
-  }
-
-  function nextSlide() {
-    if (isTransitioning || totalOriginal <= 1) return;
-    isTransitioning = true;
-    currentIndex++;
-    updatePosition(true);
-  }
-
-  function prevSlide() {
-    if (isTransitioning || totalOriginal <= 1) return;
-    isTransitioning = true;
-    currentIndex--;
-    updatePosition(true);
-  }
-
-  // Listen for transition end to handle infinite loop repositioning
-  if (track) {
-    track.addEventListener('transitionend', handleTransitionEnd);
-  }
-
-  // Event listeners
-  if (prevBtn) {
-    prevBtn.onclick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      prevSlide();
-    };
-  }
-  if (nextBtn) {
-    nextBtn.onclick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      nextSlide();
-    };
-  }
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  let touchDiff = 0;
-
-  if (slider) {
-    slider.addEventListener('touchstart', function(e) {
-      if (isTransitioning) return;
-      touchStartX = e.touches[0].clientX;
-      track.classList.remove('is-animating');
-    }, { passive: true });
-
-    slider.addEventListener('touchmove', function(e) {
-      if (isTransitioning) return;
-      touchDiff = e.touches[0].clientX - touchStartX;
-      const slideWidth = getSlideWidth();
-      const centerOffset = getCenterOffset();
-      const baseTranslate = -currentIndex * slideWidth + centerOffset;
-      track.style.transform = 'translateX(' + (baseTranslate + touchDiff) + 'px)';
-    }, { passive: true });
-
-    slider.addEventListener('touchend', function() {
-      if (isTransitioning) return;
-      const threshold = getSlideWidth() * 0.2;
-      if (touchDiff > threshold) {
-        prevSlide();
-      } else if (touchDiff < -threshold) {
-        nextSlide();
-      } else {
-        updatePosition(true);
+      for (i = 0; i < length; i++) {
+        item = items[i];
+        curX = xPercents[i] / 100 * widths[i];
+        distanceToStart = item.offsetLeft + curX - startX;
+        distanceToLoop = distanceToStart + widths[i] * gsap.getProperty(item, 'scaleX');
+        tl.to(item, {
+          xPercent: snap((curX - distanceToLoop) / widths[i] * 100),
+          duration: distanceToLoop / pixelsPerSecond
+        }, 0)
+        .fromTo(item, {
+          xPercent: snap((curX - distanceToLoop + totalWidth) / widths[i] * 100)
+        }, {
+          xPercent: xPercents[i],
+          duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+          immediateRender: false
+        }, distanceToLoop / pixelsPerSecond)
+        .add('label' + i, distanceToStart / pixelsPerSecond);
+        times[i] = distanceToStart / pixelsPerSecond;
       }
-      touchDiff = 0;
-    }, { passive: true });
+
+      function toIndex(index, vars) {
+        vars = vars || {};
+        Math.abs(index - curIndex) > length / 2 && (index += index > curIndex ? -length : length);
+        let newIndex = gsap.utils.wrap(0, length, index);
+        let time = times[newIndex];
+        if (time > tl.time() !== index > curIndex) {
+          vars.modifiers = { time: gsap.utils.wrap(0, tl.duration()) };
+          time += tl.duration() * (index > curIndex ? 1 : -1);
+        }
+        curIndex = newIndex;
+        vars.overwrite = true;
+        return tl.tweenTo(time, vars);
+      }
+
+      tl.next = function(vars) { return toIndex(curIndex + 1, vars); };
+      tl.previous = function(vars) { return toIndex(curIndex - 1, vars); };
+      tl.current = function() { return curIndex; };
+      tl.toIndex = function(index, vars) { return toIndex(index, vars); };
+      tl.times = times;
+
+      tl.progress(1, true).progress(0, true);
+
+      if (config.reversed) {
+        tl.vars.onReverseComplete();
+        tl.reverse();
+      }
+
+      return tl;
+    }
+
+    // Calculate speed - higher setting = faster
+    const speed = autoplaySpeed * 0.5;
+
+    // Create the horizontal loop
+    loop = horizontalLoop(originalSlides, {
+      speed: speed,
+      repeat: -1,
+      paused: !autoplayEnabled,
+      paddingRight: gap
+    });
+
+    // Navigation buttons
+    if (prevBtn) {
+      prevBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        loop.previous({
+          duration: 0.4,
+          ease: 'power1.inOut',
+          onComplete: function() {
+            if (autoplayEnabled && !isPaused) {
+              loop.play();
+            }
+          }
+        });
+      };
+    }
+
+    if (nextBtn) {
+      nextBtn.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        loop.next({
+          duration: 0.4,
+          ease: 'power1.inOut',
+          onComplete: function() {
+            if (autoplayEnabled && !isPaused) {
+              loop.play();
+            }
+          }
+        });
+      };
+    }
+
+    // Touch/drag support with Draggable if available
+    let Draggable = window.Draggable;
+    if (!Draggable && window.pieces && window.pieces.Draggable) {
+      Draggable = window.pieces.Draggable;
+    }
+
+    if (Draggable) {
+      let startProgress;
+      Draggable.create(slider, {
+        type: 'x',
+        trigger: slider,
+        onPress: function() {
+          startProgress = loop.progress();
+          loop.pause();
+        },
+        onDrag: function() {
+          const totalWidth = originalSlides.reduce((acc, slide) => acc + slide.offsetWidth, 0);
+          loop.progress(startProgress + (this.startX - this.x) / totalWidth);
+        },
+        onRelease: function() {
+          if (autoplayEnabled && !isPaused) {
+            loop.play();
+          }
+        },
+        inertia: true
+      });
+    } else {
+      // Fallback touch support
+      let touchStartX = 0;
+      let startProgress = 0;
+
+      slider.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        startProgress = loop.progress();
+        loop.pause();
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', function(e) {
+        const diff = touchStartX - e.touches[0].clientX;
+        const totalWidth = originalSlides.reduce((acc, slide) => acc + slide.offsetWidth, 0);
+        loop.progress(startProgress + diff / totalWidth);
+      }, { passive: true });
+
+      slider.addEventListener('touchend', function() {
+        if (autoplayEnabled && !isPaused) {
+          loop.play();
+        }
+      }, { passive: true });
+    }
+
+    // Pause on hover
+    if (pauseOnHover && autoplayEnabled) {
+      slider.addEventListener('mouseenter', function() {
+        loop.pause();
+      });
+      slider.addEventListener('mouseleave', function() {
+        if (!isPaused) loop.play();
+      });
+    }
+
+    // Pause when out of view
+    const sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (autoplayEnabled) {
+          if (entry.isIntersecting) {
+            isPaused = false;
+            loop.play();
+          } else {
+            isPaused = true;
+            loop.pause();
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    sectionObserver.observe(section);
   }
 
-  // Initialize infinite slider
-  setupInfiniteSlider();
+  // Initialize when GSAP is ready
+  function waitForGsap() {
+    let gsap = window.gsap || (window.pieces && window.pieces.gsap);
+    if (gsap) {
+      initGsapCarousel();
+    } else {
+      setTimeout(waitForGsap, 50);
+    }
+  }
 
-  // Recalculate on resize
-  window.addEventListener('resize', function() {
-    updatePosition(false);
-  });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', waitForGsap);
+  } else {
+    waitForGsap();
+  }
 
   // Video autoplay on visibility
   const videoObserver = new IntersectionObserver((entries) => {
@@ -800,7 +884,7 @@
       }
     });
   }, { threshold: 0.5 });
-  slides.forEach(slide => videoObserver.observe(slide));
+  originalSlides.forEach(slide => videoObserver.observe(slide));
 
   // Lightbox functionality
   const lightbox = document.getElementById('shoppable-video-lightbox-{{ section.id }}');
@@ -1052,6 +1136,32 @@
       "type": "checkbox",
       "id": "show_product_info",
       "label": "Show product info on cards",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Scroll speed",
+      "default": 2,
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "info": "1 = slow, 10 = fast"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
       "default": true
     },
     {

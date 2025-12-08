@@ -1,13 +1,5 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 
-{%- liquid
-  if section.settings.full_width
-    assign container_class = 'page-full'
-  else
-    assign container_class = 'page-container'
-  endif
--%}
-
 <style>
   .product-section-wrapper { max-width: var(--page-max-width); margin: 0 auto; padding: 0; }
   @media (min-width: 1024px) { .product-section-wrapper { padding: 0 var(--page-padding); } }

@@ -281,9 +281,11 @@
           endif
         -%}
         <video {{ video_attrs }}>
+          {%- comment -%} theme-check-disable RemoteAsset - video.sources returns Shopify CDN URLs {%- endcomment -%}
           {% for source in section.settings.video.sources %}
             <source src="{{ source.url }}" type="{{ source.mime_type }}">
           {% endfor %}
+          {%- comment -%} theme-check-enable RemoteAsset {%- endcomment -%}
         </video>
       {% else %}
         <div class="video-placeholder-{{ section.id }}">
