@@ -1,0 +1,855 @@
+{%- comment -%}
+  Hotspots Section - Interactive image with clickable hotspots and popovers
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+
+  # Use global card settings for popover
+  assign card_radius = settings.card_radius | default: 8
+  assign card_border_width = settings.card_border_width | default: 0
+  assign card_shadow = settings.card_shadow | default: 'none'
+
+  assign background_color = section.settings.background_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#000000'
+-%}
+
+<style>
+  .hotspots-{{ section.id }} {
+    padding: var(--section-vertical-padding) 0;
+    background-color: {{ background_color }};
+    color: {{ text_color }};
+  }
+
+  .hotspots-header-{{ section.id }} {
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .hotspots-label-{{ section.id }} {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hotspots-label-{{ section.id }}.intro-visible {
+    opacity: 0.5;
+  }
+
+  .hotspots-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .hotspots-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .hotspots-description-{{ section.id }} {
+    font-size: 1rem;
+    opacity: 0.7;
+    max-width: 42rem;
+    margin-top: 1.5rem;
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  .hotspots-container-{{ section.id }} {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hotspots-image-{{ section.id }} {
+    width: 100%;
+    height: auto;
+    border-radius: {{ card_radius }}px;
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid var(--color-border);
+    {% endif %}
+    {% if card_shadow != 'none' %}
+    box-shadow: {{ card_shadow }};
+    {% endif %}
+  }
+
+  /* Hotspot dot styles */
+  .hotspot-dot-{{ section.id }} {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .hotspot-trigger-{{ section.id }} {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .hotspot-trigger-{{ section.id }}:hover {
+    transform: scale(1.1);
+  }
+
+  @media (min-width: 768px) {
+    .hotspot-trigger-{{ section.id }} {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  /* Pulse animation */
+  .hotspot-pulse-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: hotspot-ping-{{ section.id }} 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes hotspot-ping-{{ section.id }} {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile position overrides */
+  @media (max-width: 767px) {
+    .hotspot-dot-{{ section.id }} {
+      left: var(--mobile-x, 50%) !important;
+      top: var(--mobile-y, 50%) !important;
+    }
+  }
+
+  /* Native popover styles */
+  .hotspot-popover-{{ section.id }} {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: min(90vw, 400px);
+    position: fixed;
+    inset: unset;
+  }
+
+  .hotspot-popover-{{ section.id }}::backdrop {
+    background: transparent;
+  }
+
+  @media (max-width: 767px) {
+    .hotspot-popover-{{ section.id }}::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  /* Mobile popover content - fixed styling */
+  .hotspot-popover-content-{{ section.id }} {
+    position: relative;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+    max-height: 85vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Close button - always top right */
+  .hotspot-popover-content-{{ section.id }} .close-popover-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+  }
+
+  /* Desktop popover content - use theme card settings */
+  @media (min-width: 768px) {
+    .hotspot-popover-content-{{ section.id }} {
+      border-radius: {{ card_radius }}px;
+      max-height: none;
+      overflow-y: visible;
+      {% if card_shadow != 'none' %}
+      box-shadow: {{ card_shadow }};
+      {% else %}
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      {% endif %}
+      {% if card_border_width > 0 %}
+      border: {{ card_border_width }}px solid var(--color-border);
+      {% endif %}
+    }
+  }
+
+  .hotspot-popover-{{ section.id }}:popover-open {
+    animation: hotspot-fadeIn-{{ section.id }} 0.2s ease-out;
+  }
+
+  @keyframes hotspot-fadeIn-{{ section.id }} {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile popover positioning */
+  @media (max-width: 767px) {
+    .hotspot-popover-{{ section.id }} {
+      max-width: 100%;
+      width: 100%;
+      bottom: 0;
+      left: 0 !important;
+      right: 0;
+      top: auto !important;
+    }
+  }
+
+  /* Animation states */
+  html.animations-disabled .hotspots-{{ section.id }} [data-intro] {
+    opacity: 0.7;
+    transform: none;
+  }
+
+  html.animations-disabled .hotspots-{{ section.id }} .hotspots-title-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .hotspots-{{ section.id }} .hotspots-label-{{ section.id }} {
+    opacity: 0.5;
+    transform: none;
+  }
+</style>
+
+<section
+  class="hotspots-{{ section.id }}"
+  data-hotspots-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    {% if section.settings.title != blank or section.settings.label != blank %}
+      <header class="hotspots-header-{{ section.id }}">
+        {% if section.settings.label != blank %}
+          <span class="hotspots-label-{{ section.id }}" data-hotspots-label>{{ section.settings.label }}</span>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="hotspots-title-{{ section.id }} font-heading" data-hotspots-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="hotspots-description-{{ section.id }}" data-intro>
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    {%- comment -%} Image with Hotspots {%- endcomment -%}
+    <div class="hotspots-container-{{ section.id }}">
+      {% if section.settings.desktop_image != blank %}
+        {%- comment -%} Desktop Image {%- endcomment -%}
+        <img
+          src="{{ section.settings.desktop_image | image_url: width: 1920 }}"
+          srcset="{{ section.settings.desktop_image | image_url: width: 960 }} 960w,
+                  {{ section.settings.desktop_image | image_url: width: 1280 }} 1280w,
+                  {{ section.settings.desktop_image | image_url: width: 1920 }} 1920w"
+          sizes="100vw"
+          alt="{{ section.settings.image_alt | escape }}"
+          class="hotspots-image-{{ section.id }} hidden md:block"
+          loading="lazy"
+          width="{{ section.settings.desktop_image.width }}"
+          height="{{ section.settings.desktop_image.height }}"
+        >
+
+        {%- comment -%} Mobile Image {%- endcomment -%}
+        {% if section.settings.mobile_image != blank %}
+          <img
+            src="{{ section.settings.mobile_image | image_url: width: 800 }}"
+            srcset="{{ section.settings.mobile_image | image_url: width: 400 }} 400w,
+                    {{ section.settings.mobile_image | image_url: width: 600 }} 600w,
+                    {{ section.settings.mobile_image | image_url: width: 800 }} 800w"
+            sizes="100vw"
+            alt="{{ section.settings.image_alt | escape }}"
+            class="hotspots-image-{{ section.id }} block md:hidden"
+            loading="lazy"
+            width="{{ section.settings.mobile_image.width }}"
+            height="{{ section.settings.mobile_image.height }}"
+          >
+        {% else %}
+          <img
+            src="{{ section.settings.desktop_image | image_url: width: 800 }}"
+            alt="{{ section.settings.image_alt | escape }}"
+            class="hotspots-image-{{ section.id }} block md:hidden"
+            loading="lazy"
+          >
+        {% endif %}
+      {% else %}
+        {%- comment -%} Placeholder when no image {%- endcomment -%}
+        <div class="hotspots-image-{{ section.id }} w-full aspect-[16/9] bg-[--color-background-secondary] flex items-center justify-center">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+        </div>
+      {% endif %}
+
+      {%- comment -%} Hotspot Dots {%- endcomment -%}
+      {% for block in section.blocks %}
+        {% if block.type == 'hotspot' %}
+          {%- liquid
+            assign dot_color = block.settings.dot_color | default: '#000000'
+            assign icon_color = block.settings.icon_color | default: '#ffffff'
+            assign position_x = block.settings.position_x | default: 50
+            assign position_y = block.settings.position_y | default: 50
+            assign position_x_mobile = block.settings.position_x_mobile
+            assign position_y_mobile = block.settings.position_y_mobile
+          -%}
+
+          <div
+            class="hotspot-dot-{{ section.id }}"
+            data-hotspot-id="{{ block.id }}"
+            style="left: {{ position_x }}%; top: {{ position_y }}%;{% if position_x_mobile != blank %} --mobile-x: {{ position_x_mobile }}%;{% endif %}{% if position_y_mobile != blank %} --mobile-y: {{ position_y_mobile }}%;{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            <button
+              type="button"
+              class="hotspot-trigger-{{ section.id }}"
+              style="background-color: {{ dot_color }};"
+              aria-label="{{ block.settings.title | default: 'View details' }}"
+              popovertarget="popover-{{ block.id }}"
+            >
+              <span class="hotspot-pulse-{{ section.id }}" style="background-color: {{ dot_color }};"></span>
+              <i class="ph ph-plus relative z-[2]" style="color: {{ icon_color }};"></i>
+            </button>
+          </div>
+
+          {%- comment -%} Popover Content {%- endcomment -%}
+          {%- liquid
+            assign title_color = block.settings.title_color | default: '#000000'
+            assign description_color = block.settings.description_color | default: '#666666'
+            assign link_color = block.settings.link_color | default: '#000000'
+            assign popover_position = block.settings.popover_position | default: 'right'
+          -%}
+
+          <div
+            id="popover-{{ block.id }}"
+            popover
+            class="hotspot-popover-{{ section.id }}"
+            data-position="{{ popover_position }}"
+            data-trigger-id="hotspot-{{ block.id }}"
+          >
+            <div class="hotspot-popover-content-{{ section.id }} w-full md:w-96">
+              {%- comment -%} Close button - positioned at top right {%- endcomment -%}
+              <button
+                class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-black/10 hover:bg-black/20 transition-colors close-popover-btn z-10"
+                data-popover-id="popover-{{ block.id }}"
+                aria-label="{{ 'accessibility.close' | t }}"
+              >
+                <i class="ph ph-x text-base"></i>
+              </button>
+
+              <div class="p-6 pr-14">
+                {% if block.settings.title != blank %}
+                  <h3 class="font-semibold text-lg md:text-base mb-3 leading-tight font-heading" style="color: {{ title_color }};">
+                    {{ block.settings.title }}
+                  </h3>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <p class="text-sm leading-relaxed {% if block.settings.link_text != blank %}mb-4{% endif %}" style="color: {{ description_color }};">
+                    {{ block.settings.description }}
+                  </p>
+                {% endif %}
+
+                {% if block.settings.link_text != blank %}
+                  <a
+                    href="{{ block.settings.link_url | default: '#' }}"
+                    class="inline-flex items-center gap-2 text-sm font-medium hover:gap-3 transition-all"
+                    style="color: {{ link_color }};"
+                  >
+                    {{ block.settings.link_text }}
+                    <i class="ph ph-arrow-right"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const section = document.querySelector('[data-hotspots-section="' + sectionId + '"]');
+  if (!section) return;
+
+  // Prevent duplicate initialization
+  if (section.dataset.initialized) return;
+  section.dataset.initialized = 'true';
+
+  // Position popovers relative to their triggers
+  function positionPopover(popover) {
+    const triggerId = popover.dataset.triggerId;
+    if (!triggerId) return;
+
+    const trigger = document.querySelector('[popovertarget="' + popover.id + '"]');
+    if (!trigger) return;
+
+    // Skip positioning on mobile (popover is fixed to bottom)
+    if (window.innerWidth < 768) return;
+
+    const triggerRect = trigger.getBoundingClientRect();
+    const popoverRect = popover.getBoundingClientRect();
+    const position = popover.dataset.position || 'right';
+    const gap = 20;
+
+    let left, top;
+
+    switch(position) {
+      case 'right':
+        left = triggerRect.right + gap;
+        top = triggerRect.top + (triggerRect.height / 2) - (popoverRect.height / 2);
+        break;
+      case 'left':
+        left = triggerRect.left - popoverRect.width - gap;
+        top = triggerRect.top + (triggerRect.height / 2) - (popoverRect.height / 2);
+        break;
+      case 'top':
+        left = triggerRect.left + (triggerRect.width / 2) - (popoverRect.width / 2);
+        top = triggerRect.top - popoverRect.height - gap;
+        break;
+      case 'bottom':
+        left = triggerRect.left + (triggerRect.width / 2) - (popoverRect.width / 2);
+        top = triggerRect.bottom + gap;
+        break;
+      default:
+        left = triggerRect.right + gap;
+        top = triggerRect.top + (triggerRect.height / 2) - (popoverRect.height / 2);
+    }
+
+    // Keep within viewport
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (left + popoverRect.width > viewportWidth) {
+      left = triggerRect.left - popoverRect.width - gap;
+    }
+    if (left < 0) {
+      left = gap;
+    }
+    if (top + popoverRect.height > viewportHeight) {
+      top = viewportHeight - popoverRect.height - gap;
+    }
+    if (top < 0) {
+      top = gap;
+    }
+
+    popover.style.left = left + 'px';
+    popover.style.top = top + 'px';
+  }
+
+  // Position popovers when they open
+  document.querySelectorAll('.hotspot-popover-' + sectionId).forEach(function(popover) {
+    popover.addEventListener('toggle', function(event) {
+      if (event.newState === 'open') {
+        // Close other popovers
+        document.querySelectorAll('.hotspot-popover-' + sectionId).forEach(function(otherPopover) {
+          if (otherPopover !== popover && otherPopover.matches(':popover-open')) {
+            otherPopover.hidePopover();
+          }
+        });
+
+        positionPopover(popover);
+      }
+    });
+  });
+
+  // Handle close buttons
+  document.querySelectorAll('.close-popover-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      const popover = e.target.closest('[popover]');
+      if (popover) {
+        popover.hidePopover();
+      }
+    });
+  });
+
+  // Close popovers on scroll (desktop only)
+  window.addEventListener('scroll', function() {
+    if (window.innerWidth >= 768) {
+      document.querySelectorAll('.hotspot-popover-' + sectionId + ':popover-open').forEach(function(popover) {
+        popover.hidePopover();
+      });
+    }
+  });
+
+  // Reposition on resize
+  window.addEventListener('resize', function() {
+    document.querySelectorAll('.hotspot-popover-' + sectionId + ':popover-open').forEach(function(popover) {
+      positionPopover(popover);
+    });
+  });
+
+  // Title and label animation
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+
+    if (!shouldAnimate || !gsap || !ScrollTrigger) return;
+
+    const title = section.querySelector('[data-hotspots-title]');
+    const label = section.querySelector('[data-hotspots-label]');
+    const introElements = section.querySelectorAll('[data-intro]');
+
+    // Animate label
+    if (label) {
+      gsap.set(label, { opacity: 0, y: 20 });
+      gsap.to(label, {
+        opacity: 0.5,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        },
+        onComplete: function() { label.classList.add('intro-visible'); }
+      });
+    }
+
+    // Animate title with SplitText line reveal
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'hotspots-title-line' });
+
+      split.lines.forEach(function(line) {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+
+    // Animate intro elements (description)
+    if (introElements.length > 0) {
+      gsap.set(introElements, { opacity: 0, y: 20 });
+
+      gsap.to(introElements, {
+        opacity: 0.7,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { requestAnimationFrame(initAnimation); });
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Hotspots",
+  "tag": "section",
+  "class": "hotspots-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Discover"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Product Features"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image",
+      "info": "Optional: Different image for mobile devices"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot",
+      "name": "Hotspot",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Position"
+        },
+        {
+          "type": "range",
+          "id": "position_x",
+          "label": "Horizontal position (Desktop)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_y",
+          "label": "Vertical position (Desktop)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_x_mobile",
+          "label": "Horizontal position (Mobile)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_y_mobile",
+          "label": "Vertical position (Mobile)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Describe this feature or specification in detail."
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "header",
+          "content": "Dot appearance"
+        },
+        {
+          "type": "color",
+          "id": "dot_color",
+          "label": "Dot color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Popover appearance"
+        },
+        {
+          "type": "select",
+          "id": "popover_position",
+          "label": "Popover position",
+          "default": "right",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "right", "label": "Right" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description color",
+          "default": "#666666"
+        },
+        {
+          "type": "color",
+          "id": "link_color",
+          "label": "Link color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hotspots",
+      "category": "Image & media",
+      "blocks": [
+        {
+          "type": "hotspot",
+          "settings": {
+            "position_x": 25,
+            "position_y": 30,
+            "title": "Premium Materials",
+            "description": "Crafted with high-quality materials for durability and comfort."
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "position_x": 75,
+            "position_y": 40,
+            "title": "Advanced Technology",
+            "description": "Features cutting-edge technology for optimal performance."
+          }
+        },
+        {
+          "type": "hotspot",
+          "settings": {
+            "position_x": 50,
+            "position_y": 70,
+            "title": "Ergonomic Design",
+            "description": "Designed with comfort and usability in mind."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
