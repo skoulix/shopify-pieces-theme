@@ -264,7 +264,7 @@
     {% endif %}
 
     {%- comment -%} Image with Hotspots {%- endcomment -%}
-    <div class="hotspots-container-{{ section.id }}">
+    <div class="hotspots-container-{{ section.id }}" data-intro>
       {% if section.settings.desktop_image != blank %}
         {%- comment -%} Desktop Image {%- endcomment -%}
         <img
@@ -327,11 +327,18 @@
             style="left: {{ position_x }}%; top: {{ position_y }}%;{% if position_x_mobile != blank %} --mobile-x: {{ position_x_mobile }}%;{% endif %}{% if position_y_mobile != blank %} --mobile-y: {{ position_y_mobile }}%;{% endif %}"
             {{ block.shopify_attributes }}
           >
+            {%- liquid
+              if block.settings.title != blank
+                assign hotspot_aria_label = block.settings.title
+              else
+                assign hotspot_aria_label = 'sections.hotspots.view_details' | t
+              endif
+            -%}
             <button
               type="button"
               class="hotspot-trigger-{{ section.id }}"
               style="background-color: {{ dot_color }};"
-              aria-label="{{ block.settings.title | default: 'View details' }}"
+              aria-label="{{ hotspot_aria_label }}"
               popovertarget="popover-{{ block.id }}"
             >
               <span class="hotspot-pulse-{{ section.id }}" style="background-color: {{ dot_color }};"></span>

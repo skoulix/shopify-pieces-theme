@@ -1,0 +1,956 @@
+{%- comment -%}
+  Shop The Look Section - Image with numbered hotspots linking to products
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+
+  # Use global card settings
+  assign card_radius = settings.card_radius | default: 8
+  assign card_border_width = settings.card_border_width | default: 0
+  assign card_shadow = settings.card_shadow | default: 'none'
+
+  assign background_color = section.settings.background_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign dot_color = section.settings.dot_color | default: '#000000'
+  assign dot_text_color = section.settings.dot_text_color | default: '#ffffff'
+
+  # Calculate total price for all products
+  assign total_price = 0
+  assign product_count = 0
+  for block in section.blocks
+    if block.type == 'product' and block.settings.product != blank
+      assign total_price = total_price | plus: block.settings.product.price
+      assign product_count = product_count | plus: 1
+    endif
+  endfor
+-%}
+
+<style>
+  .shop-the-look-{{ section.id }} {
+    padding: var(--section-vertical-padding) 0;
+    background-color: {{ background_color }};
+    color: {{ text_color }};
+  }
+
+  .shop-the-look-header-{{ section.id }} {
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    text-align: {{ section.settings.header_alignment }};
+  }
+
+  .shop-the-look-label-{{ section.id }} {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .shop-the-look-label-{{ section.id }}.intro-visible {
+    opacity: 0.5;
+  }
+
+  .shop-the-look-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .shop-the-look-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .shop-the-look-description-{{ section.id }} {
+    font-size: 1rem;
+    opacity: 0.7;
+    max-width: 42rem;
+    margin-top: 1.5rem;
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  /* Image container */
+  .shop-the-look-image-{{ section.id }} {
+    position: relative;
+    border-radius: {{ card_radius }}px;
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid var(--color-border);
+    {% endif %}
+    {% if card_shadow != 'none' %}
+    box-shadow: {{ card_shadow }};
+    {% endif %}
+  }
+
+  .shop-the-look-image-{{ section.id }} img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: {{ card_radius }}px;
+  }
+
+  /* Hotspot dots */
+  .shop-the-look-dot-{{ section.id }} {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .shop-the-look-trigger-{{ section.id }} {
+    position: relative;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: {{ dot_color }};
+    transition: transform 0.3s ease;
+  }
+
+  .shop-the-look-trigger-{{ section.id }}:hover {
+    transform: scale(1.1);
+  }
+
+  .shop-the-look-trigger-{{ section.id }} span {
+    position: relative;
+    z-index: 2;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: {{ dot_text_color }};
+  }
+
+  /* Pulse animation */
+  .shop-the-look-pulse-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: {{ dot_color }};
+    opacity: 0.3;
+    animation: shop-the-look-ping-{{ section.id }} 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes shop-the-look-ping-{{ section.id }} {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
+  /* Mobile position overrides */
+  @media (max-width: 767px) {
+    .shop-the-look-dot-{{ section.id }} {
+      left: var(--mobile-x, 50%) !important;
+      top: var(--mobile-y, 50%) !important;
+    }
+  }
+
+  /* Product card */
+  .shop-the-look-product-{{ section.id }} {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: {{ card_radius }}px;
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid var(--color-border);
+    {% else %}
+    border: 1px solid var(--color-border);
+    {% endif %}
+    transition: all 0.2s ease;
+    scroll-margin-top: 6rem;
+  }
+
+  .shop-the-look-product-{{ section.id }}:hover {
+    border-color: {{ text_color }}40;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .shop-the-look-product-{{ section.id }}.is-highlighted {
+    background-color: {{ text_color }}05;
+    border-color: {{ text_color }}40;
+  }
+
+  .shop-the-look-product-image-{{ section.id }} {
+    width: 5rem;
+    height: 5rem;
+    flex-shrink: 0;
+    border-radius: {{ card_radius }}px;
+    overflow: hidden;
+  }
+
+  .shop-the-look-product-image-{{ section.id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shop-the-look-badge-{{ section.id }} {
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background-color: {{ dot_color }};
+    color: {{ dot_text_color }};
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+  }
+
+  /* Complete the look box */
+  .shop-the-look-complete-{{ section.id }} {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: {{ card_radius }}px;
+    background-color: {{ text_color }}08;
+    color: {{ text_color }};
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid var(--color-border);
+    {% endif %}
+  }
+
+  .shop-the-look-complete-{{ section.id }} .complete-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .shop-the-look-complete-{{ section.id }} .complete-subtitle {
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+
+  .shop-the-look-complete-{{ section.id }} .complete-total-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  .shop-the-look-complete-{{ section.id }} .complete-total-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* Animation states */
+  html.animations-disabled .shop-the-look-{{ section.id }} [data-intro] {
+    opacity: 0.7;
+    transform: none;
+  }
+
+  html.animations-disabled .shop-the-look-{{ section.id }} .shop-the-look-title-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .shop-the-look-{{ section.id }} .shop-the-look-label-{{ section.id }} {
+    opacity: 0.5;
+    transform: none;
+  }
+</style>
+
+<section
+  class="shop-the-look-{{ section.id }}"
+  data-shop-the-look-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    {% if section.settings.title != blank or section.settings.label != blank %}
+      <header class="shop-the-look-header-{{ section.id }}">
+        {% if section.settings.label != blank %}
+          <span class="shop-the-look-label-{{ section.id }}" data-shop-the-look-label>{{ section.settings.label }}</span>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h2 class="shop-the-look-title-{{ section.id }} font-heading" data-shop-the-look-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <p class="shop-the-look-description-{{ section.id }}" data-intro>
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </header>
+    {% endif %}
+
+    {%- comment -%} Main Content Grid {%- endcomment -%}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      {%- comment -%} Image Column {%- endcomment -%}
+      <div class="{% if section.settings.layout == 'image_right' %}order-1 lg:order-2{% else %}order-1{% endif %}">
+        <div class="lg:sticky lg:top-12">
+          <div class="shop-the-look-image-{{ section.id }}" data-intro>
+            {% if section.settings.image != blank %}
+              {{ section.settings.image | image_url: width: 1200 | image_tag:
+                class: 'w-full h-auto',
+                loading: 'lazy',
+                sizes: '(max-width: 1024px) 100vw, 50vw',
+                widths: '600, 800, 1000, 1200',
+                alt: section.settings.image_alt | default: 'Shop the look'
+              }}
+
+              {%- comment -%} Hotspot Dots {%- endcomment -%}
+              {% for block in section.blocks %}
+                {% if block.type == 'product' %}
+                  {%- liquid
+                    assign position_x = block.settings.position_x | default: 50
+                    assign position_y = block.settings.position_y | default: 50
+                    assign position_x_mobile = block.settings.position_x_mobile | default: position_x
+                    assign position_y_mobile = block.settings.position_y_mobile | default: position_y
+                  -%}
+
+                  <div
+                    class="shop-the-look-dot-{{ section.id }}"
+                    style="left: {{ position_x }}%; top: {{ position_y }}%; --mobile-x: {{ position_x_mobile }}%; --mobile-y: {{ position_y_mobile }}%;"
+                    {{ block.shopify_attributes }}
+                  >
+                    <button
+                      type="button"
+                      class="shop-the-look-trigger-{{ section.id }}"
+                      data-scroll-to-product="{{ forloop.index0 }}"
+                      aria-label="{{ 'sections.shop_the_look.view_product' | t: index: forloop.index }}"
+                    >
+                      <span class="shop-the-look-pulse-{{ section.id }}"></span>
+                      <span>{{ forloop.index }}</span>
+                    </button>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <div class="w-full aspect-square bg-[--color-background-secondary] flex items-center justify-center" style="border-radius: {{ card_radius }}px;">
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+              </div>
+
+              {%- comment -%} Dummy hotspots for placeholder {%- endcomment -%}
+              <div
+                class="shop-the-look-dot-{{ section.id }}"
+                style="left: 25%; top: 30%;"
+              >
+                <button
+                  type="button"
+                  class="shop-the-look-trigger-{{ section.id }}"
+                  aria-label="View product 1"
+                >
+                  <span class="shop-the-look-pulse-{{ section.id }}"></span>
+                  <span>1</span>
+                </button>
+              </div>
+              <div
+                class="shop-the-look-dot-{{ section.id }}"
+                style="left: 65%; top: 50%;"
+              >
+                <button
+                  type="button"
+                  class="shop-the-look-trigger-{{ section.id }}"
+                  aria-label="View product 2"
+                >
+                  <span class="shop-the-look-pulse-{{ section.id }}"></span>
+                  <span>2</span>
+                </button>
+              </div>
+              <div
+                class="shop-the-look-dot-{{ section.id }}"
+                style="left: 40%; top: 75%;"
+              >
+                <button
+                  type="button"
+                  class="shop-the-look-trigger-{{ section.id }}"
+                  aria-label="View product 3"
+                >
+                  <span class="shop-the-look-pulse-{{ section.id }}"></span>
+                  <span>3</span>
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Products Column {%- endcomment -%}
+      <div class="{% if section.settings.layout == 'image_right' %}order-2 lg:order-1{% else %}order-2{% endif %} lg:sticky lg:top-12">
+        <div class="space-y-4">
+          {% for block in section.blocks %}
+            {% if block.type == 'product' %}
+              {% assign product = block.settings.product %}
+              {% if product != blank %}
+                <div
+                  class="shop-the-look-product-{{ section.id }}"
+                  id="shop-the-look-product-{{ section.id }}-{{ forloop.index0 }}"
+                  data-product-id="{{ product.id }}"
+                  data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                  data-intro
+                  {{ block.shopify_attributes }}
+                >
+                  {%- comment -%} Number Badge {%- endcomment -%}
+                  <div class="shop-the-look-badge-{{ section.id }}">{{ forloop.index }}</div>
+
+                  {%- comment -%} Product Image {%- endcomment -%}
+                  <a href="{{ product.url }}" class="shop-the-look-product-image-{{ section.id }}">
+                    {% if product.featured_image != blank %}
+                      {{ product.featured_image | image_url: width: 200 | image_tag:
+                        class: 'w-full h-full object-cover',
+                        loading: 'lazy',
+                        alt: product.title
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                    {% endif %}
+                  </a>
+
+                  {%- comment -%} Product Details {%- endcomment -%}
+                  <div class="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-3">
+                    <div class="flex-1 min-w-0">
+                      <a href="{{ product.url }}" class="block group">
+                        <h3 class="font-semibold text-base mb-1 group-hover:underline leading-tight">
+                          {{ product.title }}
+                        </h3>
+                        {% if product.vendor != blank and section.settings.show_vendor %}
+                          <p class="text-sm opacity-60 mb-1">{{ product.vendor }}</p>
+                        {% endif %}
+                        <div class="flex items-center gap-2">
+                          {% if product.compare_at_price > product.price %}
+                            <span class="font-bold text-lg">{{ product.price | money }}</span>
+                            <span class="text-sm opacity-60 line-through">{{ product.compare_at_price | money }}</span>
+                          {% else %}
+                            <span class="font-bold text-lg">{{ product.price | money }}</span>
+                          {% endif %}
+                        </div>
+                      </a>
+                    </div>
+
+                    {%- comment -%} Add to Cart Button {%- endcomment -%}
+                    <div class="flex-shrink-0">
+                      {% if product.available %}
+                        <button
+                          type="button"
+                          class="btn btn--primary btn--sm"
+                          data-quick-add-variant="{{ product.selected_or_first_available_variant.id }}"
+                        >
+                          <span>{{ 'products.product.add_to_cart' | t | split: ' ' | first }}</span>
+                        </button>
+                      {% else %}
+                        <button type="button" class="btn btn--secondary btn--sm" disabled>
+                          <span>{{ 'products.product.sold_out' | t }}</span>
+                        </button>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                {%- comment -%} Placeholder {%- endcomment -%}
+                <div class="shop-the-look-product-{{ section.id }} border-dashed" {{ block.shopify_attributes }}>
+                  <div class="shop-the-look-badge-{{ section.id }} opacity-50">{{ forloop.index }}</div>
+                  <div class="flex-1 py-4 text-center opacity-50">
+                    <p class="text-sm">{{ 'sections.shop_the_look.select_product' | t: index: forloop.index }}</p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if section.blocks.size == 0 %}
+            <div class="text-center py-12 opacity-50">
+              <p>{{ 'sections.shop_the_look.add_hotspots' | t }}</p>
+            </div>
+          {% endif %}
+
+          {%- comment -%} Complete the Look / Add All {%- endcomment -%}
+          {% if product_count > 0 and section.settings.show_add_all %}
+            <div class="shop-the-look-complete-{{ section.id }}" data-intro>
+              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex-1">
+                  {%- liquid
+                    if section.settings.add_all_title != blank
+                      assign add_all_title = section.settings.add_all_title
+                    else
+                      assign add_all_title = 'sections.shop_the_look.complete_the_look' | t
+                    endif
+                  -%}
+                  <h3 class="complete-title font-heading">{{ add_all_title }}</h3>
+                  <p class="complete-subtitle">{{ 'sections.shop_the_look.items_in_look' | t: count: product_count }}</p>
+                </div>
+                <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-6">
+                  <div class="text-left sm:text-right">
+                    <div class="complete-total-label">{{ 'sections.shop_the_look.total' | t }}</div>
+                    <div class="complete-total-price">{{ total_price | money }}</div>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn--primary btn--sm whitespace-nowrap"
+                    data-add-all-to-cart
+                  >
+                    {%- liquid
+                      if section.settings.add_all_button != blank
+                        assign add_all_button = section.settings.add_all_button
+                      else
+                        assign add_all_button = 'sections.shop_the_look.add_all' | t
+                      endif
+                    -%}
+                    <span>{{ add_all_button }}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const section = document.querySelector('[data-shop-the-look-section="' + sectionId + '"]');
+  if (!section) return;
+
+  // Prevent duplicate initialization
+  if (section.dataset.initialized) return;
+  section.dataset.initialized = 'true';
+
+  // Scroll to product when hotspot is clicked
+  const hotspotButtons = section.querySelectorAll('[data-scroll-to-product]');
+  hotspotButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const index = this.dataset.scrollToProduct;
+      const productElement = document.getElementById('shop-the-look-product-' + sectionId + '-' + index);
+
+      if (productElement) {
+        // Remove highlight from all products
+        section.querySelectorAll('.shop-the-look-product-' + sectionId).forEach(function(item) {
+          item.classList.remove('is-highlighted');
+        });
+
+        // Scroll to product
+        productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Add highlight effect
+        productElement.classList.add('is-highlighted');
+
+        // Brief scale animation
+        productElement.style.transform = 'scale(1.02)';
+        setTimeout(function() {
+          productElement.style.transform = '';
+        }, 300);
+      }
+    });
+  });
+
+  // Quick add to cart
+  const quickAddButtons = section.querySelectorAll('[data-quick-add-variant]');
+  quickAddButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      const variantId = this.dataset.quickAddVariant;
+      const originalHtml = this.innerHTML;
+
+      this.disabled = true;
+      this.innerHTML = '<svg class="animate-spin" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantId, quantity: 1 }] })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        button.innerHTML = '<i class="ph ph-check"></i>';
+
+        // Refresh cart and open drawer
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        document.dispatchEvent(new CustomEvent('cart:open'));
+
+        setTimeout(function() {
+          button.innerHTML = originalHtml;
+          button.disabled = false;
+        }, 1500);
+      })
+      .catch(function(error) {
+        console.error('Error adding to cart:', error);
+        button.innerHTML = originalHtml;
+        button.disabled = false;
+      });
+    });
+  });
+
+  // Add all to cart
+  const addAllButton = section.querySelector('[data-add-all-to-cart]');
+  if (addAllButton) {
+    addAllButton.addEventListener('click', function() {
+      const originalHtml = this.innerHTML;
+      this.disabled = true;
+      this.innerHTML = '<svg class="animate-spin" style="width: 16px; height: 16px; margin-right: 8px;" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>{{ 'cart.adding' | t }}</span>';
+
+      const items = [];
+      section.querySelectorAll('[data-variant-id]').forEach(function(card) {
+        const variantId = card.dataset.variantId;
+        if (variantId) {
+          items.push({ id: variantId, quantity: 1 });
+        }
+      });
+
+      if (items.length === 0) {
+        this.innerHTML = originalHtml;
+        this.disabled = false;
+        return;
+      }
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        addAllButton.innerHTML = '<i class="ph ph-check mr-2"></i><span>{{ 'cart.added' | t }}</span>';
+
+        // Refresh cart and open drawer
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        document.dispatchEvent(new CustomEvent('cart:open'));
+
+        setTimeout(function() {
+          addAllButton.innerHTML = originalHtml;
+          addAllButton.disabled = false;
+        }, 2000);
+      })
+      .catch(function(error) {
+        console.error('Error adding all to cart:', error);
+        addAllButton.innerHTML = '<span>{{ 'cart.error' | t }}</span>';
+        setTimeout(function() {
+          addAllButton.innerHTML = originalHtml;
+          addAllButton.disabled = false;
+        }, 2000);
+      });
+    });
+  }
+
+  // Title and label animation
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+
+    if (!shouldAnimate || !gsap || !ScrollTrigger) return;
+
+    const title = section.querySelector('[data-shop-the-look-title]');
+    const label = section.querySelector('[data-shop-the-look-label]');
+    const introElements = section.querySelectorAll('[data-intro]');
+
+    // Animate label
+    if (label) {
+      gsap.set(label, { opacity: 0, y: 20 });
+      gsap.to(label, {
+        opacity: 0.5,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        },
+        onComplete: function() { label.classList.add('intro-visible'); }
+      });
+    }
+
+    // Animate title with SplitText line reveal
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'shop-the-look-title-line' });
+
+      split.lines.forEach(function(line) {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+
+    // Animate intro elements (description)
+    if (introElements.length > 0) {
+      gsap.set(introElements, { opacity: 0, y: 20 });
+
+      gsap.to(introElements, {
+        opacity: 0.7,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { requestAnimationFrame(initAnimation); });
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Shop The Look",
+  "tag": "section",
+  "class": "shop-the-look-section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Style Guide"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop The Look"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left",
+      "label": "Header alignment"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Shop the look"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        { "value": "image_left", "label": "Image left" },
+        { "value": "image_right", "label": "Image right" }
+      ],
+      "default": "image_left"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show product vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_add_all",
+      "label": "Show 'Add All' section",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "add_all_title",
+      "label": "Add all section title",
+      "default": "Complete the Look"
+    },
+    {
+      "type": "text",
+      "id": "add_all_button",
+      "label": "Add all button text",
+      "default": "Add All"
+    },
+    {
+      "type": "header",
+      "content": "Hotspot style"
+    },
+    {
+      "type": "color",
+      "id": "dot_color",
+      "label": "Hotspot background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "dot_text_color",
+      "label": "Hotspot number color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "header",
+          "content": "Hotspot position"
+        },
+        {
+          "type": "range",
+          "id": "position_x",
+          "label": "Horizontal position (Desktop)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_y",
+          "label": "Vertical position (Desktop)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_x_mobile",
+          "label": "Horizontal position (Mobile)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "type": "range",
+          "id": "position_y_mobile",
+          "label": "Vertical position (Mobile)",
+          "default": 50,
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop The Look",
+      "category": "Products",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "position_x": 25,
+            "position_y": 30
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "position_x": 65,
+            "position_y": 50
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "position_x": 40,
+            "position_y": 75
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

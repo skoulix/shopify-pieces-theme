@@ -1,0 +1,474 @@
+{%- comment -%}
+  Floating Images Section - Sticky content with parallax background images
+{%- endcomment -%}
+
+{%- liquid
+  assign background_color = section.settings.background_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign heading_color = section.settings.heading_color | default: text_color
+  assign section_height = section.settings.section_height | default: 300
+  assign section_height_mobile = section.settings.section_height_mobile | default: 200
+  assign image_opacity = section.settings.image_opacity | default: 0.15
+
+  # Predefined positions for floating images (alternating sides, varying depths)
+  assign positions = '15,20,0.5,120|75,40,0.3,280|25,100,0.6,400|85,140,0.4,280|40,180,0.7,350|10,220,0.3,260|65,250,0.5,320|90,270,0.4,420|20,150,0.6,280|55,70,0.4,260|30,200,0.5,350' | split: '|'
+-%}
+
+<style>
+  .floating-images-{{ section.id }} {
+    background-color: {{ background_color }};
+    color: {{ text_color }};
+    height: {{ section_height_mobile }}vh;
+  }
+
+  @media (min-width: 768px) {
+    .floating-images-{{ section.id }} {
+      height: {{ section_height }}vh;
+    }
+  }
+
+  .floating-images-label-{{ section.id }} {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .floating-images-label-{{ section.id }}.intro-visible {
+    opacity: 0.5;
+  }
+
+  .floating-images-title-{{ section.id }} {
+    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: {{ heading_color }};
+  }
+
+  .floating-images-title-line:nth-child(2) {
+    margin-left: clamp(0.5rem, 4vw, 2rem);
+  }
+
+  .floating-images-description-{{ section.id }} {
+    font-size: 1rem;
+    opacity: 0.7;
+    max-width: 42rem;
+    margin-top: 1.5rem;
+  }
+
+  .floating-images-{{ section.id }} .parallax-image {
+    will-change: transform;
+    opacity: {{ image_opacity }};
+  }
+
+  /* Varied transition durations for organic movement */
+  .floating-images-{{ section.id }} .parallax-image:nth-child(1) { transition: transform 0.15s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(2) { transition: transform 0.08s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(3) { transition: transform 0.12s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(4) { transition: transform 0.2s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(5) { transition: transform 0.1s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(6) { transition: transform 0.18s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(7) { transition: transform 0.14s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(8) { transition: transform 0.09s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(9) { transition: transform 0.16s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(10) { transition: transform 0.11s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(11) { transition: transform 0.13s ease-out; }
+  .floating-images-{{ section.id }} .parallax-image:nth-child(12) { transition: transform 0.17s ease-out; }
+
+  /* Animation states */
+  html.animations-disabled .floating-images-{{ section.id }} [data-intro] {
+    opacity: 0.7;
+    transform: none;
+  }
+
+  html.animations-disabled .floating-images-{{ section.id }} .floating-images-title-{{ section.id }} {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.animations-disabled .floating-images-{{ section.id }} .floating-images-label-{{ section.id }} {
+    opacity: 0.5;
+    transform: none;
+  }
+
+  html.animations-disabled .floating-images-{{ section.id }} .parallax-image {
+    transform: translate(-50%, -50%) !important;
+  }
+</style>
+
+<section
+  class="floating-images-{{ section.id }} relative"
+  data-floating-images-section="{{ section.id }}"
+>
+  {%- comment -%} Floating Background Images {%- endcomment -%}
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+    {% for block in section.blocks %}
+      {% if block.type == 'image' and block.settings.image != blank %}
+        {%- liquid
+          assign index = forloop.index0
+          assign pos_index = index | modulo: 11
+          assign position_data = positions[pos_index] | split: ','
+          assign pos_x = position_data[0]
+          assign pos_y = position_data[1]
+          assign speed = position_data[2]
+          assign base_width = position_data[3]
+        -%}
+
+        <img
+          src="{{ block.settings.image | image_url: width: 800 }}"
+          srcset="{{ block.settings.image | image_url: width: 200 }} 200w,
+                  {{ block.settings.image | image_url: width: 400 }} 400w,
+                  {{ block.settings.image | image_url: width: 600 }} 600w,
+                  {{ block.settings.image | image_url: width: 800 }} 800w"
+          sizes="(max-width: 768px) 150px, (max-width: 1024px) 250px, {{ base_width }}px"
+          alt="{{ block.settings.image_alt | default: 'Floating image' | escape }}"
+          class="parallax-image absolute -translate-x-1/2 -translate-y-1/2 w-[120px] md:w-[180px] lg:w-[{{ base_width | minus: 80 }}px] xl:w-[{{ base_width }}px]"
+          data-speed="{{ speed }}"
+          style="left: {{ pos_x }}%; top: {{ pos_y }}vh;"
+          loading="lazy"
+          {{ block.shopify_attributes }}
+        >
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  {%- comment -%} Sticky Content {%- endcomment -%}
+  <div class="sticky top-0 h-screen flex items-center justify-center z-10">
+    <div class="text-center px-4 max-w-4xl mx-auto">
+      {% if section.settings.label != blank %}
+        <span class="floating-images-label-{{ section.id }}" data-floating-images-label>
+          {{ section.settings.label }}
+        </span>
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="floating-images-title-{{ section.id }} font-heading mb-6" data-floating-images-title>
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="floating-images-description-{{ section.id }} mx-auto" data-intro>
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.button_text != blank %}
+        <div class="mt-8" data-intro>
+          <a
+            href="{{ section.settings.button_link | default: '#' }}"
+            class="btn btn--{{ section.settings.button_style }}"
+          >
+            <span>{{ section.settings.button_text }}</span>
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const section = document.querySelector('[data-floating-images-section="' + sectionId + '"]');
+  if (!section) return;
+
+  // Prevent duplicate initialization
+  if (section.dataset.initialized) return;
+  section.dataset.initialized = 'true';
+
+  const enableParallax = {{ section.settings.enable_parallax | json }};
+
+  // Parallax effect
+  if (enableParallax) {
+    const images = section.querySelectorAll('.parallax-image');
+    let ticking = false;
+
+    function updateParallax() {
+      const scrolled = window.pageYOffset;
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      // Only apply parallax when section is in viewport
+      if (scrolled + window.innerHeight > sectionTop && scrolled < sectionTop + sectionHeight) {
+        images.forEach(function(img) {
+          const speed = parseFloat(img.dataset.speed) || 0.5;
+          const yPos = -(scrolled * speed);
+          img.style.transform = 'translate(-50%, calc(-50% + ' + yPos + 'px))';
+        });
+      }
+
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestTick, { passive: true });
+    window.addEventListener('resize', requestTick);
+
+    // Initial call
+    updateParallax();
+  }
+
+  // Title and label animation
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    let SplitText = window.SplitText;
+    if (!SplitText && window.pieces && window.pieces.SplitText) {
+      SplitText = window.pieces.SplitText;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+
+    if (!shouldAnimate || !gsap || !ScrollTrigger) return;
+
+    const title = section.querySelector('[data-floating-images-title]');
+    const label = section.querySelector('[data-floating-images-label]');
+    const introElements = section.querySelectorAll('[data-intro]');
+
+    // Animate label
+    if (label) {
+      gsap.set(label, { opacity: 0, y: 20 });
+      gsap.to(label, {
+        opacity: 0.5,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        },
+        onComplete: function() { label.classList.add('intro-visible'); }
+      });
+    }
+
+    // Animate title with SplitText line reveal
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'floating-images-title-line' });
+
+      split.lines.forEach(function(line) {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+
+    // Animate intro elements (description, button)
+    if (introElements.length > 0) {
+      gsap.set(introElements, { opacity: 0, y: 20 });
+
+      gsap.to(introElements, {
+        opacity: 0.7,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: 'top 70%',
+          once: true
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { requestAnimationFrame(initAnimation); });
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Floating Images",
+  "tag": "section",
+  "class": "floating-images-section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Discover"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Outstanding products with exceptional brands"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height (desktop)",
+      "default": 300,
+      "min": 200,
+      "max": 500,
+      "step": 50,
+      "unit": "vh",
+      "info": "Total height for the scroll effect"
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "label": "Section height (mobile)",
+      "default": 200,
+      "min": 150,
+      "max": 400,
+      "step": 50,
+      "unit": "vh"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "range",
+      "id": "image_opacity",
+      "label": "Image opacity",
+      "default": 0.15,
+      "min": 0.05,
+      "max": 1,
+      "step": 0.05,
+      "info": "1 = fully visible"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable parallax effect",
+      "default": true,
+      "info": "Adds subtle movement to images on scroll"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "info": "Leave empty to use text color"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Floating Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "info": "Describe the image for accessibility"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Floating Images",
+      "category": "Image & media",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
