@@ -105,6 +105,12 @@
     transform: scale(1.1);
   }
 
+  .hotspot-trigger-{{ section.id }}:focus-visible {
+    outline: 2px solid var(--color-primary, #4f46e5);
+    outline-offset: 3px;
+    transform: scale(1.1);
+  }
+
   @media (min-width: 768px) {
     .hotspot-trigger-{{ section.id }} {
       width: 2.5rem;
@@ -341,6 +347,9 @@
               class="hotspot-trigger-{{ section.id }}"
               style="background-color: {{ dot_color }};"
               aria-label="{{ hotspot_aria_label }}"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              data-hotspot-trigger
               popovertarget="popover-{{ block.id }}"
             >
               <span class="hotspot-pulse-{{ section.id }}" style="background-color: {{ dot_color }};"></span>
@@ -359,6 +368,8 @@
           <div
             id="popover-{{ block.id }}"
             popover
+            role="dialog"
+            aria-labelledby="popover-title-{{ block.id }}"
             class="hotspot-popover-{{ section.id }}"
             data-position="{{ popover_position }}"
             data-trigger-id="hotspot-{{ block.id }}"
@@ -375,7 +386,7 @@
 
               <div class="p-6 pr-14">
                 {% if block.settings.title != blank %}
-                  <h3 class="font-semibold text-lg md:text-base mb-3 leading-tight font-heading" style="color: {{ title_color }};">
+                  <h3 id="popover-title-{{ block.id }}" class="font-semibold text-lg md:text-base mb-3 leading-tight font-heading" style="color: {{ title_color }};">
                     {{ block.settings.title }}
                   </h3>
                 {% endif %}
@@ -478,28 +489,84 @@
     popover.style.top = top + 'px';
   }
 
-  // Position popovers when they open
+  // Get all hotspot triggers for keyboard navigation
+  const triggers = Array.from(section.querySelectorAll('[data-hotspot-trigger]'));
+
+  // Update aria-expanded when popovers toggle
   document.querySelectorAll('.hotspot-popover-' + sectionId).forEach(function(popover) {
     popover.addEventListener('toggle', function(event) {
+      const trigger = document.querySelector('[popovertarget="' + popover.id + '"]');
+
       if (event.newState === 'open') {
-        // Close other popovers
+        // Update aria-expanded
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
+
+        // Close other popovers and update their aria-expanded
         document.querySelectorAll('.hotspot-popover-' + sectionId).forEach(function(otherPopover) {
           if (otherPopover !== popover && otherPopover.matches(':popover-open')) {
             otherPopover.hidePopover();
+            const otherTrigger = document.querySelector('[popovertarget="' + otherPopover.id + '"]');
+            if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
           }
         });
 
         positionPopover(popover);
+
+        // Focus the close button for accessibility
+        const closeBtn = popover.querySelector('.close-popover-btn');
+        if (closeBtn) {
+          requestAnimationFrame(function() { closeBtn.focus(); });
+        }
+      } else {
+        // Update aria-expanded when closed
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
       }
     });
   });
 
-  // Handle close buttons
+  // Keyboard navigation between hotspots
+  section.addEventListener('keydown', function(event) {
+    const currentTrigger = document.activeElement;
+    if (!currentTrigger || !currentTrigger.hasAttribute('data-hotspot-trigger')) return;
+
+    const currentIndex = triggers.indexOf(currentTrigger);
+    if (currentIndex === -1) return;
+
+    let nextIndex;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        event.preventDefault();
+        nextIndex = (currentIndex + 1) % triggers.length;
+        triggers[nextIndex].focus();
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        event.preventDefault();
+        nextIndex = (currentIndex - 1 + triggers.length) % triggers.length;
+        triggers[nextIndex].focus();
+        break;
+      case 'Home':
+        event.preventDefault();
+        triggers[0].focus();
+        break;
+      case 'End':
+        event.preventDefault();
+        triggers[triggers.length - 1].focus();
+        break;
+    }
+  });
+
+  // Handle close buttons - return focus to trigger
   document.querySelectorAll('.close-popover-btn').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       const popover = e.target.closest('[popover]');
       if (popover) {
+        const trigger = document.querySelector('[popovertarget="' + popover.id + '"]');
         popover.hidePopover();
+        // Return focus to the trigger button
+        if (trigger) trigger.focus();
       }
     });
   });

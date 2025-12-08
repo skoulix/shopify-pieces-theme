@@ -70,9 +70,13 @@ class CartState {
       if (response.ok) {
         this.cart = await response.json();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.description || window.cartStrings?.error || 'Could not update cart';
+        toast.error(errorMessage);
       }
     } catch {
-      // Cart update failed - state remains unchanged
+      toast.error(window.cartStrings?.error || 'Could not update cart. Please try again.');
     } finally {
       this.isUpdating = false;
       this.notify();
@@ -103,9 +107,13 @@ class CartState {
         // Fetch full cart after adding
         await this.fetch();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.description || window.cartStrings?.error || 'Could not add to cart';
+        toast.error(errorMessage);
       }
     } catch {
-      // Add to cart failed
+      toast.error(window.cartStrings?.error || 'Could not add to cart. Please try again.');
     } finally {
       this.isUpdating = false;
       this.notify();
