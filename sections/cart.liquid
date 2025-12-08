@@ -229,22 +229,30 @@
             </div>
 
             {%- comment -%} Trust Badges {%- endcomment -%}
-            <div class="mt-8 pt-6 border-t border-[--color-border]">
-              <div class="flex items-center justify-center gap-6 text-[--color-text-secondary]">
-                <div class="flex items-center gap-2 text-xs">
-                  <i class="ph ph-shield-check text-lg"></i>
-                  <span>Secure</span>
-                </div>
-                <div class="flex items-center gap-2 text-xs">
-                  <i class="ph ph-truck text-lg"></i>
-                  <span>Fast Shipping</span>
-                </div>
-                <div class="flex items-center gap-2 text-xs">
-                  <i class="ph ph-arrows-counter-clockwise text-lg"></i>
-                  <span>Easy Returns</span>
+            {% if section.settings.show_trust_badges %}
+              <div class="mt-8 pt-6 border-t border-[--color-border]">
+                <div class="flex items-center justify-center gap-6 text-[--color-text-secondary]">
+                  {% if section.settings.badge_1_text != blank %}
+                    <div class="flex items-center gap-2 text-xs">
+                      <i class="ph ph-{{ section.settings.badge_1_icon }} text-lg"></i>
+                      <span>{{ section.settings.badge_1_text }}</span>
+                    </div>
+                  {% endif %}
+                  {% if section.settings.badge_2_text != blank %}
+                    <div class="flex items-center gap-2 text-xs">
+                      <i class="ph ph-{{ section.settings.badge_2_icon }} text-lg"></i>
+                      <span>{{ section.settings.badge_2_text }}</span>
+                    </div>
+                  {% endif %}
+                  {% if section.settings.badge_3_text != blank %}
+                    <div class="flex items-center gap-2 text-xs">
+                      <i class="ph ph-{{ section.settings.badge_3_icon }} text-lg"></i>
+                      <span>{{ section.settings.badge_3_text }}</span>
+                    </div>
+                  {% endif %}
                 </div>
               </div>
-            </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -279,6 +287,55 @@
       "id": "full_width",
       "label": "Full width",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Trust badges"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "Show trust badges",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_1_icon",
+      "label": "Badge 1 icon",
+      "default": "shield-check",
+      "info": "Phosphor icon name (e.g., shield-check, lock, credit-card)"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "Badge 1 text",
+      "default": "Secure"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_icon",
+      "label": "Badge 2 icon",
+      "default": "truck",
+      "info": "Phosphor icon name (e.g., truck, package, airplane)"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "Badge 2 text",
+      "default": "Fast Shipping"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_icon",
+      "label": "Badge 3 icon",
+      "default": "arrows-counter-clockwise",
+      "info": "Phosphor icon name (e.g., arrows-counter-clockwise, arrow-u-up-left)"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "Badge 3 text",
+      "default": "Easy Returns"
     }
   ]
 }
