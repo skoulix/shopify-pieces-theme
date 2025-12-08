@@ -27,7 +27,7 @@
     width: calc(100% + 40px);
     height: calc(100% + 40px);
     object-fit: cover;
-    filter: blur(40px) saturate(1.2);
+    filter: blur(25px) saturate(1.2);
     opacity: 0;
     transition: opacity 0.6s ease-out;
     transform: scale(1.1);
@@ -92,11 +92,12 @@
   }
 
   .hscroll-label-{{ section.id }} {
+    display: inline-block;
     font-size: 0.65rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    opacity: 0.6;
+    opacity: 0.5;
     margin-bottom: 1.5rem;
   }
 
@@ -269,6 +270,8 @@
               class="hscroll-bg-image-{{ section.id }}"
               loading="lazy"
               data-bg-index="{{ forloop.index0 }}"
+              width="800"
+              height="600"
               alt=""
             >
           {% endif %}
@@ -481,13 +484,18 @@
             progress.style.width = `${self.progress * 100}%`;
           }
 
-          // Update blurred background - determine which panel is most centered
-          // progress 0 = intro panel, after that each panel takes 1/totalPanels of progress
-          const panelIndex = Math.floor(self.progress * totalPanels);
-          const newBgIndex = Math.max(0, Math.min(panelIndex, totalPanels - 1));
+          // Update blurred background - sync with centered image panel
+          // scrollDistance covers all image panels (totalPanels * viewport)
+          // At progress 0: intro is visible, first image panel is entering from right
+          // At progress 1: last image panel is fully visible
+          // Image panel i is most centered when progress = (i + 0.5) / totalPanels
+          // But we want bg to show as soon as panel enters, so use floor
+          const newBgIndex = Math.floor(self.progress * totalPanels);
+          // Clamp to valid range (0 to totalPanels-1)
+          const clampedBgIndex = Math.max(0, Math.min(newBgIndex, totalPanels - 1));
 
-          if (newBgIndex !== currentBgIndex) {
-            currentBgIndex = newBgIndex;
+          if (clampedBgIndex !== currentBgIndex && bgImages.length > 0) {
+            currentBgIndex = clampedBgIndex;
             bgImages.forEach((img, i) => {
               img.classList.toggle('is-active', i === currentBgIndex);
             });
