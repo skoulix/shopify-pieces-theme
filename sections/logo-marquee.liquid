@@ -265,15 +265,35 @@
     }
 
     // Create the infinite scroll animation
-    tween = gsap.to(currentTrack, {
-      x: direction === -1 ? -totalWidth : totalWidth,
-      duration: speed,
-      ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
-      }
-    });
+    // For left scroll (direction -1): animate from 0 to -totalWidth, wrap using negative modulo
+    // For right scroll (direction 1): start at -totalWidth and animate to 0, wrap using negative modulo
+    if (direction === 1) {
+      // Right scroll: start offset, animate towards 0
+      gsap.set(currentTrack, { x: -totalWidth });
+      tween = gsap.to(currentTrack, {
+        x: 0,
+        duration: speed,
+        ease: 'none',
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize(x => {
+            const val = parseFloat(x) % totalWidth;
+            return val > 0 ? val - totalWidth : val;
+          })
+        }
+      });
+    } else {
+      // Left scroll (default): animate from 0 to negative
+      tween = gsap.to(currentTrack, {
+        x: -totalWidth,
+        duration: speed,
+        ease: 'none',
+        repeat: -1,
+        modifiers: {
+          x: gsap.utils.unitize(x => parseFloat(x) % totalWidth)
+        }
+      });
+    }
 
     // Pause on hover (use currentSection)
     if (!isInitialized) {
