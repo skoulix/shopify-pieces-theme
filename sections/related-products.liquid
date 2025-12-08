@@ -197,6 +197,10 @@
 
   /* Title line reveal animation */
   .related-products-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-related-products-title] { opacity: 0; }
+  html.animations-disabled [data-related-products-title] { opacity: 1; }
 </style>
 
 <section
@@ -474,6 +478,7 @@
       });
 
       gsap.set(split.lines, { yPercent: 120 });
+      title.style.opacity = 1;
 
       gsap.to(split.lines, {
         yPercent: 0,

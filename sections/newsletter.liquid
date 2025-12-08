@@ -5,6 +5,10 @@
 
 <style>
   .newsletter-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-newsletter-title] { opacity: 0; }
+  html.animations-disabled [data-newsletter-title] { opacity: 1; }
 </style>
 
 <section class="newsletter-section" data-newsletter-section="{{ section.id }}">
@@ -89,6 +93,7 @@
     });
 
     gsap.set(split.lines, { yPercent: 120 });
+    title.style.opacity = 1;
 
     gsap.to(split.lines, {
       yPercent: 0,

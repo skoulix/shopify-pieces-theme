@@ -23,6 +23,9 @@
   @media (min-width: 1024px) { .iwt-title { font-size: calc(clamp(2rem, 3.5vw, 3rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .iwt-title { font-size: calc(clamp(2.5rem, 3vw, 3.5rem) * var(--heading-font-scale, 1)); } }
   .iwt-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-iwt-title] { opacity: 0; }
+  html.animations-disabled [data-iwt-title] { opacity: 1; }
   .iwt-text { font-size: clamp(0.875rem, 1.5vw, 1rem); color: {{ section.settings.text_color }}; }
   .iwt-label, .iwt-cta { color: {{ section.settings.text_color }}; }
   .iwt-cta-text-wrapper { overflow: hidden; display: inline-block; }
@@ -177,6 +180,7 @@
         });
 
         gsap.set(split.lines, { yPercent: 100 });
+        title.style.opacity = 1;
 
         gsap.to(split.lines, {
           yPercent: 0,

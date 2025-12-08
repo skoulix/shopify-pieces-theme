@@ -46,6 +46,10 @@
     margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-timeline-title] { opacity: 0; }
+  html.animations-disabled [data-timeline-title] { opacity: 1; }
+
   .timeline-wrapper-{{ section.id }} {
     position: relative;
     max-width: 900px;
@@ -341,6 +345,7 @@
       });
 
       gsap.set(split.lines, { yPercent: 120 });
+      title.style.opacity = 1;
 
       gsap.to(split.lines, {
         yPercent: 0,
@@ -353,6 +358,8 @@
           once: true
         }
       });
+    } else if (title) {
+      title.style.opacity = 1;
     }
 
     // Progress line animation

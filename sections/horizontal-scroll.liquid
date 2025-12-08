@@ -76,6 +76,10 @@
     margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-hscroll-title] { opacity: 0; }
+  html.animations-disabled [data-hscroll-title] { opacity: 1; }
+
   .hscroll-description-{{ section.id }} {
     margin-top: 2rem;
     font-size: clamp(0.875rem, 1.5vw, 1.125rem);
@@ -261,8 +265,9 @@
                   alt: block.settings.image.alt | default: block.settings.title | default: section.settings.heading
                 }}
               {% else %}
-                {%- assign placeholder_id = forloop.index | modulo: 4 | plus: 1 -%}
-                {{ 'collection-' | append: placeholder_id | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                <div class="hscroll-placeholder-{{ section.id }}">
+                  <i class="ph ph-image"></i>
+                </div>
               {% endif %}
 
               <div class="hscroll-item-overlay-{{ section.id }}"></div>
@@ -349,6 +354,7 @@
       });
 
       gsap.set(split.lines, { yPercent: 120 });
+      title.style.opacity = 1;
 
       gsap.to(split.lines, {
         yPercent: 0,
