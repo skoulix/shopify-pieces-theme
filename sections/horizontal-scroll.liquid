@@ -13,6 +13,43 @@
     color: {{ section.settings.text_color }};
   }
 
+  /* Blurred background layer */
+  .hscroll-bg-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hscroll-bg-image-{{ section.id }} {
+    position: absolute;
+    inset: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    object-fit: cover;
+    filter: blur(40px) saturate(1.2);
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    transform: scale(1.1);
+  }
+
+  .hscroll-bg-image-{{ section.id }}.is-active {
+    opacity: 0.4;
+  }
+
+  .hscroll-bg-overlay-{{ section.id }} {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      {{ section.settings.background_color }} 0%,
+      transparent 30%,
+      transparent 70%,
+      {{ section.settings.background_color }} 100%
+    );
+    z-index: 1;
+  }
+
   .hscroll-wrapper-{{ section.id }} {
     /* Height = scroll distance (intro + image panels * 100vw) + viewport height for sticky */
     /* This ensures enough scroll room even when section is last on page */
@@ -28,6 +65,8 @@
   }
 
   .hscroll-track-{{ section.id }} {
+    position: relative;
+    z-index: 2;
     display: flex;
     height: 100%;
     will-change: transform;
@@ -221,6 +260,21 @@
 >
   <div class="hscroll-wrapper-{{ section.id }}">
     <div class="hscroll-sticky-{{ section.id }}">
+      {%- comment -%} Blurred background images {%- endcomment -%}
+      <div class="hscroll-bg-{{ section.id }}" data-hscroll-bg>
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank %}
+            {{ block.settings.image | image_url: width: 800 | image_tag:
+              class: 'hscroll-bg-image-' | append: section.id,
+              loading: 'lazy',
+              data-bg-index: forloop.index0,
+              alt: ''
+            }}
+          {% endif %}
+        {% endfor %}
+        <div class="hscroll-bg-overlay-{{ section.id }}"></div>
+      </div>
+
       <div class="hscroll-track-{{ section.id }}" data-hscroll-track>
         {%- comment -%} Intro Panel {%- endcomment -%}
         <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }}">
@@ -331,10 +385,13 @@
     const title = section.querySelector('[data-hscroll-title]');
     const label = section.querySelector('[data-hscroll-label]');
     const description = section.querySelector('[data-hscroll-description]');
+    const bgImages = section.querySelectorAll('[data-bg-index]');
 
     const totalPanels = panels.length;
     // scrollDistance = panels.length * viewport width (intro panel is not counted in panels)
     const scrollDistance = totalPanels * window.innerWidth;
+
+    let currentBgIndex = -1;
 
     // Check if animations should run
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
@@ -422,11 +479,31 @@
           if (progress) {
             progress.style.width = `${self.progress * 100}%`;
           }
+
+          // Update blurred background - determine which panel is most centered
+          // progress 0 = intro panel, after that each panel takes 1/totalPanels of progress
+          const panelIndex = Math.floor(self.progress * totalPanels);
+          const newBgIndex = Math.max(0, Math.min(panelIndex, totalPanels - 1));
+
+          if (newBgIndex !== currentBgIndex) {
+            currentBgIndex = newBgIndex;
+            bgImages.forEach((img, i) => {
+              img.classList.toggle('is-active', i === currentBgIndex);
+            });
+          }
         },
         onEnter: () => section.classList.add('is-active'),
-        onLeave: () => section.classList.remove('is-active'),
+        onLeave: () => {
+          section.classList.remove('is-active');
+          bgImages.forEach(img => img.classList.remove('is-active'));
+          currentBgIndex = -1;
+        },
         onEnterBack: () => section.classList.add('is-active'),
-        onLeaveBack: () => section.classList.remove('is-active')
+        onLeaveBack: () => {
+          section.classList.remove('is-active');
+          bgImages.forEach(img => img.classList.remove('is-active'));
+          currentBgIndex = -1;
+        }
       }
     });
 
