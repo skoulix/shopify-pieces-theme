@@ -1,0 +1,341 @@
+{%- comment -%}
+  Banner Section - Dismissable announcement banner with customizable styling
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+
+  # Use global card settings
+  assign card_radius = settings.card_radius | default: 8
+  assign card_border_width = settings.card_border_width | default: 0
+  assign card_shadow = settings.card_shadow | default: 'none'
+
+  assign background_color = section.settings.background_color | default: '#ffffff'
+  assign text_color = section.settings.text_color | default: '#000000'
+  assign heading_color = section.settings.heading_color | default: text_color
+-%}
+
+<style>
+  .banner-{{ section.id }} {
+    padding: var(--section-vertical-padding) 0;
+  }
+
+  .banner-{{ section.id }}.banner-hidden {
+    display: none;
+  }
+
+  .banner-content-{{ section.id }} {
+    background-color: {{ background_color }};
+    color: {{ text_color }};
+    border-radius: {{ card_radius }}px;
+    {% if card_border_width > 0 %}
+    border: {{ card_border_width }}px solid var(--color-border);
+    {% endif %}
+    {% if card_shadow != 'none' %}
+    box-shadow: {{ card_shadow }};
+    {% endif %}
+  }
+
+  .banner-heading-{{ section.id }} {
+    color: {{ heading_color }};
+    font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .banner-text-{{ section.id }} {
+    color: {{ text_color }};
+  }
+
+  .banner-text-{{ section.id }} p,
+  .banner-text-{{ section.id }} span,
+  .banner-text-{{ section.id }} li,
+  .banner-text-{{ section.id }} ul,
+  .banner-text-{{ section.id }} ol,
+  .banner-text-{{ section.id }} strong,
+  .banner-text-{{ section.id }} em,
+  .banner-text-{{ section.id }} a,
+  .banner-text-{{ section.id }} h1,
+  .banner-text-{{ section.id }} h2,
+  .banner-text-{{ section.id }} h3,
+  .banner-text-{{ section.id }} h4,
+  .banner-text-{{ section.id }} h5,
+  .banner-text-{{ section.id }} h6 {
+    color: inherit;
+  }
+
+  .banner-text-{{ section.id }} a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .banner-text-{{ section.id }} a:hover {
+    opacity: 0.7;
+  }
+
+  .banner-close-{{ section.id }} {
+    color: {{ text_color }};
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+  }
+
+  .banner-close-{{ section.id }}:hover {
+    opacity: 1;
+  }
+
+  .banner-cta-{{ section.id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: var(--button-radius, 0.25rem);
+    background-color: {{ section.settings.button_background | default: '#000000' }};
+    color: {{ section.settings.button_text_color | default: '#ffffff' }};
+    transition: opacity 0.3s ease;
+  }
+
+  .banner-cta-{{ section.id }}:hover {
+    opacity: 0.85;
+  }
+
+  /* Animation states */
+  html.animations-disabled .banner-{{ section.id }} [data-intro] {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+
+<section
+  class="banner-{{ section.id }}"
+  data-banner-section="{{ section.id }}"
+  {% if section.settings.remember_dismissal %}data-remember-dismissal="true"{% endif %}
+>
+  <div class="{{ container_class }}">
+    <div class="banner-content-{{ section.id }} relative p-4 md:p-6">
+      {% if section.settings.show_close_button %}
+        <button
+          type="button"
+          class="banner-close-{{ section.id }} absolute top-3 right-3 p-1 hover:bg-black/5 rounded-full transition-colors"
+          data-banner-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          <i class="ph ph-x text-xl"></i>
+        </button>
+      {% endif %}
+
+      <div class="{% if section.settings.show_close_button %}pr-8{% endif %}">
+        {% if section.settings.heading != blank %}
+          <h2 class="banner-heading-{{ section.id }} font-heading mb-3" data-intro>
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="banner-text-{{ section.id }} text-base md:text-lg" data-intro>
+            {{ section.settings.text }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.button_text != blank %}
+          <div class="mt-4" data-intro>
+            <a
+              href="{{ section.settings.button_link | default: '#' }}"
+              class="banner-cta-{{ section.id }}"
+            >
+              <span>{{ section.settings.button_text }}</span>
+              <i class="ph ph-arrow-right"></i>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  'use strict';
+
+  const sectionId = '{{ section.id }}';
+  const section = document.querySelector('[data-banner-section="' + sectionId + '"]');
+  if (!section) return;
+
+  // Prevent duplicate initialization
+  if (section.dataset.initialized) return;
+  section.dataset.initialized = 'true';
+
+  const closeBtn = section.querySelector('[data-banner-close]');
+  const rememberDismissal = section.dataset.rememberDismissal === 'true';
+  const storageKey = 'banner_dismissed_' + sectionId;
+
+  // Check if banner was previously dismissed
+  if (rememberDismissal && localStorage.getItem(storageKey) === 'true') {
+    section.classList.add('banner-hidden');
+    return;
+  }
+
+  // Dismiss banner function
+  function dismissBanner() {
+    section.classList.add('banner-hidden');
+
+    if (rememberDismissal) {
+      localStorage.setItem(storageKey, 'true');
+    }
+  }
+
+  // Close button click
+  if (closeBtn) {
+    closeBtn.addEventListener('click', dismissBanner);
+  }
+
+  // Optional: Intro animations
+  function initAnimation() {
+    let gsap = window.gsap;
+    if (!gsap && window.pieces && window.pieces.gsap) {
+      gsap = window.pieces.gsap;
+    }
+
+    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
+
+    if (!shouldAnimate || !gsap || !ScrollTrigger) return;
+
+    const introElements = section.querySelectorAll('[data-intro]');
+    if (introElements.length === 0) return;
+
+    gsap.set(introElements, { opacity: 0, y: 20 });
+
+    gsap.to(introElements, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: section,
+        start: 'top 85%',
+        once: true
+      }
+    });
+  }
+
+  // Initialize animations when GSAP is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => requestAnimationFrame(initAnimation));
+  } else {
+    requestAnimationFrame(initAnimation);
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Banner",
+  "tag": "section",
+  "class": "banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Important Announcement"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>This is an important message for your customers.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "info": "Leave empty to use text color"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "label": "Show close button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remember_dismissal",
+      "label": "Remember when dismissed",
+      "info": "Banner will stay hidden permanently after being closed",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}

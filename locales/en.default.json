@@ -54,7 +54,8 @@
     "sort_by": "Sort by",
     "min_price": "Min price",
     "max_price": "Max price",
-    "to": "to"
+    "to": "to",
+    "shop_now": "Shop Now"
   },
   "404": {
     "title": "Page not found",
@@ -156,7 +157,6 @@
     "use_at_checkout": "Use this code at checkout to redeem your gift card",
     "copy_code": "Copy Code",
     "copied": "Copied!",
-    "shop_now": "Start Shopping",
     "print_hint": "Print this page or save a screenshot for your records"
   },
   "password": {
