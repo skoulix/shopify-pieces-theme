@@ -14,10 +14,23 @@
     "footer": {
       "type": "footer",
       "blocks": {
+        "brand_BzLHiG": {
+          "type": "brand",
+          "settings": {
+            "show_social": true
+          }
+        },
         "navigation": {
           "type": "navigation",
           "settings": {
             "menu": "footer"
+          }
+        },
+        "newsletter_d4xaqD": {
+          "type": "newsletter",
+          "settings": {
+            "heading": "Subscribe to our newsletter",
+            "description": "Get the latest updates and offers."
           }
         },
         "social": {
@@ -40,16 +53,21 @@
         }
       },
       "block_order": [
+        "brand_BzLHiG",
         "navigation",
+        "newsletter_d4xaqD",
         "social",
         "payment",
         "copyright",
         "back_to_top"
       ],
       "settings": {
+        "footer_design": "minimal",
         "enable_reveal_effect": true,
+        "full_width": false,
         "background_color": "#000000",
-        "text_color": "#ffffff"
+        "text_color": "#ffffff",
+        "description": "Your brand tagline or brief description goes here."
       }
     }
   },

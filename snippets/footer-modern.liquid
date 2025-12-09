@@ -70,14 +70,23 @@
 
 <div class="footer-modern">
   <div class="footer-modern__brand">
-    {%- if section.settings.logo != blank -%}
-      {{ section.settings.logo | image_url: width: 400 | image_tag: class: 'footer-modern__logo', loading: 'lazy' }}
+    {%- liquid
+      assign brand_block = nil
+      for block in section.blocks
+        if block.type == 'brand'
+          assign brand_block = block
+          break
+        endif
+      endfor
+    -%}
+    {%- if brand_block.settings.logo != blank -%}
+      {{ brand_block.settings.logo | image_url: width: 400 | image_tag: class: 'footer-modern__logo', loading: 'lazy' }}
     {%- else -%}
       <span class="text-2xl font-bold font-heading">{{ shop.name }}</span>
     {%- endif -%}
 
-    {%- if section.settings.description != blank -%}
-      <p class="footer-modern__description">{{ section.settings.description }}</p>
+    {%- if brand_block.settings.description != blank -%}
+      <p class="footer-modern__description">{{ brand_block.settings.description }}</p>
     {%- endif -%}
 
     {%- for block in section.blocks -%}

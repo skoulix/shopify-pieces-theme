@@ -201,21 +201,6 @@
       "default": "#000000",
       "label": "Text color"
     },
-    {
-      "type": "header",
-      "content": "Branding"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Your brand tagline or brief description goes here."
-    }
   ],
   "blocks": [
     {
@@ -223,6 +208,18 @@
       "name": "Brand",
       "limit": 1,
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "If not set, shop name will be displayed."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Your brand tagline or brief description goes here."
+        },
         {
           "type": "checkbox",
           "id": "show_social",
