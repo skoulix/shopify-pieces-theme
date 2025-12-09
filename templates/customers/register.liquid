@@ -3,24 +3,99 @@
   New account creation form
 {%- endcomment -%}
 
-<div class="page-container py-12 lg:py-20">
+<style>
+  .customer-page__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: var(--color-text);
+  }
+
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-customer-title] { opacity: 0; }
+  html.animations-disabled [data-customer-title] { opacity: 1; }
+
+  .customer-form__input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.875rem;
+    background: var(--color-background);
+    border: var(--input-border-width) solid var(--color-border);
+    border-radius: var(--input-radius);
+    color: var(--color-text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .customer-form__input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  .customer-form__input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .customer-form__alert {
+    padding: 1rem;
+    border-radius: var(--card-radius);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .customer-form__alert--error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+  }
+
+  .customer-form__divider {
+    position: relative;
+    margin: 2.5rem 0;
+  }
+
+  .customer-form__divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .customer-form__divider span {
+    position: relative;
+    padding: 0 1rem;
+    background: var(--color-background);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+  }
+</style>
+
+<div class="page-container py-16 lg:py-24">
   <div class="max-w-md mx-auto text-center">
-    <h1 class="text-3xl font-semibold font-heading mb-2" data-intro>
+    <h1 class="customer-page__title font-heading mb-3" data-customer-title>
       {{ 'customers.register.title' | t }}
     </h1>
-    <p class="text-[--color-text-secondary] mb-8">
+    <p class="text-[--color-text-secondary] mb-10" data-intro>
       {{ 'customers.register.subtitle' | t }}
     </p>
 
-    {% form 'create_customer', class: 'space-y-4 text-left' %}
+    {% form 'create_customer', class: 'space-y-6 text-left' %}
       {% if form.errors %}
-        <div class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm" role="alert">
-          <i class="ph ph-warning-circle mr-2"></i>
-          {{ form.errors | default_errors }}
+        <div class="customer-form__alert customer-form__alert--error" role="alert" data-intro>
+          <i class="ph ph-warning-circle text-xl flex-shrink-0"></i>
+          <span>{{ form.errors | default_errors }}</span>
         </div>
       {% endif %}
 
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-6" data-intro>
         <div>
           <label for="first-name" class="sr-only">{{ 'customers.register.first_name' | t }}</label>
           <input
@@ -30,7 +105,7 @@
             autocomplete="given-name"
             required
             placeholder="{{ 'customers.register.first_name' | t }}"
-            class="input w-full"
+            class="customer-form__input"
           >
         </div>
 
@@ -43,12 +118,12 @@
             autocomplete="family-name"
             required
             placeholder="{{ 'customers.register.last_name' | t }}"
-            class="input w-full"
+            class="customer-form__input"
           >
         </div>
       </div>
 
-      <div>
+      <div data-intro>
         <label for="register-email" class="sr-only">{{ 'customers.register.email' | t }}</label>
         <input
           type="email"
@@ -59,11 +134,11 @@
           autocorrect="off"
           required
           placeholder="{{ 'customers.register.email' | t }}"
-          class="input w-full"
+          class="customer-form__input"
         >
       </div>
 
-      <div>
+      <div data-intro>
         <label for="register-password" class="sr-only">{{ 'customers.register.password' | t }}</label>
         <input
           type="password"
@@ -72,20 +147,82 @@
           autocomplete="new-password"
           required
           placeholder="{{ 'customers.register.password' | t }}"
-          class="input w-full"
+          class="customer-form__input"
         >
       </div>
 
-      <button type="submit" class="btn btn-primary w-full">
-        <span>{{ 'customers.register.submit' | t }}</span>
-      </button>
+      <div data-intro>
+        <button type="submit" class="btn btn--primary w-full">
+          <span>{{ 'customers.register.submit' | t }}</span>
+        </button>
+      </div>
     {% endform %}
 
-    <div class="mt-8 pt-8 border-t border-[--color-border]">
-      <p class="text-[--color-text-secondary] mb-4">{{ 'customers.register.have_account' | t }}</p>
-      <a href="{{ routes.account_login_url }}" class="btn btn-secondary w-full">
+    <div class="customer-form__divider text-center" data-intro>
+      <span>{{ 'customers.register.have_account' | t }}</span>
+    </div>
+
+    <div data-intro>
+      <a href="{{ routes.account_login_url }}" class="btn btn--secondary w-full">
         <span>{{ 'customers.login.sign_in' | t }}</span>
       </a>
     </div>
   </div>
 </div>
+
+<script>
+  // SplitText title animation
+  (function() {
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+      document.querySelectorAll('[data-customer-title]').forEach(el => el.style.opacity = 1);
+      return;
+    }
+
+    function initAnimation() {
+      let gsap = window.gsap || (window.pieces && window.pieces.gsap);
+      let SplitText = window.SplitText || (window.pieces && window.pieces.SplitText);
+      let ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+      if (!gsap || !SplitText || !ScrollTrigger) {
+        setTimeout(initAnimation, 50);
+        return;
+      }
+
+      document.querySelectorAll('[data-customer-title]').forEach(title => {
+        if (title.dataset.splitInitialized) return;
+        title.dataset.splitInitialized = 'true';
+
+        const split = new SplitText(title, { type: 'lines', linesClass: 'customer-title-line' });
+
+        split.lines.forEach(line => {
+          const wrapper = document.createElement('div');
+          wrapper.style.overflow = 'hidden';
+          wrapper.style.display = 'block';
+          line.parentNode.insertBefore(wrapper, line);
+          wrapper.appendChild(line);
+        });
+
+        gsap.set(split.lines, { yPercent: 120 });
+        title.style.opacity = 1;
+
+        gsap.to(split.lines, {
+          yPercent: 0,
+          duration: 1.2,
+          ease: 'power4.out',
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: title,
+            start: 'top 85%',
+            once: true
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimation);
+    } else {
+      requestAnimationFrame(initAnimation);
+    }
+  })();
+</script>

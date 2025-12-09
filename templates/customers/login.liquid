@@ -3,26 +3,107 @@
   Handles login form and guest checkout option
 {%- endcomment -%}
 
-<div class="page-container py-12 lg:py-20">
+<style>
+  .customer-page__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: var(--color-text);
+  }
+
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-customer-title] { opacity: 0; }
+  html.animations-disabled [data-customer-title] { opacity: 1; }
+
+  .customer-form__input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.875rem;
+    background: var(--color-background);
+    border: var(--input-border-width) solid var(--color-border);
+    border-radius: var(--input-radius);
+    color: var(--color-text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .customer-form__input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+
+  .customer-form__input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .customer-form__alert {
+    padding: 1rem;
+    border-radius: var(--card-radius);
+    font-size: 0.875rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .customer-form__alert--error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #dc2626;
+  }
+
+  .customer-form__alert--success {
+    background-color: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    color: #16a34a;
+  }
+
+  .customer-form__divider {
+    position: relative;
+    margin: 2.5rem 0;
+  }
+
+  .customer-form__divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-border);
+  }
+
+  .customer-form__divider span {
+    position: relative;
+    padding: 0 1rem;
+    background: var(--color-background);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+  }
+</style>
+
+<div class="page-container py-16 lg:py-24">
   <div class="max-w-md mx-auto">
     {%- comment -%} Login Form {%- endcomment -%}
     <div id="customer-login" class="text-center">
-      <h1 class="text-3xl font-semibold font-heading mb-2" data-intro>
+      <h1 class="customer-page__title font-heading mb-3" data-customer-title>
         {{ 'customers.login.title' | t }}
       </h1>
-      <p class="text-[--color-text-secondary] mb-8">
+      <p class="text-[--color-text-secondary] mb-10" data-intro>
         {{ 'customers.login.subtitle' | t }}
       </p>
 
-      {% form 'customer_login', class: 'space-y-4' %}
+      {% form 'customer_login', class: 'space-y-6' %}
         {% if form.errors %}
-          <div class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm" role="alert">
-            <i class="ph ph-warning-circle mr-2"></i>
-            {{ form.errors | default_errors }}
+          <div class="customer-form__alert customer-form__alert--error" role="alert" data-intro>
+            <i class="ph ph-warning-circle text-xl flex-shrink-0"></i>
+            <span>{{ form.errors | default_errors }}</span>
           </div>
         {% endif %}
 
-        <div>
+        <div data-intro>
           <label for="customer-email" class="sr-only">{{ 'customers.login.email' | t }}</label>
           <input
             type="email"
@@ -33,14 +114,12 @@
             autocorrect="off"
             required
             placeholder="{{ 'customers.login.email' | t }}"
-            class="input w-full"
-            {% if form.errors contains 'form' %}
-              autofocus
-            {% endif %}
+            class="customer-form__input"
+            {% if form.errors contains 'form' %}autofocus{% endif %}
           >
         </div>
 
-        <div>
+        <div data-intro>
           <label for="customer-password" class="sr-only">{{ 'customers.login.password' | t }}</label>
           <input
             type="password"
@@ -49,24 +128,29 @@
             autocomplete="current-password"
             required
             placeholder="{{ 'customers.login.password' | t }}"
-            class="input w-full"
+            class="customer-form__input"
           >
         </div>
 
-        <button type="submit" class="btn btn-primary w-full">
-          <span>{{ 'customers.login.sign_in' | t }}</span>
-        </button>
+        <div data-intro>
+          <button type="submit" class="btn btn--primary w-full">
+            <span>{{ 'customers.login.sign_in' | t }}</span>
+          </button>
+        </div>
 
-        <p class="text-sm text-center">
-          <a href="#recover" class="text-[--color-primary] hover:underline" data-toggle-recover>
+        <p class="text-sm text-center" data-intro>
+          <a href="#recover" class="text-[--color-text-secondary] hover:text-[--color-text] transition-colors underline underline-offset-4" data-toggle-recover>
             {{ 'customers.login.forgot_password' | t }}
           </a>
         </p>
       {% endform %}
 
-      <div class="mt-8 pt-8 border-t border-[--color-border]">
-        <p class="text-[--color-text-secondary] mb-4">{{ 'customers.login.new_customer' | t }}</p>
-        <a href="{{ routes.account_register_url }}" class="btn btn-secondary w-full">
+      <div class="customer-form__divider text-center" data-intro>
+        <span>{{ 'customers.login.new_customer' | t }}</span>
+      </div>
+
+      <div data-intro>
+        <a href="{{ routes.account_register_url }}" class="btn btn--secondary w-full">
           <span>{{ 'customers.login.create_account' | t }}</span>
         </a>
       </div>
@@ -74,29 +158,29 @@
 
     {%- comment -%} Password Recovery Form {%- endcomment -%}
     <div id="recover-password" class="hidden text-center">
-      <h1 class="text-3xl font-semibold font-heading mb-2" data-intro>
+      <h1 class="customer-page__title font-heading mb-3" data-customer-title>
         {{ 'customers.recover_password.title' | t }}
       </h1>
-      <p class="text-[--color-text-secondary] mb-8">
+      <p class="text-[--color-text-secondary] mb-10" data-intro>
         {{ 'customers.recover_password.subtext' | t }}
       </p>
 
-      {% form 'recover_customer_password', class: 'space-y-4' %}
+      {% form 'recover_customer_password', class: 'space-y-6' %}
         {% if form.posted_successfully? %}
-          <div class="p-4 bg-green-50 border border-green-200 rounded-lg text-green-600 text-sm" role="status">
-            <i class="ph ph-check-circle mr-2"></i>
-            {{ 'customers.recover_password.success' | t }}
+          <div class="customer-form__alert customer-form__alert--success" role="status" data-intro>
+            <i class="ph ph-check-circle text-xl flex-shrink-0"></i>
+            <span>{{ 'customers.recover_password.success' | t }}</span>
           </div>
         {% endif %}
 
         {% if form.errors %}
-          <div class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm" role="alert">
-            <i class="ph ph-warning-circle mr-2"></i>
-            {{ form.errors | default_errors }}
+          <div class="customer-form__alert customer-form__alert--error" role="alert" data-intro>
+            <i class="ph ph-warning-circle text-xl flex-shrink-0"></i>
+            <span>{{ form.errors | default_errors }}</span>
           </div>
         {% endif %}
 
-        <div>
+        <div data-intro>
           <label for="recover-email" class="sr-only">{{ 'customers.login.email' | t }}</label>
           <input
             type="email"
@@ -107,16 +191,18 @@
             autocorrect="off"
             required
             placeholder="{{ 'customers.login.email' | t }}"
-            class="input w-full"
+            class="customer-form__input"
           >
         </div>
 
-        <button type="submit" class="btn btn-primary w-full">
-          <span>{{ 'customers.recover_password.submit' | t }}</span>
-        </button>
+        <div data-intro>
+          <button type="submit" class="btn btn--primary w-full">
+            <span>{{ 'customers.recover_password.submit' | t }}</span>
+          </button>
+        </div>
 
-        <p class="text-sm text-center">
-          <a href="#login" class="text-[--color-primary] hover:underline" data-toggle-recover>
+        <p class="text-sm text-center" data-intro>
+          <a href="#login" class="text-[--color-text-secondary] hover:text-[--color-text] transition-colors underline underline-offset-4" data-toggle-recover>
             {{ 'customers.recover_password.cancel' | t }}
           </a>
         </p>
@@ -126,24 +212,119 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('customer-login');
-    const recoverForm = document.getElementById('recover-password');
-    const toggleButtons = document.querySelectorAll('[data-toggle-recover]');
+  (function() {
+    const animationsDisabled = typeof window.shouldAnimate === 'function' && !window.shouldAnimate();
 
-    // Check URL hash for recover
-    if (window.location.hash === '#recover') {
-      loginForm.classList.add('hidden');
-      recoverForm.classList.remove('hidden');
+    // Make titles visible immediately if animations disabled
+    if (animationsDisabled) {
+      document.querySelectorAll('[data-customer-title]').forEach(el => el.style.opacity = 1);
     }
 
-    toggleButtons.forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        loginForm.classList.toggle('hidden');
-        recoverForm.classList.toggle('hidden');
-        history.replaceState(null, '', this.getAttribute('href'));
+    function animateTitle(title, replay) {
+      if (animationsDisabled) return;
+
+      let gsap = window.gsap || (window.pieces && window.pieces.gsap);
+      let SplitText = window.SplitText || (window.pieces && window.pieces.SplitText);
+
+      if (!gsap || !SplitText) {
+        setTimeout(() => animateTitle(title, replay), 50);
+        return;
+      }
+
+      // If already split, just replay animation
+      if (title.dataset.splitAnimated && replay) {
+        const lines = title.querySelectorAll('.customer-title-line');
+        gsap.fromTo(lines,
+          { yPercent: 120 },
+          { yPercent: 0, duration: 1.2, ease: 'power4.out', stagger: 0.1 }
+        );
+        return;
+      }
+
+      if (title.dataset.splitAnimated) return;
+      title.dataset.splitAnimated = 'true';
+
+      const split = new SplitText(title, { type: 'lines', linesClass: 'customer-title-line' });
+
+      split.lines.forEach(line => {
+        const wrapper = document.createElement('div');
+        wrapper.style.overflow = 'hidden';
+        wrapper.style.display = 'block';
+        line.parentNode.insertBefore(wrapper, line);
+        wrapper.appendChild(line);
       });
-    });
-  });
+
+      gsap.set(split.lines, { yPercent: 120 });
+      title.style.opacity = 1;
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+      });
+    }
+
+    function init() {
+      const loginForm = document.getElementById('customer-login');
+      const recoverForm = document.getElementById('recover-password');
+      const toggleButtons = document.querySelectorAll('[data-toggle-recover]');
+
+      if (!loginForm || !recoverForm) return;
+
+      const loginTitle = loginForm.querySelector('[data-customer-title]');
+      const recoverTitle = recoverForm.querySelector('[data-customer-title]');
+
+      function showForm(formType) {
+        if (formType === 'recover') {
+          loginForm.classList.add('hidden');
+          recoverForm.classList.remove('hidden');
+          animateTitle(recoverTitle, true);
+        } else {
+          loginForm.classList.remove('hidden');
+          recoverForm.classList.add('hidden');
+          animateTitle(loginTitle, true);
+        }
+      }
+
+      // Check URL hash on load
+      if (window.location.hash === '#recover') {
+        loginForm.classList.add('hidden');
+        recoverForm.classList.remove('hidden');
+        animateTitle(recoverTitle, false);
+      } else {
+        animateTitle(loginTitle, false);
+      }
+
+      // Handle hash changes (browser back/forward, external navigation)
+      window.addEventListener('hashchange', function() {
+        if (window.location.hash === '#recover') {
+          showForm('recover');
+        } else if (window.location.hash === '#login' || window.location.hash === '') {
+          showForm('login');
+        }
+      });
+
+      // Handle toggle button clicks
+      toggleButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetHash = this.getAttribute('href');
+          history.pushState(null, '', targetHash);
+
+          if (targetHash === '#recover') {
+            showForm('recover');
+          } else {
+            showForm('login');
+          }
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
 </script>

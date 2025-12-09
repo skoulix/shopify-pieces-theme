@@ -229,6 +229,8 @@
             poster: block.settings.image | image_url: width: 1920
           }}
         {% elsif block.settings.image != blank %}
+          {%- assign img_aspect = block.settings.image.aspect_ratio | default: 1.78 -%}
+          {%- assign img_height = 1920 | divided_by: img_aspect | round -%}
           <img
             src="{{ block.settings.image | image_url: width: 1920 }}"
             srcset="{{ block.settings.image | image_url: width: 768 }} 768w,
@@ -237,6 +239,8 @@
             sizes="100vw"
             alt="{{ block.settings.image.alt | escape }}"
             class="slideshow__media"
+            width="1920"
+            height="{{ img_height }}"
             loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
             {% if parallax %}data-parallax-media{% endif %}
           >

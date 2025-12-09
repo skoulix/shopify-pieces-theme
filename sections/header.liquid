@@ -146,9 +146,22 @@
           if link.links.size > 0
             assign has_children = true
           endif
+
+          # Check if this link has a mega menu block configured
+          assign mega_menu_block = nil
+          assign link_handle = link.title | handleize
+          for block in section.blocks
+            if block.type == 'mega_menu' and block.settings.menu_item == link_handle
+              assign mega_menu_block = block
+              break
+            endif
+          endfor
         -%}
-        {% if has_children %}
-          {%- comment -%} Dropdown trigger {%- endcomment -%}
+        {% if mega_menu_block != nil and has_children %}
+          {%- comment -%} Mega menu {%- endcomment -%}
+          {% render 'mega-menu', link: link, block: mega_menu_block, position: forloop.index0 %}
+        {% elsif has_children %}
+          {%- comment -%} Standard dropdown trigger {%- endcomment -%}
           <div class="dropdown-wrapper relative" data-dropdown>
             <button
               type="button"
@@ -1063,6 +1076,74 @@
       "label": "Text color",
       "default": "#ffffff",
       "info": "Color for links, text, and icons when transparent"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_menu",
+      "name": "Mega menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item",
+          "label": "Menu item handle",
+          "info": "Enter the handle of the menu item (lowercase, hyphens for spaces). Example: 'shop' or 'collections'"
+        },
+        {
+          "type": "header",
+          "content": "Featured content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_featured",
+          "default": true,
+          "label": "Show featured section"
+        },
+        {
+          "type": "text",
+          "id": "featured_heading",
+          "label": "Featured heading",
+          "default": "Featured"
+        },
+        {
+          "type": "collection",
+          "id": "featured_collection",
+          "label": "Featured collection"
+        },
+        {
+          "type": "range",
+          "id": "featured_limit",
+          "label": "Products to show",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "header",
+          "content": "Promotional image"
+        },
+        {
+          "type": "image_picker",
+          "id": "promo_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "promo_heading",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "promo_text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "promo_link",
+          "label": "Link"
+        }
+      ]
     }
   ]
 }

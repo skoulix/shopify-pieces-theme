@@ -14,6 +14,7 @@
       "external": "Opens external website."
     },
     "of": "of",
+    "slideshow": "Slideshow",
     "next_slide": "Slide right",
     "previous_slide": "Slide left",
     "go_to_slide": "Go to slide {{ index }}",
@@ -71,7 +72,8 @@
     "expand_faq": "Expand answer",
     "collapse_faq": "Collapse answer",
     "image_gallery": "Product image gallery",
-    "thumbnail": "Product thumbnail {{ index }}"
+    "thumbnail": "Product thumbnail {{ index }}",
+    "pagination": "Pagination"
   },
   "social": {
     "instagram": "Instagram",

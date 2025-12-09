@@ -14,6 +14,7 @@
       "external": "Ouvre un site externe."
     },
     "of": "sur",
+    "slideshow": "Diaporama",
     "next_slide": "Diapositive suivante",
     "previous_slide": "Diapositive précédente",
     "go_to_slide": "Aller à la diapositive {{ index }}",
@@ -71,7 +72,8 @@
     "expand_faq": "Développer la réponse",
     "collapse_faq": "Réduire la réponse",
     "image_gallery": "Galerie d'images du produit",
-    "thumbnail": "Miniature du produit {{ index }}"
+    "thumbnail": "Miniature du produit {{ index }}",
+    "pagination": "Pagination"
   },
   "social": {
     "instagram": "Instagram",
