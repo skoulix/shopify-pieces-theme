@@ -302,6 +302,10 @@
     </div>
   </div>
 </section>
+
+{% if section.settings.show_sticky_bar %}
+  {% render 'sticky-product-bar', product: product, current_variant: current_variant %}
+{% endif %}
 </div>
 
 <script>
@@ -363,6 +367,11 @@
     const url = new URL(window.location);
     url.searchParams.set('variant', variant.id);
     window.history.replaceState({}, '', url);
+
+    // Dispatch event for other components (e.g., sticky bar)
+    document.dispatchEvent(new CustomEvent('variant:change', {
+      detail: { variant: variant }
+    }));
   }
 
   function getSelectedOptions() {
@@ -861,6 +870,17 @@
         { "value": "portrait", "label": "Portrait" },
         { "value": "landscape", "label": "Landscape" }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Sticky add to cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sticky_bar",
+      "default": true,
+      "label": "Show sticky add to cart bar",
+      "info": "Shows a bottom bar when the product form scrolls out of view"
     }
   ],
   "blocks": [

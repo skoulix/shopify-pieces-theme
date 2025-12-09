@@ -1,0 +1,594 @@
+{%- comment -%}
+  Sticky Product Bar
+  Shows when the main product form is out of viewport, hides at footer
+{%- endcomment -%}
+
+<style>
+  .sticky-product-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .sticky-product-bar.is-visible {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .sticky-product-bar__inner {
+    background: var(--color-background);
+    border-top: 1px solid var(--color-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .sticky-product-bar__container {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0.75rem var(--page-padding);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__container {
+      padding: 1rem var(--page-padding);
+      gap: 1.5rem;
+    }
+  }
+
+  .sticky-product-bar__image {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: var(--color-background-secondary);
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__image {
+      width: 56px;
+      height: 56px;
+    }
+  }
+
+  .sticky-product-bar__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sticky-product-bar__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__info {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  }
+
+  .sticky-product-bar__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__title {
+      font-size: 1rem;
+    }
+  }
+
+  .sticky-product-bar__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .sticky-product-bar__variant {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .sticky-product-bar__price {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__price {
+      font-size: 1rem;
+    }
+  }
+
+  .sticky-product-bar__price-compare {
+    font-size: 0.75rem;
+    text-decoration: line-through;
+    color: var(--color-text-secondary);
+    margin-right: 0.25rem;
+  }
+
+  .sticky-product-bar__actions {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .sticky-product-bar__quantity {
+    display: none;
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--input-radius);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .sticky-product-bar__quantity {
+      display: flex;
+    }
+  }
+
+  .sticky-product-bar__qty-btn {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: background 0.2s ease;
+  }
+
+  .sticky-product-bar__qty-btn:hover {
+    background: var(--color-background-secondary);
+  }
+
+  .sticky-product-bar__qty-input {
+    width: 2.5rem;
+    height: 2rem;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    color: var(--color-text);
+    -moz-appearance: textfield;
+  }
+
+  .sticky-product-bar__qty-input::-webkit-outer-spin-button,
+  .sticky-product-bar__qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .sticky-product-bar__qty-input:focus {
+    outline: none;
+  }
+
+  .sticky-product-bar__btn-text {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .sticky-product-bar__btn-text {
+      display: inline;
+    }
+  }
+
+  /* Sticky bar button hover effect */
+  .sticky-product-bar .btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sticky-product-bar .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--color-primary-contrast);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .sticky-product-bar .btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .sticky-product-bar .btn:hover {
+    color: var(--color-primary);
+  }
+
+  .sticky-product-bar .btn span,
+  .sticky-product-bar .btn i {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Progress bar at top of sticky bar */
+  .sticky-product-bar__progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--color-primary);
+    width: 0%;
+    transition: width 0.3s ease;
+    opacity: 0;
+  }
+
+  .sticky-product-bar.is-loading .sticky-product-bar__progress {
+    opacity: 1;
+    animation: stickyBarProgress 1.5s ease-in-out infinite;
+  }
+
+  @keyframes stickyBarProgress {
+    0% { width: 0%; left: 0; }
+    50% { width: 50%; left: 25%; }
+    100% { width: 0%; left: 100%; }
+  }
+</style>
+
+<div class="sticky-product-bar" data-sticky-product-bar aria-hidden="true">
+  <div class="sticky-product-bar__progress"></div>
+  <div class="sticky-product-bar__inner">
+    <div class="sticky-product-bar__container">
+      {%- comment -%} Product Image {%- endcomment -%}
+      <div class="sticky-product-bar__image">
+        {% if product.featured_image %}
+          <img
+            src="{{ product.featured_image | image_url: width: 120 }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            width="60"
+            height="60"
+            loading="lazy"
+            data-sticky-bar-image
+          >
+        {% endif %}
+      </div>
+
+      {%- comment -%} Product Info {%- endcomment -%}
+      <div class="sticky-product-bar__info">
+        <h3 class="sticky-product-bar__title">{{ product.title }}</h3>
+        <div class="sticky-product-bar__meta">
+          {% unless product.has_only_default_variant %}
+            <span class="sticky-product-bar__variant" data-sticky-bar-variant>
+              {{ current_variant.title }}
+            </span>
+          {% endunless %}
+          <div class="sticky-product-bar__price">
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="sticky-product-bar__price-compare" data-sticky-bar-compare>
+                {{ current_variant.compare_at_price | money }}
+              </span>
+            {% endif %}
+            <span data-sticky-bar-price>{{ current_variant.price | money }}</span>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Actions {%- endcomment -%}
+      <div class="sticky-product-bar__actions">
+        {%- comment -%} Quantity Selector (Desktop only) {%- endcomment -%}
+        <div class="sticky-product-bar__quantity">
+          <button type="button" class="sticky-product-bar__qty-btn" data-sticky-bar-qty-minus aria-label="{{ 'products.product.decrease_quantity' | t }}">
+            <i class="ph ph-minus"></i>
+          </button>
+          <input
+            type="number"
+            value="1"
+            min="1"
+            class="sticky-product-bar__qty-input"
+            data-sticky-bar-qty-input
+            aria-label="{{ 'products.product.quantity' | t }}"
+          >
+          <button type="button" class="sticky-product-bar__qty-btn" data-sticky-bar-qty-plus aria-label="{{ 'products.product.increase_quantity' | t }}">
+            <i class="ph ph-plus"></i>
+          </button>
+        </div>
+
+        {%- comment -%} Add to Cart Button {%- endcomment -%}
+        <button
+          type="button"
+          class="btn btn--primary !py-2.5 !px-4 md:!px-6 !gap-2"
+          data-sticky-bar-add
+          data-variant-id="{{ current_variant.id }}"
+          {% unless current_variant.available %}disabled{% endunless %}
+        >
+          <i class="ph ph-bag"></i>
+          <span class="sticky-product-bar__btn-text">
+            {% if current_variant.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const stickyBar = document.querySelector('[data-sticky-product-bar]');
+  if (!stickyBar) return;
+
+  const productForm = document.querySelector('[data-product-form]');
+  const footerWrapper = document.querySelector('[data-footer-wrapper]');
+  const footerSection = document.querySelector('[data-footer-section]');
+  const siteContent = document.querySelector('.site-content');
+  const addBtn = stickyBar.querySelector('[data-sticky-bar-add]');
+  const qtyInput = stickyBar.querySelector('[data-sticky-bar-qty-input]');
+  const qtyMinus = stickyBar.querySelector('[data-sticky-bar-qty-minus]');
+  const qtyPlus = stickyBar.querySelector('[data-sticky-bar-qty-plus]');
+  const priceEl = stickyBar.querySelector('[data-sticky-bar-price]');
+  const compareEl = stickyBar.querySelector('[data-sticky-bar-compare]');
+  const variantEl = stickyBar.querySelector('[data-sticky-bar-variant]');
+  const imageEl = stickyBar.querySelector('[data-sticky-bar-image]');
+
+  let isVisible = false;
+  let currentVariantId = addBtn?.dataset.variantId;
+
+  // Format money helper
+  const moneyFormat = {{ shop.money_format | json }};
+  function formatMoney(cents) {
+    const amount = (cents / 100).toFixed(2);
+    return moneyFormat.replace(/\{\{\s*amount\s*\}\}/, amount)
+                      .replace(/\{\{\s*amount_no_decimals\s*\}\}/, Math.round(cents / 100))
+                      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount.replace('.', ','));
+  }
+
+  // Visibility logic
+  function updateVisibility() {
+    if (!productForm) return;
+
+    const formRect = productForm.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Form is above viewport (scrolled past)
+    const formOutOfView = formRect.bottom < 100;
+
+    // Check if we're near the bottom of the page (footer area)
+    // This works reliably regardless of footer positioning (fixed reveal or normal)
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const documentHeight = document.documentElement.scrollHeight;
+    const threshold = 300; // Hide when within 300px of bottom
+    const nearBottom = scrollTop + viewportHeight >= documentHeight - threshold;
+
+    const shouldShow = formOutOfView && !nearBottom;
+
+    if (shouldShow !== isVisible) {
+      isVisible = shouldShow;
+      stickyBar.classList.toggle('is-visible', isVisible);
+      stickyBar.setAttribute('aria-hidden', !isVisible);
+    }
+  }
+
+  // Quantity controls
+  if (qtyMinus && qtyPlus && qtyInput) {
+    qtyMinus.addEventListener('click', () => {
+      const current = parseInt(qtyInput.value) || 1;
+      if (current > 1) {
+        qtyInput.value = current - 1;
+      }
+    });
+
+    qtyPlus.addEventListener('click', () => {
+      const current = parseInt(qtyInput.value) || 1;
+      qtyInput.value = current + 1;
+    });
+
+    qtyInput.addEventListener('change', () => {
+      const val = parseInt(qtyInput.value) || 1;
+      qtyInput.value = Math.max(1, val);
+    });
+  }
+
+  // Sync with main quantity input
+  const mainQtyInput = document.querySelector('[data-quantity-input]');
+  if (mainQtyInput && qtyInput) {
+    mainQtyInput.addEventListener('change', () => {
+      qtyInput.value = mainQtyInput.value;
+    });
+
+    qtyInput.addEventListener('change', () => {
+      mainQtyInput.value = qtyInput.value;
+    });
+  }
+
+  // Add to cart
+  if (addBtn) {
+    addBtn.addEventListener('click', async () => {
+      if (addBtn.disabled) return;
+
+      const quantity = parseInt(qtyInput?.value) || 1;
+      const variantId = currentVariantId;
+
+      if (!variantId) return;
+
+      // Loading state
+      stickyBar.classList.add('is-loading');
+      addBtn.disabled = true;
+      const originalHTML = addBtn.innerHTML;
+      addBtn.innerHTML = '<i class="ph ph-spinner animate-spin"></i>';
+
+      try {
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: variantId,
+            quantity: quantity
+          })
+        });
+
+        if (!response.ok) throw new Error('Failed to add');
+
+        const item = await response.json();
+
+        // Get updated cart
+        const cartResponse = await fetch('/cart.js');
+        const cart = await cartResponse.json();
+
+        // Update cart count
+        document.querySelectorAll('[data-cart-count]').forEach(el => {
+          el.textContent = cart.item_count;
+        });
+
+        // Trigger cart behavior
+        const cartType = window.themeSettings?.cartType || 'drawer';
+
+        if (cartType === 'drawer') {
+          if (window.refreshCartDrawer) {
+            await window.refreshCartDrawer();
+          }
+          document.dispatchEvent(new CustomEvent('cart:open'));
+        } else if (cartType === 'notification') {
+          document.dispatchEvent(new CustomEvent('cart:notification', {
+            detail: {
+              product: {
+                title: item.product_title,
+                variant_title: item.variant_title !== 'Default Title' ? item.variant_title : null,
+                image: item.image ? item.image.replace(/(\.[^.]+)$/, '_200x$1') : null
+              },
+              cart: cart
+            }
+          }));
+        } else {
+          window.location.href = '/cart';
+          return;
+        }
+
+        // Success state
+        addBtn.innerHTML = '<i class="ph ph-check"></i>';
+
+        setTimeout(() => {
+          addBtn.innerHTML = originalHTML;
+          addBtn.disabled = false;
+        }, 1500);
+
+      } catch (error) {
+        console.error('Sticky bar add to cart error:', error);
+        addBtn.innerHTML = '<i class="ph ph-x"></i>';
+
+        setTimeout(() => {
+          addBtn.innerHTML = originalHTML;
+          addBtn.disabled = false;
+        }, 1500);
+      } finally {
+        stickyBar.classList.remove('is-loading');
+      }
+    });
+  }
+
+  // Listen for variant changes from main product section
+  document.addEventListener('variant:change', (e) => {
+    const variant = e.detail?.variant;
+    if (!variant) return;
+
+    currentVariantId = variant.id;
+
+    // Update price
+    if (priceEl) {
+      priceEl.textContent = formatMoney(variant.price);
+    }
+
+    // Update compare price
+    if (compareEl) {
+      if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+        compareEl.textContent = formatMoney(variant.compare_at_price);
+        compareEl.style.display = '';
+      } else {
+        compareEl.style.display = 'none';
+      }
+    }
+
+    // Update variant text
+    if (variantEl && variant.title !== 'Default Title') {
+      variantEl.textContent = variant.title;
+    }
+
+    // Update image if variant has one
+    if (imageEl && variant.featured_image) {
+      imageEl.src = variant.featured_image.src.replace(/(\.[^.]+)$/, '_120x$1');
+    }
+
+    // Update button state
+    if (addBtn) {
+      addBtn.disabled = !variant.available;
+      const btnText = addBtn.querySelector('.sticky-product-bar__btn-text');
+      if (btnText) {
+        btnText.textContent = variant.available
+          ? '{{ 'products.product.add_to_cart' | t }}'
+          : '{{ 'products.product.sold_out' | t }}';
+      }
+    }
+  });
+
+  // Scroll listener with throttle
+  let ticking = false;
+  const onScroll = () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateVisibility();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  };
+
+  // Listen to native scroll
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Listen to Lenis scroll if available
+  if (window.lenis) {
+    window.lenis.on('scroll', onScroll);
+  }
+
+  // Initial check
+  updateVisibility();
+
+  // Reinitialize after Swup
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('sticky-product-bar', () => {
+      updateVisibility();
+      // Re-attach Lenis listener if it was recreated
+      if (window.lenis) {
+        window.lenis.on('scroll', onScroll);
+      }
+    });
+  }
+})();
+</script>
