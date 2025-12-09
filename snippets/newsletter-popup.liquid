@@ -141,23 +141,21 @@
 
       {%- comment -%} Form container {%- endcomment -%}
       <div data-newsletter-popup-form-container>
-        {% if settings.popup_title != blank %}
-          <h2 class="text-2xl font-semibold mb-3 leading-tight font-heading" id="newsletter-popup-title">
-            {{ settings.popup_title }}
-          </h2>
-        {% endif %}
+        <h2 class="text-2xl font-semibold mb-3 leading-tight font-heading" id="newsletter-popup-title">
+          {{ settings.popup_title }}
+        </h2>
 
         {% if settings.popup_text != blank %}
-          <p class="text-[15px] opacity-70 mb-6 leading-relaxed">{{ settings.popup_text }}</p>
+          <p class="text-[15px] opacity-70 mb-6 leading-relaxed" id="newsletter-popup-description">{{ settings.popup_text }}</p>
         {% endif %}
 
         {% form 'customer', id: 'newsletter-popup-form', class: 'flex flex-col gap-3' %}
           <input
             type="email"
             name="contact[email]"
-            class="w-full py-3 px-4 text-[15px] bg-transparent border transition-colors focus:outline-none"
+            class="w-full py-3 px-4 text-[15px] bg-transparent border transition-colors focus:outline-none focus:ring-2 focus:ring-current focus:ring-offset-2"
             style="color: var(--popup-text); border-color: color-mix(in srgb, var(--popup-text) 20%, transparent); border-radius: {{ settings.input_radius }}px;"
-            placeholder="{{ settings.popup_placeholder | default: 'general.newsletter.email_placeholder' | t }}"
+            placeholder="{{ settings.popup_placeholder }}"
             required
             autocomplete="email"
             aria-label="{{ 'customers.register.email' | t }}"
@@ -167,7 +165,7 @@
             type="submit"
             class="btn-primary w-full py-3.5 px-6 text-[13px] font-semibold tracking-wider cursor-pointer"
           >
-            <span>{{ settings.popup_button_text | default: 'general.newsletter.submit' | t }}</span>
+            <span>{{ settings.popup_button_text }}</span>
           </button>
         {% endform %}
 
@@ -183,7 +181,7 @@
       </div>
 
       {%- comment -%} Success state {%- endcomment -%}
-      <div data-newsletter-popup-success class="hidden">
+      <div data-newsletter-popup-success class="hidden" role="status" aria-live="polite">
         <p class="text-center py-3 text-sm text-green-500">
           {{ settings.popup_success_msg | default: 'general.newsletter.success' | t }}
         </p>
@@ -192,15 +190,16 @@
           <div class="mt-6 p-4 text-center" style="background-color: color-mix(in srgb, var(--popup-text) 5%, transparent); border-radius: {{ settings.card_radius }}px;">
             {%- assign discount_msg = settings.popup_discount_msg | replace: '{code}', settings.popup_discount_code -%}
             <p>{{ discount_msg }}</p>
-            <div
-              class="inline-flex items-center gap-2 mt-2 py-2 px-4 font-mono text-lg font-semibold tracking-widest cursor-pointer transition-colors hover:bg-black/5"
-              style="background-color: color-mix(in srgb, var(--popup-text) 8%, transparent); border-radius: {{ settings.input_radius }}px;"
+            <button
+              type="button"
+              class="inline-flex items-center gap-2 mt-2 py-2 px-4 font-mono text-lg font-semibold tracking-widest cursor-pointer transition-colors hover:bg-black/5 border-none"
+              style="background-color: color-mix(in srgb, var(--popup-text) 8%, transparent); color: inherit; border-radius: {{ settings.input_radius }}px;"
               data-discount-code="{{ settings.popup_discount_code }}"
-              title="{{ 'general.newsletter.copy_code' | t }}"
+              aria-label="{{ 'general.newsletter.copy_code' | t }}: {{ settings.popup_discount_code }}"
             >
-              {{ settings.popup_discount_code }}
+              <span aria-hidden="true">{{ settings.popup_discount_code }}</span>
               <i class="ph ph-copy text-base opacity-60" aria-hidden="true"></i>
-            </div>
+            </button>
           </div>
         {% endif %}
       </div>
@@ -283,8 +282,30 @@
 
       closeButtons.forEach(btn => btn.addEventListener('click', () => hidePopup('dismissed')));
       overlay.addEventListener('click', () => hidePopup('dismissed'));
+
+      // Keyboard handling: Escape to close and focus trap
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && popup.classList.contains('is-visible')) hidePopup('dismissed');
+        if (!popup.classList.contains('is-visible')) return;
+
+        if (e.key === 'Escape') {
+          hidePopup('dismissed');
+          return;
+        }
+
+        // Focus trap
+        if (e.key === 'Tab') {
+          const focusableEls = popup.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+          const firstEl = focusableEls[0];
+          const lastEl = focusableEls[focusableEls.length - 1];
+
+          if (e.shiftKey && document.activeElement === firstEl) {
+            e.preventDefault();
+            lastEl.focus();
+          } else if (!e.shiftKey && document.activeElement === lastEl) {
+            e.preventDefault();
+            firstEl.focus();
+          }
+        }
       });
 
       if (form) {
