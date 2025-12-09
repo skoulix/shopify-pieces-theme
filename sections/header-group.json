@@ -11,48 +11,43 @@
   "name": "Header",
   "type": "header",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "header": {
+      "type": "header",
       "blocks": {
-        "message-1": {
-          "type": "message",
+        "announcement-1": {
+          "type": "announcement",
           "settings": {
             "text": "Free shipping on orders over $50",
             "icon": "truck"
           }
         },
-        "message-2": {
-          "type": "message",
+        "announcement-2": {
+          "type": "announcement",
           "settings": {
             "text": "Use code SAVE20 for 20% off",
             "icon": "tag"
           }
         }
       },
-      "block_order": ["message-1", "message-2"],
-      "settings": {
-        "background_color": "#111827",
-        "text_color": "#ffffff",
-        "bar_height": 40,
-        "rotation_speed": 5,
-        "show_arrows": false,
-        "dismissible": true
-      }
-    },
-    "header": {
-      "type": "header",
+      "block_order": ["announcement-1", "announcement-2"],
       "settings": {
         "full_width": false,
         "menu": "main-menu",
         "sticky_header": true,
         "hide_on_scroll": true,
         "transparent_home": true,
-        "transparent_text_color": "#ffffff"
+        "transparent_text_color": "#ffffff",
+        "show_announcement_bar": true,
+        "announcement_bg": "#111827",
+        "announcement_text": "#ffffff",
+        "announcement_height": 40,
+        "announcement_rotation": 5,
+        "announcement_arrows": false,
+        "announcement_dismissible": true
       }
     }
   },
   "order": [
-    "announcement-bar",
     "header"
   ]
 }

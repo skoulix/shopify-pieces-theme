@@ -264,6 +264,8 @@
         closeBtn.addEventListener('click', () => {
           bar.classList.add('is-dismissed');
           localStorage.setItem(storageKey, 'true');
+          // Dispatch event so header spacer can recalculate height
+          window.dispatchEvent(new CustomEvent('announcement:dismissed'));
         });
       }
 

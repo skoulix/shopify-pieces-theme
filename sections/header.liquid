@@ -1,6 +1,7 @@
 {%- comment -%}
   Header Section - Minimal Skeleton + Tailwind UI Design
   Integrates with Swup page transitions and Lenis smooth scroll
+  Includes announcement bar as first row
 {%- endcomment -%}
 
 {%- liquid
@@ -14,25 +15,29 @@
   if section.settings.transparent_home and request.page_type == 'index'
     assign is_transparent = true
   endif
+
+  # Get announcement bar blocks
+  assign announcement_blocks = section.blocks | where: 'type', 'announcement'
+  assign show_announcement = section.settings.show_announcement_bar
 -%}
 
 <style>
-  /* Header group wrapper - handles fixed positioning and hide/reveal */
-  .header-group {
+  /* Header wrapper - contains announcement bar + nav */
+  .header-wrapper {
     position: relative;
     z-index: 40;
   }
 
   /* Fixed header with hide/reveal uses position: fixed */
-  .header-group.is-sticky {
+  .header-wrapper.is-sticky {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .header-group.is-hidden {
+  .header-wrapper.is-hidden {
     transform: translateY(-100%);
   }
 
@@ -41,51 +46,244 @@
     display: none;
   }
 
-  .header-group.is-sticky + .header-spacer {
+  .header-wrapper.is-sticky ~ .header-spacer {
     display: block;
   }
 
+  /* Header inner styles */
+  .header-inner {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+
   /* Transparent header styles */
-  .header-group.is-transparent .header-inner {
+  .header-wrapper.is-transparent .header-inner {
     background: transparent;
     border-color: transparent;
   }
 
-  /* Transparent header colors - only apply to main nav bar, not mobile drawer */
-  .header-group.is-transparent .header-inner > nav,
-  .header-group.is-transparent .header-inner > nav a,
-  .header-group.is-transparent .header-inner > nav button,
-  .header-group.is-transparent .header-inner > nav [data-cart-count] {
+  /* Transparent header colors - only apply to main nav bar, not dropdowns */
+  .header-wrapper.is-transparent .header-inner > nav,
+  .header-wrapper.is-transparent .header-inner > nav > div > a,
+  .header-wrapper.is-transparent .header-inner > nav > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent .header-inner > nav [data-cart-count] {
     color: {{ section.settings.transparent_text_color }};
   }
 
+  /* Dropdown panel should always use normal text colors, even in transparent mode */
+  .header-wrapper.is-transparent .dropdown-panel,
+  .header-wrapper.is-transparent .dropdown-panel a {
+    color: var(--color-text);
+  }
 
   /* When scrolled, revert to solid background */
-  .header-group.is-transparent.is-scrolled .header-inner {
+  .header-wrapper.is-transparent.is-scrolled .header-inner {
     background: var(--color-background);
     border-color: var(--color-border);
   }
 
-  .header-group.is-transparent.is-scrolled .header-inner > nav,
-  .header-group.is-transparent.is-scrolled .header-inner > nav a,
-  .header-group.is-transparent.is-scrolled .header-inner > nav button,
-  .header-group.is-transparent.is-scrolled .header-inner > nav [data-cart-count] {
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > a,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav [data-cart-count] {
     color: var(--color-text);
   }
 
-  .header-group.is-transparent.is-scrolled .header-inner > nav a:hover,
-  .header-group.is-transparent.is-scrolled .header-inner > nav button:hover {
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > a:hover,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .dropdown-wrapper > button:hover {
     color: var(--color-primary);
   }
 
   /* Transparent header spacer should be hidden */
-  .header-group.is-transparent + .header-spacer {
+  .header-wrapper.is-transparent ~ .header-spacer {
     display: none;
+  }
+
+  /* Announcement bar styles */
+  .header-announcement {
+    --bar-bg: {{ section.settings.announcement_bg }};
+    --bar-text: {{ section.settings.announcement_text }};
+    background-color: var(--bar-bg);
+    color: var(--bar-text);
+    min-height: {{ section.settings.announcement_height }}px;
+  }
+
+  .header-announcement a {
+    color: var(--bar-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .header-announcement a:hover {
+    opacity: 0.8;
+  }
+
+  .header-announcement__slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+
+  .header-announcement__slide.is-active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header-announcement.is-dismissed {
+    display: none;
+  }
+
+  .header-announcement__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--bar-text);
+    padding: 0.5rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    z-index: 1;
+  }
+
+  .header-announcement__arrow:hover {
+    opacity: 1;
+  }
+
+  .header-announcement__arrow--prev {
+    left: 0.5rem;
+  }
+
+  .header-announcement__arrow--next {
+    right: {% if section.settings.announcement_dismissible %}2.5rem{% else %}0.5rem{% endif %};
+  }
+
+  .header-announcement__close {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--bar-text);
+    padding: 0.5rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .header-announcement__close:hover {
+    opacity: 1;
+  }
+
+  .header-announcement__countdown {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 0.75rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .header-announcement__countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2rem;
+  }
+
+  .header-announcement__countdown-value {
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .header-announcement__countdown-label {
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
   }
 </style>
 
-<div class="header-group{% if section.settings.sticky_header %} is-sticky{% endif %}{% if is_transparent %} is-transparent{% endif %}" data-header-group{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}{% if is_transparent %} data-transparent-header{% endif %}>
-  <header class="header-inner border-b bg-[--color-background] border-[--color-border] transition-colors duration-300" data-header>
+<div class="header-wrapper{% if section.settings.sticky_header %} is-sticky{% endif %}{% if is_transparent %} is-transparent{% endif %}" data-header-wrapper{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}{% if is_transparent %} data-transparent-header{% endif %}>
+  {%- comment -%} Announcement Bar Row {%- endcomment -%}
+  {% if show_announcement and announcement_blocks.size > 0 %}
+    <div class="header-announcement relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="Announcement" data-announcement-bar>
+      {%- comment -%} Navigation Arrows {%- endcomment -%}
+      {% if section.settings.announcement_arrows and announcement_blocks.size > 1 %}
+        <button type="button" class="header-announcement__arrow header-announcement__arrow--prev" data-announcement-prev aria-label="{{ 'accessibility.previous' | t }}">
+          <i class="ph ph-caret-left"></i>
+        </button>
+        <button type="button" class="header-announcement__arrow header-announcement__arrow--next" data-announcement-next aria-label="{{ 'accessibility.next' | t }}">
+          <i class="ph ph-caret-right"></i>
+        </button>
+      {% endif %}
+
+      {%- comment -%} Slides {%- endcomment -%}
+      <div class="header-announcement__slides relative w-full">
+        {% for block in announcement_blocks %}
+          <div
+            class="header-announcement__slide{% if forloop.first %} is-active{% endif %}"
+            data-announcement-slide="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="flex items-center justify-center flex-wrap gap-x-2">
+              {% if block.settings.icon != 'none' %}
+                <i class="ph ph-{{ block.settings.icon }}"></i>
+              {% endif %}
+
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}">{{ block.settings.text }}</a>
+              {% else %}
+                <span>{{ block.settings.text }}</span>
+              {% endif %}
+
+              {% if block.settings.show_countdown and block.settings.countdown_date != blank %}
+                <div class="header-announcement__countdown" data-countdown="{{ block.settings.countdown_date | date: '%Y-%m-%dT%H:%M:%S' }}">
+                  <div class="header-announcement__countdown-unit" data-countdown-days>
+                    <span class="header-announcement__countdown-value">00</span>
+                    <span class="header-announcement__countdown-label">Days</span>
+                  </div>
+                  <span>:</span>
+                  <div class="header-announcement__countdown-unit" data-countdown-hours>
+                    <span class="header-announcement__countdown-value">00</span>
+                    <span class="header-announcement__countdown-label">Hrs</span>
+                  </div>
+                  <span>:</span>
+                  <div class="header-announcement__countdown-unit" data-countdown-mins>
+                    <span class="header-announcement__countdown-value">00</span>
+                    <span class="header-announcement__countdown-label">Min</span>
+                  </div>
+                  <span>:</span>
+                  <div class="header-announcement__countdown-unit" data-countdown-secs>
+                    <span class="header-announcement__countdown-value">00</span>
+                    <span class="header-announcement__countdown-label">Sec</span>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {%- comment -%} Close Button {%- endcomment -%}
+      {% if section.settings.announcement_dismissible %}
+        <button type="button" class="header-announcement__close" data-announcement-close aria-label="{{ 'accessibility.close' | t }}">
+          <i class="ph ph-x"></i>
+        </button>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {%- comment -%} Header Nav Row {%- endcomment -%}
+  <header class="header-inner border-b bg-[--color-background] border-[--color-border]" data-header>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
     {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
     <div class="flex lg:flex-1">
@@ -388,12 +586,7 @@
     </div>
   </div>
 </header>
-</div>
-
-{%- comment -%} Spacer to prevent content jump when header is fixed {%- endcomment -%}
-{% if section.settings.sticky_header %}
-  <div class="header-spacer" data-header-spacer></div>
-{% endif %}
+</div><!-- /.header-wrapper -->
 
 <script data-swup-ignore-script>
 (function() {
@@ -653,12 +846,17 @@
   });
 
   /**
+   * Get header wrapper element
+   * This contains both announcement bar and header nav
+   */
+  const headerWrapper = document.querySelector('[data-header-wrapper]');
+
+  /**
    * Hide header on scroll down, reveal on scroll up
    * Only enabled when data-hide-on-scroll attribute is present
    * Uses Lenis direction property (1 = up, -1 = down) for reliable detection
    */
-  const headerGroup = document.querySelector('[data-header-group]');
-  if (headerGroup && headerGroup.hasAttribute('data-hide-on-scroll')) {
+  if (headerWrapper && headerWrapper.hasAttribute('data-hide-on-scroll')) {
     const scrollThreshold = 50; // Min scroll before hiding
     let lenisAttached = false;
 
@@ -671,17 +869,17 @@
 
       // Always show header when at top of page
       if (e.scroll < scrollThreshold) {
-        headerGroup.classList.remove('is-hidden');
+        headerWrapper.classList.remove('is-hidden');
         return;
       }
 
       // Use Lenis direction: 1 = scrolling down, -1 = scrolling up
       if (e.direction === 1) {
         // Scrolling down - hide header
-        headerGroup.classList.add('is-hidden');
+        headerWrapper.classList.add('is-hidden');
       } else if (e.direction === -1) {
         // Scrolling up - show header
-        headerGroup.classList.remove('is-hidden');
+        headerWrapper.classList.remove('is-hidden');
       }
     }
 
@@ -715,13 +913,13 @@
 
       // Always show header when at top
       if (currentScrollY < scrollThreshold) {
-        headerGroup.classList.remove('is-hidden');
+        headerWrapper.classList.remove('is-hidden');
       } else if (currentScrollY > lastScrollY) {
         // Scrolling down
-        headerGroup.classList.add('is-hidden');
+        headerWrapper.classList.add('is-hidden');
       } else if (currentScrollY < lastScrollY) {
         // Scrolling up
-        headerGroup.classList.remove('is-hidden');
+        headerWrapper.classList.remove('is-hidden');
       }
 
       lastScrollY = currentScrollY;
@@ -758,7 +956,7 @@
     // Reset on page transitions
     if (window.onSwupContentReplaced) {
       window.onSwupContentReplaced('header-scroll-visibility', () => {
-        headerGroup.classList.remove('is-hidden');
+        headerWrapper.classList.remove('is-hidden');
         if (!lenisAttached) {
           lastScrollY = window.scrollY;
         }
@@ -766,17 +964,22 @@
     }
   }
 
-  // Set spacer height to match header height (for fixed positioning)
-  const header = document.querySelector('[data-header]');
+  // Set spacer height to match full header wrapper height (announcement bar + header)
   const spacer = document.querySelector('[data-header-spacer]');
 
-  if (header && spacer) {
+  if (headerWrapper && spacer) {
     function updateSpacerHeight() {
-      spacer.style.height = header.offsetHeight + 'px';
+      // Use the header wrapper height to include announcement bar
+      spacer.style.height = headerWrapper.offsetHeight + 'px';
     }
 
     updateSpacerHeight();
     window.addEventListener('resize', updateSpacerHeight);
+    // Recalculate when announcement bar is dismissed
+    window.addEventListener('announcement:dismissed', () => {
+      // Small delay to let CSS transition/display change complete
+      setTimeout(updateSpacerHeight, 50);
+    });
     if (window.onSwupContentReplaced) {
       window.onSwupContentReplaced('header-spacer-height', updateSpacerHeight);
     }
@@ -787,18 +990,17 @@
    * Header is transparent only on homepage, so we need to update after Swup navigation
    */
   {% if section.settings.transparent_home %}
-  const headerGroupEl = document.querySelector('[data-header-group]');
-  if (headerGroupEl && window.onSwupContentReplaced) {
+  if (headerWrapper && window.onSwupContentReplaced) {
     window.onSwupContentReplaced('header-transparent-state', () => {
       // Check if we're now on the homepage
       const isHomepage = window.location.pathname === '/' || window.location.pathname === '';
 
       if (isHomepage) {
-        headerGroupEl.classList.add('is-transparent');
-        headerGroupEl.setAttribute('data-transparent-header', '');
+        headerWrapper.classList.add('is-transparent');
+        headerWrapper.setAttribute('data-transparent-header', '');
       } else {
-        headerGroupEl.classList.remove('is-transparent', 'is-scrolled');
-        headerGroupEl.removeAttribute('data-transparent-header');
+        headerWrapper.classList.remove('is-transparent', 'is-scrolled');
+        headerWrapper.removeAttribute('data-transparent-header');
       }
     });
   }
@@ -1022,6 +1224,111 @@
       }
     });
   });
+
+  /**
+   * Announcement Bar - Slide rotation, dismiss, and countdown
+   */
+  const announcementBar = document.querySelector('[data-announcement-bar]');
+  if (announcementBar) {
+    const slides = announcementBar.querySelectorAll('[data-announcement-slide]');
+    const prevBtn = announcementBar.querySelector('[data-announcement-prev]');
+    const nextBtn = announcementBar.querySelector('[data-announcement-next]');
+    const closeBtn = announcementBar.querySelector('[data-announcement-close]');
+    const countdowns = announcementBar.querySelectorAll('[data-countdown]');
+
+    let currentSlide = 0;
+    let autoRotateInterval = null;
+    const rotationSpeed = {{ section.settings.announcement_rotation | default: 5 }} * 1000;
+    const sectionId = '{{ section.id }}';
+    const storageKey = 'announcement_dismissed_' + sectionId;
+
+    // Check if dismissed
+    if (localStorage.getItem(storageKey)) {
+      announcementBar.classList.add('is-dismissed');
+      // Update spacer height after dismissing
+      if (spacer && headerWrapper) {
+        requestAnimationFrame(() => {
+          spacer.style.height = headerWrapper.offsetHeight + 'px';
+        });
+      }
+    } else {
+      // Slide functions
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('is-active', i === index);
+        });
+        currentSlide = index;
+      }
+
+      function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next);
+      }
+
+      function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev);
+      }
+
+      // Auto rotation
+      if (slides.length > 1 && rotationSpeed > 0) {
+        autoRotateInterval = setInterval(nextSlide, rotationSpeed);
+
+        // Pause on hover
+        announcementBar.addEventListener('mouseenter', () => clearInterval(autoRotateInterval));
+        announcementBar.addEventListener('mouseleave', () => {
+          autoRotateInterval = setInterval(nextSlide, rotationSpeed);
+        });
+      }
+
+      // Navigation
+      if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+      if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+
+      // Dismiss
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          announcementBar.classList.add('is-dismissed');
+          localStorage.setItem(storageKey, 'true');
+          // Dispatch event so spacer can recalculate height
+          window.dispatchEvent(new CustomEvent('announcement:dismissed'));
+        });
+      }
+
+      // Countdown timers
+      countdowns.forEach(countdown => {
+        const targetDate = new Date(countdown.dataset.countdown).getTime();
+
+        function updateCountdown() {
+          const now = Date.now();
+          const diff = targetDate - now;
+
+          if (diff <= 0) {
+            countdown.innerHTML = '<span>Expired</span>';
+            return;
+          }
+
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+          const daysEl = countdown.querySelector('[data-countdown-days] .header-announcement__countdown-value');
+          const hoursEl = countdown.querySelector('[data-countdown-hours] .header-announcement__countdown-value');
+          const minsEl = countdown.querySelector('[data-countdown-mins] .header-announcement__countdown-value');
+          const secsEl = countdown.querySelector('[data-countdown-secs] .header-announcement__countdown-value');
+
+          if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
+          if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+          if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
+          if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      });
+    }
+  }
 })();
 </script>
 
@@ -1076,6 +1383,62 @@
       "label": "Text color",
       "default": "#ffffff",
       "info": "Color for links, text, and icons when transparent"
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement_bar",
+      "default": true,
+      "label": "Show announcement bar"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg",
+      "label": "Background color",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "announcement_height",
+      "min": 32,
+      "max": 60,
+      "step": 4,
+      "default": 40,
+      "unit": "px",
+      "label": "Bar height"
+    },
+    {
+      "type": "range",
+      "id": "announcement_rotation",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "unit": "s",
+      "label": "Auto-rotate speed",
+      "info": "Set to 0 to disable auto-rotation"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_arrows",
+      "default": false,
+      "label": "Show navigation arrows"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_dismissible",
+      "default": true,
+      "label": "Allow dismissal",
+      "info": "Shows close button and remembers user preference"
     }
   ],
   "blocks": [
@@ -1142,6 +1505,59 @@
           "type": "url",
           "id": "promo_link",
           "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "announcement",
+      "name": "Announcement message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping on orders over $50"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "tag", "label": "Tag (Sale)" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "star", "label": "Star" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "percent", "label": "Percent" },
+            { "value": "lightning", "label": "Lightning" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "fire", "label": "Fire" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "calendar", "label": "Calendar" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Countdown timer"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_countdown",
+          "default": false,
+          "label": "Show countdown timer"
+        },
+        {
+          "type": "text",
+          "id": "countdown_date",
+          "label": "End date and time",
+          "info": "Format: YYYY-MM-DD HH:MM (e.g., 2024-12-31 23:59)"
         }
       ]
     }
