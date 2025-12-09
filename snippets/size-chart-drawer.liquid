@@ -1,6 +1,8 @@
 {%- comment -%}
   Size Chart Drawer
   Renders a drawer with size chart content.
+  When rendered from theme.liquid, shows default content.
+  Product section can populate it dynamically via data attributes.
 
   Accepts:
   - heading: {String} Drawer heading (optional)
@@ -22,7 +24,7 @@
   }
   .size-chart-drawer.is-open {
     pointer-events: auto;
-    visibility: visible;
+    visibility: visible !important;
     transition: visibility 0s 0s;
   }
   .size-chart-drawer__backdrop {
@@ -90,6 +92,7 @@
 <div
   id="size-chart-drawer"
   class="size-chart-drawer"
+  style="visibility: hidden;"
   role="dialog"
   aria-modal="true"
   aria-labelledby="size-chart-drawer-title"
@@ -102,7 +105,7 @@
   <div class="size-chart-drawer__panel">
     {%- comment -%} Header {%- endcomment -%}
     <div class="size-chart-drawer__header">
-      <h2 id="size-chart-drawer-title" class="size-chart-drawer__title font-heading">
+      <h2 id="size-chart-drawer-title" class="size-chart-drawer__title font-heading" data-size-chart-title>
         {%- liquid
           if heading != blank
             echo heading
@@ -122,7 +125,7 @@
     </div>
 
     {%- comment -%} Body {%- endcomment -%}
-    <div class="size-chart-drawer__body">
+    <div class="size-chart-drawer__body" data-size-chart-body>
       {% if page != blank and page.content != blank %}
         <div class="prose prose-sm max-w-none">
           {{ page.content }}
@@ -133,7 +136,7 @@
         </div>
       {% else %}
         {%- comment -%} Default size chart table {%- endcomment -%}
-        <div class="space-y-6">
+        <div class="space-y-6" data-size-chart-default>
           <div>
             <h3 class="text-sm font-medium mb-2">{{ 'products.size_chart.how_to_measure' | t }}</h3>
             <p class="text-sm text-[--color-text-secondary]">
@@ -206,18 +209,11 @@
 
 <script>
 (function() {
-  // Remove any existing size chart drawers from body (cleanup from previous page)
-  document.querySelectorAll('body > [data-size-chart-drawer]').forEach(el => el.remove());
-
-  const drawer = document.querySelector('[data-size-chart-drawer]');
-  if (!drawer) return;
-
-  // Move drawer to body to escape stacking context created by .site-content
-  document.body.appendChild(drawer);
+  const drawer = document.getElementById('size-chart-drawer');
+  if (!drawer || drawer.dataset.initialized) return;
+  drawer.dataset.initialized = 'true';
 
   const closeButtons = drawer.querySelectorAll('[data-size-chart-close]');
-  const openTriggers = document.querySelectorAll('[data-size-chart-open]');
-
   let isOpen = false;
 
   function openDrawer() {
@@ -240,12 +236,13 @@
     }, 300);
   }
 
-  // Open triggers
-  openTriggers.forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
+  // Use event delegation for open triggers (works after Swup navigation)
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-size-chart-open]');
+    if (trigger) {
       e.preventDefault();
       openDrawer();
-    });
+    }
   });
 
   // Close triggers
@@ -260,7 +257,7 @@
     }
   });
 
-  // Global event for opening from elsewhere
+  // Global events for opening/closing from elsewhere
   document.addEventListener('size-chart:open', openDrawer);
   document.addEventListener('size-chart:close', closeDrawer);
 })();

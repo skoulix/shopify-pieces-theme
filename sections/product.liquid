@@ -310,6 +310,16 @@
               endfor
             -%}
             {% if has_size_option or block.settings.show_always %}
+              {%- liquid
+                assign link_text = block.settings.link_text
+                if link_text == blank
+                  assign link_text = 'products.size_chart.title' | t
+                endif
+                assign drawer_heading = block.settings.drawer_heading
+                if drawer_heading == blank
+                  assign drawer_heading = 'products.size_chart.title' | t
+                endif
+              -%}
               <div class="size-chart-trigger mt-4" data-intro {{ block.shopify_attributes }}>
                 <button
                   type="button"
@@ -318,27 +328,32 @@
                   aria-haspopup="dialog"
                 >
                   <i class="ph ph-ruler text-lg"></i>
-                  {%- liquid
-                    assign link_text = block.settings.link_text
-                    if link_text == blank
-                      assign link_text = 'products.size_chart.title' | t
-                    endif
-                  -%}
                   <span class="underline underline-offset-2">{{ link_text }}</span>
                 </button>
               </div>
 
-              {%- liquid
-                assign drawer_heading = block.settings.drawer_heading
-                if drawer_heading == blank
-                  assign drawer_heading = 'products.size_chart.title' | t
-                endif
-              -%}
-              {% render 'size-chart-drawer',
-                heading: drawer_heading,
-                page: block.settings.page,
-                content: block.settings.content
-              %}
+              {%- comment -%} Update global size chart drawer content {%- endcomment -%}
+              <script>
+                (function() {
+                  const drawer = document.getElementById('size-chart-drawer');
+                  if (!drawer) return;
+
+                  const titleEl = drawer.querySelector('[data-size-chart-title]');
+                  const bodyEl = drawer.querySelector('[data-size-chart-body]');
+
+                  if (titleEl) {
+                    titleEl.textContent = {{ drawer_heading | json }};
+                  }
+
+                  if (bodyEl) {
+                    {% if block.settings.page != blank and block.settings.page.content != blank %}
+                      bodyEl.innerHTML = '<div class="prose prose-sm max-w-none">{{ block.settings.page.content | escape }}</div>';
+                    {% elsif block.settings.content != blank %}
+                      bodyEl.innerHTML = '<div class="prose prose-sm max-w-none">{{ block.settings.content | escape }}</div>';
+                    {% endif %}
+                  }
+                })();
+              </script>
             {% endif %}
 
           {%- when 'back_in_stock' -%}
