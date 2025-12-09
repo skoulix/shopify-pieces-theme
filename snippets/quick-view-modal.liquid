@@ -84,6 +84,100 @@
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+
+  /* Quick view form inputs */
+  .quick-view-product__form select,
+  .quick-view-product__form input[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 1;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--input-radius, 0.25rem);
+    color: inherit;
+    transition: border-color 0.2s ease;
+  }
+
+  .quick-view-product__form select {
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+  }
+
+  .quick-view-product__form select:focus,
+  .quick-view-product__form input[type="number"]:focus {
+    outline: none;
+    border-color: var(--color-text);
+  }
+
+  /* Quick view quantity spinner - matches product page design */
+  .quick-view-quantity {
+    display: inline-flex;
+    align-items: center;
+    background: transparent;
+    border-radius: var(--input-radius);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border: var(--input-border-width, 1px) solid var(--color-border);
+  }
+
+  .quick-view-quantity-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .quick-view-quantity-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+
+  .quick-view-quantity-btn:active {
+    transform: scale(0.95);
+  }
+
+  .quick-view-quantity-value {
+    width: 3.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-view-quantity-input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    color: var(--color-text);
+    -moz-appearance: textfield;
+  }
+
+  .quick-view-quantity-input::-webkit-outer-spin-button,
+  .quick-view-quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .quick-view-quantity-input:focus {
+    outline: none;
+  }
 </style>
 
 <div class="quick-view-modal" data-quick-view-modal role="dialog" aria-modal="true" aria-label="Quick view">
@@ -267,5 +361,8 @@
       closeModal();
     }
   });
+
+  // Close modal on Swup route change
+  window.addEventListener('swup:contentReplaced', closeModal);
 })();
 </script>

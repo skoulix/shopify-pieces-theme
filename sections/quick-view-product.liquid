@@ -53,7 +53,9 @@
     {% endif %}
 
     <h2 class="text-2xl font-semibold font-heading mb-4">
-      {{ product.title }}
+      <a href="{{ product.url }}" class="hover:text-[--color-primary] transition-colors">
+        {{ product.title }}
+      </a>
     </h2>
 
     <div class="flex items-center gap-3 mb-6">
@@ -114,27 +116,29 @@
         <label for="quick-view-quantity" class="block text-sm font-medium mb-2">
           {{ 'products.product.quantity' | t }}
         </label>
-        <div class="flex items-center border border-[--color-border] rounded-[--input-radius] w-fit">
+        <div class="quick-view-quantity" data-qty-wrapper>
           <button
             type="button"
-            class="w-10 h-10 flex items-center justify-center hover:bg-[--color-background-secondary] transition-colors"
+            class="quick-view-quantity-btn"
             data-qty-minus
             aria-label="{{ 'products.product.decrease_quantity' | t }}"
           >
             <i class="ph ph-minus"></i>
           </button>
-          <input
-            type="number"
-            id="quick-view-quantity"
-            name="quantity"
-            value="1"
-            min="1"
-            class="w-14 h-10 text-center border-x border-[--color-border] bg-transparent"
-            data-qty-input
-          >
+          <div class="quick-view-quantity-value">
+            <input
+              type="number"
+              id="quick-view-quantity"
+              name="quantity"
+              value="1"
+              min="1"
+              class="quick-view-quantity-input"
+              data-qty-input
+            >
+          </div>
           <button
             type="button"
-            class="w-10 h-10 flex items-center justify-center hover:bg-[--color-background-secondary] transition-colors"
+            class="quick-view-quantity-btn"
             data-qty-plus
             aria-label="{{ 'products.product.increase_quantity' | t }}"
           >

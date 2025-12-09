@@ -32,12 +32,12 @@
 -%}
 
 <div
-  class="product-card group relative block cursor-pointer no-underline text-inherit rounded-[--card-radius] overflow-hidden"
+  class="product-card group relative block no-underline text-inherit rounded-[--card-radius] overflow-hidden"
   style="border: var(--card-border-width) solid var(--color-border); box-shadow: var(--card-shadow);"
   data-product-card="{{ index }}"
   data-product-id="{{ product.id }}"
 >
-  <a href="{{ product_url }}" class="block">
+  <a href="{{ product_url }}" class="block cursor-pointer">
     <div class="product-card-image relative overflow-hidden aspect-[3/4]">
       {% if product.featured_image %}
         {{ product.featured_image | image_url: width: 1200 | image_tag:
@@ -106,14 +106,14 @@
     </div>
   </a>
 
-  {%- comment -%} Quick Add Button {%- endcomment -%}
+  {%- comment -%} Quick Add Button - Outside anchor to prevent navigation on click {%- endcomment -%}
   {% if show_quick_add and product.available %}
-    <div class="product-card-quick-add absolute bottom-[4.5rem] left-4 right-4 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+    <div class="product-card-quick-add px-4 pb-4 bg-[--color-background]" data-intro>
       {% if has_variants %}
         {%- comment -%} Multiple variants - open quick view modal {%- endcomment -%}
         <button
           type="button"
-          class="w-full py-2.5 px-4 text-xs font-semibold uppercase tracking-wider bg-[--color-background] text-[--color-text] border border-[--color-border] hover:bg-[--color-text] hover:text-[--color-background] transition-colors rounded-[--button-radius]"
+          class="btn btn--secondary w-full !py-2.5 !px-4 !text-xs"
           data-quick-view-trigger="{{ product.handle }}"
           aria-label="{{ 'products.product.quick_view' | t }}: {{ product.title }}"
         >
@@ -123,7 +123,7 @@
         {%- comment -%} Single variant - direct add to cart {%- endcomment -%}
         <button
           type="button"
-          class="w-full py-2.5 px-4 text-xs font-semibold uppercase tracking-wider bg-[--color-text] text-[--color-background] border border-[--color-text] hover:bg-transparent hover:text-[--color-text] transition-colors rounded-[--button-radius]"
+          class="btn btn--primary w-full !py-2.5 !px-4 !text-xs"
           data-quick-add="{{ first_available_variant.id }}"
           aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title }}"
         >
