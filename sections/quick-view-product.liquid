@@ -11,13 +11,15 @@
 <div class="quick-view-product grid md:grid-cols-2 gap-6 p-6 lg:p-8">
   {%- comment -%} Product Images {%- endcomment -%}
   <div class="quick-view-product__images">
-    <div class="aspect-square overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]">
+    <div class="aspect-square overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]" data-main-image-wrapper>
       {% if featured_image %}
-        {{ featured_image | image_url: width: 800 | image_tag:
-          class: 'w-full h-full object-cover',
-          loading: 'eager',
-          alt: product.title
-        }}
+        <img
+          src="{{ featured_image | image_url: width: 800 }}"
+          class="w-full h-full object-cover"
+          loading="eager"
+          alt="{{ product.title | escape }}"
+          data-main-image
+        >
       {% else %}
         <div class="w-full h-full flex items-center justify-center">
           <i class="ph ph-image text-6xl text-[--color-text-secondary] opacity-30"></i>
@@ -26,12 +28,15 @@
     </div>
 
     {% if product.images.size > 1 %}
-      <div class="flex gap-2 mt-4 overflow-x-auto pb-2">
+      <div class="flex justify-center gap-2 mt-4 overflow-x-auto pb-2" data-thumbnails>
         {% for image in product.images limit: 6 %}
           <button
             type="button"
-            class="w-16 h-16 flex-shrink-0 rounded-[--card-radius] overflow-hidden border-2 {% if image == featured_image %}border-[--color-primary]{% else %}border-transparent{% endif %}"
+            class="quick-view-thumbnail w-16 h-16 flex-shrink-0 rounded-[--card-radius] overflow-hidden border-2 transition-colors {% if image == featured_image %}border-[--color-primary] is-active{% else %}border-transparent hover:border-[--color-primary]{% endif %}"
             aria-label="View image {{ forloop.index }}"
+            data-thumbnail
+            data-image-id="{{ image.id }}"
+            data-image-src="{{ image | image_url: width: 800 }}"
           >
             {{ image | image_url: width: 200 | image_tag:
               class: 'w-full h-full object-cover',
@@ -177,26 +182,9 @@
   </div>
 </div>
 
-<script>
-  // Quantity controls
-  (function() {
-    const qtyInput = document.querySelector('[data-qty-input]');
-    const qtyMinus = document.querySelector('[data-qty-minus]');
-    const qtyPlus = document.querySelector('[data-qty-plus]');
-
-    if (qtyInput && qtyMinus && qtyPlus) {
-      qtyMinus.addEventListener('click', () => {
-        const val = parseInt(qtyInput.value) || 1;
-        if (val > 1) qtyInput.value = val - 1;
-      });
-
-      qtyPlus.addEventListener('click', () => {
-        const val = parseInt(qtyInput.value) || 1;
-        qtyInput.value = val + 1;
-      });
-    }
-  })();
-</script>
+{%- comment -%}
+  Note: Quantity controls and image gallery are initialized in quick-view-modal.liquid's initQuickViewForm()
+{%- endcomment -%}
 
 {% schema %}
 {

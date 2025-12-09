@@ -164,7 +164,7 @@
     font-size: 1rem;
     font-weight: 600;
     background: transparent;
-    border: none;
+    border: none !important;
     color: var(--color-text);
     -moz-appearance: textfield;
   }
@@ -233,6 +233,43 @@
     document.body.style.overflow = '';
   }
 
+  // Format money using theme settings
+  // Money format is set in theme.liquid via window.themeSettings.moneyFormat
+  function formatMoney(cents) {
+    if (typeof cents === 'string') {
+      cents = cents.replace('.', '');
+    }
+    cents = parseInt(cents, 10) || 0;
+
+    const moneyFormat = window.themeSettings?.moneyFormat || '${% raw %}{{amount}}{% endraw %}';
+    const value = cents / 100;
+
+    // Format with proper decimal places
+    const amount = value.toFixed(2);
+    const amountNoDecimals = Math.floor(value).toString();
+    const amountWithCommaSeparator = amount.replace('.', ',');
+
+    // Add thousand separators
+    const addThousandSeparator = (numStr, sep) => {
+      const parts = numStr.split(/[.,]/);
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+      return parts.length > 1 ? parts[0] + (numStr.includes(',') ? ',' : '.') + parts[1] : parts[0];
+    };
+
+    // Replace all possible Shopify money format placeholders
+    // Order matters: check more specific patterns first
+    let result = moneyFormat
+      .replace(/\{\{amount_with_comma_separator\}\}/g, addThousandSeparator(amountWithCommaSeparator, '.'))
+      .replace(/\{\{amount_no_decimals_with_comma_separator\}\}/g, addThousandSeparator(amountNoDecimals, '.'))
+      .replace(/\{\{amount_with_apostrophe_separator\}\}/g, amount.replace('.', "'"))
+      .replace(/\{\{amount_no_decimals_with_space_separator\}\}/g, addThousandSeparator(amountNoDecimals, ' '))
+      .replace(/\{\{amount_with_space_separator\}\}/g, addThousandSeparator(amount, ' '))
+      .replace(/\{\{amount_no_decimals\}\}/g, addThousandSeparator(amountNoDecimals, ','))
+      .replace(/\{\{amount\}\}/g, addThousandSeparator(amount, ','));
+
+    return result;
+  }
+
   function initQuickViewForm() {
     const form = body.querySelector('form[action="/cart/add"]');
     if (!form) return;
@@ -291,11 +328,50 @@
       }
     });
 
+    // Quantity controls
+    const qtyInput = body.querySelector('[data-qty-input]');
+    const qtyMinus = body.querySelector('[data-qty-minus]');
+    const qtyPlus = body.querySelector('[data-qty-plus]');
+
+    if (qtyInput && qtyMinus && qtyPlus) {
+      qtyMinus.addEventListener('click', () => {
+        const val = parseInt(qtyInput.value) || 1;
+        if (val > 1) qtyInput.value = val - 1;
+      });
+
+      qtyPlus.addEventListener('click', () => {
+        const val = parseInt(qtyInput.value) || 1;
+        qtyInput.value = val + 1;
+      });
+    }
+
+    // Image gallery - thumbnail clicks
+    const mainImage = body.querySelector('[data-main-image]');
+    const thumbnails = body.querySelectorAll('[data-thumbnail]');
+
+    if (mainImage && thumbnails.length > 0) {
+      thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          // Update main image
+          mainImage.src = thumb.dataset.imageSrc;
+
+          // Update active state
+          thumbnails.forEach(t => {
+            t.classList.remove('is-active', 'border-[--color-primary]');
+            t.classList.add('border-transparent');
+          });
+          thumb.classList.add('is-active', 'border-[--color-primary]');
+          thumb.classList.remove('border-transparent');
+        });
+      });
+    }
+
     // Variant selectors
     const variantSelects = body.querySelectorAll('[data-variant-select]');
     const variantInput = body.querySelector('input[name="id"]');
     const priceEl = body.querySelector('[data-quick-view-price]');
     const compareEl = body.querySelector('[data-quick-view-compare]');
+    const saleBadge = compareEl ? compareEl.nextElementSibling : null;
     const productData = body.querySelector('[data-product-json]');
 
     if (productData && variantSelects.length > 0) {
@@ -316,14 +392,21 @@
 
             // Update price
             if (priceEl) {
-              priceEl.textContent = Shopify.formatMoney(variant.price);
+              priceEl.textContent = formatMoney(variant.price);
             }
             if (compareEl) {
               if (variant.compare_at_price > variant.price) {
-                compareEl.textContent = Shopify.formatMoney(variant.compare_at_price);
+                compareEl.textContent = formatMoney(variant.compare_at_price);
                 compareEl.classList.remove('hidden');
+                // Update sale badge
+                if (saleBadge) {
+                  const savePercent = Math.round((variant.compare_at_price - variant.price) / variant.compare_at_price * 100);
+                  saleBadge.textContent = `-${savePercent}%`;
+                  saleBadge.classList.remove('hidden');
+                }
               } else {
                 compareEl.classList.add('hidden');
+                if (saleBadge) saleBadge.classList.add('hidden');
               }
             }
 
@@ -335,6 +418,21 @@
             } else {
               submitBtn.disabled = false;
               submitBtn.querySelector('[data-add-text]').textContent = '{{ "products.product.add_to_cart" | t }}';
+            }
+
+            // Update image if variant has a featured image
+            if (variant.featured_image && mainImage) {
+              const variantImageId = variant.featured_image.id;
+              // Find matching thumbnail and click it to update main image
+              const matchingThumb = Array.from(thumbnails).find(t =>
+                parseInt(t.dataset.imageId) === variantImageId
+              );
+              if (matchingThumb) {
+                matchingThumb.click();
+              } else {
+                // No matching thumbnail, update main image directly
+                mainImage.src = variant.featured_image.src.replace(/(\.[^.]+)$/, '_800x$1');
+              }
             }
           }
         });
