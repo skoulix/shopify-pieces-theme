@@ -104,15 +104,15 @@
     {%- comment -%} Sidebar {%- endcomment -%}
     <aside class="lg:col-span-1" data-intro>
       <nav class="space-y-1">
-        <a href="{{ routes.account_url }}" class="customer-nav__link customer-nav__link--active">
+        <a href="{{ routes.account_url }}" class="customer-nav__link customer-nav__link--active" data-no-swup>
           <i class="ph ph-user text-lg"></i>
           {{ 'customers.account.details' | t }}
         </a>
-        <a href="{{ routes.account_addresses_url }}" class="customer-nav__link">
+        <a href="{{ routes.account_addresses_url }}" class="customer-nav__link" data-no-swup>
           <i class="ph ph-house text-lg"></i>
           {{ 'customers.addresses.title' | t }}
         </a>
-        <a href="{{ routes.account_logout_url }}" class="customer-nav__link customer-nav__link--logout">
+        <a href="{{ routes.account_logout_url }}" class="customer-nav__link customer-nav__link--logout" data-no-swup>
           <i class="ph ph-sign-out text-lg"></i>
           {{ 'customers.account.log_out' | t }}
         </a>

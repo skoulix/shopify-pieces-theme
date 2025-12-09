@@ -84,10 +84,17 @@
   }
 </style>
 
+{%- comment -%} Check if recover form should be visible (posted successfully or has errors) {%- endcomment -%}
+{%- form 'recover_customer_password' -%}
+  {%- if form.posted_successfully? or form.errors -%}
+    {%- assign show_recover_form = true -%}
+  {%- endif -%}
+{%- endform -%}
+
 <div class="page-container py-16 lg:py-24">
   <div class="max-w-md mx-auto">
     {%- comment -%} Login Form {%- endcomment -%}
-    <div id="customer-login" class="text-center">
+    <div id="customer-login" class="{% if show_recover_form %}hidden{% endif %} text-center">
       <h1 class="customer-page__title font-heading mb-3" data-customer-title>
         {{ 'customers.login.title' | t }}
       </h1>
@@ -150,14 +157,14 @@
       </div>
 
       <div data-intro>
-        <a href="{{ routes.account_register_url }}" class="btn btn--secondary w-full">
+        <a href="{{ routes.account_register_url }}" class="btn btn--secondary w-full" data-no-swup>
           <span>{{ 'customers.login.create_account' | t }}</span>
         </a>
       </div>
     </div>
 
     {%- comment -%} Password Recovery Form {%- endcomment -%}
-    <div id="recover-password" class="hidden text-center">
+    <div id="recover-password" class="{% unless show_recover_form %}hidden{% endunless %} text-center" data-recover-form>
       <h1 class="customer-page__title font-heading mb-3" data-customer-title>
         {{ 'customers.recover_password.title' | t }}
       </h1>
@@ -287,12 +294,20 @@
         }
       }
 
-      // Check URL hash on load
-      if (window.location.hash === '#recover') {
+      // Check which form should be visible on load
+      // Priority: server-side state (form errors/success) > URL hash > default (login)
+      const recoverFormVisible = !recoverForm.classList.contains('hidden');
+
+      if (recoverFormVisible) {
+        // Recover form is already visible (server set it due to errors/success)
+        animateTitle(recoverTitle, false);
+      } else if (window.location.hash === '#recover') {
+        // URL hash indicates recover form
         loginForm.classList.add('hidden');
         recoverForm.classList.remove('hidden');
         animateTitle(recoverTitle, false);
       } else {
+        // Default: show login form
         animateTitle(loginTitle, false);
       }
 
