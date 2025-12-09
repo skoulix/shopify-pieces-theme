@@ -16,6 +16,7 @@
       "blocks": {
         "mega_menu_XddmDW": {
           "type": "mega_menu",
+          "disabled": true,
           "settings": {
             "menu_item": "Theme Sections",
             "show_featured": true,
