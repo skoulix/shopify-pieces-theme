@@ -170,6 +170,117 @@
     z-index: 1;
   }
 
+  /* Email signup form for hero */
+  .countdown-form-{{ section.id }} {
+    margin-top: 3rem;
+    {% if section.settings.content_alignment == 'center' %}
+    display: flex;
+    justify-content: center;
+    {% endif %}
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  @media (min-width: 640px) {
+    .countdown-form-{{ section.id }} .countdown-form-inner {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    background: transparent;
+    border: 1px solid {{ section.settings.text_color }}40;
+    border-radius: var(--input-radius, 4px);
+    color: {{ section.settings.text_color }};
+    caret-color: {{ section.settings.text_color }};
+    transition: border-color 0.2s ease;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
+    color: {{ section.settings.text_color }};
+    opacity: 0.5;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"]:focus {
+    outline: none;
+    border-color: {{ section.settings.text_color }};
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: {{ section.settings.text_color }};
+    background: transparent;
+    border: 1px solid {{ section.settings.text_color }};
+    border-radius: var(--button-radius, 4px);
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.text_color }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn:hover {
+    color: {{ section.settings.background_color }};
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn span,
+  .countdown-form-{{ section.id }} .countdown-form-btn i {
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    {% if section.settings.content_alignment == 'center' %}
+    text-align: center;
+    {% endif %}
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message.success {
+    color: #22c55e;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message.error {
+    color: #ef4444;
+  }
+
   /* Divider style for hero */
   {% if section.settings.show_dividers %}
   .countdown-item-{{ section.id }} {
@@ -358,6 +469,99 @@
     padding-top: 0.1em;
   }
 
+  /* Email signup form for compact */
+  .countdown-form-{{ section.id }} {
+    flex-shrink: 0;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-inner {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"] {
+    width: 200px;
+    padding: 0.625rem 0.875rem;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid {{ section.settings.text_color }}40;
+    border-radius: var(--input-radius, 4px);
+    color: {{ section.settings.text_color }};
+    caret-color: {{ section.settings.text_color }};
+    transition: border-color 0.2s ease;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
+    color: {{ section.settings.text_color }};
+    opacity: 0.5;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"]:focus {
+    outline: none;
+    border-color: {{ section.settings.text_color }};
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: {{ section.settings.text_color }};
+    background: transparent;
+    border: 1px solid {{ section.settings.text_color }};
+    border-radius: var(--button-radius, 4px);
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.4s ease;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: {{ section.settings.text_color }};
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn:hover {
+    color: {{ section.settings.background_color }};
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-btn span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message {
+    position: absolute;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message.success {
+    color: #22c55e;
+  }
+
+  .countdown-form-{{ section.id }} .countdown-form-message.error {
+    color: #ef4444;
+  }
+
   {% when 'minimal' %}
   /* ============================================
      MINIMAL DESIGN - Inline for headers/announcements
@@ -473,12 +677,37 @@
       </div>
     </div>
 
-    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+    {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
       <div class="countdown-cta-{{ section.id }}">
         <a href="{{ section.settings.button_link }}" class="btn">
           <span>{{ section.settings.button_text }}</span>
           <i class="ph ph-arrow-right"></i>
         </a>
+      </div>
+    {% elsif section.settings.cta_type == 'email_form' %}
+      <div class="countdown-form-{{ section.id }}" data-countdown-form>
+        {% form 'customer', id: 'countdown-form-hero' %}
+          <div class="countdown-form-inner">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.form_placeholder | default: 'Enter your email' }}"
+              required
+              autocomplete="email"
+            >
+            <input type="hidden" name="contact[tags]" value="countdown,notify">
+            <button type="submit" class="countdown-form-btn">
+              <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
+            </button>
+          </div>
+          <div class="countdown-form-message" style="display: none;" data-form-message></div>
+          {% if form.posted_successfully? %}
+            <p class="countdown-form-message success">{{ 'general.newsletter.success' | t }}</p>
+          {% endif %}
+          {% if form.errors %}
+            <p class="countdown-form-message error">{{ form.errors.messages['email'] }}</p>
+          {% endif %}
+        {% endform %}
       </div>
     {% endif %}
   </div>
@@ -530,12 +759,36 @@
         </div>
       </div>
 
-      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
         <div class="countdown-cta-{{ section.id }}">
           <a href="{{ section.settings.button_link }}" class="btn">
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
           </a>
+        </div>
+      {% elsif section.settings.cta_type == 'email_form' %}
+        <div class="countdown-form-{{ section.id }}" data-countdown-form>
+          {% form 'customer', id: 'countdown-form-compact' %}
+            <div class="countdown-form-inner">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="{{ section.settings.form_placeholder | default: 'Enter your email' }}"
+                required
+                autocomplete="email"
+              >
+              <input type="hidden" name="contact[tags]" value="countdown,notify">
+              <button type="submit" class="countdown-form-btn">
+                <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
+              </button>
+            </div>
+            {% if form.posted_successfully? %}
+              <p class="countdown-form-message success">{{ 'general.newsletter.success' | t }}</p>
+            {% endif %}
+            {% if form.errors %}
+              <p class="countdown-form-message error">{{ form.errors.messages['email'] }}</p>
+            {% endif %}
+          {% endform %}
         </div>
       {% endif %}
     </div>
@@ -573,6 +826,7 @@
         </div>
       </div>
 
+      {% comment %} Minimal design only supports link (not email form - too small) {% endcomment %}
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
         <div class="countdown-cta-{{ section.id }}">
           <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_text }}</a>
@@ -827,17 +1081,38 @@
     },
     {
       "type": "header",
-      "content": "Button"
+      "content": "Call to action"
+    },
+    {
+      "type": "select",
+      "id": "cta_type",
+      "label": "CTA type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "link", "label": "Link button" },
+        { "value": "email_form", "label": "Email signup form" }
+      ],
+      "default": "email_form",
+      "info": "Email form collects emails as Shopify customers with 'countdown' and 'notify' tags. Minimal design only supports link."
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text"
+      "label": "Button text",
+      "default": "Notify Me"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "Button link",
+      "info": "Required when using 'Link button' type"
+    },
+    {
+      "type": "text",
+      "id": "form_placeholder",
+      "label": "Email placeholder",
+      "default": "Enter your email",
+      "info": "Placeholder text for email input (email form only)"
     },
     {
       "type": "header",
@@ -883,8 +1158,9 @@
         "target_date": "2025-12-31",
         "title": "Coming Soon",
         "subtitle": "Something exciting is on the way. Stay tuned!",
+        "cta_type": "email_form",
         "button_text": "Notify Me",
-        "button_link": "#"
+        "form_placeholder": "Enter your email"
       }
     }
   ]
