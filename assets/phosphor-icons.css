@@ -50,6 +50,12 @@
 .ph.ph-bag:before {
   content: "\e0b0";
 }
+.ph.ph-bell-ringing:before {
+  content: "\e5e8";
+}
+.ph.ph-calendar:before {
+  content: "\e108";
+}
 .ph.ph-caret-down:before {
   content: "\e136";
 }
@@ -65,6 +71,9 @@
 .ph.ph-check-circle:before {
   content: "\e184";
 }
+.ph.ph-clock:before {
+  content: "\e19a";
+}
 .ph.ph-copy:before {
   content: "\e1ca";
 }
@@ -73,6 +82,9 @@
 }
 .ph.ph-file-text:before {
   content: "\e23a";
+}
+.ph.ph-fire:before {
+  content: "\e242";
 }
 .ph.ph-folder:before {
   content: "\e24a";
@@ -85,6 +97,9 @@
 }
 .ph.ph-headset:before {
   content: "\e584";
+}
+.ph.ph-heart:before {
+  content: "\e2a8";
 }
 .ph.ph-house:before {
   content: "\e2c2";
@@ -100,6 +115,9 @@
 }
 .ph.ph-leaf:before {
   content: "\e2da";
+}
+.ph.ph-lightning:before {
+  content: "\e2de";
 }
 .ph.ph-link:before {
   content: "\e2e2";
@@ -125,6 +143,9 @@
 .ph.ph-paper-plane-tilt:before {
   content: "\e398";
 }
+.ph.ph-percent:before {
+  content: "\e3b6";
+}
 .ph.ph-pinterest-logo:before {
   content: "\e64e";
 }
@@ -134,8 +155,17 @@
 .ph.ph-plus:before {
   content: "\e3d4";
 }
+.ph.ph-ruler:before {
+  content: "\e6b8";
+}
 .ph.ph-shield-check:before {
   content: "\e40c";
+}
+.ph.ph-sign-out:before {
+  content: "\e42a";
+}
+.ph.ph-sparkle:before {
+  content: "\e6a2";
 }
 .ph.ph-spinner:before {
   content: "\e66a";

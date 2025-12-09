@@ -79,12 +79,12 @@ USED_ICONS = [
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 ASSETS_DIR = os.path.join(PROJECT_DIR, "assets")
-CSS_FILE = os.path.join(ASSETS_DIR, "phosphor-icons.css")
+CSS_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/regular/style.css")
 # Use full font from node_modules for subsetting
 TTF_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/regular/Phosphor.ttf")
 OUTPUT_TTF = os.path.join(ASSETS_DIR, "pieces-Phosphor.ttf")
 OUTPUT_WOFF2 = os.path.join(ASSETS_DIR, "pieces-Phosphor.woff2")
-OUTPUT_CSS = os.path.join(ASSETS_DIR, "phosphor-icons-subset.css")
+OUTPUT_CSS = os.path.join(ASSETS_DIR, "phosphor-icons.css")
 
 def extract_unicode_map(css_file):
     """Extract icon name to unicode mapping from CSS file."""
@@ -171,7 +171,7 @@ def main():
     print(f"  - {OUTPUT_TTF}")
     print(f"  - {OUTPUT_WOFF2}")
     print(f"  - {OUTPUT_CSS}")
-    print("\nDone! Replace the original files with the subset versions.")
+    print("\nDone!")
 
 def generate_subset_css(unicode_map):
     """Generate CSS file with only the used icon definitions."""
