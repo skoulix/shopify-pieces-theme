@@ -149,7 +149,7 @@
         <h2 class="text-lg font-semibold font-heading">{{ 'general.filter_and_sort' | t }}</h2>
         <button
           type="button"
-          class="facets-drawer__close w-10 h-10 -mr-2 flex items-center justify-center hover:opacity-60 transition-opacity"
+          class="facets-drawer__close w-10 h-10 -mr-4 flex items-center justify-center hover:opacity-60 transition-opacity"
           data-facets-close
           aria-label="{{ 'accessibility.close_filters' | t }}"
         >
@@ -169,7 +169,7 @@
               id="Filter-{{ filter.param_name | handle }}"
               {% if filter.active_values.size > 0 or filter.type == "price_range" and filter.min_value.value or filter.max_value.value %}open{% endif %}
             >
-              <summary class="facets-disclosure__summary flex items-center justify-between px-6 py-4 cursor-pointer select-none hover:bg-[--color-background-secondary] transition-colors">
+              <summary class="facets-disclosure__summary flex items-center justify-between px-6 py-4 cursor-pointer select-none">
                 <span class="font-medium">{{ filter.label }}</span>
                 <span class="flex items-center gap-2 -mr-1">
                   {% if filter.active_values.size > 0 %}
