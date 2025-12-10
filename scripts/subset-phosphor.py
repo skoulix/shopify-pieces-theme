@@ -27,6 +27,7 @@ USED_ICONS = [
     "check-circle",
     "clock",
     "copy",
+    "eye",
     "facebook-logo",
     "file-text",
     "folder",

@@ -77,6 +77,9 @@
 .ph.ph-copy:before {
   content: "\e1ca";
 }
+.ph.ph-eye:before {
+  content: "\e220";
+}
 .ph.ph-facebook-logo:before {
   content: "\e226";
 }

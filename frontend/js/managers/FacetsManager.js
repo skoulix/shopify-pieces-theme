@@ -165,6 +165,12 @@ class FacetFiltersForm extends HTMLElement {
               grid.style.height = `${startHeight}px`;
               grid.style.overflow = 'hidden';
 
+              // Reset intro animations on product cards so they can re-animate
+              const introElements = grid.querySelectorAll('[data-intro].intro-visible');
+              introElements.forEach((el) => {
+                el.classList.remove('intro-visible');
+              });
+
               // Change layout
               wrapper.dataset.view = view;
 
@@ -190,6 +196,11 @@ class FacetFiltersForm extends HTMLElement {
                   grid.style.height = '';
                   grid.style.overflow = '';
 
+                  // Re-initialize intro animations for product cards
+                  if (window.pieces?.animationManager) {
+                    window.pieces.animationManager.initIntroAnimations();
+                  }
+
                   // Refresh Lenis
                   if (window.pieces?.lenis) {
                     window.pieces.lenis.resize();
@@ -199,8 +210,17 @@ class FacetFiltersForm extends HTMLElement {
             },
           });
         } else {
-          // No animation
+          // No animation - reset and re-init intro animations
+          const introElements = grid?.querySelectorAll('[data-intro].intro-visible');
+          introElements?.forEach((el) => {
+            el.classList.remove('intro-visible');
+          });
+
           wrapper.dataset.view = view;
+
+          if (window.pieces?.animationManager) {
+            window.pieces.animationManager.initIntroAnimations();
+          }
           if (window.pieces?.lenis) {
             window.pieces.lenis.resize();
           }
