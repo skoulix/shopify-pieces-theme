@@ -1654,6 +1654,17 @@ html.animations-disabled [data-intro] {
   }
 }
 
+/* Product card when no border AND no shadow */
+[data-card-no-border][data-card-no-shadow] .product-card-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+[data-card-no-border][data-card-no-shadow] .product-card-quick-add {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /* List view dividers when card has no border */
 .collection-wrapper[data-view="list"][data-card-no-border] .collection-grid {
   gap: 0;

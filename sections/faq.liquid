@@ -124,7 +124,7 @@
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
-      <div class="mb-12 lg:mb-16" style="text-align: {{ section.settings.header_alignment }}">
+      <div class="mb-12 lg:mb-16 {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}">
         {% if section.settings.label != blank %}
           <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-intro>
             {{ section.settings.label }}
@@ -138,7 +138,7 @@
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl" data-intro>
+          <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}" data-intro>
             {{ section.settings.description }}
           </p>
         {% endif %}
@@ -322,12 +322,8 @@
       "default": "Find answers to common questions about our products and services."
     },
     {
-      "type": "select",
+      "type": "text_alignment",
       "id": "header_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
       "default": "left",
       "label": "Header alignment"
     },

@@ -6,6 +6,8 @@
   case section.settings.header_alignment
     when 'center'
       assign header_align_class = 'text-center'
+    when 'right'
+      assign header_align_class = 'text-right'
     else
       assign header_align_class = 'text-left'
   endcase
@@ -19,6 +21,9 @@
   .page-header-title-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
   .page-header-title.text-center .page-header-title-line:nth-child(2),
   .page-header-title.text-center .page-header-title-line:nth-child(3) { margin-left: 0; }
+  .page-header-title.text-right .page-header-title-line:nth-child(2),
+  .page-header-title.text-right .page-header-title-line:nth-child(3) { margin-left: 0; margin-right: clamp(1.5rem, 10vw, 8rem); }
+  .page-header-title.text-right .page-header-title-line:nth-child(3) { margin-right: clamp(3rem, 18vw, 14rem); }
   /* Hide title and content while loading to prevent FOUC before animation */
   .page-wrapper.is-loading [data-page-title] { opacity: 0; }
   .page-wrapper.is-loading [data-page-content] { opacity: 0; transform: translateY(30px); }
@@ -124,12 +129,8 @@
   "name": "Page",
   "settings": [
     {
-      "type": "select",
+      "type": "text_alignment",
       "id": "header_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
       "default": "left",
       "label": "Header alignment"
     }

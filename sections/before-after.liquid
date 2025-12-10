@@ -60,6 +60,8 @@
     {% if section.settings.header_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
+    {% elsif section.settings.header_alignment == 'right' %}
+    margin-left: auto;
     {% endif %}
   }
 
@@ -456,12 +458,8 @@
       "label": "Description"
     },
     {
-      "type": "select",
+      "type": "text_alignment",
       "id": "header_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
       "default": "center",
       "label": "Header alignment"
     },

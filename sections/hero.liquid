@@ -69,6 +69,10 @@
         assign align_class = 'items-center text-center'
         assign title_align = 'text-center'
         assign subtitle_align = 'mx-auto text-center'
+      when 'right'
+        assign align_class = 'items-end text-right'
+        assign title_align = 'text-right'
+        assign subtitle_align = 'ml-auto text-right'
       else
         assign align_class = 'items-start text-left'
         assign title_align = ''
@@ -276,12 +280,8 @@
       "label": "Subtitle"
     },
     {
-      "type": "select",
+      "type": "text_alignment",
       "id": "content_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
       "default": "left",
       "label": "Content alignment"
     },

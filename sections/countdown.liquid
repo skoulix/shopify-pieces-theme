@@ -117,6 +117,8 @@
     {% if section.settings.content_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
+    {% elsif section.settings.content_alignment == 'right' %}
+    margin-left: auto;
     {% endif %}
   }
 
@@ -1041,12 +1043,8 @@
       "info": "Not shown in minimal design"
     },
     {
-      "type": "select",
+      "type": "text_alignment",
       "id": "content_alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" }
-      ],
       "default": "center",
       "label": "Content alignment"
     },

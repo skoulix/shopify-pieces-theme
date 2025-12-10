@@ -288,10 +288,13 @@
   {% endif %}
 
   {%- comment -%} Header Nav Row {%- endcomment -%}
+  {%- liquid
+    assign nav_position = section.settings.nav_position | default: 'center'
+  -%}
   <header class="header-inner border-b bg-[--color-background] border-[--color-border]" data-header>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
     {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
-    <div class="flex lg:flex-1">
+    <div class="flex {% if nav_position == 'center' %}lg:flex-1{% endif %}">
       {%- comment -%} Mobile hamburger {%- endcomment -%}
       <button
         type="button"
@@ -336,7 +339,7 @@
     </div>
 
     {%- comment -%} Desktop Navigation {%- endcomment -%}
-    <div class="hidden lg:flex lg:gap-x-8">
+    <div class="hidden lg:flex lg:gap-x-8 {% if nav_position == 'left' %}lg:ml-8{% elsif nav_position == 'center' %}lg:justify-center{% elsif nav_position == 'right' %}lg:ml-auto lg:mr-8{% endif %}">
       {% for link in section.settings.menu.links %}
         {%- liquid
           assign is_active = false
@@ -418,12 +421,14 @@
     </div>
 
     {%- comment -%} Header Icons (Mobile + Desktop) {%- endcomment -%}
-    <div class="flex flex-1 justify-end gap-x-1 lg:gap-x-2">
+    <div class="flex {% if nav_position == 'center' or nav_position == 'left' %}lg:flex-1{% endif %} justify-end gap-x-1 lg:gap-x-2">
       {%- comment -%} Search - Desktop only {%- endcomment -%}
-      <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
-        <span class="sr-only">{{ 'accessibility.search' | t }}</span>
-        <i class="ph ph-magnifying-glass text-xl"></i>
-      </a>
+      {% if section.settings.show_search %}
+        <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+          <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+          <i class="ph ph-magnifying-glass text-xl"></i>
+        </a>
+      {% endif %}
 
       {%- comment -%} Account - Desktop only {%- endcomment -%}
       {% if shop.customer_accounts_enabled %}
@@ -434,25 +439,27 @@
       {% endif %}
 
       {%- comment -%} Cart - Mobile + Desktop {%- endcomment -%}
-      {% if settings.cart_type == 'drawer' %}
-        <button
-          type="button"
-          class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
-          data-cart-drawer-toggle
-        >
-          <i class="ph ph-bag text-xl"></i>
-          <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
-          <span class="sr-only">items in cart</span>
-        </button>
-      {% else %}
-        <a
-          href="{{ routes.cart_url }}"
-          class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
-        >
-          <i class="ph ph-bag text-xl"></i>
-          <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
-          <span class="sr-only">items in cart</span>
-        </a>
+      {% if section.settings.show_cart %}
+        {% if settings.cart_type == 'drawer' %}
+          <button
+            type="button"
+            class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+            data-cart-drawer-toggle
+          >
+            <i class="ph ph-bag text-xl"></i>
+            <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+            <span class="sr-only">items in cart</span>
+          </button>
+        {% else %}
+          <a
+            href="{{ routes.cart_url }}"
+            class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+          >
+            <i class="ph ph-bag text-xl"></i>
+            <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+            <span class="sr-only">items in cart</span>
+          </a>
+        {% endif %}
       {% endif %}
     </div>
   </nav>
@@ -566,29 +573,33 @@
               <span>{{ 'accessibility.account' | t }}</span>
             </a>
           {% endif %}
-          <a href="{{ routes.search_url }}" class="mobile-nav__footer-link" data-mobile-nav-close>
-            <i class="ph ph-magnifying-glass"></i>
-            <span>{{ 'accessibility.search' | t }}</span>
-          </a>
-          {% if settings.cart_type == 'drawer' %}
-            <button
-              type="button"
-              class="mobile-nav__footer-link"
-              data-mobile-nav-close
-              data-cart-drawer-toggle
-            >
-              <i class="ph ph-bag"></i>
-              <span>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</span>
-            </button>
-          {% else %}
-            <a
-              href="{{ routes.cart_url }}"
-              class="mobile-nav__footer-link"
-              data-mobile-nav-close
-            >
-              <i class="ph ph-bag"></i>
-              <span>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</span>
+          {% if section.settings.show_search %}
+            <a href="{{ routes.search_url }}" class="mobile-nav__footer-link" data-mobile-nav-close>
+              <i class="ph ph-magnifying-glass"></i>
+              <span>{{ 'accessibility.search' | t }}</span>
             </a>
+          {% endif %}
+          {% if section.settings.show_cart %}
+            {% if settings.cart_type == 'drawer' %}
+              <button
+                type="button"
+                class="mobile-nav__footer-link"
+                data-mobile-nav-close
+                data-cart-drawer-toggle
+              >
+                <i class="ph ph-bag"></i>
+                <span>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</span>
+              </button>
+            {% else %}
+              <a
+                href="{{ routes.cart_url }}"
+                class="mobile-nav__footer-link"
+                data-mobile-nav-close
+              >
+                <i class="ph ph-bag"></i>
+                <span>Cart (<span data-cart-count>{{ cart.item_count }}</span>)</span>
+              </a>
+            {% endif %}
           {% endif %}
         </div>
       </div>
@@ -1486,6 +1497,33 @@
       "id": "menu",
       "default": "main-menu",
       "label": "Menu"
+    },
+    {
+      "type": "select",
+      "id": "nav_position",
+      "label": "Navigation position",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left (after logo)" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right (before icons)" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Header icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "default": true,
+      "label": "Show search icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "default": true,
+      "label": "Show cart icon"
     },
     {
       "type": "header",

@@ -52,6 +52,7 @@
   data-collection-wrapper
   data-layout-style="{{ layout_style }}"
   {% if settings.card_border_width == 0 %}data-card-no-border{% endif %}
+  {% if settings.card_shadow == 'none' %}data-card-no-shadow{% endif %}
   style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
 >
   <header class="mb-12 lg:mb-16 {{ container_class }}">
