@@ -20,6 +20,14 @@
     pointer-events: auto;
   }
 
+  /* Lock body scroll when modal is open */
+  body.quick-view-open {
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
   .quick-view-modal__backdrop {
     position: absolute;
     inset: 0;
@@ -36,10 +44,13 @@
   .quick-view-modal__content {
     position: fixed;
     inset: 1rem;
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     background: var(--color-background);
-    border-radius: 1rem;
+    border: var(--card-border-width) solid var(--color-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
     opacity: 0;
     transform: translateY(20px) scale(0.98);
     transition: opacity 0.3s ease, transform 0.3s ease;
@@ -224,8 +235,8 @@
   }
 
   .quick-view-quantity-btn {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,8 +257,8 @@
   }
 
   .quick-view-quantity-value {
-    width: 3.5rem;
-    height: 2.5rem;
+    width: 3rem;
+    height: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -273,6 +284,62 @@
 
   .quick-view-quantity-input:focus {
     outline: none;
+  }
+
+  /* Modal body fills content area */
+  .quick-view-modal__body {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Product grid layout */
+  .quick-view-product {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .quick-view-product {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
+    }
+  }
+
+  .quick-view-product__images {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .quick-view-product__info {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .quick-view-modal__body {
+      overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .quick-view-product {
+      height: auto;
+    }
+
+    .quick-view-product__images {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    .quick-view-product__info {
+      overflow: visible;
+    }
   }
 </style>
 
@@ -308,6 +375,7 @@
   const body = modal.querySelector('[data-quick-view-body]');
   const closeButtons = modal.querySelectorAll('[data-quick-view-close]');
   let currentHandle = null;
+  let scrollPosition = 0;
 
   // Skeleton HTML for loading state
   const skeletonHTML = `
@@ -325,18 +393,32 @@
     </div>
   `;
 
+  function lockScroll() {
+    scrollPosition = window.scrollY;
+    document.body.classList.add('quick-view-open');
+    document.body.style.top = `-${scrollPosition}px`;
+    if (window.lenis) window.lenis.stop();
+  }
+
+  function unlockScroll() {
+    document.body.classList.remove('quick-view-open');
+    document.body.style.top = '';
+    window.scrollTo(0, scrollPosition);
+    if (window.lenis) window.lenis.start();
+  }
+
   function openModal(productHandle) {
     if (currentHandle === productHandle && body.querySelector('.quick-view-product')) {
       // Already loaded this product
       modal.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
       return;
     }
 
     currentHandle = productHandle;
     body.innerHTML = skeletonHTML;
     modal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
 
     // Fetch product data
     fetch(`/products/${productHandle}?section_id=quick-view-product`)
@@ -352,7 +434,7 @@
 
   function closeModal() {
     modal.classList.remove('is-open');
-    document.body.style.overflow = '';
+    unlockScroll();
   }
 
   // Format money using theme settings
@@ -562,14 +644,15 @@
     }
   }
 
-  // Event listeners for triggers
+  // Event listeners for triggers - use capture phase to intercept before anchor handles the click
   document.addEventListener('click', function(e) {
     const trigger = e.target.closest('[data-quick-view-trigger]');
     if (trigger) {
       e.preventDefault();
+      e.stopPropagation();
       openModal(trigger.dataset.quickViewTrigger);
     }
-  });
+  }, true);
 
   // Close handlers
   closeButtons.forEach(btn => {
@@ -581,6 +664,36 @@
       closeModal();
     }
   });
+
+  // Prevent wheel/touchpad scroll from reaching page behind modal
+  // Stop all wheel events on the backdrop
+  const backdrop = modal.querySelector('.quick-view-modal__backdrop');
+  backdrop.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }, { passive: false });
+
+  // Handle wheel events on modal content - allow scrolling within, prevent at boundaries
+  const content = modal.querySelector('.quick-view-modal__content');
+  content.addEventListener('wheel', function(e) {
+    e.stopPropagation(); // Stop event from reaching Lenis
+
+    const scrollableEl = modal.querySelector('.quick-view-product__info') ||
+                         modal.querySelector('.quick-view-modal__body');
+    if (!scrollableEl) {
+      e.preventDefault();
+      return;
+    }
+
+    const { scrollTop, scrollHeight, clientHeight } = scrollableEl;
+    const atTop = scrollTop <= 0;
+    const atBottom = scrollTop + clientHeight >= scrollHeight - 1;
+
+    // If scrolling up at top or down at bottom, prevent default
+    if ((e.deltaY < 0 && atTop) || (e.deltaY > 0 && atBottom)) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 
   // Close modal on Swup route change
   window.addEventListener('swup:contentReplaced', closeModal);

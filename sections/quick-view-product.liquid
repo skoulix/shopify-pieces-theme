@@ -9,10 +9,10 @@
   assign featured_image = current_variant.featured_image | default: product.featured_image
 -%}
 
-<div class="quick-view-product grid md:grid-cols-2 h-full">
+<div class="quick-view-product">
   {%- comment -%} Product Images {%- endcomment -%}
-  <div class="quick-view-product__images relative overflow-hidden md:rounded-l-[1rem]">
-    <div class="h-full bg-[--color-background-secondary]" data-main-image-wrapper>
+  <div class="quick-view-product__images overflow-hidden">
+    <div class="absolute inset-0 bg-[--color-background-secondary]" data-main-image-wrapper>
       {% if featured_image %}
         <img
           src="{{ featured_image | image_url: width: 800 }}"
@@ -51,14 +51,14 @@
   </div>
 
   {%- comment -%} Product Info {%- endcomment -%}
-  <div class="quick-view-product__info flex flex-col p-5 md:p-6 overflow-y-auto">
+  <div class="quick-view-product__info flex flex-col p-5 md:p-6 overflow-y-auto overscroll-contain">
     {% if product.vendor != blank %}
       <p class="text-xs text-[--color-text-secondary] uppercase tracking-wider mb-1">
         {{ product.vendor }}
       </p>
     {% endif %}
 
-    <h2 class="text-lg md:text-xl font-semibold font-heading mb-2 leading-tight">
+    <h2 class="text-lg md:text-xl font-semibold font-heading mb-2 leading-tight text-balance pr-8">
       <a href="{{ product.url }}" class="hover:text-[--color-primary] transition-colors">
         {{ product.title }}
       </a>
@@ -153,7 +153,7 @@
           {%- comment -%} Add to Cart Button {%- endcomment -%}
           <button
             type="submit"
-            class="btn btn-primary flex-1 !py-2.5"
+            class="btn btn--primary flex-1 !h-[2.75rem]"
             {% unless current_variant.available %}disabled{% endunless %}
           >
             <span data-add-text>
