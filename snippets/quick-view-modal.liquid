@@ -1,6 +1,7 @@
 {%- comment -%}
   Quick View Modal
   Modal for viewing product details and adding to cart without leaving the page
+  Modern bottom-right positioning with skeleton loading state
 {%- endcomment -%}
 
 <style>
@@ -8,40 +9,57 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
   }
 
   .quick-view-modal.is-open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .quick-view-modal__backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+  }
+
+  .quick-view-modal.is-open .quick-view-modal__backdrop {
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
   }
 
   .quick-view-modal__content {
-    position: relative;
-    width: 90vw;
-    max-width: 900px;
-    max-height: 90vh;
+    position: fixed;
+    inset: 1rem;
     overflow-y: auto;
+    overflow-x: hidden;
     background: var(--color-background);
-    border-radius: var(--card-radius, 0);
-    transform: scale(0.95);
-    transition: transform 0.3s;
+    border-radius: 1rem;
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  @media (min-width: 768px) {
+    .quick-view-modal__content {
+      inset: auto;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 800px;
+      height: 450px;
+      max-width: calc(100vw - 3rem);
+      max-height: calc(100vh - 3rem);
+    }
   }
 
   .quick-view-modal.is-open .quick-view-modal__content {
-    transform: scale(1);
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 
   .quick-view-modal__close {
@@ -54,35 +72,113 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
+    background: var(--color-text);
+    color: var(--color-background);
+    border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
   .quick-view-modal__close:hover {
-    background: var(--color-background-secondary);
+    transform: scale(1.1);
+    opacity: 0.9;
   }
 
-  .quick-view-modal__loading {
+  /* Skeleton Loading State */
+  .quick-view-skeleton {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .quick-view-skeleton {
+      grid-template-columns: 1fr 1fr;
+      padding: 0;
+    }
+  }
+
+  .quick-view-skeleton__image {
+    background: var(--color-background-secondary, #f5f5f5);
+    border-radius: 0.5rem;
+    aspect-ratio: 1;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  @media (min-width: 768px) {
+    .quick-view-skeleton__image {
+      border-radius: 1rem 0 0 1rem;
+      aspect-ratio: auto;
+      height: 100%;
+    }
+  }
+
+  .quick-view-skeleton__content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0;
   }
 
-  .quick-view-modal__spinner {
-    width: 2rem;
+  @media (min-width: 768px) {
+    .quick-view-skeleton__content {
+      padding: 2rem 2rem 2rem 0;
+    }
+  }
+
+  .quick-view-skeleton__title {
     height: 2rem;
-    border: 2px solid var(--color-border);
-    border-top-color: var(--color-primary);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    width: 70%;
+    background: var(--color-background-secondary, #f5f5f5);
+    border-radius: 0.25rem;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
   }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+  .quick-view-skeleton__price {
+    height: 1.5rem;
+    width: 30%;
+    background: var(--color-background-secondary, #f5f5f5);
+    border-radius: 0.25rem;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    animation-delay: 0.1s;
+  }
+
+  .quick-view-skeleton__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+
+  .quick-view-skeleton__option {
+    height: 2.5rem;
+    width: 100%;
+    background: var(--color-background-secondary, #f5f5f5);
+    border-radius: 0.25rem;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    animation-delay: 0.2s;
+  }
+
+  .quick-view-skeleton__button {
+    height: 3rem;
+    width: 100%;
+    background: var(--color-background-secondary, #f5f5f5);
+    border-radius: 0.5rem;
+    margin-top: auto;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes skeleton-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
   /* Quick view form inputs */
@@ -187,8 +283,18 @@
       <i class="ph ph-x"></i>
     </button>
     <div class="quick-view-modal__body" data-quick-view-body>
-      <div class="quick-view-modal__loading">
-        <div class="quick-view-modal__spinner"></div>
+      {%- comment -%} Skeleton Loading State {%- endcomment -%}
+      <div class="quick-view-skeleton" data-quick-view-skeleton>
+        <div class="quick-view-skeleton__image"></div>
+        <div class="quick-view-skeleton__content">
+          <div class="quick-view-skeleton__title"></div>
+          <div class="quick-view-skeleton__price"></div>
+          <div class="quick-view-skeleton__options">
+            <div class="quick-view-skeleton__option"></div>
+            <div class="quick-view-skeleton__option"></div>
+          </div>
+          <div class="quick-view-skeleton__button"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -203,6 +309,22 @@
   const closeButtons = modal.querySelectorAll('[data-quick-view-close]');
   let currentHandle = null;
 
+  // Skeleton HTML for loading state
+  const skeletonHTML = `
+    <div class="quick-view-skeleton" data-quick-view-skeleton>
+      <div class="quick-view-skeleton__image"></div>
+      <div class="quick-view-skeleton__content">
+        <div class="quick-view-skeleton__title"></div>
+        <div class="quick-view-skeleton__price"></div>
+        <div class="quick-view-skeleton__options">
+          <div class="quick-view-skeleton__option"></div>
+          <div class="quick-view-skeleton__option"></div>
+        </div>
+        <div class="quick-view-skeleton__button"></div>
+      </div>
+    </div>
+  `;
+
   function openModal(productHandle) {
     if (currentHandle === productHandle && body.querySelector('.quick-view-product')) {
       // Already loaded this product
@@ -212,7 +334,7 @@
     }
 
     currentHandle = productHandle;
-    body.innerHTML = '<div class="quick-view-modal__loading"><div class="quick-view-modal__spinner"></div></div>';
+    body.innerHTML = skeletonHTML;
     modal.classList.add('is-open');
     document.body.style.overflow = 'hidden';
 

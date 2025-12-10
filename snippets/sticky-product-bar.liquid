@@ -367,6 +367,7 @@
 
   let isVisible = false;
   let currentVariantId = addBtn?.dataset.variantId;
+  let currentVariantAvailable = {% if current_variant.available %}true{% else %}false{% endif %};
 
   // Format money helper
   const moneyFormat = {{ shop.money_format | json }};
@@ -394,7 +395,8 @@
     const threshold = 500; // Hide when within 500px of bottom
     const nearBottom = scrollTop + viewportHeight >= documentHeight - threshold;
 
-    const shouldShow = formOutOfView && !nearBottom;
+    // Only show if variant is available (don't show for sold out variants)
+    const shouldShow = formOutOfView && !nearBottom && currentVariantAvailable;
 
     if (shouldShow !== isVisible) {
       isVisible = shouldShow;
@@ -526,6 +528,7 @@
     if (!variant) return;
 
     currentVariantId = variant.id;
+    currentVariantAvailable = variant.available;
 
     // Update price
     if (priceEl) {
@@ -562,6 +565,9 @@
           : '{{ 'products.product.sold_out' | t }}';
       }
     }
+
+    // Update visibility (hide if variant not available)
+    updateVisibility();
   });
 
   // Scroll listener with throttle
