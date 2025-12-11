@@ -3,28 +3,43 @@
   Renders when settings.cart_type == 'drawer'
 {%- endcomment -%}
 
-<div id="cart-drawer" class="cart-drawer" role="dialog" aria-modal="true" aria-busy="false" inert aria-label="{{ 'cart.title' | t }}">
+<div
+  id="cart-drawer"
+  class="group fixed inset-0 z-[100] pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible [&.is-loading]:cursor-wait [&.is-updating]:cursor-wait"
+  role="dialog"
+  aria-modal="true"
+  aria-busy="false"
+  inert
+  aria-label="{{ 'cart.title' | t }}"
+>
   {%- comment -%} Backdrop {%- endcomment -%}
-  <div class="cart-drawer__backdrop drawer-backdrop" data-cart-drawer-close></div>
+  <div class="drawer-backdrop" data-cart-drawer-close></div>
 
   {%- comment -%} Drawer Panel {%- endcomment -%}
-  <div class="cart-drawer__panel">
+  <div class="absolute top-0 right-0 w-full max-w-[420px] h-full bg-[--color-background] flex flex-col translate-x-full will-change-transform shadow-[-4px_0_24px_rgba(0,0,0,0.1)]">
     {%- comment -%} Header {%- endcomment -%}
-    <div class="cart-drawer__header">
-      <h2 class="cart-drawer__title font-heading">{{ 'cart.title' | t }}</h2>
-      <button type="button" class="cart-drawer__close" data-cart-drawer-close>
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-[--color-border]">
+      <h2 class="flex-1 text-xl font-[--font-heading-weight] m-0 font-heading">{{ 'cart.title' | t }}</h2>
+      <button
+        type="button"
+        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity hover:opacity-60"
+        data-cart-drawer-close
+      >
         <span class="sr-only">{{ 'cart.close' | t }}</span>
-        <i class="ph ph-x"></i>
+        <i class="ph ph-x text-xl"></i>
       </button>
     </div>
 
     {%- comment -%} Cart Contents {%- endcomment -%}
-    <div class="cart-drawer__content" data-cart-drawer-content>
+    <div
+      class="flex-1 overflow-y-auto p-6 transition-opacity group-[.is-loading]:opacity-50 group-[.is-loading]:pointer-events-none group-[.is-updating]:opacity-50 group-[.is-updating]:pointer-events-none"
+      data-cart-drawer-content
+    >
       {% if cart.item_count > 0 %}
-        <ul class="cart-drawer__items" role="list">
+        <ul class="list-none m-0 p-0 flex flex-col gap-6" role="list">
           {% for item in cart.items %}
-            <li class="cart-drawer__item" data-cart-item data-line-index="{{ forloop.index }}">
-              <div class="cart-drawer__item-image">
+            <li class="grid grid-cols-[80px_1fr] gap-4 pb-6 border-b border-[--color-border] last:pb-0 last:border-b-0" data-cart-item data-line-index="{{ forloop.index }}">
+              <div class="aspect-square overflow-hidden bg-[--color-background-secondary]">
                 {% if item.image %}
                   <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
                     {{ item.image | image_url: width: 200 | image_tag:
@@ -36,15 +51,15 @@
                 {% endif %}
               </div>
 
-              <div class="cart-drawer__item-details">
-                <a href="{{ item.url }}" class="cart-drawer__item-title">
+              <div class="flex flex-col gap-1">
+                <a href="{{ item.url }}" class="text-sm font-medium text-[--color-text] no-underline leading-tight hover:text-[--color-primary]">
                   {{ item.product.title }}
                 </a>
                 {% unless item.product.has_only_default_variant %}
-                  <p class="cart-drawer__item-variant">{{ item.variant.title }}</p>
+                  <p class="text-xs text-[--color-text-secondary] m-0">{{ item.variant.title }}</p>
                 {% endunless %}
 
-                <div class="cart-drawer__item-price">
+                <div class="text-sm font-medium mt-1">
                   {%- liquid
                     assign has_compare_at = false
                     if item.variant.compare_at_price > item.variant.price
@@ -57,30 +72,30 @@
                     endif
                   -%}
                   {% if has_compare_at %}
-                    <span class="cart-drawer__item-price--compare">{{ compare_at_line_price | money }}</span>
+                    <span class="line-through text-[--color-text-secondary] mr-2">{{ compare_at_line_price | money }}</span>
                   {% elsif has_discount %}
-                    <span class="cart-drawer__item-price--compare">{{ item.original_line_price | money }}</span>
+                    <span class="line-through text-[--color-text-secondary] mr-2">{{ item.original_line_price | money }}</span>
                   {% endif %}
-                  <span class="{% if has_compare_at or has_discount %}sale-price{% endif %}">
+                  <span class="{% if has_compare_at or has_discount %}text-[--color-sale]{% endif %}">
                     {{ item.final_line_price | money }}
                   </span>
                 </div>
 
-                <div class="cart-drawer__item-actions">
-                  <div class="cart-drawer__quantity" data-quantity-wrapper>
+                <div class="flex items-center gap-3 mt-auto pt-2">
+                  <div class="inline-flex items-center rounded-[--input-radius] border border-[--color-border] overflow-hidden" data-quantity-wrapper>
                     <button
                       type="button"
-                      class="cart-drawer__quantity-btn"
+                      class="w-8 h-8 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
                       data-quantity-minus
                       data-line="{{ forloop.index }}"
                       aria-label="{{ 'products.product.decrease_quantity' | t }}"
                     >
-                      <i class="ph ph-minus"></i>
+                      <i class="ph ph-minus text-xs"></i>
                     </button>
-                    <div class="cart-drawer__quantity-value">
+                    <div class="w-10 h-8 flex items-center justify-center">
                       <input
                         type="number"
-                        class="cart-drawer__quantity-input"
+                        class="w-full h-full text-center text-sm font-semibold bg-transparent border-none text-[--color-text] outline-none"
                         value="{{ item.quantity }}"
                         min="0"
                         data-quantity-input
@@ -90,22 +105,22 @@
                     </div>
                     <button
                       type="button"
-                      class="cart-drawer__quantity-btn"
+                      class="w-8 h-8 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
                       data-quantity-plus
                       data-line="{{ forloop.index }}"
                       aria-label="{{ 'products.product.increase_quantity' | t }}"
                     >
-                      <i class="ph ph-plus"></i>
+                      <i class="ph ph-plus text-xs"></i>
                     </button>
                   </div>
                   <button
                     type="button"
-                    class="cart-drawer__remove"
+                    class="flex items-center justify-center w-8 h-8 bg-transparent border-none text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-sale]"
                     data-remove-item
                     data-line="{{ forloop.index }}"
                     aria-label="{{ 'cart.remove_item' | t: title: item.product.title }}"
                   >
-                    <i class="ph ph-trash"></i>
+                    <i class="ph ph-trash text-base"></i>
                   </button>
                 </div>
               </div>
@@ -113,10 +128,10 @@
           {% endfor %}
         </ul>
       {% else %}
-        <div class="cart-drawer__empty">
+        <div class="flex flex-col items-center justify-center text-center px-6 py-8 gap-3 h-full">
           <h3 class="text-xl font-semibold text-[--color-text] font-heading">{{ 'cart.empty' | t }}</h3>
-          <p>{{ 'cart.empty_description' | t }}</p>
-          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--full" data-cart-drawer-close>
+          <p class="m-0 text-[--color-text-secondary] text-sm">{{ 'cart.empty_description' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--full mt-2" data-cart-drawer-close>
             <i class="ph ph-storefront"></i>
             <span>{{ 'cart.start_shopping' | t }}</span>
           </a>
@@ -126,17 +141,17 @@
 
     {%- comment -%} Footer {%- endcomment -%}
     {% if cart.item_count > 0 %}
-      <div class="cart-drawer__footer">
+      <div class="p-6 border-t border-[--color-border] bg-[--color-background]">
         {%- comment -%} Cart Note {%- endcomment -%}
-        <details class="cart-drawer__note-wrapper">
-          <summary class="cart-drawer__note-toggle">
+        <details class="mb-4 group/note">
+          <summary class="flex items-center justify-between w-full py-3 text-xs font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">
             <span>{{ 'cart.add_note' | t }}</span>
-            <i class="ph ph-caret-down"></i>
+            <i class="ph ph-caret-down text-base transition-transform group-open/note:rotate-180"></i>
           </summary>
-          <div class="cart-drawer__note-content">
+          <div class="pb-4">
             <textarea
               name="note"
-              class="cart-drawer__note-input"
+              class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-y focus:outline-2 focus:outline-[--color-primary] focus:-outline-offset-2"
               placeholder="{{ 'cart.note_placeholder' | t }}"
               data-cart-note
             >{{ cart.note }}</textarea>
@@ -144,20 +159,20 @@
         </details>
 
         {%- comment -%} Subtotal {%- endcomment -%}
-        <div class="cart-drawer__subtotal">
+        <div class="flex justify-between items-center text-base font-semibold mb-2">
           <span>{{ 'cart.subtotal' | t }}</span>
           <span data-cart-subtotal>{{ cart.total_price | money }}</span>
         </div>
-        <p class="cart-drawer__tax-note">
+        <p class="text-xs text-[--color-text-secondary] m-0 mb-4">
           {{ 'cart.taxes_shipping_note' | t }}
         </p>
 
         {%- comment -%} Actions {%- endcomment -%}
-        <div class="cart-drawer__actions">
+        <div class="flex flex-col gap-3">
           <a href="{{ routes.cart_url }}" class="btn btn--secondary btn--full" data-cart-drawer-close>
             <span>{{ 'cart.view_cart' | t }}</span>
           </a>
-          <form action="{{ routes.cart_url }}" method="post">
+          <form action="{{ routes.cart_url }}" method="post" class="m-0">
             <button type="submit" name="checkout" class="btn btn--primary btn--full">
               <i class="ph ph-lock-simple"></i>
               <span>{{ 'cart.checkout' | t }}</span>

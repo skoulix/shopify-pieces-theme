@@ -13,88 +13,22 @@
   {% render 'size-chart-drawer', heading: 'Size Guide', page: page %}
 {%- endcomment -%}
 
-<style>
-  .size-chart-drawer {
-    position: fixed;
-    inset: 0;
-    z-index: 999;
-    pointer-events: none;
-    visibility: hidden;
-    transition: visibility 0s 0.3s;
-  }
-  .size-chart-drawer.is-open {
-    pointer-events: auto;
-    visibility: visible !important;
-    transition: visibility 0s 0s;
-  }
-  /* Backdrop uses reusable .drawer-backdrop from app.css */
-  .size-chart-drawer__panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    max-width: 540px;
-    height: 100%;
-    background: var(--color-background);
-    display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
-  }
-  .size-chart-drawer.is-open .size-chart-drawer__panel {
-    transform: translateX(0);
-  }
-  .size-chart-drawer__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--color-border);
-  }
-  .size-chart-drawer__title {
-    font-size: 1.125rem;
-    font-weight: 600;
-  }
-  .size-chart-drawer__close {
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: inherit;
-    transition: opacity 0.2s ease;
-  }
-  .size-chart-drawer__close:hover {
-    opacity: 0.6;
-  }
-  .size-chart-drawer__body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-  }
-</style>
-
 <div
   id="size-chart-drawer"
-  class="size-chart-drawer"
-  style="visibility: hidden;"
+  class="group fixed inset-0 z-[999] pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible"
   role="dialog"
   aria-modal="true"
   aria-labelledby="size-chart-drawer-title"
   data-size-chart-drawer
 >
   {%- comment -%} Backdrop {%- endcomment -%}
-  <div class="size-chart-drawer__backdrop drawer-backdrop" data-size-chart-close></div>
+  <div class="drawer-backdrop" data-size-chart-close></div>
 
   {%- comment -%} Panel {%- endcomment -%}
-  <div class="size-chart-drawer__panel">
+  <div class="absolute top-0 right-0 w-full max-w-[540px] h-full bg-[--color-background] flex flex-col translate-x-full transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] shadow-[-4px_0_24px_rgba(0,0,0,0.1)] group-[.is-open]:translate-x-0">
     {%- comment -%} Header {%- endcomment -%}
-    <div class="size-chart-drawer__header">
-      <h2 id="size-chart-drawer-title" class="size-chart-drawer__title font-heading" data-size-chart-title>
+    <div class="flex items-center justify-between p-6 border-b border-[--color-border]">
+      <h2 id="size-chart-drawer-title" class="text-lg font-semibold font-heading" data-size-chart-title>
         {%- liquid
           if heading != blank
             echo heading
@@ -105,7 +39,7 @@
       </h2>
       <button
         type="button"
-        class="size-chart-drawer__close"
+        class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer transition-opacity hover:opacity-60"
         data-size-chart-close
         aria-label="{{ 'accessibility.close' | t }}"
       >
@@ -114,7 +48,7 @@
     </div>
 
     {%- comment -%} Body {%- endcomment -%}
-    <div class="size-chart-drawer__body" data-size-chart-body>
+    <div class="flex-1 overflow-y-auto p-6" data-size-chart-body>
       {% if page != blank and page.content != blank %}
         <div class="prose prose-sm max-w-none">
           {{ page.content }}
@@ -204,12 +138,17 @@
 
   const closeButtons = drawer.querySelectorAll('[data-size-chart-close]');
   let isOpen = false;
+  let scrollPosition = 0;
 
   function openDrawer() {
     if (isOpen) return;
     isOpen = true;
 
-    document.body.style.overflow = 'hidden';
+    scrollPosition = window.scrollY;
+    document.documentElement.classList.add('scroll-locked');
+    document.body.style.top = `-${scrollPosition}px`;
+    if (window.lenis) window.lenis.stop();
+
     requestAnimationFrame(() => {
       drawer.classList.add('is-open');
     });
@@ -221,7 +160,10 @@
 
     drawer.classList.remove('is-open');
     setTimeout(() => {
-      document.body.style.overflow = '';
+      document.documentElement.classList.remove('scroll-locked');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollPosition);
+      if (window.lenis) window.lenis.start();
     }, 300);
   }
 

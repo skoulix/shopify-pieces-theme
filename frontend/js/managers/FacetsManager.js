@@ -102,16 +102,6 @@ class FacetFiltersForm extends HTMLElement {
     // Close drawer on escape
     document.addEventListener('keydown', this.boundHandlers.onKeydown);
 
-    // Disclosure toggle animation
-    this.querySelectorAll('.facets-disclosure').forEach((details) => {
-      details.addEventListener('toggle', () => {
-        const icon = details.querySelector('.ph-caret-down');
-        if (icon) {
-          icon.style.transform = details.open ? 'rotate(180deg)' : '';
-        }
-      });
-    });
-
     // View toggle (grid/list)
     this.setupViewToggle();
   }
@@ -266,28 +256,19 @@ class FacetFiltersForm extends HTMLElement {
   openDrawer() {
     if (!this.drawer) return;
 
-    // Enable interactions
-    this.drawer.removeAttribute('inert');
-    this.drawer.classList.add('is-open');
-
-    // Animate in
-    const backdrop = this.drawer.querySelector('.facets-drawer__backdrop');
-    const panel = this.drawer.querySelector('.facets-drawer__panel');
-
-    if (backdrop) {
-      backdrop.style.opacity = '1';
-    }
-    if (panel) {
-      panel.style.transform = 'translateX(0)';
-    }
-
-    // Lock body scroll
-    document.body.style.overflow = 'hidden';
+    // Store scroll position and lock scroll
+    this.scrollPosition = window.scrollY;
+    document.documentElement.classList.add('scroll-locked');
+    document.body.style.top = `-${this.scrollPosition}px`;
 
     // Stop Lenis
     if (window.pieces?.lenis) {
       window.pieces.lenis.stop();
     }
+
+    // Enable interactions and show drawer
+    this.drawer.removeAttribute('inert');
+    this.drawer.classList.add('is-open');
 
     // Update button state
     const openBtn = this.querySelector('[data-facets-open]');
@@ -305,24 +286,17 @@ class FacetFiltersForm extends HTMLElement {
   closeDrawer() {
     if (!this.drawer) return;
 
-    // Animate out
-    const backdrop = this.drawer.querySelector('.facets-drawer__backdrop');
-    const panel = this.drawer.querySelector('.facets-drawer__panel');
-
-    if (backdrop) {
-      backdrop.style.opacity = '0';
-    }
-    if (panel) {
-      panel.style.transform = 'translateX(-100%)';
-    }
+    // Hide drawer
+    this.drawer.classList.remove('is-open');
 
     // Wait for animation then disable interactions
     setTimeout(() => {
       this.drawer.setAttribute('inert', '');
-      this.drawer.classList.remove('is-open');
 
-      // Restore body scroll
-      document.body.style.overflow = '';
+      // Restore scroll
+      document.documentElement.classList.remove('scroll-locked');
+      document.body.style.top = '';
+      window.scrollTo(0, this.scrollPosition || 0);
 
       // Start Lenis
       if (window.pieces?.lenis) {
