@@ -69,6 +69,7 @@
   .header-wrapper.is-transparent .header-inner > nav > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent .header-inner > nav button[data-mobile-nav-open],
   .header-wrapper.is-transparent .header-inner > nav [data-cart-count] {
     color: {{ section.settings.transparent_text_color }};
   }
@@ -86,6 +87,27 @@
   .header-wrapper.is-transparent.is-scrolled .header-inner {
     background: var(--color-background);
     border-color: var(--color-border);
+  }
+
+  /* When mega menu is open on transparent header, show solid background */
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner {
+    background: var(--color-background);
+    border-color: var(--color-border);
+  }
+
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > a,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .mega-menu-wrapper > button,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav [data-cart-count] {
+    color: var(--color-text);
+  }
+
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > a:hover,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .dropdown-wrapper > button:hover,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .mega-menu-wrapper > button:hover {
+    color: var(--color-primary);
   }
 
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav,
@@ -1106,6 +1128,9 @@
       const trigger = megaMenu.querySelector('[data-mega-menu-trigger]');
       trigger.setAttribute('aria-expanded', 'true');
       megaMenu.classList.add('is-open');
+
+      // Add class to header wrapper for transparent header styling
+      headerWrapper.classList.add('has-mega-menu-open');
     }
 
     function closeMegaMenu(megaMenu, immediate = false) {
@@ -1118,6 +1143,9 @@
       if (activeMegaMenu === megaMenu) {
         activeMegaMenu = null;
       }
+
+      // Remove class from header wrapper
+      headerWrapper.classList.remove('has-mega-menu-open');
     }
 
     megaMenus.forEach(megaMenu => {
@@ -1623,6 +1651,22 @@
           "id": "full_width",
           "default": true,
           "label": "Full width content"
+        },
+        {
+          "type": "select",
+          "id": "animation",
+          "label": "Animation style",
+          "default": "fade-slide",
+          "options": [
+            {
+              "value": "fade-slide",
+              "label": "Fade + slide"
+            },
+            {
+              "value": "fade",
+              "label": "Fade only"
+            }
+          ]
         },
         {
           "type": "header",
