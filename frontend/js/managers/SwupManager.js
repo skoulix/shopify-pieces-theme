@@ -100,9 +100,6 @@ class SwupManager {
       // Kill old ScrollTriggers before content change
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
-      // Scroll to top
-      lenisManager.scrollTo(0, { immediate: true });
-
       // Re-initialize components on new page
       this.reinitializeComponents();
 
@@ -216,6 +213,10 @@ class SwupManager {
    * @returns {Promise}
    */
   async animateIn() {
+    // Scroll to top immediately before reveal animation starts
+    // This happens after animateOut completes, so user won't see the jump
+    lenisManager.scrollTo(0, { immediate: true });
+
     const container = document.querySelector('#swup-container');
     const overlay = document.querySelector('.page-transition-overlay');
 

@@ -381,11 +381,9 @@ html.scroll-locked {
 
 html.scroll-locked body {
   overflow: hidden;
-  position: fixed;
-  width: 100%;
-  left: 0;
-  right: 0;
-  /* height is NOT set to 100% to allow fixed children to scroll internally */
+  /* Note: position:fixed was removed because it causes scroll jump during Swup transitions.
+     Lenis handles scroll locking via its own mechanisms. For modals/drawers,
+     overflow:hidden on html is sufficient when combined with Lenis.stop() */
 }
 
 /* Image reveal animation states */
