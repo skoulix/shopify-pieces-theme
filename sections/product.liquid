@@ -392,20 +392,34 @@
               endif
             -%}
             <div
-              class="mt-6 hidden"
+              class="mt-6"
               data-complementary-block
               data-product-id="{{ product.id }}"
               data-limit="{{ block.settings.products_to_show }}"
               data-show-add-all="{{ block.settings.show_add_all }}"
               data-title="{{ block_title | escape }}"
+              style="display: none;"
               {{ block.shopify_attributes }}
             >
-              <h3 class="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-secondary mb-3">{{ block_title }}</h3>
-              <div class="flex flex-col gap-3" data-complementary-list>
-                {%- comment -%} Products will be loaded via JS {%- endcomment -%}
+              <h3 class="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-secondary mb-3" data-intro>{{ block_title }}</h3>
+              {%- comment -%} Skeleton Loading State {%- endcomment -%}
+              <div class="flex flex-col gap-3" data-complementary-loading data-intro>
+                {% for i in (1..block.settings.products_to_show) %}
+                  <div class="flex items-center gap-3 p-2 border border-[--color-border] rounded-lg animate-pulse">
+                    <div class="shrink-0 w-12 h-12 rounded bg-[--color-text] opacity-10"></div>
+                    <div class="flex-1">
+                      <div class="h-3.5 w-3/4 bg-[--color-text] opacity-10 rounded"></div>
+                      <div class="h-3 w-1/3 bg-[--color-text] opacity-10 rounded mt-1.5"></div>
+                    </div>
+                    <div class="shrink-0 w-8 h-8 rounded-full bg-[--color-text] opacity-10"></div>
+                  </div>
+                {% endfor %}
+              </div>
+              {%- comment -%} Products List {%- endcomment -%}
+              <div class="flex flex-col gap-3" data-complementary-list data-intro style="display: none;">
               </div>
               {%- if block.settings.show_add_all -%}
-                <button type="button" class="btn btn--secondary btn--sm w-full mt-3 hidden" data-complementary-add-all>
+                <button type="button" class="btn btn--secondary btn--sm w-full mt-3 hidden" data-complementary-add-all data-intro>
                   <i class="ph ph-plus"></i>
                   <span data-add-all-text>{{ 'products.complementary.add_all' | t }}</span>
                 </button>
@@ -999,6 +1013,7 @@
   const productId = block.dataset.productId;
   const limit = block.dataset.limit || 4;
   const showAddAll = block.dataset.showAddAll === 'true';
+  const loading = block.querySelector('[data-complementary-loading]');
   const list = block.querySelector('[data-complementary-list]');
   const addAllBtn = block.querySelector('[data-complementary-add-all]');
 
@@ -1024,47 +1039,6 @@
       }).format(amount);
     } catch {
       return `$${amount}`;
-    }
-  }
-
-  async function addToCart(items, button) {
-    const originalHtml = button.innerHTML;
-    button.disabled = true;
-    button.innerHTML = '<i class="ph ph-spinner animate-spin"></i>';
-
-    try {
-      const response = await fetch('/cart/add.js', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items })
-      });
-
-      if (!response.ok) throw new Error('Failed to add to cart');
-
-      const cartResponse = await fetch('/cart.js');
-      const cart = await cartResponse.json();
-      document.querySelectorAll('[data-cart-count]').forEach(el => {
-        el.textContent = cart.item_count;
-      });
-
-      const cartType = window.themeSettings?.cartType || 'drawer';
-      if (cartType === 'drawer') {
-        if (window.refreshCartDrawer) await window.refreshCartDrawer();
-        document.dispatchEvent(new CustomEvent('cart:open'));
-      }
-
-      button.innerHTML = '<i class="ph ph-check"></i>';
-      setTimeout(() => {
-        button.innerHTML = originalHtml;
-        button.disabled = false;
-      }, 1500);
-    } catch (error) {
-      console.error('Add to cart error:', error);
-      button.innerHTML = '<i class="ph ph-x"></i>';
-      setTimeout(() => {
-        button.innerHTML = originalHtml;
-        button.disabled = false;
-      }, 1500);
     }
   }
 
@@ -1148,9 +1122,9 @@
 
         let actionHtml = '';
         if (isAvailable && hasSingleVariant && variantId) {
-          actionHtml = `<button type="button" class="shrink-0 w-8 h-8 inline-flex items-center justify-center bg-transparent border border-primary/20 rounded-full text-primary hover:bg-primary hover:text-background hover:border-primary transition-all" data-quick-add="${variantId}" aria-label="{{ 'products.product.add_to_cart' | t }}"><i class="ph ph-plus"></i></button>`;
+          actionHtml = `<button type="button" class="shrink-0 w-8 h-8 inline-flex items-center justify-center bg-transparent border border-primary/20 rounded-full text-primary hover:bg-primary hover:text-background hover:border-primary transition-all" data-quick-add="${variantId}" aria-label="{{ 'products.product.add_to_cart' | t }}"><span data-add-text class="flex items-center justify-center"><i class="ph ph-plus text-sm"></i></span><span data-adding-text class="hidden flex items-center justify-center"><i class="ph ph-spinner text-sm animate-spin"></i></span><span data-added-text class="hidden flex items-center justify-center"><i class="ph ph-check text-sm"></i></span></button>`;
         } else if (isAvailable) {
-          actionHtml = `<a href="${href}" class="shrink-0 w-8 h-8 inline-flex items-center justify-center bg-transparent border border-primary/20 rounded-full text-primary hover:bg-primary hover:text-background hover:border-primary transition-all" aria-label="{{ 'products.product.select_options' | t }}"><i class="ph ph-eye"></i></a>`;
+          actionHtml = `<a href="${href}" class="shrink-0 w-8 h-8 inline-flex items-center justify-center bg-transparent border border-primary/20 rounded-full text-primary hover:bg-primary hover:text-background hover:border-primary transition-all" aria-label="{{ 'products.product.select_options' | t }}"><i class="ph ph-eye text-sm"></i></a>`;
         }
 
         item.innerHTML = `
@@ -1167,19 +1141,16 @@
         `;
 
         list.appendChild(item);
-
-        // Add click handler for quick add button
-        const quickAddBtn = item.querySelector('[data-quick-add]');
-        if (quickAddBtn) {
-          quickAddBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            addToCart([{ id: quickAddBtn.dataset.quickAdd, quantity: 1 }], quickAddBtn);
-          });
-        }
       });
 
-      // Show block
-      block.classList.remove('hidden');
+      // Hide loading, show list
+      if (loading) loading.style.display = 'none';
+      list.style.display = '';
+
+      // Trigger intro animation after browser paint
+      requestAnimationFrame(() => {
+        list.classList.add('intro-visible');
+      });
 
       // Show "Add all" button if applicable
       if (showAddAll && allSingleVariant && addAllBtn) {
@@ -1192,14 +1163,22 @@
     }
   }
 
-  // Lazy load with IntersectionObserver
-  const observer = new IntersectionObserver((entries, obs) => {
-    if (!entries[0].isIntersecting) return;
-    obs.unobserve(block);
-    loadComplementaryProducts();
-  }, { rootMargin: '200px' });
+  // Show block with skeleton loaders immediately
+  block.style.display = '';
 
-  observer.observe(block);
+  // Trigger intro animations after browser paint
+  requestAnimationFrame(() => {
+    block.querySelectorAll('[data-intro]').forEach(el => {
+      el.classList.add('intro-visible');
+    });
+  });
+
+  // Load products
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadComplementaryProducts);
+  } else {
+    loadComplementaryProducts();
+  }
 })();
 </script>
 
