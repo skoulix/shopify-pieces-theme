@@ -64,6 +64,14 @@
             "content": "",
             "show_always": true
           }
+        },
+        "complementary_products_pQY9PU": {
+          "type": "complementary_products",
+          "settings": {
+            "title": "",
+            "products_to_show": 2,
+            "show_add_all": true
+          }
         }
       },
       "block_order": [
@@ -75,7 +83,8 @@
         "quantity_selector",
         "buy_buttons",
         "back_in_stock_rzrTB9",
-        "size_chart_xUw7Wm"
+        "size_chart_xUw7Wm",
+        "complementary_products_pQY9PU"
       ],
       "settings": {
         "full_width": true,
@@ -94,6 +103,7 @@
         "alignment": "left",
         "products_to_show": 3,
         "columns": 3,
+        "show_add_all": true,
         "background_color": "#ffffff",
         "text_color": "#000000"
       }
