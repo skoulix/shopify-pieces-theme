@@ -48,20 +48,34 @@
 >
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
-    {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
-      <div class="mb-6 {{ text_align }}">
-        {% if section.settings.label != blank %}
-          <p class="label mb-2">{{ section.settings.label }}</p>
+    {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank or section.settings.show_add_all %}
+      <header class="mb-6 flex flex-col gap-4 {% if section.settings.alignment == 'center' %}items-center text-center{% elsif section.settings.alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}">
+        <div>
+          {% if section.settings.label != blank %}
+            <p class="label mb-2">{{ section.settings.label }}</p>
+          {% endif %}
+          {% if section.settings.title != blank %}
+            <h2 class="text-2xl md:text-3xl font-bold font-heading tracking-tight leading-tight">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          {% if section.settings.description != blank %}
+            <p class="text-sm opacity-70 mt-2 max-w-2xl">{{ section.settings.description }}</p>
+          {% endif %}
+        </div>
+
+        {% if section.settings.show_add_all %}
+          <button
+            type="button"
+            class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] opacity-70 hover:opacity-100 transition-opacity duration-300"
+            data-add-all-btn
+            style="display: none;"
+          >
+            <span data-add-all-text data-hover="{{ 'products.complementary.add_all' | t }}">{{ 'products.complementary.add_all' | t }}</span>
+            <i class="ph ph-plus" aria-hidden="true"></i>
+          </button>
         {% endif %}
-        {% if section.settings.title != blank %}
-          <h2 class="text-2xl md:text-3xl font-bold font-heading tracking-tight leading-tight">
-            {{ section.settings.title }}
-          </h2>
-        {% endif %}
-        {% if section.settings.description != blank %}
-          <p class="text-sm opacity-70 mt-2 max-w-2xl {% if section.settings.alignment == 'center' %}mx-auto{% elsif section.settings.alignment == 'right' %}ml-auto{% endif %}">{{ section.settings.description }}</p>
-        {% endif %}
-      </div>
+      </header>
     {% endif %}
 
     {%- comment -%} Loading State {%- endcomment -%}
@@ -139,6 +153,14 @@
 
   const grid = section.querySelector('[data-complementary-grid]');
   const loading = section.querySelector('[data-complementary-loading]');
+  const addAllBtn = section.querySelector('[data-add-all-btn]');
+
+  const i18n = {
+    addAll: {{ 'products.complementary.add_all' | t | json }},
+    adding: {{ 'products.complementary.adding' | t | json }},
+    added: {{ 'products.complementary.added' | t | json }},
+    error: {{ 'products.complementary.error' | t | json }}
+  };
 
   function loadRecommendations() {
     const url = `${baseUrl}&product_id=${productId}&section_id=${sectionId}`;
@@ -156,12 +178,18 @@
           grid.classList.remove('hidden');
 
           // Setup quick add handlers
-          grid.querySelectorAll('[data-quick-add]').forEach(btn => {
+          const quickAddBtns = grid.querySelectorAll('[data-quick-add]');
+          quickAddBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
               e.preventDefault();
               addToCart(btn.dataset.quickAdd, btn);
             });
           });
+
+          // Show "Add all" button if all products have single variant (quick-add available)
+          if (addAllBtn && quickAddBtns.length > 0 && quickAddBtns.length === newGrid.children.length) {
+            addAllBtn.style.display = 'inline-flex';
+          }
         } else {
           // No recommendations, hide the entire section
           section.style.display = 'none';
@@ -212,6 +240,60 @@
         button.disabled = false;
       }, 1500);
     }
+  }
+
+  async function addAllToCart() {
+    const items = Array.from(grid.querySelectorAll('[data-quick-add]')).map(btn => ({
+      id: parseInt(btn.dataset.quickAdd),
+      quantity: 1
+    }));
+
+    if (items.length === 0) return;
+
+    const textEl = addAllBtn.querySelector('[data-add-all-text]');
+    const originalText = textEl?.textContent;
+    addAllBtn.disabled = true;
+    if (textEl) textEl.textContent = i18n.adding;
+
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items })
+      });
+
+      if (!response.ok) throw new Error('Failed to add to cart');
+
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+      document.querySelectorAll('[data-cart-count]').forEach(el => {
+        el.textContent = cart.item_count;
+      });
+
+      const cartType = window.themeSettings?.cartType || 'drawer';
+      if (cartType === 'drawer') {
+        if (window.refreshCartDrawer) await window.refreshCartDrawer();
+        document.dispatchEvent(new CustomEvent('cart:open'));
+      }
+
+      if (textEl) textEl.textContent = i18n.added;
+      setTimeout(() => {
+        if (textEl) textEl.textContent = originalText;
+        addAllBtn.disabled = false;
+      }, 2000);
+    } catch (error) {
+      console.error('Add all to cart error:', error);
+      if (textEl) textEl.textContent = i18n.error;
+      setTimeout(() => {
+        if (textEl) textEl.textContent = originalText;
+        addAllBtn.disabled = false;
+      }, 2000);
+    }
+  }
+
+  // Setup "Add all" button
+  if (addAllBtn) {
+    addAllBtn.addEventListener('click', addAllToCart);
   }
 
   // Initialize with Intersection Observer for lazy loading
@@ -296,6 +378,13 @@
       "step": 1,
       "default": 4,
       "label": "Columns on desktop"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_add_all",
+      "label": "Show 'Add all to cart' button",
+      "default": true,
+      "info": "Only shown when all products have a single variant"
     },
     {
       "type": "header",
