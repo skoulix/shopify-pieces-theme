@@ -11,7 +11,7 @@
 
   assign heading = section.settings.title | default: 'Contact'
 
-  case section.settings.alignment
+  case section.settings.text_alignment
     when 'center'
       assign text_align = 'text-center'
       assign form_align = 'mx-auto'
@@ -346,14 +346,14 @@
     },
     {
       "type": "select",
-      "id": "alignment",
+      "id": "text_alignment",
       "label": "Text alignment",
+      "default": "left",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
-      ],
-      "default": "left"
+      ]
     },
     {
       "type": "checkbox",
