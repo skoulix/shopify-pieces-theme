@@ -68,6 +68,9 @@
   .header-wrapper.is-transparent .header-inner > nav > div > a,
   .header-wrapper.is-transparent .header-inner > nav > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav > div > .mega-menu-wrapper > button,
+  .header-wrapper.is-transparent .header-inner > nav > div > div > a[data-nav-link],
+  .header-wrapper.is-transparent .header-inner > nav > div > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav button[data-cart-drawer-toggle],
   .header-wrapper.is-transparent .header-inner > nav button[data-mobile-nav-open],
   .header-wrapper.is-transparent .header-inner > nav [data-cart-count] {
@@ -99,6 +102,9 @@
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > a,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .mega-menu-wrapper > button,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > a[data-nav-link],
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav button[data-cart-drawer-toggle],
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav [data-cart-count] {
     color: var(--color-text);
@@ -106,7 +112,10 @@
 
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > a:hover,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .dropdown-wrapper > button:hover,
-  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .mega-menu-wrapper > button:hover {
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > .mega-menu-wrapper > button:hover,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > a[data-nav-link]:hover,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .dropdown-wrapper > button:hover,
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .mega-menu-wrapper > button:hover {
     color: var(--color-primary);
   }
 
@@ -114,6 +123,9 @@
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > a,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .mega-menu-wrapper > button,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > a[data-nav-link],
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .dropdown-wrapper > button,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav button[data-cart-drawer-toggle],
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav [data-cart-count] {
     color: var(--color-text);
@@ -121,7 +133,10 @@
 
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > a:hover,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .dropdown-wrapper > button:hover,
-  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .mega-menu-wrapper > button:hover {
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > .mega-menu-wrapper > button:hover,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > a[data-nav-link]:hover,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .dropdown-wrapper > button:hover,
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .mega-menu-wrapper > button:hover {
     color: var(--color-primary);
   }
 
@@ -311,179 +326,316 @@
 
   {%- comment -%} Header Nav Row {%- endcomment -%}
   {%- liquid
+    assign header_layout = section.settings.header_layout | default: 'logo_left'
     assign nav_position = section.settings.nav_position | default: 'center'
   -%}
   <header class="header-inner border-b bg-[--color-background] border-[--color-border]" data-header>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
-    {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
-    <div class="flex {% if nav_position == 'center' %}lg:flex-1{% endif %}">
-      {%- comment -%} Mobile hamburger {%- endcomment -%}
-      <button
-        type="button"
-        class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
-        data-mobile-nav-open
-      >
-        <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
-        <i class="ph ph-list text-2xl"></i>
-      </button>
 
-      {%- comment -%} Desktop logo {%- endcomment -%}
-      <a href="{{ routes.root_url }}" class="hidden lg:block -m-1.5 p-1.5">
-        <span class="sr-only">{{ shop.name }}</span>
-        {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 300 | image_tag:
-            class: 'h-auto',
-            style: 'width: var(--logo-width);',
-            alt: shop.name,
-            loading: 'eager'
-          }}
-        {% else %}
-          <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
-        {% endif %}
-      </a>
-    </div>
+    {% if header_layout == 'logo_center' %}
+      {%- comment -%} ========== LOGO CENTERED LAYOUT ========== {%- endcomment -%}
 
-    {%- comment -%} Mobile: Centered Logo {%- endcomment -%}
-    <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
-      <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
-        <span class="sr-only">{{ shop.name }}</span>
-        {% if settings.logo != blank %}
-          {{ settings.logo | image_url: width: 300 | image_tag:
-            class: 'h-auto',
-            style: 'width: var(--logo-width);',
-            alt: shop.name,
-            loading: 'eager'
-          }}
-        {% else %}
-          <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
-        {% endif %}
-      </a>
-    </div>
+      {%- comment -%} Left: Mobile hamburger / Desktop navigation {%- endcomment -%}
+      <div class="flex lg:flex-1 items-center">
+        {%- comment -%} Mobile hamburger {%- endcomment -%}
+        <button
+          type="button"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
+          data-mobile-nav-open
+        >
+          <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
+          <i class="ph ph-list text-2xl"></i>
+        </button>
 
-    {%- comment -%} Desktop Navigation {%- endcomment -%}
-    <div class="hidden lg:flex lg:gap-x-8 {% if nav_position == 'left' %}lg:ml-8{% elsif nav_position == 'center' %}lg:justify-center{% elsif nav_position == 'right' %}lg:ml-auto lg:mr-8{% endif %}">
-      {% for link in section.settings.menu.links %}
-        {%- liquid
-          assign is_active = false
-          if link.url == request.path
-            assign is_active = true
-          elsif link.url != '/' and request.path contains link.url
-            assign is_active = true
-          endif
-          assign has_children = false
-          if link.links.size > 0
-            assign has_children = true
-          endif
-
-          # Check if this link has a mega menu block configured
-          # Matches by comparing handleized versions of both the menu item title and block setting
-          assign mega_menu_block = nil
-          assign link_handle = link.title | handleize
-          for block in section.blocks
-            if block.type == 'mega_menu'
-              assign block_handle = block.settings.menu_item | handleize
-              if block_handle == link_handle
-                assign mega_menu_block = block
-                break
+        {%- comment -%} Desktop Navigation {%- endcomment -%}
+        <div class="hidden lg:flex lg:gap-x-8">
+          {% for link in section.settings.menu.links %}
+            {%- liquid
+              assign is_active = false
+              if link.url == request.path
+                assign is_active = true
+              elsif link.url != '/' and request.path contains link.url
+                assign is_active = true
               endif
-            endif
-          endfor
-        -%}
-        {% if mega_menu_block != nil and has_children %}
-          {%- comment -%} Mega menu {%- endcomment -%}
-          {% render 'mega-menu', link: link, block: mega_menu_block, position: forloop.index0 %}
-        {% elsif has_children %}
-          {%- comment -%} Standard dropdown trigger {%- endcomment -%}
-          <div class="dropdown-wrapper relative" data-dropdown>
+              assign has_children = false
+              if link.links.size > 0
+                assign has_children = true
+              endif
+
+              assign mega_menu_block = nil
+              assign link_handle = link.title | handleize
+              for block in section.blocks
+                if block.type == 'mega_menu'
+                  assign block_handle = block.settings.menu_item | handleize
+                  if block_handle == link_handle
+                    assign mega_menu_block = block
+                    break
+                  endif
+                endif
+              endfor
+            -%}
+            {% if mega_menu_block != nil and has_children %}
+              {% render 'mega-menu', link: link, block: mega_menu_block, position: forloop.index0 %}
+            {% elsif has_children %}
+              <div class="dropdown-wrapper relative" data-dropdown>
+                <button
+                  type="button"
+                  class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+                  data-dropdown-trigger
+                  aria-expanded="false"
+                >
+                  <span>{{ link.title }}</span>
+                  <i class="ph ph-caret-down text-xs transition-transform duration-300 group-aria-expanded:rotate-180"></i>
+                </button>
+                <div class="dropdown-panel" data-dropdown-panel>
+                  <div class="dropdown-panel__inner">
+                    {% if link.url != '#' and link.url != '' %}
+                      <a href="{{ link.url }}" class="dropdown-featured" data-dropdown-item>
+                        <span class="dropdown-featured__label">{{ 'accessibility.explore' | t }}</span>
+                        <span class="dropdown-featured__title font-heading">{{ link.title }}</span>
+                        <i class="ph ph-arrow-right dropdown-featured__arrow"></i>
+                      </a>
+                    {% endif %}
+                    <div class="dropdown-links">
+                      {% for child in link.links %}
+                        <a href="{{ child.url }}" class="dropdown-link" data-dropdown-item style="--item-index: {{ forloop.index0 }}">
+                          <span class="dropdown-link__text">{{ child.title }}</span>
+                          <span class="dropdown-link__line"></span>
+                        </a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <a
+                href="{{ link.url }}"
+                class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
+                data-nav-link
+                {% if is_active %}aria-current="page"{% endif %}
+              >
+                {{ link.title }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {%- comment -%} Center: Logo (absolute positioned for true center) {%- endcomment -%}
+      <div class="absolute left-1/2 -translate-x-1/2">
+        <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
+          <span class="sr-only">{{ shop.name }}</span>
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 300 | image_tag:
+              class: 'h-auto',
+              style: 'width: var(--logo-width);',
+              alt: shop.name,
+              loading: 'eager'
+            }}
+          {% else %}
+            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      {%- comment -%} Right: Icons {%- endcomment -%}
+      <div class="flex lg:flex-1 justify-end gap-x-1 lg:gap-x-2">
+        {% if section.settings.show_search %}
+          <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+            <i class="ph ph-magnifying-glass text-xl"></i>
+          </a>
+        {% endif %}
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <span class="sr-only">{{ 'accessibility.account' | t }}</span>
+            <i class="ph ph-user text-xl"></i>
+          </a>
+        {% endif %}
+        {% if section.settings.show_cart %}
+          {% if settings.cart_type == 'drawer' %}
             <button
               type="button"
-              class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
-              data-dropdown-trigger
-              aria-expanded="false"
+              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              data-cart-drawer-toggle
             >
-              <span>{{ link.title }}</span>
-              <i class="ph ph-caret-down text-xs transition-transform duration-300 group-aria-expanded:rotate-180"></i>
+              <i class="ph ph-bag text-xl"></i>
+              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="sr-only">items in cart</span>
             </button>
+          {% else %}
+            <a
+              href="{{ routes.cart_url }}"
+              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+            >
+              <i class="ph ph-bag text-xl"></i>
+              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="sr-only">items in cart</span>
+            </a>
+          {% endif %}
+        {% endif %}
+      </div>
 
-            {%- comment -%} Dropdown panel {%- endcomment -%}
-            <div class="dropdown-panel" data-dropdown-panel>
-              <div class="dropdown-panel__inner">
-                {%- comment -%} Featured/Parent link {%- endcomment -%}
-                {% if link.url != '#' and link.url != '' %}
-                  <a href="{{ link.url }}" class="dropdown-featured" data-dropdown-item>
-                    <span class="dropdown-featured__label">{{ 'accessibility.explore' | t }}</span>
-                    <span class="dropdown-featured__title font-heading">{{ link.title }}</span>
-                    <i class="ph ph-arrow-right dropdown-featured__arrow"></i>
-                  </a>
-                {% endif %}
+    {% else %}
+      {%- comment -%} ========== LOGO LEFT LAYOUT (default) ========== {%- endcomment -%}
 
-                {%- comment -%} Child links {%- endcomment -%}
-                <div class="dropdown-links">
-                  {% for child in link.links %}
-                    <a href="{{ child.url }}" class="dropdown-link" data-dropdown-item style="--item-index: {{ forloop.index0 }}">
-                      <span class="dropdown-link__text">{{ child.title }}</span>
-                      <span class="dropdown-link__line"></span>
+      {%- comment -%} Mobile: Hamburger (left) | Desktop: Logo (left) {%- endcomment -%}
+      <div class="flex {% if nav_position == 'center' %}lg:flex-1{% endif %}">
+        {%- comment -%} Mobile hamburger {%- endcomment -%}
+        <button
+          type="button"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
+          data-mobile-nav-open
+        >
+          <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
+          <i class="ph ph-list text-2xl"></i>
+        </button>
+
+        {%- comment -%} Desktop logo {%- endcomment -%}
+        <a href="{{ routes.root_url }}" class="hidden lg:block -m-1.5 p-1.5">
+          <span class="sr-only">{{ shop.name }}</span>
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 300 | image_tag:
+              class: 'h-auto',
+              style: 'width: var(--logo-width);',
+              alt: shop.name,
+              loading: 'eager'
+            }}
+          {% else %}
+            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      {%- comment -%} Mobile: Centered Logo {%- endcomment -%}
+      <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
+        <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
+          <span class="sr-only">{{ shop.name }}</span>
+          {% if settings.logo != blank %}
+            {{ settings.logo | image_url: width: 300 | image_tag:
+              class: 'h-auto',
+              style: 'width: var(--logo-width);',
+              alt: shop.name,
+              loading: 'eager'
+            }}
+          {% else %}
+            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+
+      {%- comment -%} Desktop Navigation {%- endcomment -%}
+      <div class="hidden lg:flex lg:gap-x-8 {% if nav_position == 'left' %}lg:ml-8{% elsif nav_position == 'center' %}lg:justify-center{% elsif nav_position == 'right' %}lg:ml-auto lg:mr-8{% endif %}">
+        {% for link in section.settings.menu.links %}
+          {%- liquid
+            assign is_active = false
+            if link.url == request.path
+              assign is_active = true
+            elsif link.url != '/' and request.path contains link.url
+              assign is_active = true
+            endif
+            assign has_children = false
+            if link.links.size > 0
+              assign has_children = true
+            endif
+
+            assign mega_menu_block = nil
+            assign link_handle = link.title | handleize
+            for block in section.blocks
+              if block.type == 'mega_menu'
+                assign block_handle = block.settings.menu_item | handleize
+                if block_handle == link_handle
+                  assign mega_menu_block = block
+                  break
+                endif
+              endif
+            endfor
+          -%}
+          {% if mega_menu_block != nil and has_children %}
+            {% render 'mega-menu', link: link, block: mega_menu_block, position: forloop.index0 %}
+          {% elsif has_children %}
+            <div class="dropdown-wrapper relative" data-dropdown>
+              <button
+                type="button"
+                class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+                data-dropdown-trigger
+                aria-expanded="false"
+              >
+                <span>{{ link.title }}</span>
+                <i class="ph ph-caret-down text-xs transition-transform duration-300 group-aria-expanded:rotate-180"></i>
+              </button>
+              <div class="dropdown-panel" data-dropdown-panel>
+                <div class="dropdown-panel__inner">
+                  {% if link.url != '#' and link.url != '' %}
+                    <a href="{{ link.url }}" class="dropdown-featured" data-dropdown-item>
+                      <span class="dropdown-featured__label">{{ 'accessibility.explore' | t }}</span>
+                      <span class="dropdown-featured__title font-heading">{{ link.title }}</span>
+                      <i class="ph ph-arrow-right dropdown-featured__arrow"></i>
                     </a>
-                  {% endfor %}
+                  {% endif %}
+                  <div class="dropdown-links">
+                    {% for child in link.links %}
+                      <a href="{{ child.url }}" class="dropdown-link" data-dropdown-item style="--item-index: {{ forloop.index0 }}">
+                        <span class="dropdown-link__text">{{ child.title }}</span>
+                        <span class="dropdown-link__line"></span>
+                      </a>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        {% else %}
-          <a
-            href="{{ link.url }}"
-            class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
-            data-nav-link
-            {% if is_active %}aria-current="page"{% endif %}
-          >
-            {{ link.title }}
+          {% else %}
+            <a
+              href="{{ link.url }}"
+              class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
+              data-nav-link
+              {% if is_active %}aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {%- comment -%} Header Icons (Mobile + Desktop) {%- endcomment -%}
+      <div class="flex {% if nav_position == 'center' or nav_position == 'left' %}lg:flex-1{% endif %} justify-end gap-x-1 lg:gap-x-2">
+        {% if section.settings.show_search %}
+          <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+            <i class="ph ph-magnifying-glass text-xl"></i>
           </a>
         {% endif %}
-      {% endfor %}
-    </div>
-
-    {%- comment -%} Header Icons (Mobile + Desktop) {%- endcomment -%}
-    <div class="flex {% if nav_position == 'center' or nav_position == 'left' %}lg:flex-1{% endif %} justify-end gap-x-1 lg:gap-x-2">
-      {%- comment -%} Search - Desktop only {%- endcomment -%}
-      {% if section.settings.show_search %}
-        <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
-          <span class="sr-only">{{ 'accessibility.search' | t }}</span>
-          <i class="ph ph-magnifying-glass text-xl"></i>
-        </a>
-      {% endif %}
-
-      {%- comment -%} Account - Desktop only {%- endcomment -%}
-      {% if shop.customer_accounts_enabled %}
-        <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
-          <span class="sr-only">{{ 'accessibility.account' | t }}</span>
-          <i class="ph ph-user text-xl"></i>
-        </a>
-      {% endif %}
-
-      {%- comment -%} Cart - Mobile + Desktop {%- endcomment -%}
-      {% if section.settings.show_cart %}
-        {% if settings.cart_type == 'drawer' %}
-          <button
-            type="button"
-            class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
-            data-cart-drawer-toggle
-          >
-            <i class="ph ph-bag text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
-            <span class="sr-only">items in cart</span>
-          </button>
-        {% else %}
-          <a
-            href="{{ routes.cart_url }}"
-            class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
-          >
-            <i class="ph ph-bag text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
-            <span class="sr-only">items in cart</span>
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <span class="sr-only">{{ 'accessibility.account' | t }}</span>
+            <i class="ph ph-user text-xl"></i>
           </a>
         {% endif %}
-      {% endif %}
-    </div>
+        {% if section.settings.show_cart %}
+          {% if settings.cart_type == 'drawer' %}
+            <button
+              type="button"
+              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              data-cart-drawer-toggle
+            >
+              <i class="ph ph-bag text-xl"></i>
+              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="sr-only">items in cart</span>
+            </button>
+          {% else %}
+            <a
+              href="{{ routes.cart_url }}"
+              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+            >
+              <i class="ph ph-bag text-xl"></i>
+              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="sr-only">items in cart</span>
+            </a>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
+
   </nav>
 
   {%- comment -%} Mobile Menu Drawer {%- endcomment -%}
@@ -1502,6 +1654,17 @@
     },
     {
       "type": "select",
+      "id": "header_layout",
+      "label": "Header layout",
+      "default": "logo_left",
+      "options": [
+        { "value": "logo_left", "label": "Logo left" },
+        { "value": "logo_center", "label": "Logo centered" }
+      ],
+      "info": "Logo centered places menu on left, logo in center, and icons on right"
+    },
+    {
+      "type": "select",
       "id": "nav_position",
       "label": "Navigation position",
       "default": "center",
@@ -1509,7 +1672,8 @@
         { "value": "left", "label": "Left (after logo)" },
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right (before icons)" }
-      ]
+      ],
+      "info": "Only applies when logo is on the left"
     },
     {
       "type": "header",
