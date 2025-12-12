@@ -169,7 +169,7 @@
 
     {%- comment -%} Footer {%- endcomment -%}
     {% if cart.item_count > 0 %}
-      <div class="p-6 border-t border-[--color-border] bg-[--color-background]">
+      <div class="p-6 border-t border-[--color-border] bg-[--color-background]" data-cart-drawer-footer>
         {%- comment -%} Cart Note {%- endcomment -%}
         <details class="mb-4 group/note">
           <summary class="flex items-center justify-between w-full py-3 text-xs font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">

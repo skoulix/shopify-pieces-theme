@@ -306,10 +306,10 @@ class CartDrawerManager {
 
         // Extract content and footer from the fetched section
         const newContent = doc.querySelector('[data-cart-drawer-content]');
-        const newFooter = doc.querySelector('.cart-drawer__footer');
+        const newFooter = doc.querySelector('[data-cart-drawer-footer]');
 
         const content = this.drawer.querySelector('[data-cart-drawer-content]');
-        const footer = this.drawer.querySelector('.cart-drawer__footer');
+        const footer = this.drawer.querySelector('[data-cart-drawer-footer]');
 
         if (newContent && content) {
           content.replaceChildren(...newContent.cloneNode(true).childNodes);
@@ -340,7 +340,7 @@ class CartDrawerManager {
     if (!cart || !this.drawer) return;
 
     const content = this.drawer.querySelector('[data-cart-drawer-content]');
-    const footer = this.drawer.querySelector('.cart-drawer__footer');
+    const footer = this.drawer.querySelector('[data-cart-drawer-footer]');
 
     if (cart.item_count === 0) {
       // Render empty cart
@@ -487,33 +487,33 @@ class CartDrawerManager {
     const cartUrl = window.routes?.cartUrl || '/cart';
 
     return `
-      <div class="cart-drawer__footer">
-        <details class="cart-drawer__note-wrapper">
-          <summary class="cart-drawer__note-toggle">
+      <div class="p-6 border-t border-[--color-border] bg-[--color-background]" data-cart-drawer-footer>
+        <details class="mb-4 group/note">
+          <summary class="flex items-center justify-between w-full py-3 text-xs font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">
             <span>${addNote}</span>
-            <i class="ph ph-caret-down"></i>
+            <i class="ph ph-caret-down text-base transition-transform group-open/note:rotate-180"></i>
           </summary>
-          <div class="cart-drawer__note-content">
+          <div class="pb-4">
             <textarea
               name="note"
-              class="cart-drawer__note-input"
+              class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-y focus:outline-2 focus:outline-[--color-primary] focus:-outline-offset-2"
               placeholder="${notePlaceholder}"
               data-cart-note
             >${cart.note || ''}</textarea>
           </div>
         </details>
 
-        <div class="cart-drawer__subtotal">
+        <div class="flex justify-between items-center text-base font-semibold mb-2">
           <span>${subtotal}</span>
           <span data-cart-subtotal>${cartState.formatMoney(cart.total_price)}</span>
         </div>
-        <p class="cart-drawer__tax-note">${taxNote}</p>
+        <p class="text-xs text-[--color-text-secondary] m-0 mb-4">${taxNote}</p>
 
-        <div class="cart-drawer__actions">
+        <div class="flex flex-col gap-3">
           <a href="${cartUrl}" class="btn btn--secondary btn--full" data-cart-drawer-close>
             <span>${viewCart}</span>
           </a>
-          <form action="${cartUrl}" method="post">
+          <form action="${cartUrl}" method="post" class="m-0">
             <button type="submit" name="checkout" class="btn btn--primary btn--full">
               <i class="ph ph-lock-simple"></i>
               <span>${checkout}</span>
