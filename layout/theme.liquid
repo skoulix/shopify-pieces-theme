@@ -39,16 +39,9 @@
     {%- comment -%} Critical CSS - Inlined for fast initial render {%- endcomment -%}
     {% render 'critical-css' %}
 
-    {%- comment -%}
-      Non-critical CSS - Loaded asynchronously using preload + onload pattern
-      This defers render-blocking CSS while maintaining load priority
-    {%- endcomment -%}
-    <link rel="preload" href="{{ 'phosphor-icons.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="{{ 'pieces-app.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      {{ 'phosphor-icons.css' | asset_url | stylesheet_tag }}
-      {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
-    </noscript>
+    {%- comment -%} Non-critical CSS - Loaded with preload for better performance {%- endcomment -%}
+    {{ 'phosphor-icons.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'pieces-app.css' | asset_url | stylesheet_tag: preload: true }}
 
     {%- comment -%} Pieces App - Swup, Lenis, GSAP (defer prevents render blocking) {%- endcomment -%}
     <script src="{{ 'pieces-app.js' | asset_url }}" type="module" defer></script>

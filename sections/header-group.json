@@ -60,6 +60,7 @@
       "settings": {
         "full_width": false,
         "menu": "main-menu",
+        "header_layout": "logo_left",
         "nav_position": "center",
         "show_search": true,
         "show_cart": true,

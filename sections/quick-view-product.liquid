@@ -16,6 +16,8 @@
       {% if featured_image %}
         <img
           src="{{ featured_image | image_url: width: 800 }}"
+          width="{{ featured_image.width }}"
+          height="{{ featured_image.height }}"
           class="w-full h-full object-cover"
           loading="eager"
           alt="{{ product.title | escape }}"

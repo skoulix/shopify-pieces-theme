@@ -13,16 +13,16 @@
   {{ settings.type_header_font | font_face: font_display: 'fallback' }}
 {% endstyle %}
 
-{%- comment -%} Preload primary fonts {%- endcomment -%}
+{%- comment -%} Preload primary fonts - manual link tags required for CDN font URLs {%- endcomment -%}
 {%- liquid
   assign body_font_url = settings.type_body_font | font_url
   assign header_font_url = settings.type_header_font | font_url
 -%}
 {%- if body_font_url != blank and settings.type_body_font.system? == false -%}
-  <link rel="preload" href="{{ body_font_url }}" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="{{ body_font_url }}" as="font" type="font/woff2" crossorigin>
 {%- endif -%}
 {%- if header_font_url != blank and settings.type_header_font.system? == false -%}
-  <link rel="preload" href="{{ header_font_url }}" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="{{ header_font_url }}" as="font" type="font/woff2" crossorigin>
 {%- endif -%}
 
 {%- comment -%} Shadow presets {%- endcomment -%}
