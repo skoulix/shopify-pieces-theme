@@ -34,12 +34,18 @@
   .complementary-section-{{ section.id }} {
     --section-bg: {{ section.settings.background_color }};
     --section-text: {{ section.settings.text_color }};
+    --card-bg: {{ section.settings.card_background_color }};
+    --card-text: {{ section.settings.card_text_color }};
     background-color: var(--section-bg);
     color: var(--section-text);
   }
   .complementary-section-{{ section.id }} .skeleton-bg {
     background-color: var(--section-text);
     opacity: 0.1;
+  }
+  .complementary-section-{{ section.id }} .complementary-card {
+    background-color: var(--card-bg);
+    color: var(--card-text);
   }
 </style>
 
@@ -85,7 +91,7 @@
     {%- comment -%} Loading State {%- endcomment -%}
     <div class="grid grid-cols-1 {{ grid_cols }} gap-4" data-complementary-loading data-intro>
       {% for i in (1..section.settings.products_to_show) %}
-        <div class="flex gap-4 p-4 border border-current/10 rounded-lg animate-pulse">
+        <div class="complementary-card flex gap-4 p-4 border border-current/10 rounded-lg animate-pulse">
           <div class="shrink-0 w-20 h-20 rounded skeleton-bg"></div>
           <div class="flex-1">
             <div class="h-4 w-3/4 skeleton-bg rounded"></div>
@@ -99,7 +105,7 @@
     <div class="grid grid-cols-1 {{ grid_cols }} gap-4 hidden" data-complementary-grid data-intro>
       {% if recommendations.performed and recommendations.products_count > 0 %}
         {% for recommendation in recommendations.products %}
-          <div class="flex gap-4 p-4 border border-current/10 rounded-lg hover:border-current/30 transition-colors">
+          <div class="complementary-card flex gap-4 p-4 border border-current/10 rounded-lg hover:border-current/30 transition-colors">
             <a href="{{ recommendation.url }}" class="shrink-0 w-20 h-20 rounded overflow-hidden bg-current/5">
               {% if recommendation.featured_image %}
                 {{ recommendation.featured_image | image_url: width: 200 | image_tag:
@@ -363,6 +369,18 @@
       "type": "color",
       "id": "text_color",
       "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card background color",
+      "default": "rgba(0,0,0,0)"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
       "default": "#000000"
     }
   ],

@@ -64,14 +64,6 @@
             "content": "",
             "show_always": true
           }
-        },
-        "complementary_products_pQY9PU": {
-          "type": "complementary_products",
-          "settings": {
-            "title": "",
-            "products_to_show": 2,
-            "show_add_all": true
-          }
         }
       },
       "block_order": [
@@ -83,8 +75,7 @@
         "quantity_selector",
         "buy_buttons",
         "back_in_stock_rzrTB9",
-        "size_chart_xUw7Wm",
-        "complementary_products_pQY9PU"
+        "size_chart_xUw7Wm"
       ],
       "settings": {
         "full_width": true,
