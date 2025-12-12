@@ -1462,6 +1462,11 @@ html.animations-disabled [data-intro] {
   object-fit: contain;
 }
 
+/* Secondary image needs background in list view to cover primary when images have different dimensions */
+.collection-wrapper[data-view="list"] .product-card-image img:last-of-type:not(:first-of-type) {
+  background-color: var(--color-background);
+}
+
 .collection-wrapper[data-view="list"] .product-card-content {
   padding: 0;
   background: transparent;
