@@ -97,6 +97,18 @@
                   </div>
                 {%- endif -%}
 
+                {%- comment -%} Line-level discount display - Required for Theme Store {%- endcomment -%}
+                {%- if item.line_level_discount_allocations.size > 0 -%}
+                  <ul class="list-none p-0 m-0 mt-1" role="list" aria-label="{{ 'accessibility.discount' | t }}">
+                    {%- for discount in item.line_level_discount_allocations -%}
+                      <li class="inline-flex items-center gap-1 text-xs text-green-600">
+                        <i class="ph ph-tag"></i>
+                        <span>{{ discount.discount_application.title }} (-{{ discount.amount | money }})</span>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+
                 <div class="flex items-center gap-3 mt-auto pt-2">
                   <div class="inline-flex items-center rounded-[--input-radius] border border-[--color-border] overflow-hidden" data-quantity-wrapper>
                     <button

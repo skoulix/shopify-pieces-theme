@@ -31,7 +31,7 @@
   .product-image-counter { position: absolute; bottom: 2rem; left: 2rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; color: var(--color-text); mix-blend-mode: difference; z-index: 10; }
   .product-image-counter-current { font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
   .product-thumbnails { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.75rem; z-index: 10; }
-  .product-thumbnail { width: 50px; height: 65px; overflow: hidden; cursor: pointer; opacity: 0.4; transition: opacity 0.3s ease; border: 2px solid transparent; }
+  .product-thumbnail { position: relative; width: 50px; height: 65px; overflow: hidden; cursor: pointer; opacity: 0.4; transition: opacity 0.3s ease; border: 2px solid transparent; }
   .product-thumbnail:hover, .product-thumbnail.is-active { opacity: 1; }
   .product-thumbnail.is-active { border-color: var(--color-text); }
   .product-thumbnail img { width: 100%; height: 100%; object-fit: cover; }
@@ -121,33 +121,136 @@
   .product-gallery.fit-square .product-gallery-image img { object-fit: cover; aspect-ratio: 1/1; width: auto; height: 100%; max-width: 100%; }
   .product-gallery.fit-portrait .product-gallery-image img { object-fit: cover; aspect-ratio: 3/4; width: auto; height: 100%; max-width: 100%; }
   .product-gallery.fit-landscape .product-gallery-image img { object-fit: cover; aspect-ratio: 4/3; width: 100%; height: auto; max-height: 100%; }
+
+  /* Rich Media Styles - 3D Models, Videos */
+  .product-gallery-media { position: absolute; inset: 0; opacity: 0; transition: opacity 0.6s ease; display: flex; align-items: center; justify-content: center; background: var(--color-background-secondary); }
+  .product-gallery-media.is-active { opacity: 1; }
+  .product-gallery-media model-viewer { width: 100%; height: 100%; }
+  .product-gallery-media video { width: 100%; height: 100%; object-fit: contain; }
+  .product-gallery-media iframe { width: 100%; height: 100%; border: none; }
+  .product-media-wrapper { position: relative; width: 100%; height: 100%; }
+  .product-media-poster { position: absolute; inset: 0; z-index: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .product-media-poster img { width: 100%; height: 100%; object-fit: cover; }
+  .product-media-poster::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.2); }
+  .product-media-poster .play-icon { position: absolute; z-index: 2; width: 4rem; height: 4rem; display: flex; align-items: center; justify-content: center; background: var(--color-background); border-radius: 50%; color: var(--color-text); transition: transform 0.3s ease; }
+  .product-media-poster:hover .play-icon { transform: scale(1.1); }
+  .product-media-poster.is-hidden { display: none; }
+  .product-thumbnail-icon { position: absolute; bottom: 0.25rem; right: 0.25rem; width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; background: var(--color-background); border-radius: 50%; font-size: 0.625rem; color: var(--color-text); }
+  .model-viewer-ui { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; gap: 0.5rem; z-index: 10; }
+  .model-viewer-ui button { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: var(--color-background); border: 1px solid var(--color-border); border-radius: 50%; cursor: pointer; color: var(--color-text); transition: all 0.3s ease; }
+  .model-viewer-ui button:hover { background: var(--color-text); color: var(--color-background); }
 </style>
 
 <div class="product-section-wrapper{% if section.settings.full_width %} is-full-width{% endif %}">
 <section class="product-hero" data-product-section>
-  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}">
+  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery>
     <div class="product-gallery-main" data-gallery-main>
-      {% for image in product.images %}
-        <div class="product-gallery-image{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}" data-image-id="{{ image.id }}">
-          {%- if forloop.first -%}
-            {{ image | image_url: width: 1800 | image_tag:
-              class: '',
-              loading: 'eager',
-              fetchpriority: 'high',
-              decoding: 'async',
-              sizes: '(max-width: 1024px) 100vw, 55vw',
-              widths: '600, 900, 1200, 1800'
-            }}
-          {%- else -%}
-            {{ image | image_url: width: 1800 | image_tag:
-              class: '',
-              loading: 'lazy',
-              decoding: 'async',
-              sizes: '(max-width: 1024px) 100vw, 55vw',
-              widths: '600, 900, 1200, 1800'
-            }}
-          {%- endif -%}
-        </div>
+      {% for media in product.media %}
+        {%- case media.media_type -%}
+          {%- when 'image' -%}
+            <div class="product-gallery-image{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-media-type="image">
+              {%- if forloop.first -%}
+                {{ media | image_url: width: 1800 | image_tag:
+                  class: '',
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  decoding: 'async',
+                  sizes: '(max-width: 1024px) 100vw, 55vw',
+                  widths: '600, 900, 1200, 1800'
+                }}
+              {%- else -%}
+                {{ media | image_url: width: 1800 | image_tag:
+                  class: '',
+                  loading: 'lazy',
+                  decoding: 'async',
+                  sizes: '(max-width: 1024px) 100vw, 55vw',
+                  widths: '600, 900, 1200, 1800'
+                }}
+              {%- endif -%}
+            </div>
+
+          {%- when 'video' -%}
+            <div class="product-gallery-media{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-media-type="video">
+              <div class="product-media-wrapper">
+                <div class="product-media-poster" data-video-poster>
+                  {{ media.preview_image | image_url: width: 1800 | image_tag:
+                    loading: 'lazy',
+                    alt: media.alt | default: product.title
+                  }}
+                  <span class="play-icon" aria-hidden="true">
+                    <i class="ph ph-play text-xl"></i>
+                  </span>
+                </div>
+                {{ media | video_tag:
+                  controls: true,
+                  loop: section.settings.video_loop,
+                  muted: section.settings.video_autoplay,
+                  autoplay: false,
+                  preload: 'metadata',
+                  class: 'product-video'
+                }}
+              </div>
+            </div>
+
+          {%- when 'external_video' -%}
+            <div class="product-gallery-media{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-media-type="external_video" data-external-video-id="{{ media.external_id }}" data-external-video-host="{{ media.host }}">
+              <div class="product-media-wrapper">
+                <div class="product-media-poster" data-video-poster>
+                  {{ media.preview_image | image_url: width: 1800 | image_tag:
+                    loading: 'lazy',
+                    alt: media.alt | default: product.title
+                  }}
+                  <span class="play-icon" aria-hidden="true">
+                    <i class="ph ph-play text-xl"></i>
+                  </span>
+                </div>
+                <template data-external-video-template>
+                  {%- if media.host == 'youtube' -%}
+                    <iframe
+                      src="https://www.youtube.com/embed/{{ media.external_id }}?enablejsapi=1&autoplay=1"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                      loading="lazy"
+                    ></iframe>
+                  {%- elsif media.host == 'vimeo' -%}
+                    <iframe
+                      src="https://player.vimeo.com/video/{{ media.external_id }}?autoplay=1"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowfullscreen
+                      loading="lazy"
+                    ></iframe>
+                  {%- endif -%}
+                </template>
+              </div>
+            </div>
+
+          {%- when 'model' -%}
+            <div class="product-gallery-media{% if forloop.first %} is-active{% endif %}" data-gallery-image="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-media-type="model">
+              <div class="product-media-wrapper">
+                {{ media | model_viewer_tag:
+                  reveal: 'interaction',
+                  toggleable: true,
+                  image_size: '1800x',
+                  ar: true,
+                  ar-modes: 'webxr scene-viewer quick-look',
+                  camera-controls: true,
+                  touch-action: 'pan-y',
+                  interaction-prompt: 'auto',
+                  poster: media.preview_image | image_url: width: 1800
+                }}
+                <div class="model-viewer-ui">
+                  <button type="button" data-model-reset aria-label="{{ 'products.product.media.reset_3d_model' | t }}">
+                    <i class="ph ph-arrows-counter-clockwise"></i>
+                  </button>
+                  {%- if media.sources[0].url contains 'usdz' or media.sources[1].url contains 'usdz' -%}
+                    <button type="button" data-model-ar aria-label="{{ 'products.product.media.view_in_ar' | t }}">
+                      <i class="ph ph-cube"></i>
+                    </button>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+        {%- endcase -%}
       {% else %}
         <div class="product-gallery-image is-active">
           <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
@@ -157,17 +260,22 @@
       {% endfor %}
     </div>
 
-    {% if product.images.size > 1 %}
+    {% if product.media.size > 1 %}
       <div class="product-image-counter" data-image-counter>
         <span class="product-image-counter-current" data-counter-current>01</span>
         <span>/</span>
-        <span>{{ product.images.size | prepend: '00' | slice: -2, 2 }}</span>
+        <span>{{ product.media.size | prepend: '00' | slice: -2, 2 }}</span>
       </div>
 
       <div class="product-thumbnails" data-thumbnails>
-        {% for image in product.images %}
-          <button class="product-thumbnail{% if forloop.first %} is-active{% endif %}" data-thumbnail="{{ forloop.index0 }}" data-image-id="{{ image.id }}" aria-label="{{ 'accessibility.view_image' | t: index: forloop.index, total: product.images.size }}">
-            {{ image | image_url: width: 150 | image_tag: alt: image.alt | default: product.title }}
+        {% for media in product.media %}
+          <button class="product-thumbnail{% if forloop.first %} is-active{% endif %}" data-thumbnail="{{ forloop.index0 }}" data-media-id="{{ media.id }}" data-media-type="{{ media.media_type }}" aria-label="{{ 'accessibility.view_media' | t: index: forloop.index, total: product.media.size }}">
+            {{ media.preview_image | image_url: width: 150 | image_tag: alt: media.alt | default: product.title }}
+            {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+              <span class="product-thumbnail-icon"><i class="ph ph-play"></i></span>
+            {%- elsif media.media_type == 'model' -%}
+              <span class="product-thumbnail-icon"><i class="ph ph-cube"></i></span>
+            {%- endif -%}
           </button>
         {% endfor %}
       </div>
@@ -461,10 +569,28 @@
                       .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/, amount.replace('.', ','));
   }
 
-  // Show image by index (used by both thumbnails and variant switching)
+  // Show media by index (used by both thumbnails and variant switching)
   function showImageByIndex(index) {
-    galleryImages.forEach((img, i) => {
-      img.classList.toggle('is-active', i === index);
+    galleryImages.forEach((media, i) => {
+      const isActive = i === index;
+      media.classList.toggle('is-active', isActive);
+
+      // Pause/stop media when switching away
+      if (!isActive) {
+        // Pause native videos
+        const video = media.querySelector('video');
+        if (video) {
+          video.pause();
+        }
+
+        // Remove external video iframes (they will reload when shown again)
+        const iframe = media.querySelector('iframe');
+        if (iframe && media.dataset.mediaType === 'external_video') {
+          iframe.remove();
+          const poster = media.querySelector('[data-video-poster]');
+          if (poster) poster.classList.remove('is-hidden');
+        }
+      }
     });
     thumbnails.forEach((thumb, i) => {
       thumb.classList.toggle('is-active', i === index);
@@ -514,14 +640,24 @@
     window.history.replaceState({}, '', url);
 
     // Update image if variant has a featured image
-    if (variant.featured_image && galleryImages.length > 0) {
-      const variantImageId = variant.featured_image.id;
-      // Find the gallery image with matching image ID
-      const matchingImage = Array.from(galleryImages).find(img =>
-        parseInt(img.dataset.imageId) === variantImageId
+    if (variant.featured_media && galleryImages.length > 0) {
+      const variantMediaId = variant.featured_media.id;
+      // Find the gallery media with matching media ID
+      const matchingMedia = Array.from(galleryImages).find(media =>
+        parseInt(media.dataset.mediaId) === variantMediaId
       );
-      if (matchingImage) {
-        const index = parseInt(matchingImage.dataset.galleryImage);
+      if (matchingMedia) {
+        const index = parseInt(matchingMedia.dataset.galleryImage);
+        showImageByIndex(index);
+      }
+    } else if (variant.featured_image && galleryImages.length > 0) {
+      // Fallback to featured_image for backwards compatibility
+      const variantImageId = variant.featured_image.id;
+      const matchingMedia = Array.from(galleryImages).find(media =>
+        parseInt(media.dataset.mediaId) === variantImageId
+      );
+      if (matchingMedia) {
+        const index = parseInt(matchingMedia.dataset.galleryImage);
         showImageByIndex(index);
       }
     }
@@ -674,15 +810,68 @@
     thumb.addEventListener('click', () => showImage(index));
   });
 
-  // Click on main image to cycle
+  // Click on main image to cycle (only for images, not videos/models)
   const galleryMain = section.querySelector('[data-gallery-main]');
   if (galleryMain && galleryImages.length > 1) {
-    galleryMain.style.cursor = 'pointer';
-    galleryMain.addEventListener('click', () => {
-      const nextIndex = (currentImageIndex + 1) % galleryImages.length;
-      showImage(nextIndex);
+    galleryMain.addEventListener('click', (e) => {
+      // Don't cycle if clicking on video/model controls or interactive elements
+      if (e.target.closest('video, model-viewer, iframe, button, [data-video-poster], .model-viewer-ui')) {
+        return;
+      }
+      const currentMedia = galleryImages[currentImageIndex];
+      if (currentMedia && currentMedia.dataset.mediaType === 'image') {
+        const nextIndex = (currentImageIndex + 1) % galleryImages.length;
+        showImage(nextIndex);
+      }
     });
   }
+
+  // Video poster click - play video
+  section.querySelectorAll('[data-video-poster]').forEach(poster => {
+    poster.addEventListener('click', () => {
+      const mediaWrapper = poster.closest('[data-gallery-image]');
+      if (!mediaWrapper) return;
+
+      const mediaType = mediaWrapper.dataset.mediaType;
+
+      if (mediaType === 'video') {
+        // Native video - just play it
+        const video = mediaWrapper.querySelector('video');
+        if (video) {
+          poster.classList.add('is-hidden');
+          video.play();
+        }
+      } else if (mediaType === 'external_video') {
+        // External video - load iframe from template
+        const template = mediaWrapper.querySelector('[data-external-video-template]');
+        if (template) {
+          const wrapper = poster.closest('.product-media-wrapper');
+          poster.classList.add('is-hidden');
+          wrapper.insertAdjacentHTML('beforeend', template.innerHTML);
+        }
+      }
+    });
+  });
+
+  // 3D Model controls
+  section.querySelectorAll('[data-model-reset]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modelViewer = btn.closest('.product-media-wrapper')?.querySelector('model-viewer');
+      if (modelViewer) {
+        modelViewer.cameraOrbit = modelViewer.getAttribute('camera-orbit') || 'auto auto auto';
+        modelViewer.fieldOfView = 'auto';
+      }
+    });
+  });
+
+  section.querySelectorAll('[data-model-ar]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modelViewer = btn.closest('.product-media-wrapper')?.querySelector('model-viewer');
+      if (modelViewer && modelViewer.canActivateAR) {
+        modelViewer.activateAR();
+      }
+    });
+  });
 })();
 </script>
 
@@ -1204,6 +1393,23 @@
         { "value": "portrait", "label": "Portrait" },
         { "value": "landscape", "label": "Landscape" }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_loop",
+      "label": "Loop videos",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "video_autoplay",
+      "label": "Autoplay videos when visible",
+      "default": false,
+      "info": "Videos will be muted when autoplay is enabled"
     },
     {
       "type": "header",
