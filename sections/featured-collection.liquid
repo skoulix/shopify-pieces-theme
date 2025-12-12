@@ -10,37 +10,27 @@
 -%}
 
 <style>
-  .featured-collection { padding: var(--section-vertical-padding) 0; }
-  .featured-collection-header { margin-bottom: clamp(2rem, 5vh, 4rem); }
-  .featured-collection-title { font-size: calc(clamp(1.75rem, 7vw, 3rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; line-height: 0.9; }
-  @media (min-width: 1024px) { .featured-collection-title { font-size: calc(clamp(2.5rem, 5vw, 4rem) * var(--heading-font-scale, 1)); } }
-  @media (min-width: 1536px) { .featured-collection-title { font-size: calc(clamp(3rem, 4vw, 4.5rem) * var(--heading-font-scale, 1)); } }
-  .featured-collection-title-line:nth-child(2) { margin-left: clamp(1rem, 6vw, 4rem); }
+  .fc-{{ section.id }} .fc-title { font-size: calc(clamp(1.75rem, 7vw, 3rem) * var(--heading-font-scale, 1)); }
+  @media (min-width: 1024px) { .fc-{{ section.id }} .fc-title { font-size: calc(clamp(2.5rem, 5vw, 4rem) * var(--heading-font-scale, 1)); } }
+  @media (min-width: 1536px) { .fc-{{ section.id }} .fc-title { font-size: calc(clamp(3rem, 4vw, 4.5rem) * var(--heading-font-scale, 1)); } }
+  .fc-title-line:nth-child(2) { margin-left: clamp(1rem, 6vw, 4rem); }
   /* Hide title initially to prevent FOUC before SplitText animation */
   [data-fc-title] { opacity: 0; }
   html.animations-disabled [data-fc-title] { opacity: 1; }
-  .featured-collection-grid { gap: clamp(1rem, 3vw, 2rem); }
-  @media (min-width: 1024px) { .featured-collection-grid { grid-template-columns: repeat({{ section.settings.columns }}, 1fr); } }
-
+  @media (min-width: 1024px) { .fc-{{ section.id }} .fc-grid { grid-template-columns: repeat({{ section.settings.columns }}, 1fr); } }
   /* Initial clip-path state for swipe animation */
-  [data-featured-collection="{{ section.id }}"] .product-card-image {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  /* When animations disabled, show images immediately */
-  html.animations-disabled [data-featured-collection="{{ section.id }}"] .product-card-image {
-    clip-path: none;
-  }
+  .fc-{{ section.id }} .product-card-image { clip-path: inset(0 100% 0 0); }
+  html.animations-disabled .fc-{{ section.id }} .product-card-image { clip-path: none; }
 </style>
 
 <section
-  class="featured-collection bg-[--color-background]"
+  class="fc-{{ section.id }} py-[--section-vertical-padding] bg-[--color-background]"
   data-featured-collection="{{ section.id }}"
 >
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
-    <header class="featured-collection-header flex flex-col gap-4 {% if section.settings.header_alignment == 'center' %}items-center text-center{% elsif section.settings.header_alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}">
-      <h2 class="featured-collection-title font-bold text-[--color-text] font-heading" data-fc-title>
+    <header class="mb-[clamp(2rem,5vh,4rem)] flex flex-col gap-4 {% if section.settings.header_alignment == 'center' %}items-center text-center{% elsif section.settings.header_alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}">
+      <h2 class="fc-title font-bold tracking-tight leading-none text-[--color-text] font-heading" data-fc-title>
         {% if section.settings.title != blank %}
           {{ section.settings.title }}
         {% else %}
@@ -58,7 +48,7 @@
     </header>
 
     {%- comment -%} Product Grid {%- endcomment -%}
-    <div class="featured-collection-grid grid grid-cols-2 md:grid-cols-3" data-fc-grid>
+    <div class="fc-grid grid grid-cols-2 md:grid-cols-3 gap-[clamp(1rem,3vw,2rem)]" data-fc-grid>
       {% if collection != blank %}
         {% for product in collection.products limit: products_to_show %}
           {% render 'product-card',
@@ -133,7 +123,7 @@
 
       // Animate title with SplitText line reveal
       if (title) {
-        const split = new SplitText(title, { type: 'lines', linesClass: 'featured-collection-title-line' });
+        const split = new SplitText(title, { type: 'lines', linesClass: 'fc-title-line' });
 
         // Wrap each line in an overflow-hidden container for the reveal effect
         split.lines.forEach(line => {
@@ -204,10 +194,15 @@
       "info": "Leave blank to use collection title"
     },
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "header_alignment",
+      "label": "Header alignment",
       "default": "left",
-      "label": "Header alignment"
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "range",
