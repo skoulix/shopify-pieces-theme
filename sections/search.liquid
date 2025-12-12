@@ -64,7 +64,7 @@
   </header>
 
   {%- comment -%} Search Form with Predictive Search {%- endcomment -%}
-  <div class="{{ container_class }}">
+  <div class="{{ container_class }} relative z-10">
     <div class="search-form-wrapper max-w-2xl">
       {%- render 'predictive-search' -%}
 
@@ -101,7 +101,7 @@
   </div>
 
   {%- comment -%} Search Results {%- endcomment -%}
-  <div class="{{ container_class }} pt-12">
+  <div class="{{ container_class }} pt-12 relative z-0">
     {% if search.performed %}
       {% if search.results_count > 0 %}
         {% paginate search.results by 20 %}

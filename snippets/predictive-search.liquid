@@ -3,9 +3,26 @@
   Real-time search suggestions as user types
 {%- endcomment -%}
 
+<style>
+  /* Hide native browser clear button on search inputs */
+  .predictive-search__input::-webkit-search-cancel-button,
+  .predictive-search__input::-webkit-search-decoration,
+  .predictive-search__input::-webkit-search-results-button,
+  .predictive-search__input::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+</style>
+
 <predictive-search
-  class="predictive-search relative"
+  class="predictive-search relative z-[999]"
   data-loading-text="{{ 'search.loading' | t }}"
+  data-no-results-text="{{ 'search.no_results_html' | t: terms: '__SEARCH_TERM__' }}"
+  data-products-heading="{{ 'search.filter_products' | t }}"
+  data-articles-heading="{{ 'search.filter_articles' | t }}"
+  data-pages-heading="{{ 'search.filter_pages' | t }}"
+  data-view-all-text="{{ 'search.view_all' | t }}"
 >
   <form action="{{ routes.search_url }}" method="get" role="search" class="predictive-search__form">
     <div class="predictive-search__input-wrapper relative">
@@ -16,6 +33,7 @@
         type="search"
         id="predictive-search-input"
         name="q"
+        value="{{ search.terms | escape }}"
         class="predictive-search__input w-full py-3 px-4 pr-12 bg-transparent border border-[--color-border] rounded-[--input-radius] text-[--color-text] placeholder:text-[--color-text-secondary] focus:outline-none focus:border-[--color-primary] transition-colors"
         placeholder="{{ 'search.placeholder' | t }}"
         autocomplete="off"
@@ -35,7 +53,7 @@
       </button>
       <button
         type="button"
-        class="predictive-search__clear absolute right-12 top-1/2 -translate-y-1/2 p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors hidden"
+        class="predictive-search__clear absolute right-14 top-1/2 -translate-y-1/2 p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors hidden"
         aria-label="{{ 'search.clear' | t }}"
         data-predictive-search-clear
       >
@@ -45,15 +63,15 @@
 
     <div
       id="predictive-search-results"
-      class="predictive-search__results absolute top-full left-0 right-0 mt-2 bg-[--color-background] border border-[--color-border] rounded-lg shadow-xl overflow-hidden z-50 hidden"
+      class="predictive-search__results absolute top-full left-0 right-0 mt-2 bg-[--color-background] border border-[--color-border] rounded-lg shadow-xl overflow-hidden z-[999] hidden"
       role="listbox"
       data-predictive-search-results
     >
-      <div class="predictive-search__loading p-8 text-center hidden" data-predictive-search-loading>
+      <div class="predictive-search__loading p-8 text-center bg-[--color-background] hidden" data-predictive-search-loading>
         <i class="ph ph-spinner-gap text-2xl animate-spin text-[--color-text-secondary]"></i>
       </div>
 
-      <div class="predictive-search__content" data-predictive-search-content>
+      <div class="predictive-search__content bg-[--color-background]" data-predictive-search-content>
         {%- comment -%} Results injected here via JS {%- endcomment -%}
       </div>
     </div>
@@ -73,6 +91,11 @@ class PredictiveSearch extends HTMLElement {
     this.debounceTimer = null;
 
     this.setupEventListeners();
+
+    // Show clear button if input already has value (e.g., on search results page)
+    if (this.input.value.trim().length > 0) {
+      this.clearBtn?.classList.remove('hidden');
+    }
   }
 
   setupEventListeners() {
@@ -158,9 +181,10 @@ class PredictiveSearch extends HTMLElement {
     const pages = resources.pages || [];
 
     if (products.length === 0 && articles.length === 0 && pages.length === 0) {
+      const noResultsText = this.dataset.noResultsText.replace('__SEARCH_TERM__', this.input.value);
       this.content.innerHTML = `
         <div class="p-6 text-center text-[--color-text-secondary]">
-          <p class="text-sm">{{ 'search.no_results_html' | t: terms: '${this.input.value}' }}</p>
+          <p class="text-sm">${noResultsText}</p>
         </div>
       `;
     } else {
@@ -170,7 +194,7 @@ class PredictiveSearch extends HTMLElement {
         html += `
           <div class="predictive-search__section">
             <h3 class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
-              {{ 'search.filter_products' | t }}
+              ${this.dataset.productsHeading}
             </h3>
             <ul class="divide-y divide-[--color-border]">
               ${products.map(product => `
@@ -197,7 +221,7 @@ class PredictiveSearch extends HTMLElement {
         html += `
           <div class="predictive-search__section">
             <h3 class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
-              {{ 'search.filter_articles' | t }}
+              ${this.dataset.articlesHeading}
             </h3>
             <ul class="divide-y divide-[--color-border]">
               ${articles.map(article => `
@@ -216,7 +240,7 @@ class PredictiveSearch extends HTMLElement {
         html += `
           <div class="predictive-search__section">
             <h3 class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
-              {{ 'search.filter_pages' | t }}
+              ${this.dataset.pagesHeading}
             </h3>
             <ul class="divide-y divide-[--color-border]">
               ${pages.map(page => `
@@ -234,7 +258,7 @@ class PredictiveSearch extends HTMLElement {
       html += `
         <div class="p-4 border-t border-[--color-border]">
           <button type="submit" class="w-full btn btn--secondary !py-2.5 !text-sm">
-            {{ 'search.view_all' | t }} "${this.input.value}"
+            ${this.dataset.viewAllText} "${this.input.value}"
           </button>
         </div>
       `;
