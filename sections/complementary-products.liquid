@@ -2,7 +2,7 @@
   Complementary Products Section
   Shows products that are frequently bought together (cross-sell)
   Uses Shopify's complementary product recommendations
-  Required for Shopify Theme Store submission
+  Uses Dawn's product-recommendations custom element pattern
 {%- endcomment -%}
 
 {%- liquid
@@ -15,6 +15,9 @@
 
 <style>
   .complementary-products-{{ section.id }} {
+    --color-background: {{ section.settings.background_color }};
+    --color-text: {{ section.settings.text_color }};
+    --color-border: {{ section.settings.text_color }}30;
     background-color: {{ section.settings.background_color }};
     color: {{ section.settings.text_color }};
     padding: var(--section-vertical-padding) 0;
@@ -98,32 +101,22 @@
     margin-top: 0.5rem;
   }
 
-  .complementary-products-{{ section.id }} .complementary-product__add-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: transparent;
-    border: 1px solid {{ section.settings.text_color }}30;
-    border-radius: var(--button-radius);
-    color: {{ section.settings.text_color }};
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .complementary-products-{{ section.id }} .complementary-product__add-btn:hover {
-    background: {{ section.settings.text_color }};
-    color: {{ section.settings.background_color }};
-  }
-
   .complementary-products-{{ section.id }} .complementary-products__loading {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
     gap: 1rem;
+  }
+
+  @media (max-width: 1023px) {
+    .complementary-products-{{ section.id }} .complementary-products__loading {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .complementary-products-{{ section.id }} .complementary-products__loading {
+      grid-template-columns: 1fr;
+    }
   }
 
   .complementary-products-{{ section.id }} .complementary-products__skeleton {
@@ -132,7 +125,7 @@
     padding: 1rem;
     border: 1px solid {{ section.settings.text_color }}10;
     border-radius: var(--card-radius);
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: complementaryPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
   .complementary-products-{{ section.id }} .skeleton-image {
@@ -162,21 +155,84 @@
     border-radius: 0.25rem;
   }
 
-  @keyframes pulse {
+  @keyframes complementaryPulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
   }
 </style>
 
-<section
-  class="complementary-products-{{ section.id }}"
-  data-complementary-products
-  data-section-id="{{ section.id }}"
-  data-product-id="{{ product.id }}"
-  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&intent=complementary&limit={{ section.settings.products_to_show }}"
->
-  <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
+<section class="complementary-products-{{ section.id }}" data-complementary-section>
+  <product-recommendations
+    class="block"
+    data-url="{{ routes.product_recommendations_url }}?intent=complementary&limit={{ section.settings.products_to_show }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <div class="{{ container_class }}">
+        {%- comment -%} Header {%- endcomment -%}
+        {% if section.settings.title != blank %}
+          <div class="mb-6">
+            <h2 class="complementary-products__title font-bold font-heading">
+              {{ section.settings.title }}
+            </h2>
+            {% if section.settings.description != blank %}
+              <p class="text-sm opacity-70 mt-2">{{ section.settings.description }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {%- comment -%} Products Grid {%- endcomment -%}
+        <div class="complementary-products__grid" data-complementary-grid>
+          {% for recommendation in recommendations.products %}
+            <div class="complementary-product">
+              <a href="{{ recommendation.url }}" class="complementary-product__image">
+                {% if recommendation.featured_image %}
+                  {{ recommendation.featured_image | image_url: width: 200 | image_tag:
+                    loading: 'lazy',
+                    alt: recommendation.title
+                  }}
+                {% endif %}
+              </a>
+              <div class="complementary-product__info">
+                <a href="{{ recommendation.url }}" class="complementary-product__title hover:opacity-70 transition-opacity">
+                  {{ recommendation.title }}
+                </a>
+                <p class="complementary-product__price">
+                  {% if recommendation.compare_at_price > recommendation.price %}
+                    <span class="line-through opacity-60 mr-2">{{ recommendation.compare_at_price | money }}</span>
+                  {% endif %}
+                  {{ recommendation.price | money }}
+                </p>
+                {% if recommendation.available %}
+                  <div class="complementary-product__add">
+                    {% if recommendation.variants.size == 1 %}
+                      <button
+                        type="button"
+                        class="btn btn--secondary btn--sm"
+                        data-quick-add="{{ recommendation.variants.first.id }}"
+                      >
+                        <i class="ph ph-plus"></i>
+                        <span>{{ 'products.product.add_to_cart' | t }}</span>
+                      </button>
+                    {% else %}
+                      <a href="{{ recommendation.url }}" class="btn btn--secondary btn--sm">
+                        <i class="ph ph-eye"></i>
+                        <span>{{ 'products.product.select_options' | t }}</span>
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {%- endif -%}
+  </product-recommendations>
+
+  {%- comment -%} Loading skeleton - outside product-recommendations, hidden when products load {%- endcomment -%}
+  <div class="{{ container_class }}" data-complementary-loading>
     {% if section.settings.title != blank %}
       <div class="mb-6">
         <h2 class="complementary-products__title font-bold font-heading">
@@ -187,9 +243,7 @@
         {% endif %}
       </div>
     {% endif %}
-
-    {%- comment -%} Loading State {%- endcomment -%}
-    <div class="complementary-products__loading" data-complementary-loading>
+    <div class="complementary-products__loading">
       {% for i in (1..section.settings.products_to_show) %}
         <div class="complementary-products__skeleton">
           <div class="skeleton-image"></div>
@@ -200,113 +254,75 @@
         </div>
       {% endfor %}
     </div>
-
-    {%- comment -%} Products Grid {%- endcomment -%}
-    <div class="complementary-products__grid" data-complementary-grid style="display: none;">
-      {% if recommendations.performed and recommendations.products_count > 0 %}
-        {% for recommendation in recommendations.products %}
-          <div class="complementary-product">
-            <a href="{{ recommendation.url }}" class="complementary-product__image">
-              {% if recommendation.featured_image %}
-                {{ recommendation.featured_image | image_url: width: 200 | image_tag:
-                  loading: 'lazy',
-                  alt: recommendation.title
-                }}
-              {% endif %}
-            </a>
-            <div class="complementary-product__info">
-              <a href="{{ recommendation.url }}" class="complementary-product__title hover:opacity-70 transition-opacity">
-                {{ recommendation.title }}
-              </a>
-              <p class="complementary-product__price">
-                {% if recommendation.compare_at_price > recommendation.price %}
-                  <span class="line-through opacity-60 mr-2">{{ recommendation.compare_at_price | money }}</span>
-                {% endif %}
-                {{ recommendation.price | money }}
-              </p>
-              {% if recommendation.available %}
-                <div class="complementary-product__add">
-                  {% if recommendation.variants.size == 1 %}
-                    <button
-                      type="button"
-                      class="complementary-product__add-btn"
-                      data-quick-add="{{ recommendation.variants.first.id }}"
-                    >
-                      <i class="ph ph-plus"></i>
-                      {{ 'products.product.add_to_cart' | t }}
-                    </button>
-                  {% else %}
-                    <a href="{{ recommendation.url }}" class="complementary-product__add-btn">
-                      <i class="ph ph-eye"></i>
-                      {{ 'products.product.select_options' | t }}
-                    </a>
-                  {% endif %}
-                </div>
-              {% endif %}
-            </div>
-          </div>
-        {% endfor %}
-      {% endif %}
-    </div>
   </div>
 </section>
 
+{%- comment -%}
+  Define product-recommendations custom element if not already defined
+  Uses same pattern as Dawn theme
+{%- endcomment -%}
 <script>
-(function() {
-  const section = document.querySelector('[data-complementary-products][data-section-id="{{ section.id }}"]');
-  if (!section) return;
+if (!customElements.get('product-recommendations')) {
+  class ProductRecommendations extends HTMLElement {
+    observer = undefined;
 
-  const productId = section.dataset.productId;
-  const baseUrl = section.dataset.url;
+    constructor() {
+      super();
+    }
 
-  const grid = section.querySelector('[data-complementary-grid]');
-  const loading = section.querySelector('[data-complementary-loading]');
+    connectedCallback() {
+      this.initializeRecommendations(this.dataset.productId);
+    }
 
-  function loadComplementary() {
-    // Fetch the section itself with recommendations populated
-    const url = `${baseUrl}&product_id=${productId}`;
+    initializeRecommendations(productId) {
+      this.observer?.unobserve(this);
+      this.observer = new IntersectionObserver(
+        (entries, observer) => {
+          if (!entries[0].isIntersecting) return;
+          observer.unobserve(this);
+          this.loadRecommendations(productId);
+        },
+        { rootMargin: '0px 0px 400px 0px' }
+      );
+      this.observer.observe(this);
+    }
 
-    fetch(url)
-      .then(response => response.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+    loadRecommendations(productId) {
+      const section = this.closest('[data-complementary-section]');
+      const loading = section?.querySelector('[data-complementary-loading]');
 
-        // Find the grid in the fetched section (which now has recommendations populated)
-        const newGrid = doc.querySelector('[data-complementary-grid]');
+      fetch(`${this.dataset.url}&product_id=${productId}&section_id=${this.dataset.sectionId}`)
+        .then((response) => response.text())
+        .then((text) => {
+          const html = document.createElement('div');
+          html.innerHTML = text;
+          const recommendations = html.querySelector('product-recommendations');
+          const hasProducts = html.querySelector('[data-complementary-grid]');
 
-        if (newGrid && newGrid.children.length > 0) {
-          grid.innerHTML = newGrid.innerHTML;
-          loading.style.display = 'none';
-          grid.style.display = '';
+          if (recommendations && hasProducts) {
+            this.innerHTML = recommendations.innerHTML;
 
-          // Fix: Make dynamically loaded [data-intro] elements visible immediately
-          grid.querySelectorAll('[data-intro]').forEach(el => {
-            el.classList.add('intro-visible');
-          });
-        } else {
-          // No complementary products, hide the entire section
-          section.style.display = 'none';
-        }
-      })
-      .catch(error => {
-        console.error('[Complementary] Error:', error);
-        section.style.display = 'none';
-      });
+            // Fix: Make dynamically loaded [data-intro] elements visible immediately
+            this.querySelectorAll('[data-intro]').forEach(el => {
+              el.classList.add('intro-visible');
+            });
+
+            // Hide loading skeleton
+            if (loading) loading.style.display = 'none';
+          } else {
+            // No recommendations, hide the entire section
+            if (section) section.style.display = 'none';
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+          if (section) section.style.display = 'none';
+        });
+    }
   }
 
-  // Lazy load with Intersection Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        loadComplementary();
-        observer.unobserve(section);
-      }
-    });
-  }, { rootMargin: '200px' });
-
-  observer.observe(section);
-})();
+  customElements.define('product-recommendations', ProductRecommendations);
+}
 </script>
 
 {% schema %}
