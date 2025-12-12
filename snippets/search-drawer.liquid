@@ -1,0 +1,149 @@
+{%- comment -%}
+  Search Drawer - Slide-out search panel with predictive search
+  Renders when header search_type == 'drawer'
+{%- endcomment -%}
+
+<style>
+  /* Search drawer specific styles for wider results */
+  #search-drawer .predictive-search__results {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    margin-top: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  /* Ensure results are visible when shown */
+  #search-drawer .predictive-search__results:not(.hidden) {
+    display: block;
+  }
+</style>
+
+<div
+  id="search-drawer"
+  class="group fixed inset-0 z-[100] pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible"
+  role="dialog"
+  aria-modal="true"
+  inert
+  aria-label="{{ 'search.title' | t }}"
+>
+  {%- comment -%} Backdrop {%- endcomment -%}
+  <div class="drawer-backdrop" data-search-drawer-close></div>
+
+  {%- comment -%} Drawer Panel - slides from top {%- endcomment -%}
+  <div class="absolute top-0 left-0 right-0 bg-[--color-background] -translate-y-full will-change-transform shadow-[0_4px_24px_rgba(0,0,0,0.15)] border-b border-[--color-border]" data-search-drawer-panel>
+    <div class="page-container py-6">
+      {%- comment -%} Header {%- endcomment -%}
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold font-heading">{{ 'search.title' | t }}</h2>
+        <button
+          type="button"
+          class="flex items-center justify-center w-10 h-10 -m-2 bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity hover:opacity-60"
+          data-search-drawer-close
+        >
+          <span class="sr-only">{{ 'accessibility.close' | t }}</span>
+          <i class="ph ph-x text-xl"></i>
+        </button>
+      </div>
+
+      {%- comment -%} Predictive Search {%- endcomment -%}
+      {%- render 'predictive-search' -%}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const searchDrawer = document.getElementById('search-drawer');
+  if (!searchDrawer) return;
+
+  // Prevent duplicate initialization
+  if (searchDrawer.dataset.initialized) return;
+  searchDrawer.dataset.initialized = 'true';
+
+  const panel = searchDrawer.querySelector('[data-search-drawer-panel]');
+  const closeButtons = searchDrawer.querySelectorAll('[data-search-drawer-close]');
+  const searchInput = searchDrawer.querySelector('[data-predictive-search-input]');
+  let isAnimating = false;
+
+  function openDrawer() {
+    if (isAnimating || searchDrawer.classList.contains('is-open')) return;
+    isAnimating = true;
+
+    searchDrawer.classList.add('is-open');
+    searchDrawer.removeAttribute('inert');
+    document.body.style.overflow = 'hidden';
+
+    if (window.gsap) {
+      gsap.to(panel, {
+        y: 0,
+        duration: 0.4,
+        ease: 'power3.out',
+        onComplete: () => {
+          isAnimating = false;
+          // Focus the search input
+          searchInput?.focus();
+        }
+      });
+    } else {
+      panel.style.transform = 'translateY(0)';
+      isAnimating = false;
+      searchInput?.focus();
+    }
+  }
+
+  function closeDrawer() {
+    if (isAnimating || !searchDrawer.classList.contains('is-open')) return;
+    isAnimating = true;
+
+    if (window.gsap) {
+      gsap.to(panel, {
+        y: '-100%',
+        duration: 0.3,
+        ease: 'power3.in',
+        onComplete: () => {
+          searchDrawer.classList.remove('is-open');
+          searchDrawer.setAttribute('inert', '');
+          document.body.style.overflow = '';
+          isAnimating = false;
+        }
+      });
+    } else {
+      panel.style.transform = 'translateY(-100%)';
+      searchDrawer.classList.remove('is-open');
+      searchDrawer.setAttribute('inert', '');
+      document.body.style.overflow = '';
+      isAnimating = false;
+    }
+  }
+
+  // Close button clicks
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', closeDrawer);
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && searchDrawer.classList.contains('is-open')) {
+      closeDrawer();
+    }
+  });
+
+  // Listen for toggle event
+  document.addEventListener('search:toggle', () => {
+    if (searchDrawer.classList.contains('is-open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  // Listen for open event
+  document.addEventListener('search:open', openDrawer);
+
+  // Listen for close event
+  document.addEventListener('search:close', closeDrawer);
+})();
+</script>

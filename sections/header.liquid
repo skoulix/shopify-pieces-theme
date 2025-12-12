@@ -72,6 +72,8 @@
   .header-wrapper.is-transparent .header-inner > nav > div > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent .header-inner > nav button[data-search-drawer-toggle],
+  .header-wrapper.is-transparent .header-inner > nav a[href*="/search"],
   .header-wrapper.is-transparent .header-inner > nav button[data-mobile-nav-open],
   .header-wrapper.is-transparent .header-inner > nav [data-cart-count] {
     color: {{ section.settings.transparent_text_color }};
@@ -106,6 +108,8 @@
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav button[data-search-drawer-toggle],
+  .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav a[href*="/search"],
   .header-wrapper.is-transparent.has-mega-menu-open .header-inner > nav [data-cart-count] {
     color: var(--color-text);
   }
@@ -127,6 +131,8 @@
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .dropdown-wrapper > button,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav > div > div > .mega-menu-wrapper > button,
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav button[data-cart-drawer-toggle],
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav button[data-search-drawer-toggle],
+  .header-wrapper.is-transparent.is-scrolled .header-inner > nav a[href*="/search"],
   .header-wrapper.is-transparent.is-scrolled .header-inner > nav [data-cart-count] {
     color: var(--color-text);
   }
@@ -441,10 +447,21 @@
       {%- comment -%} Right: Icons {%- endcomment -%}
       <div class="flex lg:flex-1 justify-end gap-x-1 lg:gap-x-2">
         {% if section.settings.show_search %}
-          <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
-            <span class="sr-only">{{ 'accessibility.search' | t }}</span>
-            <i class="ph ph-magnifying-glass text-xl"></i>
-          </a>
+          {% if section.settings.search_type == 'drawer' %}
+            <button
+              type="button"
+              class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              data-search-drawer-toggle
+            >
+              <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+              <i class="ph ph-magnifying-glass text-xl"></i>
+            </button>
+          {% else %}
+            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+              <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+              <i class="ph ph-magnifying-glass text-xl"></i>
+            </a>
+          {% endif %}
         {% endif %}
         {% if shop.customer_accounts_enabled %}
           <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
@@ -600,10 +617,21 @@
       {%- comment -%} Header Icons (Mobile + Desktop) {%- endcomment -%}
       <div class="flex {% if nav_position == 'center' or nav_position == 'left' %}lg:flex-1{% endif %} justify-end gap-x-1 lg:gap-x-2">
         {% if section.settings.show_search %}
-          <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
-            <span class="sr-only">{{ 'accessibility.search' | t }}</span>
-            <i class="ph ph-magnifying-glass text-xl"></i>
-          </a>
+          {% if section.settings.search_type == 'drawer' %}
+            <button
+              type="button"
+              class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              data-search-drawer-toggle
+            >
+              <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+              <i class="ph ph-magnifying-glass text-xl"></i>
+            </button>
+          {% else %}
+            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+              <span class="sr-only">{{ 'accessibility.search' | t }}</span>
+              <i class="ph ph-magnifying-glass text-xl"></i>
+            </a>
+          {% endif %}
         {% endif %}
         {% if shop.customer_accounts_enabled %}
           <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
@@ -647,6 +675,11 @@
   %}
 </header>
 </div><!-- /.header-wrapper -->
+
+{%- comment -%} Search Drawer {%- endcomment -%}
+{% if section.settings.show_search and section.settings.search_type == 'drawer' %}
+  {% render 'search-drawer' %}
+{% endif %}
 
 <script data-swup-ignore-script>
 (function() {
@@ -902,6 +935,22 @@
         return;
       }
       document.dispatchEvent(new CustomEvent('cart:toggle'));
+    });
+  });
+
+  /**
+   * Search drawer toggle (when search_type is 'drawer')
+   * Skip if already on search page
+   */
+  document.querySelectorAll('[data-search-drawer-toggle]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // Don't open drawer if already on search page
+      if (window.location.pathname.includes('/search')) {
+        window.location.href = '{{ routes.search_url }}';
+        return;
+      }
+      document.dispatchEvent(new CustomEvent('search:toggle'));
     });
   });
 
@@ -1684,6 +1733,17 @@
       "id": "show_search",
       "default": true,
       "label": "Show search icon"
+    },
+    {
+      "type": "select",
+      "id": "search_type",
+      "label": "Search behavior",
+      "default": "drawer",
+      "options": [
+        { "value": "drawer", "label": "Open search drawer" },
+        { "value": "page", "label": "Link to search page" }
+      ],
+      "info": "Drawer shows predictive search results as you type"
     },
     {
       "type": "checkbox",

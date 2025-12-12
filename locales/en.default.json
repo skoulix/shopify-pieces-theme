@@ -420,6 +420,7 @@
     "filter_pages": "Pages",
     "type_product": "Product",
     "type_article": "Article",
-    "type_page": "Page"
+    "type_page": "Page",
+    "trending": "Trending"
   }
 }
