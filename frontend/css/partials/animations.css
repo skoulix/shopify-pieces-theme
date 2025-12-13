@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Animation Styles - Centralized reveal animations
+   ========================================================================== */
+
+/* Scroll locking for modals, drawers, and page transitions */
+html.scroll-locked {
+  overflow: hidden;
+}
+
+html.scroll-locked body {
+  overflow: hidden;
+  /* Note: position:fixed was removed because it causes scroll jump during Swup transitions.
+     Lenis handles scroll locking via its own mechanisms. For modals/drawers,
+     overflow:hidden on html is sufficient when combined with Lenis.stop() */
+}
+
+/* Image reveal animation states */
+.reveal-image {
+  clip-path: inset(0 100% 0 0);
+}
+
+.reveal-image--animated {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* Content fade-up animation states */
+.reveal-content {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal-content--animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Transitioning state - prevents interactions during animation */
+.is-transitioning {
+  pointer-events: none;
+}
+
+/* Loading state - used for initial hidden state */
+.is-loading .reveal-image {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* ==========================================================================
+   Global Intro Animation - Scroll-triggered fade up effect
+   Usage: <div data-intro>Content</div>
+   Elements animate sequentially as they scroll into view
+   ========================================================================== */
+
+[data-intro] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-intro].intro-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reduced motion - show immediately */
+@media (prefers-reduced-motion: reduce) {
+  [data-intro] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Animations disabled via theme settings - show immediately */
+html.animations-disabled [data-intro] {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* ==========================================================================
+   Spinner Animation - for loading states
+   Note: Tailwind has native `animate-spin` - this is kept for non-Tailwind contexts
+   ========================================================================== */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}

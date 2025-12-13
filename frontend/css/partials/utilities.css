@@ -1,0 +1,348 @@
+/* ==========================================================================
+   Utilities Layer - Custom utilities
+   ========================================================================== */
+
+@layer utilities {
+  /* Note: text-balance and text-pretty are now native in Tailwind v3.4+
+     These are kept for backwards compatibility with older Tailwind versions */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* ==========================================================================
+   Layout Components
+   ========================================================================== */
+
+@layer components {
+  /* Page container */
+  .page-width {
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-8;
+    max-width: var(--page-max-width, 1280px);
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-16 sm:py-24;
+  }
+
+  /* Visually hidden (for screen readers) */
+  .visually-hidden {
+    @apply sr-only;
+  }
+}
+
+/* ==========================================================================
+   Page Header Subtitle - Reusable pattern for collection/blog headers
+   Usage: <p class="page-header-subtitle">
+            <span class="page-header-subtitle-line" data-subtitle-line></span>
+            <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>Text</span></span>
+          </p>
+   ========================================================================== */
+
+.page-header-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-secondary);
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-header-subtitle-line {
+  width: 3rem;
+  height: 1px;
+  background: var(--color-text-secondary);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Show line immediately when animations are disabled */
+html.animations-disabled .page-header-subtitle-line {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header-subtitle-line {
+    transform: scaleX(1);
+  }
+}
+
+/* ==========================================================================
+   Drawer/Modal Backdrop - Reusable backdrop for drawers and modals
+   ========================================================================== */
+
+.drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+}
+
+.drawer-backdrop.is-visible,
+.is-open > .drawer-backdrop,
+.is-open .drawer-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ==========================================================================
+   Facets Drawer - Filter/Sort drawer with slide animation
+   ========================================================================== */
+
+.facets-drawer {
+  pointer-events: none;
+  visibility: hidden;
+  /* Delay visibility:hidden until after slide-out animation completes */
+  transition: visibility 0s 0.3s;
+}
+
+.facets-drawer.is-open {
+  pointer-events: auto;
+  visibility: visible;
+  /* No delay when opening - show immediately */
+  transition: visibility 0s 0s;
+}
+
+/* Quick view modal section wrapper - ensure full height for AJAX-loaded content */
+[id^="shopify-section-quick-view"] {
+  display: contents;
+}
+
+/* ==========================================================================
+   Facets / Collection Filters
+   ========================================================================== */
+
+/* Collection transitioning state */
+.collection-wrapper.is-transitioning [data-collection-content] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* View toggle buttons */
+.facets-view-btn {
+  color: var(--color-text-secondary);
+  background: transparent;
+}
+
+.facets-view-btn:hover {
+  color: var(--color-text);
+  background: var(--color-background-secondary);
+}
+
+.facets-view-btn.is-active {
+  color: var(--color-background);
+  background: var(--color-text);
+}
+
+/* List view styles */
+.collection-wrapper[data-view="list"] .collection-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.collection-wrapper[data-view="list"] .product-card {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  flex-direction: row;
+}
+
+.collection-wrapper[data-view="list"] .product-card-image {
+  width: 80px;
+  height: auto;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+
+.collection-wrapper[data-view="list"] .product-card-image img {
+  object-fit: cover;
+}
+
+/* Secondary image needs background in list view to cover primary when images have different dimensions */
+.collection-wrapper[data-view="list"] .product-card-image img:last-of-type:not(:first-of-type) {
+  background-color: var(--color-background);
+}
+
+/* Hide hover action buttons in list view - they overlap awkwardly */
+.collection-wrapper[data-view="list"] .product-card-actions {
+  display: none;
+}
+
+.collection-wrapper[data-view="list"] .product-card-content {
+  padding: 0.75rem 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Ensure vendor, title, price are on separate rows */
+.collection-wrapper[data-view="list"] .product-card-vendor {
+  margin: 0;
+}
+
+.collection-wrapper[data-view="list"] .product-card-title {
+  margin: 0;
+}
+
+.collection-wrapper[data-view="list"] .product-card-price {
+  margin: 0;
+}
+
+.collection-wrapper[data-view="list"] .product-card-quick-add {
+  padding: 0 1rem;
+  background: transparent;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.collection-wrapper[data-view="list"] .product-card-quick-add .btn {
+  width: auto;
+}
+
+/* Show action buttons in list view */
+.collection-wrapper[data-view="list"] .product-card-actions-list {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .collection-wrapper[data-view="list"] .product-card {
+    grid-template-columns: 100px 1fr auto;
+    gap: 1.5rem;
+  }
+
+  .collection-wrapper[data-view="list"] .product-card-image {
+    width: 100px;
+  }
+}
+
+/* Product card when no border AND no shadow */
+[data-card-no-border][data-card-no-shadow] .product-card-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+[data-card-no-border][data-card-no-shadow] .product-card-quick-add {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* List view dividers when card has no border */
+.collection-wrapper[data-view="list"][data-card-no-border] .collection-grid {
+  gap: 0;
+}
+
+.collection-wrapper[data-view="list"][data-card-no-border] .product-card {
+  padding: 1rem 0;
+}
+
+.collection-wrapper[data-view="list"][data-card-no-border] .collection-grid__divider {
+  display: block !important;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+  width: 100%;
+  max-width: 28rem;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .toast-container {
+    bottom: 2rem;
+  }
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--color-text);
+  color: var(--color-background);
+  border-radius: var(--button-radius);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast--leaving {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+
+.toast__icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.toast--success .toast__icon {
+  color: #22c55e;
+}
+
+.toast--error .toast__icon {
+  color: #ef4444;
+}
+
+.toast--info .toast__icon {
+  color: #3b82f6;
+}
+
+.toast__message {
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.toast__close {
+  flex-shrink: 0;
+  padding: 0.25rem;
+  margin: -0.25rem;
+  background: transparent;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.toast__close:hover {
+  opacity: 1;
+}
