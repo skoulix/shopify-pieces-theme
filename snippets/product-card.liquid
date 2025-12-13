@@ -149,7 +149,7 @@
             type="button"
             class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white"
             data-wishlist-toggle="{{ product.id }}"
-            data-product-json='{{ wishlist_product_json | strip_newlines }}'
+            data-product-json='{{ wishlist_product_json | strip_newlines | replace: "'", "&#39;" }}'
             aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}"
             aria-pressed="false"
           >
@@ -165,7 +165,7 @@
             type="button"
             class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
             data-compare-toggle="{{ product.id }}"
-            data-product-json='{{ compare_product_json | strip_newlines }}'
+            data-product-json='{{ compare_product_json | strip_newlines | replace: "'", "&#39;" }}'
             aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}"
             aria-pressed="false"
           >

@@ -380,3 +380,35 @@
 .ph.ph-youtube-logo:before {
   content: "\e4fc";
 }
+
+@font-face {
+  font-family: "Phosphor-Fill";
+  src:
+    url("pieces-Phosphor-Fill.woff2") format("woff2"),
+    url("pieces-Phosphor-Fill.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.ph-fill {
+  font-family: "Phosphor-Fill" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga";
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ph-fill.ph-heart:before {
+  content: "\e2a8";
+}

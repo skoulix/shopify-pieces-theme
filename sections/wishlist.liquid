@@ -67,13 +67,13 @@
   }
 </style>
 
-<div class="wishlist-page page-container" data-wishlist-page>
+<div class="wishlist-page page-container" data-wishlist-section id="wishlist-section-{{ section.id }}">
   <header class="wishlist-page__header">
     <h1 class="wishlist-page__title font-heading">{{ section.settings.title | default: page.title | default: 'Wishlist' }}</h1>
-    <p class="wishlist-page__subtitle" data-wishlist-page-count>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
+    <p class="wishlist-page__subtitle" data-wishlist-section-count>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
   </header>
 
-  <div data-wishlist-page-content>
+  <div data-wishlist-section-content>
     {%- comment -%} Content rendered via JS {%- endcomment -%}
   </div>
 </div>
@@ -82,11 +82,11 @@
 (function() {
   const STORAGE_KEY = 'pieces_wishlist';
 
-  const page = document.querySelector('[data-wishlist-page]');
-  const content = document.querySelector('[data-wishlist-page-content]');
-  const countEl = document.querySelector('[data-wishlist-page-count]');
+  const section = document.getElementById('wishlist-section-{{ section.id }}');
+  const content = section?.querySelector('[data-wishlist-section-content]');
+  const countEl = section?.querySelector('[data-wishlist-section-count]');
 
-  if (!page || !content) return;
+  if (!section || !content) return;
 
   function getProducts() {
     try {
@@ -136,10 +136,16 @@
     return div.innerHTML;
   }
 
+  let isRendering = false;
+
   function removeProduct(productId) {
     const products = getProducts().filter(p => String(p.id) !== String(productId));
     saveProducts(products);
+    // Render first for immediate feedback
+    isRendering = true;
     render();
+    isRendering = false;
+    // Then dispatch event for other components (drawer, header count, etc.)
     document.dispatchEvent(new CustomEvent('wishlist:removed', { detail: { productId } }));
   }
 
@@ -171,16 +177,16 @@
       <div class="wishlist-page__grid">
         ${products.map(product => `
           <article class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full" style="border: var(--card-border-width) solid var(--color-border); box-shadow: var(--card-shadow);" data-intro>
+            <button
+              type="button"
+              class="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-[--color-sale] text-white shadow-md transition-all duration-300 hover:scale-110"
+              data-remove-wishlist-page="${product.id}"
+              aria-label="{{ 'products.wishlist.remove' | t | default: 'Remove' }}"
+            >
+              <i class="ph-fill ph-heart text-base" aria-hidden="true"></i>
+            </button>
             <a href="${escapeHtml(product.url)}" class="flex flex-col flex-1 cursor-pointer">
               <div class="product-card-image relative overflow-hidden aspect-[3/4]">
-                <button
-                  type="button"
-                  class="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-[--color-sale] text-white shadow-md transition-all duration-300 hover:scale-110"
-                  data-remove-wishlist-page="${product.id}"
-                  aria-label="{{ 'products.wishlist.remove' | t | default: 'Remove' }}"
-                >
-                  <i class="ph ph-heart-fill text-base" aria-hidden="true"></i>
-                </button>
                 ${product.image ? `
                   <img
                     src="${escapeHtml(product.image)}"
@@ -270,9 +276,13 @@
     }
   });
 
-  document.addEventListener('wishlist:added', render);
-  document.addEventListener('wishlist:removed', render);
-  document.addEventListener('wishlist:cleared', render);
+  // Listen for external wishlist changes (from drawer, other tabs, etc.)
+  function handleExternalChange() {
+    if (!isRendering) render();
+  }
+  document.addEventListener('wishlist:added', handleExternalChange);
+  document.addEventListener('wishlist:removed', handleExternalChange);
+  document.addEventListener('wishlist:cleared', handleExternalChange);
 })();
 </script>
 
