@@ -50,7 +50,7 @@
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank or section.settings.show_add_all %}
-      <header class="mb-6 flex flex-col gap-4 {% if section.settings.alignment == 'center' %}items-center text-center{% elsif section.settings.alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}" data-intro>
+      <header class="mb-6 flex flex-col gap-4 {% if section.settings.alignment == 'center' %}items-center text-center{% elsif section.settings.alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}" data-tween data-tween-type="fade-up">
         <div>
           {% if section.settings.label != blank %}
             <p class="label mb-2">{{ section.settings.label }}</p>
@@ -80,7 +80,7 @@
     {% endif %}
 
     {%- comment -%} Loading State {%- endcomment -%}
-    <div class="grid grid-cols-1 {{ grid_cols }} gap-4" data-complementary-loading data-intro>
+    <div class="grid grid-cols-1 {{ grid_cols }} gap-4" data-complementary-loading data-tween data-tween-type="fade-up">
       {% for i in (1..section.settings.products_to_show) %}
         <div class="complementary-card flex gap-4 p-4 border border-current/10 rounded-lg animate-pulse">
           <div class="shrink-0 w-20 h-20 rounded skeleton-bg"></div>
@@ -93,7 +93,7 @@
     </div>
 
     {%- comment -%} Products Grid - rendered via JS fetch {%- endcomment -%}
-    <div class="grid grid-cols-1 {{ grid_cols }} gap-4 hidden" data-complementary-grid data-intro>
+    <div class="grid grid-cols-1 {{ grid_cols }} gap-4 hidden" data-complementary-grid data-tween data-tween-type="fade-up">
       {% if recommendations.performed and recommendations.products_count > 0 %}
         {% for recommendation in recommendations.products %}
           <div class="complementary-card flex gap-4 p-4 border border-current/10 rounded-lg hover:border-current/30 transition-colors">
@@ -256,10 +256,10 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Trigger intro animations for header and loading state
-        section.querySelectorAll('[data-intro]').forEach(el => {
-          el.classList.add('intro-visible');
-        });
+        // Trigger tween animations
+        if (window.pieces?.tween) {
+          window.pieces.tween.reinit();
+        }
         loadRecommendations();
         observer.unobserve(section);
       }

@@ -141,17 +141,17 @@
             <div class="slide-content" data-bg-color="{{ block.settings.background_color | default: '#ffffff' }}">
               <div class="content w-full">
                 {%- if block.settings.label != blank -%}
-                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-intro>
+                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
                     {{- block.settings.label -}}
                   </span>
                 {%- endif -%}
                 {%- if block.settings.title != blank -%}
-                  <h2 class="slide-title text-3xl font-bold leading-tight tracking-tight mb-2" data-intro>
+                  <h2 class="slide-title text-3xl font-bold leading-tight tracking-tight mb-2" data-tween data-tween-type="fade-up">
                     {{- block.settings.title -}}
                   </h2>
                 {%- endif -%}
                 {%- if block.settings.description != blank -%}
-                  <p class="slide-description text-base leading-relaxed mb-7 opacity-80" data-intro>
+                  <p class="slide-description text-base leading-relaxed mb-7 opacity-80" data-tween data-tween-type="fade-up">
                     {{- block.settings.description -}}
                   </p>
                 {%- endif -%}
@@ -159,7 +159,7 @@
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
                     class="btn"
-                    data-intro
+                    data-tween data-tween-type="fade-up"
                   >
                     <span>{{ block.settings.button_text }}</span>
                   </a>
@@ -185,17 +185,17 @@
             >
               <div class="content w-full">
                 {%- if block.settings.label != blank -%}
-                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-intro>
+                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
                     {{- block.settings.label -}}
                   </span>
                 {%- endif -%}
                 {%- if block.settings.title != blank -%}
-                  <h2 class="slide-title text-3xl lg:text-[42px] font-bold leading-tight tracking-tight mb-2" data-intro>
+                  <h2 class="slide-title text-3xl lg:text-[42px] font-bold leading-tight tracking-tight mb-2" data-tween data-tween-type="fade-up">
                     {{- block.settings.title -}}
                   </h2>
                 {%- endif -%}
                 {%- if block.settings.description != blank -%}
-                  <p class="slide-description text-base lg:text-lg leading-relaxed mb-7 opacity-80" data-intro>
+                  <p class="slide-description text-base lg:text-lg leading-relaxed mb-7 opacity-80" data-tween data-tween-type="fade-up">
                     {{- block.settings.description -}}
                   </p>
                 {%- endif -%}
@@ -203,7 +203,7 @@
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
                     class="btn"
-                    data-intro
+                    data-tween data-tween-type="fade-up"
                   >
                     <span>{{ block.settings.button_text }}</span>
                   </a>
