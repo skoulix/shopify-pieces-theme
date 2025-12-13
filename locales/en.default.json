@@ -305,17 +305,23 @@
       "empty_title": "No products to compare",
       "empty_text": "Add products to compare by clicking the compare icon on product cards.",
       "browse_products": "Browse Products",
-      "continue_shopping": "Continue Shopping"
+      "continue_shopping": "Continue Shopping",
+      "open_drawer": "Open compare drawer",
+      "price": "Price"
     },
     "wishlist": {
       "title": "Wishlist",
       "add_to_wishlist": "Add to wishlist",
       "remove": "Remove",
+      "remove_from_wishlist": "Remove from wishlist",
       "view_all": "View All Saved Items",
       "view": "View",
       "empty_title": "Your wishlist is empty",
-      "empty_text": "Save your favorite products by clicking the heart icon",
-      "browse_products": "Browse Products"
+      "empty_text": "Save your favorite products by clicking the heart icon on product cards.",
+      "browse_products": "Browse Products",
+      "continue_shopping": "Continue Shopping",
+      "clear_all": "Clear All",
+      "products": "saved items"
     }
   },
   "customers": {

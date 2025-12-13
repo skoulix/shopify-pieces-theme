@@ -261,6 +261,40 @@
       "adding": "Wird hinzugefügt...",
       "added": "Hinzugefügt!",
       "error": "Fehler beim Hinzufügen"
+    },
+    "compare": {
+      "compare": "Vergleichen",
+      "compare_products": "Produkte vergleichen",
+      "add_to_compare": "Zum Vergleich hinzufügen",
+      "remove": "Entfernen",
+      "clear_all": "Alle löschen",
+      "view_compare": "Vergleich anzeigen",
+      "view_comparison": "Vergleich anzeigen",
+      "add_product": "Produkt hinzufügen",
+      "products": "Produkte",
+      "product": "Produkt",
+      "vendor": "Anbieter",
+      "availability": "Verfügbarkeit",
+      "empty_title": "Keine Produkte zum Vergleichen",
+      "empty_text": "Fügen Sie Produkte zum Vergleichen hinzu, indem Sie auf das Vergleichssymbol auf Produktkarten klicken.",
+      "browse_products": "Produkte durchstöbern",
+      "continue_shopping": "Weiter einkaufen",
+      "open_drawer": "Vergleichsleiste öffnen",
+      "price": "Preis"
+    },
+    "wishlist": {
+      "title": "Wunschliste",
+      "add_to_wishlist": "Zur Wunschliste hinzufügen",
+      "remove": "Entfernen",
+      "remove_from_wishlist": "Von Wunschliste entfernen",
+      "view_all": "Alle gespeicherten Artikel anzeigen",
+      "view": "Anzeigen",
+      "empty_title": "Ihre Wunschliste ist leer",
+      "empty_text": "Speichern Sie Ihre Lieblingsprodukte, indem Sie auf das Herzsymbol auf Produktkarten klicken.",
+      "browse_products": "Produkte durchstöbern",
+      "continue_shopping": "Weiter einkaufen",
+      "clear_all": "Alle löschen",
+      "products": "gespeicherte Artikel"
     }
   },
   "customers": {

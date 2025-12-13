@@ -58,6 +58,9 @@
   data-show-sale-badge="{{ settings.show_sale_badge }}"
   data-sale-badge-style="{{ settings.sale_badge_style }}"
   data-show-sold-out-badge="{{ settings.show_sold_out_badge }}"
+  data-enable-wishlist="{{ settings.enable_wishlist }}"
+  data-enable-compare="{{ settings.enable_compare }}"
+  data-enable-quick-view="{{ settings.enable_quick_view }}"
   style="display: none;"
 >
   <div class="{{ container_class }}">
@@ -128,6 +131,10 @@
     const showSaleBadge = section.dataset.showSaleBadge === 'true';
     const saleBadgeStyle = section.dataset.saleBadgeStyle || 'text';
     const showSoldOutBadge = section.dataset.showSoldOutBadge === 'true';
+    const enableWishlist = section.dataset.enableWishlist === 'true';
+    const enableCompare = section.dataset.enableCompare === 'true';
+    const enableQuickView = section.dataset.enableQuickView === 'true';
+    const showActionButtons = enableWishlist || enableCompare || enableQuickView;
 
     const track = section.querySelector('[data-carousel-track]');
     const prevBtn = section.querySelector('[data-carousel-prev]');
@@ -175,11 +182,11 @@
       const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       return moneyFormat
-        .replace('{{amount_with_comma_separator}}', amountWithComma)
-        .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
-        .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
-        .replace('{{amount_no_decimals}}', amountNoDecimals.toLocaleString('en-US'))
-        .replace('{{amount}}', amountFormatted);
+        .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, amountWithComma)
+        .replace(/\{\{\s*amount_no_decimals_with_comma_separator\s*\}\}/g, amountNoDecimalsWithComma)
+        .replace(/\{\{\s*amount_with_apostrophe_separator\s*\}\}/g, amountWithApostrophe)
+        .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, amountNoDecimals.toLocaleString('en-US'))
+        .replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
     }
 
     function escapeHtml(str) {
@@ -242,6 +249,46 @@
                   </span>
                 ` : ''}
               </div>
+
+              <!-- Action buttons -->
+              ${showActionButtons ? `
+                <div class="product-card-actions absolute bottom-3 left-3 right-3 z-10 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  ${enableQuickView && product.available ? `
+                    <button
+                      type="button"
+                      class="product-card-quick-view w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background]"
+                      data-quick-view-trigger="${escapeHtml(product.handle)}"
+                      aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: ${escapeHtml(product.title)}"
+                    >
+                      <i class="ph ph-eye text-lg" aria-hidden="true"></i>
+                    </button>
+                  ` : ''}
+                  ${enableWishlist ? `
+                    <button
+                      type="button"
+                      class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white"
+                      data-wishlist-toggle="${product.id}"
+                      data-product-data="${JSON.stringify(product.id)}||${JSON.stringify(product.handle)}||${JSON.stringify(product.title)}||${JSON.stringify(product.url)}||${JSON.stringify(product.image || '')}||${JSON.stringify(product.price)}||${JSON.stringify(product.compareAtPrice || 0)}||${JSON.stringify(product.vendor || '')}||${JSON.stringify(product.available !== false)}"
+                      aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: ${escapeHtml(product.title)}"
+                      aria-pressed="false"
+                    >
+                      <i class="ph ph-heart text-lg" aria-hidden="true"></i>
+                    </button>
+                  ` : ''}
+                  ${enableCompare ? `
+                    <button
+                      type="button"
+                      class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+                      data-compare-toggle="${product.id}"
+                      data-product-data="${JSON.stringify(product.id)}||${JSON.stringify(product.handle)}||${JSON.stringify(product.title)}||${JSON.stringify(product.url)}||${JSON.stringify(product.image || '')}||${JSON.stringify(product.price)}||${JSON.stringify(product.compareAtPrice || 0)}||${JSON.stringify(product.vendor || '')}||${JSON.stringify(product.available !== false)}"
+                      aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: ${escapeHtml(product.title)}"
+                      aria-pressed="false"
+                    >
+                      <i class="ph ph-scales text-lg" aria-hidden="true"></i>
+                    </button>
+                  ` : ''}
+                </div>
+              ` : ''}
             </div>
 
             <a href="${escapeHtml(product.url)}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline">

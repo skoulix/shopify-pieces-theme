@@ -271,7 +271,8 @@
   const closeBtn = document.querySelector('[data-compare-drawer-close]');
   const viewBtn = document.querySelector('[data-compare-view-btn]');
 
-  if (!drawer || !floatingBtn) return;
+  // Allow functionality even if drawer elements aren't found (click handlers still work)
+  const hasDrawer = drawer && floatingBtn;
 
   function getProducts() {
     try {
@@ -291,13 +292,31 @@
   }
 
   function formatMoney(cents) {
-    if (typeof cents === 'string') cents = cents.replace('.', '');
-    cents = parseInt(cents, 10) || 0;
+    // Handle string input - remove any non-numeric chars except decimal
+    if (typeof cents === 'string') {
+      cents = cents.replace(/[^\d.-]/g, '');
+      if (cents.includes('.')) {
+        cents = Math.round(parseFloat(cents) * 100);
+      } else {
+        cents = parseInt(cents, 10);
+      }
+    }
+    cents = cents || 0;
+
     const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
     const value = cents / 100;
+    const amountNoDecimals = Math.floor(value);
+    const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountWithComma = value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+    const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     return moneyFormat
-      .replace('{{amount_no_decimals}}', Math.floor(value).toString())
-      .replace('{{amount}}', value.toFixed(2));
+      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, amountWithComma)
+      .replace(/\{\{\s*amount_no_decimals_with_comma_separator\s*\}\}/g, amountNoDecimalsWithComma)
+      .replace(/\{\{\s*amount_with_apostrophe_separator\s*\}\}/g, amountWithApostrophe)
+      .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, amountNoDecimals.toLocaleString('en-US'))
+      .replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
   }
 
   function escapeHtml(str) {
@@ -310,16 +329,26 @@
     const products = getProducts();
     const count = products.length;
 
-    // Update counts
-    if (countEl) countEl.textContent = count;
+    // Update all count elements (including facets toolbar)
+    document.querySelectorAll('[data-compare-count]').forEach(el => {
+      el.textContent = count;
+    });
     if (drawerCountEl) drawerCountEl.textContent = count;
 
     // Show/hide floating button
-    if (count > 0) {
-      floatingBtn.classList.add('is-visible');
-    } else {
-      floatingBtn.classList.remove('is-visible');
-      closeDrawer();
+    if (hasDrawer) {
+      if (count > 0) {
+        floatingBtn.classList.add('is-visible');
+      } else {
+        floatingBtn.classList.remove('is-visible');
+        closeDrawer();
+      }
+    }
+
+    // Show/hide facets toolbar compare button
+    const facetsCompareBtn = document.querySelector('.facets-compare-btn');
+    if (facetsCompareBtn) {
+      facetsCompareBtn.classList.toggle('hidden', count === 0);
     }
 
     // Update view button
@@ -408,6 +437,7 @@
   }
 
   function openDrawer() {
+    if (!hasDrawer) return;
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
     floatingBtn.setAttribute('aria-expanded', 'true');
@@ -421,6 +451,7 @@
   }
 
   function closeDrawer() {
+    if (!hasDrawer) return;
     drawer.classList.remove('is-open');
     drawer.setAttribute('aria-hidden', 'true');
     floatingBtn.setAttribute('aria-expanded', 'false');
@@ -429,23 +460,37 @@
 
   // Escape key handler
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+    if (hasDrawer && e.key === 'Escape' && drawer.classList.contains('is-open')) {
       closeDrawer();
       floatingBtn.focus();
     }
   });
 
   // Event listeners
-  floatingBtn.addEventListener('click', () => {
-    if (drawer.classList.contains('is-open')) {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
-  });
+  if (hasDrawer) {
+    floatingBtn.addEventListener('click', () => {
+      if (drawer.classList.contains('is-open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
 
-  closeBtn?.addEventListener('click', closeDrawer);
-  clearBtn?.addEventListener('click', clearProducts);
+    // Handle drawer toggle buttons (like facets toolbar)
+    document.addEventListener('click', (e) => {
+      const toggleBtn = e.target.closest('[data-compare-drawer-toggle]');
+      if (!toggleBtn) return;
+      e.preventDefault();
+      if (drawer.classList.contains('is-open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
+    });
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    clearBtn?.addEventListener('click', clearProducts);
+  }
 
   // Listen for compare events from product cards
   document.addEventListener('compare:toggle', (e) => {

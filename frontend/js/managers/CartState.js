@@ -222,36 +222,37 @@ class CartState {
    * Handles all Shopify money format placeholders
    */
   formatMoney(cents) {
+    // Handle string input - remove any non-numeric chars except decimal
     if (typeof cents === 'string') {
-      cents = cents.replace('.', '');
+      cents = cents.replace(/[^\d.-]/g, '');
+      if (cents.includes('.')) {
+        cents = Math.round(parseFloat(cents) * 100);
+      } else {
+        cents = parseInt(cents, 10);
+      }
     }
-    cents = parseInt(cents, 10) || 0;
+    cents = cents || 0;
 
     const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
-
     const value = cents / 100;
-    const amount = value.toFixed(2);
     const amountNoDecimals = Math.floor(value);
-    const amountWithCommaSeparator = amount.replace('.', ',');
-    const amountNoDecimalsWithCommaSeparator = amountNoDecimals.toString();
-    const amountWithApostropheSeparator = amount.replace('.', "'");
 
-    const addThousandSeparator = (numStr, sep) => {
-      const parts = numStr.split(/[.,]/);
-      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-      return parts.join(numStr.includes(',') ? ',' : '.');
-    };
-
-    const amountWithSpaceSeparator = addThousandSeparator(amount, ' ');
+    // Format with thousand separators using locale
+    const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountWithComma = value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+    const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountWithSpace = value.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountNoDecimalsWithSpace = amountNoDecimals.toLocaleString('fr-FR');
 
     return moneyFormat
-      .replace('{{amount_with_comma_separator}}', amountWithCommaSeparator)
-      .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithCommaSeparator)
-      .replace('{{amount_with_apostrophe_separator}}', amountWithApostropheSeparator)
-      .replace('{{amount_no_decimals_with_space_separator}}', addThousandSeparator(amountNoDecimals.toString(), ' '))
-      .replace('{{amount_with_space_separator}}', amountWithSpaceSeparator)
-      .replace('{{amount_no_decimals}}', amountNoDecimals.toString())
-      .replace('{{amount}}', amount);
+      .replace('{{amount_with_comma_separator}}', amountWithComma)
+      .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
+      .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
+      .replace('{{amount_no_decimals_with_space_separator}}', amountNoDecimalsWithSpace)
+      .replace('{{amount_with_space_separator}}', amountWithSpace)
+      .replace('{{amount_no_decimals}}', amountNoDecimals.toLocaleString('en-US'))
+      .replace('{{amount}}', amountFormatted);
   }
 
   /**

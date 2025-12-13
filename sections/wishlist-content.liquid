@@ -132,11 +132,11 @@
     const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     return moneyFormat
-      .replace('{{amount_with_comma_separator}}', amountWithComma)
-      .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
-      .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
-      .replace('{{amount_no_decimals}}', amountNoDecimals.toLocaleString('en-US'))
-      .replace('{{amount}}', amountFormatted);
+      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, amountWithComma)
+      .replace(/\{\{\s*amount_no_decimals_with_comma_separator\s*\}\}/g, amountNoDecimalsWithComma)
+      .replace(/\{\{\s*amount_with_apostrophe_separator\s*\}\}/g, amountWithApostrophe)
+      .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, amountNoDecimals.toLocaleString('en-US'))
+      .replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
   }
 
   function escapeHtml(str) {

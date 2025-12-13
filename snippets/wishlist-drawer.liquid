@@ -243,7 +243,8 @@
   const countEl = document.querySelector('[data-wishlist-drawer-count]');
   const closeBtn = document.querySelector('[data-wishlist-close]');
 
-  if (!drawer) return;
+  // Allow functionality even if drawer isn't found (click handlers still work)
+  const hasDrawer = !!drawer;
 
   function getProducts() {
     try {
@@ -261,13 +262,31 @@
   }
 
   function formatMoney(cents) {
-    if (typeof cents === 'string') cents = cents.replace('.', '');
-    cents = parseInt(cents, 10) || 0;
+    // Handle string input - remove any non-numeric chars except decimal
+    if (typeof cents === 'string') {
+      cents = cents.replace(/[^\d.-]/g, '');
+      if (cents.includes('.')) {
+        cents = Math.round(parseFloat(cents) * 100);
+      } else {
+        cents = parseInt(cents, 10);
+      }
+    }
+    cents = cents || 0;
+
     const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
     const value = cents / 100;
+    const amountNoDecimals = Math.floor(value);
+    const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountWithComma = value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+    const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
     return moneyFormat
-      .replace('{{amount_no_decimals}}', Math.floor(value).toString())
-      .replace('{{amount}}', value.toFixed(2));
+      .replace(/\{\{\s*amount_with_comma_separator\s*\}\}/g, amountWithComma)
+      .replace(/\{\{\s*amount_no_decimals_with_comma_separator\s*\}\}/g, amountNoDecimalsWithComma)
+      .replace(/\{\{\s*amount_with_apostrophe_separator\s*\}\}/g, amountWithApostrophe)
+      .replace(/\{\{\s*amount_no_decimals\s*\}\}/g, amountNoDecimals.toLocaleString('en-US'))
+      .replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
   }
 
   function escapeHtml(str) {
@@ -363,9 +382,10 @@
   let previouslyFocused = null;
 
   function openDrawer() {
+    if (!hasDrawer) return;
     previouslyFocused = document.activeElement;
     drawer.classList.add('is-open');
-    overlay.classList.add('is-visible');
+    overlay?.classList.add('is-visible');
     drawer.setAttribute('aria-hidden', 'false');
     drawer.removeAttribute('inert');
     document.body.style.overflow = 'hidden';
@@ -381,6 +401,7 @@
   }
 
   function closeDrawer() {
+    if (!hasDrawer) return;
     // Deactivate focus trap
     if (focusTrap) {
       focusTrap.deactivate(false);
@@ -388,7 +409,7 @@
     }
 
     drawer.classList.remove('is-open');
-    overlay.classList.remove('is-visible');
+    overlay?.classList.remove('is-visible');
     drawer.setAttribute('aria-hidden', 'true');
     drawer.setAttribute('inert', '');
     document.body.style.overflow = '';
@@ -400,9 +421,11 @@
     }
   }
 
-  // Event listeners
-  closeBtn?.addEventListener('click', closeDrawer);
-  overlay?.addEventListener('click', closeDrawer);
+  // Event listeners (only if drawer exists)
+  if (hasDrawer) {
+    closeBtn?.addEventListener('click', closeDrawer);
+    overlay?.addEventListener('click', closeDrawer);
+  }
 
   // Listen for wishlist toggle from product cards
   document.addEventListener('click', (e) => {
@@ -461,7 +484,7 @@
 
   // Escape key to close
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+    if (hasDrawer && e.key === 'Escape' && drawer.classList.contains('is-open')) {
       closeDrawer();
     }
   });
