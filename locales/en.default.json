@@ -123,6 +123,12 @@
     "tiktok": "TikTok"
   },
   "general": {
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collections",
+      "search": "Search",
+      "cart": "Cart"
+    },
     "newsletter": {
       "label": "Stay Updated",
       "submit": "Subscribe",
@@ -253,6 +259,18 @@
         "reset_3d_model": "Reset 3D model view",
         "view_in_ar": "View in your space"
       }
+    },
+    "inventory": {
+      "low_stock": "Low stock",
+      "only_x_left": "Only {{ count }} left",
+      "almost_gone": "Almost gone!",
+      "selling_fast": "Selling fast",
+      "stock_level": "Stock level",
+      "remaining": "remaining",
+      "x_items_left": "{{ count }} items left",
+      "hurry_almost_gone": "Hurry, almost gone!",
+      "order_soon": "Order soon - selling fast!",
+      "low_stock_warning": "Low stock - order soon"
     },
     "size_chart": {
       "title": "Size Guide",

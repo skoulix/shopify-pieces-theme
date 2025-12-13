@@ -1,0 +1,139 @@
+{%- comment -%}
+  Animation Initialization Helper
+  Provides standardized GSAP/ScrollTrigger animation setup
+
+  Usage (in section JavaScript):
+    {% render 'animation-init', section_id: section.id %}
+
+  This outputs a reusable animation initialization function that:
+  - Checks if animations should run (respects reduced motion)
+  - Waits for GSAP and ScrollTrigger to load
+  - Handles Swup page transitions
+  - Provides consistent scroll trigger defaults
+
+  Parameters:
+    - section_id: The section's unique ID
+    - trigger_offset: Override scroll trigger offset (optional)
+{%- endcomment -%}
+
+<script>
+(function() {
+  'use strict';
+
+  const SECTION_ID = '{{ section.id }}';
+  const SECTION_EL = document.getElementById('shopify-section-{{ section.id }}') ||
+                     document.querySelector('[data-section-id="{{ section.id }}"]');
+
+  if (!SECTION_EL) return;
+
+  /**
+   * Initialize animations for this section
+   * Called on initial load and after Swup page transitions
+   */
+  function initAnimations() {
+    // Respect user preferences and theme settings
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+      // Show all elements immediately if animations disabled
+      SECTION_EL.querySelectorAll('[data-intro]').forEach(el => {
+        el.classList.add('intro-visible');
+      });
+      return;
+    }
+
+    // Wait for GSAP and ScrollTrigger
+    if (!window.gsap || !window.ScrollTrigger) {
+      // Fallback: show elements after short delay
+      setTimeout(() => {
+        SECTION_EL.querySelectorAll('[data-intro]').forEach(el => {
+          el.classList.add('intro-visible');
+        });
+      }, 100);
+      return;
+    }
+
+    // Get scroll trigger start value from theme settings
+    const scrollStart = typeof window.getScrollStart === 'function'
+      ? window.getScrollStart('top 85%')
+      : 'top 85%';
+
+    // Animate elements with data-intro attribute
+    const introElements = SECTION_EL.querySelectorAll('[data-intro]');
+    if (introElements.length > 0) {
+      gsap.fromTo(introElements,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: SECTION_EL,
+            start: scrollStart,
+            once: true
+          },
+          onComplete: function() {
+            introElements.forEach(el => el.classList.add('intro-visible'));
+          }
+        }
+      );
+    }
+
+    // Animate title lines (split text reveal)
+    const titleLines = SECTION_EL.querySelectorAll('.title-line > span');
+    if (titleLines.length > 0) {
+      gsap.fromTo(titleLines,
+        { yPercent: 100 },
+        {
+          yPercent: 0,
+          duration: 1,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: SECTION_EL,
+            start: scrollStart,
+            once: true
+          }
+        }
+      );
+    }
+  }
+
+  /**
+   * Cleanup ScrollTrigger instances when leaving page
+   */
+  function cleanup() {
+    if (window.ScrollTrigger) {
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars.trigger === SECTION_EL ||
+            SECTION_EL.contains(trigger.vars.trigger)) {
+          trigger.kill();
+        }
+      });
+    }
+  }
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    // Small delay to ensure GSAP is loaded
+    requestAnimationFrame(initAnimations);
+  }
+
+  // Re-initialize on Swup page transitions
+  if (typeof window.onSwupContentReplaced === 'function') {
+    window.onSwupContentReplaced('section-' + SECTION_ID, function() {
+      // Check if this section still exists in the new content
+      const newSection = document.getElementById('shopify-section-{{ section.id }}') ||
+                         document.querySelector('[data-section-id="{{ section.id }}"]');
+      if (newSection) {
+        requestAnimationFrame(initAnimations);
+      }
+    });
+  }
+
+  // Cleanup on page leave (for Swup)
+  window.addEventListener('swup:willReplaceContent', cleanup);
+})();
+</script>

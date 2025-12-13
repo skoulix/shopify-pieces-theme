@@ -149,7 +149,13 @@
     "min_price": "Min. pris",
     "max_price": "Maks. pris",
     "to": "til",
-    "shop_now": "Shop nu"
+    "shop_now": "Shop nu",
+    "breadcrumbs": {
+      "home": "Hjem",
+      "collections": "Kollektioner",
+      "search": "Søg",
+      "cart": "Kurv"
+    }
   },
   "404": {
     "title": "Siden blev ikke fundet",
@@ -326,6 +332,18 @@
       "clear_all": "Ryd alle",
       "products": "gemte varer",
       "items_count": "varer"
+    },
+    "inventory": {
+      "low_stock": "Lav lagerbeholdning",
+      "only_x_left": "Kun {{ count }} tilbage",
+      "almost_gone": "Næsten udsolgt!",
+      "selling_fast": "Sælger hurtigt",
+      "stock_level": "Lagerniveau",
+      "remaining": "tilbage",
+      "x_items_left": "{{ count }} varer tilbage",
+      "hurry_almost_gone": "Skynd dig, næsten udsolgt!",
+      "order_soon": "Bestil snart - sælger hurtigt!",
+      "low_stock_warning": "Lav lagerbeholdning - bestil snart"
     }
   },
   "customers": {

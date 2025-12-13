@@ -149,7 +149,13 @@
     "min_price": "最低価格",
     "max_price": "最高価格",
     "to": "〜",
-    "shop_now": "今すぐ購入"
+    "shop_now": "今すぐ購入",
+    "breadcrumbs": {
+      "home": "ホーム",
+      "collections": "コレクション",
+      "search": "検索",
+      "cart": "カート"
+    }
   },
   "404": {
     "title": "ページが見つかりません",
@@ -326,6 +332,18 @@
       "clear_all": "すべてクリア",
       "products": "保存した商品",
       "items_count": "件"
+    },
+    "inventory": {
+      "low_stock": "在庫残りわずか",
+      "only_x_left": "残り{{ count }}点",
+      "almost_gone": "まもなく完売！",
+      "selling_fast": "売れてます",
+      "stock_level": "在庫レベル",
+      "remaining": "残り",
+      "x_items_left": "残り{{ count }}点",
+      "hurry_almost_gone": "お急ぎください、まもなく完売！",
+      "order_soon": "お早めにご注文ください！",
+      "low_stock_warning": "在庫残りわずか - お早めに"
     }
   },
   "customers": {

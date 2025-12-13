@@ -149,7 +149,13 @@
     "min_price": "最低價格",
     "max_price": "最高價格",
     "to": "至",
-    "shop_now": "立即選購"
+    "shop_now": "立即選購",
+    "breadcrumbs": {
+      "home": "首頁",
+      "collections": "系列",
+      "search": "搜尋",
+      "cart": "購物車"
+    }
   },
   "404": {
     "title": "找不到頁面",
@@ -326,6 +332,18 @@
       "clear_all": "清除全部",
       "products": "已儲存的商品",
       "items_count": "件"
+    },
+    "inventory": {
+      "low_stock": "庫存不足",
+      "only_x_left": "僅剩 {{ count }} 件",
+      "almost_gone": "即將售罄！",
+      "selling_fast": "熱銷中",
+      "stock_level": "庫存水平",
+      "remaining": "剩餘",
+      "x_items_left": "剩餘 {{ count }} 件",
+      "hurry_almost_gone": "把握機會，即將售罄！",
+      "order_soon": "盡快下單 - 熱銷中！",
+      "low_stock_warning": "庫存不足 - 盡快下單"
     }
   },
   "customers": {

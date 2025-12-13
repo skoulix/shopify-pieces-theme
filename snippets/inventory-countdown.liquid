@@ -1,0 +1,124 @@
+{%- comment -%}
+  Inventory Countdown
+  Displays low stock warning to create urgency
+
+  Usage:
+    {% render 'inventory-countdown', variant: product.selected_or_first_available_variant %}
+    {% render 'inventory-countdown', variant: variant, threshold: 10, show_exact: true %}
+
+  Parameters:
+    - variant: Variant object (required) - the variant to check inventory for
+    - threshold: Number (default: 10) - show warning when stock is at or below this
+    - show_exact: Boolean (default: false) - show exact count vs "Low stock"
+    - style: String - 'minimal', 'badge', 'bar' (default: 'minimal')
+    - icon: Boolean (default: true) - show warning icon
+
+  Note: Requires inventory tracking to be enabled and inventory visible
+{%- endcomment -%}
+
+{%- liquid
+  assign threshold = threshold | default: 10
+  assign show_exact = show_exact | default: false
+  assign style = style | default: 'minimal'
+  assign show_icon = icon | default: true
+
+  # Check if we can show inventory info
+  assign can_show = false
+  assign inventory_quantity = 0
+
+  if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny'
+    if variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold
+      assign can_show = true
+      assign inventory_quantity = variant.inventory_quantity
+    endif
+  endif
+
+  # Calculate urgency level for styling
+  assign urgency = 'low'
+  if inventory_quantity <= 3
+    assign urgency = 'critical'
+  elsif inventory_quantity <= 5
+    assign urgency = 'high'
+  endif
+-%}
+
+{% if can_show %}
+  {% case style %}
+
+    {% when 'minimal' %}
+      <div class="inventory-countdown inventory-countdown--minimal flex items-center gap-1.5 text-xs font-medium text-[--color-sale]" data-inventory-countdown>
+        {% if show_icon %}
+          <i class="ph ph-warning-circle" aria-hidden="true"></i>
+        {% endif %}
+        {% if show_exact %}
+          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: 'Only ' | append: inventory_quantity | append: ' left' }}</span>
+        {% else %}
+          <span>{{ 'products.inventory.low_stock' | t | default: 'Low stock' }}</span>
+        {% endif %}
+      </div>
+
+    {% when 'badge' %}
+      <div
+        class="inventory-countdown inventory-countdown--badge inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full
+          {% if urgency == 'critical' %}bg-red-100 text-red-700{% elsif urgency == 'high' %}bg-orange-100 text-orange-700{% else %}bg-yellow-100 text-yellow-700{% endif %}"
+        data-inventory-countdown
+      >
+        {% if show_icon %}
+          <i class="ph ph-fire{% if urgency == 'critical' %}-fill{% endif %}" aria-hidden="true"></i>
+        {% endif %}
+        {% if show_exact %}
+          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: 'Only ' | append: inventory_quantity | append: ' left in stock' }}</span>
+        {% else %}
+          {% if urgency == 'critical' %}
+            <span>{{ 'products.inventory.almost_gone' | t | default: 'Almost gone!' }}</span>
+          {% elsif urgency == 'high' %}
+            <span>{{ 'products.inventory.selling_fast' | t | default: 'Selling fast' }}</span>
+          {% else %}
+            <span>{{ 'products.inventory.low_stock' | t | default: 'Low stock' }}</span>
+          {% endif %}
+        {% endif %}
+      </div>
+
+    {% when 'bar' %}
+      {%- assign fill_percent = inventory_quantity | times: 100.0 | divided_by: threshold | round -%}
+      <div class="inventory-countdown inventory-countdown--bar" data-inventory-countdown>
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-xs font-medium text-[--color-text-secondary]">
+            {% if show_icon %}
+              <i class="ph ph-package mr-1" aria-hidden="true"></i>
+            {% endif %}
+            {{ 'products.inventory.stock_level' | t | default: 'Stock level' }}
+          </span>
+          {% if show_exact %}
+            <span class="text-xs font-semibold text-[--color-sale]">
+              {{ inventory_quantity }} {{ 'products.inventory.remaining' | t | default: 'remaining' }}
+            </span>
+          {% endif %}
+        </div>
+        <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+          <div
+            class="h-full rounded-full transition-all duration-500
+              {% if urgency == 'critical' %}bg-red-500{% elsif urgency == 'high' %}bg-orange-500{% else %}bg-yellow-500{% endif %}"
+            style="width: {{ fill_percent }}%"
+            role="progressbar"
+            aria-valuenow="{{ inventory_quantity }}"
+            aria-valuemin="0"
+            aria-valuemax="{{ threshold }}"
+            aria-label="{{ 'products.inventory.x_items_left' | t: count: inventory_quantity | default: inventory_quantity | append: ' items left' }}"
+          ></div>
+        </div>
+        {% unless show_exact %}
+          <p class="mt-1.5 text-xs text-[--color-sale]">
+            {% if urgency == 'critical' %}
+              {{ 'products.inventory.hurry_almost_gone' | t | default: 'Hurry, almost gone!' }}
+            {% elsif urgency == 'high' %}
+              {{ 'products.inventory.order_soon' | t | default: 'Order soon - selling fast!' }}
+            {% else %}
+              {{ 'products.inventory.low_stock_warning' | t | default: 'Low stock - order soon' }}
+            {% endif %}
+          </p>
+        {% endunless %}
+      </div>
+
+  {% endcase %}
+{% endif %}

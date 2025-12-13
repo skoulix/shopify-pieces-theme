@@ -289,6 +289,14 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
 
+          {%- when 'breadcrumbs' -%}
+            <div class="mb-4" {{ block.shopify_attributes }}>
+              {% render 'breadcrumbs',
+                separator: block.settings.separator,
+                show_home_icon: block.settings.show_home_icon
+              %}
+            </div>
+
           {%- when 'vendor' -%}
             {% if product.vendor != blank %}
               <div class="product-vendor overflow-hidden" data-intro {{ block.shopify_attributes }}>
@@ -318,6 +326,17 @@
                   <span data-unit-price-value>{{ current_variant.unit_price | money }}</span>/<span data-unit-price-unit>{{ current_variant.unit_price_measurement.reference_value }}{{ current_variant.unit_price_measurement.reference_unit }}</span>
                 </div>
               {%- endif -%}
+            </div>
+
+          {%- when 'inventory_countdown' -%}
+            <div class="mt-4" data-intro data-inventory-block {{ block.shopify_attributes }}>
+              {% render 'inventory-countdown',
+                variant: current_variant,
+                threshold: block.settings.threshold,
+                show_exact: block.settings.show_exact_count,
+                style: block.settings.style,
+                icon: block.settings.show_icon
+              %}
             </div>
 
           {%- when 'description' -%}
@@ -1629,6 +1648,26 @@
   ],
   "blocks": [
     {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "separator",
+          "label": "Separator",
+          "default": "/"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_home_icon",
+          "label": "Show home icon",
+          "default": false,
+          "info": "Display an icon instead of 'Home' text"
+        }
+      ]
+    },
+    {
       "type": "vendor",
       "name": "Vendor",
       "limit": 1
@@ -1642,6 +1681,47 @@
       "type": "price",
       "name": "Price",
       "limit": 1
+    },
+    {
+      "type": "inventory_countdown",
+      "name": "Inventory countdown",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "threshold",
+          "label": "Low stock threshold",
+          "min": 3,
+          "max": 20,
+          "step": 1,
+          "default": 10,
+          "info": "Show warning when stock is at or below this number"
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Display style",
+          "options": [
+            { "value": "minimal", "label": "Minimal text" },
+            { "value": "badge", "label": "Badge" },
+            { "value": "bar", "label": "Progress bar" }
+          ],
+          "default": "minimal"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_exact_count",
+          "label": "Show exact count",
+          "default": true,
+          "info": "Display exact number remaining vs generic 'Low stock'"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show icon",
+          "default": true
+        }
+      ]
     },
     {
       "type": "description",

@@ -149,7 +149,13 @@
     "min_price": "Min fiyat",
     "max_price": "Maks fiyat",
     "to": "-",
-    "shop_now": "Şimdi Alışveriş Yap"
+    "shop_now": "Şimdi Alışveriş Yap",
+    "breadcrumbs": {
+      "home": "Ana Sayfa",
+      "collections": "Koleksiyonlar",
+      "search": "Ara",
+      "cart": "Sepet"
+    }
   },
   "404": {
     "title": "Sayfa bulunamadı",
@@ -326,6 +332,18 @@
       "clear_all": "Tümünü Temizle",
       "products": "kaydedilen ürün",
       "items_count": "ürün"
+    },
+    "inventory": {
+      "low_stock": "Düşük stok",
+      "only_x_left": "Sadece {{ count }} kaldı",
+      "almost_gone": "Neredeyse tükendi!",
+      "selling_fast": "Hızlı satılıyor",
+      "stock_level": "Stok seviyesi",
+      "remaining": "kaldı",
+      "x_items_left": "{{ count }} adet kaldı",
+      "hurry_almost_gone": "Acele edin, neredeyse tükendi!",
+      "order_soon": "Hemen sipariş verin - hızlı satılıyor!",
+      "low_stock_warning": "Düşük stok - hemen sipariş verin"
     }
   },
   "customers": {

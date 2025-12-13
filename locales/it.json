@@ -149,7 +149,13 @@
     "min_price": "Prezzo minimo",
     "max_price": "Prezzo massimo",
     "to": "a",
-    "shop_now": "Acquista ora"
+    "shop_now": "Acquista ora",
+    "breadcrumbs": {
+      "home": "Home",
+      "collections": "Collezioni",
+      "search": "Cerca",
+      "cart": "Carrello"
+    }
   },
   "404": {
     "title": "Pagina non trovata",
@@ -326,6 +332,18 @@
       "clear_all": "Cancella tutto",
       "products": "articoli salvati",
       "items_count": "articoli"
+    },
+    "inventory": {
+      "low_stock": "Scorte in esaurimento",
+      "only_x_left": "Solo {{ count }} rimasti",
+      "almost_gone": "Quasi esaurito!",
+      "selling_fast": "Vendita veloce",
+      "stock_level": "Livello scorte",
+      "remaining": "rimanenti",
+      "x_items_left": "{{ count }} articoli rimasti",
+      "hurry_almost_gone": "Affrettati, quasi esaurito!",
+      "order_soon": "Ordina presto - si vende velocemente!",
+      "low_stock_warning": "Scorte in esaurimento - ordina presto"
     }
   },
   "customers": {

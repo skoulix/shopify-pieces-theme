@@ -56,6 +56,9 @@
   style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
 >
   <header class="mb-12 lg:mb-16 {{ container_class }}">
+    {% if section.settings.show_breadcrumbs %}
+      {% render 'breadcrumbs' %}
+    {% endif %}
     <h1 class="collection-header-title font-bold text-[--color-text] font-heading" data-collection-title>
       {{ collection.title }}
     </h1>
@@ -899,6 +902,12 @@
 {
   "name": "Collection",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumbs",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "full_width",

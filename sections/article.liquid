@@ -26,6 +26,9 @@
 <article class="article-wrapper is-loading py-[--page-vertical-padding]" data-article-wrapper>
   <header class="mb-12 lg:mb-16">
     <div class="{{ container_class }}">
+      {% if section.settings.show_breadcrumbs %}
+        {% render 'breadcrumbs' %}
+      {% endif %}
       {%- capture back_text -%}{{ 'blog.back_to_blog' | t: blog: blog.title }}{%- endcapture -%}
       <div class="mb-12" data-intro>
         <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[--color-text-secondary]">
@@ -307,6 +310,12 @@
 {
   "name": "Article",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumbs",
+      "label": "Show breadcrumbs",
+      "default": false
+    },
     {
       "type": "checkbox",
       "id": "full_width",

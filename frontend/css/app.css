@@ -359,12 +359,12 @@
    ========================================================================== */
 
 @layer utilities {
-  /* Text balance for headings */
+  /* Note: text-balance and text-pretty are now native in Tailwind v3.4+
+     These are kept for backwards compatibility with older Tailwind versions */
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Text pretty for paragraphs */
   .text-pretty {
     text-wrap: pretty;
   }
@@ -1362,6 +1362,7 @@ html.animations-disabled .page-header-subtitle-line {
 
 /* ==========================================================================
    Spinner Animation - for loading states
+   Note: Tailwind has native `animate-spin` - this is kept for non-Tailwind contexts
    ========================================================================== */
 
 @keyframes spin {

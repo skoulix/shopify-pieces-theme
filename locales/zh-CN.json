@@ -149,7 +149,13 @@
     "min_price": "最低价格",
     "max_price": "最高价格",
     "to": "至",
-    "shop_now": "立即选购"
+    "shop_now": "立即选购",
+    "breadcrumbs": {
+      "home": "首页",
+      "collections": "系列",
+      "search": "搜索",
+      "cart": "购物车"
+    }
   },
   "404": {
     "title": "页面未找到",
@@ -326,6 +332,18 @@
       "clear_all": "清除全部",
       "products": "已保存的商品",
       "items_count": "件"
+    },
+    "inventory": {
+      "low_stock": "库存紧张",
+      "only_x_left": "仅剩 {{ count }} 件",
+      "almost_gone": "即将售罄！",
+      "selling_fast": "热销中",
+      "stock_level": "库存水平",
+      "remaining": "剩余",
+      "x_items_left": "剩余 {{ count }} 件",
+      "hurry_almost_gone": "抓紧时间，即将售罄！",
+      "order_soon": "尽快下单 - 热销中！",
+      "low_stock_warning": "库存紧张 - 尽快下单"
     }
   },
   "customers": {
@@ -489,8 +507,8 @@
     "loading": "加载中...",
     "view_all": "查看所有结果",
     "no_results": "未找到结果",
-    "no_results_html": "未找到"{{ terms }}"的结果",
-    "results_for_html": "找到 {{ count }} 个"{{ terms }}"的结果",
+    "no_results_html": "未找到「{{ terms }}」的结果",
+    "results_for_html": "找到 {{ count }} 个「{{ terms }}」的结果",
     "no_results_description": "请检查拼写或使用其他关键词",
     "initial_prompt": "在上方输入搜索词以查找产品、文章和页面。",
     "popular_searches": "热门搜索",

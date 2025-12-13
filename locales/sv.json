@@ -149,7 +149,13 @@
     "min_price": "Minpris",
     "max_price": "Maxpris",
     "to": "till",
-    "shop_now": "Handla nu"
+    "shop_now": "Handla nu",
+    "breadcrumbs": {
+      "home": "Hem",
+      "collections": "Kollektioner",
+      "search": "Sök",
+      "cart": "Varukorg"
+    }
   },
   "404": {
     "title": "Sidan hittades inte",
@@ -326,6 +332,18 @@
       "clear_all": "Rensa allt",
       "products": "sparade artiklar",
       "items_count": "artiklar"
+    },
+    "inventory": {
+      "low_stock": "Lågt lager",
+      "only_x_left": "Endast {{ count }} kvar",
+      "almost_gone": "Nästan slut!",
+      "selling_fast": "Säljer snabbt",
+      "stock_level": "Lagernivå",
+      "remaining": "kvar",
+      "x_items_left": "{{ count }} artiklar kvar",
+      "hurry_almost_gone": "Skynda, nästan slut!",
+      "order_soon": "Beställ snart - säljer snabbt!",
+      "low_stock_warning": "Lågt lager - beställ snart"
     }
   },
   "customers": {
