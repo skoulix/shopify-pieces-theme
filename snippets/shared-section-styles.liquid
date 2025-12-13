@@ -84,33 +84,6 @@
   }
 
   /* ========================================
-     Intro Animation Base Styles
-     Elements with data-intro attribute get these styles
-  ======================================== */
-  [data-intro] {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  [data-intro].intro-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Reduced motion - show immediately */
-  @media (prefers-reduced-motion: reduce) {
-    [data-intro] {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
-  /* Animation disabled via theme settings */
-  .animations-disabled [data-intro] {
-    opacity: 1;
-    transform: none;
-  }
-
-  /* ========================================
      Section Spacing Utilities
   ======================================== */
   .section-padding-sm {

@@ -179,10 +179,10 @@
             track.innerHTML = newTrack.innerHTML;
             totalSlides = track.children.length;
 
-            // Mark product cards as visible (they have data-intro which sets opacity:0)
-            track.querySelectorAll('[data-intro]').forEach(item => {
-              item.classList.add('intro-visible');
-            });
+            // Reinitialize tween animations for dynamically loaded product cards
+            if (window.pieces?.tween) {
+              window.pieces.tween.reinit();
+            }
 
             loading.style.display = 'none';
             track.style.display = 'flex';

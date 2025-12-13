@@ -66,40 +66,6 @@ html.scroll-locked body {
 }
 
 /* ==========================================================================
-   Global Intro Animation - Scroll-triggered fade up effect
-   Usage: <div data-intro>Content</div>
-   Elements animate sequentially as they scroll into view
-   ========================================================================== */
-
-[data-intro] {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-intro].intro-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Reduced motion - show immediately */
-@media (prefers-reduced-motion: reduce) {
-  [data-intro] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-/* Animations disabled via theme settings - show immediately */
-html.animations-disabled [data-intro] {
-  opacity: 1;
-  transform: none;
-  transition: none;
-}
-
-/* ==========================================================================
    Section Header Intro Animation - GSAP-controlled fade up effect
    Usage: <span data-section-intro>Label</span>
    These are animated via GSAP timeline in section JS, NOT IntersectionObserver

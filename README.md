@@ -60,29 +60,28 @@ Professional-grade animations powered by GSAP with ScrollTrigger.
 | [SplitText](https://gsap.com/docs/v3/Plugins/SplitText/)         | Text line/word/character splitting |
 | [Flip](https://gsap.com/docs/v3/Plugins/Flip/)                   | Layout animations                  |
 
-### Data Attribute Animation System
+### TweenManager Animation System
 
-Add animations declaratively via HTML attributes:
+Add animations declaratively via HTML attributes using the TweenManager:
 
 ```html
 <!-- Fade up on scroll -->
-<div data-intro>Content reveals when scrolled into view</div>
+<div data-tween data-tween-type="fade-up">Content reveals when scrolled into view</div>
 
-<!-- Custom reveal animation -->
-<div data-reveal="fade-up" data-reveal-delay="0.2" data-reveal-duration="0.8">
-  <!-- Staggered children -->
-  <div data-stagger="0.1">
-    <div>Item 1</div>
-    <div>Item 2</div>
-  </div>
+<!-- Split text animation -->
+<h2 data-tween data-tween-type="split-text">Animated Heading</h2>
 
-  <!-- Parallax effect -->
-  <img data-parallax="0.5" src="..." />
+<!-- Clip reveal animation -->
+<div data-tween data-tween-type="clip-right">Image reveals with clip-path</div>
 
-  <!-- Split text reveal -->
-  <h2 data-split-text data-split-stagger="0.1">Animated Heading</h2>
+<!-- Grouped animations with stagger -->
+<div data-tween-group="my-group">
+  <div data-tween data-tween-type="fade-up">Item 1</div>
+  <div data-tween data-tween-type="fade-up">Item 2</div>
 </div>
 ```
+
+Available animation types: `fade-up`, `split-text`, `clip-right`, `clip-left`, `clip-up`, `clip-down`, `scale`
 
 ### Available Reveal Types
 

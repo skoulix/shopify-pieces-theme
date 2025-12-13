@@ -268,21 +268,6 @@ html.animations-disabled [data-tween-type] {
 }
 ```
 
-### Legacy Intro Animation (`data-intro`)
-
-**Note:** Prefer `data-tween` for new sections. `data-intro` is kept for backward compatibility.
-
-Use `data-intro` attribute for simple scroll-triggered fade-up animations:
-
-```liquid
-<div data-intro>Content fades up when scrolled into view</div>
-```
-
-**How it works:**
-- Elements with `data-intro` start with `opacity: 0` and `transform: translateY(20px)`
-- Elements animate sequentially as they scroll into view (staggered 80ms apart)
-- Controlled by Intersection Observer in `AnimationManager.js`
-
 ### Section-Specific Animation JavaScript
 
 For sections that need custom scroll-based behavior beyond `data-tween` (e.g., timeline progress, parallax effects):

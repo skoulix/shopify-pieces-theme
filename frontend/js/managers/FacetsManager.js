@@ -161,7 +161,7 @@ class FacetFiltersForm extends HTMLElement {
               grid.style.height = `${startHeight}px`;
               grid.style.overflow = 'hidden';
 
-              // Change layout (keep intro-visible classes - grid opacity handles the transition)
+              // Change layout (grid opacity handles the transition)
               wrapper.dataset.view = view;
 
               // Get new height
@@ -397,18 +397,10 @@ class FacetFiltersForm extends HTMLElement {
   animateNewItems(container) {
     const items = container.querySelectorAll('[data-collection-item], [data-product-card]');
 
-    // Mark all [data-intro] elements as visible immediately
-    // (they're dynamically loaded via filtering, so no need for scroll animation)
-    items.forEach((item) => {
-      // Check if the item itself has data-intro
-      if (item.hasAttribute('data-intro')) {
-        item.classList.add('intro-visible');
-      }
-      // Also check children
-      item.querySelectorAll('[data-intro]').forEach((el) => {
-        el.classList.add('intro-visible');
-      });
-    });
+    // Reinitialize tween animations for dynamically loaded items
+    if (window.pieces?.tween) {
+      window.pieces.tween.reinit();
+    }
 
     if (typeof gsap !== 'undefined') {
       items.forEach((item, index) => {
