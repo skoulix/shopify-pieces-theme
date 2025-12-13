@@ -72,8 +72,17 @@
       {% if product.featured_image %}
         {%- assign focal_point = product.featured_image.presentation.focal_point | default: '50% 50%' -%}
         {%- assign focal_point_style = 'object-position: ' | append: focal_point -%}
+        {%- assign has_secondary = false -%}
+        {%- if product.images.size > 1 and settings.show_secondary_image -%}
+          {%- assign has_secondary = true -%}
+        {%- endif -%}
+        {%- if has_secondary -%}
+          {%- assign primary_class = 'w-full h-full object-cover transition-all duration-500 group-hover:scale-105 group-hover:opacity-0' -%}
+        {%- else -%}
+          {%- assign primary_class = 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105' -%}
+        {%- endif -%}
         {{ product.featured_image | image_url: width: 1200 | image_tag:
-          class: 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+          class: primary_class,
           style: focal_point_style,
           loading: 'lazy',
           decoding: 'async',
@@ -82,7 +91,7 @@
           alt: product.title
         }}
         {%- comment -%} Secondary image on hover {%- endcomment -%}
-        {% if product.images.size > 1 and settings.show_secondary_image %}
+        {% if has_secondary %}
           {%- assign secondary_focal_point = product.images[1].presentation.focal_point | default: '50% 50%' -%}
           {%- assign secondary_focal_point_style = 'object-position: ' | append: secondary_focal_point -%}
           {{ product.images[1] | image_url: width: 1200 | image_tag:

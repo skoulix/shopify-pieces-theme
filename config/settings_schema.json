@@ -263,11 +263,11 @@
         "default": "md",
         "options": [
           { "value": "none", "label": "When element enters viewport" },
-          { "value": "sm", "label": "Slightly early" },
-          { "value": "md", "label": "Early (recommended)" },
-          { "value": "lg", "label": "Very early" }
+          { "value": "sm", "label": "Early (element 10% visible)" },
+          { "value": "md", "label": "Standard (element 20% visible)" },
+          { "value": "lg", "label": "Late (element 30% visible)" }
         ],
-        "info": "Controls when scroll animations start. Earlier triggers make animations feel more responsive."
+        "info": "Controls when scroll animations start. Earlier settings trigger animations sooner, later settings wait for elements to be more visible."
       }
     ]
   },

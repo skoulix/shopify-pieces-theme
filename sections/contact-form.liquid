@@ -40,12 +40,8 @@
   html.animations-disabled .contact-wrapper.is-loading [data-contact-title] { opacity: 1; }
   .contact-wrapper.is-loading [data-contact-label] { opacity: 0; transform: translateY(10px); }
   .contact-wrapper.is-loading [data-contact-description] { opacity: 0; }
-  .contact-wrapper.is-loading .contact-form-group { opacity: 0; transform: translateY(20px); }
-  .contact-wrapper.is-loading .contact-form-submit { opacity: 0; transform: translateY(20px); }
-  html.animations-disabled .contact-wrapper.is-loading [data-contact-label],
-  html.animations-disabled .contact-wrapper.is-loading [data-contact-description],
-  html.animations-disabled .contact-wrapper.is-loading .contact-form-group,
-  html.animations-disabled .contact-wrapper.is-loading .contact-form-submit { opacity: 1; transform: none; }
+  html.animations-disabled .contact-wrapper.is-loading [data-contact-label] { opacity: 1; transform: none; }
+  html.animations-disabled .contact-wrapper.is-loading [data-contact-description] { opacity: 1; }
   .contact-form-input { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
   .contact-form-input:focus { box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb, 79, 70, 229), 0.1); }
 </style>
@@ -63,7 +59,7 @@
     {% endif %}
 
     {% if section.settings.description != blank %}
-      <p class="mt-8 max-w-[420px] text-xs uppercase tracking-[0.05em] leading-relaxed opacity-70 {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% endif %}>
+      <p class="mt-8 max-w-[420px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% endif %}>
         {{ section.settings.description }}
       </p>
     {% endif %}
@@ -93,7 +89,7 @@
         {% endif %}
 
         <div class="grid gap-6 sm:grid-cols-2">
-          <div class="contact-form-group">
+          <div class="contact-form-group" data-intro>
             <label for="ContactForm-name" class="block text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-2">{{ 'contact.form.name' | t }}</label>
             <input
               type="text"
@@ -106,7 +102,7 @@
             >
           </div>
 
-          <div class="contact-form-group">
+          <div class="contact-form-group" data-intro>
             <label for="ContactForm-email" class="block text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-2">{{ 'contact.form.email' | t }} *</label>
             <input
               type="email"
@@ -120,7 +116,7 @@
             >
           </div>
 
-          <div class="contact-form-group sm:col-span-2">
+          <div class="contact-form-group sm:col-span-2" data-intro>
             <label for="ContactForm-phone" class="block text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-2">{{ 'contact.form.phone' | t }}</label>
             <input
               type="tel"
@@ -133,7 +129,7 @@
             >
           </div>
 
-          <div class="contact-form-group sm:col-span-2">
+          <div class="contact-form-group sm:col-span-2" data-intro>
             <label for="ContactForm-body" class="block text-xs font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-2">{{ 'contact.form.message' | t }}</label>
             <textarea
               id="ContactForm-body"
@@ -145,7 +141,7 @@
           </div>
         </div>
 
-        <div class="contact-form-submit mt-8">
+        <div class="contact-form-submit mt-8" data-intro>
           <button type="submit" class="btn btn--primary">
             <span>{{ 'contact.form.submit' | t }}</span>
             <i class="ph ph-arrow-right"></i>
@@ -172,8 +168,6 @@
     const label = wrapper.querySelector('[data-contact-label]');
     const title = wrapper.querySelector('[data-contact-title]');
     const description = wrapper.querySelector('[data-contact-description]');
-    const formGroups = wrapper.querySelectorAll('.contact-form-group');
-    const submitBtn = wrapper.querySelector('.contact-form-submit');
 
     // Get GSAP and SplitText from pieces or window
     let gsap = window.gsap;
@@ -227,42 +221,52 @@
       }, 0);
     }
 
-    // Description animation - with optional shuffle text effect
+    // Description animation - matches collection page shuffle effect
     if (description) {
       const shouldShuffle = description.hasAttribute('data-shuffle-text');
 
       if (shouldShuffle) {
+        // Use data attribute for original text (survives Swup navigation)
         const originalText = description.dataset.originalText || description.textContent.trim();
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
 
-        // Lock height before animation
+        // Lock height before animation to prevent layout shifts
         const initialHeight = description.offsetHeight;
         description.style.height = initialHeight + 'px';
 
-        // Start scrambled
+        // Start with scrambled text and hidden
         description.textContent = originalText.split('').map(char =>
           char === ' ' ? ' ' : chars[Math.floor(Math.random() * chars.length)]
         ).join('');
+        gsap.set(description, { opacity: 0 });
 
+        // Fade in
         tl.to(description, {
           opacity: 1,
           duration: 0.4,
           ease: 'power2.out'
-        }, 0.5);
+        }, 0.6);
 
-        tl.to({}, {
-          duration: 0.8,
-          onUpdate: function() {
-            const progress = this.progress();
+        // Shuffle animation - characters reveal left to right with scrambling
+        const shuffleObj = { progress: 0 };
+        tl.to(shuffleObj, {
+          progress: 1,
+          duration: 1.8,
+          ease: 'none',
+          onUpdate: () => {
+            const progress = shuffleObj.progress;
             const revealedCount = Math.floor(progress * originalText.length);
+
             description.textContent = originalText.split('').map((char, i) => {
               if (char === ' ') return ' ';
               if (i < revealedCount) return char;
+              // Keep scrambling unrevealed characters
               return chars[Math.floor(Math.random() * chars.length)];
             }).join('');
           },
           onComplete: () => {
             description.textContent = originalText;
+            // Remove fixed height after animation completes
             description.style.height = '';
           }
         }, 0.6);
@@ -274,27 +278,6 @@
           ease: 'power2.out'
         }, 0.5);
       }
-    }
-
-    // Form groups stagger in
-    if (formGroups.length) {
-      tl.to(formGroups, {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.08,
-        ease: 'power2.out'
-      }, 0.7);
-    }
-
-    // Submit button
-    if (submitBtn) {
-      tl.to(submitBtn, {
-        y: 0,
-        opacity: 1,
-        duration: 0.5,
-        ease: 'power2.out'
-      }, '-=0.2');
     }
   }
 

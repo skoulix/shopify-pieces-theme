@@ -22,12 +22,11 @@ class AnimationManager {
    */
   getScrollTriggerStart(defaultStart = 'top 85%') {
     const offset = window.themeSettings?.animationTriggerOffset || 'md';
-    // Map offset to viewport percentage (higher % = triggers earlier, but still visible)
     const startValues = {
-      none: defaultStart,           // Use default (usually 'top 85%')
-      sm: 'top 90%',                // Trigger when top hits 90% down viewport
-      md: 'top 80%',                // Trigger when top hits 80% down viewport
-      lg: 'top 70%',                // Trigger when top hits 70% down viewport
+      none: defaultStart,           // Trigger when element enters viewport
+      sm: 'top 90%',                // Early: element 10% visible
+      md: 'top 80%',                // Standard: element 20% visible
+      lg: 'top 70%',                // Late: element 30% visible
     };
     return startValues[offset] || startValues.md;
   }
@@ -193,12 +192,11 @@ class AnimationManager {
   getAnimationRootMargin() {
     const offset = window.themeSettings?.animationTriggerOffset || 'md';
     // Negative bottom margin = trigger when element is that far inside viewport
-    // Positive bottom margin = trigger before element enters viewport
     const margins = {
       none: '0px 0px 0px 0px',      // Trigger when element enters viewport
-      sm: '0px 0px -10% 0px',       // Trigger when 10% inside viewport
-      md: '0px 0px -20% 0px',       // Trigger when 20% inside viewport
-      lg: '0px 0px -30% 0px',       // Trigger when 30% inside viewport
+      sm: '0px 0px -10% 0px',       // Early: element 10% visible
+      md: '0px 0px -20% 0px',       // Standard: element 20% visible
+      lg: '0px 0px -30% 0px',       // Late: element 30% visible
     };
     return margins[offset] || margins.md;
   }

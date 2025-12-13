@@ -78,10 +78,10 @@
       window.getScrollStart = function(defaultStart) {
         var offset = window.themeSettings.animationTriggerOffset || 'md';
         var startValues = {
-          none: defaultStart || 'top 85%',
-          sm: 'top 90%',
-          md: 'top 80%',
-          lg: 'top 70%'
+          none: defaultStart || 'top 85%',  // Trigger when element enters viewport
+          sm: 'top 90%',                    // Early: element 10% visible
+          md: 'top 80%',                    // Standard: element 20% visible
+          lg: 'top 70%'                     // Late: element 30% visible
         };
         return startValues[offset] || startValues.md;
       };

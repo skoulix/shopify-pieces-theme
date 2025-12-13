@@ -93,7 +93,6 @@
     });
 
     gsap.set(split.lines, { yPercent: 120 });
-    title.style.opacity = 1;
 
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
 
@@ -105,7 +104,10 @@
       scrollTrigger: {
         trigger: section,
         start: scrollStart,
-        once: true
+        once: true,
+        onEnter: () => {
+          title.style.opacity = 1;
+        }
       }
     });
   }

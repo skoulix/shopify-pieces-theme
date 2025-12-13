@@ -136,7 +136,6 @@
         });
 
         gsap.set(split.lines, { yPercent: 120 });
-        title.style.opacity = 1;
 
         gsap.to(split.lines, {
           yPercent: 0,
@@ -146,7 +145,10 @@
           scrollTrigger: {
             trigger: section,
             start: scrollStart,
-            once: true
+            once: true,
+            onEnter: () => {
+              title.style.opacity = 1;
+            }
           }
         });
       }
