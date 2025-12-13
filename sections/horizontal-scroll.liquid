@@ -91,38 +91,19 @@
     padding: clamp(2rem, 5vw, 6rem);
   }
 
-  .hscroll-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    opacity: 0.5;
+  /* Label, title, description use global .section-* classes from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .hscroll-intro-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
 
-  .hscroll-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 6vw, 4rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+  .hscroll-intro-{{ section.id }} .section-title {
     max-width: 20ch;
   }
 
-  .hscroll-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-hscroll-title] { opacity: 0; }
-  html.animations-disabled [data-hscroll-title] { opacity: 1; }
-
-  .hscroll-description-{{ section.id }} {
+  .hscroll-intro-{{ section.id }} .section-description {
     margin-top: 2rem;
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    opacity: 0.7;
     max-width: 40ch;
-    line-height: 1.7;
   }
 
   .hscroll-item-{{ section.id }} {
@@ -246,13 +227,6 @@
     opacity: 0.3;
   }
 
-  /* Animation states */
-  html.animations-disabled .hscroll-title-{{ section.id }},
-  html.animations-disabled .hscroll-label-{{ section.id }},
-  html.animations-disabled .hscroll-description-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
 </style>
 
 <section
@@ -285,19 +259,19 @@
         <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }}">
           <div>
             {% if section.settings.label != blank %}
-              <span class="hscroll-label-{{ section.id }}" data-hscroll-label>
+              <span class="section-label" data-hscroll-label>
                 {{ section.settings.label }}
               </span>
             {% endif %}
 
             {% if section.settings.title != blank %}
-              <h2 class="hscroll-title-{{ section.id }} font-heading" data-hscroll-title>
+              <h2 class="section-title font-heading" data-section-title>
                 {{ section.settings.title }}
               </h2>
             {% endif %}
 
             {% if section.settings.description != blank %}
-              <p class="hscroll-description-{{ section.id }}" data-hscroll-description>
+              <p class="section-description" data-hscroll-description>
                 {{ section.settings.description }}
               </p>
             {% endif %}
@@ -387,7 +361,7 @@
     const counter = section.querySelector('[data-hscroll-counter]');
     const currentCounter = section.querySelector('[data-hscroll-current]');
     const progress = section.querySelector('[data-hscroll-progress]');
-    const title = section.querySelector('[data-hscroll-title]');
+    const title = section.querySelector('[data-section-title]');
     const label = section.querySelector('[data-hscroll-label]');
     const description = section.querySelector('[data-hscroll-description]');
     const bgImages = section.querySelectorAll('[data-bg-index]');
@@ -405,7 +379,7 @@
 
     // Title animation
     if (shouldAnimate && title && SplitText) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'hscroll-title-line' });
+      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
       split.lines.forEach(line => {
         const lineWrapper = document.createElement('div');

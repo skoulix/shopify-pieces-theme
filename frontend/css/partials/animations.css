@@ -100,6 +100,32 @@ html.animations-disabled [data-intro] {
 }
 
 /* ==========================================================================
+   Section Header Intro Animation - GSAP-controlled fade up effect
+   Usage: <span data-section-intro>Label</span>
+   These are animated via GSAP timeline in section JS, NOT IntersectionObserver
+   This allows coordinated sequencing: label → title → description
+   ========================================================================== */
+
+[data-section-intro] {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Reduced motion - show immediately */
+@media (prefers-reduced-motion: reduce) {
+  [data-section-intro] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Animations disabled via theme settings - show immediately */
+html.animations-disabled [data-section-intro] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
    Spinner Animation - for loading states
    Note: Tailwind has native `animate-spin` - this is kept for non-Tailwind contexts
    ========================================================================== */

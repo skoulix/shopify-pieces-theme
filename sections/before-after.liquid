@@ -25,48 +25,20 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .before-after-label-{{ section.id }} {
-    display: block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label, title, description use global .section-* classes from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .before-after-header-{{ section.id }} .section-label {
     margin-bottom: 1rem;
   }
 
-  .before-after-label-{{ section.id }}.intro-visible {
-    opacity: 0.5;
-  }
-
-  .before-after-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .before-after-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-before-after-title] { opacity: 0; }
-  html.animations-disabled [data-before-after-title] { opacity: 1; }
-
-  .before-after-description-{{ section.id }} {
+  .before-after-header-{{ section.id }} .section-description {
     margin-top: 1.5rem;
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    max-width: 50ch;
     {% if section.settings.header_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
     {% elsif section.settings.header_alignment == 'right' %}
     margin-left: auto;
     {% endif %}
-  }
-
-  .before-after-description-{{ section.id }}.intro-visible {
-    opacity: 0.7;
   }
 
   .before-after-container-{{ section.id }} {
@@ -183,21 +155,18 @@
     backdrop-filter: blur(10px);
   }
 
-  /* Animation states */
-  html.animations-disabled .before-after-title-{{ section.id }} {
+  /* Initial state for content animation */
+  .before-after-container-{{ section.id }} {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* When animations disabled, show immediately */
+  html.animations-disabled .before-after-container-{{ section.id }} {
     opacity: 1;
     transform: none;
   }
 
-  html.animations-disabled .before-after-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
-
-  html.animations-disabled .before-after-description-{{ section.id }} {
-    opacity: 0.7;
-    transform: none;
-  }
 </style>
 
 <section
@@ -207,21 +176,21 @@
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank %}
-      <div class="before-after-header-{{ section.id }}">
+      <div class="before-after-header-{{ section.id }}" data-section-header>
         {% if section.settings.label != blank %}
-          <span class="before-after-label-{{ section.id }}" data-intro>
+          <span class="section-label" data-section-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="before-after-title-{{ section.id }} font-heading" data-before-after-title>
+          <h2 class="section-title font-heading" data-section-title>
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="before-after-description-{{ section.id }}" data-intro>
+          <p class="section-description" data-section-intro>
             {{ section.settings.description }}
           </p>
         {% endif %}
@@ -294,8 +263,8 @@
   if (!section || section.dataset.beforeAfterInitialized) return;
   section.dataset.beforeAfterInitialized = 'true';
 
-  // Title split text animation
-  function initTitleAnimation() {
+  // Sequenced header animation: label → title → description → content
+  function initHeaderAnimation() {
     let gsap = window.gsap;
     if (!gsap && window.pieces && window.pieces.gsap) {
       gsap = window.pieces.gsap;
@@ -309,11 +278,39 @@
     const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
 
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
-    const title = section.querySelector('[data-before-after-title]');
+    if (!shouldAnimate || !gsap || !ScrollTrigger) return;
 
-    if (shouldAnimate && title && gsap && SplitText && ScrollTrigger) {
-      const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-      const split = new SplitText(title, { type: 'lines', linesClass: 'before-after-title-line' });
+    const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
+
+    // Get header elements
+    const header = section.querySelector('[data-section-header]');
+    const label = section.querySelector('[data-section-header] .section-label');
+    const title = section.querySelector('[data-section-title]');
+    const description = section.querySelector('[data-section-header] .section-description');
+    const content = section.querySelector('[data-before-after-container]');
+
+    // Create timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: scrollStart,
+        once: true
+      }
+    });
+
+    // 1. Label fade-in from bottom
+    if (label) {
+      tl.to(label, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, 0);
+    }
+
+    // 2. Title split text reveal
+    if (title && SplitText) {
+      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
       split.lines.forEach(line => {
         const lineWrapper = document.createElement('div');
@@ -325,20 +322,33 @@
 
       gsap.set(split.lines, { yPercent: 120 });
 
-      gsap.to(split.lines, {
+      tl.add(() => { title.style.opacity = 1; }, label ? 0.2 : 0);
+      tl.to(split.lines, {
         yPercent: 0,
         duration: 1.2,
         ease: 'power4.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true,
-          onEnter: () => {
-            title.style.opacity = 1;
-          }
-        }
-      });
+        stagger: 0.1
+      }, label ? 0.2 : 0);
+    }
+
+    // 3. Description fade-in from bottom
+    if (description) {
+      tl.to(description, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, label ? 0.5 : 0.3);
+    }
+
+    // 4. Content fade-in from bottom
+    if (content) {
+      tl.to(content, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+      }, label ? 0.7 : 0.5);
     }
   }
 
@@ -417,16 +427,16 @@
     handle.style.left = `${newPosition}%`;
   });
 
-  // Initialize title animation
+  // Initialize header animation
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTitleAnimation);
+    document.addEventListener('DOMContentLoaded', initHeaderAnimation);
   } else {
-    requestAnimationFrame(initTitleAnimation);
+    requestAnimationFrame(initHeaderAnimation);
   }
 
   if (window.onSwupContentReplaced) {
     window.onSwupContentReplaced('before-after-animation', () => {
-      requestAnimationFrame(initTitleAnimation);
+      requestAnimationFrame(initHeaderAnimation);
     });
   }
 })();

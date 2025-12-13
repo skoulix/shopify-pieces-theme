@@ -27,48 +27,20 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .team-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label, title, description use global .section-* classes from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .team-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
 
-  .team-label-{{ section.id }}.intro-visible {
-    opacity: 0.5;
-  }
-
-  .team-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .team-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-team-title] { opacity: 0; }
-  html.animations-disabled [data-team-title] { opacity: 1; }
-
-  .team-description-{{ section.id }} {
+  .team-header-{{ section.id }} .section-description {
     margin-top: 1.5rem;
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    max-width: 50ch;
     {% if section.settings.header_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
     {% elsif section.settings.header_alignment == 'right' %}
     margin-left: auto;
     {% endif %}
-  }
-
-  .team-description-{{ section.id }}.intro-visible {
-    opacity: 0.7;
   }
 
   .team-grid-{{ section.id }} {
@@ -252,21 +224,6 @@
     opacity: 0.2;
   }
 
-  /* Animation states */
-  html.animations-disabled .team-title-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
-
-  html.animations-disabled .team-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
-
-  html.animations-disabled .team-description-{{ section.id }} {
-    opacity: 0.7;
-    transform: none;
-  }
 </style>
 
 <section
@@ -278,19 +235,19 @@
     {% if section.settings.label != blank or section.settings.title != blank %}
       <div class="team-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="team-label-{{ section.id }}" data-intro>
+          <span class="section-label" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="team-title-{{ section.id }} font-heading" data-team-title>
+          <h2 class="section-title font-heading" data-section-title>
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="team-description-{{ section.id }}" data-intro>
+          <p class="section-description" data-intro>
             {{ section.settings.description }}
           </p>
         {% endif %}
@@ -392,12 +349,12 @@
       return;
     }
 
-    const title = section.querySelector('[data-team-title]');
+    const title = section.querySelector('[data-section-title]');
     if (!title) {
       return;
     }
 
-    const split = new SplitText(title, { type: 'lines', linesClass: 'team-title-line' });
+    const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
     split.lines.forEach(line => {
       const lineWrapper = document.createElement('div');
