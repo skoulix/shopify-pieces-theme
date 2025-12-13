@@ -74,7 +74,7 @@
 
       {%- comment -%} Search Type Filters - Only show when there are results {%- endcomment -%}
       {% if search.performed and search.results_count > 0 %}
-        <div class="search-filters flex flex-wrap gap-2 mt-6">
+        <div class="flex flex-wrap gap-2 mt-6">
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
             class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
@@ -111,7 +111,7 @@
         {% paginate search.results by 20 %}
           <div class="search-grid" data-search-results>
             {% for result in search.results %}
-              <article class="search-result group" data-search-result="{{ forloop.index0 }}">
+              <article class="group" data-tween data-tween-type="fade-up">
                 <a href="{{ result.url }}" class="block">
                   {%- comment -%} Image {%- endcomment -%}
                   <div class="search-result-image relative">
@@ -201,7 +201,7 @@
         {% endpaginate %}
       {% else %}
         {%- comment -%} No Results {%- endcomment -%}
-        <div class="search-no-results max-w-2xl -mt-6">
+        <div class="max-w-2xl -mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
           <p class="text-[--color-text-secondary]">{{ 'search.no_results_description' | t }}</p>
 
           <div class="mt-8 flex flex-wrap gap-3">
@@ -239,7 +239,7 @@
       {% endif %}
     {% else %}
       {%- comment -%} Initial State - No search performed yet {%- endcomment -%}
-      <div class="search-initial -mt-6">
+      <div class="-mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
         <p class="text-[--color-text-secondary]">
           {{ 'search.initial_prompt' | t }}
         </p>
@@ -271,141 +271,10 @@
 
 <script>
 (function() {
-  const wrapper = document.querySelector('[data-search-wrapper]');
-  if (!wrapper) return;
-  if (wrapper.dataset.searchInitialized) return;
-  wrapper.dataset.searchInitialized = 'true';
-
-  // If animations disabled, just show content
-  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-    wrapper.classList.remove('is-loading');
-    wrapper.classList.add('is-ready');
-    return;
-  }
-
-  function initSearch() {
-    let gsap = window.gsap;
-    if (!gsap && window.pieces && window.pieces.gsap) {
-      gsap = window.pieces.gsap;
-    }
-
-    if (!gsap) {
-      setTimeout(initSearch, 50);
-      return;
-    }
-
-    const results = wrapper.querySelectorAll('[data-search-result]');
-    const formWrapper = wrapper.querySelector('.search-form-wrapper');
-    const filters = wrapper.querySelector('.search-filters');
-    const noResults = wrapper.querySelector('.search-no-results');
-    const initialState = wrapper.querySelector('.search-initial');
-
-    const tl = gsap.timeline({
-      onComplete: () => wrapper.classList.add('is-ready')
-    });
-
-    // Title reveal
-    const titleSpans = wrapper.querySelectorAll('.search-page-title .overflow-hidden > span');
-    if (titleSpans.length) {
-      gsap.set(titleSpans, { yPercent: 120 });
-      tl.to(titleSpans, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1
-      }, 0);
-    }
-
-    // Subtitle
-    const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
-    const subtitleText = wrapper.querySelector('[data-subtitle-text]');
-    if (subtitleLine) {
-      gsap.set(subtitleLine, { scaleX: 0 });
-      tl.to(subtitleLine, { scaleX: 1, duration: 0.8, ease: 'power3.out' }, 0.4);
-    }
-    if (subtitleText) {
-      gsap.set(subtitleText, { yPercent: 120 });
-      tl.to(subtitleText, { yPercent: 0, duration: 0.8, ease: 'power4.out' }, 0.6);
-    }
-
-    // Form wrapper
-    if (formWrapper) {
-      gsap.set(formWrapper, { opacity: 0, y: 20 });
-      tl.to(formWrapper, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      }, 0.4);
-    }
-
-    // Filters
-    if (filters) {
-      gsap.set(filters, { opacity: 0, y: 20 });
-      tl.to(filters, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power3.out'
-      }, 0.6);
-    }
-
-    // Search results (initial clip-path set in CSS)
-    if (results.length) {
-      results.forEach((result, i) => {
-        const img = result.querySelector('.search-result-image');
-        gsap.set(result, { opacity: 0, y: 30 });
-
-        const col = i % 4;
-        const delay = 0.7 + col * 0.1;
-
-        tl.to(result, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power3.out'
-        }, delay);
-
-        if (img) {
-          tl.to(img, {
-            clipPath: 'inset(0 0% 0 0)',
-            duration: 0.8,
-            ease: 'power3.out'
-          }, delay);
-        }
-      });
-    }
-
-    // No results / initial state
-    if (noResults) {
-      gsap.set(noResults, { opacity: 0 });
-      tl.to(noResults, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.6);
-    }
-    if (initialState) {
-      gsap.set(initialState, { opacity: 0 });
-      tl.to(initialState, { opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.6);
-    }
-
-    wrapper.classList.remove('is-loading');
-  }
-
   // Focus search input on page load if empty
-  const searchInput = wrapper.querySelector('[data-search-input]');
+  const searchInput = document.querySelector('[data-search-input]');
   if (searchInput && !searchInput.value) {
     setTimeout(() => searchInput.focus(), 500);
-  }
-
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSearch);
-  } else {
-    initSearch();
-  }
-
-  if (window.onSwupContentReplaced) {
-    window.onSwupContentReplaced('search-init', () => {
-      requestAnimationFrame(initSearch);
-    });
   }
 })();
 </script>

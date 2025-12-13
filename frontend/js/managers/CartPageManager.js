@@ -98,94 +98,11 @@ class CartPageManager {
   }
 
   /**
-   * Initialize GSAP animations
+   * Initialize animations - header and elements handled by TweenManager
    */
   initAnimations() {
-    // If animations disabled, just mark as ready and show content
-    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-      this.wrapper.classList.remove('is-loading');
-      this.wrapper.classList.add('is-ready');
-      this.isReady = true;
-      return;
-    }
-
-    const gsapInstance = window.gsap || (window.pieces && window.pieces.gsap);
-    if (!gsapInstance) {
-      setTimeout(() => this.initAnimations(), 50);
-      return;
-    }
-
-    const items = this.wrapper.querySelectorAll('[data-cart-item]');
-    const summary = this.wrapper.querySelector('.cart-summary');
-    const emptyState = this.wrapper.querySelector('.cart-empty');
-
-    const tl = gsapInstance.timeline({
-      onComplete: () => {
-        this.wrapper.classList.add('is-ready');
-        this.isReady = true;
-      }
-    });
-
-    // Title reveal
-    const titleSpans = this.wrapper.querySelectorAll('.cart-page-title-line > span');
-    if (titleSpans.length) {
-      tl.fromTo(titleSpans,
-        { yPercent: 120 },
-        { yPercent: 0, duration: 1.2, ease: 'power4.out', stagger: 0.1, immediateRender: true },
-        0
-      );
-    }
-
-    // Subtitle
-    const subtitleLine = this.wrapper.querySelector('[data-subtitle-line]');
-    const subtitleText = this.wrapper.querySelector('[data-subtitle-text]');
-    if (subtitleLine) {
-      tl.fromTo(subtitleLine, { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: 'power3.out', immediateRender: true }, 0.4);
-    }
-    if (subtitleText) {
-      tl.fromTo(subtitleText, { yPercent: 120 }, { yPercent: 0, duration: 0.8, ease: 'power4.out', immediateRender: true }, 0.6);
-    }
-
-    // Cart items
-    if (items.length) {
-      items.forEach((item, i) => {
-        const img = item.querySelector('.cart-item-image');
-
-        tl.fromTo(item,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-          0.5 + i * 0.1
-        );
-
-        if (img) {
-          tl.fromTo(img,
-            { clipPath: 'inset(0 100% 0 0)' },
-            { clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'expo.inOut' },
-            0.5 + i * 0.1
-          );
-        }
-      });
-    }
-
-    // Summary
-    if (summary) {
-      tl.fromTo(summary,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' },
-        0.7
-      );
-    }
-
-    // Empty state
-    if (emptyState) {
-      tl.fromTo(emptyState,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8, ease: 'power3.out' },
-        0.5
-      );
-    }
-
-    this.wrapper.classList.remove('is-loading');
+    // Mark as ready immediately - TweenManager handles animations via data-tween attributes
+    this.isReady = true;
   }
 
   /**
@@ -269,9 +186,9 @@ class CartPageManager {
     const removeText = window.themeStrings?.cartRemove || 'Remove';
 
     return `
-      <li class="cart-item py-8 first:pt-0" data-cart-item data-line="${lineIndex}" style="opacity: 1; transform: translateY(0);">
+      <li class="py-8 first:pt-0" data-cart-item data-line="${lineIndex}">
         <div class="flex gap-6">
-          <div class="cart-item-image w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]" style="clip-path: inset(0 0% 0 0);">
+          <div class="w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
             ${item.image ? `
               <a href="${item.url}">
                 <img

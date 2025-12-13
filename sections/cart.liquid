@@ -13,21 +13,8 @@
 <style>
   .cart-page-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; line-height: 0.9; }
   @media (min-width: 1024px) { .cart-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
-  .cart-page-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
-  /* Note: Title/subtitle hidden states are handled by GSAP fromTo */
-  .cart-wrapper.is-loading .cart-item-image { clip-path: inset(0 100% 0 0); }
-  .cart-item { opacity: 0; transform: translateY(30px); }
-  .cart-item-image { clip-path: inset(0 100% 0 0); }
-  .cart-wrapper.is-ready .cart-item { opacity: 1; transform: translateY(0); }
-  .cart-wrapper.is-ready .cart-item-image { clip-path: inset(0 0% 0 0); }
-  html.animations-disabled .cart-wrapper.is-loading .cart-item-image,
-  html.animations-disabled .cart-item-image { clip-path: none; }
-  html.animations-disabled .cart-item { opacity: 1; transform: none; }
-  html.animations-disabled .cart-summary { opacity: 1; transform: none; }
-  html.animations-disabled .cart-empty { opacity: 1; }
-  html.animations-disabled .cart-page-title-line > span { transform: none; }
-  html.animations-disabled [data-subtitle-line] { transform: scaleX(1); }
-  html.animations-disabled [data-subtitle-text] { transform: none; }
+  /* Title line stagger (managed by TweenManager) */
+  .cart-page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
   .cart-quantity { display: inline-flex; align-items: center; background: transparent; border-radius: var(--input-radius); padding: 0; position: relative; overflow: hidden; border: var(--input-border-width) solid var(--color-border); }
   .cart-quantity-btn { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--color-text); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .cart-quantity-btn:hover { background: var(--color-primary); color: var(--color-primary-contrast); }
@@ -38,10 +25,6 @@
   .cart-quantity-input:focus { outline: none; border: none !important; }
   .cart-quantity.is-changing .cart-quantity-input { animation: cartQuantityPop 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   @keyframes cartQuantityPop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
-  .cart-summary { opacity: 0; transform: translateY(30px); }
-  .cart-wrapper.is-ready .cart-summary { opacity: 1; transform: translateY(0); }
-  .cart-empty { opacity: 0; }
-  .cart-wrapper.is-ready .cart-empty { opacity: 1; }
   .cart-wrapper.is-updating { cursor: wait; }
   .cart-wrapper.is-updating * { cursor: wait !important; }
   .cart-wrapper.is-updating [data-cart-form] { opacity: 0.5; pointer-events: none; }
@@ -51,17 +34,15 @@
   .cart-dynamic-checkout [data-shopify-buttoncontainer] { justify-content: stretch; }
 </style>
 
-<div class="cart-wrapper is-loading min-h-screen py-[--page-vertical-padding]" data-cart-wrapper>
-  <header class="mb-12 lg:mb-16 {{ container_class }}">
-    <h1 class="cart-page-title font-bold text-[--color-text] font-heading">
-      <span class="cart-page-title-line block overflow-hidden">
-        <span class="inline-block">{{ 'cart.title' | t }}</span>
-      </span>
+<div class="cart-wrapper min-h-screen py-[--page-vertical-padding]" data-cart-wrapper>
+  <header class="mb-12 lg:mb-16 {{ container_class }}" data-tween-group="cart-header" data-tween-start="top bottom">
+    <h1 class="cart-page-title font-bold text-[--color-text] font-heading" data-tween data-tween-type="split-text">
+      {{ 'cart.title' | t }}
     </h1>
 
-    <p class="page-header-subtitle mt-6">
-      <span class="page-header-subtitle-line" data-subtitle-line></span>
-      <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ cart.item_count }} {{ cart.item_count | pluralize: 'Item', 'Items' }}</span></span>
+    <p class="page-header-subtitle mt-6" data-tween data-tween-type="fade-up">
+      <span class="page-header-subtitle-line"></span>
+      <span>{{ cart.item_count }} {{ cart.item_count | pluralize: 'Item', 'Items' }}</span>
     </p>
   </header>
 
@@ -73,10 +54,10 @@
           <form action="{{ routes.cart_url }}" method="post" id="cart-form" data-cart-form>
             <ul role="list" class="divide-y divide-[--color-border]">
               {% for item in cart.items %}
-                <li class="cart-item py-8 first:pt-0" data-cart-item data-line="{{ forloop.index }}">
+                <li class="py-8 first:pt-0" data-cart-item data-line="{{ forloop.index }}" data-tween data-tween-type="fade-up">
                   <div class="flex gap-6">
                     {%- comment -%} Image {%- endcomment -%}
-                    <div class="cart-item-image w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
+                    <div class="w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
                       {% if item.image %}
                         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
                           {{ item.image | image_url: width: 300 | image_tag:
@@ -187,7 +168,7 @@
 
         {%- comment -%} Summary {%- endcomment -%}
         <div class="lg:col-span-5 mt-12 lg:mt-0">
-          <div class="cart-summary sticky top-12 bg-[--color-background-secondary] p-8">
+          <div class="sticky top-12 bg-[--color-background-secondary] p-8" data-tween data-tween-type="fade-up">
             <h2 class="text-lg font-semibold text-[--color-text] font-heading">{{ 'cart.summary' | t }}</h2>
 
             <dl class="mt-6 space-y-4">
@@ -286,7 +267,7 @@
       </div>
     </div>
   {% else %}
-    <div class="cart-empty {{ container_class }}">
+    <div class="{{ container_class }}" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
       <h2 class="text-2xl md:text-3xl font-semibold text-[--color-text] font-heading">{{ 'cart.empty' | t }}</h2>
       <p class="mt-4 text-[--color-text-secondary] max-w-sm">{{ 'cart.empty_description' | t }}</p>
 
