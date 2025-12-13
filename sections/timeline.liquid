@@ -23,7 +23,6 @@
   }
 
   /* Label and title use global .section-* classes from utilities.css */
-  /* Title hidden state handled by global [data-section-title] in animations.css */
   .timeline-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
@@ -204,17 +203,17 @@
   data-timeline-section="{{ section.id }}"
 >
   <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
+    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank %}
-      <div class="timeline-header-{{ section.id }}">
+      <div class="timeline-header-{{ section.id }}" data-tween-group="timeline-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="section-label" data-intro>
+          <span class="section-label" data-tween data-tween-type="fade-up">
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="section-title font-heading" data-section-title>
+          <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
             {{ section.settings.title }}
           </h2>
         {% endif %}
@@ -278,62 +277,16 @@
   section.dataset.timelineInitialized = 'true';
 
   function initTimeline() {
-    let gsap = window.gsap;
-    if (!gsap && window.pieces && window.pieces.gsap) {
-      gsap = window.pieces.gsap;
-    }
-
-    let SplitText = window.SplitText;
-    if (!SplitText && window.pieces && window.pieces.SplitText) {
-      SplitText = window.pieces.SplitText;
-    }
-
     const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
 
-    if (!gsap || !ScrollTrigger) {
+    if (!ScrollTrigger) {
       setTimeout(initTimeline, 50);
       return;
     }
 
-    const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
     const items = section.querySelectorAll('[data-timeline-item]');
     const progress = section.querySelector('[data-timeline-progress]');
     const wrapper = section.querySelector('[data-timeline-wrapper]');
-    const title = section.querySelector('[data-section-title]');
-
-    const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-
-    // Title animation
-    if (shouldAnimate && title && SplitText) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
-
-      split.lines.forEach(line => {
-        const lineWrapper = document.createElement('div');
-        lineWrapper.style.overflow = 'hidden';
-        lineWrapper.style.display = 'block';
-        line.parentNode.insertBefore(lineWrapper, line);
-        lineWrapper.appendChild(line);
-      });
-
-      gsap.set(split.lines, { yPercent: 120 });
-
-      gsap.to(split.lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true,
-          onEnter: () => {
-            title.style.opacity = 1;
-          }
-        }
-      });
-    } else if (title) {
-      title.style.opacity = 1;
-    }
 
     // Progress line animation
     if (progress && wrapper) {
@@ -349,7 +302,7 @@
     }
 
     // Item activation on scroll
-    items.forEach((item, index) => {
+    items.forEach((item) => {
       ScrollTrigger.create({
         trigger: item,
         start: 'top center',
@@ -370,12 +323,6 @@
     document.addEventListener('DOMContentLoaded', initTimeline);
   } else {
     requestAnimationFrame(initTimeline);
-  }
-
-  if (window.onSwupContentReplaced) {
-    window.onSwupContentReplaced('timeline_animation', () => {
-      requestAnimationFrame(initTimeline);
-    });
   }
 })();
 </script>
@@ -403,10 +350,15 @@
       "label": "Title"
     },
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "header_alignment",
       "default": "center",
-      "label": "Header alignment"
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "header",

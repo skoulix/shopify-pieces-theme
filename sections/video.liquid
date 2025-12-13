@@ -221,7 +221,6 @@
   }
 
   /* Title and description use global .section-* classes from utilities.css */
-  /* Title hidden state handled by global [data-section-title] in animations.css */
   .video-content-{{ section.id }} .section-title {
     color: {{ section.settings.text_color }};
   }
@@ -246,19 +245,11 @@
     color: {{ section.settings.background_color }};
   }
 
-  /* Animation states */
-  .video-container-{{ section.id }} {
-    clip-path: inset(0 100% 0 0);
-  }
-
-  html.animations-disabled .video-container-{{ section.id }} {
-    clip-path: none;
-  }
 </style>
 
 <section class="video-section-{{ section.id }}" data-video-section="{{ section.id }}">
   <div class="{{ container_class }}">
-    <div class="video-container-{{ section.id }}" data-video-container>
+    <div class="video-container-{{ section.id }}" data-tween data-tween-type="clip-right">
       {% if section.settings.video != blank %}
         {{ section.settings.video | video_tag:
           autoplay: true,
@@ -296,21 +287,21 @@
       {% endif %}
 
       {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_text != blank %}
-        <div class="video-content-{{ section.id }}" data-section-header>
+        <div class="video-content-{{ section.id }}" data-tween-group="video-content-{{ section.id }}">
           {% if section.settings.label != blank %}
-            <span class="section-label mb-4" data-section-intro>
+            <span class="section-label mb-4" data-tween data-tween-type="fade-up">
               {{ section.settings.label }}
             </span>
           {% endif %}
 
           {% if section.settings.title != blank %}
-            <h2 class="section-title font-heading" data-section-title>
+            <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
               {{ section.settings.title }}
             </h2>
           {% endif %}
 
           {% if section.settings.text != blank %}
-            <p class="section-description mt-4" data-section-intro>
+            <p class="section-description mt-4" data-tween data-tween-type="fade-up">
               {{ section.settings.text }}
             </p>
           {% endif %}
@@ -319,7 +310,7 @@
             <a
               href="{{ section.settings.button_link }}"
               class="btn btn--secondary mt-8"
-              data-section-intro
+              data-tween data-tween-type="fade-up"
             >
               <span>{{ section.settings.button_text }}</span>
               <i class="ph ph-arrow-right"></i>
@@ -331,127 +322,7 @@
   </div>
 </section>
 
-<script>
-(function() {
-  const section = document.querySelector('[data-video-section="{{ section.id }}"]');
-  if (!section || section.dataset.videoAnimInitialized) return;
-  section.dataset.videoAnimInitialized = 'true';
-
-  // If animations disabled, skip
-  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
-
-  function initAnimation() {
-    let gsap = window.gsap;
-    if (!gsap && window.pieces && window.pieces.gsap) {
-      gsap = window.pieces.gsap;
-    }
-
-    let SplitText = window.SplitText;
-    if (!SplitText && window.pieces && window.pieces.SplitText) {
-      SplitText = window.pieces.SplitText;
-    }
-
-    const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-
-    if (!gsap || !SplitText || !ScrollTrigger) {
-      setTimeout(initAnimation, 50);
-      return;
-    }
-
-    const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-
-    // Get elements
-    const container = section.querySelector('[data-video-container]');
-    const label = section.querySelector('[data-section-header] .section-label');
-    const title = section.querySelector('[data-section-title]');
-    const description = section.querySelector('[data-section-header] .section-description');
-    const cta = section.querySelector('[data-section-header] .btn');
-
-    // Create timeline for sequenced animations
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: scrollStart,
-        once: true
-      }
-    });
-
-    // Animate container with clip-path swipe (initial state set in CSS)
-    if (container) {
-      tl.to(container, {
-        clipPath: 'inset(0 0% 0 0)',
-        duration: 1.2,
-        ease: 'power3.out'
-      }, 0);
-    }
-
-    // 1. Label fade-in from bottom
-    if (label) {
-      tl.to(label, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-      }, 0.2);
-    }
-
-    // 2. Title split text reveal
-    if (title) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
-
-      split.lines.forEach(line => {
-        const lineWrapper = document.createElement('div');
-        lineWrapper.style.overflow = 'hidden';
-        lineWrapper.style.display = 'block';
-        line.parentNode.insertBefore(lineWrapper, line);
-        lineWrapper.appendChild(line);
-      });
-
-      gsap.set(split.lines, { yPercent: 120 });
-
-      tl.add(() => { title.style.opacity = 1; }, label ? 0.4 : 0.2);
-      tl.to(split.lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1
-      }, label ? 0.4 : 0.2);
-    }
-
-    // 3. Description fade-in from bottom
-    if (description) {
-      tl.to(description, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-      }, label ? 0.7 : 0.5);
-    }
-
-    // 4. CTA fade-in from bottom
-    if (cta) {
-      tl.to(cta, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-      }, label ? 0.9 : 0.7);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAnimation);
-  } else {
-    requestAnimationFrame(initAnimation);
-  }
-
-  if (window.onSwupContentReplaced) {
-    window.onSwupContentReplaced('video_animation', () => {
-      requestAnimationFrame(initAnimation);
-    });
-  }
-})();
-</script>
+{%- comment -%} Animations handled by global TweenManager via data-tween attributes {%- endcomment -%}
 
 {% schema %}
 {
@@ -544,10 +415,15 @@
       "label": "Text"
     },
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "header_alignment",
       "default": "center",
-      "label": "Header alignment"
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "text",

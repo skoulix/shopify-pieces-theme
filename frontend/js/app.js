@@ -39,16 +39,11 @@ window.Lenis = Lenis;
  * Initialize all reveal animations
  */
 function initAnimations() {
-  // Initialize new global tween system
+  // Initialize global tween system (handles data-tween, data-tween-type, data-tween-group)
   tweenManager.init();
 
-  // Legacy animation systems (can be gradually deprecated)
-  animationManager.initRevealAnimations();
-  animationManager.initStaggerAnimations();
-  animationManager.initParallax();
-  animationManager.initImageReveals();
+  // Keep data-intro animations for backward compatibility (uses IntersectionObserver)
   animationManager.initIntroAnimations();
-  animationManager.initSplitTextAnimations();
 }
 
 /**

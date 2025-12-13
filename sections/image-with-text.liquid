@@ -39,8 +39,8 @@
   data-layout="{{ section.settings.layout }}"
 >
   <div class="iwt-container grid grid-cols-1 lg:grid-cols-2 items-center {{ container_class }}">
-    <div class="relative overflow-hidden">
-      <div class="iwt-image overflow-hidden" data-iwt-image>
+    <div class="relative overflow-hidden" data-tween data-tween-type="clip-right">
+      <div class="iwt-image overflow-hidden">
         {% if section.settings.image != blank %}
           {{ section.settings.image | image_url: width: 1200 | image_tag:
             class: 'w-full h-full object-cover',
@@ -55,25 +55,25 @@
       </div>
     </div>
 
-    <div class="max-w-2xl lg:mx-auto {{ content_class }}" data-iwt-content>
+    <div class="max-w-2xl lg:mx-auto {{ content_class }}" data-tween-group="iwt-content-{{ section.id }}">
       {% if section.settings.label != blank %}
-        <span class="section-label mb-6" data-section-intro>{{ section.settings.label }}</span>
+        <span class="section-label mb-6" data-tween data-tween-type="fade-up">{{ section.settings.label }}</span>
       {% endif %}
 
       {% if section.settings.title != blank %}
-        <h2 class="section-title mb-6 font-heading" data-section-title>
+        <h2 class="section-title mb-6 font-heading" data-tween data-tween-type="split-text">
           {{ section.settings.title }}
         </h2>
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <div class="section-description mb-8" data-section-intro>
+        <div class="section-description mb-8" data-tween data-tween-type="fade-up">
           {{ section.settings.text }}
         </div>
       {% endif %}
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="iwt-cta section-link inline-flex items-center gap-3 text-xs font-semibold tracking-[0.1em]" data-section-intro>
+        <a href="{{ section.settings.button_link }}" class="iwt-cta section-link inline-flex items-center gap-3 text-xs font-semibold tracking-[0.1em]" data-tween data-tween-type="fade-up">
           <span class="iwt-cta-text-wrapper">
             <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
           </span>
@@ -82,7 +82,7 @@
       {% endif %}
 
       {% if section.blocks.size > 0 %}
-        <div class="iwt-stats flex mt-12 pt-8 border-t" data-section-intro>
+        <div class="iwt-stats flex mt-12 pt-8 border-t" data-tween data-tween-type="fade-up">
           {% for block in section.blocks %}
             {% if block.type == 'stat' %}
               <div class="iwt-stat overflow-hidden" {{ block.shopify_attributes }}>
@@ -99,138 +99,7 @@
   </div>
 </section>
 
-<script>
-  (function() {
-    const section = document.querySelector('[data-iwt-section="{{ section.id }}"]');
-    if (!section || section.dataset.iwtAnimInitialized) return;
-    section.dataset.iwtAnimInitialized = 'true';
-
-    // If animations disabled, skip
-    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
-
-    function initAnimation() {
-      // Get gsap from window.pieces or window
-      if (typeof gsap === 'undefined') {
-        if (window.pieces && window.pieces.gsap) {
-          window.gsap = window.pieces.gsap;
-        } else {
-          requestAnimationFrame(initAnimation);
-          return;
-        }
-      }
-
-      // Get SplitText from pieces or window
-      let SplitText = window.SplitText;
-      if (!SplitText && window.pieces && window.pieces.SplitText) {
-        SplitText = window.pieces.SplitText;
-      }
-
-      // Get ScrollTrigger from window.pieces or window
-      const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-      if (!ScrollTrigger || !SplitText) {
-        requestAnimationFrame(initAnimation);
-        return;
-      }
-
-      // Mark section as ready for animations
-      section.dataset.iwtAnimReady = 'true';
-
-      const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-
-      // Get elements
-      const image = section.querySelector('[data-iwt-image]');
-      const label = section.querySelector('[data-iwt-content] .section-label');
-      const title = section.querySelector('[data-section-title]');
-      const description = section.querySelector('[data-iwt-content] .section-description');
-      const cta = section.querySelector('[data-iwt-content] .iwt-cta');
-      const stats = section.querySelector('[data-iwt-content] .iwt-stats');
-
-      // Create timeline for sequenced animations
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true
-        }
-      });
-
-      // Animate image with clip-path swipe (initial state set in CSS)
-      if (image) {
-        tl.to(image, {
-          clipPath: 'inset(0 0% 0 0)',
-          duration: 1.6,
-          ease: 'expo.inOut'
-        }, 0);
-      }
-
-      // 1. Label fade-in from bottom
-      if (label) {
-        tl.to(label, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out'
-        }, 0.2);
-      }
-
-      // 2. Title split text reveal
-      if (title) {
-        const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
-
-        // Wrap each line in an overflow-hidden container for the reveal effect
-        split.lines.forEach(line => {
-          const lineWrapper = document.createElement('div');
-          lineWrapper.style.overflow = 'hidden';
-          lineWrapper.style.display = 'block';
-          line.parentNode.insertBefore(lineWrapper, line);
-          lineWrapper.appendChild(line);
-        });
-
-        gsap.set(split.lines, { yPercent: 120 });
-
-        tl.add(() => { title.style.opacity = 1; }, label ? 0.4 : 0.2);
-        tl.to(split.lines, {
-          yPercent: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-          stagger: 0.1
-        }, label ? 0.4 : 0.2);
-      }
-
-      // 3. Description fade-in from bottom
-      if (description) {
-        tl.to(description, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out'
-        }, label ? 0.7 : 0.5);
-      }
-
-      // 4. CTA fade-in from bottom
-      if (cta) {
-        tl.to(cta, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out'
-        }, label ? 0.9 : 0.7);
-      }
-
-      // 5. Stats fade-in from bottom
-      if (stats) {
-        tl.to(stats, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out'
-        }, label ? 1.1 : 0.9);
-      }
-    }
-
-    requestAnimationFrame(initAnimation);
-  })();
-</script>
+{%- comment -%} Animations handled by global TweenManager via data-tween attributes {%- endcomment -%}
 
 {% schema %}
 {

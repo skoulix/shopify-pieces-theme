@@ -150,87 +150,130 @@ window.shouldAnimate()
 
 **When animations are disabled:**
 - The `html` element gets the class `animations-disabled`
-- Use this class for CSS overrides to show hidden elements immediately
+- CSS automatically shows hidden elements immediately (no manual overrides needed for data-tween)
 
-### CSS Overrides for Disabled Animations
+### Global Tween System (`data-tween`) - PREFERRED
 
-Elements with initial hidden states (clip-path, opacity, transform) need CSS overrides:
+**Use the declarative `data-tween` system for all scroll-triggered animations.** This is handled by `TweenManager.js` and requires no inline JavaScript.
 
-```css
-/* Show elements immediately when animations disabled */
-html.animations-disabled .my-element { clip-path: none; }
-html.animations-disabled .my-hidden-element { opacity: 1; transform: none; }
+#### Basic Usage
+
+```liquid
+<div data-tween data-tween-type="fade-up">Content animates when scrolled into view</div>
 ```
 
-Common elements needing overrides:
-- Images with `clip-path: inset(0 100% 0 0)` initial state
-- Title lines with `yPercent: 120` initial state
-- Elements with `opacity: 0` or `transform` initial state
+#### Available Animation Types
 
-### JavaScript Animation Pattern
+| Type | Description | Initial State |
+|------|-------------|---------------|
+| `fade-up` | Fade in while moving up | `opacity: 0`, `y: 30` |
+| `fade-down` | Fade in while moving down | `opacity: 0`, `y: -30` |
+| `fade-left` | Fade in while moving left | `opacity: 0`, `x: 30` |
+| `fade-right` | Fade in while moving right | `opacity: 0`, `x: -30` |
+| `fade` | Simple fade in | `opacity: 0` |
+| `split-text` | Line-by-line text reveal (for titles) | Lines hidden below |
+| `clip-right` | Image reveal from left to right | `clip-path: inset(0 100% 0 0)` |
+| `clip-up` | Image reveal from bottom to top | `clip-path: inset(100% 0 0 0)` |
+| `clip-down` | Image reveal from top to bottom | `clip-path: inset(0 0 100% 0)` |
+| `scale` | Scale up from smaller | `opacity: 0`, `scale: 0.95` |
+| `scale-up` | Scale up more dramatically | `opacity: 0`, `scale: 0.8` |
 
-Always check `shouldAnimate()` before running GSAP animations:
+#### Sequenced Animations with Groups
 
-```javascript
-// At the start of animation init function
-if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-  // Skip animations, show content immediately
-  wrapper.classList.remove('is-loading');
-  wrapper.classList.add('is-ready');
-  return;
+Use `data-tween-group` to animate elements in sequence (staggered by DOM order):
+
+```liquid
+<div data-tween-group="section-header-{{ section.id }}">
+  <span class="section-label" data-tween data-tween-type="fade-up">Label</span>
+  <h2 class="section-title" data-tween data-tween-type="split-text">Title</h2>
+  <p class="section-description" data-tween data-tween-type="fade-up">Description</p>
+</div>
+```
+
+**Animation sequence:**
+1. Label fades up
+2. Title reveals line-by-line
+3. Description fades up
+
+#### Standard Section Header Pattern
+
+For consistent header animations across all sections:
+
+```liquid
+{% if section.settings.label != blank or section.settings.title != blank %}
+  <div class="section-header" data-tween-group="section-header-{{ section.id }}">
+    {% if section.settings.label != blank %}
+      <span class="section-label" data-tween data-tween-type="fade-up">
+        {{ section.settings.label }}
+      </span>
+    {% endif %}
+
+    {% if section.settings.title != blank %}
+      <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.description != blank %}
+      <p class="section-description" data-tween data-tween-type="fade-up">
+        {{ section.settings.description }}
+      </p>
+    {% endif %}
+  </div>
+{% endif %}
+```
+
+#### Image Reveal Animation
+
+For images with clip-path reveal effect:
+
+```liquid
+<div class="image-wrapper" data-tween data-tween-type="clip-right">
+  {{ image | image_url: width: 1200 | image_tag: class: 'w-full h-full object-cover' }}
+</div>
+```
+
+#### Standalone Elements (No Group)
+
+Elements with `data-tween` outside of a `data-tween-group` animate independently when scrolled into view:
+
+```liquid
+<div class="card" data-tween data-tween-type="fade-up">Card content</div>
+```
+
+#### CSS Initial States
+
+Initial states are automatically handled in `animations.css`:
+
+```css
+/* Elements start hidden */
+[data-tween],
+[data-tween-type="fade-up"],
+[data-tween-type="fade-down"],
+/* ... etc */
+{
+  opacity: 0;
+}
+
+[data-tween-type="clip-right"] {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Show immediately when animations disabled */
+html.animations-disabled [data-tween],
+html.animations-disabled [data-tween-type] {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
 }
 ```
 
-### GSAP Animation Patterns
+### Legacy Intro Animation (`data-intro`)
 
-- Use GSAP for scroll-triggered and intro animations
-- Set initial states with `gsap.set()` or `fromTo()`
-- Common animation patterns:
-  - `yPercent: 120` → `yPercent: 0` for title text reveals (SplitText)
-  - `clip-path: inset(0 100% 0 0)` → `clip-path: inset(0 0% 0 0)` for image reveals
-  - `opacity: 0, y: 30` → `opacity: 1, y: 0` for fade-up effects
+**Note:** Prefer `data-tween` for new sections. `data-intro` is kept for backward compatibility.
 
-### SplitText Title Animation
+Use `data-intro` attribute for simple scroll-triggered fade-up animations:
 
-For section titles with line-by-line reveal:
-
-```javascript
-const split = new SplitText(title, { type: 'lines', linesClass: 'my-title-line' });
-
-// Wrap each line for overflow hidden
-split.lines.forEach(line => {
-  const wrapper = document.createElement('div');
-  wrapper.style.overflow = 'hidden';
-  wrapper.style.display = 'block';
-  line.parentNode.insertBefore(wrapper, line);
-  wrapper.appendChild(line);
-});
-
-gsap.set(split.lines, { yPercent: 120 });
-
-gsap.to(split.lines, {
-  yPercent: 0,
-  duration: 1.2,
-  ease: 'power4.out',
-  stagger: 0.1,
-  scrollTrigger: {
-    trigger: section,
-    start: 'top 70%',
-    once: true
-  }
-});
-```
-
-**CSS for second line offset:**
-```css
-.my-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
-```
-
-### Global Intro Animation (`data-intro`)
-
-Use `data-intro` attribute for scroll-triggered fade-up animations on any element. This is a global system that can be applied anywhere.
-
-**Usage:**
 ```liquid
 <div data-intro>Content fades up when scrolled into view</div>
 ```
@@ -239,74 +282,44 @@ Use `data-intro` attribute for scroll-triggered fade-up animations on any elemen
 - Elements with `data-intro` start with `opacity: 0` and `transform: translateY(20px)`
 - Elements animate sequentially as they scroll into view (staggered 80ms apart)
 - Controlled by Intersection Observer in `AnimationManager.js`
-- Automatically disabled when `shouldAnimate()` returns false
-- Respects both theme setting and `prefers-reduced-motion`
 
-**CSS (defined in frontend/css/app.css):**
-```css
-[data-intro] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-[data-intro].intro-visible { opacity: 1; transform: translateY(0); }
+### Section-Specific Animation JavaScript
 
-/* When animations disabled, show immediately */
-html.animations-disabled [data-intro] { opacity: 1; transform: none; }
-```
-
-**Important for block-based sections:**
-- Place `data-intro` directly on each block wrapper
-- The order elements appear in the DOM determines animation order
-- The JavaScript automatically staggers elements as they become visible
-
-### Section Animation Boilerplate
-
-Standard pattern for section-specific animations:
+For sections that need custom scroll-based behavior beyond `data-tween` (e.g., timeline progress, parallax effects):
 
 ```javascript
 (function() {
   const section = document.querySelector('[data-my-section="{{ section.id }}"]');
-  if (!section || section.dataset.myAnimInitialized) return;
-  section.dataset.myAnimInitialized = 'true';
+  if (!section || section.dataset.myInitialized) return;
+  section.dataset.myInitialized = 'true';
 
-  // Skip if animations disabled
-  if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
-
-  function initAnimation() {
-    let gsap = window.gsap;
-    if (!gsap && window.pieces && window.pieces.gsap) {
-      gsap = window.pieces.gsap;
-    }
-
-    let SplitText = window.SplitText;
-    if (!SplitText && window.pieces && window.pieces.SplitText) {
-      SplitText = window.pieces.SplitText;
-    }
-
+  function initSection() {
     const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-
-    if (!gsap || !SplitText || !ScrollTrigger) {
-      setTimeout(initAnimation, 50);
+    if (!ScrollTrigger) {
+      setTimeout(initSection, 50);
       return;
     }
 
-    // Animation code here...
+    // Custom scroll-based behavior here (NOT header animations - use data-tween for those)
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top center',
+      end: 'bottom center',
+      onUpdate: (self) => {
+        // Custom scroll logic
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAnimation);
+    document.addEventListener('DOMContentLoaded', initSection);
   } else {
-    requestAnimationFrame(initAnimation);
+    requestAnimationFrame(initSection);
   }
-
-  // Reinitialize after Swup page transitions
-  window.addEventListener('swup:contentReplaced', () => {
-    requestAnimationFrame(initAnimation);
-  });
 })();
 ```
+
+**Important:** Use inline JS only for custom scroll behavior. Use `data-tween` attributes for standard enter animations.
 
 ## Internationalization (i18n)
 
