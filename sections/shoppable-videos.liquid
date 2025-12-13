@@ -36,39 +36,13 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .shoppable-videos-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label, title, description use global .section-* classes from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .shoppable-videos-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
 
-  .shoppable-videos-label-{{ section.id }}.intro-visible {
-    opacity: 0.5;
-  }
-
-  .shoppable-videos-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .shoppable-videos-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-shoppable-videos-title] { opacity: 0; }
-  html.animations-disabled [data-shoppable-videos-title] { opacity: 1; }
-
-  .shoppable-videos-description-{{ section.id }} {
-    font-size: 1rem;
-    opacity: 0.7;
-    max-width: 42rem;
-    margin-top: 1.5rem;
+  .shoppable-videos-header-{{ section.id }} .section-description {
     {% if section.settings.header_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
@@ -375,15 +349,6 @@
     transform: none;
   }
 
-  html.animations-disabled .shoppable-videos-title-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
-
-  html.animations-disabled .shoppable-videos-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
 </style>
 
 <section
@@ -395,19 +360,19 @@
     {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
       <div class="shoppable-videos-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="shoppable-videos-label-{{ section.id }}" data-intro>
+          <span class="section-label" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="shoppable-videos-title-{{ section.id }} font-heading" data-shoppable-videos-title>
+          <h2 class="section-title font-heading" data-section-title>
             {{ section.settings.title }}
           </h2>
         {% endif %}
 
         {% if section.settings.description != blank %}
-          <p class="shoppable-videos-description-{{ section.id }}" data-intro>
+          <p class="section-description mt-6" data-intro>
             {{ section.settings.description }}
           </p>
         {% endif %}
@@ -562,13 +527,12 @@
 
     // Title animation
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
-    const title = section.querySelector('[data-shoppable-videos-title]');
-    const label = section.querySelector('.shoppable-videos-label-{{ section.id }}');
+    const title = section.querySelector('[data-section-title]');
 
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
 
     if (shouldAnimate && title && gsap && SplitText && ScrollTrigger) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'shoppable-videos-title-line' });
+      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
       split.lines.forEach(line => {
         const lineWrapper = document.createElement('div');
@@ -596,26 +560,6 @@
       });
     }
 
-    // Label animation
-    if (shouldAnimate && label && gsap && ScrollTrigger) {
-      gsap.set(label, { opacity: 0, y: 20 });
-      gsap.to(label, {
-        opacity: 0.5,
-        y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true
-        },
-        onComplete: function() {
-          label.classList.add('intro-visible');
-        }
-      });
-    } else if (label) {
-      label.classList.add('intro-visible');
-    }
   }
 
   // GSAP-powered infinite carousel

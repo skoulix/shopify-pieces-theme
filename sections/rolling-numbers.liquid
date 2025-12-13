@@ -98,25 +98,9 @@
     margin-bottom: 4rem;
   }
 
-  .rolling-numbers-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-
-  .rolling-numbers-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-rolling-title] { opacity: 0; }
-  html.animations-disabled [data-rolling-title] { opacity: 1; }
-
-  .rolling-numbers-subtitle-{{ section.id }} {
-    margin-top: 1rem;
-    font-size: clamp(0.875rem, 1.5vw, 1.125rem);
-    opacity: 0.7;
+  /* Title uses global .section-title, subtitle uses .section-description from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .rolling-numbers-header-{{ section.id }} .section-description {
     max-width: 600px;
     {% if section.settings.content_alignment == 'center' %}
     margin-left: auto;
@@ -165,10 +149,10 @@
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <header class="rolling-numbers-header-{{ section.id }}">
         {% if section.settings.title != blank %}
-          <h2 class="rolling-numbers-title-{{ section.id }} font-heading" data-rolling-title>{{ section.settings.title }}</h2>
+          <h2 class="section-title font-heading" data-section-title>{{ section.settings.title }}</h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
-          <p class="rolling-numbers-subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
+          <p class="section-description mt-4">{{ section.settings.subtitle }}</p>
         {% endif %}
       </header>
     {% endif %}
@@ -213,7 +197,7 @@
 
     const items = section.querySelectorAll('[data-rolling-item]');
     const rollingNumbers = section.querySelectorAll('layflags-rolling-number');
-    const title = section.querySelector('[data-rolling-title]');
+    const title = section.querySelector('[data-section-title]');
 
     // Check if animations should run
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
@@ -243,7 +227,7 @@
       }
 
       if (title) {
-        const split = new SplitText(title, { type: 'lines', linesClass: 'rolling-numbers-title-line' });
+        const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
         split.lines.forEach(line => {
           const lineWrapper = document.createElement('div');

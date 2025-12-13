@@ -28,28 +28,9 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .testimonials-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label and title use global .section-* classes from utilities.css */
+  .testimonials-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
-  }
-
-  .testimonials-label-{{ section.id }}.intro-visible {
-    opacity: 0.5;
-  }
-
-  .testimonials-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .testimonials-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
   .testimonials-slider-{{ section.id }} {
@@ -270,15 +251,7 @@
     transform: none;
   }
 
-  html.animations-disabled .testimonials-title-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
-
-  html.animations-disabled .testimonials-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
+  /* Title hidden state handled by global [data-section-title] in animations.css */
 </style>
 
 <section
@@ -290,13 +263,13 @@
     {% if section.settings.label != blank or section.settings.title != blank %}
       <div class="testimonials-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="testimonials-label-{{ section.id }}" data-intro>
+          <span class="section-label" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="testimonials-title-{{ section.id }} font-heading" data-testimonials-title>
+          <h2 class="section-title font-heading" data-section-title>
             {{ section.settings.title }}
           </h2>
         {% endif %}
@@ -408,10 +381,10 @@
 
     // Title animation
     const shouldAnimate = typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true;
-    const title = section.querySelector('[data-testimonials-title]');
+    const title = section.querySelector('[data-section-title]');
 
     if (shouldAnimate && title && gsap && SplitText && ScrollTrigger) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'testimonials-title-line' });
+      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
       split.lines.forEach(line => {
         const lineWrapper = document.createElement('div');

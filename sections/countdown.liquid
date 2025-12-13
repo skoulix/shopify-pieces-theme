@@ -637,10 +637,10 @@
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <header class="countdown-header-{{ section.id }}">
         {% if section.settings.title != blank %}
-          <h2 class="countdown-title-{{ section.id }} font-heading" data-countdown-title>{{ section.settings.title }}</h2>
+          <h2 class="section-title font-heading" data-section-title>{{ section.settings.title }}</h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
-          <p class="countdown-subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
+          <p class="section-description mt-4">{{ section.settings.subtitle }}</p>
         {% endif %}
       </header>
     {% endif %}
@@ -844,7 +844,7 @@
     const hoursEl = section.querySelector('[data-countdown-hours]');
     const minutesEl = section.querySelector('[data-countdown-minutes]');
     const secondsEl = section.querySelector('[data-countdown-seconds]');
-    const title = section.querySelector('[data-countdown-title]');
+    const title = section.querySelector('[data-section-title]');
 
     // Check if already expired
     if (Date.now() >= targetDate) {
@@ -881,7 +881,7 @@
         }
 
         const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-        const split = new SplitText(title, { type: 'lines', linesClass: 'countdown-title-line' });
+        const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
         split.lines.forEach(line => {
           const lineWrapper = document.createElement('div');
