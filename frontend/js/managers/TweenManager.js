@@ -1,0 +1,399 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
+/**
+ * TweenManager - Global declarative animation system
+ *
+ * Usage:
+ * Add data-tween to any element to opt it into the animation system.
+ * Use data-tween-type to specify the animation type.
+ * Elements within the same data-tween-group will animate in sequence.
+ *
+ * Attributes:
+ * - data-tween: Marks element for animation (required)
+ * - data-tween-type: Animation type (default: "fade-up")
+ *   - "fade-up": Fade in from below
+ *   - "fade-down": Fade in from above
+ *   - "fade-left": Fade in from right
+ *   - "fade-right": Fade in from left
+ *   - "fade": Simple fade in
+ *   - "split-text": Split text into lines with reveal effect
+ *   - "clip-right": Clip-path reveal from left to right
+ *   - "clip-up": Clip-path reveal from bottom to top
+ *   - "scale": Scale up with fade
+ * - data-tween-group: Group ID for sequenced animations (elements in same group animate together)
+ * - data-tween-delay: Additional delay in seconds (default: 0)
+ * - data-tween-duration: Animation duration in seconds (default varies by type)
+ * - data-tween-stagger: Stagger delay for grouped elements (default: 0.15)
+ * - data-tween-ease: GSAP easing (default varies by type)
+ * - data-tween-start: ScrollTrigger start position (default: from theme settings)
+ *
+ * Example:
+ * <div data-tween-group="hero">
+ *   <span data-tween data-tween-type="fade-up">Label</span>
+ *   <h1 data-tween data-tween-type="split-text">Big Title Here</h1>
+ *   <p data-tween data-tween-type="fade-up">Description text</p>
+ *   <div data-tween data-tween-type="clip-right">
+ *     <img src="..." />
+ *   </div>
+ * </div>
+ */
+class TweenManager {
+  constructor() {
+    this.scrollTriggers = [];
+    this.splitInstances = [];
+    this.initialized = false;
+  }
+
+  /**
+   * Get ScrollTrigger start value based on theme settings
+   */
+  getScrollStart(defaultStart = 'top 80%') {
+    if (typeof window.getScrollStart === 'function') {
+      return window.getScrollStart(defaultStart);
+    }
+    const offset = window.themeSettings?.animationTriggerOffset || 'md';
+    const startValues = {
+      none: defaultStart,
+      sm: 'top 90%',
+      md: 'top 80%',
+      lg: 'top 70%',
+    };
+    return startValues[offset] || startValues.md;
+  }
+
+  /**
+   * Check if animations should run
+   */
+  shouldAnimate() {
+    if (typeof window.shouldAnimate === 'function') {
+      return window.shouldAnimate();
+    }
+    // Fallback checks
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const animationsEnabled = window.themeSettings?.enableAnimations !== false;
+    return !prefersReducedMotion && animationsEnabled;
+  }
+
+  /**
+   * Get animation configuration for a given type
+   */
+  getAnimationConfig(type) {
+    const configs = {
+      'fade': {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        duration: 0.6,
+        ease: 'power2.out'
+      },
+      'fade-up': {
+        initial: { opacity: 0, y: 30 },
+        animate: { opacity: 1, y: 0 },
+        duration: 0.6,
+        ease: 'power2.out'
+      },
+      'fade-down': {
+        initial: { opacity: 0, y: -30 },
+        animate: { opacity: 1, y: 0 },
+        duration: 0.6,
+        ease: 'power2.out'
+      },
+      'fade-left': {
+        initial: { opacity: 0, x: 30 },
+        animate: { opacity: 1, x: 0 },
+        duration: 0.6,
+        ease: 'power2.out'
+      },
+      'fade-right': {
+        initial: { opacity: 0, x: -30 },
+        animate: { opacity: 1, x: 0 },
+        duration: 0.6,
+        ease: 'power2.out'
+      },
+      'split-text': {
+        // Handled specially
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1
+      },
+      'clip-right': {
+        initial: { clipPath: 'inset(0 100% 0 0)' },
+        animate: { clipPath: 'inset(0 0% 0 0)' },
+        duration: 1.2,
+        ease: 'power3.out'
+      },
+      'clip-up': {
+        initial: { clipPath: 'inset(100% 0 0 0)' },
+        animate: { clipPath: 'inset(0% 0 0 0)' },
+        duration: 1.2,
+        ease: 'power3.out'
+      },
+      'clip-down': {
+        initial: { clipPath: 'inset(0 0 100% 0)' },
+        animate: { clipPath: 'inset(0 0 0% 0)' },
+        duration: 1.2,
+        ease: 'power3.out'
+      },
+      'scale': {
+        initial: { opacity: 0, scale: 0.95 },
+        animate: { opacity: 1, scale: 1 },
+        duration: 0.8,
+        ease: 'power2.out'
+      },
+      'scale-up': {
+        initial: { opacity: 0, scale: 0.8 },
+        animate: { opacity: 1, scale: 1 },
+        duration: 0.8,
+        ease: 'back.out(1.7)'
+      }
+    };
+    return configs[type] || configs['fade-up'];
+  }
+
+  /**
+   * Initialize split text animation for an element
+   */
+  initSplitText(element, timeline, position) {
+    const duration = parseFloat(element.dataset.tweenDuration) || 1.2;
+    const stagger = parseFloat(element.dataset.tweenStagger) || 0.1;
+    const ease = element.dataset.tweenEase || 'power4.out';
+
+    // Create SplitText instance
+    const split = new SplitText(element, {
+      type: 'lines',
+      linesClass: 'tween-split-line'
+    });
+
+    // Wrap each line for overflow hidden
+    split.lines.forEach(line => {
+      const wrapper = document.createElement('div');
+      wrapper.style.overflow = 'hidden';
+      wrapper.style.display = 'block';
+      line.parentNode.insertBefore(wrapper, line);
+      wrapper.appendChild(line);
+    });
+
+    // Set initial state
+    gsap.set(split.lines, { yPercent: 120 });
+
+    // Add to timeline - first make element visible, then animate lines
+    timeline.add(() => { element.style.opacity = '1'; }, position);
+    timeline.to(split.lines, {
+      yPercent: 0,
+      duration,
+      ease,
+      stagger
+    }, position);
+
+    this.splitInstances.push(split);
+    return split;
+  }
+
+  /**
+   * Initialize a single tween element
+   */
+  initTweenElement(element, timeline, position) {
+    const type = element.dataset.tweenType || 'fade-up';
+    const config = this.getAnimationConfig(type);
+
+    // Override with element-specific values
+    const duration = parseFloat(element.dataset.tweenDuration) || config.duration;
+    const ease = element.dataset.tweenEase || config.ease;
+
+    if (type === 'split-text') {
+      this.initSplitText(element, timeline, position);
+    } else {
+      // Set initial state
+      gsap.set(element, config.initial);
+
+      // Add animation to timeline
+      timeline.to(element, {
+        ...config.animate,
+        duration,
+        ease
+      }, position);
+    }
+  }
+
+  /**
+   * Initialize a group of tween elements (sequenced)
+   */
+  initTweenGroup(groupElement) {
+    const groupId = groupElement.dataset.tweenGroup;
+    const tweenElements = groupElement.querySelectorAll('[data-tween]');
+
+    if (tweenElements.length === 0) return;
+
+    const scrollStart = groupElement.dataset.tweenStart || this.getScrollStart();
+    const baseStagger = parseFloat(groupElement.dataset.tweenStagger) || 0.15;
+
+    // Create timeline with ScrollTrigger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: groupElement,
+        start: scrollStart,
+        once: true
+      }
+    });
+
+    // Track position in timeline
+    let currentPosition = 0;
+
+    tweenElements.forEach((el, index) => {
+      const type = el.dataset.tweenType || 'fade-up';
+      const delay = parseFloat(el.dataset.tweenDelay) || 0;
+      const config = this.getAnimationConfig(type);
+
+      // Calculate position: previous position + delay + stagger
+      const position = index === 0 ? delay : currentPosition + delay;
+
+      this.initTweenElement(el, tl, position);
+
+      // Update current position for next element
+      // For split-text, add more time since it takes longer
+      const elementDuration = type === 'split-text' ? 0.3 : baseStagger;
+      currentPosition = position + elementDuration;
+    });
+
+    this.scrollTriggers.push(tl.scrollTrigger);
+  }
+
+  /**
+   * Initialize standalone tween elements (not in a group)
+   */
+  initStandaloneTweens() {
+    // Find all tween elements that are NOT inside a tween-group
+    const allTweens = document.querySelectorAll('[data-tween]:not([data-tween-initialized])');
+    const scrollStart = this.getScrollStart();
+
+    allTweens.forEach(el => {
+      // Skip if inside a group
+      if (el.closest('[data-tween-group]')) return;
+
+      const type = el.dataset.tweenType || 'fade-up';
+      const delay = parseFloat(el.dataset.tweenDelay) || 0;
+      const config = this.getAnimationConfig(type);
+      const duration = parseFloat(el.dataset.tweenDuration) || config.duration;
+      const ease = el.dataset.tweenEase || config.ease;
+      const start = el.dataset.tweenStart || scrollStart;
+
+      el.dataset.tweenInitialized = 'true';
+
+      if (type === 'split-text') {
+        // Create timeline for split text
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start,
+            once: true
+          }
+        });
+        this.initSplitText(el, tl, delay);
+        this.scrollTriggers.push(tl.scrollTrigger);
+      } else {
+        // Set initial state
+        gsap.set(el, config.initial);
+
+        // Create scroll-triggered animation
+        const trigger = ScrollTrigger.create({
+          trigger: el,
+          start,
+          once: true,
+          onEnter: () => {
+            gsap.to(el, {
+              ...config.animate,
+              duration,
+              ease,
+              delay
+            });
+          }
+        });
+
+        this.scrollTriggers.push(trigger);
+      }
+    });
+  }
+
+  /**
+   * Initialize all tween animations
+   */
+  init() {
+    // Early return if animations disabled
+    if (!this.shouldAnimate()) {
+      this.showAllElements();
+      return;
+    }
+
+    // Initialize grouped tweens
+    const groups = document.querySelectorAll('[data-tween-group]:not([data-tween-group-initialized])');
+    groups.forEach(group => {
+      group.dataset.tweenGroupInitialized = 'true';
+      this.initTweenGroup(group);
+    });
+
+    // Initialize standalone tweens
+    this.initStandaloneTweens();
+
+    this.initialized = true;
+  }
+
+  /**
+   * Show all elements immediately (when animations disabled)
+   */
+  showAllElements() {
+    const tweenElements = document.querySelectorAll('[data-tween]');
+    tweenElements.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.clipPath = 'none';
+    });
+  }
+
+  /**
+   * Refresh ScrollTriggers
+   */
+  refresh() {
+    ScrollTrigger.refresh();
+  }
+
+  /**
+   * Kill all ScrollTriggers and clean up
+   */
+  destroy() {
+    this.scrollTriggers.forEach(trigger => {
+      if (trigger && trigger.kill) trigger.kill();
+    });
+    this.scrollTriggers = [];
+
+    // Revert split text instances
+    this.splitInstances.forEach(split => {
+      if (split && split.revert) split.revert();
+    });
+    this.splitInstances = [];
+
+    // Remove initialized flags
+    document.querySelectorAll('[data-tween-initialized]').forEach(el => {
+      delete el.dataset.tweenInitialized;
+    });
+    document.querySelectorAll('[data-tween-group-initialized]').forEach(el => {
+      delete el.dataset.tweenGroupInitialized;
+    });
+
+    this.initialized = false;
+  }
+
+  /**
+   * Reinitialize (for use after Swup page transitions)
+   */
+  reinit() {
+    this.destroy();
+    this.init();
+  }
+}
+
+// Singleton export
+export const tweenManager = new TweenManager();
+export default tweenManager;

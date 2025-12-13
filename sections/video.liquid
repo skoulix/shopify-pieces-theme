@@ -296,9 +296,9 @@
       {% endif %}
 
       {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_text != blank %}
-        <div class="video-content-{{ section.id }}">
+        <div class="video-content-{{ section.id }}" data-section-header>
           {% if section.settings.label != blank %}
-            <span class="section-label mb-4" data-intro>
+            <span class="section-label mb-4" data-section-intro>
               {{ section.settings.label }}
             </span>
           {% endif %}
@@ -310,7 +310,7 @@
           {% endif %}
 
           {% if section.settings.text != blank %}
-            <p class="section-description mt-4" data-intro>
+            <p class="section-description mt-4" data-section-intro>
               {{ section.settings.text }}
             </p>
           {% endif %}
@@ -319,7 +319,7 @@
             <a
               href="{{ section.settings.button_link }}"
               class="btn btn--secondary mt-8"
-              data-intro
+              data-section-intro
             >
               <span>{{ section.settings.button_text }}</span>
               <i class="ph ph-arrow-right"></i>
@@ -358,26 +358,44 @@
       return;
     }
 
-    const container = section.querySelector('[data-video-container]');
-    const title = section.querySelector('[data-section-title]');
-
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
+
+    // Get elements
+    const container = section.querySelector('[data-video-container]');
+    const label = section.querySelector('[data-section-header] .section-label');
+    const title = section.querySelector('[data-section-title]');
+    const description = section.querySelector('[data-section-header] .section-description');
+    const cta = section.querySelector('[data-section-header] .btn');
+
+    // Create timeline for sequenced animations
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: scrollStart,
+        once: true
+      }
+    });
 
     // Animate container with clip-path swipe (initial state set in CSS)
     if (container) {
-      gsap.to(container, {
+      tl.to(container, {
         clipPath: 'inset(0 0% 0 0)',
         duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true
-        }
-      });
+        ease: 'power3.out'
+      }, 0);
     }
 
-    // Animate title with SplitText line reveal
+    // 1. Label fade-in from bottom
+    if (label) {
+      tl.to(label, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, 0.2);
+    }
+
+    // 2. Title split text reveal
     if (title) {
       const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
@@ -391,23 +409,33 @@
 
       gsap.set(split.lines, { yPercent: 120 });
 
-      gsap.to(split.lines, {
+      tl.add(() => { title.style.opacity = 1; }, label ? 0.4 : 0.2);
+      tl.to(split.lines, {
         yPercent: 0,
         duration: 1.2,
         ease: 'power4.out',
-        stagger: 0.1,
-        delay: 0.3,
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true,
-          onEnter: () => {
-            title.style.opacity = 1;
-          }
-        }
-      });
-    } else if (title) {
-      title.style.opacity = 1;
+        stagger: 0.1
+      }, label ? 0.4 : 0.2);
+    }
+
+    // 3. Description fade-in from bottom
+    if (description) {
+      tl.to(description, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, label ? 0.7 : 0.5);
+    }
+
+    // 4. CTA fade-in from bottom
+    if (cta) {
+      tl.to(cta, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, label ? 0.9 : 0.7);
     }
   }
 

@@ -49,16 +49,16 @@
 
 <div class="newsletter-card py-[--section-vertical-padding]" style="background-color: {{ background_color }};">
   <div class="page-container">
-    <div class="relative isolate overflow-hidden px-6 py-16 sm:px-16 xl:py-24" data-intro style="background-color: {{ card_color }}; color: {{ text_color }}; border-radius: {{ card_radius }}px;{% if card_border_width > 0 %} border: {{ card_border_width }}px solid {{ text_color }}20;{% endif %}{% case card_shadow %}{% when 'sm' %} box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);{% when 'md' %} box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);{% when 'lg' %} box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);{% when 'hard' %} box-shadow: 4px 4px 0 0 {{ text_color }}20;{% endcase %}">
+    <div class="relative isolate overflow-hidden px-6 py-16 sm:px-16 xl:py-24" data-tween data-tween-type="scale" style="background-color: {{ card_color }}; color: {{ text_color }}; border-radius: {{ card_radius }}px;{% if card_border_width > 0 %} border: {{ card_border_width }}px solid {{ text_color }}20;{% endif %}{% case card_shadow %}{% when 'sm' %} box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);{% when 'md' %} box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);{% when 'lg' %} box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);{% when 'hard' %} box-shadow: 4px 4px 0 0 {{ text_color }}20;{% endcase %}" data-tween-group="newsletter-card">
       {% if title != blank %}
-        <h2 class="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl font-heading" data-section-title>
+        <h2 class="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl font-heading" data-tween data-tween-type="split-text">
           {{ title }}
         </h2>
       {% endif %}
       {% if text != blank %}
-        <p class="mx-auto mt-6 max-w-lg text-center text-base opacity-70" data-intro>{{ text }}</p>
+        <p class="mx-auto mt-6 max-w-lg text-center text-base opacity-70" data-tween data-tween-type="fade-up">{{ text }}</p>
       {% endif %}
-      <div class="mx-auto mt-10 max-w-md" data-intro>
+      <div class="mx-auto mt-10 max-w-md" data-tween data-tween-type="fade-up">
       {% form 'customer' %}
         <div class="flex gap-x-4">
           <label for="newsletter-email-card" class="sr-only">{{ 'customers.register.email' | t }}</label>

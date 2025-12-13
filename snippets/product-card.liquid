@@ -11,11 +11,13 @@
     - index: Card index for animation stagger (optional, default: 0)
     - show_vendor: Show vendor name (optional, default: false)
     - show_quick_add: Show quick add button (optional, default: true)
+    - animate_image: Add clip-path reveal animation to image (optional, default: false)
 {%- endcomment -%}
 
 {%- liquid
   assign index = index | default: 0
   assign show_quick_add = show_quick_add | default: true
+  assign animate_image = animate_image | default: false
 
   # Use global settings for vendor display (can be overridden by parameter)
   if show_vendor == nil
@@ -60,7 +62,7 @@
   data-intro
 >
   {%- comment -%} Image area with link {%- endcomment -%}
-  <div class="product-card-image relative overflow-hidden {{ image_ratio_class }}">
+  <div class="product-card-image relative overflow-hidden {{ image_ratio_class }}"{% if animate_image %} data-tween data-tween-type="clip-right"{% endif %}>
     <a href="{{ product_url }}" class="block w-full h-full" aria-label="{{ product.title }}">
       {% if product.featured_image %}
         {%- assign focal_point = product.featured_image.presentation.focal_point | default: '50% 50%' -%}

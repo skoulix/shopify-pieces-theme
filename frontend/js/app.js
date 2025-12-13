@@ -20,6 +20,7 @@ import '../css/app.css';
 import { lenisManager } from './managers/LenisManager.js';
 import { swupManager } from './managers/SwupManager.js';
 import { animationManager } from './managers/AnimationManager.js';
+import { tweenManager } from './managers/TweenManager.js';
 import { cartState } from './managers/CartState.js';
 import { cartDrawerManager } from './managers/CartDrawerManager.js';
 import { cartPageManager } from './managers/CartPageManager.js';
@@ -38,6 +39,10 @@ window.Lenis = Lenis;
  * Initialize all reveal animations
  */
 function initAnimations() {
+  // Initialize new global tween system
+  tweenManager.init();
+
+  // Legacy animation systems (can be gradually deprecated)
   animationManager.initRevealAnimations();
   animationManager.initStaggerAnimations();
   animationManager.initParallax();
@@ -195,6 +200,7 @@ function handleContentReplaced() {
     requestAnimationFrame(() => {
       // Only run animations if enabled
       if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+        tweenManager.reinit();
         animationManager.refresh();
         initAnimations();
         ScrollTrigger.refresh();
@@ -340,6 +346,7 @@ function init() {
     lenis: lenisManager,
     swup: swupManager,
     animation: animationManager,
+    tween: tweenManager,
     cartState: cartState,
     cartDrawer: cartDrawerManager,
     cartPage: cartPageManager,
@@ -367,17 +374,20 @@ if (document.readyState === 'loading') {
 if (window.Shopify && window.Shopify.designMode) {
   document.addEventListener('shopify:section:load', () => {
     if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+      tweenManager.reinit();
       animationManager.refresh();
       initAnimations();
     }
   });
 
   document.addEventListener('shopify:section:unload', () => {
+    tweenManager.destroy();
     animationManager.destroy();
   });
 
   document.addEventListener('shopify:section:reorder', () => {
     if (typeof window.shouldAnimate === 'function' && window.shouldAnimate()) {
+      tweenManager.refresh();
       animationManager.refresh();
     }
   });

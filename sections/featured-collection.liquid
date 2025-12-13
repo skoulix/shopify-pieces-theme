@@ -10,45 +10,100 @@
 -%}
 
 <style>
-  .fc-{{ section.id }} .fc-title { font-size: calc(clamp(1.75rem, 7vw, 3rem) * var(--heading-font-scale, 1)); }
-  @media (min-width: 1024px) { .fc-{{ section.id }} .fc-title { font-size: calc(clamp(2.5rem, 5vw, 4rem) * var(--heading-font-scale, 1)); } }
-  @media (min-width: 1536px) { .fc-{{ section.id }} .fc-title { font-size: calc(clamp(3rem, 4vw, 4.5rem) * var(--heading-font-scale, 1)); } }
-  .fc-title-line:nth-child(2) { margin-left: clamp(1rem, 6vw, 4rem); }
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-fc-title] { opacity: 0; }
-  html.animations-disabled [data-fc-title] { opacity: 1; }
-  @media (min-width: 1024px) { .fc-{{ section.id }} .fc-grid { grid-template-columns: repeat({{ section.settings.columns }}, 1fr); } }
-  /* Initial clip-path state for swipe animation */
-  .fc-{{ section.id }} .product-card-image { clip-path: inset(0 100% 0 0); }
-  html.animations-disabled .fc-{{ section.id }} .product-card-image { clip-path: none; }
+  .fc-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    padding: var(--section-vertical-padding) 0;
+  }
+
+  .fc-header-{{ section.id }} {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: clamp(2rem, 5vh, 4rem);
+  }
+
+  .fc-header-content-{{ section.id }} {
+    text-align: {{ section.settings.header_alignment }};
+    flex: 1;
+  }
+
+  /* Label, title, description use global .section-* classes from utilities.css */
+  .fc-header-{{ section.id }} .section-label {
+    margin-bottom: 1.5rem;
+  }
+
+  .fc-header-{{ section.id }} .section-title {
+    color: {{ section.settings.text_color }};
+  }
+
+  .fc-header-{{ section.id }} .section-description {
+    margin-top: 1.5rem;
+    color: {{ section.settings.text_color }};
+    {% if section.settings.header_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% elsif section.settings.header_alignment == 'right' %}
+    margin-left: auto;
+    {% endif %}
+  }
+
+  .fc-view-all-{{ section.id }} {
+    color: {{ section.settings.text_color }};
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .fc-{{ section.id }} .fc-grid {
+      grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    }
+  }
 </style>
 
 <section
-  class="fc-{{ section.id }} py-[--section-vertical-padding] bg-[--color-background]"
+  class="fc-{{ section.id }}"
   data-featured-collection="{{ section.id }}"
 >
   <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
-    <header class="mb-[clamp(2rem,5vh,4rem)] flex flex-col gap-4 {% if section.settings.header_alignment == 'center' %}items-center text-center{% elsif section.settings.header_alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}">
-      <h2 class="fc-title font-bold tracking-tight leading-none text-[--color-text] font-heading" data-fc-title>
-        {% if section.settings.title != blank %}
-          {{ section.settings.title }}
-        {% else %}
-          {{ collection.title | default: 'Featured' }}
-        {% endif %}
-      </h2>
+    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
+    {% if section.settings.label != blank or section.settings.title != blank or collection.title != blank or section.settings.show_view_all %}
+      <div class="fc-header-{{ section.id }}" data-tween-group="fc-header-{{ section.id }}">
+        <div class="fc-header-content-{{ section.id }}">
+          {% if section.settings.label != blank %}
+            <span class="section-label" data-tween data-tween-type="fade-up">
+              {{ section.settings.label }}
+            </span>
+          {% endif %}
 
-      {% if section.settings.show_view_all and collection %}
-        <a href="{{ collection.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-[0.1em] text-[--color-text] opacity-70 hover:opacity-100 transition-opacity duration-300" data-intro>
-          <span data-hover="{{ section.settings.view_all_text }}">{{ section.settings.view_all_text }}</span>
-          <span class="sr-only">{{ collection.title }}</span>
-          <i class="ph ph-arrow-right" aria-hidden="true"></i>
-        </a>
-      {% endif %}
-    </header>
+          <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
+            {% if section.settings.title != blank %}
+              {{ section.settings.title }}
+            {% else %}
+              {{ collection.title | default: 'Featured' }}
+            {% endif %}
+          </h2>
+
+          {% if section.settings.description != blank %}
+            <p class="section-description" data-tween data-tween-type="fade-up">
+              {{ section.settings.description }}
+            </p>
+          {% endif %}
+        </div>
+
+        {% if section.settings.show_view_all and collection %}
+          <a href="{{ collection.url }}" class="fc-view-all-{{ section.id }} section-link inline-flex items-center gap-2 text-xs font-semibold tracking-[0.1em] hover:opacity-100 transition-opacity duration-300" data-tween data-tween-type="fade-up">
+            <span>{{ section.settings.view_all_text }}</span>
+            <span class="sr-only">{{ collection.title }}</span>
+            <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {%- comment -%} Product Grid {%- endcomment -%}
-    <div class="fc-grid grid grid-cols-2 md:grid-cols-3 gap-[clamp(1rem,3vw,2rem)]" data-fc-grid>
+    <div class="fc-grid grid grid-cols-2 md:grid-cols-3 gap-[clamp(1rem,3vw,2rem)]">
       {% if collection != blank %}
         {% for product in collection.products limit: products_to_show %}
           {% render 'product-card',
@@ -56,23 +111,24 @@
             collection: collection,
             index: forloop.index0,
             show_vendor: section.settings.show_vendor,
-            lazy_load: true
+            lazy_load: true,
+            animate_image: true
           %}
         {% endfor %}
       {% else %}
         {%- comment -%} Placeholder cards when no collection selected {%- endcomment -%}
         {% for i in (1..products_to_show) %}
           {%- assign placeholder_index = forloop.index | modulo: 6 | plus: 1 -%}
-          <div class="product-card flex flex-col cursor-pointer rounded-[--card-radius] overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]" data-product-card="{{ forloop.index0 }}">
-            <div class="product-card-image relative overflow-hidden aspect-[3/4]">
+          <div class="product-card flex flex-col cursor-pointer rounded-[--card-radius] overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]">
+            <div class="product-card-image relative overflow-hidden aspect-[3/4]" data-tween data-tween-type="clip-right">
               {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover' }}
             </div>
             <div class="product-card-content flex-1 p-4 bg-[--color-background]">
               <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold tracking-wide text-[--color-text] font-heading">
-                <span class="overflow-hidden inline-block"><span class="inline-block">{{ 'sections.featured_collection.placeholder_product' | t }}</span></span> <span class="overflow-hidden inline-block"><span class="inline-block">{{ forloop.index }}</span></span>
+                {{ 'sections.featured_collection.placeholder_product' | t }} {{ forloop.index }}
               </h3>
               <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
-                <span class="overflow-hidden inline-block"><span class="inline-block">$99.00</span></span>
+                $99.00
               </div>
             </div>
           </div>
@@ -81,103 +137,6 @@
     </div>
   </div>
 </section>
-
-<script>
-  (function() {
-    const section = document.querySelector('[data-featured-collection="{{ section.id }}"]');
-    if (!section || section.dataset.fcAnimInitialized) return;
-    section.dataset.fcAnimInitialized = 'true';
-
-    // If animations disabled, skip
-    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) return;
-
-    function initAnimation() {
-      // Get gsap from window.pieces or window
-      if (typeof gsap === 'undefined') {
-        if (window.pieces && window.pieces.gsap) {
-          window.gsap = window.pieces.gsap;
-        } else {
-          requestAnimationFrame(initAnimation);
-          return;
-        }
-      }
-
-      // Get SplitText from pieces or window
-      let SplitText = window.SplitText;
-      if (!SplitText && window.pieces && window.pieces.SplitText) {
-        SplitText = window.pieces.SplitText;
-      }
-
-      // Get ScrollTrigger from window.pieces or window
-      const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-      if (!ScrollTrigger || !SplitText) {
-        requestAnimationFrame(initAnimation);
-        return;
-      }
-
-      // Mark section as ready for animations
-      section.dataset.fcAnimReady = 'true';
-
-      const title = section.querySelector('[data-fc-title]');
-      const cards = section.querySelectorAll('[data-product-card]');
-      const scrollStart = window.getScrollStart ? window.getScrollStart('top 85%') : 'top 85%';
-
-      // Animate title with SplitText line reveal
-      if (title) {
-        const split = new SplitText(title, { type: 'lines', linesClass: 'fc-title-line' });
-
-        // Wrap each line in an overflow-hidden container for the reveal effect
-        split.lines.forEach(line => {
-          const lineWrapper = document.createElement('div');
-          lineWrapper.style.overflow = 'hidden';
-          lineWrapper.style.display = 'block';
-          line.parentNode.insertBefore(lineWrapper, line);
-          lineWrapper.appendChild(line);
-        });
-
-        gsap.set(split.lines, { yPercent: 120 });
-
-        gsap.to(split.lines, {
-          yPercent: 0,
-          duration: 1.2,
-          ease: 'power4.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: section,
-            start: scrollStart,
-            once: true,
-            onEnter: () => {
-              title.style.opacity = 1;
-            }
-          }
-        });
-      }
-
-      // Animate product card images with clip-path swipe (initial state set in CSS)
-      cards.forEach((card, index) => {
-        const image = card.querySelector('.product-card-image');
-        if (!image) return;
-
-        // Stagger based on column position
-        const delay = (index % {{ section.settings.columns }}) * 0.1;
-
-        gsap.to(image, {
-          clipPath: 'inset(0 0% 0 0)',
-          duration: 1.2,
-          ease: 'power3.out',
-          delay: delay,
-          scrollTrigger: {
-            trigger: card,
-            start: scrollStart,
-            once: true
-          }
-        });
-      });
-    }
-
-    requestAnimationFrame(initAnimation);
-  })();
-</script>
 
 {% schema %}
 {
@@ -191,21 +150,39 @@
       "label": "Collection"
     },
     {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Title",
       "info": "Leave blank to use collection title"
     },
     {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
       "type": "select",
       "id": "header_alignment",
-      "label": "Header alignment",
       "default": "left",
+      "label": "Header alignment",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ]
+    },
+    {
+      "type": "header",
+      "content": "Products"
     },
     {
       "type": "range",
@@ -244,10 +221,30 @@
       "label": "View all text"
     },
     {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#ffffff",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#000000",
+      "label": "Text color"
     }
   ],
   "presets": [

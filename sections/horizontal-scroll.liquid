@@ -256,10 +256,10 @@
 
       <div class="hscroll-track-{{ section.id }}" data-hscroll-track>
         {%- comment -%} Intro Panel {%- endcomment -%}
-        <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }}">
+        <div class="hscroll-panel-{{ section.id }} hscroll-intro-{{ section.id }}" data-section-header>
           <div>
             {% if section.settings.label != blank %}
-              <span class="section-label" data-hscroll-label>
+              <span class="section-label" data-section-intro>
                 {{ section.settings.label }}
               </span>
             {% endif %}
@@ -271,7 +271,7 @@
             {% endif %}
 
             {% if section.settings.description != blank %}
-              <p class="section-description" data-hscroll-description>
+              <p class="section-description" data-section-intro>
                 {{ section.settings.description }}
               </p>
             {% endif %}
@@ -362,8 +362,8 @@
     const currentCounter = section.querySelector('[data-hscroll-current]');
     const progress = section.querySelector('[data-hscroll-progress]');
     const title = section.querySelector('[data-section-title]');
-    const label = section.querySelector('[data-hscroll-label]');
-    const description = section.querySelector('[data-hscroll-description]');
+    const label = section.querySelector('[data-section-header] .section-label');
+    const description = section.querySelector('[data-section-header] .section-description');
     const bgImages = section.querySelectorAll('[data-bg-index]');
 
     const totalPanels = panels.length;
@@ -377,67 +377,57 @@
 
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
 
-    // Title animation
-    if (shouldAnimate && title && SplitText) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
-
-      split.lines.forEach(line => {
-        const lineWrapper = document.createElement('div');
-        lineWrapper.style.overflow = 'hidden';
-        lineWrapper.style.display = 'block';
-        line.parentNode.insertBefore(lineWrapper, line);
-        lineWrapper.appendChild(line);
-      });
-
-      gsap.set(split.lines, { yPercent: 120 });
-
-      gsap.to(split.lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1,
+    // Sequenced header animation: label → title → description
+    if (shouldAnimate) {
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: scrollStart,
-          once: true,
-          onEnter: () => {
-            title.style.opacity = 1;
-          }
+          once: true
         }
       });
-    }
 
-    // Intro elements animation
-    if (shouldAnimate) {
+      // 1. Label fade-in from bottom
       if (label) {
-        gsap.set(label, { opacity: 0, y: 20 });
-        gsap.to(label, {
-          opacity: 0.6,
+        tl.to(label, {
+          opacity: 1,
           y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: scrollStart,
-            once: true
-          }
-        });
+          duration: 0.6,
+          ease: 'power2.out'
+        }, 0);
       }
 
-      if (description) {
-        gsap.set(description, { opacity: 0, y: 30 });
-        gsap.to(description, {
-          opacity: 0.7,
-          y: 0,
-          duration: 0.8,
-          delay: 0.3,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: section,
-            start: scrollStart,
-            once: true
-          }
+      // 2. Title split text reveal
+      if (title && SplitText) {
+        const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
+
+        split.lines.forEach(line => {
+          const lineWrapper = document.createElement('div');
+          lineWrapper.style.overflow = 'hidden';
+          lineWrapper.style.display = 'block';
+          line.parentNode.insertBefore(lineWrapper, line);
+          lineWrapper.appendChild(line);
         });
+
+        gsap.set(split.lines, { yPercent: 120 });
+
+        tl.add(() => { title.style.opacity = 1; }, label ? 0.2 : 0);
+        tl.to(split.lines, {
+          yPercent: 0,
+          duration: 1.2,
+          ease: 'power4.out',
+          stagger: 0.1
+        }, label ? 0.2 : 0);
+      }
+
+      // 3. Description fade-in from bottom
+      if (description) {
+        tl.to(description, {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: 'power2.out'
+        }, label ? 0.5 : 0.3);
       }
     }
 

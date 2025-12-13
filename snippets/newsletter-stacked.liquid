@@ -40,17 +40,17 @@
   }
 </style>
 
-<div class="newsletter-stacked py-[--section-vertical-padding]" style="background-color: {{ background_color }}; color: {{ text_color }};">
+<div class="newsletter-stacked py-[--section-vertical-padding]" style="background-color: {{ background_color }}; color: {{ text_color }};" data-tween-group="newsletter-stacked">
   <div class="page-container">
     {% if title != blank %}
-      <h2 class="max-w-2xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl font-heading" data-section-title>
+      <h2 class="max-w-2xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl font-heading" data-tween data-tween-type="split-text">
         {{ title }}
       </h2>
     {% endif %}
     {% if text != blank %}
-      <p class="mt-4 max-w-xl text-base opacity-70" data-intro>{{ text }}</p>
+      <p class="mt-4 max-w-xl text-base opacity-70" data-tween data-tween-type="fade-up">{{ text }}</p>
     {% endif %}
-    <div data-intro>
+    <div data-tween data-tween-type="fade-up">
     {% form 'customer', class: 'mt-10 max-w-md' %}
       <div class="flex gap-x-4">
         <label for="newsletter-email-stacked" class="sr-only">{{ 'customers.register.email' | t }}</label>
