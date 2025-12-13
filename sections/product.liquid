@@ -582,6 +582,44 @@
               </div>
             {%- endif -%}
 
+          {%- when 'wishlist_compare_buttons' -%}
+            {%- if settings.enable_wishlist or settings.enable_compare -%}
+              {%- capture wc_wishlist_json -%}
+                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+              {%- endcapture -%}
+              {%- capture wc_compare_json -%}
+                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+              {%- endcapture -%}
+              <div class="mt-4 flex w-full gap-3" data-intro {{ block.shopify_attributes }}>
+                {%- if settings.enable_wishlist -%}
+                  <button
+                    type="button"
+                    class="btn btn--secondary btn--sm flex-1 product-wishlist-btn [&.is-active]:bg-[--color-sale] [&.is-active]:text-white [&.is-active]:border-[--color-sale]"
+                    data-wishlist-toggle="{{ product.id }}"
+                    data-product-json='{{ wc_wishlist_json | strip_newlines }}'
+                    aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}"
+                    aria-pressed="false"
+                  >
+                    <i class="ph ph-heart" aria-hidden="true"></i>
+                    <span data-wishlist-btn-text>{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to Wishlist' }}</span>
+                  </button>
+                {%- endif -%}
+                {%- if settings.enable_compare -%}
+                  <button
+                    type="button"
+                    class="btn btn--secondary btn--sm flex-1 product-compare-btn [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+                    data-compare-toggle="{{ product.id }}"
+                    data-product-json='{{ wc_compare_json | strip_newlines }}'
+                    aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}"
+                    aria-pressed="false"
+                  >
+                    <i class="ph ph-scales" aria-hidden="true"></i>
+                    <span data-compare-btn-text>{{ 'products.compare.add_to_compare' | t | default: 'Add to Compare' }}</span>
+                  </button>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
           {%- when 'social_actions' -%}
             {%- capture social_wishlist_json -%}
               {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
@@ -1834,6 +1872,17 @@
             { "value": "icon_text", "label": "Icon with text" },
             { "value": "text_only", "label": "Text only" }
           ]
+        }
+      ]
+    },
+    {
+      "type": "wishlist_compare_buttons",
+      "name": "Wishlist & Compare buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows wishlist and compare buttons side by side in a 50/50 layout. Individual buttons will only show if enabled in theme settings."
         }
       ]
     },
