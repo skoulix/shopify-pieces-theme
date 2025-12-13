@@ -15,8 +15,8 @@
   .collection-header-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.03em; line-height: 0.9; }
   @media (min-width: 1024px) { .collection-header-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .collection-header-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
-  .collection-header-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
-  .collection-header-title-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
+  .collection-wrapper[data-header-align="left"] .collection-header-title-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .collection-wrapper[data-header-align="left"] .collection-header-title-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
   .collection-wrapper.is-loading [data-collection-title] { opacity: 0; }
   html.animations-disabled .collection-wrapper.is-loading [data-collection-title] { opacity: 1; }
   .collection-grid { grid-template-columns: repeat(var(--columns-mobile, 1), 1fr); }
@@ -51,11 +51,26 @@
   class="collection-wrapper is-loading min-h-screen py-[--page-vertical-padding]"
   data-collection-wrapper
   data-layout-style="{{ layout_style }}"
+  data-header-align="{{ section.settings.header_alignment }}"
   {% if settings.card_border_width == 0 %}data-card-no-border{% endif %}
   {% if settings.card_shadow == 'none' %}data-card-no-shadow{% endif %}
   style="--columns-desktop: {{ section.settings.columns_desktop }}; --columns-tablet: {{ section.settings.columns_tablet }}; --columns-mobile: {{ section.settings.columns_mobile }};"
 >
-  <header class="mb-12 lg:mb-16 {{ container_class }}">
+  {%- liquid
+    case section.settings.header_alignment
+      when 'center'
+        assign header_align_class = 'text-center'
+        assign title_line_offset = false
+      when 'right'
+        assign header_align_class = 'text-right'
+        assign title_line_offset = false
+      else
+        assign header_align_class = 'text-left'
+        assign title_line_offset = true
+    endcase
+  -%}
+
+  <header class="mb-12 lg:mb-16 {{ container_class }} {{ header_align_class }}">
     {% if section.settings.show_breadcrumbs %}
       {% render 'breadcrumbs' %}
     {% endif %}
@@ -72,7 +87,13 @@
 
     {% if section.settings.show_description and collection.description != blank %}
       {%- assign desc_text = collection.description | strip_html -%}
-      <div class="mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em]"{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ desc_text | escape }}"{% endif %}>
+      {%- capture desc_align_class -%}
+        {%- case section.settings.header_alignment -%}
+          {%- when 'center' -%}mx-auto
+          {%- when 'right' -%}ml-auto
+        {%- endcase -%}
+      {%- endcapture -%}
+      <div class="mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em] {{ desc_align_class }}"{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ desc_text | escape }}"{% endif %}>
         {{ desc_text }}
       </div>
     {% endif %}
@@ -906,6 +927,12 @@
       "id": "show_breadcrumbs",
       "label": "Show breadcrumbs",
       "default": true
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "default": "left",
+      "label": "Header alignment"
     },
     {
       "type": "checkbox",

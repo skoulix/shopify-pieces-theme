@@ -75,22 +75,22 @@
         assign subtitle_align = ''
     endcase
   -%}
-  {%- comment -%} Hero content - uses global data-tween system for animations {%- endcomment -%}
-  <div class="hero-content relative z-10 w-full pt-32 flex flex-col {{ align_class }} {{ container_class }}" style="color: {{ section.settings.text_color }};" data-tween-group="hero-content-{{ section.id }}">
+  {%- comment -%} Hero content - uses global data-tween system for animations with delay after media reveal {%- endcomment -%}
+  <div class="hero-content relative z-10 w-full pt-32 flex flex-col {{ align_class }} {{ container_class }}" style="color: {{ section.settings.text_color }};" data-tween-group="hero-content-{{ section.id }}" data-tween-start="top bottom">
     {% if section.settings.title != blank %}
-      <h1 class="hero-title font-bold font-heading {{ title_align }}" data-tween data-tween-type="split-text">
+      <h1 class="hero-title font-bold font-heading {{ title_align }}" data-tween data-tween-type="split-text" data-tween-delay="0.8">
         {{ section.settings.title }}
       </h1>
     {% endif %}
 
     {% if section.settings.subtitle != blank %}
-      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80 {{ subtitle_align }}" data-tween data-tween-type="fade-up">
+      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80 {{ subtitle_align }}" data-tween data-tween-type="fade-up" data-tween-delay="0.8">
         {{ section.settings.subtitle }}
       </p>
     {% endif %}
 
     {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="hero-cta section-link mt-12 inline-flex items-center gap-4 py-4 px-8 text-xs font-semibold tracking-[0.15em] border-none rounded-[--button-radius] cursor-pointer relative overflow-hidden" data-tween data-tween-type="fade-up">
+      <a href="{{ section.settings.button_link }}" class="hero-cta section-link mt-12 inline-flex items-center gap-4 py-4 px-8 text-xs font-semibold tracking-[0.15em] border-none rounded-[--button-radius] cursor-pointer relative overflow-hidden" data-tween data-tween-type="fade-up" data-tween-delay="0.8">
         <span class="relative z-[1] transition-colors duration-400">{{ section.settings.button_text }}</span>
         <i class="ph ph-arrow-right text-[1.25em] relative z-[1] transition-colors duration-400"></i>
       </a>
@@ -98,7 +98,7 @@
   </div>
 
   {% if section.settings.show_scroll_indicator %}
-    <div class="absolute bottom-8 right-[--page-padding] flex flex-col items-center gap-2 z-10" style="color: {{ section.settings.text_color }};" data-tween data-tween-type="fade-up">
+    <div class="absolute bottom-8 right-[--page-padding] flex flex-col items-center gap-2 z-10" style="color: {{ section.settings.text_color }};" data-tween data-tween-type="fade-up" data-tween-delay="1.2" data-tween-start="top bottom">
       <span class="text-[0.65rem] uppercase tracking-[0.2em] [writing-mode:vertical-rl]">{{ 'accessibility.scroll_down' | t }}</span>
       <div class="hero-scroll-line w-px h-[60px] bg-current origin-top"></div>
     </div>

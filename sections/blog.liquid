@@ -10,26 +10,24 @@
   .blog-hero-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.04em; line-height: 0.85; }
   @media (min-width: 1024px) { .blog-hero-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .blog-hero-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
-  .blog-hero-title-line:nth-child(2) { margin-left: clamp(1.5rem, 8vw, 6rem); }
-  .blog-wrapper.is-loading [data-blog-title] { opacity: 0; }
-  html.animations-disabled .blog-wrapper.is-loading [data-blog-title] { opacity: 1; }
+  .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 8vw, 6rem); }
   .blog-item--featured .blog-item-title { font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
   .blog-item-author::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); margin-right: 0.5rem; vertical-align: middle; }
   .blog-item-image { clip-path: inset(0 100% 0 0); }
   html.animations-disabled .blog-item-image { clip-path: none; }
 </style>
 
-<section class="blog-wrapper is-loading py-[--page-vertical-padding]" data-blog-wrapper>
-  <div class="mb-12 lg:mb-16">
+<section class="blog-wrapper py-[--page-vertical-padding]" data-blog-wrapper>
+  <div class="mb-12 lg:mb-16" data-tween-group="blog-header-{{ section.id }}">
     <div class="{{ container_class }}">
-      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading" data-blog-title>
+      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading" data-tween data-tween-type="split-text">
         {{ blog.title }}
       </h1>
 
       {% if section.settings.show_article_count %}
-        <p class="page-header-subtitle mt-6">
-          <span class="page-header-subtitle-line" data-subtitle-line></span>
-          <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span></span>
+        <p class="page-header-subtitle mt-6" data-tween data-tween-type="fade-up">
+          <span class="page-header-subtitle-line"></span>
+          <span>{{ blog.articles_count }} {{ blog.articles_count | pluralize: 'Article', 'Articles' }}</span>
         </p>
       {% endif %}
     </div>
@@ -142,95 +140,32 @@
 
 <script>
 (function() {
-  function initBlogAnimation(forceReinit = false) {
+  // Blog item image animations only - header handled by TweenManager
+  function initBlogImageAnimations(forceReinit = false) {
     const wrapper = document.querySelector('[data-blog-wrapper]');
     if (!wrapper) return;
-    if (!forceReinit && wrapper.dataset.blogAnimInitialized) return;
+    if (!forceReinit && wrapper.dataset.blogImagesInitialized) return;
 
-    // If animations disabled, just show content immediately
-    if (!window.shouldAnimate()) {
-      wrapper.classList.remove('is-loading');
-      wrapper.dataset.blogAnimInitialized = 'true';
+    // If animations disabled, show images immediately
+    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+      wrapper.dataset.blogImagesInitialized = 'true';
       return;
     }
 
-    let gsap = window.gsap;
-    if (!gsap && window.pieces && window.pieces.gsap) {
-      gsap = window.pieces.gsap;
-    }
-
-    // Get SplitText from pieces or window
-    let SplitText = window.SplitText;
-    if (!SplitText && window.pieces && window.pieces.SplitText) {
-      SplitText = window.pieces.SplitText;
-    }
-
-    if (!gsap || !SplitText) {
-      setTimeout(() => initBlogAnimation(forceReinit), 50);
-      return;
-    }
-
-    // Get ScrollTrigger
+    const gsap = window.gsap || (window.pieces && window.pieces.gsap);
     const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-    if (!ScrollTrigger) {
-      setTimeout(() => initBlogAnimation(forceReinit), 50);
+
+    if (!gsap || !ScrollTrigger) {
+      setTimeout(() => initBlogImageAnimations(forceReinit), 50);
       return;
     }
 
-    wrapper.dataset.blogAnimInitialized = 'true';
-    wrapper.classList.remove('is-loading');
+    wrapper.dataset.blogImagesInitialized = 'true';
 
-    const title = wrapper.querySelector('[data-blog-title]');
-    const subtitleLine = wrapper.querySelector('[data-subtitle-line]');
-    const subtitleText = wrapper.querySelector('[data-subtitle-text]');
     const blogItems = wrapper.querySelectorAll('[data-blog-item]');
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 85%') : 'top 85%';
 
-    const tl = gsap.timeline();
-
-    // Animate title with SplitText line reveal
-    if (title) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'blog-hero-title-line' });
-
-      // Wrap each line in an overflow-hidden container for the reveal effect
-      split.lines.forEach(line => {
-        const lineWrapper = document.createElement('div');
-        lineWrapper.style.overflow = 'hidden';
-        lineWrapper.style.display = 'block';
-        line.parentNode.insertBefore(lineWrapper, line);
-        lineWrapper.appendChild(line);
-      });
-
-      gsap.set(split.lines, { yPercent: 120 });
-      tl.to(split.lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1
-      }, 0);
-    }
-
-    // Subtitle line draw animation
-    if (subtitleLine) {
-      gsap.set(subtitleLine, { scaleX: 0 });
-      tl.to(subtitleLine, {
-        scaleX: 1,
-        duration: 0.8,
-        ease: 'power3.out'
-      }, 0.4);
-    }
-
-    // Subtitle text reveal
-    if (subtitleText) {
-      gsap.set(subtitleText, { yPercent: 120 });
-      tl.to(subtitleText, {
-        yPercent: 0,
-        duration: 0.8,
-        ease: 'power4.out'
-      }, 0.6);
-    }
-
-    // Only animate blog item images with clip-path swipe
+    // Animate blog item images with clip-path swipe
     blogItems.forEach((item, index) => {
       const image = item.querySelector('.blog-item-image');
       if (!image) return;
@@ -249,22 +184,19 @@
         }
       });
     });
-
-    // Refresh ScrollTrigger after animations are set up
-    ScrollTrigger.refresh();
   }
 
   // Initialize
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => initBlogAnimation(false));
+    document.addEventListener('DOMContentLoaded', () => initBlogImageAnimations(false));
   } else {
-    initBlogAnimation(false);
+    initBlogImageAnimations(false);
   }
 
-  // Reinitialize after Swup - force reinit on new content
+  // Reinitialize after Swup
   if (window.onSwupContentReplaced) {
-    window.onSwupContentReplaced('blog-animation', () => {
-      requestAnimationFrame(() => initBlogAnimation(true));
+    window.onSwupContentReplaced('blog-images', () => {
+      requestAnimationFrame(() => initBlogImageAnimations(true));
     });
   }
 })();

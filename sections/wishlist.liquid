@@ -29,12 +29,8 @@
     }
   }
 
-  /* Title line reveal animation */
-  .wishlist-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-wishlist-title] { opacity: 0; }
-  html.animations-disabled [data-wishlist-title] { opacity: 1; }
+  /* Title line reveal animation (managed by TweenManager) */
+  .tween-split-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
   .wishlist-section-{{ section.id }} .wishlist-count {
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -111,30 +107,30 @@
 <section class="wishlist-section-{{ section.id }}" data-wishlist-section id="wishlist-section-{{ section.id }}">
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
-    <div class="mb-12 lg:mb-16 {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}">
+    <div class="mb-12 lg:mb-16 {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween-group="wishlist-header-{{ section.id }}">
       {% if section.settings.label != blank %}
-        <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-intro>
+        <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-tween data-tween-type="fade-up">
           {{ section.settings.label }}
         </span>
       {% endif %}
 
       {% if section.settings.title != blank %}
-        <h2 class="wishlist-title font-bold font-heading" data-wishlist-title>
+        <h2 class="wishlist-title font-bold font-heading" data-tween data-tween-type="split-text">
           {{ section.settings.title }}
         </h2>
       {% endif %}
 
-      <p class="wishlist-count mt-4" data-wishlist-section-count data-intro>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
+      <p class="wishlist-count mt-4" data-wishlist-section-count data-tween data-tween-type="fade-up">0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
 
       {% if section.settings.description != blank %}
-        <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}" data-intro>
+        <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}" data-tween data-tween-type="fade-up">
           {{ section.settings.description }}
         </p>
       {% endif %}
     </div>
 
     {%- comment -%} Content rendered via JS {%- endcomment -%}
-    <div data-wishlist-section-content data-intro></div>
+    <div data-wishlist-section-content data-tween data-tween-type="fade-up"></div>
   </div>
 </section>
 
@@ -333,92 +329,6 @@
   document.addEventListener('wishlist:cleared', handleExternalChange);
 })();
 
-// Title SplitText animation
-(function() {
-  function initTitleAnimation() {
-    const section = document.getElementById('wishlist-section-{{ section.id }}');
-    if (!section || section.dataset.wishlistAnimInitialized) return;
-    section.dataset.wishlistAnimInitialized = 'true';
-
-    // If animations disabled, show title immediately
-    if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
-      const title = section.querySelector('[data-wishlist-title]');
-      if (title) title.style.opacity = '1';
-      return;
-    }
-
-    function initAnimation() {
-      let gsap = window.gsap;
-      if (!gsap && window.pieces && window.pieces.gsap) {
-        gsap = window.pieces.gsap;
-      }
-
-      let SplitText = window.SplitText;
-      if (!SplitText && window.pieces && window.pieces.SplitText) {
-        SplitText = window.pieces.SplitText;
-      }
-
-      const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
-
-      if (!gsap || !SplitText || !ScrollTrigger) {
-        setTimeout(initAnimation, 50);
-        return;
-      }
-
-      const title = section.querySelector('[data-wishlist-title]');
-      if (!title) return;
-
-      const split = new SplitText(title, { type: 'lines', linesClass: 'wishlist-title-line' });
-
-      split.lines.forEach(line => {
-        const lineWrapper = document.createElement('div');
-        lineWrapper.style.overflow = 'hidden';
-        lineWrapper.style.display = 'block';
-        line.parentNode.insertBefore(lineWrapper, line);
-        lineWrapper.appendChild(line);
-      });
-
-      gsap.set(split.lines, { yPercent: 120 });
-
-      const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
-
-      gsap.to(split.lines, {
-        yPercent: 0,
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.1,
-        scrollTrigger: {
-          trigger: section,
-          start: scrollStart,
-          once: true,
-          onEnter: () => {
-            title.style.opacity = '1';
-          }
-        }
-      });
-    }
-
-    if (document.readyState === 'complete') {
-      initAnimation();
-    } else {
-      window.addEventListener('load', initAnimation);
-    }
-  }
-
-  // Initialize on page load
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initTitleAnimation);
-  } else {
-    requestAnimationFrame(initTitleAnimation);
-  }
-
-  // Re-init on Swup navigation
-  if (window.onSwupContentReplaced) {
-    window.onSwupContentReplaced('wishlist_title_anim_{{ section.id }}', () => {
-      requestAnimationFrame(initTitleAnimation);
-    });
-  }
-})();
 </script>
 
 {% schema %}

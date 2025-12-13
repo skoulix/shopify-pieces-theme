@@ -38,8 +38,9 @@
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: {% if section.settings.content_alignment == 'left' %}flex-start{% elsif section.settings.content_alignment == 'right' %}flex-end{% else %}center{% endif %};
     will-change: transform, opacity;
+    padding: 0 var(--page-padding, 2rem);
   }
 
   .scroll-panel-bg-{{ section.id }} {
@@ -75,9 +76,16 @@
   .scroll-panel-content-{{ section.id }} {
     position: relative;
     z-index: 2;
-    text-align: center;
+    text-align: {{ section.settings.content_alignment }};
     padding: clamp(2rem, 5vw, 4rem);
     max-width: 900px;
+    {% if section.settings.content_alignment == 'left' %}
+    margin-right: auto;
+    margin-left: 0;
+    {% elsif section.settings.content_alignment == 'right' %}
+    margin-left: auto;
+    margin-right: 0;
+    {% endif %}
   }
 
   .scroll-panel-number-{{ section.id }} {
@@ -102,7 +110,7 @@
     line-height: 1.6;
     opacity: 0.8;
     max-width: 600px;
-    margin: 0 auto 2rem;
+    margin: 0 {% if section.settings.content_alignment == 'center' %}auto{% elsif section.settings.content_alignment == 'right' %}0 0 auto{% else %}0{% endif %} 2rem;
   }
 
   .scroll-panel-button-{{ section.id }} .btn {
@@ -446,6 +454,12 @@
       "id": "show_numbers",
       "default": true,
       "label": "Show panel numbers"
+    },
+    {
+      "type": "text_alignment",
+      "id": "content_alignment",
+      "default": "center",
+      "label": "Content alignment"
     },
     {
       "type": "checkbox",
