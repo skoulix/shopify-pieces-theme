@@ -1,7 +1,7 @@
 {%- comment -%}
   Slideshow Section
   Full-width image/video slideshow with text overlays
-  Features: autoplay, navigation dots/arrows, parallax effect
+  Features: autoplay, navigation dots/arrows, parallax effect, GSAP transitions
 {%- endcomment -%}
 
 {%- liquid
@@ -11,170 +11,89 @@
   assign show_arrows = section.settings.show_arrows
   assign show_dots = section.settings.show_dots
   assign parallax = section.settings.parallax
+  assign overlay_color = section.settings.overlay_color
   assign overlay_opacity = section.settings.overlay_opacity
+  assign overlay_alpha = overlay_opacity | divided_by: 100.0
+  assign transition_effect = section.settings.transition_effect
 -%}
 
 <style>
   #slideshow-{{ section.id }} {
-    --slideshow-height: {{ section_height }}vh;
-    --overlay-opacity: {{ overlay_opacity | divided_by: 100.0 }};
+    --slideshow-height: {{ section_height }}dvh;
+  }
+  @supports not (height: 1dvh) {
+    #slideshow-{{ section.id }} { --slideshow-height: {{ section_height }}vh; }
   }
 
-  #slideshow-{{ section.id }} .slideshow {
-    position: relative;
-    height: var(--slideshow-height);
-    overflow: hidden;
-  }
-
+  /* Base slide states */
   #slideshow-{{ section.id }} .slideshow__slide {
-    position: absolute;
-    inset: 0;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    z-index: 0;
   }
-
   #slideshow-{{ section.id }} .slideshow__slide.is-active {
     opacity: 1;
     visibility: visible;
-    position: relative;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__media {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  {% if parallax %}
-  #slideshow-{{ section.id }} .slideshow__media {
-    height: 120%;
-    top: -10%;
-  }
-  {% endif %}
-
-  #slideshow-{{ section.id }} .slideshow__overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, var(--overlay-opacity));
-    pointer-events: none;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__content {
-    position: relative;
     z-index: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2rem;
   }
 
-  #slideshow-{{ section.id }} .slideshow__text {
-    max-width: 42rem;
-  }
-
-  /* Navigation arrows */
-  #slideshow-{{ section.id }} .slideshow__arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s, background 0.3s;
-  }
-
-  #slideshow-{{ section.id }} .slideshow:hover .slideshow__arrow {
-    opacity: 1;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__arrow:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-
-  #slideshow-{{ section.id }} .slideshow__arrow--prev {
-    left: 1rem;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__arrow--next {
-    right: 1rem;
-  }
-
-  @media (min-width: 768px) {
-    #slideshow-{{ section.id }} .slideshow__arrow--prev {
-      left: 2rem;
-    }
-    #slideshow-{{ section.id }} .slideshow__arrow--next {
-      right: 2rem;
-    }
-  }
-
-  /* Navigation dots */
-  #slideshow-{{ section.id }} .slideshow__dots {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s, transform 0.3s;
-  }
-
-  #slideshow-{{ section.id }} .slideshow__dot.is-active {
-    background: white;
-    transform: scale(1.25);
-  }
-
-  #slideshow-{{ section.id }} .slideshow__dot:hover {
-    background: rgba(255, 255, 255, 0.8);
-  }
-
-  /* Progress bar for autoplay */
-  #slideshow-{{ section.id }} .slideshow__progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.6);
-    z-index: 10;
-    width: 0;
-  }
-
+  /* Navigation */
+  #slideshow-{{ section.id }} .slideshow__dot.is-active { background: white; transform: scale(1.25); }
   #slideshow-{{ section.id }} .slideshow__progress.is-animating {
-    animation: slideshow-progress {{ autoplay_speed }}s linear forwards;
+    animation: slideshow-progress-{{ section.id }} {{ autoplay_speed }}s linear forwards;
   }
-
-  @keyframes slideshow-progress {
+  @keyframes slideshow-progress-{{ section.id }} {
     from { width: 0; }
     to { width: 100%; }
   }
+  @media (min-width: 768px) {
+    #slideshow-{{ section.id }} .slideshow__arrow { opacity: 0; }
+    #slideshow-{{ section.id }} .slideshow:hover .slideshow__arrow { opacity: 1; }
+  }
+
+  {% if parallax %}
+  #slideshow-{{ section.id }} .slideshow__media-wrapper { height: 120%; top: -10%; }
+  {% endif %}
+
+  /* Initial loading state - hide content until JS animates it */
+  #slideshow-{{ section.id }} .slideshow__subheading,
+  #slideshow-{{ section.id }} .slideshow__heading,
+  #slideshow-{{ section.id }} .slideshow__text,
+  #slideshow-{{ section.id }} .slideshow__cta { opacity: 0; }
+
+  /* Per-slide button styles */
+  {% for block in section.blocks %}
+  {%- assign btn_text_color = block.settings.text_color -%}
+  {%- assign btn_contrast_color = btn_text_color | color_brightness | round -%}
+  {%- if btn_contrast_color > 128 -%}
+    {%- assign btn_solid_text = '#000000' -%}
+  {%- else -%}
+    {%- assign btn_solid_text = '#ffffff' -%}
+  {%- endif -%}
+  /* Outline button */
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn {
+    color: {{ btn_text_color }};
+    border: var(--button-border-width, 1px) solid {{ btn_text_color }};
+    background-color: transparent;
+  }
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn::before { background: {{ btn_text_color }}; }
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn:hover,
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn:hover span { color: {{ btn_solid_text }}; }
+  /* Solid button - no border */
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn--solid {
+    background-color: {{ btn_text_color }};
+    color: {{ btn_solid_text }};
+    border: none;
+  }
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn--solid span { color: {{ btn_solid_text }}; }
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn--solid::before { background: {{ btn_solid_text }}; }
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn--solid:hover,
+  #slideshow-{{ section.id }} [data-slide-index="{{ forloop.index0 }}"] .slideshow__btn--solid:hover span { color: {{ btn_text_color }}; }
+  {% endfor %}
 </style>
 
-<section id="slideshow-{{ section.id }}" class="slideshow-section" data-slideshow>
-  <div class="slideshow" aria-label="{{ 'accessibility.slideshow' | t }}" role="region">
+<section id="slideshow-{{ section.id }}" class="slideshow-section" data-slideshow data-transition="{{ transition_effect }}">
+  <div class="slideshow relative overflow-hidden" style="height: var(--slideshow-height); min-height: 400px;" aria-label="{{ 'accessibility.slideshow' | t }}" role="region">
     {%- comment -%} Slides {%- endcomment -%}
     {% for block in section.blocks %}
       {%- liquid
@@ -214,70 +133,71 @@
       -%}
 
       <div
-        class="slideshow__slide{% if forloop.first %} is-active{% endif %}"
+        class="slideshow__slide absolute inset-0{% if forloop.first %} is-active{% endif %}"
         data-slide-index="{{ forloop.index0 }}"
         {{ block.shopify_attributes }}
       >
-        {%- comment -%} Media (Image or Video) {%- endcomment -%}
-        {% if block.settings.video != blank %}
-          {{ block.settings.video | video_tag:
-            class: 'slideshow__media',
-            autoplay: true,
-            muted: true,
-            loop: true,
-            playsinline: true,
-            poster: block.settings.image | image_url: width: 1920
-          }}
-        {% elsif block.settings.image != blank %}
-          {%- assign img_aspect = block.settings.image.aspect_ratio | default: 1.78 -%}
-          {%- assign img_height = 1920 | divided_by: img_aspect | round -%}
-          <img
-            src="{{ block.settings.image | image_url: width: 1920 }}"
-            srcset="{{ block.settings.image | image_url: width: 768 }} 768w,
-                    {{ block.settings.image | image_url: width: 1200 }} 1200w,
-                    {{ block.settings.image | image_url: width: 1920 }} 1920w"
-            sizes="100vw"
-            alt="{{ block.settings.image.alt | escape }}"
-            class="slideshow__media"
-            width="1920"
-            height="{{ img_height }}"
-            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
-            {% if parallax %}data-parallax-media{% endif %}
-          >
-        {% else %}
-          <div class="slideshow__media bg-gradient-to-br from-gray-800 to-gray-900"></div>
-        {% endif %}
+        {%- comment -%} Media wrapper with overflow hidden to contain zoom effects {%- endcomment -%}
+        <div class="slideshow__media-wrapper absolute inset-0 overflow-hidden">
+          {% if block.settings.video != blank %}
+            {{ block.settings.video | video_tag:
+              class: 'slideshow__media absolute inset-0 w-full h-full object-cover',
+              autoplay: true,
+              muted: true,
+              loop: true,
+              playsinline: true,
+              poster: block.settings.image
+            }}
+          {% elsif block.settings.image != blank %}
+            {%- assign img_aspect = block.settings.image.aspect_ratio | default: 1.78 -%}
+            {%- assign img_height = 1920 | divided_by: img_aspect | round -%}
+            <img
+              src="{{ block.settings.image | image_url: width: 1920 }}"
+              srcset="{{ block.settings.image | image_url: width: 768 }} 768w,
+                      {{ block.settings.image | image_url: width: 1200 }} 1200w,
+                      {{ block.settings.image | image_url: width: 1920 }} 1920w"
+              sizes="100vw"
+              alt="{{ block.settings.image.alt | escape }}"
+              class="slideshow__media absolute inset-0 w-full h-full object-cover"
+              width="1920"
+              height="{{ img_height }}"
+              loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+              {% if parallax %}data-parallax-media{% endif %}
+            >
+          {% else %}
+            <div class="slideshow__media absolute inset-0 w-full h-full bg-gradient-to-br from-gray-800 to-gray-900"></div>
+          {% endif %}
+        </div>
 
         {%- comment -%} Overlay {%- endcomment -%}
-        <div class="slideshow__overlay"></div>
+        <div class="slideshow__overlay absolute inset-0 pointer-events-none" style="background-color: {{ overlay_color | color_modify: 'alpha', overlay_alpha }};"></div>
 
         {%- comment -%} Content {%- endcomment -%}
-        <div class="slideshow__content page-container {{ content_justify }} {{ content_items }}" style="color: {{ text_color }};">
-          <div class="slideshow__text text-{{ text_alignment }}">
+        <div class="slideshow__content relative z-[1] h-full flex flex-col p-8 page-container {{ content_justify }} {{ content_items }}" style="color: {{ text_color }};">
+          <div class="max-w-[42rem] text-{{ text_alignment }}">
             {% if block.settings.subheading != blank %}
-              <p class="text-sm uppercase tracking-wider mb-4 opacity-80" data-intro>
+              <p class="slideshow__subheading text-sm uppercase tracking-wider mb-4 opacity-80" data-intro>
                 {{ block.settings.subheading }}
               </p>
             {% endif %}
 
             {% if block.settings.heading != blank %}
-              <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading mb-6 leading-tight" data-intro>
+              <h2 class="slideshow__heading text-4xl sm:text-5xl lg:text-6xl font-bold font-heading mb-6 leading-tight" data-intro>
                 {{ block.settings.heading }}
               </h2>
             {% endif %}
 
             {% if block.settings.text != blank %}
-              <p class="text-lg opacity-90 mb-8 max-w-lg {% if text_alignment == 'center' %}mx-auto{% elsif text_alignment == 'right' %}ml-auto{% endif %}" data-intro>
+              <p class="slideshow__text text-lg opacity-90 mb-8 max-w-lg {% if text_alignment == 'center' %}mx-auto{% elsif text_alignment == 'right' %}ml-auto{% endif %}" data-intro>
                 {{ block.settings.text }}
               </p>
             {% endif %}
 
             {% if block.settings.button_label != blank %}
-              <div data-intro>
+              <div class="slideshow__cta" data-intro>
                 <a
                   href="{{ block.settings.button_link }}"
-                  class="btn btn-primary"
-                  style="{% if block.settings.button_style == 'outline' %}background: transparent; border-color: currentColor;{% endif %}"
+                  class="btn slideshow__btn{% if block.settings.button_style == 'solid' %} slideshow__btn--solid{% endif %}"
                 >
                   <span>{{ block.settings.button_label }}</span>
                 </a>
@@ -290,21 +210,31 @@
 
     {%- comment -%} Navigation Arrows {%- endcomment -%}
     {% if show_arrows and section.blocks.size > 1 %}
-      <button type="button" class="slideshow__arrow slideshow__arrow--prev" data-slideshow-prev aria-label="{{ 'accessibility.previous_slide' | t }}">
+      <button
+        type="button"
+        class="slideshow__arrow absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-10 w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white cursor-pointer transition-all duration-300 hover:bg-white/20"
+        data-slideshow-prev
+        aria-label="{{ 'accessibility.previous_slide' | t }}"
+      >
         <i class="ph ph-caret-left text-xl"></i>
       </button>
-      <button type="button" class="slideshow__arrow slideshow__arrow--next" data-slideshow-next aria-label="{{ 'accessibility.next_slide' | t }}">
+      <button
+        type="button"
+        class="slideshow__arrow absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-10 w-12 h-12 flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white cursor-pointer transition-all duration-300 hover:bg-white/20"
+        data-slideshow-next
+        aria-label="{{ 'accessibility.next_slide' | t }}"
+      >
         <i class="ph ph-caret-right text-xl"></i>
       </button>
     {% endif %}
 
     {%- comment -%} Navigation Dots {%- endcomment -%}
     {% if show_dots and section.blocks.size > 1 %}
-      <div class="slideshow__dots">
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
         {% for block in section.blocks %}
           <button
             type="button"
-            class="slideshow__dot{% if forloop.first %} is-active{% endif %}"
+            class="slideshow__dot w-2 h-2 rounded-full bg-white/40 border-0 cursor-pointer transition-all duration-300 hover:bg-white/80{% if forloop.first %} is-active{% endif %}"
             data-slideshow-dot="{{ forloop.index0 }}"
             aria-label="{{ 'accessibility.go_to_slide' | t: index: forloop.index }}"
           ></button>
@@ -314,200 +244,342 @@
 
     {%- comment -%} Progress Bar {%- endcomment -%}
     {% if autoplay and section.blocks.size > 1 %}
-      <div class="slideshow__progress" data-slideshow-progress></div>
+      <div class="slideshow__progress absolute bottom-0 left-0 h-[3px] bg-white/60 z-10 w-0" data-slideshow-progress></div>
     {% endif %}
   </div>
 </section>
 
-{% if section.blocks.size > 1 %}
 <script>
   (function() {
     const container = document.querySelector('#slideshow-{{ section.id }}');
-    if (!container) return;
+    if (!container || container.dataset.slideshowInitialized) return;
+    container.dataset.slideshowInitialized = 'true';
 
-    const slides = container.querySelectorAll('[data-slide-index]');
-    const dots = container.querySelectorAll('[data-slideshow-dot]');
-    const prevBtn = container.querySelector('[data-slideshow-prev]');
-    const nextBtn = container.querySelector('[data-slideshow-next]');
-    const progress = container.querySelector('[data-slideshow-progress]');
-    const parallaxMedia = container.querySelectorAll('[data-parallax-media]');
-
-    let currentSlide = 0;
-    let autoplayInterval = null;
-    let isPaused = false;
-    const autoplay = {{ autoplay }};
-    const autoplaySpeed = {{ autoplay_speed }} * 1000;
-    const totalSlides = slides.length;
-
-    function showSlide(index, direction = 'next') {
-      // Update slides
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('is-active', i === index);
-      });
-
-      // Update dots
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('is-active', i === index);
-      });
-
-      currentSlide = index;
-
-      // Reset and restart progress bar
-      if (progress && autoplay) {
-        progress.classList.remove('is-animating');
-        void progress.offsetWidth; // Force reflow
-        progress.classList.add('is-animating');
-      }
-    }
-
-    function nextSlide() {
-      const next = (currentSlide + 1) % totalSlides;
-      showSlide(next, 'next');
-    }
-
-    function prevSlide() {
-      const prev = (currentSlide - 1 + totalSlides) % totalSlides;
-      showSlide(prev, 'prev');
-    }
-
-    // Event listeners
-    if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
-    if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        resetAutoplay();
-      });
-    });
-
-    // Touch/swipe support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    container.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    container.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }, { passive: true });
-
-    function handleSwipe() {
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          nextSlide();
+    // Wait for GSAP and SplitText
+    function initSlideshow() {
+      if (typeof gsap === 'undefined') {
+        if (window.pieces && window.pieces.gsap) {
+          window.gsap = window.pieces.gsap;
         } else {
-          prevSlide();
+          requestAnimationFrame(initSlideshow);
+          return;
         }
-        resetAutoplay();
-      }
-    }
-
-    // Autoplay
-    function startAutoplay() {
-      if (!autoplay || isPaused) return;
-      stopAutoplay();
-      autoplayInterval = setInterval(nextSlide, autoplaySpeed);
-      if (progress) {
-        progress.classList.add('is-animating');
-      }
-    }
-
-    function stopAutoplay() {
-      if (autoplayInterval) {
-        clearInterval(autoplayInterval);
-        autoplayInterval = null;
-      }
-      if (progress) {
-        progress.classList.remove('is-animating');
-      }
-    }
-
-    function resetAutoplay() {
-      stopAutoplay();
-      startAutoplay();
-    }
-
-    // Pause on hover/focus
-    container.addEventListener('mouseenter', () => {
-      isPaused = true;
-      stopAutoplay();
-    });
-
-    container.addEventListener('mouseleave', () => {
-      isPaused = false;
-      startAutoplay();
-    });
-
-    container.addEventListener('focusin', () => {
-      isPaused = true;
-      stopAutoplay();
-    });
-
-    container.addEventListener('focusout', () => {
-      isPaused = false;
-      startAutoplay();
-    });
-
-    // Parallax effect
-    {% if parallax %}
-    if (parallaxMedia.length > 0) {
-      function updateParallax(scrollY) {
-        const rect = container.getBoundingClientRect();
-        const viewportHeight = window.innerHeight;
-
-        // Only update when visible
-        if (rect.bottom < 0 || rect.top > viewportHeight) return;
-
-        const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
-        const translateY = (progress - 0.5) * 20; // Max 20% movement
-
-        parallaxMedia.forEach(media => {
-          media.style.transform = `translateY(${translateY}%)`;
-        });
       }
 
-      // Use Lenis if available, otherwise native scroll
-      function initParallax() {
-        if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
-          window.pieces.lenis.lenis.on('scroll', (e) => {
-            updateParallax(e.scroll);
+      // Get SplitText from pieces or window
+      let SplitText = window.SplitText;
+      if (!SplitText && window.pieces && window.pieces.SplitText) {
+        SplitText = window.pieces.SplitText;
+      }
+
+      if (!SplitText) {
+        requestAnimationFrame(initSlideshow);
+        return;
+      }
+
+      const slides = container.querySelectorAll('[data-slide-index]');
+      const dots = container.querySelectorAll('[data-slideshow-dot]');
+      const prevBtn = container.querySelector('[data-slideshow-prev]');
+      const nextBtn = container.querySelector('[data-slideshow-next]');
+      const progress = container.querySelector('[data-slideshow-progress]');
+      const parallaxMedia = container.querySelectorAll('[data-parallax-media]');
+      const transition = container.dataset.transition || 'fade';
+      const totalSlides = slides.length;
+
+      // Split headings for line-by-line animation
+      const headingSplits = new Map();
+      slides.forEach(slide => {
+        const heading = slide.querySelector('.slideshow__heading');
+        if (heading) {
+          const split = new SplitText(heading, { type: 'lines', linesClass: 'slideshow__heading-line' });
+          // Wrap each line for overflow hidden reveal
+          split.lines.forEach(line => {
+            const wrapper = document.createElement('div');
+            wrapper.style.overflow = 'hidden';
+            wrapper.style.display = 'block';
+            line.parentNode.insertBefore(wrapper, line);
+            wrapper.appendChild(line);
           });
+          // Set lines off-screen BEFORE making heading visible
+          gsap.set(split.lines, { yPercent: 120 });
+          // Now make heading visible (lines are already positioned off-screen)
+          heading.style.opacity = 1;
+          headingSplits.set(slide, split);
+        }
+      });
+
+      let currentSlide = 0;
+      let autoplayInterval = null;
+      let isPaused = false;
+      let isAnimating = false;
+      const autoplayEnabled = {{ autoplay }};
+      const autoplaySpeed = {{ autoplay_speed }} * 1000;
+
+      // Transition configurations
+      const transitions = {
+        fade: {
+          duration: 0.8,
+          enter: (slide) => gsap.fromTo(slide, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.inOut' }),
+          exit: (slide) => gsap.to(slide, { opacity: 0, duration: 0.8, ease: 'power2.inOut' })
+        },
+        slide: {
+          duration: 0.9,
+          enter: (slide, dir) => {
+            gsap.set(slide, { xPercent: dir === 'next' ? 100 : -100, opacity: 1, visibility: 'visible' });
+            return gsap.to(slide, { xPercent: 0, duration: 0.9, ease: 'power3.inOut' });
+          },
+          exit: (slide, dir) => gsap.to(slide, { xPercent: dir === 'next' ? -100 : 100, duration: 0.9, ease: 'power3.inOut' })
+        },
+        'zoom-in': {
+          duration: 1.4,
+          enter: (slide) => {
+            const media = slide.querySelector('.slideshow__media');
+            gsap.set(slide, { opacity: 0, visibility: 'visible' });
+            gsap.set(media, { scale: 1, transformOrigin: 'center center' });
+            // Fade in slide while zooming media
+            gsap.to(slide, { opacity: 1, duration: 0.8, ease: 'power2.out' });
+            return gsap.to(media, { scale: 1.15, duration: 1.4, ease: 'power2.out' });
+          },
+          exit: (slide) => {
+            const media = slide.querySelector('.slideshow__media');
+            // Fade out while continuing zoom slightly
+            gsap.to(media, { scale: 1.2, duration: 0.6, ease: 'power2.in' });
+            return gsap.to(slide, { opacity: 0, duration: 0.6, ease: 'power2.in' });
+          }
+        },
+        'zoom-out': {
+          duration: 1.4,
+          enter: (slide) => {
+            const media = slide.querySelector('.slideshow__media');
+            gsap.set(slide, { opacity: 0, visibility: 'visible' });
+            gsap.set(media, { scale: 1.3, transformOrigin: 'center center' });
+            // Fade in slide while zooming out media
+            gsap.to(slide, { opacity: 1, duration: 0.8, ease: 'power2.out' });
+            return gsap.to(media, { scale: 1, duration: 1.4, ease: 'power2.out' });
+          },
+          exit: (slide) => {
+            const media = slide.querySelector('.slideshow__media');
+            // Fade out while continuing to zoom out slightly
+            gsap.to(media, { scale: 0.95, duration: 0.6, ease: 'power2.in' });
+            return gsap.to(slide, { opacity: 0, duration: 0.6, ease: 'power2.in' });
+          }
+        },
+        reveal: {
+          duration: 1.2,
+          enter: (slide, dir) => {
+            gsap.set(slide, { clipPath: dir === 'next' ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)', opacity: 1, visibility: 'visible' });
+            return gsap.to(slide, { clipPath: 'inset(0 0% 0 0%)', duration: 1.2, ease: 'power4.inOut' });
+          },
+          exit: (slide, dir) => gsap.to(slide, {
+            clipPath: dir === 'next' ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)',
+            duration: 1.2,
+            ease: 'power4.inOut'
+          })
+        }
+      };
+
+      function animateContent(slide, show = true) {
+        const subheading = slide.querySelector('.slideshow__subheading');
+        const text = slide.querySelector('.slideshow__text');
+        const cta = slide.querySelector('.slideshow__cta');
+        const split = headingSplits.get(slide);
+
+        if (show) {
+          const tl = gsap.timeline();
+          let delay = 0.3;
+
+          // Subheading fade up
+          if (subheading) {
+            tl.fromTo(subheading, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, delay);
+            delay += 0.1;
+          }
+
+          // Heading line-by-line reveal
+          if (split && split.lines.length) {
+            gsap.set(split.lines, { yPercent: 120 });
+            tl.to(split.lines, { yPercent: 0, duration: 1, ease: 'power4.out', stagger: 0.1 }, delay);
+            delay += 0.2;
+          }
+
+          // Text fade up
+          if (text) {
+            tl.fromTo(text, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' }, delay + 0.3);
+          }
+
+          // CTA fade up
+          if (cta) {
+            tl.fromTo(cta, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, delay + 0.5);
+          }
         } else {
-          window.addEventListener('scroll', () => {
-            requestAnimationFrame(() => updateParallax(window.scrollY));
-          }, { passive: true });
+          // Animate out - simpler exit
+          const elements = [subheading, text, cta].filter(Boolean);
+          if (split && split.lines.length) {
+            gsap.to(split.lines, { yPercent: -120, duration: 0.4, ease: 'power2.in' });
+          }
+          gsap.to(elements, { y: -20, opacity: 0, duration: 0.4, ease: 'power2.in' });
         }
       }
 
-      // Wait for Lenis to be ready
-      let attempts = 0;
-      function tryInitParallax() {
+      function showSlide(index, direction = 'next') {
+        if (isAnimating || index === currentSlide) return;
+        isAnimating = true;
+
+        const prevIndex = currentSlide;
+        const prevSlide = slides[prevIndex];
+        const nextSlide = slides[index];
+        const trans = transitions[transition];
+
+        // Animate out content first
+        animateContent(prevSlide, false);
+
+        // Setup z-index
+        gsap.set(nextSlide, { zIndex: 1, visibility: 'visible' });
+        gsap.set(prevSlide, { zIndex: 0 });
+
+        // Run transitions
+        const enterAnim = trans.enter(nextSlide, direction);
+        trans.exit(prevSlide, direction);
+
+        // Animate in content
+        animateContent(nextSlide, true);
+
+        // Update classes after animation
+        setTimeout(() => {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('is-active', i === index);
+            if (i !== index) {
+              gsap.set(slide, { clearProps: 'all' });
+              const media = slide.querySelector('.slideshow__media');
+              if (media) gsap.set(media, { clearProps: 'transform' });
+              slide.style.opacity = '0';
+              slide.style.visibility = 'hidden';
+              slide.style.zIndex = '0';
+            }
+          });
+          gsap.set(nextSlide, { opacity: 1, visibility: 'visible', zIndex: 1 });
+          isAnimating = false;
+        }, trans.duration * 1000);
+
+        // Update dots
+        dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index));
+        currentSlide = index;
+
+        // Reset progress bar
+        if (progress && autoplayEnabled) {
+          progress.classList.remove('is-animating');
+          void progress.offsetWidth;
+          progress.classList.add('is-animating');
+        }
+      }
+
+      function nextSlide() {
+        const next = (currentSlide + 1) % totalSlides;
+        showSlide(next, 'next');
+      }
+
+      function prevSlide() {
+        const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+        showSlide(prev, 'prev');
+      }
+
+      // Event listeners
+      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          const direction = i > currentSlide ? 'next' : 'prev';
+          showSlide(i, direction);
+          resetAutoplay();
+        });
+      });
+
+      // Touch/swipe support
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      container.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+          resetAutoplay();
+        }
+      }, { passive: true });
+
+      // Autoplay
+      function startAutoplay() {
+        if (!autoplayEnabled || isPaused) return;
+        stopAutoplay();
+        autoplayInterval = setInterval(nextSlide, autoplaySpeed);
+        if (progress) progress.classList.add('is-animating');
+      }
+
+      function stopAutoplay() {
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+          autoplayInterval = null;
+        }
+        if (progress) progress.classList.remove('is-animating');
+      }
+
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      container.addEventListener('mouseenter', () => { isPaused = true; stopAutoplay(); });
+      container.addEventListener('mouseleave', () => { isPaused = false; startAutoplay(); });
+      container.addEventListener('focusin', () => { isPaused = true; stopAutoplay(); });
+      container.addEventListener('focusout', () => { isPaused = false; startAutoplay(); });
+
+      {% if parallax %}
+      // Parallax effect
+      if (parallaxMedia.length > 0) {
+        function updateParallax() {
+          const rect = container.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          if (rect.bottom < 0 || rect.top > viewportHeight) return;
+
+          const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+          const translateY = (progress - 0.5) * 20;
+          parallaxMedia.forEach(media => {
+            gsap.set(media, { y: `${translateY}%` });
+          });
+        }
+
         if (window.pieces && window.pieces.lenis && window.pieces.lenis.lenis) {
-          initParallax();
-        } else if (attempts < 20) {
-          attempts++;
-          setTimeout(tryInitParallax, 100);
+          window.pieces.lenis.lenis.on('scroll', updateParallax);
         } else {
-          // Fallback to native scroll
-          initParallax();
+          window.addEventListener('scroll', () => requestAnimationFrame(updateParallax), { passive: true });
         }
       }
-      tryInitParallax();
-    }
-    {% endif %}
+      {% endif %}
 
-    // Initialize
-    startAutoplay();
-    if (progress && autoplay) {
-      progress.classList.add('is-animating');
+      // Initialize first slide with intro animation
+      const firstSlide = slides[0];
+      if (firstSlide) {
+        // Animate in immediately (content is already hidden by CSS)
+        animateContent(firstSlide, true);
+      }
+
+      startAutoplay();
+      if (progress && autoplayEnabled) progress.classList.add('is-animating');
+    }
+
+    // Start initialization as early as possible
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSlideshow);
+    } else {
+      initSlideshow();
     }
   })();
 </script>
-{% endif %}
 
 {% schema %}
 {
@@ -526,6 +598,12 @@
       "label": "Section height"
     },
     {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay color",
+      "default": "#000000"
+    },
+    {
       "type": "range",
       "id": "overlay_opacity",
       "min": 0,
@@ -534,6 +612,23 @@
       "default": 30,
       "unit": "%",
       "label": "Overlay opacity"
+    },
+    {
+      "type": "header",
+      "content": "Transition"
+    },
+    {
+      "type": "select",
+      "id": "transition_effect",
+      "label": "Transition effect",
+      "default": "fade",
+      "options": [
+        { "value": "fade", "label": "Fade" },
+        { "value": "slide", "label": "Slide" },
+        { "value": "zoom-in", "label": "Zoom in" },
+        { "value": "zoom-out", "label": "Zoom out" },
+        { "value": "reveal", "label": "Reveal" }
+      ]
     },
     {
       "type": "header",
