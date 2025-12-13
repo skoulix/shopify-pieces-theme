@@ -34,13 +34,30 @@
   html.animations-disabled [data-recently-viewed-title] { opacity: 1; }
 </style>
 
+{%- liquid
+  # Get product card settings
+  case settings.product_card_image_ratio
+    when 'portrait'
+      assign image_ratio_class = 'aspect-[3/4]'
+    when 'square'
+      assign image_ratio_class = 'aspect-square'
+    when 'landscape'
+      assign image_ratio_class = 'aspect-[4/3]'
+    else
+      assign image_ratio_class = 'aspect-[3/4]'
+  endcase
+-%}
 <section
   class="recently-viewed-{{ section.id }} py-[--section-vertical-padding] overflow-hidden"
   data-recently-viewed
   data-section-id="{{ section.id }}"
   data-current-product-id="{{ product.id }}"
   data-products-to-show="{{ section.settings.products_to_show }}"
-  data-show-vendor="{{ section.settings.show_vendor }}"
+  data-show-vendor="{{ settings.show_vendor }}"
+  data-image-ratio-class="{{ image_ratio_class }}"
+  data-show-sale-badge="{{ settings.show_sale_badge }}"
+  data-sale-badge-style="{{ settings.sale_badge_style }}"
+  data-show-sold-out-badge="{{ settings.show_sold_out_badge }}"
   style="display: none;"
 >
   <div class="{{ container_class }}">
@@ -107,6 +124,10 @@
     const currentProductId = section.dataset.currentProductId;
     const maxProducts = parseInt(section.dataset.productsToShow, 10) || 8;
     const showVendor = section.dataset.showVendor === 'true';
+    const imageRatioClass = section.dataset.imageRatioClass || 'aspect-[3/4]';
+    const showSaleBadge = section.dataset.showSaleBadge === 'true';
+    const saleBadgeStyle = section.dataset.saleBadgeStyle || 'text';
+    const showSoldOutBadge = section.dataset.showSoldOutBadge === 'true';
 
     const track = section.querySelector('[data-carousel-track]');
     const prevBtn = section.querySelector('[data-carousel-prev]');
@@ -130,15 +151,35 @@
     }
 
     function formatMoney(cents) {
-      if (typeof cents === 'string') cents = cents.replace('.', '');
-      cents = parseInt(cents, 10) || 0;
+      // Handle string input - remove any non-numeric chars except decimal
+      if (typeof cents === 'string') {
+        cents = cents.replace(/[^\d.-]/g, '');
+        // If it has a decimal, it might be dollars - convert to cents
+        if (cents.includes('.')) {
+          cents = Math.round(parseFloat(cents) * 100);
+        } else {
+          cents = parseInt(cents, 10);
+        }
+      }
+      cents = cents || 0;
+
       const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
       const value = cents / 100;
       const amount = value.toFixed(2);
       const amountNoDecimals = Math.floor(value);
+
+      // Format with thousand separators
+      const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const amountWithComma = value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+      const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       return moneyFormat
-        .replace('{{amount_no_decimals}}', amountNoDecimals.toString())
-        .replace('{{amount}}', amount);
+        .replace('{{amount_with_comma_separator}}', amountWithComma)
+        .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
+        .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
+        .replace('{{amount_no_decimals}}', amountNoDecimals.toLocaleString('en-US'))
+        .replace('{{amount}}', amountFormatted);
     }
 
     function escapeHtml(str) {
@@ -155,59 +196,77 @@
 
       section.style.display = '';
 
-      track.innerHTML = products.map((product, index) => `
+      // Calculate sale percentage
+      function getSalePercent(compareAtPrice, price) {
+        if (!compareAtPrice || compareAtPrice <= price) return 0;
+        return Math.round((compareAtPrice - price) / compareAtPrice * 100);
+      }
+
+      track.innerHTML = products.map((product, index) => {
+        const hasSale = product.compareAtPrice && product.compareAtPrice > product.price;
+        const salePercent = getSalePercent(product.compareAtPrice, product.price);
+
+        return `
         <div class="shrink-0 w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)] min-w-0 flex" data-intro>
-          <article class="product-card group w-full flex flex-col">
-            <a href="${escapeHtml(product.url)}" class="product-card-image relative block aspect-[3/4] overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]">
-              ${product.image ? `
-                <img
-                  src="${escapeHtml(product.image)}"
-                  alt="${escapeHtml(product.title)}"
-                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                >
-              ` : `
-                <div class="w-full h-full flex items-center justify-center">
-                  <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30"></i>
-                </div>
-              `}
-              ${!product.available ? `
-                <span class="absolute top-3 left-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-background] text-[--color-text-secondary] rounded">
-                  {{ 'products.product.sold_out' | t }}
-                </span>
-              ` : ''}
-              ${product.compareAtPrice && product.compareAtPrice > product.price ? `
-                <span class="absolute top-3 right-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-sale] text-white rounded">
-                  {{ 'products.product.on_sale' | t }}
-                </span>
-              ` : ''}
-            </a>
-            <div class="product-card-content flex-1 flex flex-col pt-4">
-              ${showVendor && product.vendor ? `
-                <span class="text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-1">
-                  ${escapeHtml(product.vendor)}
-                </span>
-              ` : ''}
-              <h3 class="product-card-title text-sm font-medium leading-snug transition-opacity duration-300 group-hover:opacity-70">
-                <a href="${escapeHtml(product.url)}" class="no-underline">
-                  ${escapeHtml(product.title)}
-                </a>
-              </h3>
-              <div class="mt-auto pt-2">
-                <div class="flex items-center gap-2 text-sm">
-                  ${product.compareAtPrice && product.compareAtPrice > product.price ? `
-                    <span class="line-through opacity-60">${formatMoney(product.compareAtPrice)}</span>
-                    <span class="text-[--color-sale] font-medium">${formatMoney(product.price)}</span>
-                  ` : `
-                    <span>${formatMoney(product.price)}</span>
-                  `}
-                </div>
+          <article
+            class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full w-full"
+            style="border: var(--card-border-width) solid var(--color-border); box-shadow: var(--card-shadow);"
+          >
+            <div class="product-card-image relative overflow-hidden ${imageRatioClass}">
+              <a href="${escapeHtml(product.url)}" class="block w-full h-full" aria-label="${escapeHtml(product.title)}">
+                ${product.image ? `
+                  <img
+                    src="${escapeHtml(product.image)}"
+                    alt="${escapeHtml(product.title)}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                ` : `
+                  <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
+                    <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30" aria-hidden="true"></i>
+                  </div>
+                `}
+              </a>
+
+              <!-- Badges -->
+              <div class="absolute top-3 left-3 flex flex-col gap-2 pointer-events-none">
+                ${showSaleBadge && hasSale ? `
+                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-[--color-sale] text-white rounded">
+                    ${saleBadgeStyle === 'percentage' ? `-${salePercent}%` : `{{ 'products.product.on_sale' | t }}`}
+                  </span>
+                ` : ''}
+                ${showSoldOutBadge && !product.available ? `
+                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-[--color-text] text-[--color-background] rounded">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+                ` : ''}
               </div>
             </div>
+
+            <a href="${escapeHtml(product.url)}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline">
+              ${showVendor && product.vendor ? `
+                <p class="product-card-vendor text-xs text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
+                  <span class="inline-block">${escapeHtml(product.vendor)}</span>
+                </p>
+              ` : ''}
+
+              <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold tracking-wide text-[--color-text] font-heading">
+                ${escapeHtml(product.title)}
+              </h3>
+
+              <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+                ${hasSale ? `
+                  <span class="overflow-hidden inline-block"><span class="inline-block line-through opacity-60 mr-2">${formatMoney(product.compareAtPrice)}</span></span>
+                  <span class="overflow-hidden inline-block"><span class="inline-block text-[--color-sale]">${formatMoney(product.price)}</span></span>
+                ` : `
+                  <span class="overflow-hidden inline-block"><span class="inline-block">${formatMoney(product.price)}</span></span>
+                `}
+              </div>
+            </a>
           </article>
         </div>
-      `).join('');
+      `}).join('');
 
       totalSlides = products.length;
       updateSlidesPerView();
@@ -437,12 +496,6 @@
       "step": 1,
       "default": 8,
       "label": "Products to show"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": false
     },
     {
       "type": "header",

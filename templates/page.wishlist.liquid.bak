@@ -108,9 +108,18 @@
     cents = parseInt(cents, 10) || 0;
     const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
     const value = cents / 100;
+    const amount = value.toFixed(2);
+    const amountNoDecimals = Math.floor(value);
+    const amountWithComma = amount.replace('.', ',');
+    const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+    const amountWithApostrophe = amount.replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+
     return moneyFormat
-      .replace('{{amount_no_decimals}}', Math.floor(value).toString())
-      .replace('{{amount}}', value.toFixed(2));
+      .replace('{{amount_with_comma_separator}}', amountWithComma)
+      .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
+      .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
+      .replace('{{amount_no_decimals}}', amountNoDecimals.toString())
+      .replace('{{amount}}', amount);
   }
 
   function escapeHtml(str) {

@@ -1,0 +1,315 @@
+{%- comment -%}
+  Wishlist Content Section
+  Shows all saved favorite products from localStorage
+{%- endcomment -%}
+
+<style>
+  .wishlist-section {
+    padding: var(--page-vertical-padding) 0;
+  }
+  .wishlist-section__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .wishlist-section__title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .wishlist-section__subtitle {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+  }
+  .wishlist-section__empty {
+    text-align: center;
+    padding: 4rem 0;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .wishlist-section__empty-icon {
+    font-size: 4rem;
+    color: var(--color-text-secondary);
+    opacity: 0.3;
+    margin-bottom: 1.5rem;
+  }
+  .wishlist-section__empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .wishlist-section__empty-text {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 28rem;
+  }
+  .wishlist-section__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .wishlist-section__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .wishlist-section__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .wishlist-section__actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+</style>
+
+<section class="wishlist-section page-container" data-wishlist-page>
+  <header class="wishlist-section__header">
+    <h1 class="wishlist-section__title font-heading">{{ section.settings.title | default: page.title | default: 'Wishlist' }}</h1>
+    <p class="wishlist-section__subtitle" data-wishlist-page-count>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
+  </header>
+
+  <div data-wishlist-page-content>
+    {%- comment -%} Content rendered via JS {%- endcomment -%}
+  </div>
+</section>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'pieces_wishlist';
+
+  const section = document.querySelector('[data-wishlist-page]');
+  const content = document.querySelector('[data-wishlist-page-content]');
+  const countEl = document.querySelector('[data-wishlist-page-count]');
+
+  if (!section || !content) return;
+
+  function getProducts() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveProducts(products) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    } catch {}
+  }
+
+  function formatMoney(cents) {
+    // Handle string input - remove any non-numeric chars except decimal
+    if (typeof cents === 'string') {
+      cents = cents.replace(/[^\d.-]/g, '');
+      // If it has a decimal, it might be dollars - convert to cents
+      if (cents.includes('.')) {
+        cents = Math.round(parseFloat(cents) * 100);
+      } else {
+        cents = parseInt(cents, 10);
+      }
+    }
+    cents = cents || 0;
+
+    const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
+    const value = cents / 100;
+    const amountNoDecimals = Math.floor(value);
+
+    // Format with thousand separators
+    const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountWithComma = value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const amountNoDecimalsWithComma = amountNoDecimals.toLocaleString('de-DE');
+    const amountWithApostrophe = value.toLocaleString('de-CH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    return moneyFormat
+      .replace('{{amount_with_comma_separator}}', amountWithComma)
+      .replace('{{amount_no_decimals_with_comma_separator}}', amountNoDecimalsWithComma)
+      .replace('{{amount_with_apostrophe_separator}}', amountWithApostrophe)
+      .replace('{{amount_no_decimals}}', amountNoDecimals.toLocaleString('en-US'))
+      .replace('{{amount}}', amountFormatted);
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function removeProduct(productId) {
+    const products = getProducts().filter(p => p.id !== productId);
+    saveProducts(products);
+    render();
+    document.dispatchEvent(new CustomEvent('wishlist:removed', { detail: { productId } }));
+  }
+
+  function render() {
+    const products = getProducts();
+
+    // Update count
+    if (countEl) {
+      countEl.textContent = `${products.length} {{ 'products.wishlist.products' | t | default: 'saved items' }}`;
+    }
+
+    if (products.length === 0) {
+      content.innerHTML = `
+        <div class="wishlist-section__empty">
+          <div class="wishlist-section__empty-icon">
+            <i class="ph ph-heart" aria-hidden="true"></i>
+          </div>
+          <h2 class="wishlist-section__empty-title">{{ 'products.wishlist.empty_title' | t | default: 'Your wishlist is empty' }}</h2>
+          <p class="wishlist-section__empty-text">{{ 'products.wishlist.empty_text' | t | default: 'Save your favorite products by clicking the heart icon on product cards.' }}</p>
+          <a href="{{ section.settings.browse_link | default: '/collections/all' }}" class="btn btn--primary">
+            <span>{{ 'products.wishlist.browse_products' | t | default: 'Browse Products' }}</span>
+          </a>
+        </div>
+      `;
+      return;
+    }
+
+    const showVendor = {{ settings.show_vendor | json }};
+
+    let html = `
+      <div class="wishlist-section__grid">
+        ${products.map(product => `
+          <article class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full" style="border: var(--card-border-width) solid var(--color-border); box-shadow: var(--card-shadow);" data-intro>
+            <div class="product-card-image relative overflow-hidden aspect-[3/4]">
+              <a href="${escapeHtml(product.url)}" class="block w-full h-full" aria-label="${escapeHtml(product.title)}">
+                ${product.image ? `
+                  <img
+                    src="${escapeHtml(product.image)}"
+                    alt="${escapeHtml(product.title)}"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                ` : `
+                  <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
+                    <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30" aria-hidden="true"></i>
+                  </div>
+                `}
+              </a>
+              <button
+                type="button"
+                class="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-[--color-sale] text-white shadow-md transition-all duration-300 hover:scale-110"
+                data-remove-wishlist-page="${product.id}"
+                aria-label="{{ 'products.wishlist.remove' | t | default: 'Remove from wishlist' }}"
+              >
+                <i class="ph ph-heart-fill text-lg" aria-hidden="true"></i>
+              </button>
+              ${!product.available ? `
+                <span class="absolute top-3 left-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-background] text-[--color-text-secondary] rounded pointer-events-none">
+                  {{ 'products.product.sold_out' | t }}
+                </span>
+              ` : ''}
+              ${product.compareAtPrice && product.compareAtPrice > product.price ? `
+                <span class="absolute bottom-3 left-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-sale] text-white rounded pointer-events-none">
+                  {{ 'products.product.on_sale' | t }}
+                </span>
+              ` : ''}
+            </div>
+            <a href="${escapeHtml(product.url)}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline">
+              ${showVendor && product.vendor ? `
+                <p class="product-card-vendor text-xs text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
+                  <span class="inline-block">${escapeHtml(product.vendor)}</span>
+                </p>
+              ` : ''}
+              <h3 class="product-card-title mt-2 text-xs md:text-sm font-semibold tracking-wide text-[--color-text] font-heading">
+                ${escapeHtml(product.title)}
+              </h3>
+              <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+                ${product.compareAtPrice && product.compareAtPrice > product.price ? `
+                  <span class="line-through opacity-60 mr-2">${formatMoney(product.compareAtPrice)}</span>
+                  <span class="text-[--color-sale]">${formatMoney(product.price)}</span>
+                ` : formatMoney(product.price)}
+              </div>
+            </a>
+          </article>
+        `).join('')}
+      </div>
+
+      <div class="wishlist-section__actions">
+        <button type="button" class="btn btn--secondary" data-clear-wishlist>
+          <i class="ph ph-trash" aria-hidden="true"></i>
+          <span>{{ 'products.wishlist.clear_all' | t | default: 'Clear All' }}</span>
+        </button>
+        <a href="{{ section.settings.browse_link | default: '/collections/all' }}" class="btn btn--primary">
+          <span>{{ 'products.wishlist.continue_shopping' | t | default: 'Continue Shopping' }}</span>
+        </a>
+      </div>
+    `;
+
+    content.innerHTML = html;
+
+    // Add event listeners
+    content.querySelectorAll('[data-remove-wishlist-page]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        removeProduct(btn.dataset.removeWishlistPage);
+      });
+    });
+
+    content.querySelector('[data-clear-wishlist]')?.addEventListener('click', () => {
+      saveProducts([]);
+      render();
+      document.dispatchEvent(new CustomEvent('wishlist:cleared'));
+    });
+
+    // Trigger intro animations
+    if (window.pieces?.animationManager) {
+      window.pieces.animationManager.initIntroAnimations();
+    }
+  }
+
+  // Initial render
+  render();
+
+  // Listen for changes
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      render();
+    }
+  });
+
+  document.addEventListener('wishlist:added', render);
+  document.addEventListener('wishlist:removed', render);
+  document.addEventListener('wishlist:cleared', render);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist Content",
+  "tag": "section",
+  "class": "wishlist-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Wishlist"
+    },
+    {
+      "type": "url",
+      "id": "browse_link",
+      "label": "Browse products link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wishlist Content"
+    }
+  ]
+}
+{% endschema %}

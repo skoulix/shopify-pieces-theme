@@ -102,7 +102,6 @@
                 {% render 'product-card',
                   product: recommendation,
                   index: forloop.index0,
-                  show_vendor: section.settings.show_vendor,
                   show_quick_add: false,
                   lazy_load: true
                 %}
@@ -398,12 +397,6 @@
       "step": 1,
       "default": 8,
       "label": "Products to show"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": false
     },
     {
       "type": "header",

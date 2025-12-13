@@ -534,6 +534,86 @@
               {%- endif -%}
             </div>
 
+          {%- when 'wishlist_button' -%}
+            {%- if settings.enable_wishlist -%}
+              <div class="mt-4" data-intro {{ block.shopify_attributes }}>
+                <button
+                  type="button"
+                  class="product-wishlist-btn inline-flex items-center gap-2 px-4 py-2.5 border border-[--color-border] rounded-[--button-radius] text-sm transition-all duration-300 hover:border-[--color-text] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white [&.is-active]:border-[--color-sale]"
+                  data-wishlist-toggle="{{ product.id }}"
+                  data-product-data="{{ product.id | json }}||{{ product.handle | json }}||{{ product.title | json }}||{{ product.url | json }}||{{ product.featured_image | image_url: width: 800 | json }}||{{ product.price | json }}||{{ product.compare_at_price | default: 0 | json }}||{{ product.vendor | json }}||{{ product.available | json }}"
+                  aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}"
+                  aria-pressed="false"
+                >
+                  {%- if block.settings.style != 'text_only' -%}
+                    <i class="ph ph-heart text-lg" aria-hidden="true"></i>
+                  {%- endif -%}
+                  {%- if block.settings.style != 'icon_only' -%}
+                    <span data-wishlist-btn-text>{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to Wishlist' }}</span>
+                  {%- endif -%}
+                </button>
+              </div>
+            {%- endif -%}
+
+          {%- when 'compare_button' -%}
+            {%- if settings.enable_compare -%}
+              <div class="mt-4" data-intro {{ block.shopify_attributes }}>
+                <button
+                  type="button"
+                  class="product-compare-btn inline-flex items-center gap-2 px-4 py-2.5 border border-[--color-border] rounded-[--button-radius] text-sm transition-all duration-300 hover:border-[--color-text] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+                  data-compare-toggle="{{ product.id }}"
+                  data-product-data="{{ product.id | json }}||{{ product.handle | json }}||{{ product.title | json }}||{{ product.url | json }}||{{ product.featured_image | image_url: width: 800 | json }}||{{ product.price | json }}||{{ product.compare_at_price | default: 0 | json }}||{{ product.vendor | json }}||{{ product.available | json }}"
+                  aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}"
+                  aria-pressed="false"
+                >
+                  {%- if block.settings.style != 'text_only' -%}
+                    <i class="ph ph-scales text-lg" aria-hidden="true"></i>
+                  {%- endif -%}
+                  {%- if block.settings.style != 'icon_only' -%}
+                    <span data-compare-btn-text>{{ 'products.compare.add_to_compare' | t | default: 'Add to Compare' }}</span>
+                  {%- endif -%}
+                </button>
+              </div>
+            {%- endif -%}
+
+          {%- when 'social_actions' -%}
+            <div class="mt-4 flex flex-wrap items-center gap-3" data-intro {{ block.shopify_attributes }}>
+              {%- if settings.enable_wishlist -%}
+                <button
+                  type="button"
+                  class="product-wishlist-btn inline-flex items-center justify-center w-10 h-10 border border-[--color-border] rounded-full text-sm transition-all duration-300 hover:border-[--color-text] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white [&.is-active]:border-[--color-sale]"
+                  data-wishlist-toggle="{{ product.id }}"
+                  data-product-data="{{ product.id | json }}||{{ product.handle | json }}||{{ product.title | json }}||{{ product.url | json }}||{{ product.featured_image | image_url: width: 800 | json }}||{{ product.price | json }}||{{ product.compare_at_price | default: 0 | json }}||{{ product.vendor | json }}||{{ product.available | json }}"
+                  aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}"
+                  aria-pressed="false"
+                >
+                  <i class="ph ph-heart text-lg" aria-hidden="true"></i>
+                </button>
+              {%- endif -%}
+              {%- if settings.enable_compare -%}
+                <button
+                  type="button"
+                  class="product-compare-btn inline-flex items-center justify-center w-10 h-10 border border-[--color-border] rounded-full text-sm transition-all duration-300 hover:border-[--color-text] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+                  data-compare-toggle="{{ product.id }}"
+                  data-product-data="{{ product.id | json }}||{{ product.handle | json }}||{{ product.title | json }}||{{ product.url | json }}||{{ product.featured_image | image_url: width: 800 | json }}||{{ product.price | json }}||{{ product.compare_at_price | default: 0 | json }}||{{ product.vendor | json }}||{{ product.available | json }}"
+                  aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}"
+                  aria-pressed="false"
+                >
+                  <i class="ph ph-scales text-lg" aria-hidden="true"></i>
+                </button>
+              {%- endif -%}
+              {%- if block.settings.show_share -%}
+                <button
+                  type="button"
+                  class="product-share-btn inline-flex items-center justify-center w-10 h-10 border border-[--color-border] rounded-full text-sm transition-all duration-300 hover:border-[--color-text] hover:bg-[--color-text] hover:text-[--color-background]"
+                  data-share-trigger
+                  aria-label="{{ 'products.product.share' | t | default: 'Share' }}"
+                >
+                  <i class="ph ph-share-network text-lg" aria-hidden="true"></i>
+                </button>
+              {%- endif -%}
+            </div>
+
         {%- endcase -%}
       {%- endfor -%}
     </div>
@@ -1698,6 +1778,67 @@
           "label": "Show add all button",
           "default": true,
           "info": "Only shows when all products have a single variant"
+        }
+      ]
+    },
+    {
+      "type": "wishlist_button",
+      "name": "Wishlist button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Requires 'Enable wishlist' to be enabled in theme settings."
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Button style",
+          "default": "icon_text",
+          "options": [
+            { "value": "icon_only", "label": "Icon only" },
+            { "value": "icon_text", "label": "Icon with text" },
+            { "value": "text_only", "label": "Text only" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "compare_button",
+      "name": "Compare button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Requires 'Enable compare' to be enabled in theme settings."
+        },
+        {
+          "type": "select",
+          "id": "style",
+          "label": "Button style",
+          "default": "icon_text",
+          "options": [
+            { "value": "icon_only", "label": "Icon only" },
+            { "value": "icon_text", "label": "Icon with text" },
+            { "value": "text_only", "label": "Text only" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "social_actions",
+      "name": "Social actions",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Shows wishlist, compare, and share buttons in a row. Individual buttons will only show if enabled in theme settings."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_share",
+          "label": "Show share button",
+          "default": true
         }
       ]
     }

@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "wishlist-content",
+      "settings": {
+        "title": "Wishlist",
+        "browse_link": "/collections/all"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
