@@ -220,19 +220,19 @@
 </style>
 
 {%- comment -%} Floating Button {%- endcomment -%}
-<button type="button" class="compare-floating-btn" data-compare-floating-btn aria-label="{{ 'products.compare.view_compare' | t | default: 'View compare' }}">
-  <i class="ph ph-scales text-lg"></i>
+<button type="button" class="compare-floating-btn" data-compare-floating-btn aria-label="{{ 'products.compare.view_compare' | t | default: 'View compare' }}" aria-expanded="false" aria-controls="compare-drawer">
+  <i class="ph ph-scales text-lg" aria-hidden="true"></i>
   <span>{{ 'products.compare.compare' | t | default: 'Compare' }}</span>
-  <span class="compare-floating-btn__count" data-compare-count>0</span>
+  <span class="compare-floating-btn__count" data-compare-count aria-label="{{ 'products.compare.items_count' | t | default: 'items' }}">0</span>
 </button>
 
 {%- comment -%} Drawer {%- endcomment -%}
-<div class="compare-drawer" data-compare-drawer aria-hidden="true">
+<div id="compare-drawer" class="compare-drawer" data-compare-drawer aria-hidden="true" role="region" aria-labelledby="compare-drawer-title">
   <div class="compare-drawer__inner">
     <div class="compare-drawer__header">
-      <h3 class="compare-drawer__title">
+      <h3 id="compare-drawer-title" class="compare-drawer__title">
         {{ 'products.compare.compare_products' | t | default: 'Compare Products' }}
-        <span class="compare-drawer__count">(<span data-compare-drawer-count>0</span>/4)</span>
+        <span class="compare-drawer__count" aria-live="polite">(<span data-compare-drawer-count>0</span>/4)</span>
       </h3>
       <div class="compare-drawer__actions">
         <button type="button" class="compare-drawer__clear" data-compare-clear>
@@ -410,14 +410,30 @@
   function openDrawer() {
     drawer.classList.add('is-open');
     drawer.setAttribute('aria-hidden', 'false');
+    floatingBtn.setAttribute('aria-expanded', 'true');
     document.body.style.paddingBottom = drawer.offsetHeight + 'px';
+
+    // Focus first focusable element in drawer
+    const firstFocusable = drawer.querySelector('button, a, input');
+    if (firstFocusable) {
+      requestAnimationFrame(() => firstFocusable.focus());
+    }
   }
 
   function closeDrawer() {
     drawer.classList.remove('is-open');
     drawer.setAttribute('aria-hidden', 'true');
+    floatingBtn.setAttribute('aria-expanded', 'false');
     document.body.style.paddingBottom = '';
   }
+
+  // Escape key handler
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
+      closeDrawer();
+      floatingBtn.focus();
+    }
+  });
 
   // Event listeners
   floatingBtn.addEventListener('click', () => {

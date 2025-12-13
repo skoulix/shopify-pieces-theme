@@ -9,7 +9,8 @@
   data-quick-view-modal
   role="dialog"
   aria-modal="true"
-  aria-label="Quick view"
+  aria-labelledby="quick-view-title"
+  inert
 >
   {%- comment -%} Backdrop {%- endcomment -%}
   <div class="drawer-backdrop" data-quick-view-close></div>
@@ -58,6 +59,8 @@
   const closeButtons = modal.querySelectorAll('[data-quick-view-close]');
   let currentHandle = null;
   let scrollPosition = 0;
+  let focusTrap = null;
+  let previouslyFocused = null;
 
   // Skeleton HTML for loading state
   const skeletonHTML = `
@@ -90,16 +93,21 @@
   }
 
   function openModal(productHandle) {
+    previouslyFocused = document.activeElement;
+
     if (currentHandle === productHandle && body.querySelector('.quick-view-product')) {
       // Already loaded this product
       modal.classList.add('is-open');
+      modal.removeAttribute('inert');
       lockScroll();
+      setupFocusTrap();
       return;
     }
 
     currentHandle = productHandle;
     body.innerHTML = skeletonHTML;
     modal.classList.add('is-open');
+    modal.removeAttribute('inert');
     lockScroll();
 
     // Fetch product data
@@ -108,15 +116,42 @@
       .then(html => {
         body.innerHTML = html;
         initQuickViewForm();
+        setupFocusTrap();
       })
       .catch(err => {
         body.innerHTML = '<div class="p-8 text-center text-red-500">Error loading product. Please try again.</div>';
+        setupFocusTrap();
       });
   }
 
+  function setupFocusTrap() {
+    // Create focus trap using global a11y utility
+    if (window.a11y?.createFocusTrap) {
+      focusTrap = window.a11y.createFocusTrap(modal);
+      focusTrap.activate();
+    } else {
+      // Fallback: focus close button
+      const closeBtn = modal.querySelector('[data-quick-view-close]');
+      if (closeBtn) closeBtn.focus();
+    }
+  }
+
   function closeModal() {
+    // Deactivate focus trap
+    if (focusTrap) {
+      focusTrap.deactivate(false);
+      focusTrap = null;
+    }
+
     modal.classList.remove('is-open');
+    modal.setAttribute('inert', '');
     unlockScroll();
+
+    // Restore focus to trigger element
+    if (previouslyFocused && previouslyFocused.focus) {
+      previouslyFocused.focus();
+      previouslyFocused = null;
+    }
   }
 
   // Format money using theme settings

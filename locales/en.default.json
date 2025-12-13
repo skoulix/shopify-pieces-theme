@@ -84,7 +84,19 @@
     "thumbnail": "Product thumbnail {{ index }}",
     "pagination": "Pagination",
     "discount": "Discounts",
-    "view_media": "View media {{ index }} of {{ total }}"
+    "view_media": "View media {{ index }} of {{ total }}",
+    "quick_view": "Quick view",
+    "quick_view_product": "Quick view {{ title }}",
+    "wishlist": "Wishlist",
+    "compare": "Compare products",
+    "close_wishlist": "Close wishlist",
+    "close_compare": "Close compare",
+    "added_to_wishlist": "Added to wishlist",
+    "removed_from_wishlist": "Removed from wishlist",
+    "added_to_compare": "Added to compare",
+    "removed_from_compare": "Removed from compare",
+    "cart_updated": "Cart updated",
+    "items_in_cart": "{{ count }} items in cart"
   },
   "social": {
     "instagram": "Instagram",

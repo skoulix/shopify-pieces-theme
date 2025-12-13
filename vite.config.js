@@ -21,10 +21,30 @@ export default defineConfig({
           }
           return 'pieces-[name][extname]';
         },
+        // Manual chunks for better caching - vendor libraries change less frequently
+        manualChunks: {
+          // GSAP and plugins - core animation library
+          gsap: ['gsap', 'gsap/ScrollTrigger', 'gsap/Flip', 'gsap/SplitText'],
+          // Lenis smooth scroll
+          lenis: ['lenis'],
+          // Swup and plugins - page transitions
+          swup: [
+            'swup',
+            '@swup/body-class-plugin',
+            '@swup/head-plugin',
+            '@swup/js-plugin',
+            '@swup/preload-plugin',
+            '@swup/scripts-plugin'
+          ],
+        },
       },
     },
     minify: 'esbuild',
     sourcemap: true,
+    // Tree shake unused code
+    target: 'es2020',
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 500,
   },
   css: {
     postcss: './postcss.config.js',
@@ -38,5 +58,9 @@ export default defineConfig({
       '@managers': resolve(__dirname, 'frontend/js/managers'),
       '@utils': resolve(__dirname, 'frontend/js/utils'),
     },
+  },
+  // Optimize deps for faster dev
+  optimizeDeps: {
+    include: ['gsap', 'lenis', 'swup'],
   },
 });

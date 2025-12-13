@@ -39,6 +39,9 @@
     {%- comment -%} Critical CSS - Inlined for fast initial render {%- endcomment -%}
     {% render 'critical-css' %}
 
+    {%- comment -%} Accessibility utilities - Focus styles, screen reader support {%- endcomment -%}
+    {% render 'accessibility' %}
+
     {%- comment -%} Non-critical CSS - Loaded with preload for better performance {%- endcomment -%}
     {{ 'phosphor-icons.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'pieces-app.css' | asset_url | stylesheet_tag: preload: true }}
@@ -115,7 +118,7 @@
   </head>
 
   <body class="antialiased">
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-indigo-600">
+    <a href="#main" class="skip-link">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 

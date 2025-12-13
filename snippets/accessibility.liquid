@@ -1,0 +1,470 @@
+{%- comment -%}
+  Accessibility Utilities
+  Global styles and scripts for WCAG 2.1 AA compliance
+
+  This snippet provides:
+  - Consistent focus styles
+  - Focus trap utility for modals/drawers
+  - Screen reader utilities
+  - Reduced motion support
+  - Live region for announcements
+{%- endcomment -%}
+
+<style>
+  /* ========================================
+     Focus Styles - WCAG 2.1 AA Compliant
+  ======================================== */
+
+  /* Default focus outline - high contrast */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* Remove default outline for mouse users */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Button focus states */
+  .btn:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb, 0, 0, 0), 0.2);
+  }
+
+  /* Input focus states */
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -1px;
+    border-color: var(--color-primary);
+  }
+
+  /* Link focus states */
+  a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Card/interactive element focus */
+  .product-card:focus-within,
+  [data-intro]:focus-within {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* ========================================
+     Skip Links Enhancement
+  ======================================== */
+
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 1rem 2rem;
+    background: var(--color-text);
+    color: var(--color-background);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: var(--button-radius);
+    transition: top 0.3s ease;
+  }
+
+  .skip-link:focus {
+    top: 1rem;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* ========================================
+     Screen Reader Utilities
+  ======================================== */
+
+  .sr-only,
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Show on focus for skip links */
+  .sr-only-focusable:focus,
+  .sr-only-focusable:active {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  /* ========================================
+     Reduced Motion Support
+  ======================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Disable smooth scroll */
+    html.smooth-scroll-enabled {
+      scroll-behavior: auto;
+    }
+  }
+
+  /* ========================================
+     High Contrast Mode Support
+  ======================================== */
+
+  @media (prefers-contrast: high) {
+    :root {
+      --color-border: currentColor;
+    }
+
+    .btn,
+    button {
+      border: 2px solid currentColor;
+    }
+
+    input,
+    select,
+    textarea {
+      border-width: 2px;
+    }
+  }
+
+  /* ========================================
+     Live Region Styling
+  ======================================== */
+
+  .aria-live-region {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* ========================================
+     Focus Trap Indicator (for debugging)
+  ======================================== */
+
+  [data-focus-trap-active="true"] {
+    /* Visual indicator when focus trap is active - only visible during development */
+  }
+</style>
+
+{%- comment -%} Live Region for Dynamic Announcements {%- endcomment -%}
+<div
+  id="aria-live-region"
+  class="aria-live-region"
+  aria-live="polite"
+  aria-atomic="true"
+  role="status"
+></div>
+
+<div
+  id="aria-live-assertive"
+  class="aria-live-region"
+  aria-live="assertive"
+  aria-atomic="true"
+  role="alert"
+></div>
+
+<script>
+/**
+ * Accessibility Utilities
+ * Provides focus management, screen reader announcements, and keyboard navigation
+ */
+window.a11y = window.a11y || (function() {
+  'use strict';
+
+  // Cache for focusable elements
+  const FOCUSABLE_SELECTORS = [
+    'a[href]',
+    'area[href]',
+    'input:not([disabled]):not([type="hidden"])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    'button:not([disabled])',
+    'iframe',
+    'object',
+    'embed',
+    '[contenteditable]',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+
+  /**
+   * Get all focusable elements within a container
+   * @param {HTMLElement} container - The container to search
+   * @returns {NodeList} - List of focusable elements
+   */
+  function getFocusableElements(container) {
+    return container.querySelectorAll(FOCUSABLE_SELECTORS);
+  }
+
+  /**
+   * Trap focus within a container (for modals/drawers)
+   * @param {HTMLElement} container - The container to trap focus within
+   * @returns {Object} - Object with activate/deactivate methods
+   */
+  function createFocusTrap(container) {
+    let previouslyFocusedElement = null;
+    let isActive = false;
+
+    function handleKeydown(e) {
+      if (e.key !== 'Tab' || !isActive) return;
+
+      const focusableElements = getFocusableElements(container);
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      // Shift + Tab from first element -> focus last
+      if (e.shiftKey && document.activeElement === firstElement) {
+        e.preventDefault();
+        lastElement.focus();
+      }
+      // Tab from last element -> focus first
+      else if (!e.shiftKey && document.activeElement === lastElement) {
+        e.preventDefault();
+        firstElement.focus();
+      }
+    }
+
+    return {
+      activate(focusFirst = true) {
+        if (isActive) return;
+        isActive = true;
+        previouslyFocusedElement = document.activeElement;
+        container.setAttribute('data-focus-trap-active', 'true');
+        document.addEventListener('keydown', handleKeydown);
+
+        if (focusFirst) {
+          // Focus the first focusable element or the container itself
+          const focusableElements = getFocusableElements(container);
+          const firstFocusable = focusableElements[0] || container;
+          // Small delay to ensure element is visible
+          requestAnimationFrame(() => {
+            firstFocusable.focus();
+          });
+        }
+      },
+
+      deactivate(returnFocus = true) {
+        if (!isActive) return;
+        isActive = false;
+        container.removeAttribute('data-focus-trap-active');
+        document.removeEventListener('keydown', handleKeydown);
+
+        if (returnFocus && previouslyFocusedElement) {
+          requestAnimationFrame(() => {
+            previouslyFocusedElement.focus();
+          });
+        }
+        previouslyFocusedElement = null;
+      },
+
+      isActive() {
+        return isActive;
+      }
+    };
+  }
+
+  /**
+   * Announce a message to screen readers
+   * @param {string} message - The message to announce
+   * @param {string} priority - 'polite' or 'assertive'
+   */
+  function announce(message, priority = 'polite') {
+    const region = priority === 'assertive'
+      ? document.getElementById('aria-live-assertive')
+      : document.getElementById('aria-live-region');
+
+    if (!region) return;
+
+    // Clear then set to ensure announcement
+    region.textContent = '';
+    requestAnimationFrame(() => {
+      region.textContent = message;
+    });
+  }
+
+  /**
+   * Handle escape key to close modals/drawers
+   * @param {Function} closeCallback - Function to call when escape is pressed
+   * @returns {Function} - Cleanup function
+   */
+  function onEscape(closeCallback) {
+    function handler(e) {
+      if (e.key === 'Escape') {
+        closeCallback();
+      }
+    }
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }
+
+  /**
+   * Check if user prefers reduced motion
+   * @returns {boolean}
+   */
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  /**
+   * Set up keyboard navigation for a group of items (roving tabindex)
+   * @param {HTMLElement} container - Container with items
+   * @param {string} itemSelector - Selector for navigable items
+   * @param {Object} options - Configuration options
+   */
+  function setupRovingTabindex(container, itemSelector, options = {}) {
+    const {
+      orientation = 'vertical', // 'vertical', 'horizontal', or 'both'
+      loop = true,
+      onSelect = null
+    } = options;
+
+    const items = container.querySelectorAll(itemSelector);
+    if (items.length === 0) return;
+
+    // Set initial tabindex
+    items.forEach((item, index) => {
+      item.setAttribute('tabindex', index === 0 ? '0' : '-1');
+    });
+
+    let currentIndex = 0;
+
+    function focusItem(index) {
+      items[currentIndex].setAttribute('tabindex', '-1');
+      currentIndex = index;
+      items[currentIndex].setAttribute('tabindex', '0');
+      items[currentIndex].focus();
+    }
+
+    container.addEventListener('keydown', (e) => {
+      const isVertical = orientation === 'vertical' || orientation === 'both';
+      const isHorizontal = orientation === 'horizontal' || orientation === 'both';
+
+      let newIndex = currentIndex;
+
+      switch (e.key) {
+        case 'ArrowDown':
+          if (isVertical) {
+            e.preventDefault();
+            newIndex = loop
+              ? (currentIndex + 1) % items.length
+              : Math.min(currentIndex + 1, items.length - 1);
+          }
+          break;
+        case 'ArrowUp':
+          if (isVertical) {
+            e.preventDefault();
+            newIndex = loop
+              ? (currentIndex - 1 + items.length) % items.length
+              : Math.max(currentIndex - 1, 0);
+          }
+          break;
+        case 'ArrowRight':
+          if (isHorizontal) {
+            e.preventDefault();
+            newIndex = loop
+              ? (currentIndex + 1) % items.length
+              : Math.min(currentIndex + 1, items.length - 1);
+          }
+          break;
+        case 'ArrowLeft':
+          if (isHorizontal) {
+            e.preventDefault();
+            newIndex = loop
+              ? (currentIndex - 1 + items.length) % items.length
+              : Math.max(currentIndex - 1, 0);
+          }
+          break;
+        case 'Home':
+          e.preventDefault();
+          newIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          newIndex = items.length - 1;
+          break;
+        case 'Enter':
+        case ' ':
+          if (onSelect) {
+            e.preventDefault();
+            onSelect(items[currentIndex], currentIndex);
+          }
+          break;
+      }
+
+      if (newIndex !== currentIndex) {
+        focusItem(newIndex);
+      }
+    });
+  }
+
+  // Public API
+  return {
+    getFocusableElements,
+    createFocusTrap,
+    announce,
+    onEscape,
+    prefersReducedMotion,
+    setupRovingTabindex
+  };
+})();
+
+// Announce cart updates
+document.addEventListener('cart:updated', (e) => {
+  const count = e.detail?.itemCount || 0;
+  window.a11y.announce(`Cart updated. ${count} ${count === 1 ? 'item' : 'items'} in cart.`);
+});
+
+// Announce wishlist updates
+document.addEventListener('wishlist:added', (e) => {
+  const title = e.detail?.product?.title || 'Item';
+  window.a11y.announce(`${title} added to wishlist.`);
+});
+
+document.addEventListener('wishlist:removed', () => {
+  window.a11y.announce('Item removed from wishlist.');
+});
+
+// Announce compare updates
+document.addEventListener('compare:added', (e) => {
+  const title = e.detail?.product?.title || 'Item';
+  window.a11y.announce(`${title} added to compare.`);
+});
+
+document.addEventListener('compare:removed', () => {
+  window.a11y.announce('Item removed from compare.');
+});
+</script>
