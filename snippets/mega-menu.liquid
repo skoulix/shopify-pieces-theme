@@ -97,6 +97,7 @@
                           {{ product.featured_image | image_url: width: 200 | image_tag:
                             class: 'w-full h-full object-cover',
                             loading: 'lazy',
+                            decoding: 'async',
                             alt: product.title
                           }}
                         {% else %}
@@ -125,6 +126,7 @@
                     {{ block.settings.promo_image | image_url: width: 400 | image_tag:
                       class: 'w-full h-full object-cover',
                       loading: 'lazy',
+                      decoding: 'async',
                       alt: block.settings.promo_heading | default: 'Promotional image'
                     }}
                     {% if block.settings.promo_heading != blank or block.settings.promo_text != blank %}

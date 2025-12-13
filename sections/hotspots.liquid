@@ -288,6 +288,7 @@
           alt="{{ section.settings.desktop_image.alt | default: section.settings.title }}"
           class="hotspots-image-{{ section.id }} hidden md:block"
           loading="lazy"
+          decoding="async"
           width="{{ section.settings.desktop_image.width }}"
           height="{{ section.settings.desktop_image.height }}"
         >
@@ -303,6 +304,7 @@
             alt="{{ section.settings.mobile_image.alt | default: section.settings.desktop_image.alt | default: section.settings.title }}"
             class="hotspots-image-{{ section.id }} block md:hidden"
             loading="lazy"
+            decoding="async"
             width="{{ section.settings.mobile_image.width }}"
             height="{{ section.settings.mobile_image.height }}"
           >
@@ -312,6 +314,7 @@
             alt="{{ section.settings.desktop_image.alt | default: section.settings.title }}"
             class="hotspots-image-{{ section.id }} block md:hidden"
             loading="lazy"
+            decoding="async"
             width="{{ section.settings.desktop_image.width }}"
             height="{{ section.settings.desktop_image.height }}"
           >

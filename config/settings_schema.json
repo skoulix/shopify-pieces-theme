@@ -408,6 +408,20 @@
         "info": "Shows a quick view button on product cards"
       },
       {
+        "type": "checkbox",
+        "id": "enable_compare",
+        "default": true,
+        "label": "Enable product compare",
+        "info": "Allows customers to compare up to 4 products side by side"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_wishlist",
+        "default": true,
+        "label": "Enable wishlist",
+        "info": "Allows customers to save favorite products"
+      },
+      {
         "type": "header",
         "content": "Badges"
       },

@@ -21,7 +21,7 @@
       <div class="complementary-block__item" data-variant-id="{{ product.first_available_variant.id }}">
         <a href="{{ product.url }}" class="complementary-block__image">
           {% if product.featured_image %}
-            {{ product.featured_image | image_url: width: 100 | image_tag: loading: 'lazy', alt: product.title }}
+            {{ product.featured_image | image_url: width: 100 | image_tag: loading: 'lazy', decoding: 'async', alt: product.title }}
           {% endif %}
         </a>
         <div class="complementary-block__info">

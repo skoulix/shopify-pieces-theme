@@ -1,0 +1,501 @@
+{%- comment -%}
+  Compare Products Drawer
+  Slide-out panel showing products to compare
+{%- endcomment -%}
+
+<style>
+  .compare-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    background: var(--color-background);
+    border-top: 1px solid var(--color-border);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  }
+  .compare-drawer.is-open { transform: translateY(0); }
+  .compare-drawer__inner {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 1.5rem var(--page-padding);
+  }
+  .compare-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .compare-drawer__title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+  }
+  .compare-drawer__count {
+    font-weight: 400;
+    opacity: 0.6;
+    margin-left: 0.5rem;
+  }
+  .compare-drawer__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .compare-drawer__clear {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+  }
+  .compare-drawer__clear:hover { color: var(--color-text); }
+  .compare-drawer__close {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: opacity 0.2s ease;
+  }
+  .compare-drawer__close:hover { opacity: 0.6; }
+  .compare-drawer__products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .compare-drawer__products {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .compare-drawer__product {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--color-background-secondary);
+    border-radius: var(--card-radius);
+  }
+  .compare-drawer__product-image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: calc(var(--card-radius) / 2);
+    overflow: hidden;
+    background: var(--color-background);
+  }
+  .compare-drawer__product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .compare-drawer__product-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .compare-drawer__product-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+  }
+  .compare-drawer__product-title:hover { text-decoration: underline; }
+  .compare-drawer__product-price {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    margin-top: 0.25rem;
+  }
+  .compare-drawer__product-remove {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-background);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  .compare-drawer__product-remove:hover {
+    background: var(--color-text);
+    color: var(--color-background);
+  }
+  .compare-drawer__empty-slot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: var(--color-background-secondary);
+    border-radius: var(--card-radius);
+    border: 2px dashed var(--color-border);
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .compare-drawer__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .compare-drawer__compare-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .compare-drawer__compare-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Floating compare button */
+  .compare-floating-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--color-text);
+    color: var(--color-background);
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transform: translateY(calc(100% + 4rem));
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    opacity: 0;
+  }
+  .compare-floating-btn.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .compare-floating-btn:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  }
+  .compare-floating-btn__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--color-background);
+    color: var(--color-text);
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+</style>
+
+{%- comment -%} Floating Button {%- endcomment -%}
+<button type="button" class="compare-floating-btn" data-compare-floating-btn aria-label="{{ 'products.compare.view_compare' | t | default: 'View compare' }}">
+  <i class="ph ph-scales text-lg"></i>
+  <span>{{ 'products.compare.compare' | t | default: 'Compare' }}</span>
+  <span class="compare-floating-btn__count" data-compare-count>0</span>
+</button>
+
+{%- comment -%} Drawer {%- endcomment -%}
+<div class="compare-drawer" data-compare-drawer aria-hidden="true">
+  <div class="compare-drawer__inner">
+    <div class="compare-drawer__header">
+      <h3 class="compare-drawer__title">
+        {{ 'products.compare.compare_products' | t | default: 'Compare Products' }}
+        <span class="compare-drawer__count">(<span data-compare-drawer-count>0</span>/4)</span>
+      </h3>
+      <div class="compare-drawer__actions">
+        <button type="button" class="compare-drawer__clear" data-compare-clear>
+          {{ 'products.compare.clear_all' | t | default: 'Clear all' }}
+        </button>
+        <button type="button" class="compare-drawer__close" data-compare-drawer-close aria-label="{{ 'accessibility.close' | t }}">
+          <i class="ph ph-x text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="compare-drawer__products" data-compare-products>
+      {%- comment -%} Products will be rendered via JS {%- endcomment -%}
+    </div>
+
+    <div class="compare-drawer__footer">
+      <a href="/pages/compare" class="btn btn--primary compare-drawer__compare-btn" data-compare-view-btn>
+        <span>{{ 'products.compare.view_comparison' | t | default: 'View Comparison' }}</span>
+        <i class="ph ph-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const STORAGE_KEY = 'pieces_compare_products';
+  const MAX_PRODUCTS = 4;
+
+  const floatingBtn = document.querySelector('[data-compare-floating-btn]');
+  const drawer = document.querySelector('[data-compare-drawer]');
+  const productsContainer = drawer?.querySelector('[data-compare-products]');
+  const countEl = document.querySelector('[data-compare-count]');
+  const drawerCountEl = document.querySelector('[data-compare-drawer-count]');
+  const clearBtn = document.querySelector('[data-compare-clear]');
+  const closeBtn = document.querySelector('[data-compare-drawer-close]');
+  const viewBtn = document.querySelector('[data-compare-view-btn]');
+
+  if (!drawer || !floatingBtn) return;
+
+  function getProducts() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveProducts(products) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    } catch {
+      // Storage error
+    }
+  }
+
+  function formatMoney(cents) {
+    if (typeof cents === 'string') cents = cents.replace('.', '');
+    cents = parseInt(cents, 10) || 0;
+    const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
+    const value = cents / 100;
+    return moneyFormat
+      .replace('{{amount_no_decimals}}', Math.floor(value).toString())
+      .replace('{{amount}}', value.toFixed(2));
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function updateUI() {
+    const products = getProducts();
+    const count = products.length;
+
+    // Update counts
+    if (countEl) countEl.textContent = count;
+    if (drawerCountEl) drawerCountEl.textContent = count;
+
+    // Show/hide floating button
+    if (count > 0) {
+      floatingBtn.classList.add('is-visible');
+    } else {
+      floatingBtn.classList.remove('is-visible');
+      closeDrawer();
+    }
+
+    // Update view button
+    if (viewBtn) {
+      viewBtn.classList.toggle('btn--disabled', count < 2);
+      if (count < 2) {
+        viewBtn.setAttribute('aria-disabled', 'true');
+        viewBtn.addEventListener('click', preventClick);
+      } else {
+        viewBtn.removeAttribute('aria-disabled');
+        viewBtn.removeEventListener('click', preventClick);
+      }
+    }
+
+    // Render products
+    renderProducts(products);
+
+    // Update compare buttons on page
+    updateCompareButtons(products);
+  }
+
+  function preventClick(e) {
+    e.preventDefault();
+  }
+
+  function renderProducts(products) {
+    if (!productsContainer) return;
+
+    let html = '';
+
+    // Render products
+    products.forEach(product => {
+      html += `
+        <div class="compare-drawer__product" data-product-id="${product.id}">
+          <a href="${escapeHtml(product.url)}" class="compare-drawer__product-image">
+            ${product.image ? `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.title)}" loading="lazy" decoding="async">` : ''}
+          </a>
+          <div class="compare-drawer__product-info">
+            <a href="${escapeHtml(product.url)}" class="compare-drawer__product-title">${escapeHtml(product.title)}</a>
+            <div class="compare-drawer__product-price">${formatMoney(product.price)}</div>
+          </div>
+          <button type="button" class="compare-drawer__product-remove" data-remove-product="${product.id}" aria-label="{{ 'products.compare.remove' | t | default: 'Remove' }}">
+            <i class="ph ph-x"></i>
+          </button>
+        </div>
+      `;
+    });
+
+    // Add empty slots
+    for (let i = products.length; i < MAX_PRODUCTS; i++) {
+      html += `<div class="compare-drawer__empty-slot">{{ 'products.compare.add_product' | t | default: 'Add product' }}</div>`;
+    }
+
+    productsContainer.innerHTML = html;
+
+    // Add remove listeners
+    productsContainer.querySelectorAll('[data-remove-product]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const productId = btn.dataset.removeProduct;
+        removeProduct(productId);
+      });
+    });
+  }
+
+  function removeProduct(productId) {
+    const products = getProducts().filter(p => p.id !== productId);
+    saveProducts(products);
+    updateUI();
+    document.dispatchEvent(new CustomEvent('compare:removed', { detail: { productId } }));
+  }
+
+  function clearProducts() {
+    saveProducts([]);
+    updateUI();
+    document.dispatchEvent(new CustomEvent('compare:cleared'));
+  }
+
+  function updateCompareButtons(products) {
+    const productIds = products.map(p => p.id);
+    document.querySelectorAll('[data-compare-toggle]').forEach(btn => {
+      const productId = btn.dataset.compareToggle;
+      const isInCompare = productIds.includes(productId);
+      btn.classList.toggle('is-active', isInCompare);
+      btn.setAttribute('aria-pressed', isInCompare);
+    });
+  }
+
+  function openDrawer() {
+    drawer.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.paddingBottom = drawer.offsetHeight + 'px';
+  }
+
+  function closeDrawer() {
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.paddingBottom = '';
+  }
+
+  // Event listeners
+  floatingBtn.addEventListener('click', () => {
+    if (drawer.classList.contains('is-open')) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  closeBtn?.addEventListener('click', closeDrawer);
+  clearBtn?.addEventListener('click', clearProducts);
+
+  // Listen for compare events from product cards
+  document.addEventListener('compare:toggle', (e) => {
+    const { product } = e.detail;
+    if (!product) return;
+
+    const products = getProducts();
+    const exists = products.some(p => p.id === product.id);
+
+    if (exists) {
+      removeProduct(product.id);
+    } else if (products.length < MAX_PRODUCTS) {
+      products.push({
+        ...product,
+        addedAt: Date.now()
+      });
+      saveProducts(products);
+      updateUI();
+      document.dispatchEvent(new CustomEvent('compare:added', { detail: { product } }));
+    }
+  });
+
+  // Listen for storage changes from other tabs
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      updateUI();
+    }
+  });
+
+  // Click handler for compare toggle buttons on product cards
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-compare-toggle]');
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const productDataStr = btn.dataset.productData;
+    if (!productDataStr) return;
+
+    // Parse the product data (format: id||handle||title||url||image||price||compareAtPrice||vendor||available)
+    const parts = productDataStr.split('||');
+    if (parts.length < 5) return;
+
+    const product = {
+      id: JSON.parse(parts[0]),
+      handle: JSON.parse(parts[1]),
+      title: JSON.parse(parts[2]),
+      url: JSON.parse(parts[3]),
+      image: JSON.parse(parts[4]),
+      price: parts[5] ? JSON.parse(parts[5]) : 0,
+      compareAtPrice: parts[6] ? JSON.parse(parts[6]) : 0,
+      vendor: parts[7] ? JSON.parse(parts[7]) : '',
+      available: parts[8] ? JSON.parse(parts[8]) : true
+    };
+
+    // Dispatch the toggle event
+    document.dispatchEvent(new CustomEvent('compare:toggle', { detail: { product } }));
+  });
+
+  // Initialize
+  updateUI();
+
+  // Re-init on Swup navigation
+  if (window.onSwupContentReplaced) {
+    window.onSwupContentReplaced('compare_drawer', updateUI);
+  }
+})();
+</script>

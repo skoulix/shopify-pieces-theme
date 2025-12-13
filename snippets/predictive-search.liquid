@@ -459,7 +459,7 @@ class PredictiveSearch extends HTMLElement {
             return `
               <a href="${url}" class="predictive-search__product-card" role="option">
                 <div class="predictive-search__product-image">
-                  ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" loading="lazy">` : ''}
+                  ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" loading="lazy" decoding="async">` : ''}
                 </div>
                 <div class="predictive-search__product-info">
                   <p class="predictive-search__product-title">${product.title}</p>
@@ -514,7 +514,7 @@ class PredictiveSearch extends HTMLElement {
                 <a href="${product.url}" class="predictive-search__product-card" role="option">
                   <div class="predictive-search__product-image">
                     ${product.image ? `
-                      <img src="${product.image}" alt="${product.title}" loading="lazy">
+                      <img src="${product.image}" alt="${product.title}" loading="lazy" decoding="async">
                     ` : ''}
                   </div>
                   <div class="predictive-search__product-info">

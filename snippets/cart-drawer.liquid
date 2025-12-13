@@ -46,6 +46,7 @@
                     {{ item.image | image_url: width: 200 | image_tag:
                       class: 'w-full h-full object-cover',
                       loading: 'lazy',
+                      decoding: 'async',
                       alt: item.image.alt | default: item.product.title
                     }}
                   </a>

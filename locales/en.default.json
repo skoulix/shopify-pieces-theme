@@ -211,6 +211,7 @@
     "product": {
       "add_to_cart": "Add to cart",
       "sold_out": "Sold out",
+      "in_stock": "In Stock",
       "on_sale": "Sale",
       "unavailable": "Unavailable",
       "quantity": "Quantity",
@@ -261,6 +262,34 @@
       "adding": "Adding...",
       "added": "Added!",
       "error": "Error adding items"
+    },
+    "compare": {
+      "compare": "Compare",
+      "compare_products": "Compare Products",
+      "add_to_compare": "Add to compare",
+      "remove": "Remove",
+      "clear_all": "Clear all",
+      "view_compare": "View compare",
+      "view_comparison": "View Comparison",
+      "add_product": "Add product",
+      "products": "products",
+      "product": "Product",
+      "vendor": "Vendor",
+      "availability": "Availability",
+      "empty_title": "No products to compare",
+      "empty_text": "Add products to compare by clicking the compare icon on product cards.",
+      "browse_products": "Browse Products",
+      "continue_shopping": "Continue Shopping"
+    },
+    "wishlist": {
+      "title": "Wishlist",
+      "add_to_wishlist": "Add to wishlist",
+      "remove": "Remove",
+      "view_all": "View All Saved Items",
+      "view": "View",
+      "empty_title": "Your wishlist is empty",
+      "empty_text": "Save your favorite products by clicking the heart icon",
+      "browse_products": "Browse Products"
     }
   },
   "customers": {

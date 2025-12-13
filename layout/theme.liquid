@@ -156,6 +156,16 @@
     {%- comment -%} Size Chart Drawer - shell rendered here, content populated by product section {%- endcomment -%}
     {% render 'size-chart-drawer' %}
 
+    {%- comment -%} Compare Products Drawer {%- endcomment -%}
+    {% if settings.enable_compare %}
+      {% render 'compare-drawer' %}
+    {% endif %}
+
+    {%- comment -%} Wishlist Drawer {%- endcomment -%}
+    {% if settings.enable_wishlist %}
+      {% render 'wishlist-drawer' %}
+    {% endif %}
+
     {%- comment -%} Quick Add Script {%- endcomment -%}
     <script>
       document.addEventListener('click', async function(e) {

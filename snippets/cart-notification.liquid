@@ -59,7 +59,7 @@
       const variantEl = notification.querySelector('[data-notification-variant]');
 
       if (imageContainer && product.image) {
-        imageContainer.innerHTML = `<img src="${product.image}" alt="${product.title}" loading="lazy">`;
+        imageContainer.innerHTML = `<img src="${product.image}" alt="${product.title}" loading="lazy" decoding="async">`;
       }
 
       if (titleEl) {

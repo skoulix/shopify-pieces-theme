@@ -1318,7 +1318,7 @@
 
         item.innerHTML = `
           <a href="${href}" class="shrink-0 w-12 h-12 rounded overflow-hidden bg-secondary/5">
-            ${imgSrc ? `<img src="${imgSrc}" alt="${escapeHtml(product.title)}" loading="lazy" width="100" height="100" class="w-full h-full object-cover">` : ''}
+            ${imgSrc ? `<img src="${imgSrc}" alt="${escapeHtml(product.title)}" loading="lazy" decoding="async" width="100" height="100" class="w-full h-full object-cover">` : ''}
           </a>
           <div class="flex-1 min-w-0">
             <a href="${href}" class="text-[0.8125rem] font-medium text-primary truncate block no-underline">${escapeHtml(product.title)}</a>
@@ -1367,6 +1367,56 @@
     document.addEventListener('DOMContentLoaded', loadComplementaryProducts);
   } else {
     loadComplementaryProducts();
+  }
+})();
+</script>
+
+{%- comment -%} Track Recently Viewed Product {%- endcomment -%}
+<script>
+(function() {
+  const STORAGE_KEY = 'pieces_recently_viewed';
+  const MAX_PRODUCTS = 12;
+
+  const productData = {
+    id: '{{ product.id }}',
+    handle: '{{ product.handle }}',
+    title: {{ product.title | json }},
+    url: '{{ product.url }}',
+    image: '{{ product.featured_image | image_url: width: 800 }}',
+    price: {{ product.price }},
+    compareAtPrice: {{ product.compare_at_price | default: 0 }},
+    vendor: {{ product.vendor | json }},
+    available: {{ product.available }}
+  };
+
+  function addProduct() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      let products = stored ? JSON.parse(stored) : [];
+
+      // Remove if already exists
+      products = products.filter(p => p.id !== productData.id);
+
+      // Add to beginning
+      products.unshift({
+        ...productData,
+        addedAt: Date.now()
+      });
+
+      // Limit to max products
+      products = products.slice(0, MAX_PRODUCTS);
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    } catch {
+      // localStorage might be unavailable
+    }
+  }
+
+  // Track after a short delay to ensure page has loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(addProduct, 100));
+  } else {
+    setTimeout(addProduct, 100);
   }
 })();
 </script>

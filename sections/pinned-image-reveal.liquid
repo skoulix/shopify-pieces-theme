@@ -134,6 +134,7 @@
                   width="{{ block.settings.image.width }}"
                   height="{{ block.settings.image.height }}"
                   loading="lazy"
+                  decoding="async"
                 >
               </div>
             {%- endif -%}
@@ -228,6 +229,7 @@
                   width="{{ block.settings.image.width }}"
                   height="{{ block.settings.image.height }}"
                   loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  decoding="async"
                 >
               {%- else -%}
                 {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}

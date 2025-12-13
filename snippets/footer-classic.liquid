@@ -85,7 +85,7 @@
       {%- when 'brand' -%}
         <div class="footer-classic__brand-col" {{ block.shopify_attributes }}>
           {%- if block.settings.logo != blank -%}
-            {{ block.settings.logo | image_url: width: 300 | image_tag: class: 'footer-classic__logo', loading: 'lazy' }}
+            {{ block.settings.logo | image_url: width: 300 | image_tag: class: 'footer-classic__logo', loading: 'lazy', decoding: 'async' }}
           {%- else -%}
             <span class="text-xl font-bold font-heading block mb-4">{{ shop.name }}</span>
           {%- endif -%}

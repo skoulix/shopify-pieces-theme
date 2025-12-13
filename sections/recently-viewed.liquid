@@ -1,0 +1,471 @@
+{%- comment -%}
+  Recently Viewed Products Section - Carousel showing products from localStorage
+  Client-side only - uses RecentlyViewedManager for data
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .recently-viewed-{{ section.id }} {
+    --section-bg: {{ section.settings.background_color }};
+    --section-text: {{ section.settings.text_color }};
+    background-color: var(--section-bg);
+    color: var(--section-text);
+  }
+  .recently-viewed-{{ section.id }} .nav-btn:hover:not(:disabled) {
+    background-color: var(--section-text);
+    color: var(--section-bg);
+    border-color: var(--section-text);
+  }
+  .recently-viewed-{{ section.id }} .skeleton-bg {
+    background-color: var(--section-text);
+    opacity: 0.1;
+  }
+  /* Title line reveal animation */
+  .recently-viewed-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+  /* Hide title initially to prevent FOUC before SplitText animation */
+  [data-recently-viewed-title] { opacity: 0; }
+  html.animations-disabled [data-recently-viewed-title] { opacity: 1; }
+</style>
+
+<section
+  class="recently-viewed-{{ section.id }} py-[--section-vertical-padding] overflow-hidden"
+  data-recently-viewed
+  data-section-id="{{ section.id }}"
+  data-current-product-id="{{ product.id }}"
+  data-products-to-show="{{ section.settings.products_to_show }}"
+  data-show-vendor="{{ section.settings.show_vendor }}"
+  style="display: none;"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="{% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% else %}flex items-end justify-between gap-6{% endif %} mb-12 lg:mb-16">
+      <div>
+        {% if section.settings.label != blank %}
+          <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-intro>
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold font-heading tracking-tight leading-none" data-recently-viewed-title>
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Navigation {%- endcomment -%}
+      <div class="flex items-center gap-3 {% if section.settings.header_alignment == 'center' %}justify-center mt-6{% elsif section.settings.header_alignment == 'right' %}justify-end mt-6{% endif %}" data-carousel-nav>
+        <button
+          type="button"
+          class="nav-btn w-12 h-12 flex items-center justify-center border border-current/30 rounded-full bg-transparent cursor-pointer transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+          data-carousel-prev
+          aria-label="{{ 'accessibility.previous_products' | t }}"
+          disabled
+        >
+          <i class="ph ph-arrow-left text-xl"></i>
+        </button>
+        <button
+          type="button"
+          class="nav-btn w-12 h-12 flex items-center justify-center border border-current/30 rounded-full bg-transparent cursor-pointer transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
+          data-carousel-next
+          aria-label="{{ 'accessibility.next_products' | t }}"
+        >
+          <i class="ph ph-arrow-right text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} Carousel Container {%- endcomment -%}
+    <div class="relative">
+      <div class="overflow-hidden" data-carousel-viewport>
+        {%- comment -%} Products will be rendered here via JS {%- endcomment -%}
+        <div class="flex gap-6 p-1.5 transition-transform duration-500 ease-out items-stretch" data-carousel-track>
+        </div>
+      </div>
+
+      {%- comment -%} Progress Bar {%- endcomment -%}
+      <div class="h-0.5 bg-current/15 rounded-sm overflow-hidden mt-8" data-carousel-progress>
+        <div class="h-full bg-current transition-[width] duration-400 ease-out" data-carousel-progress-bar style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const section = document.querySelector('[data-recently-viewed][data-section-id="{{ section.id }}"]');
+    if (!section) return;
+
+    const STORAGE_KEY = 'pieces_recently_viewed';
+    const currentProductId = section.dataset.currentProductId;
+    const maxProducts = parseInt(section.dataset.productsToShow, 10) || 8;
+    const showVendor = section.dataset.showVendor === 'true';
+
+    const track = section.querySelector('[data-carousel-track]');
+    const prevBtn = section.querySelector('[data-carousel-prev]');
+    const nextBtn = section.querySelector('[data-carousel-next]');
+    const progressBar = section.querySelector('[data-carousel-progress-bar]');
+    const nav = section.querySelector('[data-carousel-nav]');
+
+    let currentIndex = 0;
+    let slidesPerView = 4;
+    let totalSlides = 0;
+
+    function getProducts() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        const products = stored ? JSON.parse(stored) : [];
+        // Filter out current product if on product page
+        return products.filter(p => p.id !== currentProductId).slice(0, maxProducts);
+      } catch {
+        return [];
+      }
+    }
+
+    function formatMoney(cents) {
+      if (typeof cents === 'string') cents = cents.replace('.', '');
+      cents = parseInt(cents, 10) || 0;
+      const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
+      const value = cents / 100;
+      const amount = value.toFixed(2);
+      const amountNoDecimals = Math.floor(value);
+      return moneyFormat
+        .replace('{{amount_no_decimals}}', amountNoDecimals.toString())
+        .replace('{{amount}}', amount);
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    function renderProducts(products) {
+      if (products.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+
+      section.style.display = '';
+
+      track.innerHTML = products.map((product, index) => `
+        <div class="shrink-0 w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)] min-w-0 flex" data-intro>
+          <article class="product-card group w-full flex flex-col">
+            <a href="${escapeHtml(product.url)}" class="product-card-image relative block aspect-[3/4] overflow-hidden rounded-[--card-radius] bg-[--color-background-secondary]">
+              ${product.image ? `
+                <img
+                  src="${escapeHtml(product.image)}"
+                  alt="${escapeHtml(product.title)}"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                >
+              ` : `
+                <div class="w-full h-full flex items-center justify-center">
+                  <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30"></i>
+                </div>
+              `}
+              ${!product.available ? `
+                <span class="absolute top-3 left-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-background] text-[--color-text-secondary] rounded">
+                  {{ 'products.product.sold_out' | t }}
+                </span>
+              ` : ''}
+              ${product.compareAtPrice && product.compareAtPrice > product.price ? `
+                <span class="absolute top-3 right-3 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wider bg-[--color-sale] text-white rounded">
+                  {{ 'products.product.on_sale' | t }}
+                </span>
+              ` : ''}
+            </a>
+            <div class="product-card-content flex-1 flex flex-col pt-4">
+              ${showVendor && product.vendor ? `
+                <span class="text-[0.65rem] font-semibold uppercase tracking-[0.1em] text-[--color-text-secondary] mb-1">
+                  ${escapeHtml(product.vendor)}
+                </span>
+              ` : ''}
+              <h3 class="product-card-title text-sm font-medium leading-snug transition-opacity duration-300 group-hover:opacity-70">
+                <a href="${escapeHtml(product.url)}" class="no-underline">
+                  ${escapeHtml(product.title)}
+                </a>
+              </h3>
+              <div class="mt-auto pt-2">
+                <div class="flex items-center gap-2 text-sm">
+                  ${product.compareAtPrice && product.compareAtPrice > product.price ? `
+                    <span class="line-through opacity-60">${formatMoney(product.compareAtPrice)}</span>
+                    <span class="text-[--color-sale] font-medium">${formatMoney(product.price)}</span>
+                  ` : `
+                    <span>${formatMoney(product.price)}</span>
+                  `}
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      `).join('');
+
+      totalSlides = products.length;
+      updateSlidesPerView();
+      updateCarousel();
+
+      // Hide nav if not enough slides
+      if (totalSlides <= slidesPerView) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'flex';
+      }
+
+      // Trigger intro animations
+      if (window.pieces?.animationManager) {
+        window.pieces.animationManager.initIntroAnimations();
+      }
+    }
+
+    function updateSlidesPerView() {
+      const width = window.innerWidth;
+      if (width < 640) slidesPerView = 1;
+      else if (width < 1024) slidesPerView = 2;
+      else if (width < 1280) slidesPerView = 3;
+      else slidesPerView = 4;
+    }
+
+    function updateCarousel() {
+      if (totalSlides === 0) return;
+
+      const maxIndex = Math.max(0, totalSlides - slidesPerView);
+      currentIndex = Math.min(currentIndex, maxIndex);
+
+      const slideWidth = track.children[0]?.offsetWidth || 0;
+      const gap = 24; // 1.5rem
+      const offset = currentIndex * (slideWidth + gap);
+
+      track.style.transform = `translateX(-${offset}px)`;
+
+      // Update buttons
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex;
+
+      // Update progress
+      const progress = maxIndex > 0 ? ((currentIndex + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
+
+    // Event listeners
+    prevBtn.addEventListener('click', () => {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const maxIndex = Math.max(0, totalSlides - slidesPerView);
+      currentIndex = Math.min(maxIndex, currentIndex + 1);
+      updateCarousel();
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextBtn.click();
+        } else {
+          prevBtn.click();
+        }
+      }
+    }, { passive: true });
+
+    // Resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        updateSlidesPerView();
+        updateCarousel();
+
+        if (totalSlides <= slidesPerView) {
+          nav.style.display = 'none';
+        } else {
+          nav.style.display = 'flex';
+        }
+      }, 100);
+    });
+
+    // Initialize
+    const products = getProducts();
+    renderProducts(products);
+
+    // Title animation
+    if (products.length > 0) {
+      initTitleAnimation();
+    }
+
+    function initTitleAnimation() {
+      // If animations disabled, just show title
+      if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
+        const title = section.querySelector('[data-recently-viewed-title]');
+        if (title) title.style.opacity = 1;
+        return;
+      }
+
+      let gsap = window.gsap;
+      if (!gsap && window.pieces && window.pieces.gsap) {
+        gsap = window.pieces.gsap;
+      }
+
+      let SplitText = window.SplitText;
+      if (!SplitText && window.pieces && window.pieces.SplitText) {
+        SplitText = window.pieces.SplitText;
+      }
+
+      const ScrollTrigger = window.ScrollTrigger || (window.pieces && window.pieces.ScrollTrigger);
+
+      if (!gsap || !SplitText || !ScrollTrigger) {
+        setTimeout(initTitleAnimation, 50);
+        return;
+      }
+
+      const title = section.querySelector('[data-recently-viewed-title]');
+      if (!title) return;
+
+      const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
+      const split = new SplitText(title, { type: 'lines', linesClass: 'recently-viewed-title-line' });
+
+      split.lines.forEach(line => {
+        const lineWrapper = document.createElement('div');
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.display = 'block';
+        line.parentNode.insertBefore(lineWrapper, line);
+        lineWrapper.appendChild(line);
+      });
+
+      gsap.set(split.lines, { yPercent: 120 });
+
+      gsap.to(split.lines, {
+        yPercent: 0,
+        duration: 1.2,
+        ease: 'power4.out',
+        stagger: 0.1,
+        scrollTrigger: {
+          trigger: section,
+          start: scrollStart,
+          once: true,
+          onEnter: () => {
+            title.style.opacity = 1;
+          }
+        }
+      });
+    }
+
+    // Re-initialize on Swup navigation
+    if (window.onSwupContentReplaced) {
+      window.onSwupContentReplaced('recently_viewed_section', () => {
+        const newSection = document.querySelector('[data-recently-viewed][data-section-id="{{ section.id }}"]');
+        if (newSection) {
+          const products = getProducts();
+          renderProducts(products);
+          if (products.length > 0) {
+            initTitleAnimation();
+          }
+        }
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "tag": "section",
+  "class": "recently-viewed-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows products the customer has previously viewed. Data is stored in the browser's local storage."
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Recently browsed"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Recently Viewed"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Recently Viewed",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}

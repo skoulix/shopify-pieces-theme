@@ -269,6 +269,7 @@
               src="{{ block.settings.image | image_url: width: 800 }}"
               class="hscroll-bg-image-{{ section.id }}"
               loading="lazy"
+              decoding="async"
               data-bg-index="{{ forloop.index0 }}"
               width="800"
               height="600"
