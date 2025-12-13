@@ -178,7 +178,7 @@
       {% else %}
         <div class="collection-grid grid gap-8 {{ container_class }}" data-collection-content>
           {% for product in collection.products %}
-            {% render 'product-card', product: product, collection: collection, index: forloop.index0, animate_image: true %}
+            {% render 'product-card', product: product, collection: collection, index: forloop.index0 %}
             {% unless forloop.last %}
               <hr class="collection-grid__divider hidden border-[--color-border]">
             {% endunless %}
@@ -252,6 +252,10 @@
   // If animations disabled, just show content immediately but still init load more
   if (typeof window.shouldAnimate === 'function' && !window.shouldAnimate()) {
     wrapper.classList.remove('is-loading');
+    // Mark all cards as visible since animations are disabled
+    wrapper.querySelectorAll('[data-intro]').forEach(item => {
+      item.classList.add('intro-visible');
+    });
     initLoadMoreNoAnimation();
     return;
   }
@@ -301,6 +305,12 @@
 
             // Clone and append
             const clone = item.cloneNode(true);
+
+            // Mark as visible since animations are disabled
+            if (clone.hasAttribute('data-intro')) {
+              clone.classList.add('intro-visible');
+            }
+
             contentContainer.appendChild(clone);
           });
 
@@ -567,6 +577,12 @@
             gsap.set(inner, { clipPath: 'inset(0 100% 0 0)' });
           }
 
+          // Mark item as visible since collection page handles its own animations
+          // This overrides the data-intro opacity:0 if present
+          if (item.hasAttribute('data-intro')) {
+            item.classList.add('intro-visible');
+          }
+
           // During Swup transition, assume first N items are in viewport
           const wouldBeInViewport = transitioning ? index < maxInitialItems : isInViewport(item);
 
@@ -628,6 +644,12 @@
           }
           if (priceSpans.length) {
             gsap.set(priceSpans, { yPercent: 100 });
+          }
+
+          // Mark card as visible since collection page handles its own animations
+          // This overrides the data-intro opacity:0 set by product-card snippet
+          if (item.hasAttribute('data-intro')) {
+            item.classList.add('intro-visible');
           }
 
           // During Swup transition, assume first N items are in viewport (page scrolls to top)

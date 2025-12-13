@@ -144,7 +144,8 @@ html.animations-disabled [data-section-intro] {
    ========================================================================== */
 
 /* Fade animations - initial hidden state */
-[data-tween],
+/* Note: clip-* types use clip-path only, not opacity */
+[data-tween]:not([data-tween-type="clip-right"]):not([data-tween-type="clip-up"]):not([data-tween-type="clip-down"]),
 [data-tween-type="fade"],
 [data-tween-type="fade-up"],
 [data-tween-type="fade-down"],
@@ -160,7 +161,7 @@ html.animations-disabled [data-section-intro] {
   opacity: 0;
 }
 
-/* Clip animations - initial clipped state (GSAP will animate, but CSS provides fallback) */
+/* Clip animations - use clip-path only (no opacity) */
 [data-tween-type="clip-right"] {
   clip-path: inset(0 100% 0 0);
 }

@@ -59,7 +59,7 @@
   class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]"
   data-product-card="{{ index }}"
   data-product-id="{{ product.id }}"
-  data-intro
+  {% unless animate_image %}data-intro{% endunless %}
 >
   {%- comment -%} Image area with link {%- endcomment -%}
   <div class="product-card-image relative overflow-hidden {{ image_ratio_class }}"{% if animate_image %} data-tween data-tween-type="clip-right"{% endif %}>
@@ -178,7 +178,7 @@
   </div>
 
   {%- comment -%} Content area with link {%- endcomment -%}
-  <a href="{{ product_url }}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline">
+  <a href="{{ product_url }}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
     {% if show_vendor and product.vendor != blank %}
       <p class="product-card-vendor text-xs text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
         <span class="inline-block">{{ product.vendor }}</span>
@@ -210,7 +210,7 @@
 
   {%- comment -%} Add to Cart / Select Options Button + List View Action Buttons {%- endcomment -%}
   {% if show_quick_add and product.available %}
-    <div class="product-card-quick-add px-4 pb-4 bg-[--color-background]">
+    <div class="product-card-quick-add px-4 pb-4 bg-[--color-background]"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
       {% if has_variants %}
         {%- comment -%} Multiple variants - go to product page {%- endcomment -%}
         <a

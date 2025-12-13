@@ -664,14 +664,14 @@
     </div>
 
     {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-      <div class="countdown-cta-{{ section.id }}">
+      <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
         <a href="{{ section.settings.button_link }}" class="btn">
           <span>{{ section.settings.button_text }}</span>
           <i class="ph ph-arrow-right"></i>
         </a>
       </div>
     {% elsif section.settings.cta_type == 'email_form' %}
-      <div class="countdown-form-{{ section.id }}" data-countdown-form>
+      <div class="countdown-form-{{ section.id }}" data-countdown-form data-tween data-tween-type="fade-up">
         {% form 'customer', id: 'countdown-form-hero' %}
           <div class="countdown-form-inner">
             <input
@@ -703,14 +703,14 @@
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
 <section class="countdown-{{ section.id }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="compact">
   <div class="{{ container_class }}">
-    <div class="countdown-inner-{{ section.id }}">
+    <div class="countdown-inner-{{ section.id }}" data-tween-group="countdown-compact-{{ section.id }}">
       {% if section.settings.title != blank or section.settings.subtitle != blank %}
         <div class="countdown-header-{{ section.id }}">
           {% if section.settings.title != blank %}
-            <h2 class="countdown-title-{{ section.id }} font-heading">{{ section.settings.title }}</h2>
+            <h2 class="countdown-title-{{ section.id }} font-heading" data-tween data-tween-type="fade-up">{{ section.settings.title }}</h2>
           {% endif %}
           {% if section.settings.subtitle != blank %}
-            <p class="countdown-subtitle-{{ section.id }}">{{ section.settings.subtitle }}</p>
+            <p class="countdown-subtitle-{{ section.id }}" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
           {% endif %}
         </div>
       {% endif %}
@@ -746,14 +746,14 @@
       </div>
 
       {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-        <div class="countdown-cta-{{ section.id }}">
+        <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
           <a href="{{ section.settings.button_link }}" class="btn">
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
           </a>
         </div>
       {% elsif section.settings.cta_type == 'email_form' %}
-        <div class="countdown-form-{{ section.id }}" data-countdown-form>
+        <div class="countdown-form-{{ section.id }}" data-countdown-form data-tween data-tween-type="fade-up">
           {% form 'customer', id: 'countdown-form-compact' %}
             <div class="countdown-form-inner">
               <input
