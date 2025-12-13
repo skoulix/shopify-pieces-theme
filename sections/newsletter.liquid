@@ -3,13 +3,11 @@
   Three design options: side-by-side, stacked, card
 {%- endcomment -%}
 
-<style>
-  .newsletter-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-newsletter-title] { opacity: 0; }
-  html.animations-disabled [data-newsletter-title] { opacity: 1; }
-</style>
+{%- comment -%}
+  Title line offset and hidden state now handled by global classes in utilities.css and animations.css
+  - .section-title-line:nth-child(2) for line offset
+  - [data-section-title] for hidden state
+{%- endcomment -%}
 
 <section class="newsletter-section" data-newsletter-section="{{ section.id }}">
   {% case section.settings.design %}
@@ -79,10 +77,10 @@
       return;
     }
 
-    const title = section.querySelector('[data-newsletter-title]');
+    const title = section.querySelector('[data-section-title]');
     if (!title) return;
 
-    const split = new SplitText(title, { type: 'lines', linesClass: 'newsletter-title-line' });
+    const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
     split.lines.forEach(line => {
       const lineWrapper = document.createElement('div');

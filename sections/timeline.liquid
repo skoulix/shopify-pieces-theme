@@ -22,33 +22,11 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .timeline-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label and title use global .section-* classes from utilities.css */
+  /* Title hidden state handled by global [data-section-title] in animations.css */
+  .timeline-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
-
-  .timeline-label-{{ section.id }}.intro-visible {
-    opacity: 0.5;
-  }
-
-  .timeline-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .timeline-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  /* Hide title initially to prevent FOUC before SplitText animation */
-  [data-timeline-title] { opacity: 0; }
-  html.animations-disabled [data-timeline-title] { opacity: 1; }
 
   .timeline-wrapper-{{ section.id }} {
     position: relative;
@@ -219,15 +197,6 @@
     border-color: {{ section.settings.accent_color }};
   }
 
-  html.animations-disabled .timeline-label-{{ section.id }} {
-    opacity: 0.5;
-    transform: none;
-  }
-
-  html.animations-disabled .timeline-title-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
 </style>
 
 <section
@@ -239,13 +208,13 @@
     {% if section.settings.label != blank or section.settings.title != blank %}
       <div class="timeline-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="timeline-label-{{ section.id }}" data-intro>
+          <span class="section-label" data-intro>
             {{ section.settings.label }}
           </span>
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="timeline-title-{{ section.id }} font-heading" data-timeline-title>
+          <h2 class="section-title font-heading" data-section-title>
             {{ section.settings.title }}
           </h2>
         {% endif %}
@@ -330,13 +299,13 @@
     const items = section.querySelectorAll('[data-timeline-item]');
     const progress = section.querySelector('[data-timeline-progress]');
     const wrapper = section.querySelector('[data-timeline-wrapper]');
-    const title = section.querySelector('[data-timeline-title]');
+    const title = section.querySelector('[data-section-title]');
 
     const scrollStart = window.getScrollStart ? window.getScrollStart('top 70%') : 'top 70%';
 
     // Title animation
     if (shouldAnimate && title && SplitText) {
-      const split = new SplitText(title, { type: 'lines', linesClass: 'timeline-title-line' });
+      const split = new SplitText(title, { type: 'lines', linesClass: 'section-title-line' });
 
       split.lines.forEach(line => {
         const lineWrapper = document.createElement('div');
