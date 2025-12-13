@@ -261,6 +261,40 @@
       "adding": "Toevoegen...",
       "added": "Toegevoegd!",
       "error": "Fout bij toevoegen van artikelen"
+    },
+    "compare": {
+      "compare": "Vergelijken",
+      "compare_products": "Producten vergelijken",
+      "add_to_compare": "Toevoegen aan vergelijking",
+      "remove": "Verwijderen",
+      "clear_all": "Alles wissen",
+      "view_compare": "Vergelijking bekijken",
+      "view_comparison": "Vergelijking bekijken",
+      "add_product": "Product toevoegen",
+      "products": "producten",
+      "product": "Product",
+      "vendor": "Verkoper",
+      "availability": "Beschikbaarheid",
+      "empty_title": "Geen producten om te vergelijken",
+      "empty_text": "Voeg producten toe om te vergelijken door op het vergelijkingspictogram op productkaarten te klikken.",
+      "browse_products": "Producten bekijken",
+      "continue_shopping": "Verder winkelen",
+      "open_drawer": "Vergelijking openen",
+      "price": "Prijs"
+    },
+    "wishlist": {
+      "title": "Verlanglijstje",
+      "add_to_wishlist": "Toevoegen aan favorieten",
+      "remove": "Verwijderen",
+      "remove_from_wishlist": "Verwijderen uit favorieten",
+      "view_all": "Alle opgeslagen artikelen bekijken",
+      "view": "Bekijken",
+      "empty_title": "Je verlanglijstje is leeg",
+      "empty_text": "Sla je favoriete producten op door op het hartpictogram op productkaarten te klikken.",
+      "browse_products": "Producten bekijken",
+      "continue_shopping": "Verder winkelen",
+      "clear_all": "Alles wissen",
+      "products": "opgeslagen artikelen"
     }
   },
   "customers": {

@@ -284,6 +284,9 @@
 .ph.ph-ruler:before {
   content: "\e6b8";
 }
+.ph.ph-scales:before {
+  content: "\e750";
+}
 .ph.ph-share:before {
   content: "\e406";
 }

@@ -149,6 +149,7 @@ USED_ICONS = [
     "dots-three",
     "dots-three-vertical",
     "equals",
+    "scales",
     "sidebar",
     # Misc (new)
     "sun",

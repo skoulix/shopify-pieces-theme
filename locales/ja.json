@@ -261,6 +261,40 @@
       "adding": "追加中...",
       "added": "追加しました！",
       "error": "商品の追加エラー"
+    },
+    "compare": {
+      "compare": "比較",
+      "compare_products": "商品を比較",
+      "add_to_compare": "比較に追加",
+      "remove": "削除",
+      "clear_all": "すべてクリア",
+      "view_compare": "比較を見る",
+      "view_comparison": "比較を見る",
+      "add_product": "商品を追加",
+      "products": "商品",
+      "product": "商品",
+      "vendor": "販売元",
+      "availability": "在庫状況",
+      "empty_title": "比較する商品がありません",
+      "empty_text": "商品カードの比較アイコンをクリックして、商品を追加してください。",
+      "browse_products": "商品を見る",
+      "continue_shopping": "買い物を続ける",
+      "open_drawer": "比較を開く",
+      "price": "価格"
+    },
+    "wishlist": {
+      "title": "お気に入り",
+      "add_to_wishlist": "お気に入りに追加",
+      "remove": "削除",
+      "remove_from_wishlist": "お気に入りから削除",
+      "view_all": "保存した商品をすべて見る",
+      "view": "見る",
+      "empty_title": "お気に入りは空です",
+      "empty_text": "商品カードのハートアイコンをクリックして、お気に入り商品を保存してください。",
+      "browse_products": "商品を見る",
+      "continue_shopping": "買い物を続ける",
+      "clear_all": "すべてクリア",
+      "products": "保存した商品"
     }
   },
   "customers": {
