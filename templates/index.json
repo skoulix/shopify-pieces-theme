@@ -345,7 +345,6 @@
         "title": "Recently Viewed",
         "header_alignment": "left",
         "products_to_show": 8,
-        "show_vendor": false,
         "background_color": "#ffffff",
         "text_color": "#000000"
       }
