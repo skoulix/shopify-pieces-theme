@@ -45,6 +45,10 @@
   .cart-wrapper.is-updating { cursor: wait; }
   .cart-wrapper.is-updating * { cursor: wait !important; }
   .cart-wrapper.is-updating [data-cart-form] { opacity: 0.5; pointer-events: none; }
+  /* Dynamic checkout buttons styling */
+  .cart-dynamic-checkout { margin-top: 0.75rem; }
+  .cart-dynamic-checkout .dynamic-checkout__buttons { display: flex; flex-direction: column; gap: 0.5rem; }
+  .cart-dynamic-checkout [data-shopify-buttoncontainer] { justify-content: stretch; }
 </style>
 
 <div class="cart-wrapper is-loading min-h-screen py-[--page-vertical-padding]" data-cart-wrapper>
@@ -238,6 +242,13 @@
                   <span>{{ 'cart.checkout' | t }}</span>
                 </button>
               </form>
+
+              {%- comment -%} Dynamic Checkout / Accelerated Checkout Buttons (Shop Pay, Apple Pay, etc.) {%- endcomment -%}
+              {%- if additional_checkout_buttons -%}
+                <div class="cart-dynamic-checkout">
+                  {{ content_for_additional_checkout_buttons }}
+                </div>
+              {%- endif -%}
 
               <a href="{{ routes.all_products_collection_url }}" class="btn btn--secondary btn--full">
                 <i class="ph ph-arrow-left"></i>
