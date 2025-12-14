@@ -223,6 +223,22 @@
     font-size: clamp(1.5rem, 3vw, 2rem);
   }
 
+  /* Custom icon styles */
+  .feature-item-icon--custom {
+    background: transparent !important;
+  }
+
+  .feature-item-icon--custom img {
+    max-width: 2.5rem;
+    max-height: 2.5rem;
+    object-fit: contain;
+  }
+
+  .feature-item-{{ section.id }}.is-large .feature-item-icon--custom img {
+    max-width: 3rem;
+    max-height: 3rem;
+  }
+
 </style>
 
 <section
@@ -264,9 +280,18 @@
             {{ forloop.index | prepend: '00' | slice: -2, 2 }}
           </span>
 
-          <div class="feature-item-icon-{{ section.id }}">
-            <i class="ph ph-{{ block.settings.icon | default: 'star' }}"></i>
-          </div>
+          {%- if block.settings.custom_icon != blank -%}
+            <div class="feature-item-icon-{{ section.id }} feature-item-icon--custom">
+              {{ block.settings.custom_icon | image_url: width: 80 | image_tag:
+                loading: 'lazy',
+                alt: block.settings.title
+              }}
+            </div>
+          {%- elsif block.settings.icon != 'none' -%}
+            <div class="feature-item-icon-{{ section.id }}">
+              <i class="ph ph-{{ block.settings.icon }}"></i>
+            </div>
+          {%- endif -%}
 
           {% if block.settings.title != blank %}
             <h3 class="feature-item-title-{{ section.id }} font-heading">
@@ -406,11 +431,48 @@
       "name": "Feature",
       "settings": [
         {
-          "type": "text",
+          "type": "select",
           "id": "icon",
+          "label": "Icon",
           "default": "star",
-          "label": "Icon name",
-          "info": "Phosphor icon name (e.g., star, truck, shield-check, package)"
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "star", "label": "Star (Quality)" },
+            { "value": "shield-check", "label": "Shield check (Security)" },
+            { "value": "lock-simple", "label": "Lock (Secure)" },
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "package", "label": "Package (Delivery)" },
+            { "value": "arrow-counter-clockwise", "label": "Return arrow (Returns)" },
+            { "value": "credit-card", "label": "Credit card (Payment)" },
+            { "value": "headset", "label": "Headset (Support)" },
+            { "value": "chat-circle", "label": "Chat (Support)" },
+            { "value": "medal", "label": "Medal (Award)" },
+            { "value": "certificate", "label": "Certificate (Certified)" },
+            { "value": "heart", "label": "Heart (Love)" },
+            { "value": "leaf", "label": "Leaf (Eco)" },
+            { "value": "recycle", "label": "Recycle (Sustainable)" },
+            { "value": "hand-heart", "label": "Hand heart (Care)" },
+            { "value": "clock", "label": "Clock (Fast)" },
+            { "value": "gift", "label": "Gift (Free gift)" },
+            { "value": "percent", "label": "Percent (Discount)" },
+            { "value": "globe", "label": "Globe (Worldwide)" },
+            { "value": "lightning", "label": "Lightning (Fast)" },
+            { "value": "sparkle", "label": "Sparkle (Premium)" },
+            { "value": "users", "label": "Users (Community)" },
+            { "value": "chart-line-up", "label": "Chart (Growth)" },
+            { "value": "target", "label": "Target (Goal)" },
+            { "value": "rocket", "label": "Rocket (Launch)" },
+            { "value": "code", "label": "Code (Tech)" },
+            { "value": "paint-brush", "label": "Paint brush (Design)" },
+            { "value": "wrench", "label": "Wrench (Tools)" },
+            { "value": "gear", "label": "Gear (Settings)" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon",
+          "info": "Overrides the icon selection above"
         },
         {
           "type": "text",
