@@ -301,13 +301,17 @@
 
             // Clone and append
             const clone = item.cloneNode(true);
+
+            // Remove data-tween attributes - animations disabled so cards should show immediately
+            clone.removeAttribute('data-tween');
+            clone.removeAttribute('data-tween-type');
+            clone.querySelectorAll('[data-tween]').forEach(el => {
+              el.removeAttribute('data-tween');
+              el.removeAttribute('data-tween-type');
+            });
+
             contentContainer.appendChild(clone);
           });
-
-          // Reinitialize tween animations for new [data-tween] elements
-          if (window.pieces && window.pieces.tween) {
-            window.pieces.tween.reinit();
-          }
 
           // Update the pagination
           const newPagination = newWrapper.querySelector('[data-pagination-load-more]');
@@ -771,6 +775,16 @@
 
               // Clone and append
               const clone = item.cloneNode(true);
+
+              // Remove data-tween attributes from cloned cards since we handle animations manually
+              // This prevents TweenManager.reinit() from setting opacity: 0 on these cards
+              clone.removeAttribute('data-tween');
+              clone.removeAttribute('data-tween-type');
+              clone.querySelectorAll('[data-tween]').forEach(el => {
+                el.removeAttribute('data-tween');
+                el.removeAttribute('data-tween-type');
+              });
+
               contentContainer.appendChild(clone);
 
               // Set initial states for animation
