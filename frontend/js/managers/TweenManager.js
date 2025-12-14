@@ -332,22 +332,32 @@ class TweenManager {
           });
         } else {
           // Create scroll-triggered animation
-          const trigger = ScrollTrigger.create({
-            trigger: el,
-            start,
-            once: true,
-            onEnter: () => {
-              gsap.to(el, {
-                ...config.animate,
-                duration,
-                ease,
-                delay
-              });
-            }
-          });
+          try {
+            const trigger = ScrollTrigger.create({
+              trigger: el,
+              start,
+              once: true,
+              onEnter: () => {
+                gsap.to(el, {
+                  ...config.animate,
+                  duration,
+                  ease,
+                  delay
+                });
+              }
+            });
 
-          if (trigger) {
-            this.scrollTriggers.push(trigger);
+            if (trigger) {
+              this.scrollTriggers.push(trigger);
+            }
+          } catch (e) {
+            // ScrollTrigger not ready, animate immediately as fallback
+            gsap.to(el, {
+              ...config.animate,
+              duration,
+              ease,
+              delay
+            });
           }
         }
       }
@@ -364,17 +374,21 @@ class TweenManager {
       return;
     }
 
-    // Initialize grouped tweens
-    const groups = document.querySelectorAll('[data-tween-group]:not([data-tween-group-initialized])');
-    groups.forEach(group => {
-      group.dataset.tweenGroupInitialized = 'true';
-      this.initTweenGroup(group);
+    // Wait for next frame to ensure DOM is ready
+    // This prevents ScrollTrigger errors when page loads with sections in viewport
+    requestAnimationFrame(() => {
+      // Initialize grouped tweens
+      const groups = document.querySelectorAll('[data-tween-group]:not([data-tween-group-initialized])');
+      groups.forEach(group => {
+        group.dataset.tweenGroupInitialized = 'true';
+        this.initTweenGroup(group);
+      });
+
+      // Initialize standalone tweens
+      this.initStandaloneTweens();
+
+      this.initialized = true;
     });
-
-    // Initialize standalone tweens
-    this.initStandaloneTweens();
-
-    this.initialized = true;
   }
 
   /**

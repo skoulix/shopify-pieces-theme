@@ -230,6 +230,8 @@
         <div
           class="timeline-item-{{ section.id }}{% if forloop.first %} is-active{% endif %}"
           data-timeline-item
+          data-tween
+          data-tween-type="fade-up"
           {{ block.shopify_attributes }}
         >
           <div class="timeline-dot-{{ section.id }}" data-timeline-dot></div>
