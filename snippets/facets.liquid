@@ -197,8 +197,8 @@
                               {% if value.count == 0 and value.active == false %}disabled{% endif %}
                               class="sr-only peer"
                             >
-                            <span class="w-5 h-5 border border-[--color-border] rounded flex items-center justify-center transition-all peer-checked:bg-[--color-text] peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-text]">
-                              <i class="ph ph-check text-xs text-[--color-background] opacity-0 peer-checked:opacity-100 transition-opacity"></i>
+                            <span class="w-5 h-5 border border-[--color-border] rounded flex items-center justify-center transition-all peer-checked:bg-[--color-text] peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-text] [&>i]:opacity-0 peer-checked:[&>i]:opacity-100">
+                              <i class="ph ph-check text-xs text-[--color-background] transition-opacity"></i>
                             </span>
                             <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-[--color-text-secondary] opacity-50{% endif %}">
                               {{ value.label }}
