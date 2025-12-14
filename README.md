@@ -352,30 +352,123 @@ window.refreshCartDrawer();
 ### Prerequisites
 
 - Node.js 18+
-- Shopify CLI
+- pnpm (recommended) or npm
+- Shopify CLI 3.x
 - Theme access credentials
 
-### Scripts
+### Quick Start
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
-# Development (Vite + Shopify theme dev)
-npm run develop
-
-# Build for production
-npm run build
-
-# Watch mode
-npm run watch
-
-# Theme commands
-npm run theme:dev      # Preview theme
-npm run theme:push     # Push to Shopify
-npm run theme:pull     # Pull from Shopify
-npm run theme:check    # Lint theme
+# Start development server (Vite + Shopify CLI)
+pnpm develop
 ```
+
+This runs Vite in watch mode and Shopify theme dev concurrently, giving you:
+- Hot reloading for CSS/JS changes
+- Live preview at `https://127.0.0.1:9292`
+- Automatic asset compilation
+
+### Available Scripts
+
+| Command | Description |
+| ------- | ----------- |
+| `pnpm develop` | Start dev server (Vite watch + Shopify theme dev) |
+| `pnpm dev` | Run Vite dev server only |
+| `pnpm build` | Build assets for production |
+| `pnpm watch` | Watch and rebuild assets |
+| `pnpm start` | Build then start theme dev |
+| `pnpm theme:dev` | Preview theme locally |
+| `pnpm theme:push` | Push theme to Shopify |
+| `pnpm theme:pull` | Pull theme from Shopify |
+| `pnpm theme:check` | Lint theme with Theme Check |
+| `pnpm theme:list` | List all themes in store |
+
+### Shopify CLI Commands
+
+Essential commands for theme development:
+
+```bash
+# Authenticate with Shopify
+shopify auth login
+
+# Preview theme on development store
+shopify theme dev --store=your-store.myshopify.com
+
+# Push to specific theme
+shopify theme push --theme=123456789
+
+# Push and publish as live theme
+shopify theme push --live
+
+# Pull latest changes from Shopify
+shopify theme pull --theme=123456789
+
+# Create a new unpublished theme
+shopify theme push --unpublished --json
+
+# Open theme in browser
+shopify theme open
+
+# Check theme for errors and best practices
+shopify theme check
+
+# Package theme into a zip file
+shopify theme package
+
+# List all themes with IDs
+shopify theme list
+
+# Delete a theme
+shopify theme delete --theme=123456789
+
+# Share theme with a preview link
+shopify theme share
+```
+
+### Development Workflow
+
+1. **Start Development**
+   ```bash
+   pnpm develop
+   ```
+   Opens local preview with hot reloading.
+
+2. **Make Changes**
+   - Edit Liquid files in `sections/`, `snippets/`, `templates/`
+   - Edit source CSS in `frontend/css/`
+   - Edit source JS in `frontend/js/`
+   - Vite automatically compiles and outputs to `assets/`
+
+3. **Test Changes**
+   - Browser auto-refreshes on Liquid changes
+   - CSS/JS changes apply via hot module replacement
+
+4. **Push to Shopify**
+   ```bash
+   pnpm theme:push
+   ```
+
+### Environment Configuration
+
+Create `shopify.theme.toml` in project root:
+
+```toml
+[environments.development]
+store = "your-store.myshopify.com"
+theme = "123456789"
+ignore = [
+  "config/settings_data.json"
+]
+
+[environments.production]
+store = "your-store.myshopify.com"
+theme = "987654321"
+```
+
+Then use: `shopify theme dev --environment=development`
 
 ### File Structure
 
