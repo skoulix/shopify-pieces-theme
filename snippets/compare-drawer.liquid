@@ -64,8 +64,31 @@
     gap: 1rem;
   }
   @media (max-width: 768px) {
+    .compare-drawer__inner {
+      padding: 1rem var(--page-padding) calc(1rem + env(safe-area-inset-bottom));
+    }
     .compare-drawer__products {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      margin: 0 calc(var(--page-padding) * -1);
+      padding: 0 var(--page-padding);
+    }
+    .compare-drawer__products::-webkit-scrollbar {
+      display: none;
+    }
+    .compare-drawer__product,
+    .compare-drawer__empty-slot {
+      flex: 0 0 200px;
+      scroll-snap-align: start;
+    }
+    .compare-drawer__footer {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
     }
   }
   .compare-drawer__product {
@@ -233,7 +256,7 @@
       </div>
     </div>
 
-    <div class="compare-drawer__products" data-compare-products>
+    <div class="compare-drawer__products" data-compare-products data-lenis-prevent>
       {%- comment -%} Products will be rendered via JS {%- endcomment -%}
     </div>
 
