@@ -1,0 +1,46 @@
+{%- comment -%}
+  Logo Snippet
+  Renders the appropriate logo based on background color brightness.
+  Uses logo_dark when the theme has a dark background color.
+
+  Usage:
+  {% render 'logo', class: 'h-auto', loading: 'eager' %}
+
+  Parameters:
+  - class: CSS classes for the image (default: 'h-auto')
+  - loading: Loading strategy - 'eager' or 'lazy' (default: 'eager')
+  - style: Inline styles (default: 'width: var(--logo-width);')
+{%- endcomment -%}
+
+{%- liquid
+  assign logo_class = class | default: 'h-auto'
+  assign logo_loading = loading | default: 'eager'
+  assign logo_style = style | default: 'width: var(--logo-width);'
+
+  # Determine if background is dark by checking the lightness of the background color
+  # We use the color_brightness filter which returns a value from 0-255
+  # Dark backgrounds have brightness < 128
+  assign bg_brightness = settings.color_background | color_brightness
+  assign is_dark_background = false
+  if bg_brightness < 128
+    assign is_dark_background = true
+  endif
+
+  # Select the appropriate logo
+  # Use dark logo only if background is dark AND dark logo exists
+  assign selected_logo = settings.logo
+  if is_dark_background and settings.logo_dark != blank
+    assign selected_logo = settings.logo_dark
+  endif
+-%}
+
+{%- if selected_logo != blank -%}
+  {{ selected_logo | image_url: width: 300 | image_tag:
+    class: logo_class,
+    style: logo_style,
+    alt: shop.name,
+    loading: logo_loading
+  }}
+{%- else -%}
+  <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
+{%- endif -%}

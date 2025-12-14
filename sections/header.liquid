@@ -431,16 +431,7 @@
       <div class="absolute left-1/2 -translate-x-1/2">
         <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
           <span class="sr-only">{{ shop.name }}</span>
-          {% if settings.logo != blank %}
-            {{ settings.logo | image_url: width: 300 | image_tag:
-              class: 'h-auto',
-              style: 'width: var(--logo-width);',
-              alt: shop.name,
-              loading: 'eager'
-            }}
-          {% else %}
-            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
-          {% endif %}
+          {% render 'logo', loading: 'eager' %}
         </a>
       </div>
 
@@ -511,16 +502,7 @@
         {%- comment -%} Desktop logo {%- endcomment -%}
         <a href="{{ routes.root_url }}" class="hidden lg:block -m-1.5 p-1.5">
           <span class="sr-only">{{ shop.name }}</span>
-          {% if settings.logo != blank %}
-            {{ settings.logo | image_url: width: 300 | image_tag:
-              class: 'h-auto',
-              style: 'width: var(--logo-width);',
-              alt: shop.name,
-              loading: 'eager'
-            }}
-          {% else %}
-            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
-          {% endif %}
+          {% render 'logo', loading: 'eager' %}
         </a>
       </div>
 
@@ -528,16 +510,7 @@
       <div class="lg:hidden absolute left-1/2 -translate-x-1/2">
         <a href="{{ routes.root_url }}" class="-m-1.5 p-1.5">
           <span class="sr-only">{{ shop.name }}</span>
-          {% if settings.logo != blank %}
-            {{ settings.logo | image_url: width: 300 | image_tag:
-              class: 'h-auto',
-              style: 'width: var(--logo-width);',
-              alt: shop.name,
-              loading: 'eager'
-            }}
-          {% else %}
-            <span class="text-xl font-bold text-[--color-text]">{{ shop.name }}</span>
-          {% endif %}
+          {% render 'logo', loading: 'eager' %}
         </a>
       </div>
 

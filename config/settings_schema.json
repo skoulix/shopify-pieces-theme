@@ -16,6 +16,12 @@
         "label": "Logo image"
       },
       {
+        "type": "image_picker",
+        "id": "logo_dark",
+        "label": "Logo for dark backgrounds",
+        "info": "Optional. Used when the theme preset has a dark background color."
+      },
+      {
         "type": "range",
         "id": "logo_width",
         "min": 50,
