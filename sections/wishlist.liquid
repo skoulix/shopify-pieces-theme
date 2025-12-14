@@ -31,13 +31,7 @@
 
   /* Title line reveal animation (managed by TweenManager) */
   .tween-split-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
-  .wishlist-section-{{ section.id }} .wishlist-count {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    opacity: 0.6;
-  }
-  .wishlist-section-{{ section.id }} .wishlist-empty {
+    .wishlist-section-{{ section.id }} .wishlist-empty {
     text-align: center;
     padding: 4rem 0;
   }
@@ -120,7 +114,10 @@
         </h2>
       {% endif %}
 
-      <p class="wishlist-count mt-4" data-wishlist-section-count data-tween data-tween-type="fade-up">0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</p>
+      <p class="page-header-subtitle mt-6 {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
+        <span class="page-header-subtitle-line" data-subtitle-line></span>
+        <span class="overflow-hidden"><span class="inline-block" data-wishlist-section-count data-subtitle-text>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</span></span>
+      </p>
 
       {% if section.settings.description != blank %}
         <p class="mt-4 text-base lg:text-lg opacity-70 max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}" data-tween data-tween-type="fade-up">
@@ -314,6 +311,42 @@
   }
 
   render();
+
+  // Animate subtitle line and text
+  function initSubtitleAnimation() {
+    if (typeof gsap === 'undefined') {
+      requestAnimationFrame(initSubtitleAnimation);
+      return;
+    }
+
+    const subtitleLine = section.querySelector('[data-subtitle-line]');
+    const subtitleText = section.querySelector('[data-subtitle-text]');
+
+    if (subtitleLine) {
+      gsap.set(subtitleLine, { scaleX: 0, transformOrigin: 'left center' });
+      gsap.to(subtitleLine, {
+        scaleX: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: 0.4
+      });
+    }
+
+    if (subtitleText) {
+      gsap.set(subtitleText, { yPercent: 120 });
+      gsap.to(subtitleText, {
+        yPercent: 0,
+        duration: 0.8,
+        ease: 'power4.out',
+        delay: 0.6
+      });
+    }
+  }
+
+  // Only animate if animations are enabled
+  if (typeof window.shouldAnimate === 'function' ? window.shouldAnimate() : true) {
+    initSubtitleAnimation();
+  }
 
   window.addEventListener('storage', (e) => {
     if (e.key === STORAGE_KEY) {
