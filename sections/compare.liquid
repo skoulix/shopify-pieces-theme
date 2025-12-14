@@ -65,7 +65,7 @@
     padding: 1rem;
     background: {{ section.settings.background_color }};
     border-bottom: 1px solid {{ section.settings.text_color }}15;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.15em;
@@ -123,7 +123,7 @@
     align-items: center;
     gap: 0.25rem;
     padding: 0.5rem 1rem;
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     opacity: 0.7;
@@ -185,7 +185,7 @@
     {%- comment -%} Header {%- endcomment -%}
     <div class="mb-12 lg:mb-16 {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween-group="compare-header-{{ section.id }}">
       {% if section.settings.label != blank %}
-        <span class="inline-block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-tween data-tween-type="fade-up">
+        <span class="inline-block text-[0.75rem] font-semibold uppercase tracking-[0.2em] opacity-60 mb-4" data-tween data-tween-type="fade-up">
           {{ section.settings.label }}
         </span>
       {% endif %}
