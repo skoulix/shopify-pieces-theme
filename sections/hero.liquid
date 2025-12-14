@@ -6,7 +6,7 @@
   endif
 
   assign text_color = section.settings.text_color | default: 'inherit'
-  assign bg_color = section.settings.background_color | default: 'transparent'
+  assign bg_color = section.settings.background_color | default: 'var(--color-background)'
 -%}
 
 <style>
@@ -69,14 +69,17 @@
         assign align_class = 'items-center text-center'
         assign title_align = 'text-center'
         assign subtitle_align = 'mx-auto text-center'
+        assign scroll_position = 'right-[--page-padding]'
       when 'right'
         assign align_class = 'items-end text-right'
         assign title_align = 'text-right'
         assign subtitle_align = 'ml-auto text-right'
+        assign scroll_position = 'left-[--page-padding]'
       else
         assign align_class = 'items-start text-left'
         assign title_align = ''
         assign subtitle_align = ''
+        assign scroll_position = 'right-[--page-padding]'
     endcase
   -%}
   {%- comment -%} Hero content - uses global data-tween system for animations with delay after media reveal {%- endcomment -%}
@@ -102,7 +105,7 @@
   </div>
 
   {% if section.settings.show_scroll_indicator %}
-    <div class="absolute bottom-8 right-[--page-padding] flex flex-col items-center gap-2 z-10" style="color: {{ text_color }};" data-tween data-tween-type="fade-up" data-tween-delay="1.2" data-tween-start="top bottom">
+    <div class="absolute bottom-8 {{ scroll_position }} flex flex-col items-center gap-2 z-10" style="color: {{ text_color }};" data-tween data-tween-type="fade-up" data-tween-delay="1.2" data-tween-start="top bottom">
       <span class="text-[0.75rem] uppercase tracking-[0.2em] [writing-mode:vertical-rl]">{{ 'accessibility.scroll_down' | t }}</span>
       <div class="hero-scroll-line w-px h-[60px] bg-current origin-top"></div>
     </div>
@@ -188,15 +191,6 @@
       "label": "Title"
     },
     {
-      "type": "range",
-      "id": "words_per_line",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 2,
-      "label": "Words per line"
-    },
-    {
       "type": "textarea",
       "id": "subtitle",
       "default": "Discover our curated collection of premium products designed for the modern lifestyle.",
@@ -227,6 +221,12 @@
       "type": "color",
       "id": "text_color",
       "label": "Text color"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Button hover text color",
+      "info": "Text color when hovering over the button. Should contrast with the text color."
     },
     {
       "type": "header",
