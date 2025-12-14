@@ -537,12 +537,24 @@
   });
 
   /**
-   * Check if we're on the compare page and close drawer if so
+   * Check if we're on the compare page and hide floating button + close drawer
    */
   function checkComparePageAndCloseDrawer() {
     const isComparePage = window.location.pathname.includes('/pages/compare');
-    if (isComparePage && drawer && drawer.classList.contains('is-open')) {
-      closeDrawer();
+    if (isComparePage) {
+      // Hide floating button on compare page
+      if (floatingBtn) {
+        floatingBtn.style.display = 'none';
+      }
+      // Close drawer if open
+      if (drawer && drawer.classList.contains('is-open')) {
+        closeDrawer();
+      }
+    } else {
+      // Show floating button on other pages (visibility controlled by updateUI)
+      if (floatingBtn) {
+        floatingBtn.style.display = '';
+      }
     }
   }
 

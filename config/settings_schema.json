@@ -457,6 +457,43 @@
     ]
   },
   {
+    "name": "Product page",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Image zoom"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_zoom",
+        "default": true,
+        "label": "Enable image zoom",
+        "info": "Allows customers to zoom into product images on hover"
+      },
+      {
+        "type": "select",
+        "id": "image_zoom_mode",
+        "label": "Zoom mode",
+        "default": "inner",
+        "options": [
+          { "value": "hover", "label": "Hover (shows zoomed area beside image)" },
+          { "value": "inner", "label": "Inner (zoom within image)" },
+          { "value": "click", "label": "Click (click to toggle zoom)" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "image_zoom_level",
+        "min": 1.5,
+        "max": 4,
+        "step": 0.5,
+        "default": 2,
+        "label": "Zoom level",
+        "info": "How much to magnify the image"
+      }
+    ]
+  },
+  {
     "name": "Social media",
     "settings": [
       {
@@ -587,6 +624,122 @@
           { "value": "page", "label": "Page" },
           { "value": "notification", "label": "Notification" }
         ]
+      },
+      {
+        "type": "header",
+        "content": "Free shipping progress"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "default": true,
+        "label": "Show free shipping progress bar",
+        "info": "Displays progress toward free shipping threshold in cart"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": "50",
+        "info": "Amount required for free shipping (in your store's currency, e.g., 50 for $50)"
+      },
+      {
+        "type": "header",
+        "content": "Delivery estimator"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_delivery_estimator",
+        "default": true,
+        "label": "Show delivery date estimator",
+        "info": "Displays estimated delivery dates on product pages"
+      },
+      {
+        "type": "range",
+        "id": "delivery_min_days",
+        "min": 1,
+        "max": 14,
+        "step": 1,
+        "default": 3,
+        "label": "Minimum delivery days"
+      },
+      {
+        "type": "range",
+        "id": "delivery_max_days",
+        "min": 1,
+        "max": 21,
+        "step": 1,
+        "default": 7,
+        "label": "Maximum delivery days"
+      },
+      {
+        "type": "range",
+        "id": "delivery_cutoff_hour",
+        "min": 8,
+        "max": 20,
+        "step": 1,
+        "default": 14,
+        "unit": "h",
+        "label": "Same-day shipping cutoff",
+        "info": "Orders placed before this hour ship same day (24-hour format)"
+      },
+      {
+        "type": "header",
+        "content": "Social proof"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_proof",
+        "default": false,
+        "label": "Show social proof indicators",
+        "info": "Display viewer counts and recent purchases on product pages"
+      },
+      {
+        "type": "select",
+        "id": "social_proof_type",
+        "label": "Social proof type",
+        "default": "viewers",
+        "options": [
+          { "value": "viewers", "label": "Current viewers" },
+          { "value": "purchases", "label": "Recent purchases" },
+          { "value": "both", "label": "Both" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "social_proof_viewers_min",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 5,
+        "label": "Minimum viewers"
+      },
+      {
+        "type": "range",
+        "id": "social_proof_viewers_max",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "default": 25,
+        "label": "Maximum viewers"
+      },
+      {
+        "type": "range",
+        "id": "social_proof_purchases_min",
+        "min": 5,
+        "max": 50,
+        "step": 5,
+        "default": 10,
+        "label": "Minimum recent purchases"
+      },
+      {
+        "type": "range",
+        "id": "social_proof_purchases_max",
+        "min": 20,
+        "max": 200,
+        "step": 10,
+        "default": 50,
+        "label": "Maximum recent purchases"
       }
     ]
   },

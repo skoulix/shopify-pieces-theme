@@ -202,7 +202,12 @@
     "copied": "已复制！",
     "adding": "添加中...",
     "added": "已添加！",
-    "error": "错误"
+    "error": "错误",
+    "free_shipping": {
+      "qualified": "您已获得免费配送！",
+      "remaining_html": "再加 {{ remaining }} 即可免费配送",
+      "progress_label": "免费配送进度"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "抓紧时间，即将售罄！",
       "order_soon": "尽快下单 - 热销中！",
       "low_stock_warning": "库存紧张 - 尽快下单"
+    },
+    "delivery": {
+      "estimated_delivery": "预计送达",
+      "order_within": "{{ hours }}小时内下单当日发货",
+      "ships_today": "今日发货",
+      "ships_tomorrow": "明日发货"
+    },
+    "social_proof": {
+      "people_viewing": "人正在浏览",
+      "sold_recently": "过去24小时售出"
     }
   },
   "customers": {

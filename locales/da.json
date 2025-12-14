@@ -202,7 +202,12 @@
     "copied": "Kopieret!",
     "adding": "Tilføjer...",
     "added": "Tilføjet!",
-    "error": "Fejl"
+    "error": "Fejl",
+    "free_shipping": {
+      "qualified": "Du har låst op for gratis fragt!",
+      "remaining_html": "Tilføj {{ remaining }} mere for gratis fragt",
+      "progress_label": "Fremskridt for gratis fragt"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "Skynd dig, næsten udsolgt!",
       "order_soon": "Bestil snart - sælger hurtigt!",
       "low_stock_warning": "Lav lagerbeholdning - bestil snart"
+    },
+    "delivery": {
+      "estimated_delivery": "Forventet levering",
+      "order_within": "Bestil inden for {{ hours }}t for afsendelse samme dag",
+      "ships_today": "Sendes i dag",
+      "ships_tomorrow": "Sendes i morgen"
+    },
+    "social_proof": {
+      "people_viewing": "personer ser på dette",
+      "sold_recently": "solgt i de sidste 24 timer"
     }
   },
   "customers": {

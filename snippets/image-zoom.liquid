@@ -1,0 +1,240 @@
+{%- comment -%}
+  Image Zoom Functionality
+  Adds hover zoom capability to product images
+
+  This snippet injects the zoom functionality globally
+  The zoom is activated on .product-gallery-image elements with data-zoom attribute
+{%- endcomment -%}
+
+{%- if settings.enable_image_zoom -%}
+<style>
+  /* Zoom container */
+  .product-gallery[data-zoom-enabled] .product-gallery-image {
+    cursor: zoom-in;
+  }
+
+  .product-gallery[data-zoom-enabled] .product-gallery-image.is-zoomed {
+    cursor: zoom-out;
+  }
+
+  /* Zoom lens (magnifier effect) */
+  .image-zoom-lens {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 20;
+    display: none;
+  }
+
+  .product-gallery[data-zoom-enabled]:hover .image-zoom-lens {
+    opacity: 1;
+    display: block;
+  }
+
+  /* Zoomed image overlay */
+  .image-zoom-result {
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 400px;
+    background-repeat: no-repeat;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: none;
+  }
+
+  .product-gallery[data-zoom-enabled].is-hovering .image-zoom-result {
+    opacity: 1;
+    display: block;
+  }
+
+  @media (max-width: 1279px) {
+    .image-zoom-result {
+      display: none !important;
+    }
+  }
+
+  /* Inner zoom mode (zoom within image) */
+  .product-gallery[data-zoom-mode="inner"] .product-gallery-image img {
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+  }
+
+  .product-gallery[data-zoom-mode="inner"] .product-gallery-image.is-zoomed img {
+    transform: scale(2);
+  }
+
+  .product-gallery[data-zoom-mode="inner"] .image-zoom-result,
+  .product-gallery[data-zoom-mode="inner"] .image-zoom-lens {
+    display: none !important;
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+
+    class ProductImageZoom {
+      constructor(gallery) {
+        this.gallery = gallery;
+        this.zoomMode = gallery.dataset.zoomMode || 'hover'; // 'hover', 'inner', 'click'
+        this.zoomLevel = parseFloat(gallery.dataset.zoomLevel) || 2;
+        this.lens = null;
+        this.result = null;
+        this.currentImage = null;
+
+        this.init();
+      }
+
+      init() {
+        if (this.zoomMode === 'hover') {
+          this.createZoomElements();
+        }
+
+        this.bindEvents();
+      }
+
+      createZoomElements() {
+        // Create lens
+        this.lens = document.createElement('div');
+        this.lens.className = 'image-zoom-lens';
+        this.gallery.appendChild(this.lens);
+
+        // Create result container
+        this.result = document.createElement('div');
+        this.result.className = 'image-zoom-result';
+        this.gallery.appendChild(this.result);
+      }
+
+      bindEvents() {
+        const images = this.gallery.querySelectorAll('.product-gallery-image[data-media-type="image"]');
+
+        images.forEach(imageContainer => {
+          const img = imageContainer.querySelector('img');
+          if (!img) return;
+
+          if (this.zoomMode === 'hover') {
+            imageContainer.addEventListener('mouseenter', () => this.onMouseEnter(imageContainer, img));
+            imageContainer.addEventListener('mousemove', (e) => this.onMouseMove(e, imageContainer, img));
+            imageContainer.addEventListener('mouseleave', () => this.onMouseLeave(imageContainer));
+          } else if (this.zoomMode === 'inner') {
+            imageContainer.addEventListener('mouseenter', () => this.onInnerZoomEnter(imageContainer, img));
+            imageContainer.addEventListener('mousemove', (e) => this.onInnerZoomMove(e, imageContainer, img));
+            imageContainer.addEventListener('mouseleave', () => this.onInnerZoomLeave(imageContainer, img));
+          } else if (this.zoomMode === 'click') {
+            imageContainer.addEventListener('click', () => this.toggleClickZoom(imageContainer, img));
+            imageContainer.addEventListener('mousemove', (e) => {
+              if (imageContainer.classList.contains('is-zoomed')) {
+                this.onInnerZoomMove(e, imageContainer, img);
+              }
+            });
+          }
+        });
+      }
+
+      onMouseEnter(container, img) {
+        if (!container.classList.contains('is-active')) return;
+
+        this.gallery.classList.add('is-hovering');
+        this.currentImage = img;
+
+        // Set background image for result
+        const imgSrc = img.src.replace(/width=\d+/, 'width=2000');
+        this.result.style.backgroundImage = `url(${imgSrc})`;
+
+        // Calculate ratio
+        const cx = this.result.offsetWidth / (this.lens.offsetWidth / this.zoomLevel);
+        const cy = this.result.offsetHeight / (this.lens.offsetHeight / this.zoomLevel);
+        this.result.style.backgroundSize = `${img.width * cx}px ${img.height * cy}px`;
+      }
+
+      onMouseMove(e, container, img) {
+        if (!this.gallery.classList.contains('is-hovering')) return;
+        if (!container.classList.contains('is-active')) return;
+
+        const rect = container.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        // Keep lens within bounds
+        const lensHalfWidth = this.lens.offsetWidth / 2;
+        const lensHalfHeight = this.lens.offsetHeight / 2;
+
+        x = Math.max(lensHalfWidth, Math.min(x, rect.width - lensHalfWidth));
+        y = Math.max(lensHalfHeight, Math.min(y, rect.height - lensHalfHeight));
+
+        // Position lens
+        this.lens.style.left = `${x - lensHalfWidth}px`;
+        this.lens.style.top = `${y - lensHalfHeight}px`;
+
+        // Calculate background position
+        const cx = this.result.offsetWidth / this.lens.offsetWidth;
+        const cy = this.result.offsetHeight / this.lens.offsetHeight;
+
+        this.result.style.backgroundPosition = `-${(x - lensHalfWidth) * cx}px -${(y - lensHalfHeight) * cy}px`;
+      }
+
+      onMouseLeave(container) {
+        this.gallery.classList.remove('is-hovering');
+        this.currentImage = null;
+      }
+
+      onInnerZoomEnter(container, img) {
+        if (!container.classList.contains('is-active')) return;
+        container.classList.add('is-zoomed');
+      }
+
+      onInnerZoomMove(e, container, img) {
+        if (!container.classList.contains('is-active')) return;
+
+        const rect = container.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        img.style.transformOrigin = `${x}% ${y}%`;
+      }
+
+      onInnerZoomLeave(container, img) {
+        container.classList.remove('is-zoomed');
+        img.style.transformOrigin = 'center center';
+      }
+
+      toggleClickZoom(container, img) {
+        if (!container.classList.contains('is-active')) return;
+
+        container.classList.toggle('is-zoomed');
+        if (!container.classList.contains('is-zoomed')) {
+          img.style.transformOrigin = 'center center';
+        }
+      }
+    }
+
+    // Initialize on DOM ready
+    function init() {
+      const galleries = document.querySelectorAll('.product-gallery[data-zoom-enabled]');
+      galleries.forEach(gallery => new ProductImageZoom(gallery));
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Reinitialize on Shopify section reload
+    document.addEventListener('shopify:section:load', init);
+  })();
+</script>
+{%- endif -%}

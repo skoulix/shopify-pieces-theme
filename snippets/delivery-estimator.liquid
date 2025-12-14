@@ -1,0 +1,119 @@
+{%- comment -%}
+  Delivery Date Estimator
+  Shows estimated delivery date based on settings
+
+  Usage: {% render 'delivery-estimator' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign show_estimator = settings.show_delivery_estimator
+  assign min_days = settings.delivery_min_days | default: 3
+  assign max_days = settings.delivery_max_days | default: 7
+  assign cutoff_hour = settings.delivery_cutoff_hour | default: 14
+
+  if show_estimator
+    assign now = 'now' | date: '%s'
+    assign current_hour = 'now' | date: '%H' | plus: 0
+
+    # If past cutoff time, add an extra day
+    assign extra_day = 0
+    if current_hour >= cutoff_hour
+      assign extra_day = 1
+    endif
+
+    # Calculate delivery dates
+    assign min_seconds = min_days | plus: extra_day | times: 86400
+    assign max_seconds = max_days | plus: extra_day | times: 86400
+
+    assign min_date_raw = now | plus: min_seconds
+    assign max_date_raw = now | plus: max_seconds
+
+    # Format dates
+    assign min_date_day = min_date_raw | date: '%a'
+    assign min_date_formatted = min_date_raw | date: '%b %d'
+    assign max_date_day = max_date_raw | date: '%a'
+    assign max_date_formatted = max_date_raw | date: '%b %d'
+  endif
+-%}
+
+{%- if show_estimator -%}
+  <div class="delivery-estimator" data-delivery-estimator>
+    <div class="delivery-estimator__icon">
+      <i class="ph ph-truck"></i>
+    </div>
+    <div class="delivery-estimator__content">
+      <span class="delivery-estimator__label">{{ 'products.delivery.estimated_delivery' | t }}</span>
+      <span class="delivery-estimator__dates" data-delivery-dates>
+        <strong>{{ min_date_day }}, {{ min_date_formatted }}</strong>
+        {%- if min_days != max_days -%}
+          <span class="delivery-estimator__separator">-</span>
+          <strong>{{ max_date_day }}, {{ max_date_formatted }}</strong>
+        {%- endif -%}
+      </span>
+      {%- if current_hour < cutoff_hour -%}
+        <span class="delivery-estimator__urgency">
+          {{ 'products.delivery.order_within' | t: hours: cutoff_hour | minus: current_hour }}
+        </span>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <style>
+    .delivery-estimator {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--color-background-secondary);
+      border-radius: var(--card-radius);
+      margin-top: 1rem;
+    }
+
+    .delivery-estimator__icon {
+      flex-shrink: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+      border-radius: 50%;
+      font-size: 1.25rem;
+    }
+
+    .delivery-estimator__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.125rem;
+    }
+
+    .delivery-estimator__label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+    }
+
+    .delivery-estimator__dates {
+      font-size: 0.9375rem;
+      color: var(--color-text);
+    }
+
+    .delivery-estimator__dates strong {
+      font-weight: 600;
+    }
+
+    .delivery-estimator__separator {
+      margin: 0 0.25rem;
+      color: var(--color-text-secondary);
+    }
+
+    .delivery-estimator__urgency {
+      font-size: 0.75rem;
+      color: var(--color-sale);
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+  </style>
+{%- endif -%}

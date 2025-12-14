@@ -202,7 +202,12 @@
     "copied": "已複製！",
     "adding": "新增中...",
     "added": "已新增！",
-    "error": "錯誤"
+    "error": "錯誤",
+    "free_shipping": {
+      "qualified": "您已獲得免費配送！",
+      "remaining_html": "再加 {{ remaining }} 即可免費配送",
+      "progress_label": "免費配送進度"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "把握機會，即將售罄！",
       "order_soon": "盡快下單 - 熱銷中！",
       "low_stock_warning": "庫存不足 - 盡快下單"
+    },
+    "delivery": {
+      "estimated_delivery": "預計送達",
+      "order_within": "{{ hours }}小時內下單當日發貨",
+      "ships_today": "今日發貨",
+      "ships_tomorrow": "明日發貨"
+    },
+    "social_proof": {
+      "people_viewing": "人正在瀏覽",
+      "sold_recently": "過去24小時售出"
     }
   },
   "customers": {

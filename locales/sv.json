@@ -202,7 +202,12 @@
     "copied": "Kopierad!",
     "adding": "Lägger till...",
     "added": "Tillagd!",
-    "error": "Fel"
+    "error": "Fel",
+    "free_shipping": {
+      "qualified": "Du har låst upp fri frakt!",
+      "remaining_html": "Lägg till {{ remaining }} mer för fri frakt",
+      "progress_label": "Framsteg för fri frakt"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "Skynda, nästan slut!",
       "order_soon": "Beställ snart - säljer snabbt!",
       "low_stock_warning": "Lågt lager - beställ snart"
+    },
+    "delivery": {
+      "estimated_delivery": "Beräknad leverans",
+      "order_within": "Beställ inom {{ hours }}h för leverans samma dag",
+      "ships_today": "Skickas idag",
+      "ships_tomorrow": "Skickas imorgon"
+    },
+    "social_proof": {
+      "people_viewing": "personer tittar på detta",
+      "sold_recently": "sålda de senaste 24 timmarna"
     }
   },
   "customers": {

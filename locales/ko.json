@@ -202,7 +202,12 @@
     "copied": "복사됨!",
     "adding": "추가 중...",
     "added": "추가됨!",
-    "error": "오류"
+    "error": "오류",
+    "free_shipping": {
+      "qualified": "무료 배송이 적용되었습니다!",
+      "remaining_html": "무료 배송까지 {{ remaining }} 더 추가하세요",
+      "progress_label": "무료 배송 진행률"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "서두르세요, 거의 품절입니다!",
       "order_soon": "빨리 주문하세요 - 빠르게 판매 중!",
       "low_stock_warning": "재고 부족 - 빨리 주문하세요"
+    },
+    "delivery": {
+      "estimated_delivery": "예상 배송일",
+      "order_within": "{{ hours }}시간 내 주문 시 당일 발송",
+      "ships_today": "오늘 발송",
+      "ships_tomorrow": "내일 발송"
+    },
+    "social_proof": {
+      "people_viewing": "명이 보고 있습니다",
+      "sold_recently": "지난 24시간 동안 판매됨"
     }
   },
   "customers": {

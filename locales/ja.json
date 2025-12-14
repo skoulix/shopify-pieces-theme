@@ -202,7 +202,12 @@
     "copied": "コピーしました！",
     "adding": "追加中...",
     "added": "追加しました！",
-    "error": "エラー"
+    "error": "エラー",
+    "free_shipping": {
+      "qualified": "送料無料が適用されました！",
+      "remaining_html": "あと{{ remaining }}で送料無料",
+      "progress_label": "送料無料までの進捗"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "お急ぎください、まもなく完売！",
       "order_soon": "お早めにご注文ください！",
       "low_stock_warning": "在庫残りわずか - お早めに"
+    },
+    "delivery": {
+      "estimated_delivery": "お届け予定日",
+      "order_within": "{{ hours }}時間以内のご注文で当日発送",
+      "ships_today": "本日発送",
+      "ships_tomorrow": "明日発送"
+    },
+    "social_proof": {
+      "people_viewing": "人が閲覧中",
+      "sold_recently": "過去24時間に売れました"
     }
   },
   "customers": {

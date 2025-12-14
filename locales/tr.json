@@ -202,7 +202,12 @@
     "copied": "Kopyalandı!",
     "adding": "Ekleniyor...",
     "added": "Eklendi!",
-    "error": "Hata"
+    "error": "Hata",
+    "free_shipping": {
+      "qualified": "Ücretsiz kargonun kilidini açtınız!",
+      "remaining_html": "Ücretsiz kargo için {{ remaining }} daha ekleyin",
+      "progress_label": "Ücretsiz kargo ilerlemesi"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "Acele edin, neredeyse tükendi!",
       "order_soon": "Hemen sipariş verin - hızlı satılıyor!",
       "low_stock_warning": "Düşük stok - hemen sipariş verin"
+    },
+    "delivery": {
+      "estimated_delivery": "Tahmini teslimat",
+      "order_within": "Aynı gün kargo için {{ hours }} saat içinde sipariş verin",
+      "ships_today": "Bugün kargoya verilir",
+      "ships_tomorrow": "Yarın kargoya verilir"
+    },
+    "social_proof": {
+      "people_viewing": "kişi bunu görüntülüyor",
+      "sold_recently": "son 24 saatte satıldı"
     }
   },
   "customers": {

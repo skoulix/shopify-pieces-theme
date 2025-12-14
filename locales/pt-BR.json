@@ -202,7 +202,12 @@
     "copied": "Copiado!",
     "adding": "Adicionando...",
     "added": "Adicionado!",
-    "error": "Erro"
+    "error": "Erro",
+    "free_shipping": {
+      "qualified": "Você desbloqueou frete grátis!",
+      "remaining_html": "Adicione {{ remaining }} mais para frete grátis",
+      "progress_label": "Progresso do frete grátis"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "Corra, quase esgotado!",
       "order_soon": "Peça logo - vendendo rápido!",
       "low_stock_warning": "Estoque baixo - peça logo"
+    },
+    "delivery": {
+      "estimated_delivery": "Entrega estimada",
+      "order_within": "Peça em {{ hours }}h para envio no mesmo dia",
+      "ships_today": "Enviado hoje",
+      "ships_tomorrow": "Enviado amanhã"
+    },
+    "social_proof": {
+      "people_viewing": "pessoas estão vendo isto",
+      "sold_recently": "vendidos nas últimas 24 horas"
     }
   },
   "customers": {

@@ -1,0 +1,126 @@
+{%- comment -%}
+  Social Proof Widget
+  Shows recent purchases, views, or stock indicators
+
+  Usage: {% render 'social-proof', product: product %}
+{%- endcomment -%}
+
+{%- liquid
+  assign show_social_proof = settings.show_social_proof
+  assign proof_type = settings.social_proof_type
+
+  if show_social_proof and product
+    # Generate pseudo-random numbers based on product ID for consistency
+    assign product_id_num = product.id | modulo: 100
+    assign viewers_base = settings.social_proof_viewers_min | default: 5
+    assign viewers_max = settings.social_proof_viewers_max | default: 25
+    assign viewers_range = viewers_max | minus: viewers_base
+    assign current_viewers = product_id_num | modulo: viewers_range | plus: viewers_base
+
+    assign purchases_base = settings.social_proof_purchases_min | default: 10
+    assign purchases_max = settings.social_proof_purchases_max | default: 50
+    assign purchases_range = purchases_max | minus: purchases_base
+    assign recent_purchases = product_id_num | modulo: purchases_range | plus: purchases_base
+  endif
+-%}
+
+{%- if show_social_proof and product -%}
+  <div class="social-proof" data-social-proof>
+    {%- case proof_type -%}
+      {%- when 'viewers' -%}
+        <div class="social-proof__item social-proof__item--viewers">
+          <span class="social-proof__dot social-proof__dot--pulse"></span>
+          <span class="social-proof__text">
+            <strong data-viewers-count>{{ current_viewers }}</strong> {{ 'products.social_proof.people_viewing' | t }}
+          </span>
+        </div>
+
+      {%- when 'purchases' -%}
+        <div class="social-proof__item social-proof__item--purchases">
+          <i class="ph ph-fire text-orange-500"></i>
+          <span class="social-proof__text">
+            <strong>{{ recent_purchases }}</strong> {{ 'products.social_proof.sold_recently' | t }}
+          </span>
+        </div>
+
+      {%- when 'both' -%}
+        <div class="social-proof__item social-proof__item--viewers">
+          <span class="social-proof__dot social-proof__dot--pulse"></span>
+          <span class="social-proof__text">
+            <strong data-viewers-count>{{ current_viewers }}</strong> {{ 'products.social_proof.people_viewing' | t }}
+          </span>
+        </div>
+        <div class="social-proof__item social-proof__item--purchases">
+          <i class="ph ph-fire text-orange-500"></i>
+          <span class="social-proof__text">
+            <strong>{{ recent_purchases }}</strong> {{ 'products.social_proof.sold_recently' | t }}
+          </span>
+        </div>
+    {%- endcase -%}
+  </div>
+
+  <style>
+    .social-proof {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .social-proof__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+    }
+
+    .social-proof__text strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+
+    .social-proof__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #22c55e;
+    }
+
+    .social-proof__dot--pulse {
+      animation: socialProofPulse 2s infinite;
+    }
+
+    @keyframes socialProofPulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+      }
+      70% {
+        box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+  </style>
+
+  <script>
+    // Randomly vary viewer count to simulate live activity
+    (function() {
+      const viewerEl = document.querySelector('[data-viewers-count]');
+      if (!viewerEl) return;
+
+      const baseCount = parseInt(viewerEl.textContent, 10);
+      const minCount = Math.max({{ viewers_base }}, baseCount - 3);
+      const maxCount = Math.min({{ viewers_max }}, baseCount + 3);
+
+      function updateViewers() {
+        const variance = Math.floor(Math.random() * (maxCount - minCount + 1)) + minCount;
+        viewerEl.textContent = variance;
+      }
+
+      // Update every 5-15 seconds
+      setInterval(updateViewers, (Math.random() * 10000) + 5000);
+    })();
+  </script>
+{%- endif -%}

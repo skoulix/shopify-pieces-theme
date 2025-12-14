@@ -1,0 +1,302 @@
+{%- comment -%}
+  Trust Badges Section
+  Displays trust indicators like free shipping, secure checkout, guarantees
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id = 'trust-badges-' | append: section.id
+  assign badge_count = section.blocks.size
+
+  if section.settings.full_width
+    assign container_class = ''
+  else
+    assign container_class = 'page-width'
+  endif
+-%}
+
+{%- style -%}
+  #{{ section_id }} {
+    --badge-color: {{ section.settings.badge_color }};
+    --badge-icon-color: {{ section.settings.icon_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  @media (min-width: 768px) {
+    #{{ section_id }} {
+      padding-top: {{ section.settings.padding_top | times: 1.25 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 1.25 | round }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section id="{{ section_id }}" class="trust-badges">
+  <div class="{{ container_class }}">
+    {%- if section.settings.title != blank -%}
+      <h2 class="section-label text-center mb-8" data-tween data-tween-type="fade-up">
+        {{ section.settings.title }}
+      </h2>
+    {%- endif -%}
+
+    {%- if badge_count > 0 -%}
+      <div
+        class="trust-badges__grid"
+        style="--badge-columns: {{ badge_count | at_most: 4 }}"
+        data-tween-group="trust-badges"
+        data-tween-start="top bottom"
+      >
+        {%- for block in section.blocks -%}
+          <div
+            class="trust-badge"
+            {{ block.shopify_attributes }}
+            data-tween
+            data-tween-type="fade-up"
+            data-tween-delay="{{ forloop.index | minus: 1 | times: 0.1 }}"
+          >
+            {%- if block.settings.custom_icon != blank -%}
+              <div class="trust-badge__icon trust-badge__icon--custom">
+                {{ block.settings.custom_icon | image_url: width: 80 | image_tag:
+                  loading: 'lazy',
+                  alt: block.settings.title
+                }}
+              </div>
+            {%- elsif block.settings.icon != 'none' -%}
+              <div class="trust-badge__icon">
+                <i class="ph ph-{{ block.settings.icon }}"></i>
+              </div>
+            {%- endif -%}
+
+            {%- if block.settings.title != blank -%}
+              <h3 class="trust-badge__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+
+            {%- if block.settings.description != blank -%}
+              <p class="trust-badge__description">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .trust-badges__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .trust-badges__grid {
+      grid-template-columns: repeat(var(--badge-columns, 4), 1fr);
+    }
+  }
+
+  .trust-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+
+  .trust-badge__icon {
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--badge-icon-color, var(--color-primary));
+    font-size: 2rem;
+  }
+
+  .trust-badge__icon--custom {
+    width: auto;
+    height: auto;
+  }
+
+  .trust-badge__icon--custom img {
+    max-width: 3rem;
+    max-height: 3rem;
+    object-fit: contain;
+  }
+
+  .trust-badge__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+    letter-spacing: 0.025em;
+  }
+
+  .trust-badge__description {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trust Badges",
+  "tag": "section",
+  "class": "trust-badges-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f9fafb"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#4f46e5"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Trust badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "shield-check",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "shield-check", "label": "Shield check (Security)" },
+            { "value": "lock-simple", "label": "Lock (Secure)" },
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "package", "label": "Package (Delivery)" },
+            { "value": "arrow-counter-clockwise", "label": "Return arrow (Returns)" },
+            { "value": "credit-card", "label": "Credit card (Payment)" },
+            { "value": "headset", "label": "Headset (Support)" },
+            { "value": "chat-circle", "label": "Chat (Support)" },
+            { "value": "star", "label": "Star (Quality)" },
+            { "value": "medal", "label": "Medal (Award)" },
+            { "value": "certificate", "label": "Certificate (Certified)" },
+            { "value": "heart", "label": "Heart (Love)" },
+            { "value": "leaf", "label": "Leaf (Eco)" },
+            { "value": "recycle", "label": "Recycle (Sustainable)" },
+            { "value": "hand-heart", "label": "Hand heart (Care)" },
+            { "value": "clock", "label": "Clock (Fast)" },
+            { "value": "gift", "label": "Gift (Free gift)" },
+            { "value": "percent", "label": "Percent (Discount)" },
+            { "value": "globe", "label": "Globe (Worldwide)" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon",
+          "info": "Overrides the icon selection above"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "On orders over $50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Badges",
+      "blocks": [
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "description": "On orders over $50"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Secure Checkout",
+            "description": "SSL encrypted payment"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "arrow-counter-clockwise",
+            "title": "Easy Returns",
+            "description": "30-day return policy"
+          }
+        },
+        {
+          "type": "badge",
+          "settings": {
+            "icon": "headset",
+            "title": "24/7 Support",
+            "description": "Dedicated support team"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

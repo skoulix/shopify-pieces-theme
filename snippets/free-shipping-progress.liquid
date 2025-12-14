@@ -1,0 +1,164 @@
+{%- comment -%}
+  Free Shipping Progress Bar
+  Shows progress toward free shipping threshold
+
+  Usage: {% render 'free-shipping-progress' %}
+{%- endcomment -%}
+
+{%- liquid
+  assign free_shipping_threshold = settings.free_shipping_threshold | times: 100
+  assign show_free_shipping = settings.show_free_shipping_bar
+
+  if show_free_shipping and free_shipping_threshold > 0
+    assign cart_total = cart.total_price
+    assign remaining = free_shipping_threshold | minus: cart_total
+    assign progress_percent = cart_total | times: 100 | divided_by: free_shipping_threshold
+    if progress_percent > 100
+      assign progress_percent = 100
+    endif
+    assign qualified = false
+    if cart_total >= free_shipping_threshold
+      assign qualified = true
+    endif
+  endif
+-%}
+
+{%- if show_free_shipping and free_shipping_threshold > 0 -%}
+  <div
+    class="free-shipping-bar"
+    data-free-shipping-bar
+    data-threshold="{{ free_shipping_threshold }}"
+  >
+    <div class="free-shipping-bar__content">
+      {%- if qualified -%}
+        <div class="free-shipping-bar__message free-shipping-bar__message--success">
+          <i class="ph ph-check-circle text-lg"></i>
+          <span data-free-shipping-message>{{ 'cart.free_shipping.qualified' | t }}</span>
+        </div>
+      {%- else -%}
+        <div class="free-shipping-bar__message">
+          <i class="ph ph-truck text-lg"></i>
+          <span data-free-shipping-message>
+            {{ 'cart.free_shipping.remaining_html' | t: remaining: remaining | money }}
+          </span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="free-shipping-bar__track">
+      <div
+        class="free-shipping-bar__progress {% if qualified %}free-shipping-bar__progress--complete{% endif %}"
+        style="width: {{ progress_percent }}%"
+        data-free-shipping-progress
+        role="progressbar"
+        aria-valuenow="{{ progress_percent }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="{{ 'cart.free_shipping.progress_label' | t }}"
+      ></div>
+    </div>
+  </div>
+
+  <style>
+    .free-shipping-bar {
+      padding: 1rem;
+      background: var(--color-background-secondary);
+      border-radius: var(--card-radius);
+      margin-bottom: 1rem;
+    }
+
+    .free-shipping-bar__content {
+      margin-bottom: 0.75rem;
+    }
+
+    .free-shipping-bar__message {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--color-text);
+    }
+
+    .free-shipping-bar__message--success {
+      color: var(--color-success, #22c55e);
+      font-weight: 600;
+    }
+
+    .free-shipping-bar__track {
+      height: 6px;
+      background: var(--color-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .free-shipping-bar__progress {
+      height: 100%;
+      background: var(--color-primary);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .free-shipping-bar__progress--complete {
+      background: var(--color-success, #22c55e);
+    }
+  </style>
+
+  <script>
+    (function() {
+      const bars = document.querySelectorAll('[data-free-shipping-bar]');
+      if (!bars.length) return;
+
+      const qualifiedText = {{ 'cart.free_shipping.qualified' | t | json }};
+      const remainingTemplate = {{ 'cart.free_shipping.remaining_html' | t: remaining: '__AMOUNT__' | json }};
+
+      function formatMoney(cents) {
+        const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
+        const value = cents / 100;
+        const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return moneyFormat.replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
+      }
+
+      function updateBars(cart) {
+        bars.forEach(bar => {
+          const threshold = parseInt(bar.dataset.threshold, 10);
+          if (!threshold) return;
+
+          const cartTotal = cart.total_price;
+          const remaining = Math.max(0, threshold - cartTotal);
+          const progressPercent = Math.min(100, (cartTotal / threshold) * 100);
+          const qualified = cartTotal >= threshold;
+
+          // Update progress bar
+          const progressEl = bar.querySelector('[data-free-shipping-progress]');
+          if (progressEl) {
+            progressEl.style.width = progressPercent + '%';
+            progressEl.setAttribute('aria-valuenow', Math.round(progressPercent));
+            progressEl.classList.toggle('free-shipping-bar__progress--complete', qualified);
+          }
+
+          // Update message
+          const messageContainer = bar.querySelector('.free-shipping-bar__content');
+          if (messageContainer) {
+            const icon = qualified ? 'check-circle' : 'truck';
+            const messageClass = qualified ? 'free-shipping-bar__message free-shipping-bar__message--success' : 'free-shipping-bar__message';
+            const text = qualified ? qualifiedText : remainingTemplate.replace('__AMOUNT__', formatMoney(remaining));
+
+            messageContainer.innerHTML = `
+              <div class="${messageClass}">
+                <i class="ph ph-${icon} text-lg"></i>
+                <span data-free-shipping-message>${text}</span>
+              </div>
+            `;
+          }
+        });
+      }
+
+      // Listen for cart updates
+      document.addEventListener('cart:updated', (e) => {
+        if (e.detail?.cart) {
+          updateBars(e.detail.cart);
+        }
+      });
+    })();
+  </script>
+{%- endif -%}

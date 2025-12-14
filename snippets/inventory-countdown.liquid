@@ -19,7 +19,7 @@
 {%- liquid
   assign threshold = threshold | default: 10
   assign show_exact = show_exact | default: false
-  assign style = style | default: 'minimal'
+  assign style = style | default: 'bar'
   assign show_icon = icon | default: true
 
   # Check if we can show inventory info
@@ -51,7 +51,8 @@
           <i class="ph ph-warning-circle" aria-hidden="true"></i>
         {% endif %}
         {% if show_exact %}
-          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: 'Only ' | append: inventory_quantity | append: ' left' }}</span>
+          {%- capture fallback_text -%}Only {{ inventory_quantity }} left{%- endcapture -%}
+          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: fallback_text }}</span>
         {% else %}
           <span>{{ 'products.inventory.low_stock' | t | default: 'Low stock' }}</span>
         {% endif %}
@@ -67,7 +68,8 @@
           <i class="ph ph-fire{% if urgency == 'critical' %}-fill{% endif %}" aria-hidden="true"></i>
         {% endif %}
         {% if show_exact %}
-          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: 'Only ' | append: inventory_quantity | append: ' left in stock' }}</span>
+          {%- capture fallback_text -%}Only {{ inventory_quantity }} left{%- endcapture -%}
+          <span>{{ 'products.inventory.only_x_left' | t: count: inventory_quantity | default: fallback_text }}</span>
         {% else %}
           {% if urgency == 'critical' %}
             <span>{{ 'products.inventory.almost_gone' | t | default: 'Almost gone!' }}</span>

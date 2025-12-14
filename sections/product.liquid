@@ -57,7 +57,7 @@
   .product-add-btn:disabled:hover::before { transform: scaleX(0); }
   .product-add-btn-text { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
   .shopify-payment-button { margin-top: 0.75rem !important; }
-  .shopify-payment-button__button, .shopify-payment-button__button--unbranded { position: relative !important; width: 100% !important; height: auto !important; min-height: unset !important; max-height: unset !important; padding: 1.25rem 2rem !important; font-size: 0.75rem !important; font-weight: 600 !important; {% if settings.buttons_uppercase %}text-transform: uppercase !important;{% endif %} letter-spacing: 0.2em !important; line-height: 1 !important; color: var(--color-primary) !important; background: var(--color-primary-contrast) !important; border: var(--button-border-width) solid var(--color-primary) !important; border-radius: var(--button-radius) !important; box-shadow: var(--button-shadow) !important; overflow: hidden !important; transition: color 0.4s ease !important; }
+  .shopify-payment-button__button, .shopify-payment-button__button--unbranded { position: relative !important; width: 100% !important; height: 2.75rem !important; min-height: 2.75rem !important; max-height: unset !important; padding: 0 1.75rem !important; font-size: 0.75rem !important; font-weight: 600 !important; {% if settings.buttons_uppercase %}text-transform: uppercase !important;{% endif %} letter-spacing: 0.15em !important; line-height: 1 !important; color: var(--color-primary) !important; background: var(--color-primary-contrast) !important; border: var(--button-border-width) solid var(--color-primary) !important; border-radius: var(--button-radius) !important; box-shadow: var(--button-shadow) !important; overflow: hidden !important; transition: color 0.4s ease !important; }
   .shopify-payment-button__button::before, .shopify-payment-button__button--unbranded::before { content: '' !important; position: absolute !important; inset: 0 !important; background: var(--color-primary) !important; transform: scaleX(0) !important; transform-origin: right !important; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important; z-index: 0 !important; pointer-events: none !important; }
   .shopify-payment-button__button:hover::before, .shopify-payment-button__button--unbranded:hover::before { transform: scaleX(1) !important; transform-origin: left !important; }
   .shopify-payment-button__button:hover, .shopify-payment-button__button--unbranded:hover, .shopify-payment-button__button:hover *, .shopify-payment-button__button--unbranded:hover * { color: var(--color-primary-contrast) !important; fill: var(--color-primary-contrast) !important; -webkit-text-fill-color: var(--color-primary-contrast) !important; }
@@ -144,7 +144,7 @@
 
 <div class="product-section-wrapper{% if section.settings.full_width %} is-full-width{% endif %}">
 <section class="product-hero" data-product-section>
-  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery>
+  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery{% if settings.enable_image_zoom %} data-zoom-enabled data-zoom-mode="{{ settings.image_zoom_mode }}" data-zoom-level="{{ settings.image_zoom_level }}"{% endif %}>
     <div class="product-gallery-main" data-gallery-main>
       {% for media in product.media %}
         {%- case media.media_type -%}
@@ -423,6 +423,16 @@
           {%- when 'pickup_availability' -%}
             <div data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
               {%- render 'pickup-availability', product: product -%}
+            </div>
+
+          {%- when 'delivery_estimator' -%}
+            <div data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
+              {%- render 'delivery-estimator' -%}
+            </div>
+
+          {%- when 'social_proof' -%}
+            <div data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
+              {%- render 'social-proof', product: product -%}
             </div>
 
           {%- when 'text' -%}
@@ -1595,6 +1605,8 @@
 })();
 </script>
 
+{% render 'image-zoom' %}
+
 {% schema %}
 {
   "name": "Product",
@@ -1703,11 +1715,11 @@
           "id": "style",
           "label": "Display style",
           "options": [
+            { "value": "bar", "label": "Progress bar" },
             { "value": "minimal", "label": "Minimal text" },
-            { "value": "badge", "label": "Badge" },
-            { "value": "bar", "label": "Progress bar" }
+            { "value": "badge", "label": "Badge" }
           ],
-          "default": "minimal"
+          "default": "bar"
         },
         {
           "type": "checkbox",
@@ -1826,6 +1838,18 @@
     {
       "type": "pickup_availability",
       "name": "Pickup availability",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "delivery_estimator",
+      "name": "Delivery estimator",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "social_proof",
+      "name": "Social proof",
       "limit": 1,
       "settings": []
     },

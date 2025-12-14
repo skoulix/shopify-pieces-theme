@@ -202,7 +202,12 @@
     "copied": "Copied!",
     "adding": "Adding...",
     "added": "Added!",
-    "error": "Error"
+    "error": "Error",
+    "free_shipping": {
+      "qualified": "You've unlocked free shipping!",
+      "remaining_html": "Add {{ remaining }} more for free shipping",
+      "progress_label": "Free shipping progress"
+    }
   },
   "sections": {
     "cart": {
@@ -271,6 +276,16 @@
       "hurry_almost_gone": "Hurry, almost gone!",
       "order_soon": "Order soon - selling fast!",
       "low_stock_warning": "Low stock - order soon"
+    },
+    "delivery": {
+      "estimated_delivery": "Estimated delivery",
+      "order_within": "Order within {{ hours }}h for same-day shipping",
+      "ships_today": "Ships today",
+      "ships_tomorrow": "Ships tomorrow"
+    },
+    "social_proof": {
+      "people_viewing": "people viewing this",
+      "sold_recently": "sold in the last 24 hours"
     },
     "size_chart": {
       "title": "Size Guide",

@@ -30,6 +30,13 @@
       </button>
     </div>
 
+    {%- comment -%} Free Shipping Progress {%- endcomment -%}
+    {% if cart.item_count > 0 %}
+      <div class="px-6 pt-4" data-free-shipping-wrapper>
+        {% render 'free-shipping-progress' %}
+      </div>
+    {% endif %}
+
     {%- comment -%} Cart Contents {%- endcomment -%}
     <div
       class="flex-1 overflow-y-auto p-6 transition-opacity group-[.is-loading]:opacity-50 group-[.is-loading]:pointer-events-none group-[.is-updating]:opacity-50 group-[.is-updating]:pointer-events-none overscroll-contain"

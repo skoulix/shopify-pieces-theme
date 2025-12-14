@@ -202,7 +202,12 @@
     "copied": "¡Copiado!",
     "adding": "Agregando...",
     "added": "¡Agregado!",
-    "error": "Error"
+    "error": "Error",
+    "free_shipping": {
+      "qualified": "¡Has desbloqueado el envío gratis!",
+      "remaining_html": "Añade {{ remaining }} más para envío gratis",
+      "progress_label": "Progreso del envío gratis"
+    }
   },
   "sections": {
     "cart": {
@@ -344,6 +349,16 @@
       "hurry_almost_gone": "¡Date prisa, casi agotado!",
       "order_soon": "Ordena pronto - ¡se vende rápido!",
       "low_stock_warning": "Stock bajo - ordena pronto"
+    },
+    "delivery": {
+      "estimated_delivery": "Entrega estimada",
+      "order_within": "Pide en las próximas {{ hours }}h para envío el mismo día",
+      "ships_today": "Se envía hoy",
+      "ships_tomorrow": "Se envía mañana"
+    },
+    "social_proof": {
+      "people_viewing": "personas están viendo esto",
+      "sold_recently": "vendidos en las últimas 24 horas"
     }
   },
   "customers": {
