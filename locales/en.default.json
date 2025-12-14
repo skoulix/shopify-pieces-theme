@@ -205,7 +205,7 @@
     "error": "Error",
     "free_shipping": {
       "qualified": "You've unlocked free shipping!",
-      "remaining_html": "Add {{ remaining }} more for free shipping",
+      "remaining_html": "Add €{{ remaining }} more for free shipping",
       "progress_label": "Free shipping progress"
     }
   },

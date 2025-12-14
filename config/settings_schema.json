@@ -457,43 +457,6 @@
     ]
   },
   {
-    "name": "Product page",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Image zoom"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_image_zoom",
-        "default": true,
-        "label": "Enable image zoom",
-        "info": "Allows customers to zoom into product images on hover"
-      },
-      {
-        "type": "select",
-        "id": "image_zoom_mode",
-        "label": "Zoom mode",
-        "default": "inner",
-        "options": [
-          { "value": "hover", "label": "Hover (shows zoomed area beside image)" },
-          { "value": "inner", "label": "Inner (zoom within image)" },
-          { "value": "click", "label": "Click (click to toggle zoom)" }
-        ]
-      },
-      {
-        "type": "range",
-        "id": "image_zoom_level",
-        "min": 1.5,
-        "max": 4,
-        "step": 0.5,
-        "default": 2,
-        "label": "Zoom level",
-        "info": "How much to magnify the image"
-      }
-    ]
-  },
-  {
     "name": "Social media",
     "settings": [
       {

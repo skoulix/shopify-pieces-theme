@@ -144,7 +144,7 @@
 
 <div class="product-section-wrapper{% if section.settings.full_width %} is-full-width{% endif %}">
 <section class="product-hero" data-product-section>
-  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery{% if settings.enable_image_zoom %} data-zoom-enabled data-zoom-mode="{{ settings.image_zoom_mode }}" data-zoom-level="{{ settings.image_zoom_level }}"{% endif %}>
+  <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery>
     <div class="product-gallery-main" data-gallery-main>
       {% for media in product.media %}
         {%- case media.media_type -%}
@@ -1604,8 +1604,6 @@
   }
 })();
 </script>
-
-{% render 'image-zoom' %}
 
 {% schema %}
 {

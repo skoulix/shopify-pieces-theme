@@ -25,7 +25,7 @@
 
 {%- if show_free_shipping and free_shipping_threshold > 0 -%}
   <div
-    class="free-shipping-bar"
+    class="free-shipping-bar{% if cart.item_count == 0 %} is-hidden{% endif %}"
     data-free-shipping-bar
     data-threshold="{{ free_shipping_threshold }}"
   >
@@ -39,7 +39,8 @@
         <div class="free-shipping-bar__message">
           <i class="ph ph-truck text-lg"></i>
           <span data-free-shipping-message>
-            {{ 'cart.free_shipping.remaining_html' | t: remaining: remaining | money }}
+            {%- assign remaining_money = remaining | money_without_currency -%}
+            {{ 'cart.free_shipping.remaining_html' | t: remaining: remaining_money }}
           </span>
         </div>
       {%- endif -%}
@@ -101,6 +102,10 @@
     .free-shipping-bar__progress--complete {
       background: var(--color-success, #22c55e);
     }
+
+    .free-shipping-bar.is-hidden {
+      display: none;
+    }
   </style>
 
   <script>
@@ -112,16 +117,20 @@
       const remainingTemplate = {{ 'cart.free_shipping.remaining_html' | t: remaining: '__AMOUNT__' | json }};
 
       function formatMoney(cents) {
-        const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
         const value = cents / 100;
-        const amountFormatted = value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        return moneyFormat.replace(/\{\{\s*amount\s*\}\}/g, amountFormatted);
+        // Use European format with comma as decimal separator
+        return value.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
 
       function updateBars(cart) {
         bars.forEach(bar => {
           const threshold = parseInt(bar.dataset.threshold, 10);
           if (!threshold) return;
+
+          // Hide bar when cart is empty
+          const isEmpty = cart.item_count === 0;
+          bar.classList.toggle('is-hidden', isEmpty);
+          if (isEmpty) return;
 
           const cartTotal = cart.total_price;
           const remaining = Math.max(0, threshold - cartTotal);
@@ -152,6 +161,12 @@
           }
         });
       }
+
+      // Fetch current cart state on init
+      fetch('/cart.js')
+        .then(res => res.json())
+        .then(cart => updateBars(cart))
+        .catch(() => {});
 
       // Listen for cart updates
       document.addEventListener('cart:updated', (e) => {

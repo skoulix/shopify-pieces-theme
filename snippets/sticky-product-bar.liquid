@@ -8,11 +8,12 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
     z-index: 90;
     transform: translateY(100%);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
+    overflow: hidden;
   }
 
   .sticky-product-bar.is-visible {
@@ -153,8 +154,8 @@
   }
 
   .sticky-product-bar__qty-btn {
-    width: 2rem;
-    height: 2rem;
+    width: 2.375rem;
+    height: 2.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -171,7 +172,7 @@
 
   .sticky-product-bar__qty-input {
     width: 2.5rem;
-    height: 2rem;
+    height: 2.375rem;
     text-align: center;
     font-size: 0.875rem;
     font-weight: 600;
@@ -254,9 +255,9 @@
   }
 
   @keyframes stickyBarProgress {
-    0% { width: 0%; left: 0; }
-    50% { width: 50%; left: 25%; }
-    100% { width: 0%; left: 100%; }
+    0% { width: 0%; left: 0; right: auto; }
+    50% { width: 50%; left: 25%; right: auto; }
+    100% { width: 0%; left: auto; right: 0; }
   }
 </style>
 
