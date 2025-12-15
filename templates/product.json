@@ -26,30 +26,19 @@
         },
         "description": {
           "type": "description",
-          "settings": {
-            "truncate_length": 200
-          }
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
+          "settings": {}
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {
-            "label": "Quantity"
-          }
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "settings": {
-            "add_to_cart_text": "Add to Cart",
-            "sold_out_text": "Sold Out",
-            "show_dynamic_checkout": true
-          }
+          "settings": {}
         },
         "back_in_stock": {
           "type": "back_in_stock",
@@ -57,12 +46,6 @@
         },
         "wc_buttons": {
           "type": "wc_buttons",
-          "settings": {
-            "display_style": "icon_only"
-          }
-        },
-        "social_proof": {
-          "type": "social_proof",
           "settings": {}
         }
       },
@@ -75,16 +58,9 @@
         "quantity_selector",
         "buy_buttons",
         "back_in_stock",
-        "wc_buttons",
-        "social_proof"
+        "wc_buttons"
       ],
-      "settings": {
-        "full_width": true,
-        "image_fit": "cover",
-        "video_loop": false,
-        "video_autoplay": false,
-        "show_sticky_bar": true
-      }
+      "settings": {}
     },
     "trust_badges": {
       "type": "trust-badges",
@@ -102,7 +78,7 @@
           "settings": {
             "icon": "shield-check",
             "title": "Secure Checkout",
-            "description": "SSL encrypted payment"
+            "description": "SSL encrypted"
           }
         },
         "badge_3": {
@@ -110,7 +86,7 @@
           "settings": {
             "icon": "arrow-counter-clockwise",
             "title": "Easy Returns",
-            "description": "30-day return policy"
+            "description": "30-day policy"
           }
         },
         "badge_4": {
@@ -118,35 +94,18 @@
           "settings": {
             "icon": "headset",
             "title": "24/7 Support",
-            "description": "Dedicated support team"
+            "description": "Dedicated team"
           }
         }
       },
-      "block_order": [
-        "badge_1",
-        "badge_2",
-        "badge_3",
-        "badge_4"
-      ],
+      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
       "settings": {
-        "title": "",
-        "color_scheme": "scheme-2",
-        "full_width": false,
-        "padding_top": 40,
-        "padding_bottom": 40
+        "color_scheme": "scheme-2"
       }
     },
     "complementary_products": {
       "type": "complementary-products",
       "settings": {
-        "full_width": false,
-        "label": "",
-        "title": "Pairs Well With",
-        "description": "",
-        "alignment": "left",
-        "products_to_show": 3,
-        "columns": 3,
-        "show_add_all": true,
         "color_scheme": "scheme-2"
       }
     },
@@ -158,9 +117,7 @@
           "settings": {
             "icon": "package",
             "title": "Premium Quality",
-            "text": "Crafted with the finest materials for lasting durability and exceptional performance.",
-            "link_text": "Learn More",
-            "link": ""
+            "text": "Crafted with the finest materials for lasting durability."
           }
         },
         "feature_2": {
@@ -168,9 +125,7 @@
           "settings": {
             "icon": "shield-check",
             "title": "2-Year Warranty",
-            "text": "Shop with confidence knowing your purchase is protected against defects.",
-            "link_text": "Learn More",
-            "link": ""
+            "text": "Shop with confidence knowing your purchase is protected."
           }
         },
         "feature_3": {
@@ -178,9 +133,7 @@
           "settings": {
             "icon": "truck",
             "title": "Free Shipping",
-            "text": "Complimentary shipping on all orders over $100 with fast delivery.",
-            "link_text": "Learn More",
-            "link": ""
+            "text": "Complimentary shipping on all orders over $100."
           }
         },
         "feature_4": {
@@ -188,60 +141,18 @@
           "settings": {
             "icon": "arrow-counter-clockwise",
             "title": "Easy Returns",
-            "text": "Not satisfied? Return within 30 days for a full refund, no questions asked.",
-            "link_text": "Learn More",
-            "link": ""
+            "text": "Not satisfied? Return within 30 days for a full refund."
           }
         }
       },
-      "block_order": [
-        "feature_1",
-        "feature_2",
-        "feature_3",
-        "feature_4"
-      ],
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
       "settings": {
-        "label": "Why Choose This Product",
-        "title": "Built Different",
-        "description": "Every detail has been carefully considered to deliver an exceptional experience.",
-        "header_alignment": "center",
-        "layout": "standard",
-        "columns": 4,
-        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
     "text_reveal": {
       "type": "text-reveal",
-      "settings": {
-        "label": "The Details",
-        "text": "Designed with *intention*\ncrafted with *precision*\nmade to *last*.",
-        "subtext": "We obsess over every detail, from material selection to finishing touches. The result is a product that not only looks exceptional but performs flawlessly day after day.",
-        "header_alignment": "left",
-        "button_text": "",
-        "button_link": "",
-        "show_background_number": false,
-        "background_number": "01",
-        "full_width": false,
-        "color_scheme": "scheme-3"
-      }
-    },
-    "before_after": {
-      "type": "before-after",
-      "settings": {
-        "label": "Compare",
-        "title": "See the Difference",
-        "description": "Drag the slider to compare before and after.",
-        "header_alignment": "center",
-        "image_before": "shopify://shop_images/Snowboarder_in_Serene_Snowy_Landscape.png",
-        "image_after": "shopify://shop_images/Mid-Air_Majesty__Snowboarders_Flight_Against_the_Blue.png",
-        "aspect_ratio": "16/9",
-        "show_labels": true,
-        "before_label": "Before",
-        "after_label": "After",
-        "full_width": true,
-        "color_scheme": "scheme-1"
-      }
+      "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
@@ -249,7 +160,7 @@
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "Exceeded all my expectations. The quality is immediately apparent the moment you hold it in your hands.",
+            "quote": "Exceeded all my expectations. The quality is immediately apparent.",
             "rating": 5,
             "author": "Michael R.",
             "author_title": "Verified Buyer"
@@ -258,7 +169,7 @@
         "testimonial_2": {
           "type": "testimonial",
           "settings": {
-            "quote": "I've bought many similar products before, but nothing comes close to this level of craftsmanship.",
+            "quote": "Nothing comes close to this level of craftsmanship. Highly recommend!",
             "rating": 5,
             "author": "Sarah L.",
             "author_title": "Repeat Customer"
@@ -267,7 +178,7 @@
         "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "Worth every penny. This is exactly what I was looking for - no compromises.",
+            "quote": "Worth every penny. This is exactly what I was looking for.",
             "rating": 5,
             "author": "David K.",
             "author_title": "Verified Buyer"
@@ -276,46 +187,15 @@
         "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "quote": "The attention to detail is remarkable. You can tell this was made by people who truly care about their craft.",
+            "quote": "The attention to detail is remarkable. You can tell they care.",
             "rating": 5,
             "author": "Emily T.",
             "author_title": "First-time Buyer"
           }
-        },
-        "testimonial_5": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Finally, a product that lives up to the hype. Fast shipping and beautiful packaging too.",
-            "rating": 5,
-            "author": "James W.",
-            "author_title": "Loyal Customer"
-          }
-        },
-        "testimonial_6": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "I've recommended this to everyone I know. The quality speaks for itself.",
-            "rating": 5,
-            "author": "Amanda C.",
-            "author_title": "Repeat Customer"
-          }
         }
       },
-      "block_order": [
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3",
-        "testimonial_4",
-        "testimonial_5",
-        "testimonial_6"
-      ],
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
       "settings": {
-        "label": "Reviews",
-        "title": "What Customers Are Saying",
-        "header_alignment": "left",
-        "show_rating": true,
-        "card_radius": 16,
-        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -326,78 +206,43 @@
           "type": "faq_item",
           "settings": {
             "question": "What is your return policy?",
-            "answer": "<p>We offer a 30-day return policy on all items. If you're not satisfied with your purchase, simply return it in its original condition for a full refund.</p>"
+            "answer": "<p>We offer a 30-day return policy on all items. Return in original condition for a full refund.</p>"
           }
         },
         "faq_2": {
           "type": "faq_item",
           "settings": {
             "question": "How long does shipping take?",
-            "answer": "<p>Standard shipping typically takes 5-7 business days. Express shipping is available for 2-3 business day delivery.</p>"
+            "answer": "<p>Standard shipping takes 5-7 business days. Express shipping available for 2-3 day delivery.</p>"
           }
         },
         "faq_3": {
           "type": "faq_item",
           "settings": {
             "question": "Do you offer international shipping?",
-            "answer": "<p>Yes, we ship to most countries worldwide. Shipping rates and delivery times vary by location.</p>"
+            "answer": "<p>Yes, we ship to most countries worldwide. Rates and times vary by location.</p>"
           }
         },
         "faq_4": {
           "type": "faq_item",
           "settings": {
             "question": "Is this product covered by warranty?",
-            "answer": "<p>Yes, all our products come with a 2-year warranty that covers manufacturing defects. Extended warranty options are also available at checkout.</p>"
+            "answer": "<p>Yes, all products come with a 2-year warranty covering manufacturing defects.</p>"
           }
         }
       },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
-      ],
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4"],
       "settings": {
-        "full_width": false,
-        "label": "Support",
-        "title": "Frequently Asked Questions",
-        "description": "Everything you need to know about this product.",
-        "header_alignment": "left",
         "color_scheme": "scheme-2"
       }
     },
     "video": {
       "type": "video",
-      "settings": {
-        "video": "shopify://files/videos/a-young-man-snow-boarding-2023-11-27-04-54-47-utc.mov",
-        "loop": true,
-        "show_controls": false,
-        "aspect_ratio": "16/9",
-        "border_radius": 0,
-        "overlay_color": "#000000",
-        "overlay_opacity": 30,
-        "label": "",
-        "title": "",
-        "text": "",
-        "header_alignment": "center",
-        "button_text": "",
-        "button_link": "",
-        "content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
-        "remove_padding": true,
-        "background_color": "#000000",
-        "text_color": "#ffffff"
-      }
+      "settings": {}
     },
     "related_products": {
       "type": "related-products",
       "settings": {
-        "full_width": false,
-        "label": "You May Also Like",
-        "title": "Related Products",
-        "header_alignment": "left",
-        "products_to_show": 8,
         "color_scheme": "scheme-1"
       }
     }
@@ -408,7 +253,6 @@
     "complementary_products",
     "features_grid",
     "text_reveal",
-    "before_after",
     "testimonials",
     "faq",
     "video",

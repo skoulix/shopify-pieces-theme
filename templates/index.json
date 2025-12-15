@@ -11,18 +11,7 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {
-        "video": "shopify://files/videos/a-young-man-snow-boarding-2023-11-27-04-54-47-utc.mov",
-        "overlay_opacity": 80,
-        "title": "Elevate Your Style",
-        "subtitle": "Discover our curated collection of premium products designed for the modern lifestyle.",
-        "content_alignment": "left",
-        "button_text": "Shop Now",
-        "button_link": "shopify://collections/all",
-        "color_scheme": "scheme-3",
-        "full_width": false,
-        "show_scroll_indicator": true
-      }
+      "settings": {}
     },
     "marquee": {
       "type": "marquee",
@@ -37,8 +26,7 @@
         "sep_1": {
           "type": "separator",
           "settings": {
-            "style": "dot",
-            "icon": "star-four"
+            "style": "dot"
           }
         },
         "text_2": {
@@ -65,40 +53,16 @@
         "sep_3": {
           "type": "separator",
           "settings": {
-            "style": "dot",
-            "icon": "star-four"
+            "style": "dot"
           }
         }
       },
-      "block_order": [
-        "text_1",
-        "sep_1",
-        "text_2",
-        "sep_2",
-        "text_3",
-        "sep_3"
-      ],
-      "settings": {
-        "speed": 30,
-        "direction": "left",
-        "pause_on_hover": true,
-        "color_scheme": "scheme-3"
-      }
+      "block_order": ["text_1", "sep_1", "text_2", "sep_2", "text_3", "sep_3"],
+      "settings": {}
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "collection": "frontpage",
-        "label": "",
-        "title": "New Arrivals",
-        "description": "",
-        "header_alignment": "left",
-        "products_to_show": 4,
-        "columns": 4,
-        "show_vendor": false,
-        "show_view_all": true,
-        "view_all_text": "View All",
-        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -120,75 +84,15 @@
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2"
-      ],
+      "block_order": ["stat_1", "stat_2"],
       "settings": {
-        "image": "shopify://shop_images/photo-1599751449029-e4ea8f21d966.jpg",
-        "image_ratio": "4/5",
-        "label": "Our Story",
-        "title": "Crafted With Purpose",
-        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-        "button_text": "Learn More",
-        "button_link": "shopify://pages/about",
-        "layout": "image_left",
-        "full_width": true,
-        "remove_padding": true,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     },
     "featured_collection_2": {
       "type": "featured-collection",
       "settings": {
-        "collection": "hydrogen",
-        "label": "",
-        "title": "Best Sellers",
-        "description": "",
-        "header_alignment": "left",
-        "products_to_show": 4,
-        "columns": 4,
-        "show_vendor": false,
-        "show_view_all": true,
-        "view_all_text": "View All",
-        "full_width": false,
-        "color_scheme": "scheme-2"
-      }
-    },
-    "image_with_text_2": {
-      "type": "image-with-text",
-      "blocks": {
-        "stat_3": {
-          "type": "stat",
-          "settings": {
-            "number": "100%",
-            "label": "Sustainable"
-          }
-        },
-        "stat_4": {
-          "type": "stat",
-          "settings": {
-            "number": "5yr",
-            "label": "Warranty"
-          }
-        }
-      },
-      "block_order": [
-        "stat_3",
-        "stat_4"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/photo-1584890131712-18ee8e3ed49c.jpg",
-        "image_ratio": "4/5",
-        "label": "Quality",
-        "title": "Made To Last",
-        "text": "<p>Every product we create is built to last. We source only the finest materials and work with skilled artisans who share our commitment to excellence.</p>",
-        "button_text": "Our Process",
-        "button_link": "shopify://pages/about",
-        "layout": "image_right",
-        "full_width": true,
-        "remove_padding": true,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     },
     "rolling_numbers": {
@@ -198,19 +102,17 @@
           "type": "stat",
           "settings": {
             "number": "50",
-            "prefix": "",
             "suffix": "K+",
             "label": "Happy Customers",
-            "description": "Worldwide satisfaction"
+            "description": "Worldwide"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
             "number": "98",
-            "prefix": "",
             "suffix": "%",
-            "label": "Satisfaction Rate",
+            "label": "Satisfaction",
             "description": "Based on reviews"
           }
         },
@@ -218,7 +120,6 @@
           "type": "stat",
           "settings": {
             "number": "150",
-            "prefix": "",
             "suffix": "+",
             "label": "Countries",
             "description": "Global shipping"
@@ -228,132 +129,58 @@
           "type": "stat",
           "settings": {
             "number": "24",
-            "prefix": "",
             "suffix": "/7",
             "label": "Support",
-            "description": "Always here to help"
+            "description": "Always here"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2",
-        "stat_3",
-        "stat_4"
-      ],
-      "settings": {
-        "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "scheme-3",
-        "full_width": false,
-        "show_dividers": true
-      }
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
+      "settings": {}
     },
     "logo_marquee": {
       "type": "logo-marquee",
       "blocks": {
         "logo_1": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-352.svg",
-            "link": ""
-          }
+          "settings": {}
         },
         "logo_2": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-371.svg",
-            "link": ""
-          }
+          "settings": {}
         },
         "logo_3": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-347.svg",
-            "link": ""
-          }
+          "settings": {}
         },
         "logo_4": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-284.svg",
-            "link": ""
-          }
+          "settings": {}
         },
         "logo_5": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-261.svg",
-            "link": ""
-          }
+          "settings": {}
         },
         "logo_6": {
           "type": "logo",
-          "settings": {
-            "logo": "shopify://shop_images/logoipsum-290.svg",
-            "link": ""
-          }
+          "settings": {}
         }
       },
-      "block_order": [
-        "logo_1",
-        "logo_2",
-        "logo_3",
-        "logo_4",
-        "logo_5",
-        "logo_6"
-      ],
+      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4", "logo_5", "logo_6"],
       "settings": {
-        "label": "",
-        "header_alignment": "center",
-        "direction": "left",
-        "speed": 30,
-        "logo_height": 40,
-        "logo_max_width": 200,
-        "logo_opacity": 100,
-        "grayscale": true,
-        "invert": false,
-        "full_width": true,
         "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Stay Updated",
-        "text": "Subscribe to our newsletter for exclusive updates, new arrivals, and special offers.",
-        "button_text": "Subscribe",
-        "privacy_text": "We care about your data. Read our",
-        "privacy_link": "",
-        "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-1"
       }
     },
     "recently_viewed": {
       "type": "recently-viewed",
       "settings": {
-        "full_width": false,
-        "label": "Recently browsed",
-        "title": "Recently Viewed",
-        "header_alignment": "left",
-        "products_to_show": 8,
         "color_scheme": "scheme-1"
-      }
-    },
-    "banner": {
-      "type": "banner",
-      "settings": {
-        "heading": "Important Announcement",
-        "text": "<p>This is an important message for your customers.</p>",
-        "button_text": "",
-        "button_link": "",
-        "color_scheme": "scheme-3",
-        "show_close_button": true,
-        "remember_dismissal": true,
-        "full_width": false
       }
     }
   },
@@ -363,11 +190,9 @@
     "featured_collection",
     "image_with_text",
     "featured_collection_2",
-    "image_with_text_2",
     "rolling_numbers",
     "logo_marquee",
     "newsletter",
-    "recently_viewed",
-    "banner"
+    "recently_viewed"
   ]
 }

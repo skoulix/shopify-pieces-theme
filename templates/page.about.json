@@ -11,33 +11,11 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {
-        "image": "shopify://shop_images/hamish-duncan-XO6FSH3H5CE-unsplash.jpg",
-        "overlay_opacity": 60,
-        "title": "Our Story",
-        "subtitle": "We started with a simple idea: create products that combine exceptional quality with timeless design.",
-        "content_alignment": "center",
-        "button_text": "",
-        "button_link": "",
-        "color_scheme": "scheme-3",
-        "full_width": false,
-        "show_scroll_indicator": true
-      }
+      "settings": {}
     },
     "text_reveal": {
       "type": "text-reveal",
-      "settings": {
-        "label": "Our Mission",
-        "text": "We believe in *quality* over quantity.\nIn *craftsmanship* over shortcuts.\nIn *purpose* over trends.",
-        "subtext": "Every product we create tells a story of dedication, passion, and an unwavering commitment to excellence. We're not just selling products—we're building a legacy.",
-        "header_alignment": "left",
-        "button_text": "",
-        "button_link": "",
-        "show_background_number": true,
-        "background_number": "01",
-        "full_width": false,
-        "color_scheme": "scheme-3"
-      }
+      "settings": {}
     },
     "timeline": {
       "type": "timeline",
@@ -47,7 +25,7 @@
           "settings": {
             "year": "2014",
             "title": "The Beginning",
-            "text": "Founded in a small garage with nothing but a dream and determination to create something meaningful."
+            "text": "Founded with a simple idea and a passion for quality."
           }
         },
         "milestone_2": {
@@ -55,7 +33,7 @@
           "settings": {
             "year": "2017",
             "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first flagship store in the heart of the city."
+            "text": "Reached 10,000 customers and opened our first store."
           }
         },
         "milestone_3": {
@@ -63,7 +41,7 @@
           "settings": {
             "year": "2020",
             "title": "Going Global",
-            "text": "Expanded to 50+ countries, bringing our products to customers around the world."
+            "text": "Expanded to 50+ countries worldwide."
           }
         },
         "milestone_4": {
@@ -71,22 +49,12 @@
           "settings": {
             "year": "2024",
             "title": "Today & Beyond",
-            "text": "Serving over 50,000 happy customers while staying true to our founding principles."
+            "text": "Continuing to innovate and grow our community."
           }
         }
       },
-      "block_order": [
-        "milestone_1",
-        "milestone_2",
-        "milestone_3",
-        "milestone_4"
-      ],
+      "block_order": ["milestone_1", "milestone_2", "milestone_3", "milestone_4"],
       "settings": {
-        "label": "Our Journey",
-        "title": "A Decade of Excellence",
-        "header_alignment": "center",
-        "card_radius": 12,
-        "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
@@ -96,66 +64,38 @@
         "member_1": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Cheerful_Sophisticate_in_Pink.png",
             "name": "Alex Thompson",
             "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products that make a difference.",
-            "linkedin": "",
-            "twitter": "",
-            "instagram": ""
+            "bio": "Passionate about creating exceptional products."
           }
         },
         "member_2": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Professional_Portrait.png",
             "name": "Sarah Chen",
             "role": "Creative Director",
-            "bio": "Bringing creative visions to life with attention to every detail.",
-            "linkedin": "",
-            "twitter": "",
-            "instagram": ""
+            "bio": "Bringing creative visions to life."
           }
         },
         "member_3": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Warm_Portrait_of_a_Smiling_Man.png",
             "name": "Michael Brown",
             "role": "Head of Product",
-            "bio": "Obsessed with user experience and product perfection.",
-            "linkedin": "",
-            "twitter": "",
-            "instagram": ""
+            "bio": "Obsessed with user experience."
           }
         },
         "member_4": {
           "type": "member",
           "settings": {
-            "image": "shopify://shop_images/Joyful_Portrait.png",
             "name": "Emily Davis",
             "role": "Customer Success",
-            "bio": "Dedicated to making sure every customer feels valued.",
-            "linkedin": "",
-            "twitter": "",
-            "instagram": ""
+            "bio": "Making sure customers are happy."
           }
         }
       },
-      "block_order": [
-        "member_1",
-        "member_2",
-        "member_3",
-        "member_4"
-      ],
+      "block_order": ["member_1", "member_2", "member_3", "member_4"],
       "settings": {
-        "label": "The People",
-        "title": "Meet Our Team",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
-        "header_alignment": "center",
-        "columns": 4,
-        "card_radius": 12,
-        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -166,7 +106,6 @@
           "type": "stat",
           "settings": {
             "number": "10",
-            "prefix": "",
             "suffix": "+",
             "label": "Years in Business",
             "description": "A decade of excellence"
@@ -176,7 +115,6 @@
           "type": "stat",
           "settings": {
             "number": "50",
-            "prefix": "",
             "suffix": "K+",
             "label": "Happy Customers",
             "description": "And counting"
@@ -186,7 +124,6 @@
           "type": "stat",
           "settings": {
             "number": "150",
-            "prefix": "",
             "suffix": "+",
             "label": "Countries Served",
             "description": "Global reach"
@@ -196,28 +133,14 @@
           "type": "stat",
           "settings": {
             "number": "98",
-            "prefix": "",
             "suffix": "%",
             "label": "Satisfaction Rate",
             "description": "Based on reviews"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2",
-        "stat_3",
-        "stat_4"
-      ],
-      "settings": {
-        "title": "Our Impact",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "scheme-3",
-        "full_width": false,
-        "show_dividers": true
-      }
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
+      "settings": {}
     },
     "testimonials": {
       "type": "testimonials",
@@ -225,7 +148,7 @@
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "I've been a customer for over 5 years now. The quality and service have always been exceptional.",
+            "quote": "I've been a customer for over 5 years. The quality and service are exceptional.",
             "rating": 5,
             "author": "Jennifer M.",
             "author_title": "Loyal Customer"
@@ -234,7 +157,7 @@
         "testimonial_2": {
           "type": "testimonial",
           "settings": {
-            "quote": "It's rare to find a company that truly cares about their customers. These folks are the real deal.",
+            "quote": "It's rare to find a company that truly cares. These folks are the real deal.",
             "rating": 5,
             "author": "Robert T.",
             "author_title": "Verified Buyer"
@@ -243,7 +166,7 @@
         "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "From the packaging to the product itself, everything speaks quality. Highly recommend!",
+            "quote": "From packaging to product, everything speaks quality. Highly recommend!",
             "rating": 5,
             "author": "Lisa K.",
             "author_title": "First-time Buyer"
@@ -252,39 +175,21 @@
         "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "quote": "Customer service went above and beyond to help me. This is how business should be done.",
+            "quote": "Customer service went above and beyond. This is how business should be done.",
             "rating": 5,
             "author": "Mark S.",
             "author_title": "Repeat Customer"
           }
         }
       },
-      "block_order": [
-        "testimonial_1",
-        "testimonial_2",
-        "testimonial_3",
-        "testimonial_4"
-      ],
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
       "settings": {
-        "label": "What People Say",
-        "title": "Customer Stories",
-        "header_alignment": "left",
-        "show_rating": true,
-        "card_radius": 16,
-        "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "stacked",
-        "title": "Join Our Journey",
-        "text": "Subscribe to our newsletter for behind-the-scenes stories, updates, and exclusive offers.",
-        "button_text": "Subscribe",
-        "privacy_text": "We care about your data. Read our",
-        "privacy_link": "",
-        "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-1"
       }
     }
