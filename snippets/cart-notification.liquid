@@ -37,18 +37,29 @@
   </div>
 </div>
 
-<script>
+<script data-swup-ignore-script>
 (function() {
   const notification = document.getElementById('cart-notification');
   if (!notification) return;
 
+  // Prevent duplicate initialization
+  if (notification.dataset.initialized) return;
+  notification.dataset.initialized = 'true';
+
   let hideTimeout;
   let isVisible = false;
+  let currentAnimation = null;
 
   /**
    * Show the cart notification with product info
    */
   function showCartNotification(product) {
+    // Kill any running animation
+    if (currentAnimation) {
+      currentAnimation.kill();
+      currentAnimation = null;
+    }
+
     // Clear any existing timeout
     if (hideTimeout) clearTimeout(hideTimeout);
 
@@ -79,10 +90,16 @@
 
     // Animate in with GSAP if available
     if (window.gsap) {
-      gsap.fromTo(notification.querySelector('.cart-notification__content'),
-        { y: -20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' }
-      );
+      const content = notification.querySelector('.cart-notification__content');
+      // Reset to initial state first
+      gsap.set(content, { y: -20, opacity: 0 });
+      currentAnimation = gsap.to(content, {
+        y: 0,
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power2.out',
+        onComplete: () => { currentAnimation = null; }
+      });
     }
 
     // Auto-hide after 5 seconds
@@ -95,10 +112,16 @@
   function hideCartNotification() {
     if (!isVisible) return;
 
+    // Kill any running animation
+    if (currentAnimation) {
+      currentAnimation.kill();
+      currentAnimation = null;
+    }
+
     if (hideTimeout) clearTimeout(hideTimeout);
 
     if (window.gsap) {
-      gsap.to(notification.querySelector('.cart-notification__content'), {
+      currentAnimation = gsap.to(notification.querySelector('.cart-notification__content'), {
         y: -20,
         opacity: 0,
         duration: 0.2,
@@ -107,6 +130,7 @@
           notification.classList.remove('is-visible');
           notification.setAttribute('aria-hidden', 'true');
           isVisible = false;
+          currentAnimation = null;
         }
       });
     } else {
@@ -139,7 +163,7 @@
     });
   }
 
-  // Listen for cart:notification event
+  // Listen for cart:notification event (only once per page load)
   document.addEventListener('cart:notification', (e) => {
     showCartNotification(e.detail?.product);
 
