@@ -69,8 +69,7 @@
         "footer_design": "minimal",
         "enable_reveal_effect": true,
         "full_width": false,
-        "background_color": "#000000",
-        "text_color": "#ffffff"
+        "color_scheme": ""
       }
     }
   },
