@@ -164,15 +164,13 @@
 
   /* Announcement bar styles */
   .header-announcement {
-    --bar-bg: {{ section.settings.announcement_bg }};
-    --bar-text: {{ section.settings.announcement_text }};
-    background-color: var(--bar-bg);
-    color: var(--bar-text);
+    background-color: var(--color-background);
+    color: var(--color-text);
     min-height: {{ section.settings.announcement_height }}px;
   }
 
   .header-announcement a {
-    color: var(--bar-text);
+    color: var(--color-text);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
@@ -208,7 +206,7 @@
     transform: translateY(-50%);
     background: transparent;
     border: none;
-    color: var(--bar-text);
+    color: var(--color-text);
     padding: 0.5rem;
     cursor: pointer;
     opacity: 0.6;
@@ -235,7 +233,7 @@
     transform: translateY(-50%);
     background: transparent;
     border: none;
-    color: var(--bar-text);
+    color: var(--color-text);
     padding: 0.5rem;
     cursor: pointer;
     opacity: 0.6;
@@ -277,7 +275,7 @@
 <div class="header-wrapper{% if section.settings.sticky_header %} is-sticky{% endif %}{% if is_transparent %} is-transparent{% endif %}" data-header-wrapper{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}{% if is_transparent %} data-transparent-header{% endif %}>
   {%- comment -%} Announcement Bar Row {%- endcomment -%}
   {% if show_announcement and announcement_blocks.size > 0 %}
-    <div class="header-announcement relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="Announcement" data-announcement-bar>
+    <div class="header-announcement color-{{ section.settings.announcement_color_scheme }} relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="Announcement" data-announcement-bar>
       {%- comment -%} Navigation Arrows {%- endcomment -%}
       {% if section.settings.announcement_arrows and announcement_blocks.size > 1 %}
         <button type="button" class="header-announcement__arrow header-announcement__arrow--prev" data-announcement-prev aria-label="{{ 'accessibility.previous' | t }}">
@@ -1831,16 +1829,10 @@
       "label": "Show announcement bar"
     },
     {
-      "type": "color",
-      "id": "announcement_bg",
-      "label": "Background color",
-      "default": "#111827"
-    },
-    {
-      "type": "color",
-      "id": "announcement_text",
-      "label": "Text color",
-      "default": "#ffffff"
+      "type": "color_scheme",
+      "id": "announcement_color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
     },
     {
       "type": "range",
