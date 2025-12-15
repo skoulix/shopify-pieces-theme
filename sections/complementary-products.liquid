@@ -22,17 +22,13 @@
 -%}
 
 <style>
-  .complementary-section-{{ section.id }} {
-    --card-bg: {{ section.settings.card_background_color }};
-    --card-text: {{ section.settings.card_text_color }};
-  }
   .complementary-section-{{ section.id }} .skeleton-bg {
     background-color: var(--color-text);
     opacity: 0.1;
   }
   .complementary-section-{{ section.id }} .complementary-card {
-    background-color: var(--card-bg);
-    color: var(--card-text);
+    background-color: var(--color-background-secondary);
+    color: var(--color-text);
   }
 </style>
 
@@ -356,18 +352,6 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-1"
-    },
-    {
-      "type": "color",
-      "id": "card_background_color",
-      "label": "Card background color",
-      "default": "rgba(0,0,0,0)"
-    },
-    {
-      "type": "color",
-      "id": "card_text_color",
-      "label": "Card text color",
-      "default": "#000000"
     }
   ],
   "presets": [
