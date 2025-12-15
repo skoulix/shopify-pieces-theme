@@ -51,27 +51,17 @@
             "show_dynamic_checkout": true
           }
         },
-        "back_in_stock_rzrTB9": {
+        "back_in_stock": {
           "type": "back_in_stock",
           "settings": {}
         },
-        "size_chart_xUw7Wm": {
-          "type": "size_chart",
-          "settings": {
-            "link_text": "",
-            "drawer_heading": "",
-            "page": "about",
-            "content": "",
-            "show_always": true
-          }
-        },
-        "wc_buttons_ixjamz": {
+        "wc_buttons": {
           "type": "wc_buttons",
           "settings": {
             "display_style": "icon_only"
           }
         },
-        "social_proof_hzDDMF": {
+        "social_proof": {
           "type": "social_proof",
           "settings": {}
         }
@@ -84,10 +74,9 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "back_in_stock_rzrTB9",
-        "size_chart_xUw7Wm",
-        "wc_buttons_ixjamz",
-        "social_proof_hzDDMF"
+        "back_in_stock",
+        "wc_buttons",
+        "social_proof"
       ],
       "settings": {
         "full_width": true,
@@ -97,13 +86,62 @@
         "show_sticky_bar": true
       }
     },
-    "complementary_products_V3nMwX": {
+    "trust_badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "description": "On orders over $50"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Secure Checkout",
+            "description": "SSL encrypted payment"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "arrow-counter-clockwise",
+            "title": "Easy Returns",
+            "description": "30-day return policy"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "headset",
+            "title": "24/7 Support",
+            "description": "Dedicated support team"
+          }
+        }
+      },
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ],
+      "settings": {
+        "title": "",
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "complementary_products": {
       "type": "complementary-products",
-      "name": "Complementary Products",
       "settings": {
         "full_width": false,
         "label": "",
-        "title": "Pairs well with",
+        "title": "Pairs Well With",
         "description": "",
         "alignment": "left",
         "products_to_show": 3,
@@ -188,9 +226,8 @@
         "color_scheme": "scheme-3"
       }
     },
-    "before_after_xTLtcx": {
+    "before_after": {
       "type": "before-after",
-      "name": "Before/After",
       "settings": {
         "label": "Compare",
         "title": "See the Difference",
@@ -353,7 +390,7 @@
         "text_color": "#ffffff"
       }
     },
-    "related-products": {
+    "related_products": {
       "type": "related-products",
       "settings": {
         "full_width": false,
@@ -363,69 +400,18 @@
         "products_to_show": 8,
         "color_scheme": "scheme-1"
       }
-    },
-    "trust_badges_pDgXnW": {
-      "type": "trust-badges",
-      "blocks": {
-        "badge_xmnDdP": {
-          "type": "badge",
-          "settings": {
-            "icon": "truck",
-            "title": "Free Shipping",
-            "description": "On orders over $50"
-          }
-        },
-        "badge_gyw4pw": {
-          "type": "badge",
-          "settings": {
-            "icon": "shield-check",
-            "title": "Secure Checkout",
-            "description": "SSL encrypted payment"
-          }
-        },
-        "badge_rJjn8J": {
-          "type": "badge",
-          "settings": {
-            "icon": "arrow-counter-clockwise",
-            "title": "Easy Returns",
-            "description": "30-day return policy"
-          }
-        },
-        "badge_UAUby3": {
-          "type": "badge",
-          "settings": {
-            "icon": "headset",
-            "title": "24/7 Support",
-            "description": "Dedicated support team"
-          }
-        }
-      },
-      "block_order": [
-        "badge_xmnDdP",
-        "badge_gyw4pw",
-        "badge_rJjn8J",
-        "badge_UAUby3"
-      ],
-      "name": "Trust Badges",
-      "settings": {
-        "title": "",
-        "color_scheme": "scheme-2",
-        "full_width": false,
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
     }
   },
   "order": [
     "main",
-    "trust_badges_pDgXnW",
-    "complementary_products_V3nMwX",
+    "trust_badges",
+    "complementary_products",
     "features_grid",
     "text_reveal",
-    "before_after_xTLtcx",
+    "before_after",
     "testimonials",
     "faq",
     "video",
-    "related-products"
+    "related_products"
   ]
 }

@@ -277,7 +277,7 @@
 
     {% if section.settings.button_text != blank and section.settings.button_link != blank %}
       <div class="hero-orbit-cta-{{ section.id }}" data-orbit-cta>
-        <a href="{{ section.settings.button_link }}" class="btn btn--secondary">
+        <a href="{{ section.settings.button_link }}" class="btn btn--secondary{% if section.settings.button_size == 'large' %} btn--lg{% endif %}">
           <span>{{ section.settings.button_text }}</span>
           <i class="ph ph-arrow-right"></i>
         </a>
@@ -677,6 +677,16 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "large", "label": "Large" }
+      ],
+      "default": "default"
     },
     {
       "type": "checkbox",

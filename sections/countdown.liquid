@@ -20,13 +20,9 @@
 -%}
 
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
   .countdown-{{ section.id }} {
-    background-color: {{ bg_color }};
-    color: {{ text_color }};
+    background-color: var(--color-background);
+    color: var(--color-text);
   }
 
   .countdown-{{ section.id }}.is-expired {
@@ -40,17 +36,6 @@
      ============================================ */
   .countdown-{{ section.id }} {
     padding: var(--section-vertical-padding) 0;
-    {% if section.settings.button_style == 'solid' %}
-    --btn-color: {{ bg_color }};
-    --btn-bg: {{ text_color }};
-    --btn-hover-color: {{ text_color }};
-    --btn-hover-bg: {{ bg_color }};
-    {% else %}
-    --btn-color: {{ text_color }};
-    --btn-bg: transparent;
-    --btn-hover-color: {{ bg_color }};
-    --btn-hover-bg: {{ text_color }};
-    {% endif %}
   }
 
   .countdown-grid-{{ section.id }} {
@@ -125,51 +110,7 @@
     text-align: {{ section.settings.content_alignment }};
   }
 
-  .countdown-cta-{{ section.id }} .btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 2rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--btn-color);
-    background: var(--btn-bg);
-    border: var(--button-border-width, 1px) solid {{ text_color }};
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    border-radius: var(--button-radius, 4px);
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  .countdown-cta-{{ section.id }} .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--btn-hover-bg);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .countdown-cta-{{ section.id }} .btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .countdown-cta-{{ section.id }} .btn:hover {
-    color: var(--btn-hover-color);
-  }
-
-  .countdown-cta-{{ section.id }} .btn span,
-  .countdown-cta-{{ section.id }} .btn i {
-    position: relative;
-    z-index: 1;
-  }
+  /* Hero CTA uses standard btn--secondary which inherits from color scheme */
 
   /* Email signup form for hero */
   .countdown-form-{{ section.id }} {
@@ -201,83 +142,28 @@
     padding: 0.875rem 1rem;
     font-size: 0.875rem;
     background: transparent;
-    border: 1px solid {{ text_color }}40;
+    border: 1px solid var(--color-border);
     border-radius: var(--input-radius, 4px);
-    color: {{ text_color }};
-    caret-color: {{ text_color }};
+    color: var(--color-text);
+    caret-color: var(--color-text);
     transition: border-color 0.2s ease;
   }
 
   .countdown-form-{{ section.id }} input[type="email"]::placeholder {
-    color: {{ text_color }};
+    color: var(--color-text);
     opacity: 0.5;
   }
 
   .countdown-form-{{ section.id }} input[type="email"]:focus {
     outline: none;
-    border-color: {{ text_color }};
+    border-color: var(--color-text);
   }
 
-  button.countdown-form-btn-{{ section.id }} {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  /* Hero form button - match input height */
+  .countdown-form-{{ section.id }} .btn {
+    height: auto;
     padding: 0.875rem 1.5rem;
     font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    {% if section.settings.button_style == 'solid' %}
-    color: {{ bg_color }} !important;
-    background-color: {{ text_color }} !important;
-    {% else %}
-    color: {{ text_color }} !important;
-    background-color: transparent !important;
-    {% endif %}
-    border: var(--button-border-width, 1px) solid {{ text_color }} !important;
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    border-radius: var(--button-radius, 4px);
-    cursor: pointer;
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  button.countdown-form-btn-{{ section.id }}::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    {% if section.settings.button_style == 'solid' %}
-    background: {{ bg_color }};
-    {% else %}
-    background: {{ text_color }};
-    {% endif %}
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  button.countdown-form-btn-{{ section.id }}:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  button.countdown-form-btn-{{ section.id }}:hover {
-    {% if section.settings.button_style == 'solid' %}
-    color: {{ text_color }} !important;
-    {% else %}
-    color: {{ bg_color }} !important;
-    {% endif %}
-  }
-
-  button.countdown-form-btn-{{ section.id }} span,
-  button.countdown-form-btn-{{ section.id }} i {
-    position: relative;
-    z-index: 1;
   }
 
   .countdown-form-{{ section.id }} .countdown-form-message {
@@ -338,17 +224,6 @@
      ============================================ */
   .countdown-{{ section.id }} {
     padding: clamp(2rem, 4vw, 3rem) 0;
-    {% if section.settings.button_style == 'solid' %}
-    --btn-color: {{ bg_color }};
-    --btn-bg: {{ text_color }};
-    --btn-hover-color: {{ text_color }};
-    --btn-hover-bg: {{ bg_color }};
-    {% else %}
-    --btn-color: {{ text_color }};
-    --btn-bg: transparent;
-    --btn-hover-color: {{ bg_color }};
-    --btn-hover-bg: {{ text_color }};
-    {% endif %}
   }
 
   .countdown-inner-{{ section.id }} {
@@ -440,51 +315,7 @@
     opacity: 0.5;
   }
 
-  .countdown-cta-{{ section.id }} .btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--btn-color);
-    background: var(--btn-bg);
-    border: var(--button-border-width, 1px) solid {{ text_color }};
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    border-radius: var(--button-radius, 4px);
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  .countdown-cta-{{ section.id }} .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--btn-hover-bg);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .countdown-cta-{{ section.id }} .btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .countdown-cta-{{ section.id }} .btn:hover {
-    color: var(--btn-hover-color);
-  }
-
-  .countdown-cta-{{ section.id }} .btn span,
-  .countdown-cta-{{ section.id }} .btn i {
-    position: relative;
-    z-index: 1;
-  }
+  /* Compact CTA uses standard btn--secondary which inherits from color scheme */
 
   /* Divider style for compact */
   .countdown-divider-{{ section.id }} {
@@ -511,82 +342,28 @@
     padding: 0.625rem 0.875rem;
     font-size: 0.8rem;
     background: transparent;
-    border: 1px solid {{ text_color }}40;
+    border: 1px solid var(--color-border);
     border-radius: var(--input-radius, 4px);
-    color: {{ text_color }};
-    caret-color: {{ text_color }};
+    color: var(--color-text);
+    caret-color: var(--color-text);
     transition: border-color 0.2s ease;
   }
 
   .countdown-form-{{ section.id }} input[type="email"]::placeholder {
-    color: {{ text_color }};
+    color: var(--color-text);
     opacity: 0.5;
   }
 
   .countdown-form-{{ section.id }} input[type="email"]:focus {
     outline: none;
-    border-color: {{ text_color }};
+    border-color: var(--color-text);
   }
 
-  button.countdown-form-btn-{{ section.id }} {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+  /* Compact form button - match input height */
+  .countdown-form-{{ section.id }} .btn {
+    height: auto;
     padding: 0.625rem 1rem;
     font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    {% if section.settings.button_style == 'solid' %}
-    color: {{ bg_color }} !important;
-    background-color: {{ text_color }} !important;
-    {% else %}
-    color: {{ text_color }} !important;
-    background-color: transparent !important;
-    {% endif %}
-    border: var(--button-border-width, 1px) solid {{ text_color }} !important;
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    border-radius: var(--button-radius, 4px);
-    cursor: pointer;
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  button.countdown-form-btn-{{ section.id }}::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    {% if section.settings.button_style == 'solid' %}
-    background: {{ bg_color }};
-    {% else %}
-    background: {{ text_color }};
-    {% endif %}
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  button.countdown-form-btn-{{ section.id }}:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  button.countdown-form-btn-{{ section.id }}:hover {
-    {% if section.settings.button_style == 'solid' %}
-    color: {{ text_color }} !important;
-    {% else %}
-    color: {{ bg_color }} !important;
-    {% endif %}
-  }
-
-  button.countdown-form-btn-{{ section.id }} span {
-    position: relative;
-    z-index: 1;
   }
 
   .countdown-form-{{ section.id }} .countdown-form-message {
@@ -664,13 +441,42 @@
     letter-spacing: 0.1em;
     text-decoration: underline;
     text-underline-offset: 2px;
-    color: {{ text_color }};
+    color: var(--color-text);
     opacity: 0.9;
     transition: opacity 0.2s ease;
   }
 
   .countdown-cta-{{ section.id }} .btn:hover {
     opacity: 1;
+  }
+
+  /* Email signup form for minimal */
+  .countdown-form-{{ section.id }} .countdown-form-inner {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"] {
+    width: 180px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--input-radius, 4px);
+    color: var(--color-text);
+    caret-color: var(--color-text);
+  }
+
+  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
+    color: var(--color-text);
+    opacity: 0.5;
+  }
+
+  /* Minimal form button - match input height */
+  .countdown-form-{{ section.id }} .btn {
+    height: auto;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
   }
   {% endcase %}
 
@@ -686,7 +492,7 @@
 {% case design %}
 {% when 'hero' %}
 {%- comment -%} HERO DESIGN {%- endcomment -%}
-<section class="countdown-{{ section.id }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="hero">
+<section class="countdown-{{ section.id }} color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="hero">
   <div class="{{ container_class }}">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <header class="countdown-header-{{ section.id }}" data-tween-group="countdown-header-{{ section.id }}">
@@ -720,7 +526,7 @@
 
     {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
       <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
-        <a href="{{ section.settings.button_link }}" class="btn">
+        <a href="{{ section.settings.button_link }}" class="btn btn--secondary">
           <span>{{ section.settings.button_text }}</span>
           <i class="ph ph-arrow-right"></i>
         </a>
@@ -737,7 +543,7 @@
               autocomplete="email"
             >
             <input type="hidden" name="contact[tags]" value="countdown,notify">
-            <button type="submit" class="countdown-form-btn-{{ section.id }}">
+            <button type="submit" class="btn btn--secondary">
               <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
             </button>
           </div>
@@ -756,7 +562,7 @@
 
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
-<section class="countdown-{{ section.id }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="compact">
+<section class="countdown-{{ section.id }} color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="compact">
   <div class="{{ container_class }}">
     <div class="countdown-inner-{{ section.id }}" data-tween-group="countdown-compact-{{ section.id }}">
       {% if section.settings.title != blank or section.settings.subtitle != blank %}
@@ -802,7 +608,7 @@
 
       {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
         <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
-          <a href="{{ section.settings.button_link }}" class="btn">
+          <a href="{{ section.settings.button_link }}" class="btn btn--sm btn--secondary">
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
           </a>
@@ -819,7 +625,7 @@
                 autocomplete="email"
               >
               <input type="hidden" name="contact[tags]" value="countdown,notify">
-              <button type="submit" class="countdown-form-btn-{{ section.id }}">
+              <button type="submit" class="btn btn--secondary">
                 <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
               </button>
             </div>
@@ -838,7 +644,7 @@
 
 {% when 'minimal' %}
 {%- comment -%} MINIMAL DESIGN - for headers/announcements {%- endcomment -%}
-<div class="countdown-{{ section.id }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="minimal">
+<div class="countdown-{{ section.id }} color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="minimal">
   <div class="{{ container_class }}">
     <div class="countdown-inner-{{ section.id }}">
       {% if section.settings.title != blank %}
@@ -867,10 +673,27 @@
         </div>
       </div>
 
-      {% comment %} Minimal design only supports link (not email form - too small) {% endcomment %}
-      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
         <div class="countdown-cta-{{ section.id }}">
           <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_text }}</a>
+        </div>
+      {% elsif section.settings.cta_type == 'email_form' %}
+        <div class="countdown-form-{{ section.id }}" data-countdown-form>
+          {% form 'customer', id: 'countdown-form-minimal' %}
+            <div class="countdown-form-inner">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="{{ section.settings.form_placeholder | default: 'Enter your email' }}"
+                required
+                autocomplete="email"
+              >
+              <input type="hidden" name="contact[tags]" value="countdown,notify">
+              <button type="submit" class="btn btn--secondary">
+                <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
+              </button>
+            </div>
+          {% endform %}
         </div>
       {% endif %}
     </div>
@@ -1109,29 +932,14 @@
       "info": "Placeholder text for email input (email form only)"
     },
     {
-      "type": "select",
-      "id": "button_style",
-      "label": "Button style",
-      "options": [
-        { "value": "outline", "label": "Outline" },
-        { "value": "solid", "label": "Solid" }
-      ],
-      "default": "outline",
-      "info": "Not applicable to minimal design"
-    },
-    {
       "type": "header",
       "content": "Colors"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
     },
     {
       "type": "header",
@@ -1163,7 +971,8 @@
         "subtitle": "Something exciting is on the way. Stay tuned!",
         "cta_type": "email_form",
         "button_text": "Notify Me",
-        "form_placeholder": "Enter your email"
+        "form_placeholder": "Enter your email",
+        "color_scheme": "scheme-3"
       }
     }
   ]

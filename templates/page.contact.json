@@ -9,12 +9,27 @@
  */
 {
   "sections": {
-    "contact_form_abc123": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "image": "shopify://shop_images/photo-1599751449029-e4ea8f21d966.jpg",
+        "overlay_opacity": 70,
+        "title": "Get In Touch",
+        "subtitle": "Have a question or want to work together? We'd love to hear from you.",
+        "content_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "color_scheme": "scheme-3",
+        "full_width": false,
+        "show_scroll_indicator": true
+      }
+    },
+    "contact_form": {
       "type": "contact-form",
       "settings": {
         "label": "",
-        "title": "Contact",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
+        "title": "Send Us a Message",
+        "description": "Fill out the form below and we'll get back to you within 24 hours.",
         "enable_description_shuffle": true,
         "full_width": false,
         "color_scheme": "scheme-1"
@@ -65,28 +80,76 @@
         "border_radius": 16,
         "marker_color": "#000000",
         "grayscale": false,
-        "full_width": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How quickly do you respond to inquiries?",
+            "answer": "<p>We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call us directly.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you have a physical store I can visit?",
+            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York. We'd love to see you in person!</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I schedule an appointment?",
+            "answer": "<p>We offer one-on-one consultations by appointment. Simply reach out through the contact form above to schedule a time that works for you.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What are your business hours?",
+            "answer": "<p>We're open Monday through Friday from 9am to 6pm, and Saturday from 10am to 4pm. We're closed on Sundays.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "full_width": false,
+        "label": "Questions?",
+        "title": "Common Questions",
+        "description": "Find quick answers to frequently asked questions about contacting us.",
+        "header_alignment": "left",
         "color_scheme": "scheme-2"
       }
     },
-    "newsletter_brpF38": {
+    "newsletter": {
       "type": "newsletter",
-      "name": "Newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates? Sign up for our newsletter.",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "stacked",
+        "title": "Stay Connected",
+        "text": "Subscribe to our newsletter for updates, news, and exclusive offers.",
         "button_text": "Subscribe",
         "privacy_text": "We care about your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     }
   },
   "order": [
-    "contact_form_abc123",
+    "hero",
+    "contact_form",
     "map",
-    "newsletter_brpF38"
+    "faq",
+    "newsletter"
   ]
 }

@@ -332,9 +332,8 @@
         "color_scheme": "scheme-1"
       }
     },
-    "recently_viewed_yUrjhy": {
+    "recently_viewed": {
       "type": "recently-viewed",
-      "name": "Recently Viewed",
       "settings": {
         "full_width": false,
         "label": "Recently browsed",
@@ -344,9 +343,8 @@
         "color_scheme": "scheme-1"
       }
     },
-    "banner_y6k8aw": {
+    "banner": {
       "type": "banner",
-      "name": "Banner",
       "settings": {
         "heading": "Important Announcement",
         "text": "<p>This is an important message for your customers.</p>",
@@ -369,7 +367,7 @@
     "rolling_numbers",
     "logo_marquee",
     "newsletter",
-    "recently_viewed_yUrjhy",
-    "banner_y6k8aw"
+    "recently_viewed",
+    "banner"
   ]
 }
