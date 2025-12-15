@@ -1,11 +1,10 @@
-import { gsap } from 'gsap';
 import { lenisManager } from './LenisManager.js';
 import { cartState } from './CartState.js';
 import { createFocusTrap } from '../utils/dom.js';
 
 /**
  * CartDrawerManager - Handles cart drawer functionality
- * Uses global CartState for data, GSAP for animations, Lenis for scroll
+ * Uses global CartState for data, CSS transitions for animations, Lenis for scroll
  */
 class CartDrawerManager {
   constructor() {
@@ -220,23 +219,36 @@ class CartDrawerManager {
 
   /**
    * Open the cart drawer
+   * @param {Event|Object} [eventOrOptions] - Event object or options with skipFetch flag
    */
-  async open() {
+  async open(eventOrOptions) {
     if (this.isAnimating || this.isOpen || !this.drawer) return;
     this.isAnimating = true;
+
+    // Check if we should skip fetching (cart data is already fresh from add-to-cart)
+    const skipFetch = eventOrOptions?.detail?.skipFetch || eventOrOptions?.skipFetch || false;
 
     // Store the element that triggered the open for focus restoration
     this.previouslyFocused = document.activeElement;
 
-    // Fetch fresh cart data and render before opening
-    await cartState.fetch();
+    // Add loading cursor to cart toggle buttons as feedback while fetching
+    const cartToggles = document.querySelectorAll('[data-cart-drawer-toggle]');
+
+    if (!skipFetch) {
+      cartToggles.forEach(btn => btn.style.cursor = 'wait');
+
+      // Fetch fresh cart data first, then open the drawer
+      await cartState.fetch();
+
+      // Remove loading cursor
+      cartToggles.forEach(btn => btn.style.cursor = '');
+    }
+
+    // Render the cart content before opening
     this.render();
 
-    // Set initial states
-    gsap.set(this.backdrop, { opacity: 0 });
-    gsap.set(this.panel, { x: '100%' });
-
     // Update state - use inert instead of aria-hidden to properly handle focus
+    // Adding .is-open triggers CSS transitions on both backdrop and panel
     this.drawer.classList.add('is-open');
     this.drawer.removeAttribute('inert');
     this.drawer.removeAttribute('aria-hidden');
@@ -245,20 +257,16 @@ class CartDrawerManager {
     // Stop smooth scrolling
     lenisManager.stop();
 
-    // Dispatch event - include cart data for listeners that need it
+    // Dispatch events
     document.dispatchEvent(new CustomEvent('cart:opened'));
     document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: cartState.get() } }));
 
-    // Animate in and set up focus trap when complete
-    gsap.timeline({
-      onComplete: () => {
-        this.isAnimating = false;
-        // Create focus trap for accessibility
-        this.focusTrap = createFocusTrap(this.panel);
-      }
-    })
-      .to(this.backdrop, { opacity: 1, duration: 0.3, ease: 'power2.out' }, 0)
-      .to(this.panel, { x: '0%', duration: 0.4, ease: 'power3.out' }, 0);
+    // Wait for CSS transition to complete (300ms)
+    setTimeout(() => {
+      this.isAnimating = false;
+      // Create focus trap for accessibility
+      this.focusTrap = createFocusTrap(this.panel);
+    }, 300);
   }
 
   /**
@@ -277,27 +285,26 @@ class CartDrawerManager {
     // Dispatch event
     document.dispatchEvent(new CustomEvent('cart:closed'));
 
-    // Animate out
-    gsap.timeline({
-      onComplete: () => {
-        this.drawer.classList.remove('is-open');
-        // Use inert instead of aria-hidden to properly handle focus
-        this.drawer.setAttribute('inert', '');
-        this.isOpen = false;
-        this.isAnimating = false;
+    // Remove .is-open to trigger CSS transitions on both backdrop and panel
+    // The drawer-container class delays visibility:hidden until after transition
+    this.drawer.classList.remove('is-open');
 
-        // Resume smooth scrolling
-        lenisManager.start();
+    // Wait for CSS transition to complete (300ms)
+    setTimeout(() => {
+      // Use inert instead of aria-hidden to properly handle focus
+      this.drawer.setAttribute('inert', '');
+      this.isOpen = false;
+      this.isAnimating = false;
 
-        // Restore focus to the element that opened the drawer
-        if (this.previouslyFocused && this.previouslyFocused.focus) {
-          this.previouslyFocused.focus();
-          this.previouslyFocused = null;
-        }
+      // Resume smooth scrolling
+      lenisManager.start();
+
+      // Restore focus to the element that opened the drawer
+      if (this.previouslyFocused && this.previouslyFocused.focus) {
+        this.previouslyFocused.focus();
+        this.previouslyFocused = null;
       }
-    })
-      .to(this.backdrop, { opacity: 0, duration: 0.25, ease: 'power2.in' }, 0)
-      .to(this.panel, { x: '100%', duration: 0.3, ease: 'power3.in' }, 0);
+    }, 300);
   }
 
   /**
