@@ -51,8 +51,9 @@
         {%- endif -%}
       </span>
       {%- if current_hour < cutoff_hour -%}
+        {%- assign hours_remaining = cutoff_hour | minus: current_hour -%}
         <span class="delivery-estimator__urgency">
-          {{ 'products.delivery.order_within' | t: hours: cutoff_hour | minus: current_hour }}
+          {{ 'products.delivery.order_within' | t: hours: hours_remaining }}
         </span>
       {%- endif -%}
     </div>
