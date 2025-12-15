@@ -148,6 +148,9 @@ cart.subscribe((cartData) => {
 ```javascript
 document.addEventListener('cart:refresh', () => {});
 document.addEventListener('cart:open', () => {});
+document.addEventListener('cart:updated', (e) => {
+  console.log(e.detail.cart);
+});
 document.addEventListener('cart:notification', (e) => {
   console.log(e.detail.product, e.detail.cart);
 });
@@ -155,7 +158,31 @@ document.addEventListener('cart:notification', (e) => {
 
 ---
 
-## Sections (53 Total)
+## Toast Notifications
+
+User-friendly notifications for errors and successes:
+
+```javascript
+import { toast } from './utils/toast.js';
+
+// Show notifications
+toast.success('Added to cart!');
+toast.error('Could not update cart');
+toast.info('Processing...', 5000); // Custom duration
+
+// Types: success, error, info
+toast.show('Custom message', { type: 'info', duration: 4000 });
+```
+
+Toast notifications automatically:
+- Position in bottom-right corner
+- Auto-dismiss after duration (4-5 seconds)
+- Include close button
+- Announce to screen readers via aria-live
+
+---
+
+## Sections (56 Total)
 
 ### Hero & Landing
 
@@ -176,6 +203,7 @@ document.addEventListener('cart:notification', (e) => {
 - `quick-view-product` - Quick view modal content
 - `wishlist` - Saved products page
 - `compare` - Product comparison table
+- `featured-blog` - Featured blog posts grid
 
 ### Interactive
 
@@ -189,7 +217,9 @@ document.addEventListener('cart:notification', (e) => {
 ### Content
 
 - `image-with-text` - Split image + text
+- `image` - Single image section
 - `text-reveal` - Animated text on scroll
+- `text-section` - Rich text content
 - `video` - Video player section
 - `testimonials` - Customer testimonials
 - `faq` - Accordion FAQ
@@ -198,6 +228,7 @@ document.addEventListener('cart:notification', (e) => {
 - `features-grid` - Feature cards grid
 - `trust-badges` - Trust/payment badges
 - `floating-images` - Decorative floating images
+- `custom-liquid` - Custom Liquid code section
 
 ### Animation Showcase
 
@@ -306,6 +337,47 @@ Generated from theme settings:
 ```html
 <div class="page-container">Centered with max-width</div>
 <div class="page-full">Full width with padding</div>
+```
+
+---
+
+## Shared Constants
+
+Centralized constants for consistent timing and z-index values across JS and CSS:
+
+### JavaScript (`frontend/js/utils/constants.js`)
+
+```javascript
+import { DURATION, Z_INDEX, DEBOUNCE, TIMEOUT, BREAKPOINT, EASING } from './utils/constants.js';
+
+// Animation durations (ms)
+DURATION.fast     // 150
+DURATION.normal   // 300
+DURATION.slow     // 500
+
+// Z-index layers
+Z_INDEX.drawer    // 100
+Z_INDEX.modal     // 9999
+Z_INDEX.toast     // 10000
+
+// Debounce delays (ms)
+DEBOUNCE.input    // 300
+DEBOUNCE.search   // 500
+
+// Timeouts (ms)
+TIMEOUT.cartFetch // 8000
+TIMEOUT.toast     // 3000
+```
+
+### CSS Variables (`snippets/css-variables.liquid`)
+
+```css
+--duration-fast: 150ms;
+--duration-normal: 300ms;
+--duration-slow: 500ms;
+--z-drawer: 100;
+--z-modal: 9999;
+--z-toast: 10000;
 ```
 
 ---
@@ -503,13 +575,14 @@ pieces/
 │       │   ├── TweenManager.js
 │       │   └── WishlistManager.js
 │       └── utils/          # Utility functions
+│           ├── constants.js
 │           ├── dom.js
 │           ├── storage.js
 │           └── toast.js
 ├── layout/                  # Theme layouts
-├── locales/                 # Translation files (16 languages)
+├── locales/                 # Translation files (17 languages)
 ├── scripts/                 # Build/utility scripts
-├── sections/                # Liquid sections (53)
+├── sections/                # Liquid sections (56)
 ├── snippets/                # Reusable partials
 ├── templates/               # Page templates
 ├── tailwind.config.js       # Tailwind configuration
@@ -581,6 +654,21 @@ Configurable via Shopify theme customizer:
 | **SEO & Schema** | Local business schema with address, phone, email, hours, price range |
 | **Cart** | Cart type (drawer/page/notification), free shipping progress bar, delivery estimator, social proof indicators |
 | **Newsletter Popup** | Enable/disable, trigger type (delay/scroll/exit intent), frequency, content, discount code reveal, colors, layout |
+
+### Theme Presets
+
+Six curated design presets available in the theme editor:
+
+| Preset | Description |
+| ------ | ----------- |
+| **Default** | Clean, modern look with indigo primary color |
+| **Soft** | Warm, inviting palette with soft pink accents |
+| **Luxury** | Dark, elegant theme with gold accents |
+| **Brutalist** | High contrast black/white with bold blue/yellow |
+| **Organic** | Natural earth tones with forest green primary |
+| **Tech** | Dark mode with cyan accents, GitHub-inspired |
+
+Each preset configures color schemes, typography, border radius, and shadow styles.
 
 ---
 
