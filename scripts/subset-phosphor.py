@@ -159,6 +159,7 @@ USED_ICONS = [
     "certificate",
     "crown",
     "globe-simple",
+    "star-four",
 ]
 
 # Fill icons (use ph-fill class)

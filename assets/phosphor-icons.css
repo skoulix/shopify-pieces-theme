@@ -323,6 +323,9 @@
 .ph.ph-star:before {
   content: "\e46a";
 }
+.ph.ph-star-four:before {
+  content: "\e6a4";
+}
 .ph.ph-star-half:before {
   content: "\e70a";
 }
