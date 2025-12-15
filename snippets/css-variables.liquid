@@ -71,6 +71,7 @@
     {%- endif %}
     .color-{{ scheme.id }} {
       --color-background: {{ scheme.settings.background }};
+      --color-background-gradient: {% if scheme.settings.background_gradient != blank %}{{ scheme.settings.background_gradient }}{% else %}{{ scheme.settings.background }}{% endif %};
       --color-background-secondary: color-mix(in srgb, {{ scheme.settings.text }} 5%, {{ scheme.settings.background }});
       --color-text: {{ scheme.settings.text }};
       --color-text-secondary: {{ scheme.settings.text_secondary }};
@@ -126,9 +127,11 @@
     --logo-width: {{ settings.logo_width_mobile | default: 80 }}px;
   }
 
-  /* Color scheme sections apply background and text colors */
-  [class*="color-scheme-"] {
-    background-color: var(--color-background);
+  /* Color scheme sections apply background gradient and text colors */
+  {% for scheme in settings.color_schemes -%}
+    .color-{{ scheme.id }}{% unless forloop.last %},{% endunless %}
+  {% endfor %} {
+    background: var(--color-background-gradient);
     color: var(--color-text);
   }
 
