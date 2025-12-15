@@ -206,20 +206,40 @@
     transform: translateY(-2px);
   }
 
-  /* Placeholder */
+  /* Placeholder Avatar */
   .team-member-placeholder-{{ section.id }} {
     width: 100%;
     height: 100%;
-    background: var(--color-text, currentColor);
-    opacity: 0.1;
+    background: linear-gradient(145deg, var(--color-border, #e5e5e5) 0%, var(--color-background-secondary, #f5f5f5) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .team-member-placeholder-{{ section.id }} i {
-    font-size: 3rem;
-    opacity: 0.2;
+  .team-member-avatar-{{ section.id }} {
+    width: 45%;
+    max-width: 140px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-text, #333) 0%, color-mix(in srgb, var(--color-text, #333) 70%, transparent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.2);
+  }
+
+  .team-member-avatar-{{ section.id }}::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .team-member-avatar-{{ section.id }} i {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: rgba(255, 255, 255, 0.9);
   }
 
 </style>
@@ -267,7 +287,9 @@
               }}
             {% else %}
               <div class="team-member-placeholder-{{ section.id }}">
-                <i class="ph ph-user"></i>
+                <div class="team-member-avatar-{{ section.id }}">
+                  <i class="ph ph-user"></i>
+                </div>
               </div>
             {% endif %}
           </div>
