@@ -4,9 +4,9 @@
   Colors inherited from color scheme via CSS variables
 {%- endcomment -%}
 
-<div class="newsletter-card py-[--section-vertical-padding] bg-[--color-background]">
+<div class="newsletter-card py-[--section-vertical-padding] bg-[--color-background]" data-tween-group="newsletter-card">
   <div class="page-container">
-    <div class="relative isolate overflow-hidden px-6 py-16 sm:px-16 xl:py-24 rounded-[--card-radius] border-[length:var(--card-border-width)] border-[--color-border] shadow-[--card-shadow] bg-[--color-text] text-[--color-background]" data-tween data-tween-type="scale" data-tween-group="newsletter-card">
+    <div class="relative isolate overflow-hidden px-6 py-16 sm:px-16 xl:py-24 rounded-[--card-radius] border-[length:var(--card-border-width)] border-[--color-border] shadow-[--card-shadow] bg-[--color-background-secondary] text-[--color-text]" data-tween data-tween-type="scale">
       {% if title != blank %}
         <h2 class="mx-auto max-w-3xl text-center text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl font-heading" data-tween data-tween-type="split-text">
           {{ title }}
@@ -26,15 +26,15 @@
             required
             placeholder="{{ 'customers.register.email' | t }}"
             autocomplete="email"
-            class="input input--sm min-w-0 flex-auto placeholder:opacity-70 bg-[--color-background]/15 text-[--color-background] border-[--color-background]/30"
+            class="input input--sm min-w-0 flex-auto"
           >
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <button type="submit" class="btn btn--sm btn--secondary flex-none border-[--color-background] text-[--color-background] hover:bg-[--color-background] hover:text-[--color-text]">
+          <button type="submit" class="btn btn--sm btn--primary flex-none">
             <span>{{ button_text | default: 'Subscribe' }}</span>
           </button>
         </div>
         {% if privacy_link != blank %}
-          <p class="mt-4 text-center text-sm opacity-70">
+          <p class="mt-4 text-center text-sm text-[--color-text-secondary]">
             {{ privacy_text }} <a href="{{ privacy_link }}" class="font-semibold underline hover:no-underline">{{ privacy_link_text }}</a>.
           </p>
         {% endif %}
