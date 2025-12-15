@@ -370,3 +370,32 @@
 .toast__close:hover {
   opacity: 1;
 }
+
+/* ==========================================================================
+   Shopify Placeholder SVGs - Adapt to color scheme
+   ========================================================================== */
+
+/*
+ * Shopify placeholder SVGs use various viewBox sizes.
+ * Target common viewBox patterns used by Shopify placeholders.
+ * These adapt to color schemes across all sections.
+ */
+.placeholder-svg,
+svg[viewBox="0 0 525.5 525.5"],
+svg[viewBox="0 0 1054 1054"],
+svg[viewBox="0 0 787.58 462.72"],
+svg[viewBox="0 0 787.57 462.72"],
+svg[viewBox="0 0 1052.72 788.03"],
+svg[viewBox="0 0 1052 400"] {
+  opacity: 0.15;
+}
+
+.placeholder-svg path,
+svg[viewBox="0 0 525.5 525.5"] path,
+svg[viewBox="0 0 1054 1054"] path,
+svg[viewBox="0 0 787.58 462.72"] path,
+svg[viewBox="0 0 787.57 462.72"] path,
+svg[viewBox="0 0 1052.72 788.03"] path,
+svg[viewBox="0 0 1052 400"] path {
+  fill: var(--color-text);
+}
