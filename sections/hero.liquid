@@ -14,7 +14,7 @@
   .hero-section-{{ section.id }} .hero-title { font-size: calc(clamp(2.5rem, 12vw, 5rem) * var(--heading-font-scale, 1)); letter-spacing: -0.04em; line-height: 0.85; }
   @media (min-width: 1024px) { .hero-section-{{ section.id }} .hero-title { font-size: calc(clamp(4rem, 8vw, 7rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .hero-section-{{ section.id }} .hero-title { font-size: calc(clamp(5rem, 8vw, 9rem) * var(--heading-font-scale, 1)); } }
-  .hero-section-{{ section.id }} .hero-subtitle { font-size: clamp(0.75rem, 1.5vw, 1rem); }
+  .hero-section-{{ section.id }} .hero-description { font-size: clamp(0.875rem, 1.5vw, 1rem); }
 
   /* Button styling - adapts to color scheme */
   .hero-section-{{ section.id }} .btn--outline {
@@ -88,31 +88,35 @@
       when 'center'
         assign align_class = 'items-center text-center'
         assign title_align = 'text-center'
-        assign subtitle_align = 'mx-auto text-center'
+        assign description_align = 'mx-auto text-center'
         assign scroll_position = 'right-[--page-padding]'
       when 'right'
         assign align_class = 'items-end text-right'
         assign title_align = 'text-right'
-        assign subtitle_align = 'ml-auto text-right'
+        assign description_align = 'ml-auto text-right'
         assign scroll_position = 'left-[--page-padding]'
       else
         assign align_class = 'items-start text-left'
         assign title_align = ''
-        assign subtitle_align = ''
+        assign description_align = ''
         assign scroll_position = 'right-[--page-padding]'
     endcase
   -%}
   {%- comment -%} Hero content - uses global data-tween system for animations with delay after media reveal {%- endcomment -%}
   <div class="hero-content relative z-10 w-full pt-32 flex flex-col {{ align_class }} {{ container_class }}" data-tween-group="hero-content-{{ section.id }}" data-tween-start="top bottom">
+    {% if section.settings.label != blank %}
+      <span class="section-label mb-6" data-tween data-tween-type="fade-up" data-tween-delay="0.6">{{ section.settings.label }}</span>
+    {% endif %}
+
     {% if section.settings.title != blank %}
-      <h1 class="hero-title font-bold font-heading {{ title_align }}" data-tween data-tween-type="split-text" data-tween-delay="0.8">
+      <h1 class="hero-title text-balance max-w-4xl font-bold font-heading {{ title_align }}" data-tween data-tween-type="split-text" data-tween-delay="0.8">
         {{ section.settings.title }}
       </h1>
     {% endif %}
 
-    {% if section.settings.subtitle != blank %}
-      <p class="hero-subtitle mt-8 max-w-[480px] uppercase tracking-widest leading-relaxed opacity-80 {{ subtitle_align }}" data-tween data-tween-type="fade-up">
-        {{ section.settings.subtitle }}
+    {% if section.settings.description != blank %}
+      <p class="hero-description mt-8 max-w-[480px] leading-relaxed opacity-80 {{ description_align }}" data-tween data-tween-type="fade-up">
+        {{ section.settings.description }}
       </p>
     {% endif %}
 
@@ -206,15 +210,20 @@
     },
     {
       "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
       "id": "title",
       "default": "Elevate Your Style",
       "label": "Title"
     },
     {
       "type": "textarea",
-      "id": "subtitle",
+      "id": "description",
       "default": "Discover our curated collection of premium products designed for the modern lifestyle.",
-      "label": "Subtitle"
+      "label": "Description"
     },
     {
       "type": "text_alignment",
