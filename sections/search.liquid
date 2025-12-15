@@ -118,7 +118,7 @@
                     {% assign featured_image = result.featured_image | default: result.image %}
                     {% if featured_image %}
                       {{ featured_image | image_url: width: 600 | image_tag:
-                        class: 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                        class: 'w-full h-full object-cover scale-100 transition-transform duration-500 group-hover:scale-105',
                         loading: 'lazy',
           decoding: 'async',
                         alt: featured_image.alt | default: result.title

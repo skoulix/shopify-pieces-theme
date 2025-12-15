@@ -455,46 +455,6 @@
     runHeaderAnimation();
     initScrollAnimations();
 
-    // Hover effects for grid layout
-    if (layoutStyle !== 'metro') {
-      items.forEach((item) => {
-        const imgWrap = item.querySelector('.collection-card-image');
-        const img = item.querySelector('.collection-card-image img');
-
-        item.addEventListener('mouseenter', () => {
-          gsap.to(imgWrap, {
-            scale: 0.98,
-            duration: 0.5,
-            ease: 'power2.out'
-          });
-
-          if (img) {
-            gsap.to(img, {
-              scale: 1.08,
-              duration: 0.5,
-              ease: 'power2.out'
-            });
-          }
-        });
-
-        item.addEventListener('mouseleave', () => {
-          gsap.to(imgWrap, {
-            scale: 1,
-            duration: 0.5,
-            ease: 'power2.out'
-          });
-
-          if (img) {
-            gsap.to(img, {
-              scale: 1,
-              duration: 0.5,
-              ease: 'power2.out'
-            });
-          }
-        });
-      });
-    }
-
     // Cleanup ScrollTriggers
     function cleanup() {
       if (ScrollTrigger) {
