@@ -11,11 +11,34 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "overlay_opacity": 40,
+        "title": "Elevate Your Style",
+        "subtitle": "Discover our curated collection of premium products designed for the modern lifestyle.",
+        "content_alignment": "left",
+        "button_text": "Shop Now",
+        "button_link": "",
+        "button_size": "large",
+        "color_scheme": "",
+        "full_width": false,
+        "show_scroll_indicator": true
+      }
     },
     "text_reveal": {
       "type": "text-reveal",
-      "settings": {}
+      "settings": {
+        "label": "Our Mission",
+        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
+        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+        "header_alignment": "left",
+        "button_text": "Learn More",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "01",
+        "full_width": false,
+        "color_scheme": "",
+        "accent_color": "#6366f1"
+      }
     },
     "timeline": {
       "type": "timeline",
@@ -53,9 +76,20 @@
           }
         }
       },
-      "block_order": ["milestone_1", "milestone_2", "milestone_3", "milestone_4"],
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4"
+      ],
       "settings": {
-        "color_scheme": "scheme-2"
+        "label": "Our Journey",
+        "title": "How We Got Here",
+        "header_alignment": "center",
+        "card_radius": 8,
+        "full_width": false,
+        "color_scheme": "scheme-2",
+        "accent_color": "#6366f1"
       }
     },
     "team": {
@@ -66,7 +100,10 @@
           "settings": {
             "name": "Alex Thompson",
             "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products."
+            "bio": "Passionate about creating exceptional products.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
           }
         },
         "member_2": {
@@ -74,7 +111,10 @@
           "settings": {
             "name": "Sarah Chen",
             "role": "Creative Director",
-            "bio": "Bringing creative visions to life."
+            "bio": "Bringing creative visions to life.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
           }
         },
         "member_3": {
@@ -82,7 +122,10 @@
           "settings": {
             "name": "Michael Brown",
             "role": "Head of Product",
-            "bio": "Obsessed with user experience."
+            "bio": "Obsessed with user experience.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
           }
         },
         "member_4": {
@@ -90,12 +133,27 @@
           "settings": {
             "name": "Emily Davis",
             "role": "Customer Success",
-            "bio": "Making sure customers are happy."
+            "bio": "Making sure customers are happy.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
           }
         }
       },
-      "block_order": ["member_1", "member_2", "member_3", "member_4"],
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4"
+      ],
       "settings": {
+        "label": "Our Team",
+        "title": "Meet the People Behind the Brand",
+        "description": "We're a passionate team dedicated to creating products you'll love.",
+        "header_alignment": "center",
+        "columns": 4,
+        "card_radius": 12,
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -106,6 +164,7 @@
           "type": "stat",
           "settings": {
             "number": "10",
+            "prefix": "",
             "suffix": "+",
             "label": "Years in Business",
             "description": "A decade of excellence"
@@ -115,6 +174,7 @@
           "type": "stat",
           "settings": {
             "number": "50",
+            "prefix": "",
             "suffix": "K+",
             "label": "Happy Customers",
             "description": "And counting"
@@ -124,6 +184,7 @@
           "type": "stat",
           "settings": {
             "number": "150",
+            "prefix": "",
             "suffix": "+",
             "label": "Countries Served",
             "description": "Global reach"
@@ -133,14 +194,28 @@
           "type": "stat",
           "settings": {
             "number": "98",
+            "prefix": "",
             "suffix": "%",
             "label": "Satisfaction Rate",
             "description": "Based on reviews"
           }
         }
       },
-      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
-      "settings": {}
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "By the Numbers",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 1500,
+        "color_scheme": "",
+        "full_width": false,
+        "show_dividers": true
+      }
     },
     "testimonials": {
       "type": "testimonials",
@@ -182,14 +257,31 @@
           }
         }
       },
-      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3",
+        "testimonial_4"
+      ],
       "settings": {
+        "label": "Testimonials",
+        "title": "What Our Customers Say",
+        "header_alignment": "left",
+        "show_rating": true,
+        "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
+        "design": "card",
+        "title": "Want product news and updates?",
+        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "button_text": "Subscribe",
+        "privacy_text": "We care about your data. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-1"
       }
     }
