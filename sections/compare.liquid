@@ -110,7 +110,7 @@
     justify-content: center;
     background: var(--color-background);
     color: var(--color-text);
-    border: none;
+    border: 1px solid var(--color-border);
     border-radius: 50%;
     cursor: pointer;
     opacity: 0.9;
@@ -353,6 +353,26 @@
             ${products.map(p => `
               <div class="compare-table__cell">
                 <span class="compare-table__value">${escapeHtml(p.vendor) || '-'}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Product Type Row -->
+          <div class="compare-table__row">
+            <div class="compare-table__header-cell">{{ 'products.compare.type' | t | default: 'Type' }}</div>
+            ${products.map(p => `
+              <div class="compare-table__cell">
+                <span class="compare-table__value">${escapeHtml(p.type) || '-'}</span>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- SKU Row -->
+          <div class="compare-table__row">
+            <div class="compare-table__header-cell">{{ 'products.compare.sku' | t | default: 'SKU' }}</div>
+            ${products.map(p => `
+              <div class="compare-table__cell">
+                <span class="compare-table__value">${escapeHtml(p.sku) || '-'}</span>
               </div>
             `).join('')}
           </div>

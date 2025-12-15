@@ -58,6 +58,8 @@ class CompareManager {
    * @param {number} product.price - Product price in cents
    * @param {number} [product.compareAtPrice] - Compare at price in cents
    * @param {string} [product.vendor] - Product vendor
+   * @param {string} [product.type] - Product type
+   * @param {string} [product.sku] - Product SKU (first variant)
    * @param {boolean} [product.available] - Product availability
    * @param {Array} [product.options] - Product options with values
    * @returns {boolean} True if added successfully
@@ -87,6 +89,8 @@ class CompareManager {
       price: product.price,
       compareAtPrice: product.compareAtPrice,
       vendor: product.vendor,
+      type: product.type,
+      sku: product.sku,
       available: product.available !== false,
       options: product.options || [],
       addedAt: Date.now()

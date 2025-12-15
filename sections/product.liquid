@@ -599,7 +599,7 @@
           {%- when 'compare_button' -%}
             {%- if settings.enable_compare -%}
               {%- capture compare_product_json -%}
-                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}
               {%- endcapture -%}
               <div class="mt-4" data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
                 {%- assign cb_icon_size = 'text-base' -%}
@@ -632,7 +632,7 @@
                 {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
               {%- endcapture -%}
               {%- capture wc_compare_json -%}
-                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+                {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}
               {%- endcapture -%}
               {%- assign wc_display_style = block.settings.display_style | default: 'icon_text' -%}
               {%- assign wc_show_icon = true -%}
@@ -681,7 +681,7 @@
               {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
             {%- endcapture -%}
             {%- capture social_compare_json -%}
-              {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+              {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}
             {%- endcapture -%}
             <div class="mt-4 flex flex-wrap items-center gap-3" data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
               {%- if settings.enable_wishlist -%}

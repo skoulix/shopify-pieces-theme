@@ -160,7 +160,7 @@
         {%- comment -%} Compare Button {%- endcomment -%}
         {% if settings.enable_compare %}
           {%- capture compare_product_json -%}
-            {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}
+            {"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}
           {%- endcapture -%}
           <button
             type="button"
@@ -238,7 +238,7 @@
             </button>
           {% endif %}
           {% if settings.enable_compare %}
-            {%- capture mobile_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
+            {%- capture mobile_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
             <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-text] [&.is-active]:!text-[--color-background]" data-compare-toggle="{{ product.id }}" data-product-json='{{ mobile_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-scales" aria-hidden="true"></i>
             </button>
@@ -278,7 +278,7 @@
             </button>
           {% endif %}
           {% if settings.enable_compare %}
-            {%- capture desktop_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
+            {%- capture desktop_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
             <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-text] [&.is-active]:!text-[--color-background]" data-compare-toggle="{{ product.id }}" data-product-json='{{ desktop_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-scales" aria-hidden="true"></i>
             </button>

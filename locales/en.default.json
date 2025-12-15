@@ -336,6 +336,8 @@
       "products": "products",
       "product": "Product",
       "vendor": "Vendor",
+      "type": "Type",
+      "sku": "SKU",
       "availability": "Availability",
       "empty_title": "No products to compare",
       "empty_text": "Add products to compare by clicking the compare icon on product cards.",
