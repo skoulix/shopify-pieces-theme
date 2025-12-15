@@ -11,7 +11,18 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "settings": {
+        "overlay_opacity": 40,
+        "title": "Elevate Your Style",
+        "subtitle": "Discover our curated collection of premium products designed for the modern lifestyle.",
+        "content_alignment": "left",
+        "button_text": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "button_size": "large",
+        "color_scheme": "scheme-3",
+        "full_width": false,
+        "show_scroll_indicator": true
+      }
     },
     "marquee": {
       "type": "marquee",
@@ -26,7 +37,8 @@
         "sep_1": {
           "type": "separator",
           "settings": {
-            "style": "dot"
+            "style": "dot",
+            "icon": "star-four"
           }
         },
         "text_2": {
@@ -53,16 +65,40 @@
         "sep_3": {
           "type": "separator",
           "settings": {
-            "style": "dot"
+            "style": "dot",
+            "icon": "star-four"
           }
         }
       },
-      "block_order": ["text_1", "sep_1", "text_2", "sep_2", "text_3", "sep_3"],
-      "settings": {}
+      "block_order": [
+        "text_1",
+        "sep_1",
+        "text_2",
+        "sep_2",
+        "text_3",
+        "sep_3"
+      ],
+      "settings": {
+        "speed": 30,
+        "direction": "left",
+        "pause_on_hover": true,
+        "color_scheme": ""
+      }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
+        "collection": "",
+        "label": "",
+        "title": "",
+        "description": "",
+        "header_alignment": "left",
+        "products_to_show": 4,
+        "columns": 4,
+        "show_vendor": false,
+        "show_view_all": true,
+        "view_all_text": "View All",
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -84,103 +120,45 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2"],
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
       "settings": {
+        "image_ratio": "4/5",
+        "label": "Our Story",
+        "title": "Crafted With Purpose",
+        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
+        "button_text": "Learn More",
+        "button_link": "",
+        "layout": "image_left",
+        "full_width": false,
+        "remove_padding": false,
         "color_scheme": "scheme-2"
-      }
-    },
-    "featured_collection_2": {
-      "type": "featured-collection",
-      "settings": {
-        "color_scheme": "scheme-1"
-      }
-    },
-    "rolling_numbers": {
-      "type": "rolling-numbers",
-      "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": {
-            "number": "50",
-            "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "Worldwide"
-          }
-        },
-        "stat_2": {
-          "type": "stat",
-          "settings": {
-            "number": "98",
-            "suffix": "%",
-            "label": "Satisfaction",
-            "description": "Based on reviews"
-          }
-        },
-        "stat_3": {
-          "type": "stat",
-          "settings": {
-            "number": "150",
-            "suffix": "+",
-            "label": "Countries",
-            "description": "Global shipping"
-          }
-        },
-        "stat_4": {
-          "type": "stat",
-          "settings": {
-            "number": "24",
-            "suffix": "/7",
-            "label": "Support",
-            "description": "Always here"
-          }
-        }
-      },
-      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
-      "settings": {}
-    },
-    "logo_marquee": {
-      "type": "logo-marquee",
-      "blocks": {
-        "logo_1": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo_2": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo_3": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo_4": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo_5": {
-          "type": "logo",
-          "settings": {}
-        },
-        "logo_6": {
-          "type": "logo",
-          "settings": {}
-        }
-      },
-      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4", "logo_5", "logo_6"],
-      "settings": {
-        "color_scheme": "scheme-2"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "color_scheme": "scheme-1"
       }
     },
     "recently_viewed": {
       "type": "recently-viewed",
       "settings": {
+        "full_width": false,
+        "label": "Recently browsed",
+        "title": "Recently Viewed",
+        "header_alignment": "left",
+        "products_to_show": 8,
         "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Want product news and updates?",
+        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "button_text": "Subscribe",
+        "privacy_text": "We care about your data. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-2"
       }
     }
   },
@@ -189,10 +167,7 @@
     "marquee",
     "featured_collection",
     "image_with_text",
-    "featured_collection_2",
-    "rolling_numbers",
-    "logo_marquee",
-    "newsletter",
-    "recently_viewed"
+    "recently_viewed",
+    "newsletter"
   ]
 }

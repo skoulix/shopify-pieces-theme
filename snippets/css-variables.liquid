@@ -67,6 +67,7 @@
     {%- endif %}
     .color-{{ scheme.id }} {
       --color-background: {{ scheme.settings.background }};
+      --color-background-secondary: color-mix(in srgb, {{ scheme.settings.text }} 5%, {{ scheme.settings.background }});
       --color-text: {{ scheme.settings.text }};
       --color-text-secondary: {{ scheme.settings.text_secondary }};
       --color-primary: {{ scheme.settings.primary }};
