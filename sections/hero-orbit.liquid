@@ -83,6 +83,14 @@
     object-position: center;
   }
 
+  /* Placeholder SVG styling */
+  .hero-orbit-card-inner-{{ section.id }} svg.placeholder-svg {
+    background: #ffffff !important;
+  }
+  .hero-orbit-card-inner-{{ section.id }} svg.placeholder-svg path {
+    fill: #e0e0e0 !important;
+  }
+
   @media (min-width: 768px) {
     .hero-orbit-card-inner-{{ section.id }} {
       width: clamp(100px, 12vw, 140px);
@@ -254,6 +262,10 @@
                   loading="eager"
                   decoding="async"
                 >
+              {% else %}
+                {%- assign placeholder_index = forloop.index | modulo: 6 | plus: 1 -%}
+                {%- capture placeholder_class -%}hero-orbit-card-img-{{ section.id }}{%- endcapture -%}
+                {{ 'product-' | append: placeholder_index | placeholder_svg_tag: placeholder_class }}
               {% endif %}
             </div>
           </div>

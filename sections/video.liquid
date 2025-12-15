@@ -11,12 +11,9 @@
 -%}
 
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
   .video-section-{{ section.id }} {
-    background-color: {{ bg_color }};
+    background-color: var(--color-background);
+    color: var(--color-text);
     {% unless section.settings.remove_padding %}
     padding: var(--section-vertical-padding) 0;
     {% endunless %}
@@ -213,7 +210,7 @@
     align-items: {% if section.settings.content_alignment == 'left' %}flex-start{% elsif section.settings.content_alignment == 'right' %}flex-end{% else %}center{% endif %};
     justify-content: {{ section.settings.content_position }};
     padding: clamp(2rem, 5vw, 4rem);
-    color: {{ text_color }};
+    color: var(--color-text);
     text-align: {{ section.settings.content_alignment }};
     pointer-events: none;
     z-index: 2;
@@ -226,32 +223,44 @@
 
   /* Title and description use global .section-* classes from utilities.css */
   .video-content-{{ section.id }} .section-title {
-    color: {{ text_color }};
+    color: var(--color-text);
   }
 
   .video-content-{{ section.id }} .section-description {
-    color: {{ text_color }};
+    color: var(--color-text);
     opacity: 0.9;
   }
 
-  .video-content-{{ section.id }} .btn--secondary {
-    color: {{ text_color }};
-    border-color: {{ text_color }};
+  /* Button styling - adapts to color scheme */
+  .video-section-{{ section.id }} .btn--outline {
+    color: var(--color-text);
+    border-color: var(--color-text);
   }
-
-  .video-content-{{ section.id }} .btn--secondary::before {
-    background: {{ text_color }};
+  .video-section-{{ section.id }} .btn--outline::before {
+    background: var(--color-text);
   }
-
-  .video-content-{{ section.id }} .btn--secondary:hover,
-  .video-content-{{ section.id }} .btn--secondary:hover span,
-  .video-content-{{ section.id }} .btn--secondary:hover i {
-    color: {{ bg_color }};
+  .video-section-{{ section.id }} .btn--outline:hover,
+  .video-section-{{ section.id }} .btn--outline:hover span,
+  .video-section-{{ section.id }} .btn--outline:hover i {
+    color: var(--color-background);
+  }
+  .video-section-{{ section.id }} .btn--primary {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
+  }
+  .video-section-{{ section.id }} .btn--primary::before {
+    background: var(--color-background);
+  }
+  .video-section-{{ section.id }} .btn--primary:hover,
+  .video-section-{{ section.id }} .btn--primary:hover span,
+  .video-section-{{ section.id }} .btn--primary:hover i {
+    color: var(--color-text);
   }
 
 </style>
 
-<section class="video-section-{{ section.id }}" data-video-section="{{ section.id }}">
+<section class="video-section-{{ section.id }} color-{{ section.settings.color_scheme }}" data-video-section="{{ section.id }}">
   <div class="{{ container_class }}">
     <div class="video-container-{{ section.id }}">
       {% if section.settings.video != blank %}
@@ -290,7 +299,7 @@
         <div class="video-overlay-{{ section.id }}"></div>
       {% endif %}
 
-      {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_text != blank %}
+      {% if section.settings.title != blank or section.settings.description != blank or section.settings.button_text != blank %}
         <div class="video-content-{{ section.id }}" data-tween-group="video-content-{{ section.id }}">
           {% if section.settings.label != blank %}
             <span class="section-label mb-4" data-tween data-tween-type="fade-up">
@@ -304,16 +313,16 @@
             </h2>
           {% endif %}
 
-          {% if section.settings.text != blank %}
+          {% if section.settings.description != blank %}
             <p class="section-description mt-4" data-tween data-tween-type="fade-up">
-              {{ section.settings.text }}
+              {{ section.settings.description }}
             </p>
           {% endif %}
 
           {% if section.settings.button_text != blank and section.settings.button_link != blank %}
             <a
               href="{{ section.settings.button_link }}"
-              class="btn btn--secondary mt-8"
+              class="btn{% if section.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if section.settings.button_size == 'large' %} btn--lg{% endif %} mt-8"
               data-tween data-tween-type="fade-up"
             >
               <span>{{ section.settings.button_text }}</span>
@@ -415,8 +424,8 @@
     },
     {
       "type": "textarea",
-      "id": "text",
-      "label": "Text"
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "text_alignment",
@@ -433,6 +442,26 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "outline",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "default": "large",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "large", "label": "Large" }
+      ]
     },
     {
       "type": "select",
@@ -472,14 +501,10 @@
       "content": "Colors"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     }
   ],
   "presets": [
