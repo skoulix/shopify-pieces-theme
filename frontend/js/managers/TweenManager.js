@@ -242,14 +242,31 @@ class TweenManager {
     const scrollStart = groupElement.dataset.tweenStart || this.getScrollStart();
     const baseStagger = parseFloat(groupElement.dataset.tweenStagger) || 0.08;
 
-    // Create timeline with ScrollTrigger
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: groupElement,
-        start: scrollStart,
-        once: true
+    // Check if group is already in viewport
+    const rect = groupElement.getBoundingClientRect();
+    const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+
+    // Set initial states for all elements first
+    tweenElements.forEach(el => {
+      const type = el.dataset.tweenType || 'fade-up';
+      if (type !== 'split-text') {
+        const config = this.getAnimationConfig(type);
+        gsap.set(el, config.initial);
       }
     });
+
+    // Create timeline - with or without ScrollTrigger based on viewport position
+    const tlConfig = isInViewport
+      ? { delay: 0.05 } // Small delay to ensure paint, no ScrollTrigger needed
+      : {
+          scrollTrigger: {
+            trigger: groupElement,
+            start: scrollStart,
+            once: true
+          }
+        };
+
+    const tl = gsap.timeline(tlConfig);
 
     // Track position in timeline
     let currentPosition = 0;
@@ -270,7 +287,9 @@ class TweenManager {
       currentPosition = position + elementDuration;
     });
 
-    this.scrollTriggers.push(tl.scrollTrigger);
+    if (tl.scrollTrigger) {
+      this.scrollTriggers.push(tl.scrollTrigger);
+    }
   }
 
   /**
@@ -374,24 +393,20 @@ class TweenManager {
       return;
     }
 
-    // Wait for next frame to ensure DOM is ready
-    // This prevents ScrollTrigger errors when page loads with sections in viewport
-    requestAnimationFrame(() => {
-      // Initialize grouped tweens
-      const groups = document.querySelectorAll('[data-tween-group]:not([data-tween-group-initialized])');
-      groups.forEach(group => {
-        group.dataset.tweenGroupInitialized = 'true';
-        this.initTweenGroup(group);
-      });
-
-      // Initialize standalone tweens
-      this.initStandaloneTweens();
-
-      // Initialize Shopify policy pages (no template access)
-      this.initPolicyPages();
-
-      this.initialized = true;
+    // Initialize grouped tweens
+    const groups = document.querySelectorAll('[data-tween-group]:not([data-tween-group-initialized])');
+    groups.forEach(group => {
+      group.dataset.tweenGroupInitialized = 'true';
+      this.initTweenGroup(group);
     });
+
+    // Initialize standalone tweens
+    this.initStandaloneTweens();
+
+    // Initialize Shopify policy pages (no template access)
+    this.initPolicyPages();
+
+    this.initialized = true;
   }
 
   /**
