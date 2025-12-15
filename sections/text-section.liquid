@@ -1,0 +1,290 @@
+{%- comment -%}
+  Text Section - Simple text content with optional buttons
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .text-section-{{ section.id }} {
+    padding: var(--section-vertical-padding) 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  .text-section-content-{{ section.id }} {
+    text-align: {{ section.settings.content_alignment }};
+    max-width: {{ section.settings.content_width }}rem;
+    {% if section.settings.content_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% elsif section.settings.content_alignment == 'right' %}
+    margin-left: auto;
+    {% endif %}
+  }
+
+  /* Label, title, description use global .section-* classes from utilities.css */
+  .text-section-content-{{ section.id }} .section-label {
+    margin-bottom: 1.5rem;
+  }
+
+  .text-section-content-{{ section.id }} .section-description {
+    margin-top: 1.5rem;
+    {% if section.settings.content_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% elsif section.settings.content_alignment == 'right' %}
+    margin-left: auto;
+    {% endif %}
+  }
+
+  .text-section-buttons-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+    {% if section.settings.content_alignment == 'center' %}
+    justify-content: center;
+    {% elsif section.settings.content_alignment == 'right' %}
+    justify-content: flex-end;
+    {% endif %}
+  }
+
+  /* Button styling - adapts to color scheme */
+  .text-section-{{ section.id }} .btn--outline {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+  .text-section-{{ section.id }} .btn--outline::before {
+    background: var(--color-text);
+  }
+  .text-section-{{ section.id }} .btn--outline:hover,
+  .text-section-{{ section.id }} .btn--outline:hover span,
+  .text-section-{{ section.id }} .btn--outline:hover i {
+    color: var(--color-background);
+  }
+  .text-section-{{ section.id }} .btn--primary {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
+  }
+  .text-section-{{ section.id }} .btn--primary::before {
+    background: var(--color-background);
+  }
+  .text-section-{{ section.id }} .btn--primary:hover,
+  .text-section-{{ section.id }} .btn--primary:hover span,
+  .text-section-{{ section.id }} .btn--primary:hover i {
+    color: var(--color-text);
+  }
+</style>
+
+<section
+  class="text-section-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  data-text-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    <div class="text-section-content-{{ section.id }}" data-tween-group="text-section-{{ section.id }}">
+      {% if section.settings.label != blank %}
+        <span class="section-label" data-tween data-tween-type="fade-up">
+          {{ section.settings.label }}
+        </span>
+      {% endif %}
+
+      {% if section.settings.title != blank %}
+        <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.description != blank %}
+        <p class="section-description" data-tween data-tween-type="fade-up">
+          {{ section.settings.description }}
+        </p>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="text-section-buttons-{{ section.id }}" data-tween data-tween-type="fade-up">
+          {% for block in section.blocks %}
+            {% if block.type == 'button' and block.settings.button_label != blank %}
+              <a
+                href="{{ block.settings.button_link }}"
+                class="btn{% if block.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if block.settings.button_size == 'large' %} btn--lg{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {% if block.settings.button_icon != 'none' and block.settings.icon_position == 'left' %}
+                  <i class="ph ph-{{ block.settings.button_icon }}"></i>
+                {% endif %}
+                <span>{{ block.settings.button_label }}</span>
+                {% if block.settings.button_icon != 'none' and block.settings.icon_position == 'right' %}
+                  <i class="ph ph-{{ block.settings.button_icon }}"></i>
+                {% endif %}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text Section",
+  "tag": "section",
+  "class": "text-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Your headline here"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "text_alignment",
+      "id": "content_alignment",
+      "default": "center",
+      "label": "Content alignment"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content max width",
+      "default": 42,
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "rem"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "button",
+      "name": "Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "outline",
+          "options": [
+            { "value": "solid", "label": "Solid" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_size",
+          "label": "Button size",
+          "default": "default",
+          "options": [
+            { "value": "default", "label": "Default" },
+            { "value": "large", "label": "Large" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_icon",
+          "label": "Icon",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "arrow-right", "label": "Arrow right" },
+            { "value": "arrow-up-right", "label": "Arrow up right" },
+            { "value": "caret-right", "label": "Caret right" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "shopping-bag", "label": "Shopping bag" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "play", "label": "Play" },
+            { "value": "envelope", "label": "Envelope" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "chat", "label": "Chat" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "icon_position",
+          "label": "Icon position",
+          "default": "right",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Section",
+      "category": "Text & content",
+      "blocks": [
+        {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop now",
+            "button_style": "solid",
+            "button_icon": "arrow-right"
+          }
+        },
+        {
+          "type": "button",
+          "settings": {
+            "button_label": "Learn more",
+            "button_style": "outline"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

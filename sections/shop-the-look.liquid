@@ -38,26 +38,12 @@
     text-align: {{ section.settings.header_alignment }};
   }
 
-  .shop-the-look-label-{{ section.id }} {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
+  /* Label, title, description use global .section-* classes from utilities.css */
+  .shop-the-look-header-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
   }
 
-  .shop-the-look-title-{{ section.id }} {
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .shop-the-look-description-{{ section.id }} {
-    font-size: 1rem;
-    opacity: 0.7;
-    max-width: 42rem;
+  .shop-the-look-header-{{ section.id }} .section-description {
     margin-top: 1.5rem;
     {% if section.settings.header_alignment == 'center' %}
     margin-left: auto;
@@ -249,15 +235,15 @@
     {% if section.settings.title != blank or section.settings.label != blank %}
       <header class="shop-the-look-header-{{ section.id }}" data-tween-group="shop-the-look-header-{{ section.id }}">
         {% if section.settings.label != blank %}
-          <span class="shop-the-look-label-{{ section.id }}" data-tween data-tween-type="fade-up">{{ section.settings.label }}</span>
+          <span class="section-label" data-tween data-tween-type="fade-up">{{ section.settings.label }}</span>
         {% endif %}
         {% if section.settings.title != blank %}
-          <h2 class="shop-the-look-title-{{ section.id }} font-heading" data-tween data-tween-type="split-text">
+          <h2 class="section-title font-heading" data-tween data-tween-type="split-text">
             {{ section.settings.title }}
           </h2>
         {% endif %}
         {% if section.settings.description != blank %}
-          <p class="shop-the-look-description-{{ section.id }}" data-tween data-tween-type="fade-up">
+          <p class="section-description" data-tween data-tween-type="fade-up">
             {{ section.settings.description }}
           </p>
         {% endif %}
