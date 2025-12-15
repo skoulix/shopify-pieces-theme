@@ -142,23 +142,12 @@
             "link_text": "Learn More",
             "link": ""
           }
-        },
-        "feature_4": {
-          "type": "feature",
-          "settings": {
-            "icon": "arrow-counter-clockwise",
-            "title": "Easy Returns",
-            "text": "Not satisfied? Return within 30 days for a full refund.",
-            "link_text": "Learn More",
-            "link": ""
-          }
         }
       },
       "block_order": [
         "feature_1",
         "feature_2",
-        "feature_3",
-        "feature_4"
+        "feature_3"
       ],
       "settings": {
         "label": "Why Choose Us",
@@ -289,29 +278,6 @@
         "color_scheme": "scheme-2"
       }
     },
-    "video": {
-      "type": "video",
-      "settings": {
-        "loop": true,
-        "show_controls": false,
-        "aspect_ratio": "16/9",
-        "border_radius": 0,
-        "overlay_color": "#000000",
-        "overlay_opacity": 30,
-        "label": "",
-        "title": "",
-        "text": "",
-        "header_alignment": "center",
-        "button_text": "",
-        "button_link": "",
-        "content_position": "center",
-        "content_alignment": "center",
-        "full_width": true,
-        "remove_padding": true,
-        "background_color": "",
-        "text_color": ""
-      }
-    },
     "related_products": {
       "type": "related-products",
       "settings": {
@@ -331,7 +297,6 @@
     "text_reveal",
     "testimonials",
     "faq",
-    "video",
     "related_products"
   ]
 }
