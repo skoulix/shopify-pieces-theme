@@ -29,6 +29,33 @@
     margin-bottom: 1.5rem;
   }
 
+  /* Button styling - adapts to color scheme */
+  .floating-images-{{ section.id }} .btn--outline {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+  .floating-images-{{ section.id }} .btn--outline::before {
+    background: var(--color-text);
+  }
+  .floating-images-{{ section.id }} .btn--outline:hover,
+  .floating-images-{{ section.id }} .btn--outline:hover span,
+  .floating-images-{{ section.id }} .btn--outline:hover i {
+    color: var(--color-background);
+  }
+  .floating-images-{{ section.id }} .btn--primary {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
+  }
+  .floating-images-{{ section.id }} .btn--primary::before {
+    background: var(--color-background);
+  }
+  .floating-images-{{ section.id }} .btn--primary:hover,
+  .floating-images-{{ section.id }} .btn--primary:hover span,
+  .floating-images-{{ section.id }} .btn--primary:hover i {
+    color: var(--color-text);
+  }
+
   .floating-images-{{ section.id }} .parallax-image {
     will-change: transform;
     opacity: {{ image_opacity }};
@@ -133,7 +160,7 @@
         <div class="mt-8" data-tween data-tween-type="fade-up">
           <a
             href="{{ section.settings.button_link | default: '#' }}"
-            class="btn btn--secondary"
+            class="btn{% if section.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if section.settings.button_size == 'large' %} btn--lg{% endif %}"
           >
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
@@ -248,6 +275,26 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "outline",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "large", "label": "Large" }
+      ]
     },
     {
       "type": "header",

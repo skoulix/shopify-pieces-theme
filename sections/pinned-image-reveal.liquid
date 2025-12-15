@@ -1,19 +1,8 @@
-{%- liquid
-  assign background_color = section.settings.background_color | default: '#ffffff'
-  assign text_color = section.settings.text_color | default: '#000000'
--%}
-
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
-  #shopify-section-{{ section.id }} {
-    background-color: {{ background_color }};
-  }
-
   #pinned-reveal-{{ section.id }} {
     padding: var(--section-vertical-padding) 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
   }
 
   @media (min-width: 768px) {
@@ -69,58 +58,37 @@
     }
   }
 
-  #pinned-reveal-{{ section.id }} .slide-label {
-    color: {{ text_color }};
+  /* Button styling - adapts to color scheme */
+  #pinned-reveal-{{ section.id }} .btn--outline {
+    color: var(--color-text);
+    border-color: var(--color-text);
   }
-
-  #pinned-reveal-{{ section.id }} .slide-title {
-    color: {{ text_color }};
+  #pinned-reveal-{{ section.id }} .btn--outline::before {
+    background: var(--color-text);
   }
-
-  #pinned-reveal-{{ section.id }} .slide-description {
-    color: {{ text_color }};
+  #pinned-reveal-{{ section.id }} .btn--outline:hover,
+  #pinned-reveal-{{ section.id }} .btn--outline:hover span,
+  #pinned-reveal-{{ section.id }} .btn--outline:hover i {
+    color: var(--color-background);
   }
-
-  #pinned-reveal-{{ section.id }} .btn {
-    position: relative;
-    color: {{ text_color }};
-    background: transparent;
-    border: var(--button-border-width) solid {{ text_color }};
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    overflow: hidden;
-    transition: color 0.4s ease;
+  #pinned-reveal-{{ section.id }} .btn--primary {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
   }
-
-  #pinned-reveal-{{ section.id }} .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: {{ text_color }};
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
+  #pinned-reveal-{{ section.id }} .btn--primary::before {
+    background: var(--color-background);
   }
-
-  #pinned-reveal-{{ section.id }} .btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  #pinned-reveal-{{ section.id }} .btn:hover {
-    color: {{ background_color }};
-  }
-
-  #pinned-reveal-{{ section.id }} .btn span {
-    position: relative;
-    z-index: 1;
+  #pinned-reveal-{{ section.id }} .btn--primary:hover,
+  #pinned-reveal-{{ section.id }} .btn--primary:hover span,
+  #pinned-reveal-{{ section.id }} .btn--primary:hover i {
+    color: var(--color-text);
   }
 </style>
 
 <section
   id="pinned-reveal-{{ section.id }}"
-  class="pinned-reveal relative transition-colors duration-500"
+  class="pinned-reveal color-{{ section.settings.color_scheme }} relative transition-colors duration-500"
   data-section-id="{{ section.id }}"
 >
   <div class="page-container">
@@ -162,7 +130,7 @@
                 {%- if block.settings.button_text != blank -%}
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
-                    class="btn"
+                    class="btn{% if block.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if block.settings.button_size == 'large' %} btn--lg{% endif %}"
                     data-tween data-tween-type="fade-up"
                   >
                     <span>{{ block.settings.button_text }}</span>
@@ -206,7 +174,7 @@
                 {%- if block.settings.button_text != blank -%}
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
-                    class="btn"
+                    class="btn{% if block.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if block.settings.button_size == 'large' %} btn--lg{% endif %}"
                     data-tween data-tween-type="fade-up"
                   >
                     <span>{{ block.settings.button_text }}</span>
@@ -299,7 +267,7 @@
 
   function initAnimations() {
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
-    const defaultBg = '{{ background_color }}';
+    const defaultBg = getComputedStyle(section).getPropertyValue('--color-background').trim() || '#ffffff';
 
     // Mobile parallax
     if (isMobile) {
@@ -415,14 +383,10 @@
       "content": "Colors"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     }
   ],
   "blocks": [
@@ -474,6 +438,26 @@
           "type": "url",
           "id": "button_url",
           "label": "Button URL"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "outline",
+          "options": [
+            { "value": "solid", "label": "Solid" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_size",
+          "label": "Button size",
+          "default": "default",
+          "options": [
+            { "value": "default", "label": "Default" },
+            { "value": "large", "label": "Large" }
+          ]
         },
         {
           "type": "header",
