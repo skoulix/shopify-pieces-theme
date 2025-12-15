@@ -51,24 +51,16 @@
             "show_dynamic_checkout": true
           }
         },
-        "complementary_products_gnqpm4": {
-          "type": "complementary_products",
-          "settings": {
-            "title": "",
-            "products_to_show": 2,
-            "show_add_all": true
-          }
-        },
         "back_in_stock": {
           "type": "back_in_stock",
           "settings": {}
         },
-        "pickup_availability_PMebQw": {
-          "type": "pickup_availability",
-          "settings": {}
-        },
         "delivery_estimator_nMUTTw": {
           "type": "delivery_estimator",
+          "settings": {}
+        },
+        "pickup_availability_PMebQw": {
+          "type": "pickup_availability",
           "settings": {}
         },
         "social_proof_grKeeV": {
@@ -109,10 +101,9 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "complementary_products_gnqpm4",
         "back_in_stock",
-        "pickup_availability_PMebQw",
         "delivery_estimator_nMUTTw",
+        "pickup_availability_PMebQw",
         "social_proof_grKeeV",
         "inventory_countdown_UEM7dq",
         "size_chart_fxmkwx",
