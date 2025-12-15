@@ -3,8 +3,6 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign background_color = section.settings.background_color | default: '#ffffff'
-  assign text_color = section.settings.text_color | default: '#000000'
   assign section_height = section.settings.section_height | default: 300
   assign section_height_mobile = section.settings.section_height_mobile | default: 200
   assign image_opacity_percent = section.settings.image_opacity | default: 15
@@ -16,13 +14,7 @@
 -%}
 
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
   .floating-images-{{ section.id }} {
-    background-color: {{ background_color }};
-    color: {{ text_color }};
     height: {{ section_height_mobile }}vh;
   }
 
@@ -35,43 +27,6 @@
   /* Label, title, description use global .section-* classes from utilities.css */
   .floating-images-{{ section.id }} .section-label {
     margin-bottom: 1.5rem;
-  }
-
-  .floating-images-{{ section.id }} .btn {
-    position: relative;
-    color: {{ text_color }};
-    background: transparent;
-    border: var(--button-border-width) solid {{ text_color }};
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  .floating-images-{{ section.id }} .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: {{ text_color }};
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .floating-images-{{ section.id }} .btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .floating-images-{{ section.id }} .btn:hover {
-    color: {{ background_color }};
-  }
-
-  .floating-images-{{ section.id }} .btn span,
-  .floating-images-{{ section.id }} .btn i {
-    position: relative;
-    z-index: 1;
   }
 
   .floating-images-{{ section.id }} .parallax-image {
@@ -99,7 +54,7 @@
 </style>
 
 <section
-  class="floating-images-{{ section.id }} relative"
+  class="floating-images-{{ section.id }} color-{{ section.settings.color_scheme }} relative"
   data-floating-images-section="{{ section.id }}"
 >
   {%- comment -%} Floating Background Images {%- endcomment -%}
@@ -178,7 +133,7 @@
         <div class="mt-8" data-tween data-tween-type="fade-up">
           <a
             href="{{ section.settings.button_link | default: '#' }}"
-            class="btn"
+            class="btn btn--secondary"
           >
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
@@ -346,16 +301,10 @@
       "content": "Colors"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     }
   ],
   "blocks": [

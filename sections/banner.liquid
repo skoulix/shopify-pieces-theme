@@ -13,17 +13,9 @@
   assign card_radius = settings.card_radius | default: 8
   assign card_border_width = settings.card_border_width | default: 0
   assign card_shadow = settings.card_shadow | default: 'none'
-
-  assign background_color = section.settings.background_color | default: '#ffffff'
-  assign text_color = section.settings.text_color | default: '#000000'
-  assign heading_color = section.settings.heading_color | default: text_color
 -%}
 
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
   .banner-{{ section.id }} {
     padding: var(--section-vertical-padding) 0;
   }
@@ -33,8 +25,8 @@
   }
 
   .banner-content-{{ section.id }} {
-    background-color: {{ background_color }};
-    color: {{ text_color }};
+    background-color: var(--color-background);
+    color: var(--color-text);
     border-radius: {{ card_radius }}px;
     {% if card_border_width > 0 %}
     border: {{ card_border_width }}px solid var(--color-border);
@@ -45,32 +37,10 @@
   }
 
   .banner-heading-{{ section.id }} {
-    color: {{ heading_color }};
     font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
-  }
-
-  .banner-text-{{ section.id }} {
-    color: {{ text_color }};
-  }
-
-  .banner-text-{{ section.id }} p,
-  .banner-text-{{ section.id }} span,
-  .banner-text-{{ section.id }} li,
-  .banner-text-{{ section.id }} ul,
-  .banner-text-{{ section.id }} ol,
-  .banner-text-{{ section.id }} strong,
-  .banner-text-{{ section.id }} em,
-  .banner-text-{{ section.id }} a,
-  .banner-text-{{ section.id }} h1,
-  .banner-text-{{ section.id }} h2,
-  .banner-text-{{ section.id }} h3,
-  .banner-text-{{ section.id }} h4,
-  .banner-text-{{ section.id }} h5,
-  .banner-text-{{ section.id }} h6 {
-    color: inherit;
   }
 
   .banner-text-{{ section.id }} a {
@@ -82,45 +52,8 @@
     opacity: 0.7;
   }
 
-  .banner-{{ section.id }} .btn {
-    position: relative;
-    color: {{ text_color }};
-    background: transparent;
-    border: var(--button-border-width) solid {{ text_color }};
-    box-shadow: {% case settings.button_shadow %}{% when 'sm' %}0 1px 2px 0 rgb(0 0 0 / 0.05){% when 'md' %}0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1){% when 'hard' %}4px 4px 0 0 {{ text_color }}{% else %}none{% endcase %};
-    overflow: hidden;
-    transition: color 0.4s ease;
-  }
-
-  .banner-{{ section.id }} .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: {{ text_color }};
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .banner-{{ section.id }} .btn:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .banner-{{ section.id }} .btn:hover {
-    color: {{ background_color }};
-  }
-
-  .banner-{{ section.id }} .btn span,
-  .banner-{{ section.id }} .btn i {
-    position: relative;
-    z-index: 1;
-  }
-
   .banner-close-{{ section.id }} {
-    color: {{ text_color }};
+    color: var(--color-text);
     opacity: 0.6;
     transition: opacity 0.2s ease;
   }
@@ -128,12 +61,10 @@
   .banner-close-{{ section.id }}:hover {
     opacity: 1;
   }
-
-
 </style>
 
 <section
-  class="banner-{{ section.id }}"
+  class="banner-{{ section.id }} color-{{ section.settings.color_scheme }}"
   data-banner-section="{{ section.id }}"
   {% if section.settings.remember_dismissal %}data-remember-dismissal="true"{% endif %}
 >
@@ -167,7 +98,7 @@
           <div class="mt-4" data-tween data-tween-type="fade-up">
             <a
               href="{{ section.settings.button_link | default: '#' }}"
-              class="btn"
+              class="btn btn--secondary"
             >
               <span>{{ section.settings.button_text }}</span>
               <i class="ph ph-arrow-right"></i>
@@ -254,22 +185,10 @@
       "content": "Colors"
     },
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
-      "info": "Leave empty to use text color"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
     },
     {
       "type": "header",

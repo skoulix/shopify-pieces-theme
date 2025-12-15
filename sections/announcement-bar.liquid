@@ -6,8 +6,6 @@
 
 {%- if section.blocks.size > 0 -%}
   {%- liquid
-    assign bar_bg = section.settings.background_color
-    assign bar_text = section.settings.text_color
     assign bar_height = section.settings.bar_height
     assign rotation_speed = section.settings.rotation_speed
     assign show_arrows = section.settings.show_arrows
@@ -15,24 +13,15 @@
   -%}
 
   <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
-  #announcement-bar-{{ section.id }} {
-      --bar-bg: {{ bar_bg }};
-      --bar-text: {{ bar_text }};
+    #announcement-bar-{{ section.id }} {
       --bar-height: {{ bar_height }}px;
     }
 
     #announcement-bar-{{ section.id }} .announcement-bar {
-      background-color: var(--bar-bg);
-      color: var(--bar-text);
       min-height: var(--bar-height);
     }
 
     #announcement-bar-{{ section.id }} .announcement-bar a {
-      color: var(--bar-text);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
@@ -96,7 +85,7 @@
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: var(--bar-text);
+      color: var(--color-text);
       padding: 0.5rem;
       cursor: pointer;
       opacity: 0.6;
@@ -124,7 +113,7 @@
       transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: var(--bar-text);
+      color: var(--color-text);
       padding: 0.5rem;
       cursor: pointer;
       opacity: 0.6;
@@ -136,8 +125,8 @@
     }
   </style>
 
-  <div id="announcement-bar-{{ section.id }}" data-announcement-bar>
-    <div class="announcement-bar relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="Announcement">
+  <div id="announcement-bar-{{ section.id }}" class="color-{{ section.settings.color_scheme }}" data-announcement-bar>
+    <div class="announcement-bar relative flex items-center justify-center px-10 py-2 text-center text-sm bg-[--color-background] text-[--color-text]" role="region" aria-label="Announcement">
       {%- comment -%} Navigation Arrows {%- endcomment -%}
       {% if show_arrows and section.blocks.size > 1 %}
         <button type="button" class="announcement-bar__arrow announcement-bar__arrow--prev" data-announcement-prev aria-label="{{ 'accessibility.previous' | t }}">
@@ -316,16 +305,10 @@
   "class": "announcement-bar-section",
   "settings": [
     {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
     },
     {
       "type": "range",

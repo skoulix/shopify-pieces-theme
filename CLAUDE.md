@@ -523,6 +523,12 @@ When creating a new section, verify:
 
 **Use consistent setting patterns across all sections.** This ensures a cohesive merchant experience in the theme editor.
 
+### Known IDE Warnings to Ignore
+
+The Shopify theme schema validator may show false warnings for some valid setting types. These are known issues and can be safely ignored:
+
+- **`text_alignment`** - Valid Shopify setting type, but IDE may show "Value is not accepted" warning. This is a false positive.
+
 ### Standard Section Header Settings
 
 Most sections with a header should include these settings in this order:
@@ -593,7 +599,7 @@ For sections with image/content layout options:
 
 ### Standard Color Settings
 
-Always include these color settings at the end of the section schema:
+**Use the `color_scheme` setting type** for section colors. This provides a consistent, centralized color management system.
 
 ```json
 {
@@ -601,29 +607,53 @@ Always include these color settings at the end of the section schema:
   "content": "Colors"
 },
 {
-  "type": "color",
-  "id": "background_color",
-  "label": "Background color",
-  "default": "#ffffff"
-},
-{
-  "type": "color",
-  "id": "text_color",
-  "label": "Text color",
-  "default": "#000000"
+  "type": "color_scheme",
+  "id": "color_scheme",
+  "label": "Color scheme",
+  "default": "scheme-1"
 }
 ```
 
-For sections with separate heading colors:
+Then add the color scheme class to the section element:
+
+```liquid
+<section class="my-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
+```
+
+The color scheme provides these CSS variables automatically:
+- `--color-background` - Section background
+- `--color-text` - Primary text color
+- `--color-text-secondary` - Secondary/muted text
+- `--color-primary` - Primary accent color (buttons, links)
+- `--color-primary-contrast` - Text color on primary background
+- `--color-border` - Border color
+
+**For sections with additional accent colors** (e.g., star ratings, timeline dots):
 
 ```json
 {
+  "type": "color_scheme",
+  "id": "color_scheme",
+  "label": "Color scheme",
+  "default": "scheme-1"
+},
+{
   "type": "color",
-  "id": "heading_color",
-  "label": "Heading color",
-  "info": "Leave empty to use text color"
+  "id": "accent_color",
+  "label": "Accent color",
+  "default": "#6366f1"
 }
 ```
+
+**When to keep individual color settings:**
+
+Some sections legitimately need individual `background_color` and `text_color` settings:
+- Sections with button hover states that swap text/background colors
+- Sections with overlay opacity controls
+- Sections with gradient masks using the background color
+- Full-screen sections with image overlays needing contrast control
+
+Examples: hero, video, countdown, banner, floating-images, horizontal-scroll, scroll-panels
 
 ### Global Theme Settings to Respect
 
@@ -836,18 +866,51 @@ Use consistent class naming with section ID for scoping:
 
 ### CSS Variable Consistency
 
-For section-specific colors, use the pattern:
+**Prefer using CSS variables from color schemes** instead of inline Liquid values:
 
 ```css
-.my-section-{{ section.id }} {
-  background-color: {{ section.settings.background_color }};
-  color: {{ section.settings.text_color }};
+/* DO - Use CSS variables from color scheme */
+.my-section-{{ section.id }} .my-element {
+  color: var(--color-text);
+  background: var(--color-background);
+  border-color: var(--color-border);
+}
+
+.my-section-{{ section.id }} .my-muted-text {
+  color: var(--color-text-secondary);
+}
+
+.my-section-{{ section.id }} .my-button {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
 }
 ```
 
-For text with opacity variations:
+**For button hover states** (sections that keep individual colors):
+
 ```css
-.my-element { color: {{ section.settings.text_color }}; opacity: 0.7; }
-/* Or for borders/backgrounds with alpha: */
-.my-border { border-color: {{ section.settings.text_color }}20; }
+.my-section-{{ section.id }} .btn {
+  color: {{ section.settings.text_color }};
+  border-color: {{ section.settings.text_color }};
+}
+
+.my-section-{{ section.id }} .btn::before {
+  background: {{ section.settings.text_color }};
+}
+
+.my-section-{{ section.id }} .btn:hover {
+  color: {{ section.settings.background_color }};
+}
+```
+
+**For accent colors** (when using color_scheme + individual accent):
+
+```css
+.my-section-{{ section.id }} .accent-element {
+  color: {{ section.settings.accent_color }};
+}
+
+.my-section-{{ section.id }} .accent-border {
+  border-color: {{ section.settings.accent_color }};
+}
 ```
