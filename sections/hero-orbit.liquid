@@ -4,18 +4,14 @@
 {%- endcomment -%}
 
 <style>
-  {%- liquid
-    assign bg_color = section.settings.background_color | default: 'transparent'
-    assign text_color = section.settings.text_color | default: 'inherit'
-  -%}
   .hero-orbit-{{ section.id }} {
     position: relative;
     width: 100%;
     height: 100vh;
     min-height: 600px;
     overflow: hidden;
-    background-color: {{ bg_color }};
-    color: {{ text_color }};
+    background-color: var(--color-background);
+    color: var(--color-text);
   }
 
   .hero-orbit-bg-{{ section.id }} {
@@ -152,34 +148,34 @@
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--outline {
-    color: {{ text_color }};
-    border-color: {{ text_color }};
+    color: var(--color-text);
+    border-color: var(--color-text);
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--outline::before {
-    background: {{ text_color }};
+    background: var(--color-text);
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--outline:hover,
   .hero-orbit-cta-{{ section.id }} .btn--outline:hover span,
   .hero-orbit-cta-{{ section.id }} .btn--outline:hover i {
-    color: {{ bg_color }};
+    color: var(--color-background);
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--primary {
-    background: {{ text_color }};
-    border-color: {{ text_color }};
-    color: {{ bg_color }};
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--primary::before {
-    background: {{ bg_color }};
+    background: var(--color-background);
   }
 
   .hero-orbit-cta-{{ section.id }} .btn--primary:hover,
   .hero-orbit-cta-{{ section.id }} .btn--primary:hover span,
   .hero-orbit-cta-{{ section.id }} .btn--primary:hover i {
-    color: {{ text_color }};
+    color: var(--color-text);
   }
 
   .hero-orbit-scroll-{{ section.id }} {
@@ -222,7 +218,7 @@
 </style>
 
 <section
-  class="hero-orbit-{{ section.id }} is-loading"
+  class="hero-orbit-{{ section.id }} color-{{ section.settings.color_scheme }} is-loading"
   data-hero-orbit="{{ section.id }}"
   data-animation-style="{{ section.settings.animation_style }}"
 >
@@ -773,6 +769,12 @@
       "content": "Colors"
     },
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-3"
+    },
+    {
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image"
@@ -803,17 +805,6 @@
       "default": 0,
       "unit": "px",
       "label": "Background image blur"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background color",
-      "info": "Used when no background image is set"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color"
     },
     {
       "type": "color",

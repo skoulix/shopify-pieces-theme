@@ -101,6 +101,33 @@
     background: color-mix(in srgb, var(--color-text) 60%, transparent);
   }
 
+  /* Button styling - adapts to color scheme */
+  #slideshow-{{ section.id }} .btn--outline {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+  #slideshow-{{ section.id }} .btn--outline::before {
+    background: var(--color-text);
+  }
+  #slideshow-{{ section.id }} .btn--outline:hover,
+  #slideshow-{{ section.id }} .btn--outline:hover span,
+  #slideshow-{{ section.id }} .btn--outline:hover i {
+    color: var(--color-background);
+  }
+  #slideshow-{{ section.id }} .btn--primary {
+    background: var(--color-text);
+    border-color: var(--color-text);
+    color: var(--color-background);
+  }
+  #slideshow-{{ section.id }} .btn--primary::before {
+    background: var(--color-background);
+  }
+  #slideshow-{{ section.id }} .btn--primary:hover,
+  #slideshow-{{ section.id }} .btn--primary:hover span,
+  #slideshow-{{ section.id }} .btn--primary:hover i {
+    color: var(--color-text);
+  }
+
   {% if parallax %}
   #slideshow-{{ section.id }} .slideshow__media-wrapper { height: 120%; top: -10%; }
   {% endif %}
