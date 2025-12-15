@@ -554,7 +554,7 @@
         const cartType = window.themeSettings?.cartType || 'drawer';
 
         if (cartType === 'drawer') {
-          document.dispatchEvent(new CustomEvent('cart:open'));
+          document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
         } else if (cartType === 'notification') {
           const productInfo = {
             title: item.items ? item.items[0].product_title : item.product_title,
@@ -632,7 +632,7 @@
         const cartType = window.themeSettings?.cartType || 'drawer';
 
         if (cartType === 'drawer') {
-          document.dispatchEvent(new CustomEvent('cart:open'));
+          document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
         } else if (cartType === 'notification') {
           // For multiple items, show notification for the first one
           const firstItem = data.items ? data.items[0] : data;

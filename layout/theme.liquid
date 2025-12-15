@@ -223,7 +223,7 @@
           // Handle cart type
           const cartType = window.themeSettings?.cartType || 'drawer';
           if (cartType === 'drawer') {
-            document.dispatchEvent(new CustomEvent('cart:open'));
+            document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
           } else if (cartType === 'notification') {
             // Get product info from the card for notification
             const card = quickAddBtn.closest('.product-card');

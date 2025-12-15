@@ -231,7 +231,7 @@
       const cartType = window.themeSettings?.cartType || 'drawer';
       if (cartType === 'drawer') {
         if (window.refreshCartDrawer) await window.refreshCartDrawer();
-        document.dispatchEvent(new CustomEvent('cart:open'));
+        document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
       }
 
       if (textEl) textEl.textContent = i18n.added;

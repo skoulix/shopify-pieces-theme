@@ -5,7 +5,7 @@
 {%- endcomment -%}
 
 <div
-  class="quick-view-modal group fixed inset-0 z-[9999] opacity-0 invisible pointer-events-none [&.is-open]:opacity-100 [&.is-open]:visible [&.is-open]:pointer-events-auto"
+  class="quick-view-modal group fixed inset-0 z-[9999] pointer-events-none invisible transition-[visibility] duration-0 delay-300 [&.is-open]:pointer-events-auto [&.is-open]:visible [&.is-open]:delay-0"
   data-quick-view-modal
   role="dialog"
   aria-modal="true"
@@ -16,7 +16,7 @@
   <div class="drawer-backdrop" data-quick-view-close></div>
 
   {%- comment -%} Modal Content {%- endcomment -%}
-  <div class="fixed inset-4 md:inset-auto md:bottom-6 md:right-6 md:w-[800px] md:h-[450px] md:max-w-[calc(100vw-3rem)] md:max-h-[calc(100vh-3rem)] flex flex-col overflow-hidden bg-[--color-background] border border-[--color-border] rounded-[--card-radius] shadow-lg opacity-0 translate-y-5 scale-[0.98] transition-all duration-300 ease-out group-[.is-open]:opacity-100 group-[.is-open]:translate-y-0 group-[.is-open]:scale-100">
+  <div class="fixed inset-4 md:inset-auto md:bottom-6 md:right-6 md:w-[800px] md:h-[450px] md:max-w-[calc(100vw-3rem)] md:max-h-[calc(100vh-3rem)] flex flex-col overflow-hidden bg-[--color-background] border border-[--color-border] rounded-[--card-radius] shadow-lg opacity-0 translate-y-5 scale-[0.98] transition-all duration-300 ease-out group-[.is-open]:opacity-100 group-[.is-open]:translate-y-0 group-[.is-open]:scale-100 group-[:not(.is-open)]:ease-in">
     {%- comment -%} Close Button {%- endcomment -%}
     <button
       type="button"
@@ -234,7 +234,7 @@
         // Handle cart type
         const cartType = window.themeSettings?.cartType || 'drawer';
         if (cartType === 'drawer') {
-          document.dispatchEvent(new CustomEvent('cart:open'));
+          document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
         } else if (cartType === 'notification') {
           // Get product info from the quick view modal
           const title = body.querySelector('.quick-view-product__info h2 a')?.textContent?.trim() || '';

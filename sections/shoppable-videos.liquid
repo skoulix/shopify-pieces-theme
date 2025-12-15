@@ -907,7 +907,7 @@
                   setTimeout(() => { closeLightbox(); window.openCartDrawer(); }, 500);
                 } else if (window.refreshCartDrawer) {
                   await window.refreshCartDrawer();
-                  setTimeout(() => { closeLightbox(); document.dispatchEvent(new CustomEvent('cart:open')); }, 500);
+                  setTimeout(() => { closeLightbox(); document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } })); }, 500);
                 } else {
                   setTimeout(() => { button.innerHTML = originalText; button.disabled = false; }, 2000);
                 }

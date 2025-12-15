@@ -497,7 +497,7 @@
           if (window.refreshCartDrawer) {
             await window.refreshCartDrawer();
           }
-          document.dispatchEvent(new CustomEvent('cart:open'));
+          document.dispatchEvent(new CustomEvent('cart:open', { detail: { skipFetch: true } }));
         } else if (cartType === 'notification') {
           document.dispatchEvent(new CustomEvent('cart:notification', {
             detail: {
