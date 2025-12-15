@@ -119,10 +119,9 @@
 
 .collection-wrapper[data-view="list"] .product-card {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px 1fr;
   gap: 1rem;
-  align-items: center;
-  flex-direction: row;
+  align-items: start;
 }
 
 .collection-wrapper[data-view="list"] .product-card-image {
@@ -130,6 +129,8 @@
   height: auto;
   aspect-ratio: 1;
   flex-shrink: 0;
+  grid-row: 1 / -1;
+  align-self: center;
 }
 
 .collection-wrapper[data-view="list"] .product-card-image img {
@@ -167,34 +168,72 @@
   margin: 0;
 }
 
+/* Hide mobile list buttons by default (grid view) */
+.product-card-list-buttons-mobile {
+  display: none;
+}
+
+/* Mobile list view: 2 columns, hide quick-add section, show inline buttons */
 .collection-wrapper[data-view="list"] .product-card-quick-add {
-  padding: 0 1rem;
-  background: transparent;
-  flex-shrink: 0;
+  display: none;
+}
+
+.collection-wrapper[data-view="list"] .product-card-list-buttons-mobile {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 0.5rem;
+  grid-column: 2;
+  padding-bottom: 0.75rem;
 }
 
-.collection-wrapper[data-view="list"] .product-card-quick-add .btn {
-  width: auto;
+.collection-wrapper[data-view="list"] .product-card-list-actions-mobile {
+  width: 100%;
+  justify-content: space-between;
 }
 
-/* Show action buttons in list view */
-.collection-wrapper[data-view="list"] .product-card-actions-list {
-  display: block;
+.collection-wrapper[data-view="list"] .product-card-list-actions-mobile .btn {
+  flex: 1;
 }
 
+/* Desktop list view: 3 columns with quick-add in 3rd column */
 @media (min-width: 768px) {
   .collection-wrapper[data-view="list"] .product-card {
     grid-template-columns: 100px 1fr auto;
     gap: 1.5rem;
+    align-items: center;
   }
 
   .collection-wrapper[data-view="list"] .product-card-image {
     width: 100px;
+  }
+
+  /* Hide mobile inline buttons, show quick-add section */
+  .collection-wrapper[data-view="list"] .product-card-list-buttons-mobile {
+    display: none;
+  }
+
+  .collection-wrapper[data-view="list"] .product-card-quick-add {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    background: transparent;
+  }
+
+  .collection-wrapper[data-view="list"] .product-card-quick-add > a,
+  .collection-wrapper[data-view="list"] .product-card-quick-add > button {
+    width: auto;
+    min-width: 190px;
+  }
+
+  /* Show action buttons after main button */
+  .collection-wrapper[data-view="list"] .product-card-list-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .collection-wrapper[data-view="list"] .product-card-list-actions .btn {
+    flex: 1;
   }
 }
 
