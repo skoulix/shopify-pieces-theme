@@ -1,0 +1,292 @@
+{%- comment -%}
+  Image Section - Single image with reveal effects
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = ''
+  else
+    assign container_class = 'page-container'
+  endif
+-%}
+
+<style>
+  .image-section-{{ section.id }} {
+    {% if section.settings.remove_padding %}
+    padding: 0;
+    {% else %}
+    padding: var(--section-vertical-padding) 0;
+    {% endif %}
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+
+  .image-section-wrapper-{{ section.id }} {
+    max-width: {{ section.settings.image_width }}%;
+    {% if section.settings.image_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% elsif section.settings.image_alignment == 'right' %}
+    margin-left: auto;
+    {% endif %}
+  }
+
+  .image-section-container-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+    border-radius: {{ section.settings.border_radius }}px;
+    {% if section.settings.aspect_ratio != 'auto' %}
+    aspect-ratio: {{ section.settings.aspect_ratio }};
+    {% endif %}
+  }
+
+  .image-section-container-{{ section.id }} img,
+  .image-section-container-{{ section.id }} svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    {% if section.settings.enable_parallax %}
+    height: calc(100% + {{ section.settings.parallax_intensity }}px);
+    margin-top: calc(-{{ section.settings.parallax_intensity }}px / 2);
+    {% endif %}
+  }
+
+  .image-section-caption-{{ section.id }} {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    opacity: 0.7;
+    {% if section.settings.image_alignment == 'center' %}
+    text-align: center;
+    {% elsif section.settings.image_alignment == 'right' %}
+    text-align: right;
+    {% endif %}
+  }
+</style>
+
+<section
+  class="image-section-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  data-image-section="{{ section.id }}"
+>
+  <div class="{{ container_class }}">
+    <div class="image-section-wrapper-{{ section.id }}">
+      {% if section.settings.link != blank %}<a href="{{ section.settings.link }}">{% endif %}
+        <div
+          class="image-section-container-{{ section.id }}"
+          {% if section.settings.reveal_effect != 'none' %}
+            data-tween
+            data-tween-type="{{ section.settings.reveal_effect }}"
+          {% endif %}
+          {% if section.settings.enable_parallax %}
+            data-parallax
+            data-parallax-speed="{{ section.settings.parallax_intensity }}"
+          {% endif %}
+        >
+          {% if section.settings.image != blank %}
+            {{ section.settings.image | image_url: width: 2000 | image_tag:
+              loading: 'lazy',
+              decoding: 'async',
+              sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1600px',
+              widths: '600, 800, 1000, 1200, 1600, 2000',
+              alt: section.settings.image.alt | default: ''
+            }}
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'w-full h-full' }}
+          {% endif %}
+        </div>
+      {% if section.settings.link != blank %}</a>{% endif %}
+
+      {% if section.settings.caption != blank %}
+        <p class="image-section-caption-{{ section.id }}" data-tween data-tween-type="fade-up">
+          {{ section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if section.settings.enable_parallax %}
+<script>
+  (function() {
+    const container = document.querySelector('[data-image-section="{{ section.id }}"] [data-parallax]');
+    if (!container) return;
+
+    const speed = parseFloat(container.dataset.parallaxSpeed) || 100;
+    const img = container.querySelector('img, svg');
+    if (!img) return;
+
+    function updateParallax() {
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Only animate when in view
+      if (rect.bottom < 0 || rect.top > windowHeight) return;
+
+      // Calculate progress (0 = top of container at bottom of viewport, 1 = bottom of container at top of viewport)
+      const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      // Translate from -speed/2 to +speed/2
+      const translate = (progress - 0.5) * speed;
+
+      img.style.transform = `translateY(${translate}px)`;
+    }
+
+    // Use requestAnimationFrame for smooth updates
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateParallax();
+  })();
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Image",
+  "tag": "section",
+  "class": "image-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "caption",
+      "label": "Caption"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Image width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Aspect ratio",
+      "default": "auto",
+      "options": [
+        { "value": "auto", "label": "Original" },
+        { "value": "1/1", "label": "Square (1:1)" },
+        { "value": "4/3", "label": "Standard (4:3)" },
+        { "value": "3/2", "label": "Classic (3:2)" },
+        { "value": "16/9", "label": "Widescreen (16:9)" },
+        { "value": "21/9", "label": "Cinematic (21:9)" },
+        { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "2/3", "label": "Portrait (2:3)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_padding",
+      "default": false,
+      "label": "Remove section padding"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "reveal_effect",
+      "label": "Reveal effect",
+      "default": "clip-right",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade-up", "label": "Fade up" },
+        { "value": "scale", "label": "Scale" },
+        { "value": "clip-right", "label": "Clip right" },
+        { "value": "clip-left", "label": "Clip left" },
+        { "value": "clip-up", "label": "Clip up" },
+        { "value": "clip-down", "label": "Clip down" }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "default": false,
+      "label": "Enable parallax"
+    },
+    {
+      "type": "range",
+      "id": "parallax_intensity",
+      "label": "Parallax intensity",
+      "min": 50,
+      "max": 200,
+      "step": 10,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image",
+      "category": "Image & media"
+    }
+  ]
+}
+{% endschema %}
