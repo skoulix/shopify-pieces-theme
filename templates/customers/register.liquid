@@ -7,7 +7,7 @@
   .customer-page__title {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: calc(-0.04em + var(--heading-letter-spacing, 0em));
     line-height: 0.9;
     color: var(--color-text);
   }

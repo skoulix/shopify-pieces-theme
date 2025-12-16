@@ -160,6 +160,26 @@ USED_ICONS = [
     "crown",
     "globe-simple",
     "star-four",
+
+    # === FEATURES GRID & TEMPLATES ===
+    # Features Grid section icons
+    "chat-circle",
+    "medal",
+    "recycle",
+    "hand-heart",
+    "users",
+    "chart-line-up",
+    "target",
+    "rocket",
+    "code",
+    "paint-brush",
+    "wrench",
+    # Template-specific icons
+    "mountains",
+    "flask",
+    "eye-closed",
+    "hand-pointing",
+    "arrows-clockwise",
 ]
 
 # Fill icons (use ph-fill class)

@@ -137,7 +137,7 @@
   .feature-item-title-{{ section.id }} {
     font-size: clamp(1.125rem, 2vw, 1.5rem);
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     line-height: 1.2;
     margin-bottom: 0.75rem;
     color: var(--color-text);

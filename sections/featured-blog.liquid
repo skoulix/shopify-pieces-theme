@@ -55,13 +55,13 @@
   .fb-{{ section.id }} .blog-card-title {
     font-size: clamp(1rem, 2vw, 1.25rem);
     line-height: 1.3;
-    letter-spacing: -0.01em;
+    letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
   }
 
   .fb-{{ section.id }} .blog-card--featured .blog-card-title {
     font-size: clamp(1.25rem, 3vw, 2rem);
     line-height: 1.2;
-    letter-spacing: -0.02em;
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
   }
 
   .blog-card-cta-text-wrapper {
