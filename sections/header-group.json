@@ -61,7 +61,7 @@
         "menu": "main-menu",
         "header_layout": "logo_left",
         "nav_position": "center",
-        "nav_uppercase": true,
+        "nav_uppercase": false,
         "show_search": true,
         "search_type": "drawer",
         "show_wishlist": true,
