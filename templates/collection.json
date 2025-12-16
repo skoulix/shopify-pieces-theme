@@ -18,7 +18,7 @@
         "show_product_count": true,
         "show_description": true,
         "enable_description_shuffle": true,
-        "enable_bento_pattern": true,
+        "enable_bento_pattern": false,
         "columns_desktop": 4,
         "columns_tablet": 2,
         "columns_mobile": "1",
