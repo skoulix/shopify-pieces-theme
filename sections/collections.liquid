@@ -259,7 +259,7 @@
       const headerDesc = wrapper.querySelector('[data-shuffle-text]');
       if (headerDesc) {
         const originalText = headerDesc.dataset.originalText || headerDesc.textContent.trim();
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+        const chars = {% if settings.headings_uppercase %}'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'{% else %}'abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*'{% endif %};
 
         // Lock height before animation to prevent layout shifts
         const initialHeight = headerDesc.offsetHeight;

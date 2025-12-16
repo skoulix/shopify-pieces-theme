@@ -73,7 +73,7 @@
   .rolling-numbers-label-{{ section.id }} {
     margin-top: 1rem;
     font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.15em;
     opacity: 0.6;
   }

@@ -48,7 +48,7 @@
     {% endif %}
 
     {% if section.settings.description != blank %}
-      <p class="mt-8 max-w-[420px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% endif %}>
+      <p class="mt-8 max-w-[420px] text-xs{% if settings.headings_uppercase %} uppercase{% endif %} tracking-[0.05em] leading-relaxed text-[--color-text-secondary] {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% endif %}>
         {{ section.settings.description }}
       </p>
     {% endif %}
@@ -162,7 +162,7 @@
     }
 
     const originalText = description.dataset.originalText || description.textContent.trim();
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+    const chars = {% if settings.headings_uppercase %}'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'{% else %}'abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*'{% endif %};
 
     // Lock height before animation
     const initialHeight = description.offsetHeight;

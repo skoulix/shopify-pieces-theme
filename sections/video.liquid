@@ -156,7 +156,7 @@
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
   }
 
   .video-placeholder-bars-{{ section.id }} {

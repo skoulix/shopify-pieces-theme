@@ -84,7 +84,7 @@
   .countdown-label-{{ section.id }} {
     margin-top: 0.75rem;
     font-size: clamp(0.75rem, 1.5vw, 0.75rem);
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.2em;
     opacity: 0.5;
   }
@@ -310,7 +310,7 @@
   .countdown-label-{{ section.id }} {
     margin-top: 0.2rem;
     font-size: 0.5rem;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.15em;
     opacity: 0.5;
   }
@@ -425,7 +425,7 @@
 
   .countdown-label-{{ section.id }} {
     font-size: 0.65em;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     opacity: 0.7;
   }
 

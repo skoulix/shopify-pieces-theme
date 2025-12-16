@@ -107,7 +107,7 @@
   .map-info-item h3 {
     font-size: 0.75rem;
     font-weight: 600;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.2em;
     opacity: 0.5;
     margin-bottom: 0.5rem;

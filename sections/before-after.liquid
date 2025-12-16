@@ -143,7 +143,7 @@
   .before-after-label-tag-{{ section.id }} {
     font-size: 0.75rem;
     font-weight: 700;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.1em;
     padding: 0.5rem 1rem;
     background: rgba(0, 0, 0, 0.6);

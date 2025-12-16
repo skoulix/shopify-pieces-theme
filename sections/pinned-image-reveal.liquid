@@ -113,7 +113,7 @@
             <div class="slide-content" data-bg-color="{{ block.settings.background_color | default: '#ffffff' }}">
               <div class="content w-full">
                 {%- if block.settings.label != blank -%}
-                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
+                  <span class="slide-label block text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
                     {{- block.settings.label -}}
                   </span>
                 {%- endif -%}
@@ -157,7 +157,7 @@
             >
               <div class="content w-full">
                 {%- if block.settings.label != blank -%}
-                  <span class="slide-label block text-sm uppercase tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
+                  <span class="slide-label block text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-widest mb-4 opacity-60" data-tween data-tween-type="fade-up">
                     {{- block.settings.label -}}
                   </span>
                 {%- endif -%}

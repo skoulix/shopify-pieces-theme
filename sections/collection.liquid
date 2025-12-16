@@ -93,7 +93,7 @@
           {%- when 'right' -%}ml-auto
         {%- endcase -%}
       {%- endcapture -%}
-      <div class="mt-8 max-w-[380px] text-xs uppercase tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em] {{ desc_align_class }}"{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ desc_text | escape }}"{% endif %}>
+      <div class="mt-8 max-w-[380px] text-xs{% if settings.headings_uppercase %} uppercase{% endif %} tracking-[0.05em] leading-relaxed text-[--color-text-secondary] pl-[0.15em] {{ desc_align_class }}"{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ desc_text | escape }}"{% endif %}>
         {{ desc_text }}
       </div>
     {% endif %}
@@ -440,7 +440,7 @@
       if (headerDesc) {
         // Use data attribute for original text (survives Swup navigation)
         const originalText = headerDesc.dataset.originalText || headerDesc.textContent.trim();
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*';
+        const chars = {% if settings.headings_uppercase %}'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*'{% else %}'abcdefghijklmnopqrstuvwxyz0123456789!@#$%&*'{% endif %};
 
         // Lock height before animation to prevent layout shifts
         const initialHeight = headerDesc.offsetHeight;

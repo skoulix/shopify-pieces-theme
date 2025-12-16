@@ -158,7 +158,7 @@
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     color: var(--color-primary);
   }
 

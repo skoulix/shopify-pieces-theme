@@ -70,7 +70,7 @@
     border-bottom: 1px solid var(--color-border);
     font-size: 0.75rem;
     font-weight: 600;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.15em;
     opacity: 0.6;
     position: sticky;

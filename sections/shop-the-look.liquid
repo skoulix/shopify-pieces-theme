@@ -213,7 +213,7 @@
 
   .shop-the-look-complete-{{ section.id }} .complete-total-label {
     font-size: 0.75rem;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.05em;
     opacity: 0.7;
   }

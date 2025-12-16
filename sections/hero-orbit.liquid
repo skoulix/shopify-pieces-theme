@@ -141,7 +141,7 @@
     font-size: clamp(0.875rem, 2vw, 1.25rem);
     font-weight: 400;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     opacity: 0;
     filter: blur(5px);
     will-change: opacity, filter;
@@ -203,7 +203,7 @@
   .hero-orbit-scroll-{{ section.id }} span {
     font-size: 0.625rem;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
   }
 
   .hero-orbit-scroll-{{ section.id }} i {
