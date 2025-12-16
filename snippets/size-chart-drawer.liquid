@@ -48,7 +48,7 @@
     </div>
 
     {%- comment -%} Body {%- endcomment -%}
-    <div class="flex-1 overflow-y-auto p-6" data-size-chart-body>
+    <div class="flex-1 overflow-y-auto p-6" data-size-chart-body data-lenis-prevent>
       {% if page != blank and page.content != blank %}
         <div class="prose prose-sm max-w-none">
           {{ page.content }}

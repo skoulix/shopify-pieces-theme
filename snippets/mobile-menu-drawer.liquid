@@ -41,7 +41,7 @@
       {%- comment -%} ========================================
           SLIDING PANELS NAVIGATION (3-level support)
       ======================================== {%- endcomment -%}
-      <nav class="mobile-nav__content mobile-nav__panels flex-1 flex flex-col overflow-hidden relative" data-mobile-panels>
+      <nav class="mobile-nav__content mobile-nav__panels flex-1 flex flex-col overflow-hidden relative" data-mobile-panels data-lenis-prevent>
         {%- comment -%} Main Panel (Level 1) {%- endcomment -%}
         <div class="mobile-nav__panel mobile-nav__panel--main is-active px-6 py-8" data-panel="main" data-panel-level="1">
           <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto">
@@ -201,7 +201,7 @@
       {%- comment -%} ========================================
           ACCORDION NAVIGATION (original 2-level)
       ======================================== {%- endcomment -%}
-      <nav class="mobile-nav__content flex-1 flex flex-col justify-center px-6 py-8 overflow-y-auto">
+      <nav class="mobile-nav__content flex-1 flex flex-col justify-center px-6 py-8 overflow-y-auto" data-lenis-prevent>
         <ul class="mobile-nav__list list-none m-0 p-0">
           {% for link in menu.links %}
             {%- liquid
