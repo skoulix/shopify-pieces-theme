@@ -36,6 +36,7 @@
     "product_card_image_ratio": "portrait",
     "show_vendor": true,
     "enable_quick_view": true,
+    "enable_compare": true,
     "show_sale_badge": true,
     "sale_badge_style": "percentage",
     "social_instagram_link": "#",

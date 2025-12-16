@@ -249,23 +249,6 @@
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"
       }
-    },
-    "featured_product_ckranb": {
-      "type": "featured-product",
-      "name": "Featured Product",
-      "settings": {
-        "product": "blizzardx-pro-2025-snowboard",
-        "layout": "image_left",
-        "full_width": false,
-        "image_ratio": "1/1",
-        "show_thumbnails": true,
-        "show_vendor": true,
-        "show_description": true,
-        "variant_picker_type": "buttons",
-        "show_quantity": true,
-        "show_view_details": true,
-        "color_scheme": "scheme-1"
-      }
     }
   },
   "order": [
@@ -275,7 +258,6 @@
     "image_with_text",
     "featured_blog_GWjPQG",
     "testimonials_UML8MP",
-    "newsletter",
-    "featured_product_ckranb"
+    "newsletter"
   ]
 }
