@@ -42,7 +42,7 @@
     "social_proof_type": "both",
     "popup_enabled": true,
     "popup_trigger": "exit",
-    "popup_image": "shopify://shop_images/dina-badamshina-vY1dgT-eeSI-unsplash.jpg",
+    "popup_image": "",
     "popup_show_discount": true,
     "popup_layout": "side_image",
     "popup_size": "medium",
