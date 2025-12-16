@@ -17,6 +17,7 @@
     "body_scale": 100,
     "heading_scale": 100,
     "headings_uppercase": true,
+    "buttons_uppercase": true,
     "heading_letter_spacing": 50,
     "page_width": 1280,
     "page_vertical_padding": 80,

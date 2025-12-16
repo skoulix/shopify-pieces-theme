@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Header",
   "type": "header",
@@ -16,7 +25,6 @@
             "featured_heading": "Featured",
             "featured_collection": "frontpage",
             "featured_limit": 5,
-            "promo_image": "",
             "promo_heading": "Check this out!",
             "promo_text": "Hello",
             "promo_link": ""
@@ -53,6 +61,7 @@
         "menu": "main-menu",
         "header_layout": "logo_left",
         "nav_position": "center",
+        "nav_uppercase": true,
         "show_search": true,
         "search_type": "drawer",
         "show_wishlist": true,
