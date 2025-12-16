@@ -210,35 +210,35 @@
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#0f0f0f",
-            "background_gradient": "linear-gradient(145deg, #0f0f0f 0%, #1a1510 50%, #0f0f0f 100%)",
-            "text": "#f5f5f5",
-            "text_secondary": "#a0a0a0",
+            "background": "#141210",
+            "background_gradient": "linear-gradient(145deg, #141210 0%, #1c1814 50%, #141210 100%)",
+            "text": "#f5f3f0",
+            "text_secondary": "#9a9590",
             "primary": "#c9a961",
-            "primary_contrast": "#0f0f0f",
-            "border": "#2a2a2a"
+            "primary_contrast": "#141210",
+            "border": "#2d2926"
           }
         },
         "scheme-2": {
           "settings": {
-            "background": "#1a1a1a",
+            "background": "#1e1a16",
             "background_gradient": "",
-            "text": "#f5f5f5",
-            "text_secondary": "#a0a0a0",
+            "text": "#f5f3f0",
+            "text_secondary": "#9a9590",
             "primary": "#c9a961",
-            "primary_contrast": "#0f0f0f",
-            "border": "#2a2a2a"
+            "primary_contrast": "#141210",
+            "border": "#3a3530"
           }
         },
         "scheme-3": {
           "settings": {
-            "background": "#f5f5f5",
+            "background": "#f5f3f0",
             "background_gradient": "",
-            "text": "#0f0f0f",
-            "text_secondary": "#5a5a5a",
+            "text": "#1a1714",
+            "text_secondary": "#5c5550",
             "primary": "#9a7b3c",
             "primary_contrast": "#ffffff",
-            "border": "#d0d0d0"
+            "border": "#d5d0ca"
           }
         }
       },
@@ -312,6 +312,7 @@
       "card_shadow": "none",
       "input_radius": 0,
       "input_border_width": 1,
+      "input_shadow": "none",
       "logo_width": 140,
       "cart_type": "drawer"
     },
