@@ -1,0 +1,252 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 35,
+        "label": "2024/25 SEASON",
+        "title": "Chase the Storm",
+        "description": "Gear built for riders who don't wait for perfect conditions.",
+        "content_alignment": "left",
+        "button_text": "Shop New Arrivals",
+        "button_link": "shopify://collections/all",
+        "button_style": "solid",
+        "button_size": "large",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "show_scroll_indicator": false
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "FREE SHIPPING ON BOARDS"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "30-DAY RIDE GUARANTEE"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "text": "RIDER-OWNED SINCE 2015"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "TEAM TESTED GEAR"
+          }
+        }
+      },
+      "block_order": [
+        "text_1",
+        "text_2",
+        "text_3",
+        "text_4"
+      ],
+      "settings": {
+        "speed": 12,
+        "direction": "left",
+        "separator": "◆",
+        "pause_on_hover": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "NEW IN",
+        "title": "Fresh Drops",
+        "description": "The latest boards, bindings, and gear for this season.",
+        "collection": "",
+        "products_count": 4,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {
+        "image_ratio": "16/9",
+        "label": "THE CRAFT",
+        "title": "Built for the Mountain",
+        "text": "<p>Every board in our lineup is shaped by riders, tested in the backcountry, and built to perform when it matters. No marketing gimmicks—just gear that works.</p>",
+        "button_text": "Our Story",
+        "button_link": "shopify://pages/about",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": true,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "featured_collection_2": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "PROVEN PERFORMERS",
+        "title": "Best Sellers",
+        "description": "The boards riders keep coming back to.",
+        "collection": "",
+        "products_count": 4,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "The mountain\ndoesn't *wait*.",
+        "subtext": "Neither should you.",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": true,
+        "color_scheme": "scheme-3",
+        "accent_color": ""
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "mountains",
+            "title": "Backcountry Tested",
+            "text": "Every product is tested in real conditions by our team riders.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield-check",
+            "title": "2-Year Warranty",
+            "text": "We stand behind everything we make.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "arrows-clockwise",
+            "title": "30-Day Ride Guarantee",
+            "text": "Not feeling it? Send it back, no questions asked.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Board Shipping",
+            "text": "All boards ship free. Anywhere in the country.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "",
+        "title": "Why Ride With Us",
+        "description": "",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 4,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Best all-mountain board I've ever ridden. Handles everything from groomers to powder.",
+            "rating": 5,
+            "author": "Jake T.",
+            "author_title": "Colorado"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally found a brand that actually listens to riders. This board is dialed.",
+            "rating": 5,
+            "author": "Emma S.",
+            "author_title": "Utah"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Third season on this board and it still rips. Built to last.",
+            "rating": 5,
+            "author": "Marcus W.",
+            "author_title": "Vermont"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "label": "FROM THE COMMUNITY",
+        "title": "Rider Reviews",
+        "header_alignment": "center",
+        "show_rating": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Join the Crew",
+        "text": "Early access to new gear, team edits, and exclusive drops.",
+        "button_text": "Sign Up",
+        "privacy_text": "No spam, just stoke. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "featured_collection",
+    "image_with_text",
+    "featured_collection_2",
+    "text_reveal",
+    "features_grid",
+    "testimonials",
+    "newsletter"
+  ]
+}

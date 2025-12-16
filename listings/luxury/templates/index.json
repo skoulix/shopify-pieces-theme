@@ -6,7 +6,7 @@
         "overlay_opacity": 50,
         "label": "The Collection",
         "title": "Timeless Elegance",
-        "description": "Discover exquisite pieces crafted for those who appreciate the finer things in life.",
+        "description": "Handcrafted jewelry designed to be treasured for generations.",
         "content_alignment": "center",
         "button_text": "Explore Collection",
         "button_link": "shopify://collections/all",
@@ -40,7 +40,7 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "1892",
+            "number": "1987",
             "label": "Established"
           }
         },
@@ -60,7 +60,7 @@
         "image_ratio": "4/5",
         "label": "Our Heritage",
         "title": "A Legacy of Excellence",
-        "text": "<p>For generations, we have dedicated ourselves to the pursuit of perfection. Each piece tells a story of heritage, craftsmanship, and unwavering commitment to quality.</p>",
+        "text": "<p>For over three decades, our master jewelers have dedicated themselves to the art of creating extraordinary pieces. Each creation is meticulously handcrafted using time-honored techniques passed down through generations.</p>",
         "button_text": "Our Story",
         "button_link": "",
         "layout": "image_left",

@@ -1,0 +1,252 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 40,
+        "label": "NEW DROP",
+        "title": "Wear Your Attitude",
+        "description": "Limited edition tees that say what you're thinking.",
+        "content_alignment": "left",
+        "button_text": "SHOP NOW",
+        "button_link": "shopify://collections/all",
+        "button_style": "solid",
+        "button_size": "large",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "show_scroll_indicator": false
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "FREE SHIPPING OVER $50"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "NEW DROPS EVERY FRIDAY"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "text": "100% COTTON"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "DESIGNED IN LA"
+          }
+        }
+      },
+      "block_order": [
+        "text_1",
+        "text_2",
+        "text_3",
+        "text_4"
+      ],
+      "settings": {
+        "speed": 15,
+        "direction": "left",
+        "separator": "●",
+        "pause_on_hover": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "JUST DROPPED",
+        "title": "New Arrivals",
+        "description": "",
+        "collection": "",
+        "products_count": 8,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "settings": {
+        "image_ratio": "1/1",
+        "label": "THE VIBE",
+        "title": "Not Just a Shirt",
+        "text": "<p>Every design starts as an idea we'd actually wear. No corporate focus groups. No trend-chasing. Just graphics that hit different.</p>",
+        "button_text": "SEE COLLECTION",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": true,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "featured_collection_2": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "FAN FAVORITES",
+        "title": "Best Sellers",
+        "description": "The ones that keep selling out.",
+        "collection": "",
+        "products_count": 4,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "Express yourself.\nNo filter needed.",
+        "subtext": "",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": true,
+        "color_scheme": "scheme-3",
+        "accent_color": ""
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "t-shirt",
+            "title": "Premium Cotton",
+            "text": "Heavyweight 6oz cotton that actually lasts.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "paint-brush",
+            "title": "Original Designs",
+            "text": "Every graphic is created in-house. No knockoffs.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "package",
+            "title": "Fast Shipping",
+            "text": "Ships within 24 hours. Free over $50.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "arrows-clockwise",
+            "title": "Easy Returns",
+            "text": "Don't love it? Send it back. No drama.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "",
+        "title": "Why We're Different",
+        "description": "",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 4,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally a brand that gets it. The fit is perfect and the designs are fire.",
+            "rating": 5,
+            "author": "Jake M.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Got so many compliments on my tee. Already ordered three more.",
+            "rating": 5,
+            "author": "Mia R.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Quality is insane for the price. This is my new go-to brand.",
+            "rating": 5,
+            "author": "Tyler K.",
+            "author_title": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "label": "REAL TALK",
+        "title": "What People Are Saying",
+        "header_alignment": "center",
+        "show_rating": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Get Early Access",
+        "text": "Be the first to know about new drops and exclusive deals.",
+        "button_text": "Subscribe",
+        "privacy_text": "No spam, just heat. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "featured_collection",
+    "image_with_text",
+    "featured_collection_2",
+    "text_reveal",
+    "features_grid",
+    "testimonials",
+    "newsletter"
+  ]
+}

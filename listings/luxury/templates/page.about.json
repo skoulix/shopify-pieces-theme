@@ -22,14 +22,14 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "1892",
+            "number": "1987",
             "label": "Established"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "IV",
+            "number": "II",
             "label": "Generations"
           }
         }
@@ -42,7 +42,7 @@
         "image_ratio": "4/5",
         "label": "Our Story",
         "title": "A Tradition of Excellence",
-        "text": "<p>For over a century, our house has been synonymous with uncompromising quality and timeless elegance. What began as a small atelier has evolved into a globally recognized symbol of refined taste and exceptional craftsmanship.</p>",
+        "text": "<p>For over three decades, our master jewelers have been synonymous with uncompromising quality and timeless elegance. What began as a small atelier has evolved into a globally recognized name in fine jewelry, trusted by collectors worldwide.</p>",
         "button_text": "Explore Collection",
         "button_link": "shopify://collections/all",
         "layout": "image_left",
@@ -57,25 +57,25 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "1892",
+            "year": "1987",
             "title": "The Founding",
-            "text": "Established by master craftsmen with a vision for excellence."
+            "text": "Established by master jewelers with a vision for exceptional craftsmanship."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "1924",
+            "year": "1998",
             "title": "International Recognition",
-            "text": "Received the prestigious Gold Medal at the Paris Exhibition."
+            "text": "Featured in Vogue and recognized as a rising star in fine jewelry."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "1967",
-            "title": "The Modern Era",
-            "text": "Expanded to serve distinguished clientele across five continents."
+            "year": "2010",
+            "title": "Global Expansion",
+            "text": "Opened flagship boutiques in Paris, New York, and Tokyo."
           }
         },
         "milestone_4": {
@@ -170,7 +170,7 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "130",
+            "number": "35",
             "prefix": "",
             "suffix": "+",
             "label": "Years of Heritage",
@@ -200,10 +200,10 @@
         "stat_4": {
           "type": "stat",
           "settings": {
-            "number": "IV",
+            "number": "10",
             "prefix": "",
-            "suffix": "",
-            "label": "Generations",
+            "suffix": "K+",
+            "label": "Pieces Created",
             "description": ""
           }
         }

@@ -1,0 +1,214 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 50,
+        "label": "WHO WE ARE",
+        "title": "Born From the Culture",
+        "description": "We started in a bedroom with a screen printer and a lot of ideas. Now we're here.",
+        "content_alignment": "left",
+        "button_text": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_size": "medium",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "We don't do *trends*.\nWe do *real*.",
+        "subtext": "Every tee tells a story. Make sure it's yours.",
+        "header_alignment": "left",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "accent_color": ""
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "2021",
+            "label": "Started"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "50K+",
+            "label": "Tees Sold"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "1/1",
+        "label": "THE STORY",
+        "title": "From Bedroom to Brand",
+        "text": "<p>It started with us being tired of the same boring tees everywhere. So we made our own. Posted them online. People wanted in. Three years later, we're still doing the same thing—just at a bigger scale.</p>",
+        "button_text": "Shop All",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "50",
+            "prefix": "",
+            "suffix": "K+",
+            "label": "Happy Customers",
+            "description": ""
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "200",
+            "prefix": "",
+            "suffix": "+",
+            "label": "Original Designs",
+            "description": ""
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "4.9",
+            "prefix": "",
+            "suffix": "★",
+            "label": "Average Rating",
+            "description": ""
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "24",
+            "prefix": "",
+            "suffix": "hr",
+            "label": "Shipping Time",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 1000,
+        "color_scheme": "scheme-3",
+        "full_width": false,
+        "show_dividers": true
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "100% Original",
+            "text": "Every design is created by our in-house team. No templates, no AI, no shortcuts.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "Premium Quality",
+            "text": "Heavyweight cotton that doesn't shrink, fade, or fall apart after two washes.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "Made Ethically",
+            "text": "Fair wages, good conditions. We know where every tee comes from.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "Community First",
+            "text": "We listen to our people. Your feedback shapes what we make next.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "OUR VALUES",
+        "title": "What We Stand For",
+        "description": "",
+        "header_alignment": "left",
+        "layout": "standard",
+        "columns": 2,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Join the Crew",
+        "text": "Get early access to drops, exclusive designs, and members-only deals.",
+        "button_text": "Sign Up",
+        "privacy_text": "No spam ever. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-2"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "text_reveal",
+    "image_with_text",
+    "rolling_numbers",
+    "features_grid",
+    "newsletter"
+  ]
+}
