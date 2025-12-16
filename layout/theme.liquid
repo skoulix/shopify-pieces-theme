@@ -188,6 +188,9 @@
         const quickAddBtn = e.target.closest('[data-quick-add]');
         if (!quickAddBtn) return;
 
+        // Prevent double-clicks from triggering multiple adds
+        if (quickAddBtn.disabled) return;
+
         e.preventDefault();
         const variantId = quickAddBtn.dataset.quickAdd;
 
@@ -206,7 +209,10 @@
             body: JSON.stringify({ id: variantId, quantity: 1 })
           });
 
-          if (!res.ok) throw new Error('Failed to add to cart');
+          if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw new Error(errorData.description || errorData.message || 'Failed to add to cart');
+          }
 
           // Update cart count
           const cartRes = await fetch('/cart.js');
@@ -250,7 +256,7 @@
           quickAddBtn.disabled = false;
           if (addingText) addingText.classList.add('hidden');
           if (addText) addText.classList.remove('hidden');
-          toast.error('Could not add to cart. Please try again.');
+          toast.error(err.message || 'Could not add to cart. Please try again.');
         }
       });
     </script>
