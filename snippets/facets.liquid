@@ -184,30 +184,93 @@
               <div class="px-6 pb-4">
                 {% case filter.type %}
                   {% when 'list' or 'boolean' %}
-                    <ul class="space-y-2 max-h-64 overflow-y-auto" role="list">
-                      {%- for value in filter.values -%}
-                        <li>
-                          <label class="flex items-center gap-3 cursor-pointer group">
-                            <input
-                              type="checkbox"
-                              name="{{ value.param_name }}"
-                              value="{{ value.value }}"
-                              id="Filter-{{ filter.param_name | handle }}-{{ forloop.index }}"
-                              {% if value.active %}checked{% endif %}
-                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
-                              class="sr-only peer"
-                            >
-                            <span class="w-5 h-5 border border-[--color-border] rounded flex items-center justify-center transition-all peer-checked:bg-[--color-text] peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-text] [&>i]:opacity-0 peer-checked:[&>i]:opacity-100">
-                              <i class="ph ph-check text-xs text-[--color-background] transition-opacity"></i>
-                            </span>
-                            <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-[--color-text-secondary] opacity-50{% endif %}">
+                    {%- comment -%} Check if this filter has swatches (color filter) {%- endcomment -%}
+                    {%- assign has_swatches = false -%}
+                    {%- assign is_color_filter = false -%}
+
+                    {%- comment -%} Check for swatch data from Search & Discovery app {%- endcomment -%}
+                    {%- for value in filter.values -%}
+                      {%- if value.swatch != blank -%}
+                        {%- assign has_swatches = true -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+
+                    {%- comment -%} Also detect color filters by label name (fallback when no swatch data) {%- endcomment -%}
+                    {%- assign filter_label_lower = filter.label | downcase -%}
+                    {%- if filter_label_lower == 'color' or filter_label_lower == 'colour' or filter_label_lower == 'colors' or filter_label_lower == 'colours' -%}
+                      {%- assign is_color_filter = true -%}
+                    {%- endif -%}
+
+                    {%- if has_swatches or is_color_filter -%}
+                      {%- comment -%} Swatch Grid for Color Filters {%- endcomment -%}
+                      <ul class="flex flex-wrap gap-3 max-h-64 overflow-y-auto py-1" role="list">
+                        {%- for value in filter.values -%}
+                          <li class="relative">
+                            <label class="facet-swatch group cursor-pointer block" title="{{ value.label }}">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="Filter-{{ filter.param_name | handle }}-{{ forloop.index }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                class="sr-only peer"
+                              >
+                              {%- comment -%} Swatch circle {%- endcomment -%}
+                              <span
+                                class="facet-swatch__color relative block w-8 h-8 rounded-full border-2 border-transparent ring-1 ring-[--color-border] transition-all peer-checked:ring-2 peer-checked:ring-[--color-text] peer-checked:ring-offset-2 peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:ring-[--color-text] {% if value.count == 0 and value.active == false %}opacity-30{% endif %}"
+                                style="
+                                  {%- if value.swatch.color -%}
+                                    background-color: rgb({{ value.swatch.color.rgb }});
+                                  {%- elsif value.swatch.image -%}
+                                    background-image: url({{ value.swatch.image | image_url: width: 64 }});
+                                    background-size: cover;
+                                    background-position: center;
+                                  {%- else -%}
+                                    background-color: {{ value.label | downcase }};
+                                  {%- endif -%}
+                                "
+                              ></span>
+                              {%- comment -%} Checkmark for selected state {%- endcomment -%}
+                              <span class="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
+                                <i class="ph ph-check text-sm drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] {% if value.swatch.color.lightness > 0.6 %}text-black{% else %}text-white{% endif %}" aria-hidden="true"></i>
+                              </span>
+                            </label>
+                            {%- comment -%} Tooltip below {%- endcomment -%}
+                            <span class="facet-swatch__tooltip absolute top-full left-1/2 -translate-x-1/2 mt-1 text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none text-[--color-text-secondary]">
                               {{ value.label }}
                             </span>
-                            <span class="text-xs text-[--color-text-secondary]">({{ value.count }})</span>
-                          </label>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- else -%}
+                      {%- comment -%} Standard Checkbox List {%- endcomment -%}
+                      <ul class="space-y-2 max-h-64 overflow-y-auto" role="list">
+                        {%- for value in filter.values -%}
+                          <li>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                              <input
+                                type="checkbox"
+                                name="{{ value.param_name }}"
+                                value="{{ value.value }}"
+                                id="Filter-{{ filter.param_name | handle }}-{{ forloop.index }}"
+                                {% if value.active %}checked{% endif %}
+                                {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                class="sr-only peer"
+                              >
+                              <span class="w-5 h-5 border border-[--color-border] rounded flex items-center justify-center transition-all peer-checked:bg-[--color-text] peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-text] [&>i]:opacity-0 peer-checked:[&>i]:opacity-100">
+                                <i class="ph ph-check text-xs text-[--color-background] transition-opacity"></i>
+                              </span>
+                              <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-[--color-text-secondary] opacity-50{% endif %}">
+                                {{ value.label }}
+                              </span>
+                              <span class="text-xs text-[--color-text-secondary]">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
 
                   {% when 'price_range' %}
                     <div class="flex items-center gap-4">

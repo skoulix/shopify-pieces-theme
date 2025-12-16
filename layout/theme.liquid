@@ -129,7 +129,7 @@
     </script>
   </head>
 
-  <body class="antialiased bg-[--color-background] text-[--color-text]">
+  <body class="antialiased bg-[--color-background] text-[--color-text] template-{{ template.name }}{% if template.suffix %} template-{{ template.name }}-{{ template.suffix }}{% endif %}">
     <a href="#main" class="skip-link">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
