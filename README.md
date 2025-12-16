@@ -648,10 +648,10 @@ Configurable via Shopify theme customizer:
 | ------- | ------- |
 | **Logo** | Logo image, desktop/mobile width, favicon |
 | **Colors** | Background, secondary background, text, secondary text, primary accent, primary contrast, border, sale |
-| **Typography** | Body font, heading font, font size scaling, uppercase headings/buttons |
+| **Typography** | Body font, heading font, font size scaling, heading/body letter spacing, uppercase headings/buttons |
 | **Layout** | Page width, vertical padding, section padding, smooth scrolling, page transitions (slide/fade/curtain), View Transitions API, animations, animation trigger timing |
 | **Buttons** | Corner radius, border width, shadow style |
-| **Inputs** | Corner radius, border width |
+| **Inputs** | Corner radius, border width, shadow style |
 | **Cards** | Corner radius, border width, shadow style |
 | **Product Card** | Image aspect ratio, secondary image on hover, show vendor, quick view, compare, wishlist, sale/sold out badges |
 | **Social Media** | Instagram, Facebook, X (Twitter), TikTok, YouTube, Pinterest links |
@@ -665,13 +665,13 @@ Five curated design presets available in the theme editor, each targeting specif
 
 | Preset | Target Niche | Description |
 | ------ | ------------ | ----------- |
-| **Default** | General/versatile | Clean, modern look with indigo primary color |
-| **Bold** | T-shirts, graphic tees, statement brands | High contrast black/white with orange accent and sharp typography |
-| **Noir** | Jewelry, high-end accessories | Dark, elegant theme with gold accents |
-| **Edge** | Tech, gaming, consumer electronics | Dark futuristic theme with cyan accent and mono fonts |
-| **Glow** | Cosmetics, skincare, wellness | Soft, warm tones with rounded elements |
+| **Default** | General/versatile | Clean, modern look with indigo primary color and Inter font |
+| **Bold** | T-shirts, graphic tees, statement brands | High contrast black/white with orange accent, Bebas Neue headings, hard shadows, thick borders |
+| **Noir** | Jewelry, high-end accessories | Dark, elegant theme with gold accents and Playfair Display serif headings |
+| **Edge** | Tech, gaming, consumer electronics | Dark futuristic theme with cyan accent, Oswald headings, expanded letter spacing |
+| **Glow** | Cosmetics, skincare, wellness | Soft, warm tones with Cormorant headings, pill-shaped buttons, rounded cards |
 
-Each preset configures color schemes, typography, border radius, and shadow styles. Presets also include unique homepage and about page templates tailored to their target market.
+Each preset configures color schemes, typography (including letter spacing), border radius, and shadow styles for buttons, inputs, and cards. Presets also include unique homepage and about page templates tailored to their target market.
 
 ---
 
