@@ -3,6 +3,40 @@
   Renders when settings.cart_type == 'drawer'
 {%- endcomment -%}
 
+<style>
+  #cart-drawer .cart-drawer__quantity {
+    display: inline-flex;
+    align-items: center;
+    height: 2.375rem;
+    padding: 0;
+    background-color: var(--color-background);
+    border: var(--input-border-width) solid var(--color-border) !important;
+    border-radius: var(--input-radius);
+    box-shadow: var(--input-shadow) !important;
+  }
+  #cart-drawer .cart-drawer__quantity:focus-within {
+    border-color: var(--color-primary) !important;
+    box-shadow: var(--input-shadow-focus) !important;
+  }
+  #cart-drawer .cart-drawer__quantity-input {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: transparent !important;
+  }
+  #cart-drawer .cart-drawer__quantity-btn {
+    border-radius: 0;
+  }
+  #cart-drawer .cart-drawer__quantity-btn:first-child {
+    border-top-left-radius: max(0px, calc(var(--input-radius) - var(--input-border-width)));
+    border-bottom-left-radius: max(0px, calc(var(--input-radius) - var(--input-border-width)));
+  }
+  #cart-drawer .cart-drawer__quantity-btn:last-child {
+    border-top-right-radius: max(0px, calc(var(--input-radius) - var(--input-border-width)));
+    border-bottom-right-radius: max(0px, calc(var(--input-radius) - var(--input-border-width)));
+  }
+</style>
+
 <div
   id="cart-drawer"
   class="drawer-container group fixed inset-0 z-[100] [&.is-loading]:cursor-wait [&.is-updating]:cursor-wait"
@@ -118,35 +152,36 @@
                 {%- endif -%}
 
                 <div class="flex items-center gap-3 mt-auto pt-2">
-                  <div class="inline-flex items-center rounded-[--input-radius] border border-[--color-border] overflow-hidden" data-quantity-wrapper>
+                  <div class="cart-drawer__quantity" data-quantity-wrapper style="display: inline-flex; align-items: center; height: 2.375rem; padding: 0; background-color: var(--color-background); border: var(--input-border-width) solid var(--color-border); border-radius: var(--input-radius); box-shadow: var(--input-shadow);">
                     <button
                       type="button"
-                      class="w-8 h-8 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
+                      class="cart-drawer__quantity-btn"
                       data-quantity-minus
                       data-line="{{ forloop.index }}"
                       aria-label="{{ 'products.product.decrease_quantity' | t }}"
                     >
-                      <i class="ph ph-minus text-xs"></i>
+                      <i class="ph ph-minus"></i>
                     </button>
-                    <div class="w-10 h-8 flex items-center justify-center">
+                    <div class="cart-drawer__quantity-value">
                       <input
                         type="number"
-                        class="w-full h-full text-center text-sm font-semibold bg-transparent border-none text-[--color-text] outline-none !border-0"
+                        class="cart-drawer__quantity-input"
                         value="{{ item.quantity }}"
                         min="0"
                         data-quantity-input
                         data-line="{{ forloop.index }}"
                         aria-label="{{ 'products.product.quantity' | t }}"
+                        style="border: none !important; box-shadow: none !important; outline: none !important; background: transparent !important;"
                       >
                     </div>
                     <button
                       type="button"
-                      class="w-8 h-8 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
+                      class="cart-drawer__quantity-btn"
                       data-quantity-plus
                       data-line="{{ forloop.index }}"
                       aria-label="{{ 'products.product.increase_quantity' | t }}"
                     >
-                      <i class="ph ph-plus text-xs"></i>
+                      <i class="ph ph-plus"></i>
                     </button>
                   </div>
                   <button

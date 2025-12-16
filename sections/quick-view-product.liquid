@@ -4,6 +4,17 @@
   Modern compact layout optimized for bottom-right modal
 {%- endcomment -%}
 
+<style>
+  .quick-view-qty-wrapper {
+    border-width: var(--input-border-width);
+    box-shadow: var(--input-shadow);
+  }
+  .quick-view-qty-wrapper:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: var(--input-shadow-focus);
+  }
+</style>
+
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign featured_image = current_variant.featured_image | default: product.featured_image
@@ -124,7 +135,7 @@
       {%- comment -%} Quantity and Add to Cart {%- endcomment -%}
       <div class="mt-auto">
         <div class="flex items-center gap-3 mb-3">
-          <div class="inline-flex items-center rounded-[--input-radius] border border-[--color-border] overflow-hidden h-[2.375rem]" data-qty-wrapper>
+          <div class="quick-view-qty-wrapper inline-flex items-center rounded-[--input-radius] border-solid border-[--color-border] bg-[--color-background] h-[2.375rem]" data-qty-wrapper>
             <button
               type="button"
               class="w-9 h-full flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
@@ -140,7 +151,7 @@
                 name="quantity"
                 value="1"
                 min="1"
-                class="w-full h-full text-center text-sm font-semibold bg-transparent !border-0 text-[--color-text] focus:outline-none"
+                class="w-full h-full text-center text-sm font-semibold bg-transparent !border-0 !shadow-none text-[--color-text] focus:outline-none"
                 data-qty-input
               >
             </div>

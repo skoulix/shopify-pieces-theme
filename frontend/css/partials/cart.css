@@ -199,12 +199,15 @@
 .cart-drawer__quantity {
   display: inline-flex;
   align-items: center;
-  background: transparent;
+  height: 2rem;
+  background: var(--color-background);
   border-radius: var(--input-radius);
   padding: 0;
   position: relative;
-  overflow: hidden;
-  border: var(--input-border-width) solid var(--color-border);
+  border-width: var(--input-border-width) !important;
+  border-style: solid !important;
+  border-color: var(--color-border) !important;
+  box-shadow: var(--input-shadow) !important;
 }
 
 .cart-drawer__quantity-btn {
@@ -250,6 +253,7 @@
   background: transparent;
   border: none !important;
   border-width: 0 !important;
+  box-shadow: none !important;
   color: var(--color-text);
   -moz-appearance: textfield;
   outline: none;
@@ -268,6 +272,7 @@
 
 .cart-drawer__quantity:focus-within {
   border-color: var(--color-primary);
+  box-shadow: var(--input-shadow-focus);
 }
 
 .cart-drawer__quantity.is-changing .cart-drawer__quantity-input {
@@ -275,9 +280,15 @@
 }
 
 @keyframes drawerQuantityPop {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Remove button */

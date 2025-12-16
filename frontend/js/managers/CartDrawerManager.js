@@ -458,7 +458,7 @@ class CartDrawerManager {
           </div>
 
           <div class="cart-drawer__item-actions">
-            <div class="cart-drawer__quantity" data-quantity-wrapper>
+            <div class="cart-drawer__quantity" data-quantity-wrapper style="display: inline-flex; align-items: center; height: 2.375rem; padding: 0; background-color: var(--color-background); border: var(--input-border-width) solid var(--color-border); border-radius: var(--input-radius); box-shadow: var(--input-shadow);">
               <button
                 type="button"
                 class="cart-drawer__quantity-btn"
@@ -477,6 +477,7 @@ class CartDrawerManager {
                   data-quantity-input
                   data-line="${lineIndex}"
                   aria-label="${window.themeStrings?.quantity || 'Quantity'}"
+                  style="border: none !important; box-shadow: none !important; outline: none !important; background: transparent !important;"
                 >
               </div>
               <button

@@ -15,15 +15,15 @@
   @media (min-width: 1024px) { .cart-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   /* Title line stagger (managed by TweenManager) */
   .cart-page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
-  .cart-quantity { display: inline-flex; align-items: center; background: transparent; border-radius: var(--input-radius); padding: 0; position: relative; overflow: hidden; border: var(--input-border-width) solid var(--color-border); }
+  .cart-quantity { display: inline-flex; align-items: center; background: transparent; border-radius: var(--input-radius); padding: 0; position: relative; overflow: hidden; border: var(--input-border-width) solid var(--color-border); box-shadow: var(--input-shadow); }
   .cart-quantity-btn { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--color-text); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .cart-quantity-btn:hover { background: var(--color-primary); color: var(--color-primary-contrast); }
   .cart-quantity-btn:active { transform: scale(0.95); }
   .cart-quantity-value { width: 3.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; }
-  .cart-quantity-input { width: 100%; height: 100%; text-align: center; font-size: 1rem; font-weight: 600; background: transparent; border: none !important; border-width: 0 !important; color: var(--color-text); -moz-appearance: textfield; outline: none; }
+  .cart-quantity-input { width: 100%; height: 100%; text-align: center; font-size: 1rem; font-weight: 600; background: transparent; border: none !important; border-width: 0 !important; box-shadow: none !important; color: var(--color-text); -moz-appearance: textfield; outline: none; }
   .cart-quantity-input::-webkit-outer-spin-button, .cart-quantity-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .cart-quantity-input:focus { outline: none; border: none !important; }
-  .cart-quantity:focus-within { border-color: var(--color-primary); }
+  .cart-quantity:focus-within { border-color: var(--color-primary); box-shadow: var(--input-shadow-focus); }
   .cart-quantity.is-changing .cart-quantity-input { animation: cartQuantityPop 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   @keyframes cartQuantityPop { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
   .cart-wrapper.is-updating { cursor: wait; }
