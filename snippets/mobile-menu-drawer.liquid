@@ -9,18 +9,24 @@
   - style: {String} 'accordion' or 'slide' (default: 'accordion')
   - show_search: {Boolean} Show search link in footer
   - show_cart: {Boolean} Show cart link in footer
+  - nav_uppercase: {Boolean} Uppercase navigation text
 
   Usage:
   {% render 'mobile-menu-drawer',
     menu: section.settings.menu,
     style: section.settings.mobile_menu_style,
     show_search: section.settings.show_search,
-    show_cart: section.settings.show_cart
+    show_cart: section.settings.show_cart,
+    nav_uppercase: section.settings.nav_uppercase
   %}
 {%- endcomment -%}
 
 {%- liquid
   assign mobile_menu_style = style | default: 'accordion'
+  assign uppercase_class = ''
+  if nav_uppercase
+    assign uppercase_class = ' uppercase'
+  endif
 -%}
 
 <div id="mobile-menu" class="mobile-nav mobile-nav--{{ mobile_menu_style }} fixed inset-0 pointer-events-none invisible lg:hidden" style="z-index: 100;" role="dialog" aria-modal="true" inert data-mobile-menu-style="{{ mobile_menu_style }}">
@@ -44,7 +50,7 @@
       <nav class="mobile-nav__content mobile-nav__panels flex-1 flex flex-col overflow-hidden relative" data-mobile-panels data-lenis-prevent>
         {%- comment -%} Main Panel (Level 1) {%- endcomment -%}
         <div class="mobile-nav__panel mobile-nav__panel--main is-active px-6 py-8" data-panel="main" data-panel-level="1">
-          <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto">
+          <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto{{ uppercase_class }}">
             {% for link in menu.links %}
               {%- liquid
                 assign is_active = false
@@ -93,7 +99,7 @@
                 </button>
                 <span class="mobile-nav__panel-title font-heading text-[--color-text]">{{ link.title }}</span>
               </div>
-              <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto">
+              <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto{{ uppercase_class }}">
                 {%- comment -%} View all link {%- endcomment -%}
                 {% if link.url != '#' and link.url != '' %}
                   <li class="mobile-nav__item mobile-nav__item--view-all overflow-hidden">
@@ -155,7 +161,7 @@
                     </button>
                     <span class="mobile-nav__panel-title font-heading text-[--color-text]">{{ child.title }}</span>
                   </div>
-                  <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto">
+                  <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto{{ uppercase_class }}">
                     {%- comment -%} View all link {%- endcomment -%}
                     {% if child.url != '#' and child.url != '' %}
                       <li class="mobile-nav__item mobile-nav__item--view-all overflow-hidden">
@@ -202,7 +208,7 @@
           ACCORDION NAVIGATION (original 2-level)
       ======================================== {%- endcomment -%}
       <nav class="mobile-nav__content flex-1 flex flex-col justify-center px-6 py-8 overflow-y-auto" data-lenis-prevent>
-        <ul class="mobile-nav__list list-none m-0 p-0">
+        <ul class="mobile-nav__list list-none m-0 p-0{{ uppercase_class }}">
           {% for link in menu.links %}
             {%- liquid
               assign is_active = false

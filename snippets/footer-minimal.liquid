@@ -33,7 +33,7 @@
 
       {% when 'navigation' %}
         {% if block.settings.menu != blank %}
-          <nav aria-label="Footer" class="footer-block flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm" {{ block.shopify_attributes }}>
+          <nav aria-label="Footer" class="footer-block flex flex-wrap justify-center gap-x-12 gap-y-3 text-sm{% if block.settings.nav_uppercase %} uppercase{% endif %}" {{ block.shopify_attributes }}>
             {% for link in block.settings.menu.links %}
               <a href="{{ link.url }}">{{ link.title }}</a>
             {% endfor %}

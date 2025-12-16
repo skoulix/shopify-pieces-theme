@@ -117,7 +117,7 @@
   <div class="footer-modern__right">
     {%- for block in section.blocks -%}
       {%- if block.type == 'navigation' and block.settings.menu != blank -%}
-        <nav class="footer-modern__nav" aria-label="Footer" {{ block.shopify_attributes }}>
+        <nav class="footer-modern__nav{% if block.settings.nav_uppercase %} uppercase{% endif %}" aria-label="Footer" {{ block.shopify_attributes }}>
           {%- for link in block.settings.menu.links -%}
             <a href="{{ link.url }}">{{ link.title }}</a>
           {%- endfor -%}

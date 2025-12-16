@@ -118,7 +118,7 @@
       {%- when 'navigation' -%}
         {%- if block.settings.menu != blank -%}
           <div class="footer-classic__column" {{ block.shopify_attributes }}>
-            <ul class="footer-classic__menu">
+            <ul class="footer-classic__menu{% if block.settings.nav_uppercase %} uppercase{% endif %}">
               {%- for link in block.settings.menu.links -%}
                 <li><a href="{{ link.url }}">{{ link.title }}</a></li>
               {%- endfor -%}

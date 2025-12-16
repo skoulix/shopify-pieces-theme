@@ -31,7 +31,7 @@
   .compare-drawer__title {
     font-size: 0.75rem;
     font-weight: 600;
-    text-transform: uppercase;
+    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.15em;
     color: var(--color-text);
   }
@@ -198,11 +198,11 @@
     background: var(--color-text);
     color: var(--color-background);
     border: 1px solid color-mix(in srgb, var(--color-background) 20%, transparent);
-    border-radius: 100px;
+    border-radius: var(--button-radius);
     cursor: pointer;
     font-size: 0.7rem;
     font-weight: 600;
-    text-transform: uppercase;
+    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
     letter-spacing: 0.1em;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     transform: translateY(calc(100% + 4rem));

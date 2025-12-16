@@ -366,7 +366,7 @@
         </button>
 
         {%- comment -%} Desktop Navigation {%- endcomment -%}
-        <div class="hidden lg:flex lg:gap-x-8">
+        <div class="hidden lg:flex lg:gap-x-8{% if section.settings.nav_uppercase %} uppercase{% endif %}">
           {% for link in section.settings.menu.links %}
             {%- liquid
               assign is_active = false
@@ -538,7 +538,7 @@
       </div>
 
       {%- comment -%} Desktop Navigation {%- endcomment -%}
-      <div class="hidden lg:flex lg:gap-x-8 {% if nav_position == 'left' %}lg:ml-8{% elsif nav_position == 'center' %}lg:justify-center{% elsif nav_position == 'right' %}lg:ml-auto lg:mr-8{% endif %}">
+      <div class="hidden lg:flex lg:gap-x-8{% if section.settings.nav_uppercase %} uppercase{% endif %} {% if nav_position == 'left' %}lg:ml-8{% elsif nav_position == 'center' %}lg:justify-center{% elsif nav_position == 'right' %}lg:ml-auto lg:mr-8{% endif %}">
         {% for link in section.settings.menu.links %}
           {%- liquid
             assign is_active = false
@@ -678,7 +678,8 @@
     menu: section.settings.menu,
     style: section.settings.mobile_menu_style,
     show_search: section.settings.show_search,
-    show_cart: section.settings.show_cart
+    show_cart: section.settings.show_cart,
+    nav_uppercase: section.settings.nav_uppercase
   %}
 </header>
 </div><!-- /.header-wrapper -->
@@ -1733,6 +1734,12 @@
         { "value": "right", "label": "Right (before icons)" }
       ],
       "info": "Only applies when logo is on the left"
+    },
+    {
+      "type": "checkbox",
+      "id": "nav_uppercase",
+      "default": false,
+      "label": "Uppercase navigation"
     },
     {
       "type": "header",
