@@ -1,0 +1,173 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 50,
+        "label": "The Collection",
+        "title": "Timeless Elegance",
+        "description": "Discover exquisite pieces crafted for those who appreciate the finer things in life.",
+        "content_alignment": "center",
+        "button_text": "Explore Collection",
+        "button_link": "shopify://collections/all",
+        "button_style": "outline",
+        "button_size": "large",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "label": "Curated Selection",
+        "title": "New Arrivals",
+        "description": "Our latest additions, handpicked for discerning tastes.",
+        "header_alignment": "center",
+        "products_to_show": 4,
+        "columns": 4,
+        "show_vendor": true,
+        "show_view_all": true,
+        "view_all_text": "View Collection",
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1892",
+            "label": "Established"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Handcrafted"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "Our Heritage",
+        "title": "A Legacy of Excellence",
+        "text": "<p>For generations, we have dedicated ourselves to the pursuit of perfection. Each piece tells a story of heritage, craftsmanship, and unwavering commitment to quality.</p>",
+        "button_text": "Our Story",
+        "button_link": "",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "Where *tradition* meets\n*modern* sophistication.",
+        "subtext": "",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-3",
+        "accent_color": "#c9a961"
+      }
+    },
+    "featured_collection_2": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "",
+        "label": "Signature Pieces",
+        "title": "Best Sellers",
+        "description": "Beloved by our most distinguished clientele.",
+        "header_alignment": "center",
+        "products_to_show": 4,
+        "columns": 4,
+        "show_vendor": true,
+        "show_view_all": true,
+        "view_all_text": "Shop All",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The attention to detail is simply unparalleled. A truly exceptional experience from start to finish.",
+            "rating": 5,
+            "author": "Victoria Sterling",
+            "author_title": "Art Collector"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally, a brand that understands true luxury. The craftsmanship speaks for itself.",
+            "rating": 5,
+            "author": "Alexander Reid",
+            "author_title": "Interior Designer"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "These pieces have become treasured heirlooms in our family. Worth every investment.",
+            "rating": 5,
+            "author": "Catherine Hayes",
+            "author_title": "Private Client"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "label": "Testimonials",
+        "title": "Words From Our Clientele",
+        "header_alignment": "center",
+        "show_rating": false,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "stacked",
+        "title": "Join Our Private Circle",
+        "text": "Be the first to receive exclusive invitations, previews, and offerings.",
+        "button_text": "Subscribe",
+        "privacy_text": "Your privacy is paramount. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_collection",
+    "image_with_text",
+    "text_reveal",
+    "featured_collection_2",
+    "testimonials",
+    "newsletter"
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "sections": {
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "Our Heritage",
+        "text": "A legacy of *excellence*\ncrafted through *generations*\nof dedication.",
+        "subtext": "Since our founding, we have been committed to the pursuit of perfection in every piece we create.",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "accent_color": "#c9a961"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1892",
+            "label": "Established"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "IV",
+            "label": "Generations"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "Our Story",
+        "title": "A Tradition of Excellence",
+        "text": "<p>For over a century, our house has been synonymous with uncompromising quality and timeless elegance. What began as a small atelier has evolved into a globally recognized symbol of refined taste and exceptional craftsmanship.</p>",
+        "button_text": "Explore Collection",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "year": "1892",
+            "title": "The Founding",
+            "text": "Established by master craftsmen with a vision for excellence."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "year": "1924",
+            "title": "International Recognition",
+            "text": "Received the prestigious Gold Medal at the Paris Exhibition."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "year": "1967",
+            "title": "The Modern Era",
+            "text": "Expanded to serve distinguished clientele across five continents."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "year": "Today",
+            "title": "Continuing the Legacy",
+            "text": "Honoring tradition while embracing innovation for future generations."
+          }
+        }
+      },
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4"
+      ],
+      "settings": {
+        "label": "Our Journey",
+        "title": "Milestones of Distinction",
+        "header_alignment": "center",
+        "card_radius": 0,
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "accent_color": "#c9a961"
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "diamond",
+            "title": "Finest Materials",
+            "text": "Only the most exceptional materials are selected for our creations.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "hand-pointing",
+            "title": "Master Craftsmanship",
+            "text": "Each piece is meticulously crafted by skilled artisans.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "certificate",
+            "title": "Authenticated",
+            "text": "Every creation comes with a certificate of authenticity.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "clock",
+            "title": "Timeless Design",
+            "text": "Designs that transcend trends and last generations.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "The Difference",
+        "title": "Our Standards",
+        "description": "What sets us apart is our unwavering commitment to excellence.",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 4,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "130",
+            "prefix": "",
+            "suffix": "+",
+            "label": "Years of Heritage",
+            "description": ""
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "47",
+            "prefix": "",
+            "suffix": "",
+            "label": "Countries",
+            "description": ""
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "100",
+            "prefix": "",
+            "suffix": "%",
+            "label": "Handcrafted",
+            "description": ""
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "IV",
+            "prefix": "",
+            "suffix": "",
+            "label": "Generations",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 2000,
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "show_dividers": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "stacked",
+        "title": "Join Our Private Circle",
+        "text": "Receive exclusive invitations, previews of new collections, and bespoke offerings.",
+        "button_text": "Subscribe",
+        "privacy_text": "Your privacy is paramount. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "text_reveal",
+    "image_with_text",
+    "timeline",
+    "features_grid",
+    "rolling_numbers",
+    "newsletter"
+  ]
+}

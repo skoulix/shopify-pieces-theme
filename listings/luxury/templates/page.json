@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {
+        "header_alignment": "left"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

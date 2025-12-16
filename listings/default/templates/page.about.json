@@ -1,0 +1,253 @@
+{
+  "sections": {
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "Our Story",
+        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
+        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+        "header_alignment": "left",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-3",
+        "accent_color": "#818cf8"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "2014",
+            "label": "Founded"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "50K+",
+            "label": "Customers"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "The Beginning",
+        "title": "Started With a Simple Idea",
+        "text": "<p>What began as a small passion project has grown into something we're truly proud of. We started with one goal: create products that we ourselves would want to use every day.</p>",
+        "button_text": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": false,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2014",
+            "title": "The Beginning",
+            "text": "Founded with a simple idea and a passion for quality."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2017",
+            "title": "First Milestone",
+            "text": "Reached 10,000 customers and opened our first retail location."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "year": "2020",
+            "title": "Going Global",
+            "text": "Expanded shipping to over 50 countries worldwide."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "Today & Beyond",
+            "text": "Continuing to innovate and grow our community."
+          }
+        }
+      },
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4"
+      ],
+      "settings": {
+        "label": "Our Journey",
+        "title": "How We Got Here",
+        "header_alignment": "center",
+        "card_radius": 8,
+        "full_width": false,
+        "color_scheme": "scheme-2",
+        "accent_color": "#818cf8"
+      }
+    },
+    "team": {
+      "type": "team",
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Alex Thompson",
+            "role": "Founder & CEO",
+            "bio": "Passionate about creating exceptional products that stand the test of time.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Sarah Chen",
+            "role": "Creative Director",
+            "bio": "Bringing creative visions to life with an eye for detail.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Michael Brown",
+            "role": "Head of Product",
+            "bio": "Obsessed with user experience and product quality.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Emily Davis",
+            "role": "Customer Success",
+            "bio": "Dedicated to making sure every customer is happy.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4"
+      ],
+      "settings": {
+        "label": "Our Team",
+        "title": "Meet the People Behind the Brand",
+        "description": "We're a passionate team dedicated to creating products you'll love.",
+        "header_alignment": "center",
+        "columns": 4,
+        "card_radius": 12,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "10",
+            "prefix": "",
+            "suffix": "+",
+            "label": "Years in Business",
+            "description": "A decade of excellence"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "50",
+            "prefix": "",
+            "suffix": "K+",
+            "label": "Happy Customers",
+            "description": "And counting"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "150",
+            "prefix": "",
+            "suffix": "+",
+            "label": "Countries Served",
+            "description": "Global reach"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "98",
+            "prefix": "",
+            "suffix": "%",
+            "label": "Satisfaction Rate",
+            "description": "Based on reviews"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "By the Numbers",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 1500,
+        "color_scheme": "scheme-3",
+        "full_width": false,
+        "show_dividers": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Join Our Community",
+        "text": "Subscribe to our newsletter for exclusive updates, new arrivals, and special offers.",
+        "button_text": "Subscribe",
+        "privacy_text": "We care about your data. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-2"
+      }
+    }
+  },
+  "order": [
+    "text_reveal",
+    "image_with_text",
+    "timeline",
+    "team",
+    "rolling_numbers",
+    "newsletter"
+  ]
+}
