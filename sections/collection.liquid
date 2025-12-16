@@ -57,8 +57,9 @@
   }
   .metro-item:hover .metro-item-image { transform: scale(1.08); }
   .metro-item-image--secondary { opacity: 0; }
-  .metro-item:hover .metro-item-image--primary { opacity: 0; }
-  .metro-item:hover .metro-item-image--secondary { opacity: 1; }
+  /* Only fade primary image when secondary exists */
+  .metro-item--has-secondary:hover .metro-item-image--primary { opacity: 0; }
+  .metro-item--has-secondary:hover .metro-item-image--secondary { opacity: 1; }
 
   /* Metro Overlay - Elegant gradient */
   .metro-item-overlay {
@@ -299,10 +300,15 @@
               if product.variants.size > 1
                 assign has_variants = true
               endif
+
+              assign has_second_image = false
+              if product.images.size > 1
+                assign has_second_image = true
+              endif
             -%}
 
             <div
-              class="metro-item {{ item_class }}{% unless product.available %} metro-item-soldout{% endunless %}"
+              class="metro-item {{ item_class }}{% unless product.available %} metro-item-soldout{% endunless %}{% if has_second_image %} metro-item--has-secondary{% endif %}"
               data-collection-item="{{ forloop.index0 }}"
               data-product-id="{{ product.id }}"
             >
@@ -311,11 +317,7 @@
                 {% if product.featured_image %}
                   {%- assign focal_point = product.featured_image.presentation.focal_point | default: '50% 50%' -%}
                   {%- assign focal_style = 'object-position: ' | append: focal_point -%}
-                  {%- assign has_second_image = false -%}
-                  {%- if product.images.size > 1 -%}
-                    {%- assign has_second_image = true -%}
-                    {%- assign second_image = product.images[1] -%}
-                  {%- endif -%}
+                  {%- assign second_image = product.images[1] -%}
 
                   {%- comment -%} Primary Image {%- endcomment -%}
                   {{ product.featured_image | image_url: width: 1400 | image_tag:
