@@ -83,7 +83,7 @@ class SwupManager {
       linkSelector:
         'a[href^="' +
         window.location.origin +
-        '"]:not([data-no-swup]), a[href^="/"]:not([data-no-swup]):not([href^="//"]), a[href^="#"]:not([data-no-swup])',
+        '"]:not([data-no-swup]):not([href*="#"]), a[href^="/"]:not([data-no-swup]):not([href^="//"]):not([href^="#"]):not([href*="#"])',
       plugins: [
         new SwupJsPlugin(animationOptions),
         new SwupHeadPlugin({

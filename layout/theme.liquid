@@ -192,6 +192,7 @@
         if (quickAddBtn.disabled) return;
 
         e.preventDefault();
+        e.stopPropagation(); // Prevent link navigation when button is inside an <a> tag
         const variantId = quickAddBtn.dataset.quickAdd;
 
         const addText = quickAddBtn.querySelector('[data-add-text]');
@@ -225,6 +226,8 @@
           // Show success state
           if (addingText) addingText.classList.add('hidden');
           if (addedText) addedText.classList.remove('hidden');
+          // For icon-only buttons (metro cards), add visual feedback class
+          quickAddBtn.classList.add('is-added');
 
           // Handle cart type
           const cartType = window.themeSettings?.cartType || 'drawer';
@@ -248,6 +251,7 @@
 
           setTimeout(() => {
             quickAddBtn.disabled = false;
+            quickAddBtn.classList.remove('is-added');
             if (addedText) addedText.classList.add('hidden');
             if (addText) addText.classList.remove('hidden');
           }, 2000);

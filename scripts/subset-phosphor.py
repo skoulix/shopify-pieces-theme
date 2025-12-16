@@ -146,6 +146,7 @@ USED_ICONS = [
     "diamond",
     # UI (new)
     "sliders",
+    "sliders-horizontal",
     "gear",
     "dots-three",
     "dots-three-vertical",

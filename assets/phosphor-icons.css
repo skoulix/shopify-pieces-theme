@@ -347,6 +347,9 @@
 .ph.ph-sliders:before {
   content: "\e432";
 }
+.ph.ph-sliders-horizontal:before {
+  content: "\e434";
+}
 .ph.ph-sneaker:before {
   content: "\e80c";
 }
