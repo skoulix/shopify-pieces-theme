@@ -1,0 +1,326 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 25,
+        "label": "Our Story",
+        "title": "Beauty Without Compromise",
+        "description": "We started with one question: why can't skincare be both effective and clean?",
+        "content_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_size": "medium",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "Our Mission",
+        "text": "Skincare that *works*\nwithout the *compromise*.",
+        "subtext": "Science-backed formulas with clean ingredients. No trade-offs.",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-2",
+        "accent_color": "#d4a5a5"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "2019",
+            "label": "Founded"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Clean"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "The Beginning",
+        "title": "Started With Frustration",
+        "text": "<p>Our founder spent years dealing with sensitive skin and even longer searching for products that actually worked without irritation. When she couldn't find them, she made her own. What started in her kitchen is now trusted by hundreds of thousands of people worldwide.</p>",
+        "button_text": "Shop Now",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "500",
+            "prefix": "",
+            "suffix": "K+",
+            "label": "Happy Customers",
+            "description": ""
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "4.8",
+            "prefix": "",
+            "suffix": "★",
+            "label": "Average Rating",
+            "description": ""
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "0",
+            "prefix": "",
+            "suffix": "",
+            "label": "Parabens",
+            "description": ""
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "100",
+            "prefix": "",
+            "suffix": "%",
+            "label": "Cruelty-Free",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 1500,
+        "color_scheme": "scheme-2",
+        "full_width": false,
+        "show_dividers": true
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "flask",
+            "title": "Science-First Approach",
+            "text": "Every formula is developed with dermatologists and backed by clinical studies.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "eye-closed",
+            "title": "Full Transparency",
+            "text": "We list every ingredient and explain why it's there. No proprietary blends, no secrets.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Sensitive Skin Safe",
+            "text": "Formulated and tested for even the most reactive skin types.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "globe",
+            "title": "Sustainably Made",
+            "text": "Responsibly sourced ingredients, recyclable packaging, carbon-neutral shipping.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "Our Values",
+        "title": "What We Believe",
+        "description": "",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 2,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "team": {
+      "type": "team",
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Dr. Sarah Kim",
+            "role": "Founder & CEO",
+            "bio": "Biochemist with 15 years in skincare formulation.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Emily Zhang",
+            "role": "Head of Product",
+            "bio": "Former L'Oréal scientist focused on clean beauty.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Maya Patel",
+            "role": "Creative Director",
+            "bio": "Brings our brand to life with thoughtful design.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Jordan Lee",
+            "role": "Head of Community",
+            "bio": "Listens to customers and shapes our product roadmap.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4"
+      ],
+      "settings": {
+        "label": "Meet the Team",
+        "title": "The People Behind the Products",
+        "description": "",
+        "header_alignment": "center",
+        "columns": 4,
+        "card_radius": 16,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "After years of trying everything, this is the only brand that's actually transformed my skin.",
+            "rating": 5,
+            "author": "Michelle T.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "I love that I can read the ingredient list and actually understand what I'm putting on my face.",
+            "rating": 5,
+            "author": "Anna R.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "My dermatologist actually recommended this brand. Now I know why.",
+            "rating": 5,
+            "author": "Lauren K.",
+            "author_title": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "label": "Real Stories",
+        "title": "What Our Community Says",
+        "header_alignment": "center",
+        "show_rating": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "stacked",
+        "title": "Join the Glow-Up",
+        "text": "Get skincare tips, early access to new products, and 15% off your first order.",
+        "button_text": "Subscribe",
+        "privacy_text": "We respect your inbox. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-2"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "text_reveal",
+    "image_with_text",
+    "rolling_numbers",
+    "features_grid",
+    "team",
+    "testimonials",
+    "newsletter"
+  ]
+}

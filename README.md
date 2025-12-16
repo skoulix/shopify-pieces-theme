@@ -661,18 +661,18 @@ Configurable via Shopify theme customizer:
 
 ### Theme Presets
 
-Six curated design presets available in the theme editor:
+Six curated design presets available in the theme editor, each targeting specific market niches:
 
-| Preset | Description |
-| ------ | ----------- |
-| **Default** | Clean, modern look with indigo primary color |
-| **Soft** | Warm, inviting palette with soft pink accents |
-| **Luxury** | Dark, elegant theme with gold accents |
-| **Brutalist** | High contrast black/white with bold blue/yellow |
-| **Organic** | Natural earth tones with forest green primary |
-| **Tech** | Dark mode with cyan accents, GitHub-inspired |
+| Preset | Target Niche | Description |
+| ------ | ------------ | ----------- |
+| **Default** | General/versatile | Clean, modern look with indigo primary color |
+| **Bold** | T-shirts, graphic tees, statement brands | High contrast black/white with sharp typography |
+| **Noir** | Jewelry, high-end accessories | Dark, elegant theme with gold accents |
+| **Sleek** | Consumer tech, modern design products | Ultra-clean, monochrome with subtle shadows |
+| **Edge** | Snowboards, action sports, outdoor gear | High-energy design with blue accent |
+| **Glow** | Cosmetics, skincare, wellness | Soft, warm tones with rounded elements |
 
-Each preset configures color schemes, typography, border radius, and shadow styles.
+Each preset configures color schemes, typography, border radius, and shadow styles. Presets also include unique homepage and about page templates tailored to their target market.
 
 ---
 

@@ -1,0 +1,271 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 40,
+        "label": "OUR STORY",
+        "title": "Born in the Mountains",
+        "description": "We're riders first. Everything else comes second.",
+        "content_alignment": "left",
+        "button_text": "",
+        "button_link": "",
+        "button_style": "solid",
+        "button_size": "medium",
+        "color_scheme": "scheme-3",
+        "full_width": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "We build gear for\nthe days you *remember*.",
+        "subtext": "Powder days. First descents. Perfect conditions.",
+        "header_alignment": "left",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "accent_color": ""
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "2015",
+            "label": "Founded"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Rider Owned"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "16/9",
+        "label": "THE BEGINNING",
+        "title": "Started in a Garage",
+        "text": "<p>It started with a few riders who were tired of big brands that had never stood on a board making decisions about gear. So we built our own. Every board we make is designed by riders, tested by riders, and sold to riders.</p>",
+        "button_text": "Shop All",
+        "button_link": "shopify://collections/all",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "25",
+            "prefix": "",
+            "suffix": "K+",
+            "label": "Boards Sold",
+            "description": ""
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "15",
+            "prefix": "",
+            "suffix": "",
+            "label": "Team Riders",
+            "description": ""
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "4.9",
+            "prefix": "",
+            "suffix": "★",
+            "label": "Average Rating",
+            "description": ""
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "2",
+            "prefix": "",
+            "suffix": "yr",
+            "label": "Warranty",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ],
+      "settings": {
+        "title": "",
+        "subtitle": "",
+        "content_alignment": "center",
+        "animation_duration": 1200,
+        "color_scheme": "scheme-3",
+        "full_width": false,
+        "show_dividers": true
+      }
+    },
+    "timeline": {
+      "type": "timeline",
+      "blocks": {
+        "milestone_1": {
+          "type": "milestone",
+          "settings": {
+            "year": "2015",
+            "title": "The First Board",
+            "text": "Built our first prototype in a garage in Colorado."
+          }
+        },
+        "milestone_2": {
+          "type": "milestone",
+          "settings": {
+            "year": "2017",
+            "title": "First Pro Team",
+            "text": "Signed our first team riders. They still ride for us today."
+          }
+        },
+        "milestone_3": {
+          "type": "milestone",
+          "settings": {
+            "year": "2020",
+            "title": "Bindings Launch",
+            "text": "Expanded into bindings after two years of R&D."
+          }
+        },
+        "milestone_4": {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "Still Riding",
+            "text": "Now shipping to riders in 30+ countries."
+          }
+        }
+      },
+      "block_order": [
+        "milestone_1",
+        "milestone_2",
+        "milestone_3",
+        "milestone_4"
+      ],
+      "settings": {
+        "label": "THE JOURNEY",
+        "title": "How We Got Here",
+        "header_alignment": "left",
+        "card_radius": 4,
+        "full_width": false,
+        "color_scheme": "scheme-1",
+        "accent_color": ""
+      }
+    },
+    "team": {
+      "type": "team",
+      "blocks": {
+        "member_1": {
+          "type": "member",
+          "settings": {
+            "name": "Ryan Cole",
+            "role": "Founder & Head Shaper",
+            "bio": "20+ years on snow. Shapes every board in our lineup.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_2": {
+          "type": "member",
+          "settings": {
+            "name": "Jess Martinez",
+            "role": "Team Manager",
+            "bio": "Former pro rider. Runs our team program.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_3": {
+          "type": "member",
+          "settings": {
+            "name": "Tyler Oakes",
+            "role": "Head of Product",
+            "bio": "Engineer who'd rather be in the backcountry.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        },
+        "member_4": {
+          "type": "member",
+          "settings": {
+            "name": "Maya Chen",
+            "role": "Creative Director",
+            "bio": "Designs our graphics. Shreds park on weekends.",
+            "linkedin": "",
+            "twitter": "",
+            "instagram": ""
+          }
+        }
+      },
+      "block_order": [
+        "member_1",
+        "member_2",
+        "member_3",
+        "member_4"
+      ],
+      "settings": {
+        "label": "THE CREW",
+        "title": "Meet the Team",
+        "description": "Riders who happen to run a company.",
+        "header_alignment": "left",
+        "columns": 4,
+        "card_radius": 4,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "side-by-side",
+        "title": "Stay in the Loop",
+        "text": "New gear, team edits, trip reports, and early access to drops.",
+        "button_text": "Join",
+        "privacy_text": "No spam, just stoke. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-3"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "text_reveal",
+    "image_with_text",
+    "rolling_numbers",
+    "timeline",
+    "team",
+    "newsletter"
+  ]
+}

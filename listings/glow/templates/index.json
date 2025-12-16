@@ -1,0 +1,229 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "overlay_opacity": 20,
+        "label": "Clean Beauty",
+        "title": "Your Skin, Elevated",
+        "description": "Science-backed formulas that actually work. No fillers, no false promises.",
+        "content_alignment": "center",
+        "button_text": "Shop Bestsellers",
+        "button_link": "shopify://collections/all",
+        "button_style": "solid",
+        "button_size": "medium",
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "show_scroll_indicator": true
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "Trending Now",
+        "title": "Bestsellers",
+        "description": "The products everyone's talking about.",
+        "collection": "",
+        "products_count": 4,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "text_reveal": {
+      "type": "text-reveal",
+      "settings": {
+        "label": "",
+        "text": "Good skin starts with\n*good* ingredients.",
+        "subtext": "",
+        "header_alignment": "center",
+        "button_text": "",
+        "button_link": "",
+        "show_background_number": false,
+        "background_number": "",
+        "full_width": false,
+        "color_scheme": "scheme-2",
+        "accent_color": "#d4a5a5"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Clean"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "Zero",
+            "label": "Parabens"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "Our Philosophy",
+        "title": "Less Is More",
+        "text": "<p>We formulate with intention. Every ingredient earns its place. No fillers, no fragrance, no questionable additives—just what your skin actually needs.</p>",
+        "button_text": "Our Ingredients",
+        "button_link": "shopify://pages/about",
+        "layout": "image_left",
+        "full_width": true,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "featured_collection_2": {
+      "type": "featured-collection",
+      "settings": {
+        "label": "Build Your Routine",
+        "title": "Shop by Concern",
+        "description": "",
+        "collection": "",
+        "products_count": 4,
+        "columns": 4,
+        "show_view_all": true,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "flask",
+            "title": "Clinically Tested",
+            "text": "Every formula is tested for efficacy and safety.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Clean Ingredients",
+            "text": "No parabens, sulfates, or synthetic fragrances.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Cruelty-Free",
+            "text": "Never tested on animals. Leaping Bunny certified.",
+            "link_text": "",
+            "link": ""
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "recycle",
+            "title": "Sustainable Packaging",
+            "text": "Recyclable materials, refillable options available.",
+            "link_text": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "label": "Our Promise",
+        "title": "What We Stand For",
+        "description": "",
+        "header_alignment": "center",
+        "layout": "standard",
+        "columns": 4,
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "My skin has never looked better. I've tried everything, and this actually works.",
+            "rating": 5,
+            "author": "Jessica L.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally a brand that's honest about what's in their products. My sensitive skin loves it.",
+            "rating": 5,
+            "author": "Amanda K.",
+            "author_title": "Verified Buyer"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The glow is real. I get compliments on my skin constantly now.",
+            "rating": 5,
+            "author": "Rachel M.",
+            "author_title": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_1",
+        "testimonial_2",
+        "testimonial_3"
+      ],
+      "settings": {
+        "label": "Real Results",
+        "title": "What Our Customers Say",
+        "header_alignment": "center",
+        "show_rating": true,
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "design": "stacked",
+        "title": "Get 15% Off Your First Order",
+        "text": "Plus skincare tips, new product launches, and exclusive offers.",
+        "button_text": "Subscribe",
+        "privacy_text": "We respect your privacy. Read our",
+        "privacy_link": "",
+        "privacy_link_text": "privacy policy",
+        "color_scheme": "scheme-1"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured_collection",
+    "text_reveal",
+    "image_with_text",
+    "featured_collection_2",
+    "features_grid",
+    "testimonials",
+    "newsletter"
+  ]
+}
