@@ -41,104 +41,104 @@
 </pickup-availability>
 
 <script>
-class PickupAvailability extends HTMLElement {
-  constructor() {
-    super();
-    if (!this.hasAttribute('available')) return;
-    this.render();
-    this.initModal();
-  }
-
-  render() {
-    const template = this.querySelector('template');
-    if (template) {
-      this.appendChild(template.content.cloneNode(true));
+if (!customElements.get('pickup-availability')) {
+  class PickupAvailability extends HTMLElement {
+    constructor() {
+      super();
+      if (!this.hasAttribute('available')) return;
+      this.render();
+      this.initModal();
     }
-  }
 
-  initModal() {
-    const modalOpenBtn = this.querySelector('[data-pickup-availability-modal-open]');
-    if (modalOpenBtn) {
-      modalOpenBtn.addEventListener('click', () => this.openModal());
-    }
-  }
-
-  async openModal() {
-    const modal = document.querySelector('[data-pickup-availability-modal]');
-    const content = modal?.querySelector('[data-pickup-availability-modal-content]');
-    if (!modal || !content) return;
-
-    // Show modal - use requestAnimationFrame to ensure transition triggers
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(() => {
-      modal.classList.add('is-open');
-    });
-
-    // Fetch pickup availability info
-    const variantId = this.dataset.variantId;
-    const rootUrl = this.dataset.rootUrl;
-
-    try {
-      const response = await fetch(`${rootUrl}variants/${variantId}/?section_id=pickup-availability`);
-      const html = await response.text();
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
-      const pickupContent = doc.querySelector('.pickup-availability-list');
-
-      if (pickupContent) {
-        content.innerHTML = pickupContent.outerHTML;
-      } else {
-        content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
+    render() {
+      const template = this.querySelector('template');
+      if (template) {
+        this.appendChild(template.content.cloneNode(true));
       }
-    } catch (error) {
-      console.error('Error fetching pickup availability:', error);
-      content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
     }
 
-    // Setup close handlers
-    modal.querySelectorAll('[data-pickup-availability-modal-close]').forEach(btn => {
-      btn.addEventListener('click', () => this.closeModal(), { once: true });
-    });
+    initModal() {
+      const modalOpenBtn = this.querySelector('[data-pickup-availability-modal-open]');
+      if (modalOpenBtn) {
+        modalOpenBtn.addEventListener('click', () => this.openModal());
+      }
+    }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') this.closeModal();
-    }, { once: true });
-  }
+    async openModal() {
+      const modal = document.querySelector('[data-pickup-availability-modal]');
+      const content = modal?.querySelector('[data-pickup-availability-modal-content]');
+      if (!modal || !content) return;
 
-  closeModal() {
-    const modal = document.querySelector('[data-pickup-availability-modal]');
-    if (!modal) return;
+      // Show modal - use requestAnimationFrame to ensure transition triggers
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        modal.classList.add('is-open');
+      });
 
-    modal.classList.remove('is-open');
-    setTimeout(() => {
-      document.body.style.overflow = '';
-    }, 300);
-  }
+      // Fetch pickup availability info
+      const variantId = this.dataset.variantId;
+      const rootUrl = this.dataset.rootUrl;
 
-  update(variantId) {
-    this.dataset.variantId = variantId;
-    const inner = this.querySelector('.pickup-availability__preview');
-    if (inner) inner.remove();
-
-    // Fetch new availability
-    fetch(`${this.dataset.rootUrl}variants/${variantId}/?section_id=pickup-availability`)
-      .then(res => res.text())
-      .then(html => {
+      try {
+        const response = await fetch(`${rootUrl}variants/${variantId}/?section_id=pickup-availability`);
+        const html = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(html, 'text/html');
-        const availability = doc.querySelector('pickup-availability');
-        if (availability && availability.hasAttribute('available')) {
-          this.setAttribute('available', '');
-          this.render();
-          this.initModal();
-        } else {
-          this.removeAttribute('available');
-        }
-      });
-  }
-}
+        const pickupContent = doc.querySelector('.pickup-availability-list');
 
-if (!customElements.get('pickup-availability')) {
+        if (pickupContent) {
+          content.innerHTML = pickupContent.outerHTML;
+        } else {
+          content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
+        }
+      } catch (error) {
+        console.error('Error fetching pickup availability:', error);
+        content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
+      }
+
+      // Setup close handlers
+      modal.querySelectorAll('[data-pickup-availability-modal-close]').forEach(btn => {
+        btn.addEventListener('click', () => this.closeModal(), { once: true });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') this.closeModal();
+      }, { once: true });
+    }
+
+    closeModal() {
+      const modal = document.querySelector('[data-pickup-availability-modal]');
+      if (!modal) return;
+
+      modal.classList.remove('is-open');
+      setTimeout(() => {
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    update(variantId) {
+      this.dataset.variantId = variantId;
+      const inner = this.querySelector('.pickup-availability__preview');
+      if (inner) inner.remove();
+
+      // Fetch new availability
+      fetch(`${this.dataset.rootUrl}variants/${variantId}/?section_id=pickup-availability`)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const availability = doc.querySelector('pickup-availability');
+          if (availability && availability.hasAttribute('available')) {
+            this.setAttribute('available', '');
+            this.render();
+            this.initModal();
+          } else {
+            this.removeAttribute('available');
+          }
+        });
+    }
+  }
+
   customElements.define('pickup-availability', PickupAvailability);
 }
 </script>

@@ -104,14 +104,13 @@ class ProductLightboxManager {
         case 'image': {
           const img = item.querySelector('img');
           if (img) {
-            // Get the highest resolution image URL
-            const src = img.src.replace(/width=\d+/, 'width=2000');
+            // Get the highest resolution image URL (larger for zoom)
+            const src = img.src.replace(/width=\d+/, 'width=3000');
             elements.push({
               href: src,
               type: 'image',
               alt: img.alt || '',
-              width: img.naturalWidth || 2000,
-              height: img.naturalHeight || 2000
+              zoomable: true
             });
           }
           break;
