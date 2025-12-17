@@ -704,6 +704,13 @@ Five curated design presets available in the theme editor, each targeting specif
 - Sharp corners, minimal shadows
 - Works well for brands still defining their visual identity
 
+#### Glow
+**Best for:** Skincare, cosmetics, wellness products, clean beauty, spa brands
+- Soft, warm cream tones with terracotta accent
+- Cormorant elegant headings, Questrial body
+- Pill-shaped buttons (100px radius), rounded cards
+- Soft shadows for an approachable, organic feel
+
 #### Bold
 **Best for:** Streetwear, graphic tees, sneakers, skate/surf brands, statement apparel
 - High contrast black/white with vibrant orange accent
@@ -724,13 +731,6 @@ Five curated design presets available in the theme editor, each targeting specif
 - Rajdhani geometric headings, IBM Plex Mono body
 - Sharp angular design, expanded letter spacing
 - Optimized for product specs and technical details
-
-#### Glow
-**Best for:** Skincare, cosmetics, wellness products, clean beauty, spa brands
-- Soft, warm cream tones with terracotta accent
-- Cormorant elegant headings, Questrial body
-- Pill-shaped buttons (100px radius), rounded cards
-- Soft shadows for an approachable, organic feel
 
 Each preset configures color schemes, typography (including letter spacing), border radius, and shadow styles for buttons, inputs, and cards.
 
