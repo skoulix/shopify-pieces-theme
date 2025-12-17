@@ -321,7 +321,7 @@
         <div class="compare-table__inner" style="grid-template-columns: 150px repeat(${products.length}, 1fr);">
           <!-- Product Row -->
           <div class="compare-table__row">
-            <div class="compare-table__header-cell text-label">{{ 'products.compare.product' | t | default: 'Product' }}</div>
+            <div class="compare-table__header-cell text-label-sm">{{ 'products.compare.product' | t | default: 'Product' }}</div>
             ${products.map(p => `
               <div class="compare-table__cell">
                 <div class="compare-table__product-image">
@@ -345,7 +345,7 @@
 
           <!-- Vendor Row -->
           <div class="compare-table__row">
-            <div class="compare-table__header-cell text-label">{{ 'products.compare.vendor' | t | default: 'Vendor' }}</div>
+            <div class="compare-table__header-cell text-label-sm">{{ 'products.compare.vendor' | t | default: 'Vendor' }}</div>
             ${products.map(p => `
               <div class="compare-table__cell">
                 <span class="compare-table__value">${escapeHtml(p.vendor) || '-'}</span>
@@ -355,7 +355,7 @@
 
           <!-- Product Type Row -->
           <div class="compare-table__row">
-            <div class="compare-table__header-cell text-label">{{ 'products.compare.type' | t | default: 'Type' }}</div>
+            <div class="compare-table__header-cell text-label-sm">{{ 'products.compare.type' | t | default: 'Type' }}</div>
             ${products.map(p => `
               <div class="compare-table__cell">
                 <span class="compare-table__value">${escapeHtml(p.type) || '-'}</span>
@@ -365,7 +365,7 @@
 
           <!-- SKU Row -->
           <div class="compare-table__row">
-            <div class="compare-table__header-cell text-label">{{ 'products.compare.sku' | t | default: 'SKU' }}</div>
+            <div class="compare-table__header-cell text-label-sm">{{ 'products.compare.sku' | t | default: 'SKU' }}</div>
             ${products.map(p => `
               <div class="compare-table__cell">
                 <span class="compare-table__value">${escapeHtml(p.sku) || '-'}</span>
@@ -375,7 +375,7 @@
 
           <!-- Availability Row -->
           <div class="compare-table__row">
-            <div class="compare-table__header-cell text-label">{{ 'products.compare.availability' | t | default: 'Availability' }}</div>
+            <div class="compare-table__header-cell text-label-sm">{{ 'products.compare.availability' | t | default: 'Availability' }}</div>
             ${products.map(p => `
               <div class="compare-table__cell">
                 ${p.available
