@@ -49,6 +49,7 @@ USED_ICONS = [
     "funnel",
     "list",
     "magnifying-glass",
+    "magnifying-glass-plus",
     "minus",
     "plus",
     "squares-four",

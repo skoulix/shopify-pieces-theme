@@ -25,9 +25,13 @@ class ProductLightboxManager {
       loop: true,
       autoplayVideos: false,
       closeOnOutsideClick: true,
+      zoomable: true,
+      draggable: true,
+      dragToleranceX: 40,
+      dragToleranceY: 65,
       openEffect: 'fade',
       closeEffect: 'fade',
-      cssEf498: {
+      cssEffects: {
         fadeIn: 'glightbox-fade-in',
         fadeOut: 'glightbox-fade-out'
       },
@@ -118,10 +122,11 @@ class ProductLightboxManager {
           if (video) {
             const sources = video.querySelectorAll('source');
             const src = sources.length > 0 ? sources[0].src : video.src;
+            // GLightbox needs inline video HTML for local videos
+            const videoHtml = `<video src="${src}" class="glightbox-video" controls playsinline preload="metadata" style="max-width:100%; max-height:80vh;"></video>`;
             elements.push({
-              href: src,
-              type: 'video',
-              source: 'local'
+              content: videoHtml,
+              type: 'inline'
             });
           }
           break;
@@ -161,28 +166,46 @@ class ProductLightboxManager {
   }
 
   /**
-   * Bind click handlers to gallery images
+   * Bind click handlers to gallery images and videos
    * @param {HTMLElement} gallery - The product gallery container
    */
   bindClickHandlers(gallery) {
     const mediaItems = gallery.querySelectorAll('[data-gallery-image]');
 
-    mediaItems.forEach((item, index) => {
+    // Track the lightbox index (excludes 3D models)
+    let lightboxIndex = 0;
+    const indexMap = new Map();
+
+    mediaItems.forEach((item) => {
+      const mediaType = item.dataset.mediaType;
+      if (mediaType !== 'model') {
+        indexMap.set(item, lightboxIndex);
+        lightboxIndex++;
+      }
+    });
+
+    mediaItems.forEach((item) => {
       const mediaType = item.dataset.mediaType;
 
-      // Only bind to images and videos, skip models
+      // Bind to images - click anywhere opens lightbox
       if (mediaType === 'image') {
         item.style.cursor = 'zoom-in';
 
         item.addEventListener('click', (e) => {
           // Don't open lightbox if clicking on interactive elements
-          if (e.target.closest('button, [data-video-poster], .model-viewer-ui')) {
+          if (e.target.closest('button, .model-viewer-ui')) {
             return;
           }
 
           e.preventDefault();
-          this.open(index);
+          this.open(indexMap.get(item));
         });
+      }
+
+      // Bind to videos - only zoom button opens lightbox (poster click plays inline)
+      if (mediaType === 'video' || mediaType === 'external_video') {
+        // Videos use the zoom button added in product.liquid
+        // The poster click plays inline, lightbox is optional via zoom button
       }
     });
   }
