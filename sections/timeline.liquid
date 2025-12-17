@@ -168,7 +168,7 @@
 
   .timeline-item-image-{{ section.id }} {
     margin-top: 1.5rem;
-    border-radius: {{ section.settings.card_radius }}px;
+    border-radius: var(--card-radius);
     overflow: hidden;
     max-width: 300px;
   }
@@ -355,20 +355,6 @@
       "id": "header_alignment",
       "default": "center",
       "label": "Header alignment"
-    },
-    {
-      "type": "header",
-      "content": "Style"
-    },
-    {
-      "type": "range",
-      "id": "card_radius",
-      "min": 0,
-      "max": 24,
-      "step": 4,
-      "default": 8,
-      "unit": "px",
-      "label": "Image corner radius"
     },
     {
       "type": "header",
