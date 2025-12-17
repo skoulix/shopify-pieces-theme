@@ -72,9 +72,6 @@
 
   .rolling-numbers-label-{{ section.id }} {
     margin-top: 1rem;
-    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.15em;
     opacity: 0.6;
   }
 
@@ -171,7 +168,7 @@
             {% endif %}
           </div>
           {% if block.settings.label != blank %}
-            <p class="rolling-numbers-label-{{ section.id }}">{{ block.settings.label }}</p>
+            <p class="rolling-numbers-label-{{ section.id }} text-label">{{ block.settings.label }}</p>
           {% endif %}
           {% if block.settings.description != blank %}
             <p class="rolling-numbers-description-{{ section.id }}">{{ block.settings.description }}</p>

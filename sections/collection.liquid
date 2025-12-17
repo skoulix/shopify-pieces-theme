@@ -141,14 +141,10 @@
 
   /* Metro Vendor - Elegant label */
   .metro-item-vendor {
-    font-size: 0.875rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
     color: rgba(255,255,255,0.7); margin: 0 0 0.625rem;
     display: inline-block;
     padding: 0.25rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.2);
-  }
-  @media (min-width: 768px) {
-    .metro-item-vendor { font-size: 0.9375rem; }
   }
 
   /* Metro Title - Bold typography */
@@ -511,7 +507,7 @@
                 <div class="metro-item-content">
                   {%- comment -%} Vendor {%- endcomment -%}
                   {% if settings.show_vendor and product.vendor != blank %}
-                    <p class="metro-item-vendor">{{ product.vendor }}</p>
+                    <p class="metro-item-vendor text-meta">{{ product.vendor }}</p>
                   {% endif %}
 
                   {%- comment -%} Title {%- endcomment -%}

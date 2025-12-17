@@ -50,7 +50,7 @@
   .collection-card:hover .collection-card-image img { transform: scale(1.05); }
   .collection-card-title { font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; margin-top: 1rem; }
   .collection-card-title .overflow-hidden span { display: inline-block; }
-  .collection-card-count { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-secondary); margin-top: 0.25rem; }
+  .collection-card-count { color: var(--color-text-secondary); margin-top: 0.25rem; }
   .collection-card-count .overflow-hidden span { display: inline-block; }
 </style>
 
@@ -161,7 +161,7 @@
                 <span class="overflow-hidden"><span>{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
               {%- endfor -%}
             </h3>
-            <p class="collection-card-count">
+            <p class="collection-card-count text-label-sm">
               <span class="overflow-hidden"><span>{{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}</span></span>
             </p>
           </a>

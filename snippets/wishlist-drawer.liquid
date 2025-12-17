@@ -144,9 +144,6 @@
   }
   .wishlist-drawer__product-title:hover { text-decoration: underline; }
   .wishlist-drawer__product-vendor {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: var(--color-text-secondary);
     margin-top: 0.25rem;
   }
@@ -323,7 +320,7 @@
         </a>
         <div class="wishlist-drawer__product-info">
           <a href="${escapeHtml(product.url)}" class="wishlist-drawer__product-title">${escapeHtml(product.title)}</a>
-          ${product.vendor ? `<span class="wishlist-drawer__product-vendor">${escapeHtml(product.vendor)}</span>` : ''}
+          ${product.vendor ? `<span class="wishlist-drawer__product-vendor text-meta">${escapeHtml(product.vendor)}</span>` : ''}
           <div class="wishlist-drawer__product-price">
             ${product.compareAtPrice && product.compareAtPrice > product.price ? `
               <span class="compare-price">${formatMoney(product.compareAtPrice)}</span>

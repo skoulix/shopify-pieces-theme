@@ -105,10 +105,6 @@
   }
 
   .map-info-item h3 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.2em;
     opacity: 0.5;
     margin-bottom: 0.5rem;
   }
@@ -209,7 +205,7 @@
         {% for block in section.blocks %}
           <div class="map-info-item" {{ block.shopify_attributes }} data-tween data-tween-type="fade-up">
             {% if block.settings.title != blank %}
-              <h3>{{ block.settings.title }}</h3>
+              <h3 class="text-label">{{ block.settings.title }}</h3>
             {% endif %}
             {% case block.type %}
               {% when 'address' %}

@@ -26,10 +26,6 @@
   }
 
   .logo-marquee-label-{{ section.id }} {
-    font-size: 0.875rem;
-    font-weight: 600;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.2em;
   }
 
   .logo-marquee-track-wrapper-{{ section.id }} {
@@ -150,7 +146,7 @@
   <div class="{{ container_class }}">
     {% if section.settings.label != blank %}
       <div class="logo-marquee-header-{{ section.id }}">
-        <span class="logo-marquee-label-{{ section.id }}" data-tween data-tween-type="fade-up">
+        <span class="logo-marquee-label-{{ section.id }} text-label" data-tween data-tween-type="fade-up">
           {{ section.settings.label }}
         </span>
       </div>

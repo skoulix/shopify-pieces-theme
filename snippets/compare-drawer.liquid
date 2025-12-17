@@ -29,10 +29,6 @@
     margin-bottom: 1rem;
   }
   .compare-drawer__title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.15em;
     color: var(--color-text);
   }
   .compare-drawer__count {
@@ -164,9 +160,6 @@
     border-radius: var(--card-radius);
     border: 2px dashed var(--color-border);
     color: var(--color-text-secondary);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
   }
   .compare-drawer__footer {
     display: flex;
@@ -200,10 +193,7 @@
     border: 1px solid color-mix(in srgb, var(--color-background) 20%, transparent);
     border-radius: var(--button-radius);
     cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: 600;
     {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.1em;
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     transform: translateY(calc(100% + 4rem));
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, bottom 0.4s ease;
@@ -265,7 +255,7 @@
 </style>
 
 {%- comment -%} Floating Button {%- endcomment -%}
-<button type="button" class="compare-floating-btn" data-compare-floating-btn aria-label="{{ 'products.compare.view_compare' | t | default: 'View compare' }}" aria-expanded="false" aria-controls="compare-drawer">
+<button type="button" class="compare-floating-btn text-label-sm" data-compare-floating-btn aria-label="{{ 'products.compare.view_compare' | t | default: 'View compare' }}" aria-expanded="false" aria-controls="compare-drawer">
   <i class="ph ph-scales text-lg" aria-hidden="true"></i>
   <span>{{ 'products.compare.compare' | t | default: 'Compare' }}</span>
   <span class="compare-floating-btn__count" data-compare-count aria-label="{{ 'products.compare.items_count' | t | default: 'items' }}">0</span>
@@ -277,7 +267,7 @@
   <div class="sr-only" aria-live="polite" aria-atomic="true" data-compare-status></div>
   <div class="compare-drawer__inner">
     <div class="compare-drawer__header">
-      <h3 id="compare-drawer-title" class="compare-drawer__title">
+      <h3 id="compare-drawer-title" class="compare-drawer__title text-label">
         {{ 'products.compare.compare_products' | t | default: 'Compare Products' }}
         <span class="compare-drawer__count" aria-live="polite">(<span data-compare-drawer-count>0</span>/4)</span>
       </h3>
@@ -451,7 +441,7 @@
 
     // Add empty slots
     for (let i = products.length; i < MAX_PRODUCTS; i++) {
-      html += `<div class="compare-drawer__empty-slot">{{ 'products.compare.add_product' | t | default: 'Add product' }}</div>`;
+      html += `<div class="compare-drawer__empty-slot text-label-sm">{{ 'products.compare.add_product' | t | default: 'Add product' }}</div>`;
     }
 
     productsContainer.innerHTML = html;

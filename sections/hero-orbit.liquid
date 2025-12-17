@@ -139,9 +139,6 @@
 
   .hero-orbit-subtitle-{{ section.id }} {
     font-size: clamp(0.875rem, 2vw, 1.25rem);
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
     opacity: 0;
     filter: blur(5px);
     will-change: opacity, filter;
@@ -200,11 +197,7 @@
     z-index: 10;
   }
 
-  .hero-orbit-scroll-{{ section.id }} span {
-    font-size: 0.6875rem;
-    letter-spacing: 0.2em;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-  }
+  /* Scroll indicator uses .text-label-sm */
 
   .hero-orbit-scroll-{{ section.id }} i {
     font-size: 1.25rem;
@@ -293,7 +286,7 @@
       {% endif %}
 
       {% if section.settings.subtitle != blank %}
-        <p class="hero-orbit-subtitle-{{ section.id }} text-balance max-w-6xl" data-orbit-subtitle>
+        <p class="hero-orbit-subtitle-{{ section.id }} text-label text-balance max-w-6xl" data-orbit-subtitle>
           {{ section.settings.subtitle }}
         </p>
       {% endif %}
@@ -311,7 +304,7 @@
 
   {% if section.settings.show_scroll_indicator %}
     <div class="hero-orbit-scroll-{{ section.id }}" data-orbit-scroll>
-      <span>{{ 'accessibility.scroll_down' | t }}</span>
+      <span class="text-label-sm">{{ 'accessibility.scroll_down' | t }}</span>
       <i class="ph ph-caret-down"></i>
     </div>
   {% endif %}

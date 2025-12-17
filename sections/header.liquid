@@ -303,23 +303,23 @@
               {% if block.settings.show_countdown and block.settings.countdown_date != blank %}
                 <div class="header-announcement__countdown" data-countdown="{{ block.settings.countdown_date | date: '%Y-%m-%dT%H:%M:%S' }}">
                   <div class="header-announcement__countdown-unit" data-countdown-days>
-                    <span class="header-announcement__countdown-value">00</span>
-                    <span class="header-announcement__countdown-label">Days</span>
+                    <span class="header-announcement__countdown-value text-counter">00</span>
+                    <span class="header-announcement__countdown-label text-label-sm">Days</span>
                   </div>
                   <span>:</span>
                   <div class="header-announcement__countdown-unit" data-countdown-hours>
-                    <span class="header-announcement__countdown-value">00</span>
-                    <span class="header-announcement__countdown-label">Hrs</span>
+                    <span class="header-announcement__countdown-value text-counter">00</span>
+                    <span class="header-announcement__countdown-label text-label-sm">Hrs</span>
                   </div>
                   <span>:</span>
                   <div class="header-announcement__countdown-unit" data-countdown-mins>
-                    <span class="header-announcement__countdown-value">00</span>
-                    <span class="header-announcement__countdown-label">Min</span>
+                    <span class="header-announcement__countdown-value text-counter">00</span>
+                    <span class="header-announcement__countdown-label text-label-sm">Min</span>
                   </div>
                   <span>:</span>
                   <div class="header-announcement__countdown-unit" data-countdown-secs>
-                    <span class="header-announcement__countdown-value">00</span>
-                    <span class="header-announcement__countdown-label">Sec</span>
+                    <span class="header-announcement__countdown-value text-counter">00</span>
+                    <span class="header-announcement__countdown-label text-label-sm">Sec</span>
                   </div>
                 </div>
               {% endif %}

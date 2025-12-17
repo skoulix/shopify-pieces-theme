@@ -151,13 +151,7 @@
     text-align: center;
   }
 
-  .video-placeholder-text-{{ section.id }} p {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-  }
+  /* Placeholder text uses .text-label-sm */
 
   .video-placeholder-bars-{{ section.id }} {
     display: flex;
@@ -282,7 +276,7 @@
               <i class="ph ph-play"></i>
             </div>
             <div class="video-placeholder-text-{{ section.id }}">
-              <p>Select a video</p>
+              <p class="text-label-sm" style="color: rgba(255, 255, 255, 0.5);">Select a video</p>
               <div class="video-placeholder-bars-{{ section.id }}">
                 <span></span>
                 <span></span>
