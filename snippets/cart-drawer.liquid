@@ -215,7 +215,7 @@
       <div class="p-6 border-t border-[--color-border] bg-[--color-background]" data-cart-drawer-footer>
         {%- comment -%} Cart Note {%- endcomment -%}
         <details class="mb-4 group/note">
-          <summary class="flex items-center justify-between w-full py-3 text-xs font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">
+          <summary class="flex items-center justify-between w-full py-3 text-sm font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">
             <span>{{ 'cart.add_note' | t }}</span>
             <i class="ph ph-caret-down text-base transition-transform group-open/note:rotate-180"></i>
           </summary>
@@ -234,7 +234,7 @@
           <span>{{ 'cart.subtotal' | t }}</span>
           <span data-cart-subtotal>{{ cart.total_price | money }}</span>
         </div>
-        <p class="text-xs text-[--color-text-secondary] m-0 mb-4">
+        <p class="text-sm text-[--color-text-secondary] m-0 mb-4">
           {{ 'cart.taxes_shipping_note' | t }}
         </p>
 

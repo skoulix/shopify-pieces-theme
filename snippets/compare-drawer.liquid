@@ -283,7 +283,7 @@
       </h3>
       <div class="compare-drawer__actions">
         {%- assign clear_text = 'products.compare.clear_all' | t | default: 'Clear all' -%}
-        <button type="button" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-[0.1em] text-[--color-text] opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer p-0" data-compare-clear>
+        <button type="button" class="text-hover-reveal inline-flex items-center gap-2 text-sm font-semibold tracking-[0.1em] text-[--color-text] opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer p-0" data-compare-clear>
           <span data-hover="{{ clear_text }}">{{ clear_text }}</span>
         </button>
         <button type="button" class="compare-drawer__close" data-compare-drawer-close aria-label="{{ 'accessibility.close' | t }}">

@@ -119,7 +119,7 @@
         </div>
 
         {% if section.settings.show_view_all %}
-          <a href="{{ blog.url | default: routes.blogs_url }}" class="fb-view-all-{{ section.id }} text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[--color-text-secondary]" data-tween data-tween-type="fade-up">
+          <a href="{{ blog.url | default: routes.blogs_url }}" class="fb-view-all-{{ section.id }} text-hover-reveal inline-flex items-center gap-2 text-sm font-semibold tracking-widest text-[--color-text-secondary]" data-tween data-tween-type="fade-up">
             <span data-hover="{{ section.settings.view_all_text }}">{{ section.settings.view_all_text }}</span>
             {% if blog %}<span class="sr-only">{{ blog.title }}</span>{% endif %}
             <i class="ph ph-arrow-right" aria-hidden="true"></i>
@@ -196,7 +196,7 @@
               {% endif %}
 
               {% if section.settings.show_read_more %}
-                <a href="{{ article.url }}" class="blog-card-cta inline-flex items-center gap-2 mt-auto pt-4 text-xs font-semibold tracking-widest text-[--color-text] uppercase">
+                <a href="{{ article.url }}" class="blog-card-cta inline-flex items-center gap-2 mt-auto pt-4 text-sm font-semibold tracking-widest text-[--color-text] uppercase">
                   <span class="blog-card-cta-text-wrapper"><span class="blog-card-cta-text" data-hover="{{ 'blog.read_article' | t }}">{{ 'blog.read_article' | t }}</span></span>
                   <i class="ph ph-arrow-right" aria-hidden="true"></i>
                 </a>
@@ -241,7 +241,7 @@
                 </p>
               {% endif %}
               {% if section.settings.show_read_more %}
-                <span class="blog-card-cta inline-flex items-center gap-2 mt-auto pt-4 text-xs font-semibold tracking-widest text-[--color-text] uppercase">
+                <span class="blog-card-cta inline-flex items-center gap-2 mt-auto pt-4 text-sm font-semibold tracking-widest text-[--color-text] uppercase">
                   <span class="blog-card-cta-text-wrapper"><span class="blog-card-cta-text" data-hover="{{ 'blog.read_article' | t }}">{{ 'blog.read_article' | t }}</span></span>
                   <i class="ph ph-arrow-right" aria-hidden="true"></i>
                 </span>

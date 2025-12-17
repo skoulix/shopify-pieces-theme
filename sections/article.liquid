@@ -26,7 +26,7 @@
       {% endif %}
       {%- capture back_text -%}{{ 'blog.back_to_blog' | t: blog: blog.title }}{%- endcapture -%}
       <div class="mb-12" data-tween data-tween-type="fade-up">
-        <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-[--color-text-secondary]">
+        <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-sm font-semibold tracking-widest text-[--color-text-secondary]">
           <i class="ph ph-arrow-left" aria-hidden="true"></i>
           <span data-hover="{{ back_text }}">{{ back_text }}</span>
         </a>
@@ -88,7 +88,7 @@
 
       {% if section.settings.show_share %}
         <div class="flex items-center gap-4 mt-8">
-          <span class="text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary]">{{ 'general.share' | t }}</span>
+          <span class="text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary]">{{ 'general.share' | t }}</span>
           <div class="flex gap-3">
             <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-[--color-border] rounded-[--button-radius] text-[--color-text] hover:bg-[--color-primary] hover:text-[--color-primary-contrast] hover:border-[--color-primary] transition-all duration-300" aria-label="{{ 'accessibility.share_on_twitter' | t }}">
               <i class="ph ph-x-logo"></i>
@@ -168,17 +168,17 @@
               <div class="grid gap-6">
                 <div class="grid gap-6 sm:grid-cols-2">
                   <div>
-                    <label for="comment-author" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_name' | t }}</label>
+                    <label for="comment-author" class="block text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_name' | t }}</label>
                     <input type="text" name="comment[author]" id="comment-author" value="{{ form.author }}" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300">
                   </div>
                   <div>
-                    <label for="comment-email" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_email' | t }}</label>
+                    <label for="comment-email" class="block text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_email' | t }}</label>
                     <input type="email" name="comment[email]" id="comment-email" value="{{ form.email }}" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300">
                   </div>
                 </div>
 
                 <div>
-                  <label for="comment-body" class="block text-xs font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_body' | t }}</label>
+                  <label for="comment-body" class="block text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] mb-2">{{ 'blog.comment_form_body' | t }}</label>
                   <textarea name="comment[body]" id="comment-body" required class="w-full p-4 text-[0.9375rem] bg-transparent border border-[--color-border] text-[--color-text] focus:border-[--color-primary] focus:outline-none transition-colors duration-300 min-h-[150px] resize-y">{{ form.body }}</textarea>
                 </div>
 

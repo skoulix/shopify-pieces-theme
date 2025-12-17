@@ -77,25 +77,25 @@
         <div class="flex flex-wrap gap-2 mt-6">
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
-            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_all' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
-            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_products' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
-            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_articles' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
-            class="px-4 py-2 text-xs uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_pages' | t }}
           </a>
@@ -219,7 +219,7 @@
           {%- comment -%} Popular Searches {%- endcomment -%}
           {% if section.settings.show_popular_searches %}
             <div class="mt-12 pt-12 border-t border-[--color-border]">
-              <p class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+              <p class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
               <div class="flex flex-wrap gap-2">
                 {% assign popular_terms = section.settings.popular_searches | split: ',' %}
                 {% for term in popular_terms %}
@@ -248,7 +248,7 @@
         {%- comment -%} Popular Searches {%- endcomment -%}
         {% if section.settings.show_popular_searches %}
           <div class="mt-12 pt-12 border-t border-[--color-border]">
-            <p class="text-xs uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+            <p class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
             <div class="flex flex-wrap gap-2">
               {% assign popular_terms = section.settings.popular_searches | split: ',' %}
               {% for term in popular_terms %}
