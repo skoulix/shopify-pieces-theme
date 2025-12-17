@@ -186,17 +186,17 @@
       </p>
     {% endif %}
 
-    <h3 class="product-card-title card-title mt-2">
+    <h3 class="product-card-title card-title{% if show_vendor and product.vendor != blank %} mt-1{% endif %}">
       {%- assign title_words = product.title | split: ' ' -%}
       {%- for word in title_words -%}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
       {%- endfor -%}
     </h3>
 
-    <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+    <div class="product-card-price card-price">
       {% if product.compare_at_price > product.price %}
-        <span class="overflow-hidden inline-block"><span class="inline-block line-through opacity-60 mr-2">{{ product.compare_at_price | money }}</span></span>
-        <span class="overflow-hidden inline-block"><span class="inline-block text-[--color-sale]">{{ product.price | money }}</span></span>
+        <span class="overflow-hidden inline-block"><span class="inline-block card-price--compare">{{ product.compare_at_price | money }}</span></span>
+        <span class="overflow-hidden inline-block"><span class="inline-block card-price--sale">{{ product.price | money }}</span></span>
       {% else %}
         <span class="overflow-hidden inline-block"><span class="inline-block">{{ product.price | money }}</span></span>
       {% endif %}

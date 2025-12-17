@@ -68,26 +68,26 @@
   {%- comment -%} Product Info {%- endcomment -%}
   <div class="quick-view-product__info flex flex-col p-5 md:p-6 overflow-y-auto md:h-full overscroll-contain" data-lenis-prevent>
     {% if product.vendor != blank %}
-      <p class="text-xs text-[--color-text-secondary] uppercase tracking-wider mb-1">
+      <p class="card-meta mb-1">
         {{ product.vendor }}
       </p>
     {% endif %}
 
-    <h2 class="text-lg md:text-xl font-semibold font-heading mb-2 leading-tight text-balance pr-8">
+    <h2 class="text-base md:text-lg font-semibold font-heading leading-tight text-balance pr-8">
       <a href="{{ product.url }}" class="hover:text-[--color-primary] transition-colors">
         {{ product.title }}
       </a>
     </h2>
 
-    <div class="flex items-center gap-2 mb-3">
-      <span class="text-xl font-semibold" data-quick-view-price>
+    <div class="flex items-center gap-2 mt-2 mb-3">
+      <span class="text-lg font-semibold" data-quick-view-price>
         {{ current_variant.price | money }}
       </span>
       {% if current_variant.compare_at_price > current_variant.price %}
         <span class="text-sm text-[--color-text-secondary] line-through" data-quick-view-compare>
           {{ current_variant.compare_at_price | money }}
         </span>
-        <span class="px-1.5 py-0.5 text-[10px] font-semibold bg-[--color-sale] text-white rounded">
+        <span class="badge badge--sale">
           {% assign save_percent = current_variant.compare_at_price | minus: current_variant.price | times: 100.0 | divided_by: current_variant.compare_at_price | round %}
           -{{ save_percent }}%
         </span>
@@ -95,9 +95,9 @@
     </div>
 
     {% if product.description != blank %}
-      <div class="text-xs text-[--color-text-secondary] mb-4 line-clamp-2">
-        {{ product.description | strip_html | truncate: 120 }}
-      </div>
+      <p class="text-xs text-[--color-text-secondary] mb-4 leading-relaxed line-clamp-2">
+        {{ product.description | strip_html }}
+      </p>
     {% endif %}
 
     {%- comment -%} Product Form {%- endcomment -%}
@@ -109,7 +109,7 @@
         <div class="space-y-3 mb-4">
           {% for option in product.options_with_values %}
             <div>
-              <label for="quick-view-option-{{ option.name | handleize }}" class="block text-xs font-medium mb-1.5 text-[--color-text-secondary]">
+              <label for="quick-view-option-{{ option.name | handleize }}" class="form-label">
                 {{ option.name }}
               </label>
               <select
