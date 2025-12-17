@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -14,12 +23,14 @@
         "columns_tablet": 2,
         "columns_mobile": "1",
         "pagination_type": "load_more",
-        "products_per_page": 15,
+        "products_per_page": 12,
         "enable_filtering": true,
         "enable_sorting": true,
         "enable_layout_toggle": true
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
