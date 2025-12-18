@@ -288,13 +288,6 @@
         "default": "#f5f5f5"
       },
       {
-        "type": "checkbox",
-        "id": "enable_view_transitions",
-        "default": true,
-        "label": "Enable View Transitions API",
-        "info": "Uses the native View Transition API for smoother page transitions (modern browsers only)."
-      },
-      {
         "type": "header",
         "content": "Animations"
       },
