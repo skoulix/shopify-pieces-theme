@@ -184,6 +184,8 @@ class TweenManager {
       const wrapper = document.createElement('div');
       wrapper.style.overflow = 'hidden';
       wrapper.style.display = 'block';
+      wrapper.style.paddingBottom = '0.25em';
+      wrapper.style.marginBottom = '-0.25em';
       line.parentNode.insertBefore(wrapper, line);
       wrapper.appendChild(line);
     });
