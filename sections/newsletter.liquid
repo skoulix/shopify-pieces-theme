@@ -12,6 +12,8 @@
         title: section.settings.title,
         text: section.settings.text,
         button_text: section.settings.button_text,
+        button_style: section.settings.button_style,
+        button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
         privacy_link_text: section.settings.privacy_link_text
@@ -22,6 +24,8 @@
         title: section.settings.title,
         text: section.settings.text,
         button_text: section.settings.button_text,
+        button_style: section.settings.button_style,
+        button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
         privacy_link_text: section.settings.privacy_link_text
@@ -32,6 +36,8 @@
         title: section.settings.title,
         text: section.settings.text,
         button_text: section.settings.button_text,
+        button_style: section.settings.button_style,
+        button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
         privacy_link_text: section.settings.privacy_link_text
@@ -76,6 +82,26 @@
       "id": "button_text",
       "label": "Button text",
       "default": "Subscribe"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "Primary (accent)" },
+        { "value": "secondary", "label": "Secondary (neutral)" }
+      ]
     },
     {
       "type": "header",

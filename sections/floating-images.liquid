@@ -29,30 +29,30 @@
     margin-bottom: 1.5rem;
   }
 
-  /* Button styling - adapts to color scheme */
-  .floating-images-{{ section.id }} .btn--outline {
+  /* Button styling - secondary buttons use text/background for visibility */
+  .floating-images-{{ section.id }} .btn--secondary {
     color: var(--color-text);
     border-color: var(--color-text);
   }
-  .floating-images-{{ section.id }} .btn--outline::before {
+  .floating-images-{{ section.id }} .btn--secondary::before {
     background: var(--color-text);
   }
-  .floating-images-{{ section.id }} .btn--outline:hover,
-  .floating-images-{{ section.id }} .btn--outline:hover span,
-  .floating-images-{{ section.id }} .btn--outline:hover i {
+  .floating-images-{{ section.id }} .btn--secondary:hover,
+  .floating-images-{{ section.id }} .btn--secondary:hover span,
+  .floating-images-{{ section.id }} .btn--secondary:hover i {
     color: var(--color-background);
   }
-  .floating-images-{{ section.id }} .btn--primary {
+  .floating-images-{{ section.id }} .btn--solid-secondary {
     background: var(--color-text);
     border-color: var(--color-text);
     color: var(--color-background);
   }
-  .floating-images-{{ section.id }} .btn--primary::before {
+  .floating-images-{{ section.id }} .btn--solid-secondary::before {
     background: var(--color-background);
   }
-  .floating-images-{{ section.id }} .btn--primary:hover,
-  .floating-images-{{ section.id }} .btn--primary:hover span,
-  .floating-images-{{ section.id }} .btn--primary:hover i {
+  .floating-images-{{ section.id }} .btn--solid-secondary:hover,
+  .floating-images-{{ section.id }} .btn--solid-secondary:hover span,
+  .floating-images-{{ section.id }} .btn--solid-secondary:hover i {
     color: var(--color-text);
   }
 
@@ -157,10 +157,25 @@
       {% endif %}
 
       {% if section.settings.button_text != blank %}
+        {%- liquid
+          if section.settings.button_style == 'outline'
+            if section.settings.button_color == 'secondary'
+              assign btn_class = 'btn--secondary'
+            else
+              assign btn_class = 'btn--outline'
+            endif
+          else
+            if section.settings.button_color == 'secondary'
+              assign btn_class = 'btn--solid-secondary'
+            else
+              assign btn_class = 'btn--primary'
+            endif
+          endif
+        -%}
         <div class="mt-8" data-tween data-tween-type="fade-up">
           <a
             href="{{ section.settings.button_link | default: '#' }}"
-            class="btn{% if section.settings.button_style == 'solid' %} btn--primary{% else %} btn--outline{% endif %}{% if section.settings.button_size == 'large' %} btn--lg{% endif %}"
+            class="btn {{ btn_class }}{% if section.settings.button_size == 'small' %} btn--sm{% elsif section.settings.button_size == 'large' %} btn--lg{% endif %}"
           >
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
@@ -288,10 +303,21 @@
     },
     {
       "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "Primary (accent)" },
+        { "value": "secondary", "label": "Secondary (neutral)" }
+      ]
+    },
+    {
+      "type": "select",
       "id": "button_size",
       "label": "Button size",
       "default": "default",
       "options": [
+        { "value": "small", "label": "Small" },
         { "value": "default", "label": "Default" },
         { "value": "large", "label": "Large" }
       ]

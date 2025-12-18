@@ -66,12 +66,34 @@
       {% endif %}
 
       {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="iwt-cta section-link inline-flex items-center gap-3 text-sm font-semibold tracking-[0.1em]" data-tween data-tween-type="fade-up">
-          <span class="iwt-cta-text-wrapper">
-            <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
-          </span>
-          <i class="ph ph-arrow-right"></i>
-        </a>
+        {% if section.settings.button_type == 'link' %}
+          <a href="{{ section.settings.button_link }}" class="iwt-cta section-link inline-flex items-center gap-3 text-sm font-semibold tracking-[0.1em]" data-tween data-tween-type="fade-up">
+            <span class="iwt-cta-text-wrapper">
+              <span class="iwt-cta-text" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
+            </span>
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        {% else %}
+          {%- liquid
+            if section.settings.button_style == 'outline'
+              if section.settings.button_color == 'secondary'
+                assign btn_class = 'btn--secondary'
+              else
+                assign btn_class = 'btn--outline'
+              endif
+            else
+              if section.settings.button_color == 'secondary'
+                assign btn_class = 'btn--solid-secondary'
+              else
+                assign btn_class = 'btn--primary'
+              endif
+            endif
+          -%}
+          <a href="{{ section.settings.button_link }}" class="btn {{ btn_class }}{% if section.settings.button_size == 'small' %} btn--sm{% elsif section.settings.button_size == 'large' %} btn--lg{% endif %}" data-tween data-tween-type="fade-up">
+            <span>{{ section.settings.button_text }}</span>
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        {% endif %}
       {% endif %}
 
       {% if section.blocks.size > 0 %}
@@ -153,6 +175,48 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Button type",
+      "default": "link",
+      "options": [
+        { "value": "link", "label": "Text link" },
+        { "value": "button", "label": "Button" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ],
+      "info": "Only applies when Button type is set to Button"
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "Primary (accent)" },
+        { "value": "secondary", "label": "Secondary (neutral)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "default": "default",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "default", "label": "Default" },
+        { "value": "large", "label": "Large" }
+      ]
     },
     {
       "type": "header",

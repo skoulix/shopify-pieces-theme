@@ -29,7 +29,25 @@
             class="input min-w-0 flex-auto"
           >
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <button type="submit" class="btn btn--primary flex-none">
+          {%- liquid
+            # Determine button class based on style + color combination
+            # Style: solid or outline
+            # Color: primary (accent) or secondary (neutral)
+            if button_style == 'outline'
+              if button_color == 'secondary'
+                assign btn_class = 'btn--secondary'
+              else
+                assign btn_class = 'btn--outline'
+              endif
+            else
+              if button_color == 'secondary'
+                assign btn_class = 'btn--solid-secondary'
+              else
+                assign btn_class = 'btn--primary'
+              endif
+            endif
+          -%}
+          <button type="submit" class="btn {{ btn_class }} flex-none">
             <span>{{ button_text | default: 'Subscribe' }}</span>
           </button>
         </div>

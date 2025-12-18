@@ -179,6 +179,45 @@
   }
 
   /* ==========================================================================
+     Solid Secondary Button
+     Solid background using text color (neutral/secondary color)
+     ========================================================================== */
+  .btn--solid-secondary {
+    color: var(--color-background);
+    background: var(--color-text);
+    border: var(--button-border-width) solid var(--color-text);
+  }
+
+  .btn--solid-secondary::before {
+    background: var(--color-background);
+  }
+
+  .btn--solid-secondary span,
+  .btn--solid-secondary i,
+  .btn--solid-secondary svg,
+  .btn--solid-secondary > * {
+    transition: color 0.3s ease 0.1s;
+  }
+
+  .btn--solid-secondary:hover {
+    color: var(--color-text);
+  }
+
+  .btn--solid-secondary:hover span,
+  .btn--solid-secondary:hover i,
+  .btn--solid-secondary:hover svg,
+  .btn--solid-secondary:hover > * {
+    color: var(--color-text);
+  }
+
+  .btn--solid-secondary:not(:hover) span,
+  .btn--solid-secondary:not(:hover) i,
+  .btn--solid-secondary:not(:hover) svg,
+  .btn--solid-secondary:not(:hover) > * {
+    transition-delay: 0s;
+  }
+
+  /* ==========================================================================
      Tertiary Button (Ghost)
      Text only, no background or border
      ========================================================================== */
