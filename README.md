@@ -33,6 +33,8 @@ Seamless page navigation without full page reloads. Three transition styles avai
 | [@swup/preload-plugin](https://swup.js.org/plugins/preload-plugin/)       | Link preloading on hover      |
 | [@swup/body-class-plugin](https://swup.js.org/plugins/body-class-plugin/) | Dynamic body class updates    |
 | [@swup/scripts-plugin](https://swup.js.org/plugins/scripts-plugin/)       | Script re-execution           |
+| [@swup/fragment-plugin](https://swup.js.org/plugins/fragment-plugin/)     | Partial page updates          |
+| [@swup/gtm-plugin](https://swup.js.org/plugins/gtm-plugin/)               | Google Tag Manager integration|
 
 ### Content Replaced Handler
 
@@ -683,7 +685,7 @@ Configurable via Shopify theme customizer:
 | **Logo** | Logo image, desktop/mobile width, favicon |
 | **Colors** | Background, secondary background, text, secondary text, primary accent, primary contrast, border, sale |
 | **Typography** | Body font, heading font, font size scaling, heading/body letter spacing, uppercase headings/buttons |
-| **Layout** | Page width, vertical padding, section padding, smooth scrolling, page transitions (slide/fade/curtain), View Transitions API, animations, animation trigger timing |
+| **Layout** | Page width, vertical padding, section padding, smooth scrolling, page transitions (slide/fade/curtain), animations, animation trigger timing |
 | **Buttons** | Corner radius, border width, shadow style |
 | **Inputs** | Corner radius, border width, shadow style |
 | **Cards** | Corner radius, border width, shadow style |
@@ -700,7 +702,7 @@ Five curated design presets available in the theme editor, each targeting specif
 #### Default
 **Best for:** General retail, home goods, lifestyle brands, DTC startups
 - Clean, modern aesthetic with indigo primary color
-- Inter font for universal readability
+- Space Grotesk headings with Inter body for modern readability
 - Sharp corners, minimal shadows
 - Works well for brands still defining their visual identity
 
@@ -721,7 +723,7 @@ Five curated design presets available in the theme editor, each targeting specif
 #### Noir
 **Best for:** Fine jewelry, luxury watches, high-end accessories, premium leather goods
 - Dark, elegant theme with gold accents
-- Playfair Display serif headings, Tenor Sans body
+- Bodoni Moda serif headings, Jost body for refined luxury
 - Subtle gradient backgrounds, refined 1px borders
 - Generous vertical padding for a luxurious feel
 
