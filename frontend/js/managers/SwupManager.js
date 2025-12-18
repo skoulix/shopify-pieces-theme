@@ -4,6 +4,7 @@ import SwupHeadPlugin from '@swup/head-plugin';
 import SwupPreloadPlugin from '@swup/preload-plugin';
 import SwupBodyClassPlugin from '@swup/body-class-plugin';
 import SwupScriptsPlugin from '@swup/scripts-plugin';
+import SwupFragmentPlugin from '@swup/fragment-plugin';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lenisManager } from './LenisManager.js';
@@ -60,6 +61,7 @@ class SwupManager {
     }
 
     // Animation options for the JS plugin
+    // Fragment visit skipping is handled via hooks.before() after swup init
     const animationOptions = [
       {
         from: '(.*)', // From any page
@@ -76,6 +78,7 @@ class SwupManager {
     ];
 
     // Initialize Swup with plugins
+    console.log('[SwupManager] Initializing Swup with FragmentPlugin');
     this.swup = new Swup({
       containers: ['#swup-container'],
       cache: true,
@@ -85,6 +88,19 @@ class SwupManager {
         window.location.origin +
         '"]:not([data-no-swup]):not([href*="#"]), a[href^="/"]:not([data-no-swup]):not([href^="//"]):not([href^="#"]):not([href*="#"])',
       plugins: [
+        new SwupFragmentPlugin({
+          rules: [
+            {
+              // Search page filter navigation - only swap results, filters, and subtitle
+              // Pattern uses (.*) to match query strings like /search?q=test&type=product
+              from: '/search(.*)',
+              to: '/search(.*)',
+              containers: ['#search-results-fragment', '#search-filters-fragment', '#search-subtitle-fragment'],
+              name: 'search-filters',
+            },
+          ],
+          debug: true,
+        }),
         new SwupJsPlugin(animationOptions),
         new SwupHeadPlugin({
           persistAssets: true,
@@ -104,6 +120,25 @@ class SwupManager {
     // Set up event listeners
     this.setupEventListeners();
 
+    // Skip animations for fragment visits by using replace hooks
+    // This ensures SwupJsPlugin doesn't run full-page animations for fragments
+    this.swup.hooks.replace('animation:out:await', (visit, args, defaultHandler) => {
+      if (visit.fragmentVisit) {
+        // Skip the animation entirely for fragment visits
+        return;
+      }
+      return defaultHandler(visit, args);
+    });
+
+    this.swup.hooks.replace('animation:in:await', (visit, args, defaultHandler) => {
+      if (visit.fragmentVisit) {
+        // Animate fragment elements instead of full page
+        this.animateFragmentElements(visit.fragmentVisit.containers);
+        return;
+      }
+      return defaultHandler(visit, args);
+    });
+
     this.isInitialized = true;
 
     return this.swup;
@@ -112,6 +147,11 @@ class SwupManager {
   setupEventListeners() {
     // Before page transition starts
     this.swup.hooks.on('visit:start', (visit) => {
+      // Skip scroll locking and full-page transition classes for fragment visits
+      if (visit.fragmentVisit) {
+        return;
+      }
+
       document.documentElement.classList.add('is-changing');
       document.documentElement.classList.add('scroll-locked');
 
@@ -124,8 +164,22 @@ class SwupManager {
     });
 
     // After new content is replaced
-    this.swup.hooks.on('content:replace', () => {
-      // Kill old ScrollTriggers before content change
+    this.swup.hooks.on('content:replace', (visit) => {
+      // For fragment visits, only refresh - don't kill all ScrollTriggers
+      if (visit.fragmentVisit) {
+        // Dispatch fragment-specific event for partial reinitialization
+        window.dispatchEvent(new CustomEvent('swup:fragmentReplaced', {
+          detail: { containers: visit.fragmentVisit.containers }
+        }));
+
+        // Refresh ScrollTrigger to recalculate positions
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+        return;
+      }
+
+      // Kill old ScrollTriggers before content change (full page only)
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
       // Re-initialize components on new page
@@ -170,6 +224,29 @@ class SwupManager {
         new CustomEvent('swup:pageview', {
           detail: { url: window.location.href },
         })
+      );
+    });
+
+  }
+
+  /**
+   * Animate elements within swapped fragments
+   * @param {string[]} containers - Array of container selectors that were swapped
+   */
+  animateFragmentElements(containers) {
+    containers.forEach((selector) => {
+      const container = document.querySelector(selector);
+      if (!container) return;
+
+      // Simple fade animation on the container itself
+      // Don't interfere with individual data-tween elements - they'll be handled by TweenManager refresh
+      gsap.fromTo(container,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        }
       );
     });
   }

@@ -33,18 +33,20 @@
       {{ 'search.title' | t }}
     </h1>
 
-    {% if search.performed %}
-      <p class="page-header-subtitle mt-6">
-        <span class="page-header-subtitle-line" data-subtitle-line></span>
-        <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>
-          {% if search.results_count > 0 %}
-            {{ 'search.results_for_html' | t: count: search.results_count, terms: search.terms }}
-          {% elsif search.terms != blank %}
-            {{ 'search.no_results_html' | t: terms: search.terms }}
-          {% endif %}
-        </span></span>
-      </p>
-    {% endif %}
+    <div id="search-subtitle-fragment">
+      {% if search.performed %}
+        <p class="page-header-subtitle mt-6">
+          <span class="page-header-subtitle-line" data-subtitle-line></span>
+          <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>
+            {% if search.results_count > 0 %}
+              {{ 'search.results_for_html' | t: count: search.results_count, terms: search.terms }}
+            {% elsif search.terms != blank %}
+              {{ 'search.no_results_html' | t: terms: search.terms }}
+            {% endif %}
+          </span></span>
+        </p>
+      {% endif %}
+    </div>
   </header>
 
   {%- comment -%} Search Form - Simple form without predictive search (use drawer for that) {%- endcomment -%}
@@ -73,39 +75,41 @@
       </form>
 
       {%- comment -%} Search Type Filters - Only show when there are results {%- endcomment -%}
-      {% if search.performed and search.results_count > 0 %}
-        <div class="flex flex-wrap gap-2 mt-6">
-          <a
-            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
-          >
-            {{ 'search.filter_all' | t }}
-          </a>
-          <a
-            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
-          >
-            {{ 'search.filter_products' | t }}
-          </a>
-          <a
-            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
-          >
-            {{ 'search.filter_articles' | t }}
-          </a>
-          <a
-            href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
-          >
-            {{ 'search.filter_pages' | t }}
-          </a>
-        </div>
-      {% endif %}
+      <div id="search-filters-fragment">
+        {% if search.performed and search.results_count > 0 %}
+          <div class="flex flex-wrap gap-2 mt-6">
+            <a
+              href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            >
+              {{ 'search.filter_all' | t }}
+            </a>
+            <a
+              href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            >
+              {{ 'search.filter_products' | t }}
+            </a>
+            <a
+              href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            >
+              {{ 'search.filter_articles' | t }}
+            </a>
+            <a
+              href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            >
+              {{ 'search.filter_pages' | t }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 
   {%- comment -%} Search Results {%- endcomment -%}
-  <div class="{{ container_class }} pt-12 relative z-0">
+  <div id="search-results-fragment" class="{{ container_class }} pt-12 relative z-0">
     {% if search.performed %}
       {% if search.results_count > 0 %}
         {% paginate search.results by 20 %}
