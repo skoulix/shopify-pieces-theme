@@ -286,11 +286,6 @@ class SwupManager {
       return Promise.resolve();
     }
 
-    // If using View Transitions, the browser handles the animation
-    if (this.shouldUseViewTransitions() && this._viewTransitionActive) {
-      return Promise.resolve();
-    }
-
     const container = document.querySelector('#swup-container');
     const overlay = document.querySelector('.page-transition-overlay');
 
