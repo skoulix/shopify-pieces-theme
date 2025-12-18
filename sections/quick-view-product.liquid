@@ -73,7 +73,7 @@
       </p>
     {% endif %}
 
-    <h2 class="text-base md:text-lg font-semibold font-heading leading-tight text-balance pr-8">
+    <h2 class="text-xl font-semibold font-heading leading-tight text-balance pr-8">
       <a href="{{ product.url }}" class="hover:text-[--color-primary] transition-colors">
         {{ product.title }}
       </a>
@@ -95,7 +95,7 @@
     </div>
 
     {% if product.description != blank %}
-      <p class="text-xs text-[--color-text-secondary] mb-4 leading-relaxed line-clamp-2">
+      <p class="text-sm text-[--color-text-secondary] mb-4 leading-relaxed line-clamp-2">
         {{ product.description | strip_html }}
       </p>
     {% endif %}
@@ -109,7 +109,7 @@
         <div class="space-y-3 mb-4">
           {% for option in product.options_with_values %}
             <div>
-              <label for="quick-view-option-{{ option.name | handleize }}" class="form-label">
+              <label for="quick-view-option-{{ option.name | handleize }}" class="block text-xs font-semibold uppercase tracking-wider text-[--color-text-secondary] mb-2">
                 {{ option.name }}
               </label>
               <select
