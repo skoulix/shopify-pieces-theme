@@ -147,6 +147,14 @@
     modal.setAttribute('inert', '');
     unlockScroll();
 
+    // Clear content after transition to prevent flash on next open
+    setTimeout(() => {
+      if (!modal.classList.contains('is-open')) {
+        body.innerHTML = skeletonHTML;
+        currentHandle = null;
+      }
+    }, 300);
+
     // Restore focus to trigger element
     if (previouslyFocused && previouslyFocused.focus) {
       previouslyFocused.focus();
