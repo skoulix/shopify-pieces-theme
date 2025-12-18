@@ -77,25 +77,25 @@
         <div class="flex flex-wrap gap-2 mt-6">
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_all' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_products' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_articles' | t }}
           </a>
           <a
             href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
-            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+            class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
           >
             {{ 'search.filter_pages' | t }}
           </a>
@@ -111,7 +111,7 @@
         {% paginate search.results by 20 %}
           <div class="search-grid" data-search-results>
             {% for result in search.results %}
-              <article class="group" data-tween data-tween-type="fade-up">
+              <article class="group rounded-[--card-radius] overflow-hidden border-[length:var(--card-border-width)] border-solid border-[--color-border]" style="box-shadow: var(--card-shadow);" data-tween data-tween-type="fade-up">
                 <a href="{{ result.url }}" class="block">
                   {%- comment -%} Image {%- endcomment -%}
                   <div class="search-result-image relative">
@@ -136,7 +136,7 @@
                     {% endif %}
 
                     {%- comment -%} Type Badge {%- endcomment -%}
-                    <span class="absolute top-3 left-3 px-2 py-1 text-[11px] uppercase tracking-wider font-medium bg-[--color-background] text-[--color-text]">
+                    <span class="absolute top-3 left-3 px-2 py-1 text-[11px] uppercase tracking-wider font-medium bg-[--color-background] text-[--color-text] rounded-[--badge-radius]">
                       {% if result.object_type == 'product' %}
                         {{ 'search.type_product' | t }}
                       {% elsif result.object_type == 'article' %}
@@ -148,8 +148,8 @@
                   </div>
 
                   {%- comment -%} Content {%- endcomment -%}
-                  <div class="mt-4">
-                    <h3 class="text-sm font-semibold tracking-wide text-[--color-text] font-heading group-hover:text-[--color-primary] transition-colors">
+                  <div class="p-4 bg-[--color-background]">
+                    <h3 class="card-title text-[--color-text] font-heading group-hover:text-[--color-primary] transition-colors">
                       {{ result.title }}
                     </h3>
 
@@ -227,7 +227,7 @@
                   {% if trimmed_term != blank %}
                     <a
                       href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
-                      class="px-4 py-2 text-sm border border-[--color-border] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                      class="px-4 py-2 text-sm border border-[--color-border] rounded-[--button-radius] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
                     >
                       {{ trimmed_term }}
                     </a>
@@ -256,7 +256,7 @@
                 {% if trimmed_term != blank %}
                   <a
                     href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
-                    class="px-4 py-2 text-sm border border-[--color-border] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                    class="px-4 py-2 text-sm border border-[--color-border] rounded-[--button-radius] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
                   >
                     {{ trimmed_term }}
                   </a>
