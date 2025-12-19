@@ -28,7 +28,7 @@
   <div class="absolute top-0 right-0 bottom-0 w-full max-w-[540px] h-full bg-[--color-background] flex flex-col transform translate-x-full transition-transform duration-300 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-[--color-border] group-[.is-open]:translate-x-0">
     {%- comment -%} Header {%- endcomment -%}
     <div class="flex items-center gap-3 px-6 py-5 border-b border-[--color-border]">
-      <h2 id="size-chart-drawer-title" class="flex-1 text-xl font-[--font-heading-weight] m-0 font-heading" data-size-chart-title>
+      <h2 id="size-chart-drawer-title" class="flex-1 drawer-title text-xl m-0" data-size-chart-title>
         {%- liquid
           if heading != blank
             echo heading
