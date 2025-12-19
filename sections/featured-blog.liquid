@@ -171,7 +171,7 @@
                 </p>
               {% endif %}
 
-              <h3 class="blog-card-title font-bold text-[--color-text] font-heading">
+              <h3 class="blog-card-title{% if is_featured %} blog-card-title--featured{% endif %}">
                 <a href="{{ article.url }}" class="hover:text-[--color-primary] transition-colors">
                   {{ article.title }}
                 </a>
@@ -223,7 +223,7 @@
                   Category
                 </p>
               {% endif %}
-              <h3 class="blog-card-title font-bold text-[--color-text] font-heading">
+              <h3 class="blog-card-title{% if is_featured %} blog-card-title--featured{% endif %}">
                 {{ 'sections.featured_blog.placeholder_title' | t }} {{ forloop.index }}
               </h3>
               <div class="mt-2 flex items-center gap-4 text-xs text-[--color-text-secondary]">

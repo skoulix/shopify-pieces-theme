@@ -8,10 +8,12 @@
    ========================================================================== */
 
 .page-title {
+  font-family: var(--font-heading);
   font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1));
   font-weight: 700;
   letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
   line-height: 0.95;
+  text-wrap: balance;
 }
 
 @media (min-width: 1024px) {
@@ -27,10 +29,12 @@
    ========================================================================== */
 
 .section-title {
+  font-family: var(--font-heading);
   font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
   font-weight: 700;
   letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
   line-height: 0.95;
+  text-wrap: balance;
 }
 
 /* Larger variant for hero sections */
@@ -40,12 +44,50 @@
   line-height: 0.9;
 }
 
+/* Hero title - primary hero headline */
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: calc(clamp(2.5rem, 10vw, 5rem) * var(--heading-font-scale, 1));
+  font-weight: 700;
+  letter-spacing: calc(-0.04em + var(--heading-letter-spacing, 0em));
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+/* Newsletter title */
+.newsletter-title {
+  font-family: var(--font-heading);
+  font-size: calc(clamp(1.5rem, 4vw, 2.25rem) * var(--heading-font-scale, 1));
+  font-weight: 700;
+  letter-spacing: calc(-0.025em + var(--heading-letter-spacing, 0em));
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Blog card title */
+.blog-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem; /* 18px - text-lg */
+  font-weight: 600;
+  letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
+  line-height: 1.25;
+}
+
+/* Featured blog card - larger title */
+.blog-card-title--featured {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+  line-height: 1.1;
+}
+
 @media (min-width: 1024px) {
   .section-title {
     font-size: calc(clamp(2.5rem, 4vw, 4rem) * var(--heading-font-scale, 1));
   }
 
-  .section-title--hero {
+  .section-title--hero,
+  .hero-title {
     font-size: calc(clamp(4rem, 8vw, 7rem) * var(--heading-font-scale, 1));
   }
 }
