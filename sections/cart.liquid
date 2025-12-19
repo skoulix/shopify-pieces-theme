@@ -11,7 +11,7 @@
 -%}
 
 <style>
-  .cart-page-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; }
+  .cart-page-title { font-family: var(--font-heading); font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); font-weight: 700; letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; text-wrap: balance; }
   @media (min-width: 1024px) { .cart-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   /* Title line stagger (managed by TweenManager) */
   .cart-page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
@@ -37,7 +37,7 @@
 
 <div class="cart-wrapper min-h-screen py-[--page-vertical-padding]" data-cart-wrapper>
   <header class="mb-12 lg:mb-16 {{ container_class }}" data-tween-group="cart-header" data-tween-start="top bottom">
-    <h1 class="cart-page-title font-bold text-[--color-text] font-heading" data-tween data-tween-type="split-text">
+    <h1 class="cart-page-title" data-tween data-tween-type="split-text">
       {{ 'cart.title' | t }}
     </h1>
 

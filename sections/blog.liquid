@@ -7,7 +7,7 @@
 -%}
 
 <style>
-  .blog-hero-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: calc(-0.04em + var(--heading-letter-spacing, 0em)); line-height: 0.85; }
+  .blog-hero-title { font-family: var(--font-heading); font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); font-weight: 700; letter-spacing: calc(-0.04em + var(--heading-letter-spacing, 0em)); line-height: 0.85; text-wrap: balance; }
   @media (min-width: 1024px) { .blog-hero-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .blog-hero-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
   .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 8vw, 6rem); }
@@ -22,7 +22,7 @@
 <section class="blog-wrapper py-[--page-vertical-padding]" data-blog-wrapper>
   <div class="mb-12 lg:mb-16" data-tween-group="blog-header-{{ section.id }}">
     <div class="{{ container_class }}">
-      <h1 class="blog-hero-title font-bold text-[--color-text] font-heading" data-tween data-tween-type="split-text">
+      <h1 class="blog-hero-title" data-tween data-tween-type="split-text">
         {{ blog.title }}
       </h1>
 

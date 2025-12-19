@@ -25,7 +25,7 @@
 -%}
 
 <style>
-  .contact-header-title { font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; }
+  .contact-header-title { font-family: var(--font-heading); font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); font-weight: 700; letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; text-wrap: balance; }
   @media (min-width: 1024px) { .contact-header-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   @media (min-width: 1536px) { .contact-header-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
   /* Title line stagger (managed by TweenManager) */
@@ -42,7 +42,7 @@
     {% endif %}
 
     {% if heading != blank %}
-      <h1 class="contact-header-title font-bold font-heading" data-tween data-tween-type="split-text">
+      <h1 class="contact-header-title" data-tween data-tween-type="split-text">
         {{ heading }}
       </h1>
     {% endif %}
