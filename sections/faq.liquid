@@ -16,20 +16,6 @@
     padding: var(--section-vertical-padding) 0;
   }
 
-  .faq-section-{{ section.id }} .faq-title {
-    font-family: var(--font-heading);
-    font-size: calc(clamp(2rem, 5vw, 3.5rem) * var(--heading-font-scale, 1));
-    font-weight: 700;
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
-    line-height: 0.95;
-    text-wrap: balance;
-  }
-
-  @media (min-width: 1024px) {
-    .faq-section-{{ section.id }} .faq-title {
-      font-size: calc(clamp(2.5rem, 4vw, 4rem) * var(--heading-font-scale, 1));
-    }
-  }
 
   .faq-section-{{ section.id }} .faq-item {
     border-bottom: 1px solid var(--color-border);
@@ -134,7 +120,7 @@
         {% endif %}
 
         {% if section.settings.title != blank %}
-          <h2 class="faq-title" data-tween data-tween-type="split-text">
+          <h2 class="section-title" data-tween data-tween-type="split-text">
             {{ section.settings.title }}
           </h2>
         {% endif %}

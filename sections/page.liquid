@@ -14,22 +14,19 @@
 -%}
 
 <style>
-  .page-header-title { font-family: var(--font-heading); font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); font-weight: 700; letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; text-wrap: balance; }
-  @media (min-width: 1024px) { .page-header-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
-  @media (min-width: 1536px) { .page-header-title { font-size: calc(clamp(4.5rem, 6vw, 8rem) * var(--heading-font-scale, 1)); } }
   /* Title line stagger (managed by TweenManager) */
-  .page-header-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
-  .page-header-title .tween-split-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
-  .page-header-title.text-center .tween-split-line:nth-child(2),
-  .page-header-title.text-center .tween-split-line:nth-child(3) { margin-left: 0; }
-  .page-header-title.text-right .tween-split-line:nth-child(2),
-  .page-header-title.text-right .tween-split-line:nth-child(3) { margin-left: 0; margin-right: clamp(1.5rem, 10vw, 8rem); }
-  .page-header-title.text-right .tween-split-line:nth-child(3) { margin-right: clamp(3rem, 18vw, 14rem); }
+  .page-section .page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .page-section .page-title .tween-split-line:nth-child(3) { margin-left: clamp(3rem, 18vw, 14rem); }
+  .page-section .page-title.text-center .tween-split-line:nth-child(2),
+  .page-section .page-title.text-center .tween-split-line:nth-child(3) { margin-left: 0; }
+  .page-section .page-title.text-right .tween-split-line:nth-child(2),
+  .page-section .page-title.text-right .tween-split-line:nth-child(3) { margin-left: 0; margin-right: clamp(1.5rem, 10vw, 8rem); }
+  .page-section .page-title.text-right .tween-split-line:nth-child(3) { margin-right: clamp(3rem, 18vw, 14rem); }
 </style>
 
-<section class="bg-[--color-background] py-[--page-vertical-padding]">
+<section class="page-section bg-[--color-background] py-[--page-vertical-padding]">
   <header class="mb-12 lg:mb-16 page-container {{ header_align_class }}" data-tween-group="page-header" data-tween-start="top bottom">
-    <h1 class="page-header-title {{ header_align_class }}" data-tween data-tween-type="split-text">
+    <h1 class="page-title {{ header_align_class }}" data-tween data-tween-type="split-text">
       {{ page.title }}
     </h1>
   </header>

@@ -11,10 +11,8 @@
 -%}
 
 <style>
-  .cart-page-title { font-family: var(--font-heading); font-size: calc(clamp(2.5rem, 10vw, 4.5rem) * var(--heading-font-scale, 1)); font-weight: 700; letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em)); line-height: 0.9; text-wrap: balance; }
-  @media (min-width: 1024px) { .cart-page-title { font-size: calc(clamp(3.5rem, 7vw, 6rem) * var(--heading-font-scale, 1)); } }
   /* Title line stagger (managed by TweenManager) */
-  .cart-page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
+  .cart-wrapper .page-title .tween-split-line:nth-child(2) { margin-left: clamp(1.5rem, 10vw, 8rem); }
   .cart-quantity { display: inline-flex; align-items: center; background: transparent; border-radius: var(--input-radius); padding: 0; position: relative; overflow: hidden; border: var(--input-border-width) solid var(--color-border); box-shadow: var(--input-shadow); }
   .cart-quantity-btn { width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--color-text); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
   .cart-quantity-btn:hover { background: var(--color-primary); color: var(--color-primary-contrast); }
@@ -37,7 +35,7 @@
 
 <div class="cart-wrapper min-h-screen py-[--page-vertical-padding]" data-cart-wrapper>
   <header class="mb-12 lg:mb-16 {{ container_class }}" data-tween-group="cart-header" data-tween-start="top bottom">
-    <h1 class="cart-page-title" data-tween data-tween-type="split-text">
+    <h1 class="page-title" data-tween data-tween-type="split-text">
       {{ 'cart.title' | t }}
     </h1>
 
