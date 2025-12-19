@@ -195,11 +195,17 @@
           } else {
             // No recommendations, hide the entire section
             section.style.display = 'none';
+            // Trigger ScrollTrigger refresh for footer reveal
+            const _ScrollTrigger = window.pieces?.ScrollTrigger || window.ScrollTrigger;
+            if (_ScrollTrigger) _ScrollTrigger.refresh();
           }
         })
         .catch(error => {
           console.error('Error loading recommendations:', error);
           section.style.display = 'none';
+          // Trigger ScrollTrigger refresh for footer reveal
+          const _ScrollTrigger = window.pieces?.ScrollTrigger || window.ScrollTrigger;
+          if (_ScrollTrigger) _ScrollTrigger.refresh();
         });
     }
 

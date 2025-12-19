@@ -16,10 +16,18 @@
 
   .fc-header-{{ section.id }} {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-bottom: clamp(2rem, 5vh, 4rem);
+  }
+
+  @media (min-width: 768px) {
+    .fc-header-{{ section.id }} {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+    }
   }
 
   .fc-header-content-{{ section.id }} {
@@ -44,7 +52,16 @@
 
   .fc-view-all-{{ section.id }} {
     flex-shrink: 0;
-    margin-top: 0.5rem;
+  }
+
+  .fc-{{ section.id }} .fc-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 640px) {
+    .fc-{{ section.id }} .fc-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (min-width: 1024px) {
@@ -95,7 +112,7 @@
     {% endif %}
 
     {%- comment -%} Product Grid {%- endcomment -%}
-    <div class="fc-grid grid grid-cols-2 md:grid-cols-3 gap-[clamp(1rem,3vw,2rem)]">
+    <div class="fc-grid grid gap-[clamp(1rem,3vw,2rem)]">
       {% if collection != blank %}
         {% for product in collection.products limit: products_to_show %}
           {% render 'product-card',
@@ -116,7 +133,7 @@
               {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover' }}
             </div>
             <div class="product-card-content flex-1 p-4 bg-[--color-background]">
-              <h3 class="product-card-title card-title mt-2 font-heading">
+              <h3 class="product-card-title card-title mt-2">
                 {{ 'sections.featured_collection.placeholder_product' | t }} {{ forloop.index }}
               </h3>
               <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">

@@ -211,6 +211,9 @@
     function renderProducts(products) {
       if (products.length === 0) {
         section.style.display = 'none';
+        // Trigger ScrollTrigger refresh for footer reveal
+        const _ScrollTrigger = window.pieces?.ScrollTrigger || window.ScrollTrigger;
+        if (_ScrollTrigger) _ScrollTrigger.refresh();
         return;
       }
 
