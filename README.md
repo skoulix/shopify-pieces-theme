@@ -262,7 +262,6 @@ Toast notifications automatically:
 - `password` - Password page
 - `404` - Not found page
 - `apps` - Third-party app embeds
-- `pickup-availability` - Store pickup info block
 
 ---
 
@@ -371,6 +370,33 @@ Generated from theme settings:
 <div class="page-container">Centered with max-width</div>
 <div class="page-full">Full width with padding</div>
 ```
+
+### Typography Classes
+
+Global typography classes defined in `frontend/css/partials/typography.css` for consistent styling:
+
+| Class | Usage |
+| ----- | ----- |
+| `.page-title` | Large page headers (collection, blog, cart, search) |
+| `.section-title` | Section headings with responsive scaling |
+| `.section-title--hero` | Larger variant for hero sections |
+| `.hero-title` | Primary hero headline |
+| `.section-label` | Small uppercase eyebrow text |
+| `.section-description` | Paragraph text below titles |
+| `.newsletter-title` | Newsletter section headings |
+| `.card-title` | Product/blog/collection card titles |
+| `.card-meta` | Vendor, category, date text |
+| `.card-price` | Product pricing display |
+| `.blog-card-title` | Blog article card titles |
+| `.blog-card-title--featured` | Larger featured blog titles |
+| `.drawer-title` | Slide-out drawer headings |
+| `.popup-title` | Modal/popup headings |
+| `.footer-brand` | Shop name in footer |
+| `.form-label` | Input field labels |
+| `.quote-text` | Testimonial/blockquote styling |
+| `.faq-question` | FAQ accordion question text |
+| `.stat-number` | Large display numbers |
+| `.badge` | Sale tags, labels (variants: `--sale`, `--soldout`, `--new`) |
 
 ---
 

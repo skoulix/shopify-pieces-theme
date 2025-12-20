@@ -215,6 +215,7 @@
 
   .metro-item-action {
     display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
     width: 2.5rem; height: 2.5rem;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
@@ -577,6 +578,20 @@
                       aria-label="{{ 'products.wishlist.add_to_wishlist' | t }}"
                     >
                       <i class="ph ph-heart text-lg"></i>
+                    </button>
+                  {% endif %}
+
+                  {%- comment -%} Compare {%- endcomment -%}
+                  {% if settings.enable_compare %}
+                    {%- capture compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
+                    <button
+                      type="button"
+                      class="metro-item-action product-card-compare"
+                      data-compare-toggle="{{ product.id }}"
+                      data-product-json='{{ compare_json | strip_newlines | replace: "'", "&#39;" }}'
+                      aria-label="{{ 'products.compare.add_to_compare' | t }}"
+                    >
+                      <i class="ph ph-scales text-lg"></i>
                     </button>
                   {% endif %}
                 </div>
