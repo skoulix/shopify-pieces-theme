@@ -378,17 +378,7 @@
    .text-link-sm, .text-counter) are defined in css-variables.liquid to respect
    the theme's buttons_uppercase setting */
 
-@layer utilities {
-  /* Note: text-balance and text-pretty are now native in Tailwind v3.4+
-     These are kept for backwards compatibility with older Tailwind versions */
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-}
+/* Note: text-balance and text-pretty are native in Tailwind v3.4+ */
 
 /* ==========================================================================
    Spacing Utilities - Override utilities for special cases
