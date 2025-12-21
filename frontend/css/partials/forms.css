@@ -15,9 +15,9 @@
     border: var(--input-border-width, 1px) solid var(--color-border);
     border-radius: var(--input-radius);
     color: var(--color-text);
-    font-size: 0.875rem;
-    line-height: 1;
-    transition: border-color 0.2s ease;
+    font-size: var(--text-sm);
+    line-height: var(--leading-none);
+    transition: border-color var(--transition-sm);
   }
 
   .input::placeholder {
@@ -41,21 +41,21 @@
   .input--xs {
     height: 2rem; /* 32px */
     padding: 0 0.75rem;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 
   /* Small - matches btn--sm */
   .input--sm {
     height: 2.375rem; /* 38px */
     padding: 0 0.875rem;
-    font-size: 0.8125rem;
+    font-size: var(--text-md);
   }
 
   /* Large - matches btn--lg */
   .input--lg {
     height: 3.25rem; /* 52px */
     padding: 0 1.25rem;
-    font-size: 1rem;
+    font-size: var(--text-base);
   }
 
   /* ==========================================================================
@@ -86,7 +86,7 @@
   .input:disabled,
   .input[disabled],
   .input.is-disabled {
-    opacity: 0.5;
+    opacity: var(--opacity-disabled);
     cursor: not-allowed;
   }
 
