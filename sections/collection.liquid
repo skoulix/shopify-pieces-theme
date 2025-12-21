@@ -345,7 +345,7 @@
     endcase
   -%}
 
-  <header class="mb-12 lg:mb-16 {{ container_class }} {{ header_align_class }}">
+  <header class="section-header-spacing {{ container_class }} {{ header_align_class }}">
     {% if section.settings.show_breadcrumbs %}
       {% render 'breadcrumbs', alignment: section.settings.header_alignment %}
     {% endif %}

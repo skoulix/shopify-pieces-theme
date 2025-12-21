@@ -396,3 +396,100 @@
 .spacing-content {
   margin-top: clamp(2rem, 5vh, 4rem);
 }
+
+/* ==========================================================================
+   Section Header Container Spacing
+   Standardizes the gap between header (label/title/description) and content
+   Used in: featured-collection, testimonials, featured-blog, collections, etc.
+   ========================================================================== */
+
+.section-header-spacing {
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+@media (min-width: 1024px) {
+  .section-header-spacing {
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
+}
+
+/* ==========================================================================
+   Icon Button - Circular icon buttons with hover states
+   Used in: navigation arrows, close buttons, toggle buttons
+   ========================================================================== */
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  background-color: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-background);
+}
+
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.icon-btn:disabled:hover {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+/* Size variants */
+.icon-btn--sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-btn--lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* ==========================================================================
+   Image Hover Effects
+   Common hover states for media elements
+   ========================================================================== */
+
+.image-zoom-hover {
+  overflow: hidden;
+}
+
+.image-zoom-hover img,
+.image-zoom-hover video {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-zoom-hover:hover img,
+.image-zoom-hover:hover video {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   Overlay Hover - Show content on hover
+   Used for: product quick actions, card overlays
+   ========================================================================== */
+
+.overlay-on-hover {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.group:hover .overlay-on-hover,
+.overlay-on-hover:hover {
+  opacity: 1;
+}
