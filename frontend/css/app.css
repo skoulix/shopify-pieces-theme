@@ -5,7 +5,7 @@
 
 /* All @imports must come first per CSS spec */
 @import "tailwindcss" source(none);
-@import './partials/base.css' layer(components);
+@import './partials/base.css' layer(base);
 @import './partials/typography.css' layer(components);
 @import './partials/forms.css' layer(components);
 @import './partials/buttons.css' layer(components);

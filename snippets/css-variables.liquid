@@ -271,13 +271,7 @@
     {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
   }
 
-  /* Heading scale */
-  h1 { font-size: calc(2.25rem * var(--heading-font-scale)); }
-  h2 { font-size: calc(1.875rem * var(--heading-font-scale)); }
-  h3 { font-size: calc(1.5rem * var(--heading-font-scale)); }
-  h4 { font-size: calc(1.25rem * var(--heading-font-scale)); }
-  h5 { font-size: calc(1.125rem * var(--heading-font-scale)); }
-  h6 { font-size: calc(1rem * var(--heading-font-scale)); }
+  /* Heading scale - defined in Tailwind base.css to avoid Preflight override */
 
   /* Links */
   a {
