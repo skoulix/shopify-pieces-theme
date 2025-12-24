@@ -91,7 +91,7 @@
     @apply font-heading leading-snug;
     font-weight: var(--font-heading-weight, 700);
     letter-spacing: calc(-0.015em + var(--heading-letter-spacing, 0em));
-    font-size: calc(clamp(1rem, 2vw, 1.25rem) * var(--heading-font-scale, 1));
+    font-size: calc(clamp(0.9375rem, 1.5vw, 1.125rem) * var(--heading-font-scale, 1));
   }
 
   /* Featured blog card - larger title */
@@ -99,7 +99,7 @@
     @apply leading-snug;
     font-weight: var(--font-heading-weight, 700);
     letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
-    font-size: calc(clamp(1.125rem, 2vw, 1.5rem) * var(--heading-font-scale, 1));
+    font-size: calc(clamp(1.25rem, 2.5vw, 1.75rem) * var(--heading-font-scale, 1));
   }
 
   /* Title line offsets for SplitText animations */
