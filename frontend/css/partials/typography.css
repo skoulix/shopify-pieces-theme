@@ -144,7 +144,7 @@
      ========================================================================== */
 
   .section-label {
-    @apply inline-block text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary);
+    @apply inline-block text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary);
     margin-bottom: clamp(1rem, 2vw, 1.5rem) !important;
   }
 
@@ -158,8 +158,8 @@
      ========================================================================== */
 
   .blog-category {
-    @apply text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary);
-    margin-bottom: 0.75rem !important;
+    @apply text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary);
+    margin-bottom: 0.5rem !important;
   }
 
   /* ==========================================================================
