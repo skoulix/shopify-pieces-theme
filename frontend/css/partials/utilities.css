@@ -19,6 +19,17 @@
     padding-bottom: var(--section-vertical-padding);
   }
 
+  /* Section padding variants - for sections that need different spacing */
+  .section-padding-sm {
+    padding-top: calc(var(--section-vertical-padding) * 0.6);
+    padding-bottom: calc(var(--section-vertical-padding) * 0.6);
+  }
+
+  .section-padding-lg {
+    padding-top: calc(var(--section-vertical-padding) * 1.5);
+    padding-bottom: calc(var(--section-vertical-padding) * 1.5);
+  }
+
   /* Page padding - for main template pages (article, cart, search, etc.) */
   .page-padding {
     padding-top: var(--page-vertical-padding);

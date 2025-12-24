@@ -12,11 +12,6 @@
 
 <style>
   .image-section-{{ section.id }} {
-    {% if section.settings.remove_padding %}
-    padding: 0;
-    {% else %}
-    padding: var(--section-vertical-padding) 0;
-    {% endif %}
     background-color: var(--color-background);
     color: var(--color-text);
   }
@@ -65,7 +60,7 @@
 </style>
 
 <section
-  class="image-section-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  class="image-section-{{ section.id }}{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}"
   data-image-section="{{ section.id }}"
 >
   <div class="{{ container_class }}">

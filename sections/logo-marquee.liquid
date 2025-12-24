@@ -13,7 +13,6 @@
 
 <style>
   .logo-marquee-{{ section.id }} {
-    padding: calc(var(--section-vertical-padding) * 0.6) 0;
     overflow: hidden;
   }
 
@@ -138,7 +137,7 @@
 </style>
 
 <section
-  class="logo-marquee-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  class="logo-marquee-{{ section.id }} section-padding-sm color-{{ section.settings.color_scheme }}"
   data-logo-marquee="{{ section.id }}"
   data-direction="{{ section.settings.direction }}"
   data-speed="{{ section.settings.speed }}"

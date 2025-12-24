@@ -14,9 +14,6 @@
   .video-section-{{ section.id }} {
     background-color: var(--color-background);
     color: var(--color-text);
-    {% unless section.settings.remove_padding %}
-    padding: var(--section-vertical-padding) 0;
-    {% endunless %}
   }
 
   .video-container-{{ section.id }} {
@@ -254,7 +251,7 @@
 
 </style>
 
-<section class="video-section-{{ section.id }} color-{{ section.settings.color_scheme }}" data-video-section="{{ section.id }}">
+<section class="video-section-{{ section.id }}{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}" data-video-section="{{ section.id }}">
   <div class="{{ container_class }}">
     <div class="video-container-{{ section.id }}">
       {% if section.settings.video != blank %}

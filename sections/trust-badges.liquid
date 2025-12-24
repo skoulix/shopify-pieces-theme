@@ -17,11 +17,10 @@
 {%- style -%}
   #{{ section_id }} {
     --badge-icon-color: {{ section.settings.icon_color }};
-    padding: calc(var(--section-vertical-padding) * 0.6) 0;
   }
 {%- endstyle -%}
 
-<section id="{{ section_id }}" class="trust-badges color-{{ section.settings.color_scheme }}">
+<section id="{{ section_id }}" class="trust-badges section-padding-sm color-{{ section.settings.color_scheme }}">
   <div class="{{ container_class }}">
     {%- if section.settings.title != blank -%}
       <div class="text-{{ section.settings.header_alignment }} mb-8{% if section.settings.full_width and section.settings.header_alignment != 'center' %} px-[var(--page-padding)]{% endif %}">

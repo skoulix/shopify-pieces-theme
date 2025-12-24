@@ -16,9 +16,6 @@
 -%}
 
 <style>
-  .hotspots-{{ section.id }} {
-    padding: var(--section-vertical-padding) 0;
-  }
 
   .hotspots-header-{{ section.id }} {
     margin-bottom: clamp(3rem, 6vh, 5rem);
@@ -201,7 +198,7 @@
 </style>
 
 <section
-  class="hotspots-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  class="hotspots-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-hotspots-section="{{ section.id }}"
 >
   <div class="{{ container_class }}">
