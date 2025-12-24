@@ -232,7 +232,7 @@
         return `
         <div class="shrink-0 w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)] min-w-0 flex">
           <article
-            class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full w-full border-[length:var(--card-border-width)] border-solid border-(--color-border) shadow-(--card-shadow)"
+            class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full w-full border-[--card-border-width] border-solid border-(--color-border) shadow-(--card-shadow)"
           >
             <div class="product-card-image relative overflow-hidden ${imageRatioClass}" data-tween data-tween-type="clip-right">
               <a href="${escapeHtml(product.url)}" class="block w-full h-full" aria-label="${escapeHtml(product.title)}">

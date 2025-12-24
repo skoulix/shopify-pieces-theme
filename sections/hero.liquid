@@ -89,17 +89,17 @@
         assign align_class = 'items-center text-center'
         assign title_align = 'text-center'
         assign description_align = 'mx-auto text-center'
-        assign scroll_position = 'right-[--page-padding]'
+        assign scroll_position = 'right-(--page-padding)'
       when 'right'
         assign align_class = 'items-end text-right'
         assign title_align = 'text-right'
         assign description_align = 'ml-auto text-right'
-        assign scroll_position = 'left-[--page-padding]'
+        assign scroll_position = 'left-(--page-padding)'
       else
         assign align_class = 'items-start text-left'
         assign title_align = ''
         assign description_align = ''
-        assign scroll_position = 'right-[--page-padding]'
+        assign scroll_position = 'right-(--page-padding)'
     endcase
   -%}
   {%- comment -%} Hero content - uses global data-tween system for animations with delay after media reveal {%- endcomment -%}

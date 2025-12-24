@@ -167,7 +167,7 @@
       </div>
 
       <div class="flex items-center gap-2">
-        <input type="checkbox" id="address-default" name="address[default]" value="1" class="w-4 h-4 accent-[--color-primary]">
+        <input type="checkbox" id="address-default" name="address[default]" value="1" class="w-4 h-4 accent-(--color-primary)">
         <label for="address-default" class="text-sm">{{ 'customers.addresses.set_default' | t }}</label>
       </div>
 
@@ -263,7 +263,7 @@
               </div>
 
               <div class="flex items-center gap-2">
-                <input type="checkbox" id="edit-default-{{ address.id }}" name="address[default]" value="1" {% if address == customer.default_address %}checked{% endif %} class="w-4 h-4 accent-[--color-primary]">
+                <input type="checkbox" id="edit-default-{{ address.id }}" name="address[default]" value="1" {% if address == customer.default_address %}checked{% endif %} class="w-4 h-4 accent-(--color-primary)">
                 <label for="edit-default-{{ address.id }}" class="text-sm">{{ 'customers.addresses.set_default' | t }}</label>
               </div>
 
