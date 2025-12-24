@@ -1,4 +1,9 @@
-/* Partials must be imported first for postcss-import */
+/* ==========================================================================
+   Pieces Theme - Tailwind CSS v4
+   A minimal Shopify theme using Tailwind UI patterns
+   ========================================================================== */
+
+/* Partials must be imported first */
 @import './partials/base.css';
 @import './partials/typography.css';
 @import './partials/forms.css';
@@ -9,11 +14,43 @@
 @import './partials/utilities.css';
 @import './partials/glightbox.css';
 
+/* Disable Tailwind's auto source detection to prevent infinite rebuild loop */
+@import "tailwindcss" source(none);
+@plugin "@tailwindcss/typography";
+
+/* Theme configuration - replaces tailwind.config.js */
+@theme {
+  --font-body: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  --max-width-page: var(--page-max-width, 1280px);
+}
+
+/* Explicitly define source paths (no auto-detection) */
+@source "../layout/**/*.liquid";
+@source "../templates/**/*.liquid";
+@source "../sections/**/*.liquid";
+@source "../snippets/**/*.liquid";
+@source "../blocks/**/*.liquid";
+@source "../frontend/js/**/*.js";
+
 /* ==========================================================================
-   Pieces Theme - Tailwind CSS
-   A minimal Shopify theme using Tailwind UI patterns
+   Typography (Prose) Customizations
    ========================================================================== */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.prose {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-text);
+  --tw-prose-links: var(--color-primary);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-quotes: var(--color-text-secondary);
+  --tw-prose-quote-borders: var(--color-primary);
+  max-width: none;
+}
+
+.prose a {
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  text-decoration: none;
+}

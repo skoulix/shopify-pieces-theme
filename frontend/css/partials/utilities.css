@@ -13,7 +13,19 @@
     max-width: var(--page-max-width, 1280px);
   }
 
-  /* Section spacing */
+  /* Section padding - uses theme setting via CSS variable */
+  .section-padding {
+    padding-top: var(--section-vertical-padding);
+    padding-bottom: var(--section-vertical-padding);
+  }
+
+  /* Page padding - for main template pages (article, cart, search, etc.) */
+  .page-padding {
+    padding-top: var(--page-vertical-padding);
+    padding-bottom: var(--page-vertical-padding);
+  }
+
+  /* Section spacing - fixed values (deprecated, use section-padding) */
   .section {
     @apply py-16 sm:py-24;
   }

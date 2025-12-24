@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
-export default defineConfig({
+export default defineConfig(() => ({
   root: 'frontend',
   base: './',
   build: {
@@ -15,12 +15,7 @@ export default defineConfig({
       output: {
         entryFileNames: 'pieces-[name].js',
         chunkFileNames: 'pieces-[name].js',
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
-            return 'pieces-[name][extname]';
-          }
-          return 'pieces-[name][extname]';
-        },
+        assetFileNames: 'pieces-[name][extname]',
         // Manual chunks for better caching - vendor libraries change less frequently
         manualChunks: {
           // GSAP and plugins - core animation library
@@ -63,4 +58,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['gsap', 'lenis', 'swup'],
   },
-});
+}));
