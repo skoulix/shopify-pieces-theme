@@ -168,8 +168,8 @@
      ========================================================================== */
 
   .section-description {
-    @apply leading-loose max-w-prose;
-    font-size: clamp(var(--text-sm), 1.5vw, var(--text-lg));
+    @apply font-body leading-loose max-w-prose;
+    font-size: calc(clamp(0.875rem, 1.5vw, 1.125rem) * var(--body-font-scale, 1));
     opacity: var(--opacity-muted);
     margin-top: clamp(1.25rem, 2.5vw, 1.75rem) !important;
   }
@@ -245,7 +245,7 @@
      ========================================================================== */
 
   .card-title {
-    @apply font-heading font-semibold leading-normal;
+    @apply font-heading font-semibold leading-snug;
     letter-spacing: calc(0.01em + var(--heading-letter-spacing, 0em));
     font-size: calc(0.9375rem * var(--heading-font-scale, 1));
     color: var(--color-text);
@@ -262,8 +262,7 @@
      ========================================================================== */
 
   .card-meta {
-    @apply font-medium tracking-wider;
-    font-size: var(--text-md);
+    @apply text-xs font-medium tracking-wider;
     color: var(--color-text-secondary);
   }
 
@@ -272,7 +271,7 @@
      ========================================================================== */
 
   .card-price {
-    @apply text-sm font-medium;
+    @apply font-body text-sm font-medium;
     margin-top: 0.5rem !important;
     color: var(--color-text-secondary);
   }
@@ -291,7 +290,7 @@
      ========================================================================== */
 
   .quote-text {
-    @apply leading-relaxed italic;
+    @apply font-body leading-relaxed italic;
     font-size: calc(clamp(1.125rem, 2vw, 1.5rem) * var(--body-font-scale, 1));
   }
 
@@ -300,7 +299,7 @@
      ========================================================================== */
 
   .faq-question {
-    @apply font-heading font-medium leading-normal;
+    @apply font-heading font-medium leading-snug;
     font-size: calc(clamp(1rem, 2vw, 1.25rem) * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
   }
@@ -334,8 +333,9 @@
      ========================================================================== */
 
   .footer-brand {
-    @apply font-heading text-xl;
+    @apply font-heading leading-tight;
     font-weight: var(--font-heading-weight, 700);
+    font-size: calc(1.25rem * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
   }
 
