@@ -125,7 +125,7 @@
 
   {%- comment -%} Privacy Link {%- endcomment -%}
   {% if show_privacy and privacy_link != blank %}
-    <p class="newsletter-form__privacy mt-3 text-xs text-[--color-text-secondary]">
+    <p class="newsletter-form__privacy mt-3 text-xs text-(--color-text-secondary)">
       {{ privacy_text }}
       <a href="{{ privacy_link }}" class="underline hover:no-underline">{{ privacy_link_text }}</a>
     </p>

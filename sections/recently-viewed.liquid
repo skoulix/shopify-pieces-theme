@@ -232,7 +232,7 @@
         return `
         <div class="shrink-0 w-[calc(100%-2rem)] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)] min-w-0 flex">
           <article
-            class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full w-full border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]"
+            class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full w-full border-[length:var(--card-border-width)] border-solid border-(--color-border) shadow-(--card-shadow)"
           >
             <div class="product-card-image relative overflow-hidden ${imageRatioClass}" data-tween data-tween-type="clip-right">
               <a href="${escapeHtml(product.url)}" class="block w-full h-full" aria-label="${escapeHtml(product.title)}">
@@ -245,8 +245,8 @@
                     decoding="async"
                   >
                 ` : `
-                  <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
-                    <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30" aria-hidden="true"></i>
+                  <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
+                    <i class="ph ph-image text-5xl text-(--color-text-secondary) opacity-30" aria-hidden="true"></i>
                   </div>
                 `}
               </a>
@@ -254,12 +254,12 @@
               <!-- Badges -->
               <div class="absolute top-3 left-3 flex flex-col gap-2 pointer-events-none">
                 ${showSaleBadge && hasSale ? `
-                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-[--color-sale] text-white rounded">
+                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-(--color-sale) text-white rounded">
                     ${saleBadgeStyle === 'percentage' ? `-${salePercent}%` : `{{ 'products.product.on_sale' | t }}`}
                   </span>
                 ` : ''}
                 ${showSoldOutBadge && !product.available ? `
-                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-[--color-text] text-[--color-background] rounded">
+                  <span class="inline-block px-2 py-1 text-xs font-semibold bg-(--color-text) text-(--color-background) rounded">
                     {{ 'products.product.sold_out' | t }}
                   </span>
                 ` : ''}
@@ -271,7 +271,7 @@
                   ${enableQuickView && product.available ? `
                     <button
                       type="button"
-                      class="product-card-quick-view w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background]"
+                      class="product-card-quick-view w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background)"
                       data-quick-view-trigger="${escapeHtml(product.handle)}"
                       aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: ${escapeHtml(product.title)}"
                     >
@@ -281,7 +281,7 @@
                   ${enableWishlist ? `
                     <button
                       type="button"
-                      class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white"
+                      class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background) [&.is-active]:bg-(--color-sale) [&.is-active]:text-white"
                       data-wishlist-toggle="${product.id}"
                       data-product-json='${buildProductJsonAttr(product)}'
                       aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: ${escapeHtml(product.title)}"
@@ -293,7 +293,7 @@
                   ${enableCompare ? `
                     <button
                       type="button"
-                      class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+                      class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background) [&.is-active]:bg-(--color-text) [&.is-active]:text-(--color-background)"
                       data-compare-toggle="${product.id}"
                       data-product-json='${buildProductJsonAttr(product)}'
                       aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: ${escapeHtml(product.title)}"
@@ -306,9 +306,9 @@
               ` : ''}
             </div>
 
-            <a href="${escapeHtml(product.url)}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline" data-tween data-tween-type="fade-up">
+            <a href="${escapeHtml(product.url)}" class="product-card-content flex-1 p-4 bg-(--color-background) block no-underline" data-tween data-tween-type="fade-up">
               ${showVendor && product.vendor ? `
-                <p class="product-card-vendor text-sm text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
+                <p class="product-card-vendor text-sm text-(--color-text-secondary) uppercase tracking-wide overflow-hidden">
                   <span class="inline-block">${escapeHtml(product.vendor)}</span>
                 </p>
               ` : ''}
@@ -317,10 +317,10 @@
                 ${escapeHtml(product.title)}
               </h3>
 
-              <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+              <div class="product-card-price mt-2 text-sm text-(--color-text-secondary)">
                 ${hasSale ? `
                   <span class="overflow-hidden inline-block"><span class="inline-block line-through opacity-60 mr-2">${formatMoney(product.compareAtPrice)}</span></span>
-                  <span class="overflow-hidden inline-block"><span class="inline-block text-[--color-sale]">${formatMoney(product.price)}</span></span>
+                  <span class="overflow-hidden inline-block"><span class="inline-block text-(--color-sale)">${formatMoney(product.price)}</span></span>
                 ` : `
                   <span class="overflow-hidden inline-block"><span class="inline-block">${formatMoney(product.price)}</span></span>
                 `}

@@ -56,7 +56,7 @@
 -%}
 
 <div
-  class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-[--color-border]"
+  class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-(--color-border)"
   style="box-shadow: var(--card-shadow);"
   data-product-card="{{ index }}"
   data-product-id="{{ product.id }}"
@@ -101,8 +101,8 @@
           }}
         {% endif %}
       {% else %}
-        <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
-          <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30" aria-hidden="true"></i>
+        <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
+          <i class="ph ph-image text-5xl text-(--color-text-secondary) opacity-30" aria-hidden="true"></i>
         </div>
       {% endif %}
     </a>
@@ -135,7 +135,7 @@
         {% if settings.enable_quick_view and product.available %}
           <button
             type="button"
-            class="product-card-quick-view w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background]"
+            class="product-card-quick-view w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background)"
             data-quick-view-trigger="{{ product.handle }}"
             aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: {{ product.title }}"
           >
@@ -149,7 +149,7 @@
           {%- endcapture -%}
           <button
             type="button"
-            class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-sale] [&.is-active]:text-white"
+            class="product-card-wishlist w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background) [&.is-active]:bg-(--color-sale) [&.is-active]:text-white"
             data-wishlist-toggle="{{ product.id }}"
             data-product-json='{{ wishlist_product_json | strip_newlines | replace: "'", "&#39;" }}'
             aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}"
@@ -165,7 +165,7 @@
           {%- endcapture -%}
           <button
             type="button"
-            class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-[--color-background] text-[--color-text] shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-[--color-text] hover:text-[--color-background] [&.is-active]:bg-[--color-text] [&.is-active]:text-[--color-background]"
+            class="product-card-compare w-10 h-10 flex items-center justify-center rounded-full bg-(--color-background) text-(--color-text) shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300 hover:bg-(--color-text) hover:text-(--color-background) [&.is-active]:bg-(--color-text) [&.is-active]:text-(--color-background)"
             data-compare-toggle="{{ product.id }}"
             data-product-json='{{ compare_product_json | strip_newlines | replace: "'", "&#39;" }}'
             aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}"
@@ -179,7 +179,7 @@
   </div>
 
   {%- comment -%} Content area with link {%- endcomment -%}
-  <a href="{{ product_url }}" class="product-card-content flex-1 p-4 bg-[--color-background] block no-underline"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
+  <a href="{{ product_url }}" class="product-card-content flex-1 p-4 bg-(--color-background) block no-underline"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
     {% if show_vendor and product.vendor != blank %}
       <p class="product-card-vendor card-meta overflow-hidden">
         <span class="inline-block">{{ product.vendor }}</span>
@@ -234,13 +234,13 @@
           {% endif %}
           {% if settings.enable_wishlist %}
             {%- capture mobile_wishlist_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-            <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-sale] [&.is-active]:!text-white [&.is-active]:!border-[--color-sale]" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ mobile_wishlist_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
+            <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-(--color-sale) [&.is-active]:!text-white [&.is-active]:!border-(--color-sale)" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ mobile_wishlist_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-heart" aria-hidden="true"></i>
             </button>
           {% endif %}
           {% if settings.enable_compare %}
             {%- capture mobile_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-            <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-text] [&.is-active]:!text-[--color-background]" data-compare-toggle="{{ product.id }}" data-product-json='{{ mobile_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
+            <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-(--color-text) [&.is-active]:!text-(--color-background)" data-compare-toggle="{{ product.id }}" data-product-json='{{ mobile_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-scales" aria-hidden="true"></i>
             </button>
           {% endif %}
@@ -251,7 +251,7 @@
 
   {%- comment -%} Add to Cart / Select Options Button (grid view + list view desktop 3rd column) {%- endcomment -%}
   {% if show_quick_add and product.available %}
-    <div class="product-card-quick-add px-4 pb-4 bg-[--color-background]"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
+    <div class="product-card-quick-add px-4 pb-4 bg-(--color-background)"{% if animate_image %} data-tween data-tween-type="fade-up"{% endif %}>
       {% if has_variants %}
         <a href="{{ product_url }}" class="btn btn--primary w-full text-center" aria-label="{{ 'products.product.select_options' | t }}: {{ product.title }}">
           <span>{{ 'products.product.select_options' | t }}</span>
@@ -274,13 +274,13 @@
           {% endif %}
           {% if settings.enable_wishlist %}
             {%- capture desktop_wishlist_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-            <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-sale] [&.is-active]:!text-white [&.is-active]:!border-[--color-sale]" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ desktop_wishlist_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
+            <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-(--color-sale) [&.is-active]:!text-white [&.is-active]:!border-(--color-sale)" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ desktop_wishlist_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-heart" aria-hidden="true"></i>
             </button>
           {% endif %}
           {% if settings.enable_compare %}
             {%- capture desktop_compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-            <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-[--color-text] [&.is-active]:!text-[--color-background]" data-compare-toggle="{{ product.id }}" data-product-json='{{ desktop_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
+            <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon [&.is-active]:!bg-(--color-text) [&.is-active]:!text-(--color-background)" data-compare-toggle="{{ product.id }}" data-product-json='{{ desktop_compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
               <i class="ph ph-scales" aria-hidden="true"></i>
             </button>
           {% endif %}

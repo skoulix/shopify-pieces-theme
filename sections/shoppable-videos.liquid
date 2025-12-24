@@ -382,7 +382,7 @@
               endif
             -%}
             <div class="shoppable-video-slide-{{ section.id }}" data-video-slide {{ block.shopify_attributes }}>
-                <div class="shoppable-video-card-{{ section.id }} relative w-full overflow-hidden {% if has_video %}cursor-pointer{% else %}cursor-default{% endif %} bg-[--color-background-secondary]"
+                <div class="shoppable-video-card-{{ section.id }} relative w-full overflow-hidden {% if has_video %}cursor-pointer{% else %}cursor-default{% endif %} bg-(--color-background-secondary)"
                      {% if has_video %}
                        data-video-url="{{ video_hosted.sources[1].url | default: video_hosted.sources[0].url }}"
                      {% endif %}
@@ -410,7 +410,7 @@
                       preload: 'metadata'
                     }}
                   {% else %}
-                    <div class="absolute inset-0 w-full h-full flex items-center justify-center z-0 bg-[--color-background-secondary]">
+                    <div class="absolute inset-0 w-full h-full flex items-center justify-center z-0 bg-(--color-background-secondary)">
                       <i class="ph ph-video-camera text-6xl opacity-20"></i>
                     </div>
                   {% endif %}

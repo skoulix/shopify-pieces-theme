@@ -26,7 +26,7 @@
   {%- comment -%} Trigger button {%- endcomment -%}
   <button
     type="button"
-    class="mega-menu-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+    class="mega-menu-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-(--color-text) hover:text-(--color-primary) transition-colors"
     data-mega-menu-trigger
     aria-expanded="false"
   >
@@ -101,8 +101,8 @@
                             alt: product.title
                           }}
                         {% else %}
-                          <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
-                            <i class="ph ph-image text-2xl text-[--color-text-secondary] opacity-30"></i>
+                          <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
+                            <i class="ph ph-image text-2xl text-(--color-text-secondary) opacity-30"></i>
                           </div>
                         {% endif %}
                       </div>

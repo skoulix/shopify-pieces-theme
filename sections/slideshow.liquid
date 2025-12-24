@@ -180,7 +180,7 @@
       -%}
 
       <div
-        class="slideshow__slide {{ slide_color_scheme }} absolute inset-0 bg-[--color-background]{% if forloop.first %} is-active{% endif %}"
+        class="slideshow__slide {{ slide_color_scheme }} absolute inset-0 bg-(--color-background){% if forloop.first %} is-active{% endif %}"
         data-slide-index="{{ forloop.index0 }}"
         data-color-scheme="{{ slide_color_scheme }}"
         {{ block.shopify_attributes }}

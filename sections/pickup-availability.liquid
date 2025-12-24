@@ -12,7 +12,7 @@
   {%- if pick_up_availabilities.size > 0 -%}
     <div class="pickup-availability-list space-y-4">
       {%- for availability in pick_up_availabilities -%}
-        <div class="pickup-availability-item p-4 border border-[--color-border] rounded-[--card-radius]">
+        <div class="pickup-availability-item p-4 border border-(--color-border) rounded-(--card-radius)">
           <div class="flex items-start gap-3">
             <div class="flex-shrink-0 mt-0.5">
               {%- if availability.available -%}
@@ -30,7 +30,7 @@
                 {%- endif -%}
               </p>
               <p class="text-sm font-semibold mt-1">{{ availability.location.name }}</p>
-              <address class="text-sm text-[--color-text-secondary] mt-1 not-italic">
+              <address class="text-sm text-(--color-text-secondary) mt-1 not-italic">
                 {{ availability.location.address.address1 }}<br>
                 {%- if availability.location.address.address2 != blank -%}
                   {{ availability.location.address.address2 }}<br>

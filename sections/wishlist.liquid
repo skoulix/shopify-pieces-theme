@@ -212,10 +212,10 @@
     let html = `
       <div class="wishlist-grid">
         ${products.map(product => `
-          <article class="product-card group relative flex flex-col no-underline text-inherit rounded-[--card-radius] overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]">
+          <article class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full border-[length:var(--card-border-width)] border-solid border-(--color-border) shadow-(--card-shadow)">
             <button
               type="button"
-              class="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-[--color-sale] text-white shadow-md transition-all duration-300 hover:scale-110"
+              class="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-(--color-sale) text-white shadow-md transition-all duration-300 hover:scale-110"
               data-remove-wishlist-page="${product.id}"
               aria-label="{{ 'products.wishlist.remove' | t | default: 'Remove' }}"
             >
@@ -232,34 +232,34 @@
                     decoding="async"
                   >
                 ` : `
-                  <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
-                    <i class="ph ph-image text-5xl text-[--color-text-secondary] opacity-30"></i>
+                  <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
+                    <i class="ph ph-image text-5xl text-(--color-text-secondary) opacity-30"></i>
                   </div>
                 `}
                 ${!product.available ? `
-                  <span class="absolute top-3 left-3 px-2 py-1 text-[0.8125rem] font-semibold uppercase tracking-wider bg-[--color-background] text-[--color-text-secondary] rounded">
+                  <span class="absolute top-3 left-3 px-2 py-1 text-[0.8125rem] font-semibold uppercase tracking-wider bg-(--color-background) text-(--color-text-secondary) rounded">
                     {{ 'products.product.sold_out' | t }}
                   </span>
                 ` : ''}
                 ${product.compareAtPrice && product.compareAtPrice > product.price ? `
-                  <span class="absolute bottom-3 left-3 px-2 py-1 text-[0.8125rem] font-semibold uppercase tracking-wider bg-[--color-sale] text-white rounded">
+                  <span class="absolute bottom-3 left-3 px-2 py-1 text-[0.8125rem] font-semibold uppercase tracking-wider bg-(--color-sale) text-white rounded">
                     {{ 'products.product.on_sale' | t }}
                   </span>
                 ` : ''}
               </div>
-              <div class="product-card-content flex-1 p-4 bg-[--color-background]">
+              <div class="product-card-content flex-1 p-4 bg-(--color-background)">
                 ${product.vendor ? `
-                  <p class="product-card-vendor text-sm text-[--color-text-secondary] uppercase tracking-wide overflow-hidden">
+                  <p class="product-card-vendor text-sm text-(--color-text-secondary) uppercase tracking-wide overflow-hidden">
                     <span class="inline-block">${escapeHtml(product.vendor)}</span>
                   </p>
                 ` : ''}
                 <h3 class="product-card-title card-title mt-2">
                   ${escapeHtml(product.title)}
                 </h3>
-                <div class="product-card-price mt-2 text-sm text-[--color-text-secondary]">
+                <div class="product-card-price mt-2 text-sm text-(--color-text-secondary)">
                   ${product.compareAtPrice && product.compareAtPrice > product.price ? `
                     <span class="line-through opacity-60 mr-2">${formatMoney(product.compareAtPrice)}</span>
-                    <span class="text-[--color-sale]">${formatMoney(product.price)}</span>
+                    <span class="text-(--color-sale)">${formatMoney(product.price)}</span>
                   ` : formatMoney(product.price)}
                 </div>
               </div>

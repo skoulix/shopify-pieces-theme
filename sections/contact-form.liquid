@@ -45,7 +45,7 @@
     {% endif %}
 
     {% if section.settings.description != blank %}
-      <p class="mt-8 max-w-[420px] text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-[0.05em] leading-relaxed text-[--color-text-secondary] {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
+      <p class="mt-8 max-w-[420px] text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider leading-relaxed text-(--color-text-secondary) {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
         {{ section.settings.description }}
       </p>
     {% endif %}
@@ -55,7 +55,7 @@
     <div class="contact-form max-w-2xl {{ form_align }}" data-tween data-tween-type="fade-up">
       {% form 'contact', id: 'ContactForm' %}
         {% if form.posted_successfully? %}
-          <div class="mb-8 rounded-[--card-radius] bg-green-50 p-4">
+          <div class="mb-8 rounded-(--card-radius) bg-green-50 p-4">
             <div class="flex items-center">
               <i class="ph ph-check-circle text-green-400 text-xl mr-3"></i>
               <p class="text-sm font-medium text-green-800">{{ 'contact.form.success' | t }}</p>
@@ -64,7 +64,7 @@
         {% endif %}
 
         {% if form.errors %}
-          <div class="mb-8 rounded-[--card-radius] bg-red-50 p-4">
+          <div class="mb-8 rounded-(--card-radius) bg-red-50 p-4">
             <div class="flex items-center">
               <i class="ph ph-warning text-red-400 text-xl mr-3"></i>
               <p class="text-sm font-medium text-red-800">
@@ -76,19 +76,19 @@
 
         <div class="grid gap-6 sm:grid-cols-2">
           <div class="contact-form-group">
-            <label for="ContactForm-name" class="block text-label-sm text-[--color-text-secondary] mb-2">{{ 'contact.form.name' | t }}</label>
+            <label for="ContactForm-name" class="block text-label-sm text-(--color-text-secondary) mb-2">{{ 'contact.form.name' | t }}</label>
             <input
               type="text"
               id="ContactForm-name"
               name="contact[name]"
               autocomplete="name"
               value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-              class="contact-form-input block w-full py-3 px-4 text-[--color-text] bg-[--color-background] border-[length:var(--input-border-width)] border-solid border-[--color-border] rounded-[--input-radius] placeholder:text-[--color-text-secondary] focus:border-[--color-primary] focus:outline-none text-sm"
+              class="contact-form-input block w-full py-3 px-4 text-(--color-text) bg-(--color-background) border-[length:var(--input-border-width)] border-solid border-(--color-border) rounded-(--input-radius) placeholder:text-(--color-text-secondary) focus:border-(--color-primary) focus:outline-none text-sm"
             >
           </div>
 
           <div class="contact-form-group">
-            <label for="ContactForm-email" class="block text-label-sm text-[--color-text-secondary] mb-2">{{ 'contact.form.email' | t }} *</label>
+            <label for="ContactForm-email" class="block text-label-sm text-(--color-text-secondary) mb-2">{{ 'contact.form.email' | t }} *</label>
             <input
               type="email"
               id="ContactForm-email"
@@ -96,29 +96,29 @@
               autocomplete="email"
               required
               value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
-              class="contact-form-input block w-full py-3 px-4 text-[--color-text] bg-[--color-background] border-[length:var(--input-border-width)] border-solid border-[--color-border] rounded-[--input-radius] placeholder:text-[--color-text-secondary] focus:border-[--color-primary] focus:outline-none text-sm"
+              class="contact-form-input block w-full py-3 px-4 text-(--color-text) bg-(--color-background) border-[length:var(--input-border-width)] border-solid border-(--color-border) rounded-(--input-radius) placeholder:text-(--color-text-secondary) focus:border-(--color-primary) focus:outline-none text-sm"
             >
           </div>
 
           <div class="contact-form-group sm:col-span-2">
-            <label for="ContactForm-phone" class="block text-label-sm text-[--color-text-secondary] mb-2">{{ 'contact.form.phone' | t }}</label>
+            <label for="ContactForm-phone" class="block text-label-sm text-(--color-text-secondary) mb-2">{{ 'contact.form.phone' | t }}</label>
             <input
               type="tel"
               id="ContactForm-phone"
               name="contact[phone]"
               autocomplete="tel"
               value="{% if form.phone %}{{ form.phone }}{% endif %}"
-              class="contact-form-input block w-full py-3 px-4 text-[--color-text] bg-[--color-background] border-[length:var(--input-border-width)] border-solid border-[--color-border] rounded-[--input-radius] placeholder:text-[--color-text-secondary] focus:border-[--color-primary] focus:outline-none text-sm"
+              class="contact-form-input block w-full py-3 px-4 text-(--color-text) bg-(--color-background) border-[length:var(--input-border-width)] border-solid border-(--color-border) rounded-(--input-radius) placeholder:text-(--color-text-secondary) focus:border-(--color-primary) focus:outline-none text-sm"
             >
           </div>
 
           <div class="contact-form-group sm:col-span-2">
-            <label for="ContactForm-body" class="block text-label-sm text-[--color-text-secondary] mb-2">{{ 'contact.form.message' | t }}</label>
+            <label for="ContactForm-body" class="block text-label-sm text-(--color-text-secondary) mb-2">{{ 'contact.form.message' | t }}</label>
             <textarea
               id="ContactForm-body"
               name="contact[body]"
               rows="5"
-              class="contact-form-input block w-full py-3 px-4 text-[--color-text] bg-[--color-background] border-[length:var(--input-border-width)] border-solid border-[--color-border] rounded-[--input-radius-textarea] placeholder:text-[--color-text-secondary] focus:border-[--color-primary] focus:outline-none text-sm resize-none"
+              class="contact-form-input block w-full py-3 px-4 text-(--color-text) bg-(--color-background) border-[length:var(--input-border-width)] border-solid border-(--color-border) rounded-(--input-radius-textarea) placeholder:text-(--color-text-secondary) focus:border-(--color-primary) focus:outline-none text-sm resize-none"
             >{{ form.body }}</textarea>
           </div>
         </div>

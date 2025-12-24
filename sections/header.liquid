@@ -342,7 +342,7 @@
     assign header_layout = section.settings.header_layout | default: 'logo_left'
     assign nav_position = section.settings.nav_position | default: 'center'
   -%}
-  <header class="header-inner border-b bg-[--color-background] border-[--color-border]" data-header>
+  <header class="header-inner border-b bg-(--color-background) border-(--color-border)" data-header>
   <nav class="{{ nav_class }} relative flex items-center justify-between py-4">
 
     {% if header_layout == 'logo_center' %}
@@ -353,7 +353,7 @@
         {%- comment -%} Mobile hamburger {%- endcomment -%}
         <button
           type="button"
-          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text)"
           data-mobile-nav-open
         >
           <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
@@ -393,7 +393,7 @@
               <div class="dropdown-wrapper relative" data-dropdown>
                 <button
                   type="button"
-                  class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+                  class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-(--color-text) hover:text-(--color-primary) transition-colors"
                   data-dropdown-trigger
                   aria-expanded="false"
                 >
@@ -450,7 +450,7 @@
             {% else %}
               <a
                 href="{{ link.url }}"
-                class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
+                class="relative text-sm font-semibold leading-6 text-(--color-text) hover:text-(--color-primary) transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
                 data-nav-link
                 {% if is_active %}aria-current="page"{% endif %}
               >
@@ -475,21 +475,21 @@
           {% if section.settings.search_type == 'drawer' %}
             <button
               type="button"
-              class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
               data-search-drawer-toggle
             >
               <span class="sr-only">{{ 'accessibility.search' | t }}</span>
               <i class="ph ph-magnifying-glass text-xl"></i>
             </button>
           {% else %}
-            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors">
               <span class="sr-only">{{ 'accessibility.search' | t }}</span>
               <i class="ph ph-magnifying-glass text-xl"></i>
             </a>
           {% endif %}
         {% endif %}
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors">
             <span class="sr-only">{{ 'accessibility.account' | t }}</span>
             <i class="ph ph-user text-xl"></i>
           </a>
@@ -497,32 +497,32 @@
         {% if section.settings.show_wishlist %}
           <button
             type="button"
-            class="hidden lg:flex p-2 items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+            class="hidden lg:flex p-2 items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             data-wishlist-open
             aria-label="{{ 'accessibility.wishlist' | t | default: 'Open wishlist' }}"
           >
             <i class="ph ph-heart text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-[--color-text]" data-wishlist-count>0</span>
+            <span class="ml-1 text-sm font-medium text-(--color-text)" data-wishlist-count>0</span>
           </button>
         {% endif %}
         {% if section.settings.show_cart %}
           {% if settings.cart_type == 'drawer' %}
             <button
               type="button"
-              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
               data-cart-drawer-toggle
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </button>
           {% else %}
             <a
               href="{{ routes.cart_url }}"
-              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </a>
           {% endif %}
@@ -537,7 +537,7 @@
         {%- comment -%} Mobile hamburger {%- endcomment -%}
         <button
           type="button"
-          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-[--color-text]"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text)"
           data-mobile-nav-open
         >
           <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
@@ -592,7 +592,7 @@
             <div class="dropdown-wrapper relative" data-dropdown>
               <button
                 type="button"
-                class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors"
+                class="dropdown-trigger group relative flex items-center gap-1 text-sm font-semibold leading-6 text-(--color-text) hover:text-(--color-primary) transition-colors"
                 data-dropdown-trigger
                 aria-expanded="false"
               >
@@ -649,7 +649,7 @@
           {% else %}
             <a
               href="{{ link.url }}"
-              class="relative text-sm font-semibold leading-6 text-[--color-text] hover:text-[--color-primary] transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
+              class="relative text-sm font-semibold leading-6 text-(--color-text) hover:text-(--color-primary) transition-colors after:absolute after:bottom-[-2px] after:left-0 after:h-0.5 after:bg-current after:transition-all after:duration-300 after:ease-out{% if is_active %} after:w-full{% else %} after:w-0 hover:after:w-full{% endif %}"
               data-nav-link
               {% if is_active %}aria-current="page"{% endif %}
             >
@@ -665,21 +665,21 @@
           {% if section.settings.search_type == 'drawer' %}
             <button
               type="button"
-              class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
               data-search-drawer-toggle
             >
               <span class="sr-only">{{ 'accessibility.search' | t }}</span>
               <i class="ph ph-magnifying-glass text-xl"></i>
             </button>
           {% else %}
-            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+            <a href="{{ routes.search_url }}" class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors">
               <span class="sr-only">{{ 'accessibility.search' | t }}</span>
               <i class="ph ph-magnifying-glass text-xl"></i>
             </a>
           {% endif %}
         {% endif %}
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors">
+          <a href="{{ routes.account_url }}" class="hidden lg:block p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors">
             <span class="sr-only">{{ 'accessibility.account' | t }}</span>
             <i class="ph ph-user text-xl"></i>
           </a>
@@ -687,32 +687,32 @@
         {% if section.settings.show_wishlist %}
           <button
             type="button"
-            class="hidden lg:flex p-2 items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+            class="hidden lg:flex p-2 items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             data-wishlist-open
             aria-label="{{ 'accessibility.wishlist' | t | default: 'Open wishlist' }}"
           >
             <i class="ph ph-heart text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-[--color-text]" data-wishlist-count>0</span>
+            <span class="ml-1 text-sm font-medium text-(--color-text)" data-wishlist-count>0</span>
           </button>
         {% endif %}
         {% if section.settings.show_cart %}
           {% if settings.cart_type == 'drawer' %}
             <button
               type="button"
-              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
               data-cart-drawer-toggle
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </button>
           {% else %}
             <a
               href="{{ routes.cart_url }}"
-              class="group p-2 flex items-center text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+              class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-[--color-text] group-hover:text-[--color-primary]" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </a>
           {% endif %}

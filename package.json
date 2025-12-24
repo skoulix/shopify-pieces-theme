@@ -17,7 +17,7 @@
     "theme:check": "shopify theme check",
     "theme:list": "shopify theme list",
     "start": "npm run build && npm run theme:dev",
-    "develop": "concurrently \"npm run watch\" \"npm run theme:dev -- --ignore=assets/*.js --ignore=assets/*.css\" --names \"vite,shopify\" --prefix-colors \"cyan,magenta\""
+    "develop": "concurrently \"npm run watch\" \"npm run theme:dev\" --names \"vite,shopify\" --prefix-colors \"cyan,magenta\""
   },
   "devDependencies": {
     "@shopify/cli": "^3.88.1",

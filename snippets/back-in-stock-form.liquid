@@ -41,13 +41,13 @@
 </style>
 
 <div
-  class="back-in-stock-form{% unless is_sold_out %} hidden{% endunless %} mt-6 pt-6 border-t border-[--color-border]"
+  class="back-in-stock-form{% unless is_sold_out %} hidden{% endunless %} mt-6 pt-6 border-t border-(--color-border)"
   data-back-in-stock-form
   data-product-id="{{ product.id }}"
   data-variant-id="{{ current_variant.id }}"
 >
   <div class="back-in-stock-form__content" data-form-content>
-    <h4 class="text-xs font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] mb-3">{{ 'products.back_in_stock.title' | t }}</h4>
+    <h4 class="text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">{{ 'products.back_in_stock.title' | t }}</h4>
     <form class="back-in-stock-form__form flex gap-2" data-notify-form>
       <label for="back-in-stock-email-{{ product.id }}" class="sr-only">
         {{ 'products.back_in_stock.email_label' | t }}
@@ -74,8 +74,8 @@
 
   <div class="back-in-stock-form__success hidden" data-form-success>
     <div class="flex items-center gap-3">
-      <span class="w-5 h-5 rounded-full bg-[--color-primary] flex items-center justify-center flex-shrink-0">
-        <i class="ph ph-check text-[--color-primary-contrast] text-xs"></i>
+      <span class="w-5 h-5 rounded-full bg-(--color-primary) flex items-center justify-center flex-shrink-0">
+        <i class="ph ph-check text-(--color-primary-contrast) text-xs"></i>
       </span>
       <p class="text-sm">{{ 'products.back_in_stock.success_title' | t }}</p>
     </div>

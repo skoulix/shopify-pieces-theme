@@ -121,7 +121,7 @@
   </style>
 
   <div id="announcement-bar-{{ section.id }}" class="color-{{ section.settings.color_scheme }}" data-announcement-bar>
-    <div class="announcement-bar relative flex items-center justify-center px-10 py-2 text-center text-sm bg-[--color-background] text-[--color-text]" role="region" aria-label="Announcement">
+    <div class="announcement-bar relative flex items-center justify-center px-10 py-2 text-center text-sm bg-(--color-background) text-(--color-text)" role="region" aria-label="Announcement">
       {%- comment -%} Navigation Arrows {%- endcomment -%}
       {% if show_arrows and section.blocks.size > 1 %}
         <button type="button" class="announcement-bar__arrow announcement-bar__arrow--prev" data-announcement-prev aria-label="{{ 'accessibility.previous' | t }}">

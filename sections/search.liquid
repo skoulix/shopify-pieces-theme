@@ -63,7 +63,7 @@
           id="search-page-input"
           name="q"
           value="{{ search.terms | escape }}"
-          class="search-input rounded-[--input-radius] !pr-16"
+          class="search-input rounded-(--input-radius) !pr-16"
           placeholder="{{ 'search.placeholder' | t }}"
           autocomplete="off"
           autocorrect="off"
@@ -82,25 +82,25 @@
           <div class="flex flex-wrap gap-2 mt-6">
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types.size > 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types.size > 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
             >
               {{ 'search.filter_all' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
             >
               {{ 'search.filter_products' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
             >
               {{ 'search.filter_articles' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-[--button-radius] transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-[--color-text] text-[--color-background] border-[--color-text]{% else %}border-[--color-border] text-[--color-text-secondary] hover:border-[--color-text] hover:text-[--color-text]{% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
             >
               {{ 'search.filter_pages' | t }}
             </a>
@@ -117,7 +117,7 @@
         {% paginate search.results by 20 %}
           <div class="search-grid" data-search-results>
             {% for result in search.results %}
-              <article class="group rounded-[--card-radius] overflow-hidden border-[length:var(--card-border-width)] border-solid border-[--color-border]" style="box-shadow: var(--card-shadow);" data-tween data-tween-type="fade-up">
+              <article class="group rounded-(--card-radius) overflow-hidden border-[length:var(--card-border-width)] border-solid border-(--color-border)" style="box-shadow: var(--card-shadow);" data-tween data-tween-type="fade-up">
                 <a href="{{ result.url }}" class="block">
                   {%- comment -%} Image {%- endcomment -%}
                   <div class="search-result-image relative" data-tween data-tween-type="clip-right">
@@ -132,17 +132,17 @@
                     {% else %}
                       <div class="w-full h-full flex items-center justify-center">
                         {% if result.object_type == 'product' %}
-                          <i class="ph ph-package text-4xl text-[--color-text-secondary] opacity-30"></i>
+                          <i class="ph ph-package text-4xl text-(--color-text-secondary) opacity-30"></i>
                         {% elsif result.object_type == 'article' %}
-                          <i class="ph ph-article text-4xl text-[--color-text-secondary] opacity-30"></i>
+                          <i class="ph ph-article text-4xl text-(--color-text-secondary) opacity-30"></i>
                         {% else %}
-                          <i class="ph ph-file-text text-4xl text-[--color-text-secondary] opacity-30"></i>
+                          <i class="ph ph-file-text text-4xl text-(--color-text-secondary) opacity-30"></i>
                         {% endif %}
                       </div>
                     {% endif %}
 
                     {%- comment -%} Type Badge {%- endcomment -%}
-                    <span class="absolute top-3 left-3 px-2 py-1 text-[11px] uppercase tracking-wider font-medium bg-[--color-background] text-[--color-text] rounded-[--badge-radius]">
+                    <span class="absolute top-3 left-3 px-2 py-1 text-[11px] uppercase tracking-wider font-medium bg-(--color-background) text-(--color-text) rounded-(--badge-radius]">
                       {% if result.object_type == 'product' %}
                         {{ 'search.type_product' | t }}
                       {% elsif result.object_type == 'article' %}
@@ -154,26 +154,26 @@
                   </div>
 
                   {%- comment -%} Content {%- endcomment -%}
-                  <div class="search-result-content p-4 bg-[--color-background]">
-                    <h3 class="card-title text-[--color-text] font-heading group-hover:text-[--color-primary] transition-colors">
+                  <div class="search-result-content p-4 bg-(--color-background)">
+                    <h3 class="card-title text-(--color-text) font-heading group-hover:text-(--color-primary) transition-colors">
                       {{ result.title }}
                     </h3>
 
                     {% if result.object_type == 'product' %}
-                      <p class="mt-1 text-sm text-[--color-text-secondary]">
+                      <p class="mt-1 text-sm text-(--color-text-secondary)">
                         {% if result.compare_at_price > result.price %}
                           <span class="line-through opacity-60 mr-2">{{ result.compare_at_price | money }}</span>
                         {% endif %}
                         {{ result.price | money }}
                       </p>
                     {% elsif result.object_type == 'article' %}
-                      <p class="mt-1 text-sm text-[--color-text-secondary]">
+                      <p class="mt-1 text-sm text-(--color-text-secondary)">
                         {{ result.published_at | date: '%B %d, %Y' }}
                       </p>
                     {% endif %}
 
                     {% if result.content != blank or result.description != blank %}
-                      <p class="mt-2 text-sm text-[--color-text-secondary] line-clamp-2">
+                      <p class="mt-2 text-sm text-(--color-text-secondary) line-clamp-2">
                         {{ result.content | default: result.description | strip_html | truncate: 100 }}
                       </p>
                     {% endif %}
@@ -193,7 +193,7 @@
                 </a>
               {% endif %}
 
-              <span class="px-4 py-2 text-sm text-[--color-text-secondary]">
+              <span class="px-4 py-2 text-sm text-(--color-text-secondary)">
                 Page {{ paginate.current_page }} of {{ paginate.pages }}
               </span>
 
@@ -209,7 +209,7 @@
       {% else %}
         {%- comment -%} No Results {%- endcomment -%}
         <div class="max-w-2xl -mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
-          <p class="text-[--color-text-secondary]">{{ 'search.no_results_description' | t }}</p>
+          <p class="text-(--color-text-secondary)">{{ 'search.no_results_description' | t }}</p>
 
           <div class="mt-8 flex flex-wrap gap-3">
             <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
@@ -224,8 +224,8 @@
 
           {%- comment -%} Popular Searches {%- endcomment -%}
           {% if section.settings.show_popular_searches %}
-            <div class="mt-12 pt-12 border-t border-[--color-border]">
-              <p class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+            <div class="mt-12 pt-12 border-t border-(--color-border)">
+              <p class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) mb-4">{{ 'search.popular_searches' | t }}</p>
               <div class="flex flex-wrap gap-2">
                 {% assign popular_terms = section.settings.popular_searches | split: ',' %}
                 {% for term in popular_terms %}
@@ -233,7 +233,7 @@
                   {% if trimmed_term != blank %}
                     <a
                       href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
-                      class="px-4 py-2 text-sm border border-[--color-border] rounded-[--button-radius] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                      class="px-4 py-2 text-sm border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-text) hover:text-(--color-background) transition-colors"
                     >
                       {{ trimmed_term }}
                     </a>
@@ -247,14 +247,14 @@
     {% else %}
       {%- comment -%} Initial State - No search performed yet {%- endcomment -%}
       <div class="-mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
-        <p class="text-[--color-text-secondary]">
+        <p class="text-(--color-text-secondary)">
           {{ 'search.initial_prompt' | t }}
         </p>
 
         {%- comment -%} Popular Searches {%- endcomment -%}
         {% if section.settings.show_popular_searches %}
-          <div class="mt-12 pt-12 border-t border-[--color-border]">
-            <p class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] mb-4">{{ 'search.popular_searches' | t }}</p>
+          <div class="mt-12 pt-12 border-t border-(--color-border)">
+            <p class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) mb-4">{{ 'search.popular_searches' | t }}</p>
             <div class="flex flex-wrap gap-2">
               {% assign popular_terms = section.settings.popular_searches | split: ',' %}
               {% for term in popular_terms %}
@@ -262,7 +262,7 @@
                 {% if trimmed_term != blank %}
                   <a
                     href="{{ routes.search_url }}?q={{ trimmed_term | url_encode }}"
-                    class="px-4 py-2 text-sm border border-[--color-border] rounded-[--button-radius] text-[--color-text] hover:bg-[--color-text] hover:text-[--color-background] transition-colors"
+                    class="px-4 py-2 text-sm border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-text) hover:text-(--color-background) transition-colors"
                   >
                     {{ trimmed_term }}
                   </a>

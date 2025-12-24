@@ -20,7 +20,7 @@
   {% if current_variant.available %}available{% endif %}
 >
   <template>
-    <div class="pickup-availability__preview flex items-start gap-3 p-4 border border-[--color-border] rounded-[--card-radius]">
+    <div class="pickup-availability__preview flex items-start gap-3 p-4 border border-(--color-border) rounded-(--card-radius)">
       <div class="pickup-availability__icon flex-shrink-0 mt-0.5">
         <i class="ph ph-storefront text-xl"></i>
       </div>
@@ -29,7 +29,7 @@
           {{ 'products.pickup_availability.pickup_available' | t }}
         </p>
         <button
-          class="pickup-availability__button text-sm text-[--color-primary] underline underline-offset-2 mt-1"
+          class="pickup-availability__button text-sm text-(--color-primary) underline underline-offset-2 mt-1"
           data-pickup-availability-modal-open
           type="button"
         >
@@ -89,11 +89,11 @@ if (!customElements.get('pickup-availability')) {
         if (pickupContent) {
           content.innerHTML = pickupContent.outerHTML;
         } else {
-          content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
+          content.innerHTML = `<p class="text-sm text-(--color-text-secondary)">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
         }
       } catch (error) {
         console.error('Error fetching pickup availability:', error);
-        content.innerHTML = `<p class="text-sm text-[--color-text-secondary]">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
+        content.innerHTML = `<p class="text-sm text-(--color-text-secondary)">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
       }
 
       // Setup close handlers

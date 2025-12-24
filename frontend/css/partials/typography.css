@@ -121,9 +121,21 @@
      ========================================================================== */
 
   .section-label {
-    @apply inline-block text-sm font-medium tracking-widest;
-    opacity: var(--opacity-secondary);
+    @apply inline-block text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary);
     margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  /* No spacing variant */
+  .section-label--inline {
+    @apply mb-0;
+  }
+
+  /* ==========================================================================
+     Blog Category - Category label for blog cards/items
+     ========================================================================== */
+
+  .blog-category {
+    @apply text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3;
   }
 
   /* ==========================================================================

@@ -13,7 +13,7 @@
         type="checkbox"
         id="gift-card-recipient-checkbox-{{ section.id }}"
         name="properties[__shopify_send_gift_card_to_recipient]"
-        class="w-5 h-5 accent-[--color-primary] cursor-pointer"
+        class="w-5 h-5 accent-(--color-primary) cursor-pointer"
         data-gift-card-recipient-checkbox
       >
       <label for="gift-card-recipient-checkbox-{{ section.id }}" class="text-sm font-medium cursor-pointer">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="gift-card-recipient__fields space-y-4 hidden" data-gift-card-recipient-fields>
-      <p class="text-sm text-[--color-text-secondary]">
+      <p class="text-sm text-(--color-text-secondary)">
         {{ 'gift_card.recipient.description' | t }}
       </p>
 
@@ -34,7 +34,7 @@
           type="email"
           id="gift-card-recipient-email-{{ section.id }}"
           name="properties[Recipient email]"
-          class="w-full px-4 py-3 bg-transparent border border-[--color-border] rounded-[--input-radius] text-[--color-text] placeholder:text-[--color-text-secondary] focus:outline-none focus:border-[--color-primary] transition-colors"
+          class="w-full px-4 py-3 bg-transparent border border-(--color-border) rounded-(--input-radius) text-(--color-text) placeholder:text-(--color-text-secondary) focus:outline-none focus:border-(--color-primary) transition-colors"
           placeholder="{{ 'gift_card.recipient.email_placeholder' | t }}"
           data-gift-card-recipient-email
         >
@@ -48,7 +48,7 @@
           type="text"
           id="gift-card-recipient-name-{{ section.id }}"
           name="properties[Recipient name]"
-          class="w-full px-4 py-3 bg-transparent border border-[--color-border] rounded-[--input-radius] text-[--color-text] placeholder:text-[--color-text-secondary] focus:outline-none focus:border-[--color-primary] transition-colors"
+          class="w-full px-4 py-3 bg-transparent border border-(--color-border) rounded-(--input-radius) text-(--color-text) placeholder:text-(--color-text-secondary) focus:outline-none focus:border-(--color-primary) transition-colors"
           placeholder="{{ 'gift_card.recipient.name_placeholder' | t }}"
           data-gift-card-recipient-name
         >
@@ -63,11 +63,11 @@
           name="properties[Message]"
           rows="3"
           maxlength="200"
-          class="w-full px-4 py-3 bg-transparent border border-[--color-border] rounded-[--input-radius-textarea] text-[--color-text] placeholder:text-[--color-text-secondary] focus:outline-none focus:border-[--color-primary] transition-colors resize-none"
+          class="w-full px-4 py-3 bg-transparent border border-(--color-border) rounded-(--input-radius-textarea) text-(--color-text) placeholder:text-(--color-text-secondary) focus:outline-none focus:border-(--color-primary) transition-colors resize-none"
           placeholder="{{ 'gift_card.recipient.message_placeholder' | t }}"
           data-gift-card-recipient-message
         ></textarea>
-        <p class="text-xs text-[--color-text-secondary] mt-1">{{ 'gift_card.recipient.max_characters' | t: max: 200 }}</p>
+        <p class="text-xs text-(--color-text-secondary) mt-1">{{ 'gift_card.recipient.max_characters' | t: max: 200 }}</p>
       </div>
 
       <div class="gift-card-recipient__field">
@@ -78,10 +78,10 @@
           type="date"
           id="gift-card-recipient-send-on-{{ section.id }}"
           name="properties[Send on]"
-          class="w-full px-4 py-3 bg-transparent border border-[--color-border] rounded-[--input-radius] text-[--color-text] focus:outline-none focus:border-[--color-primary] transition-colors"
+          class="w-full px-4 py-3 bg-transparent border border-(--color-border) rounded-(--input-radius) text-(--color-text) focus:outline-none focus:border-(--color-primary) transition-colors"
           data-gift-card-recipient-send-on
         >
-        <p class="text-xs text-[--color-text-secondary] mt-1">{{ 'gift_card.recipient.send_on_info' | t }}</p>
+        <p class="text-xs text-(--color-text-secondary) mt-1">{{ 'gift_card.recipient.send_on_info' | t }}</p>
       </div>
     </div>
   </div>

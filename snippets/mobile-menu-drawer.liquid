@@ -34,10 +34,10 @@
   <div class="mobile-nav__backdrop drawer-backdrop" data-mobile-nav-close></div>
 
   {%- comment -%} Drawer Panel {%- endcomment -%}
-  <div class="mobile-nav__drawer absolute inset-0 bg-[--color-background] flex flex-col">
+  <div class="mobile-nav__drawer absolute inset-0 bg-(--color-background) flex flex-col">
     {%- comment -%} Header {%- endcomment -%}
     <div class="mobile-nav__header flex items-center justify-end p-5">
-      <button type="button" class="mobile-nav__close flex items-center justify-center w-12 h-12 -m-3 bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity duration-200 hover:opacity-60" data-mobile-nav-close>
+      <button type="button" class="mobile-nav__close flex items-center justify-center w-12 h-12 -m-3 bg-transparent border-none text-(--color-text) cursor-pointer transition-opacity duration-200 hover:opacity-60" data-mobile-nav-close>
         <span class="sr-only">{{ 'accessibility.close_menu' | t }}</span>
         <i class="ph ph-x text-2xl"></i>
       </button>
@@ -72,7 +72,7 @@
                     data-panel-trigger="panel-{{ forloop.index }}"
                   >
                     <span class="mobile-nav__link-text inline-block overflow-hidden">{{ link.title }}</span>
-                    <i class="ph ph-caret-right mobile-nav__arrow-icon text-xl text-[--color-text-secondary]"></i>
+                    <i class="ph ph-caret-right mobile-nav__arrow-icon text-xl text-(--color-text-secondary)"></i>
                   </button>
                 {% else %}
                   <a
@@ -94,10 +94,10 @@
           {% if link.links.size > 0 %}
             <div class="mobile-nav__panel px-6 py-8" data-panel="panel-{{ forloop.index }}" data-panel-level="2" data-panel-parent="main">
               <div class="mobile-nav__panel-header flex items-center gap-4 mb-8">
-                <button type="button" class="mobile-nav__back flex items-center justify-center w-10 h-10 -ml-2 bg-none border-none text-[--color-text] cursor-pointer" data-panel-back aria-label="Go back">
+                <button type="button" class="mobile-nav__back flex items-center justify-center w-10 h-10 -ml-2 bg-none border-none text-(--color-text) cursor-pointer" data-panel-back aria-label="Go back">
                   <i class="ph ph-arrow-left text-2xl"></i>
                 </button>
-                <span class="mobile-nav__panel-title font-heading text-[--color-text]">{{ link.title }}</span>
+                <span class="mobile-nav__panel-title font-heading text-(--color-text)">{{ link.title }}</span>
               </div>
               <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto{{ uppercase_class }}">
                 {%- comment -%} View all link {%- endcomment -%}
@@ -105,7 +105,7 @@
                   <li class="mobile-nav__item mobile-nav__item--view-all overflow-hidden">
                     <a
                       href="{{ link.url }}"
-                      class="mobile-nav__link mobile-nav__link--view-all flex items-center justify-between !text-sm font-semibold uppercase tracking-widest text-[--color-primary] py-3 mb-2 border-b border-[--color-border] no-underline"
+                      class="mobile-nav__link mobile-nav__link--view-all flex items-center justify-between !text-sm font-semibold uppercase tracking-widest text-(--color-primary) py-3 mb-2 border-b border-(--color-border) no-underline"
                       data-mobile-nav-close
                     >
                       <span class="mobile-nav__link-text">View All {{ link.title }}</span>
@@ -134,7 +134,7 @@
                         data-panel-trigger="panel-{{ forloop.parentloop.index }}-{{ forloop.index }}"
                       >
                         <span class="mobile-nav__link-text inline-block overflow-hidden">{{ child.title }}</span>
-                        <i class="ph ph-caret-right mobile-nav__arrow-icon text-xl text-[--color-text-secondary]"></i>
+                        <i class="ph ph-caret-right mobile-nav__arrow-icon text-xl text-(--color-text-secondary)"></i>
                       </button>
                     {% else %}
                       <a
@@ -156,10 +156,10 @@
               {% if child.links.size > 0 %}
                 <div class="mobile-nav__panel px-6 py-8" data-panel="panel-{{ forloop.parentloop.index }}-{{ forloop.index }}" data-panel-level="3" data-panel-parent="panel-{{ forloop.parentloop.index }}">
                   <div class="mobile-nav__panel-header flex items-center gap-4 mb-8">
-                    <button type="button" class="mobile-nav__back flex items-center justify-center w-10 h-10 -ml-2 bg-none border-none text-[--color-text] cursor-pointer" data-panel-back aria-label="Go back">
+                    <button type="button" class="mobile-nav__back flex items-center justify-center w-10 h-10 -ml-2 bg-none border-none text-(--color-text) cursor-pointer" data-panel-back aria-label="Go back">
                       <i class="ph ph-arrow-left text-2xl"></i>
                     </button>
-                    <span class="mobile-nav__panel-title font-heading text-[--color-text]">{{ child.title }}</span>
+                    <span class="mobile-nav__panel-title font-heading text-(--color-text)">{{ child.title }}</span>
                   </div>
                   <ul class="mobile-nav__list list-none m-0 p-0 flex-1 overflow-y-auto{{ uppercase_class }}">
                     {%- comment -%} View all link {%- endcomment -%}
@@ -167,7 +167,7 @@
                       <li class="mobile-nav__item mobile-nav__item--view-all overflow-hidden">
                         <a
                           href="{{ child.url }}"
-                          class="mobile-nav__link mobile-nav__link--view-all flex items-center justify-between !text-sm font-semibold uppercase tracking-widest text-[--color-primary] py-3 mb-2 border-b border-[--color-border] no-underline"
+                          class="mobile-nav__link mobile-nav__link--view-all flex items-center justify-between !text-sm font-semibold uppercase tracking-widest text-(--color-primary) py-3 mb-2 border-b border-(--color-border) no-underline"
                           data-mobile-nav-close
                         >
                           <span class="mobile-nav__link-text">View All {{ child.title }}</span>
@@ -244,7 +244,7 @@
                       {% if link.url != '#' and link.url != '' %}
                         <a
                           href="{{ link.url }}"
-                          class="mobile-nav__submenu-all flex items-center justify-between py-3 pl-4 mt-2 text-sm font-semibold uppercase tracking-widest text-[--color-primary] no-underline transition-colors duration-200"
+                          class="mobile-nav__submenu-all flex items-center justify-between py-3 pl-4 mt-2 text-sm font-semibold uppercase tracking-widest text-(--color-primary) no-underline transition-colors duration-200"
                           data-mobile-nav-close
                         >
                           <span>View All {{ link.title }}</span>
@@ -262,7 +262,7 @@
                         -%}
                         <a
                           href="{{ child.url }}"
-                          class="mobile-nav__submenu-link block relative pl-4 font-medium text-[--color-text-secondary] no-underline transition-all duration-300 hover:text-[--color-text] hover:translate-x-1{% if child_active %} is-active text-[--color-text]{% endif %}"
+                          class="mobile-nav__submenu-link block relative pl-4 font-medium text-(--color-text-secondary) no-underline transition-all duration-300 hover:text-(--color-text) hover:translate-x-1{% if child_active %} is-active text-(--color-text){% endif %}"
                           data-mobile-nav-close
                           style="--child-index: {{ forloop.index0 }}"
                           {% if child_active %}aria-current="page"{% endif %}
@@ -293,16 +293,16 @@
     {% endif %}
 
     {%- comment -%} Footer {%- endcomment -%}
-    <div class="mobile-nav__footer p-5 border-t border-[--color-border]">
+    <div class="mobile-nav__footer p-5 border-t border-(--color-border)">
       <div class="mobile-nav__footer-links flex flex-wrap gap-4">
         {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}" class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] no-underline transition-colors duration-200 hover:text-[--color-text]" data-mobile-nav-close>
+          <a href="{{ routes.account_url }}" class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--color-text)" data-mobile-nav-close>
             <i class="ph ph-user text-lg"></i>
             <span>{{ 'accessibility.account' | t }}</span>
           </a>
         {% endif %}
         {% if show_search %}
-          <a href="{{ routes.search_url }}" class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] no-underline transition-colors duration-200 hover:text-[--color-text]" data-mobile-nav-close>
+          <a href="{{ routes.search_url }}" class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--color-text)" data-mobile-nav-close>
             <i class="ph ph-magnifying-glass text-lg"></i>
             <span>{{ 'accessibility.search' | t }}</span>
           </a>
@@ -311,7 +311,7 @@
           {% if settings.cart_type == 'drawer' %}
             <button
               type="button"
-              class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-[--color-text]"
+              class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) bg-transparent border-none cursor-pointer transition-colors duration-200 hover:text-(--color-text)"
               data-mobile-nav-close
               data-cart-drawer-toggle
             >
@@ -321,7 +321,7 @@
           {% else %}
             <a
               href="{{ routes.cart_url }}"
-              class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-[--color-text-secondary] no-underline transition-colors duration-200 hover:text-[--color-text]"
+              class="mobile-nav__footer-link inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--color-text)"
               data-mobile-nav-close
             >
               <i class="ph ph-bag text-lg"></i>

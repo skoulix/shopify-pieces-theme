@@ -4,7 +4,7 @@
   Colors inherited from color scheme via CSS variables
 {%- endcomment -%}
 
-<div class="newsletter-stacked section-padding bg-[--color-background] text-[--color-text]" data-tween-group="newsletter-stacked">
+<div class="newsletter-stacked section-padding bg-(--color-background) text-(--color-text)" data-tween-group="newsletter-stacked">
   <div class="page-container">
     {% if title != blank %}
       <h3 class="newsletter-title max-w-2xl" data-tween data-tween-type="split-text">
@@ -25,7 +25,7 @@
           required
           placeholder="{{ 'customers.register.email' | t }}"
           autocomplete="email"
-          class="input min-w-0 flex-auto placeholder:opacity-70 bg-transparent text-[--color-text] border-[--color-border]"
+          class="input min-w-0 flex-auto placeholder:opacity-70 bg-transparent text-(--color-text) border-(--color-border)"
         >
         <input type="hidden" name="contact[tags]" value="newsletter">
         {%- liquid

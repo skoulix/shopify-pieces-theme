@@ -55,13 +55,13 @@
     </div>
 
     <div class="flex items-center gap-4">
-      <div class="facets-product-count text-sm text-[--color-text-secondary]" id="ProductCount">
+      <div class="facets-product-count text-sm text-(--color-text-secondary)" id="ProductCount">
         <span>{{ results.products_count }} {{ results.products_count | pluralize: 'product', 'products' }}</span>
       </div>
 
       {%- comment -%} View Toggle {%- endcomment -%}
       {% if enable_layout_toggle %}
-        <div class="facets-view-toggle flex items-center border border-[--color-border] rounded-[--input-radius] overflow-hidden" style="box-shadow: var(--button-shadow)">
+        <div class="facets-view-toggle flex items-center border border-(--color-border) rounded-(--input-radius) overflow-hidden" style="box-shadow: var(--button-shadow)">
           <button
             type="button"
             class="facets-view-btn w-10 h-10 flex items-center justify-center transition-colors is-active"
@@ -92,10 +92,10 @@
         {%- for value in filter.active_values -%}
           <a
             href="{{ value.url_to_remove }}"
-            class="active-facets__pill inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-[--color-border] rounded-full hover:border-[--color-text] transition-colors"
+            class="active-facets__pill inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-(--color-border) rounded-full hover:border-(--color-text) transition-colors"
             data-facet-remove
           >
-            <span class="text-[--color-text-secondary]">{{ filter.label }}:</span>
+            <span class="text-(--color-text-secondary)">{{ filter.label }}:</span>
             <span>{{ value.label }}</span>
             <i class="ph ph-x text-[10px]"></i>
           </a>
@@ -105,10 +105,10 @@
           {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
             <a
               href="{{ filter.url_to_remove }}"
-              class="active-facets__pill inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-[--color-border] rounded-full hover:border-[--color-text] transition-colors"
+              class="active-facets__pill inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-(--color-border) rounded-full hover:border-(--color-text) transition-colors"
               data-facet-remove
             >
-              <span class="text-[--color-text-secondary]">{{ filter.label }}:</span>
+              <span class="text-(--color-text-secondary)">{{ filter.label }}:</span>
               <span>
                 {%- if filter.min_value.value -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}{{ 0 | money_without_trailing_zeros }}{%- endif -%}
                 -
@@ -123,7 +123,7 @@
       {% if total_active_values > 0 %}
         <a
           href="{{ results.url }}"
-          class="active-facets__clear text-xs text-[--color-text-secondary] hover:text-[--color-text] underline underline-offset-2 ml-2"
+          class="active-facets__clear text-xs text-(--color-text-secondary) hover:text-(--color-text) underline underline-offset-2 ml-2"
           data-facet-clear-all
         >
           {{ 'general.clear_all' | t }}
@@ -145,9 +145,9 @@
     <div class="drawer-backdrop" data-facets-close></div>
 
     {%- comment -%} Drawer Panel {%- endcomment -%}
-    <div class="absolute left-0 top-0 bottom-0 w-full max-w-md sm:max-w-md bg-[--color-background] -translate-x-full transition-transform duration-300 ease-out flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.15)] border-r border-[--color-border] group-[.is-open]:translate-x-0">
+    <div class="absolute left-0 top-0 bottom-0 w-full max-w-md sm:max-w-md bg-(--color-background) -translate-x-full transition-transform duration-300 ease-out flex flex-col shadow-[4px_0_24px_rgba(0,0,0,0.15)] border-r border-(--color-border) group-[.is-open]:translate-x-0">
       {%- comment -%} Header {%- endcomment -%}
-      <div class="flex items-center justify-between px-6 py-4 border-b border-[--color-border]">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-(--color-border)">
         <h2 class="drawer-title">{{ 'general.filter_and_sort' | t }}</h2>
         <button
           type="button"
@@ -167,7 +167,7 @@
         <div class="facets-drawer__filters">
           {%- for filter in results.filters -%}
             <details
-              class="group/filter border-b border-[--color-border]"
+              class="group/filter border-b border-(--color-border)"
               id="Filter-{{ filter.param_name | handle }}"
               {% if filter.active_values.size > 0 or filter.type == "price_range" and filter.min_value.value or filter.max_value.value %}open{% endif %}
             >
@@ -175,7 +175,7 @@
                 <span class="font-medium">{{ filter.label }}</span>
                 <span class="flex items-center gap-2 -mr-1">
                   {% if filter.active_values.size > 0 %}
-                    <span class="text-xs text-[--color-text-secondary]">({{ filter.active_values.size }})</span>
+                    <span class="text-xs text-(--color-text-secondary)">({{ filter.active_values.size }})</span>
                   {% endif %}
                   <i class="ph ph-caret-down text-sm transition-transform group-open/filter:rotate-180"></i>
                 </span>
@@ -218,7 +218,7 @@
                                 class="sr-only peer"
                               >
                               {%- comment -%} Swatch circle with selection ring {%- endcomment -%}
-                              <span class="facet-swatch__frame relative flex-shrink-0 p-0.5 rounded-full border-2 border-transparent transition-all peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-border]">
+                              <span class="facet-swatch__frame relative flex-shrink-0 p-0.5 rounded-full border-2 border-transparent transition-all peer-checked:border-(--color-text) peer-focus-visible:ring-2 peer-focus-visible:ring-(--color-primary) peer-focus-visible:ring-offset-2 group-hover:border-(--color-border)">
                                 <span
                                   class="facet-swatch__color block w-5 h-5 rounded-full shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]"
                                   style="
@@ -239,11 +239,11 @@
                                 </span>
                               </span>
                               {%- comment -%} Color label {%- endcomment -%}
-                              <span class="flex-1 text-sm group-hover:text-[--color-text] peer-checked:font-medium transition-colors">
+                              <span class="flex-1 text-sm group-hover:text-(--color-text) peer-checked:font-medium transition-colors">
                                 {{ value.label }}
                               </span>
                               {%- comment -%} Count {%- endcomment -%}
-                              <span class="text-xs text-[--color-text-secondary]">({{ value.count }})</span>
+                              <span class="text-xs text-(--color-text-secondary)">({{ value.count }})</span>
                             </label>
                           </li>
                         {%- endfor -%}
@@ -263,13 +263,13 @@
                                 {% if value.count == 0 and value.active == false %}disabled{% endif %}
                                 class="sr-only peer"
                               >
-                              <span class="w-5 h-5 border border-[--color-border] rounded flex items-center justify-center transition-all peer-checked:bg-[--color-text] peer-checked:border-[--color-text] peer-focus-visible:ring-2 peer-focus-visible:ring-[--color-primary] peer-focus-visible:ring-offset-2 group-hover:border-[--color-text] [&>i]:opacity-0 peer-checked:[&>i]:opacity-100">
-                                <i class="ph ph-check text-xs text-[--color-background] transition-opacity"></i>
+                              <span class="w-5 h-5 border border-(--color-border) rounded flex items-center justify-center transition-all peer-checked:bg-(--color-text) peer-checked:border-(--color-text) peer-focus-visible:ring-2 peer-focus-visible:ring-(--color-primary) peer-focus-visible:ring-offset-2 group-hover:border-(--color-text) [&>i]:opacity-0 peer-checked:[&>i]:opacity-100">
+                                <i class="ph ph-check text-xs text-(--color-background) transition-opacity"></i>
                               </span>
-                              <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-[--color-text-secondary] opacity-50{% endif %}">
+                              <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-(--color-text-secondary) opacity-50{% endif %}">
                                 {{ value.label }}
                               </span>
-                              <span class="text-xs text-[--color-text-secondary]">({{ value.count }})</span>
+                              <span class="text-xs text-(--color-text-secondary)">({{ value.count }})</span>
                             </label>
                           </li>
                         {%- endfor -%}
@@ -281,7 +281,7 @@
                       <div class="flex-1">
                         <label for="Filter-{{ filter.min_value.param_name }}" class="sr-only">{{ 'general.min_price' | t }}</label>
                         <div class="relative">
-                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[--color-text-secondary]">{{ cart.currency.symbol }}</span>
+                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-(--color-text-secondary)">{{ cart.currency.symbol }}</span>
                           <input
                             type="number"
                             name="{{ filter.min_value.param_name }}"
@@ -290,15 +290,15 @@
                             min="0"
                             max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
                             placeholder="0"
-                            class="w-full border border-[--color-border] rounded-[--input-radius] px-3 py-2 pl-7 text-sm focus:border-[--color-text] focus:outline-none transition-colors"
+                            class="w-full border border-(--color-border) rounded-(--input-radius) px-3 py-2 pl-7 text-sm focus:border-(--color-text) focus:outline-none transition-colors"
                           >
                         </div>
                       </div>
-                      <span class="text-[--color-text-secondary]">{{ 'general.to' | t }}</span>
+                      <span class="text-(--color-text-secondary)">{{ 'general.to' | t }}</span>
                       <div class="flex-1">
                         <label for="Filter-{{ filter.max_value.param_name }}" class="sr-only">{{ 'general.max_price' | t }}</label>
                         <div class="relative">
-                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-[--color-text-secondary]">{{ cart.currency.symbol }}</span>
+                          <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-(--color-text-secondary)">{{ cart.currency.symbol }}</span>
                           <input
                             type="number"
                             name="{{ filter.max_value.param_name }}"
@@ -307,7 +307,7 @@
                             min="0"
                             max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
                             placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            class="w-full border border-[--color-border] rounded-[--input-radius] px-3 py-2 pl-7 text-sm focus:border-[--color-text] focus:outline-none transition-colors"
+                            class="w-full border border-(--color-border) rounded-(--input-radius) px-3 py-2 pl-7 text-sm focus:border-(--color-text) focus:outline-none transition-colors"
                           >
                         </div>
                       </div>
@@ -320,7 +320,7 @@
 
         {%- comment -%} Sort (inside drawer for mobile) {%- endcomment -%}
         {% if enable_sorting %}
-          <div class="px-6 py-4 border-t border-[--color-border] lg:hidden">
+          <div class="px-6 py-4 border-t border-(--color-border) lg:hidden">
             <label for="SortByMobile" class="block text-sm font-medium mb-2">{{ 'general.sort_by' | t }}</label>
             <select
               name="sort_by"
@@ -338,7 +338,7 @@
       </form>
 
       {%- comment -%} Footer {%- endcomment -%}
-      <div class="px-6 py-4 border-t border-[--color-border] flex items-center gap-4">
+      <div class="px-6 py-4 border-t border-(--color-border) flex items-center gap-4">
         <a
           href="{{ results.url }}"
           class="btn btn--secondary flex-1 text-center"
@@ -358,8 +358,8 @@
   </div>
 
   {%- comment -%} Loading Spinner {%- endcomment -%}
-  <div class="facets-loading fixed inset-0 z-40 bg-[--color-background]/80 flex items-center justify-center opacity-0 pointer-events-none transition-opacity" data-facets-loading>
-    <svg class="animate-spin h-8 w-8 text-[--color-text]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  <div class="facets-loading fixed inset-0 z-40 bg-(--color-background)/80 flex items-center justify-center opacity-0 pointer-events-none transition-opacity" data-facets-loading>
+    <svg class="animate-spin h-8 w-8 text-(--color-text)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>

@@ -120,7 +120,7 @@
     <div class="fp-container grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-16 {{ container_class }}">
       {%- comment -%} Gallery {%- endcomment -%}
       <div class="relative" data-tween data-tween-type="clip-right">
-        <div class="fp-gallery relative overflow-hidden bg-[--color-background-secondary]" data-fp-gallery>
+        <div class="fp-gallery relative overflow-hidden bg-(--color-background-secondary)" data-fp-gallery>
           {% for media in product.media %}
             <div
               class="fp-gallery-image{% if forloop.first %} is-active{% endif %}"
@@ -211,7 +211,7 @@
           {% unless product.has_only_default_variant %}
             {% for option in product.options_with_values %}
               <div class="mb-6">
-                <div class="text-sm font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] mb-3">
+                <div class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">
                   {{ option.name }}:
                   <span class="font-normal opacity-70" data-selected-option="{{ option.name }}">{{ option.selected_value }}</span>
                 </div>
@@ -254,7 +254,7 @@
                         title="{{ value }}"
                       >
                         <span
-                          class="block w-10 h-10 rounded-full border border-[--color-border] bg-cover bg-center transition-transform duration-200"
+                          class="block w-10 h-10 rounded-full border border-(--color-border) bg-cover bg-center transition-transform duration-200"
                           {% if swatch_value %}style="background: {{ swatch_value }};"{% endif %}
                         ></span>
                       </label>
@@ -282,7 +282,7 @@
                         {% if option_disabled %}disabled{% endif %}
                       >
                       <label
-                        class="fp-variant-button inline-flex items-center justify-center px-5 py-3 text-sm font-medium uppercase tracking-wider border border-[--color-border] bg-transparent text-[--color-text] cursor-pointer transition-all duration-200 hover:border-[--color-text]{% if option_disabled %} opacity-50 cursor-not-allowed line-through{% endif %}"
+                        class="fp-variant-button inline-flex items-center justify-center px-5 py-3 text-sm font-medium uppercase tracking-wider border border-(--color-border) bg-transparent text-(--color-text) cursor-pointer transition-all duration-200 hover:border-(--color-text){% if option_disabled %} opacity-50 cursor-not-allowed line-through{% endif %}"
                         for="fp-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index }}"
                       >
                         {{ value }}
@@ -293,7 +293,7 @@
                   {%- comment -%} Dropdown Picker {%- endcomment -%}
                   <div class="relative">
                     <select
-                      class="w-full py-3.5 pr-10 pl-4 text-sm font-medium text-[--color-text] bg-[--color-background] border border-[--color-border] rounded-[--input-radius] appearance-none cursor-pointer transition-colors duration-200 focus:outline-none focus:border-[--color-text]"
+                      class="w-full py-3.5 pr-10 pl-4 text-sm font-medium text-(--color-text) bg-(--color-background) border border-(--color-border) rounded-(--input-radius) appearance-none cursor-pointer transition-colors duration-200 focus:outline-none focus:border-(--color-text)"
                       name="{{ option.name }}"
                       data-option-position="{{ option.position }}"
                     >
@@ -306,7 +306,7 @@
                         </option>
                       {% endfor %}
                     </select>
-                    <i class="ph ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[--color-text-secondary]"></i>
+                    <i class="ph ph-caret-down absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-(--color-text-secondary)"></i>
                   </div>
                 {% endif %}
               </div>
@@ -316,9 +316,9 @@
           {%- comment -%} Quantity {%- endcomment -%}
           {% if section.settings.show_quantity %}
             <div class="mb-6">
-              <div class="text-sm font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] mb-3">{{ 'products.product.quantity' | t }}</div>
-              <div class="inline-flex items-center border border-[--color-border] rounded-[--input-radius] overflow-hidden">
-                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast]" data-quantity-minus aria-label="{{ 'products.product.decrease_quantity' | t }}">
+              <div class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">{{ 'products.product.quantity' | t }}</div>
+              <div class="inline-flex items-center border border-(--color-border) rounded-(--input-radius) overflow-hidden">
+                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)" data-quantity-minus aria-label="{{ 'products.product.decrease_quantity' | t }}">
                   <i class="ph ph-minus"></i>
                 </button>
                 <input
@@ -326,11 +326,11 @@
                   name="quantity"
                   value="1"
                   min="1"
-                  class="fp-quantity-input w-12 h-10 text-center text-base font-semibold bg-transparent !border-none text-[--color-text]"
+                  class="fp-quantity-input w-12 h-10 text-center text-base font-semibold bg-transparent !border-none text-(--color-text)"
                   data-quantity-input
                   aria-label="{{ 'products.product.quantity' | t }}"
                 >
-                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast]" data-quantity-plus aria-label="{{ 'products.product.increase_quantity' | t }}">
+                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)" data-quantity-plus aria-label="{{ 'products.product.increase_quantity' | t }}">
                   <i class="ph ph-plus"></i>
                 </button>
               </div>
@@ -340,7 +340,7 @@
           {%- comment -%} Add to Cart Button {%- endcomment -%}
           <button
             type="submit"
-            class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-[0.15em] text-[--color-primary-contrast] bg-[--color-primary] border-none cursor-pointer transition-all duration-300 hover:opacity-90 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-widest text-(--color-primary-contrast) bg-(--color-primary) border-none cursor-pointer transition-all duration-300 hover:opacity-90 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             data-add-to-cart
             {% unless current_variant.available %}disabled{% endunless %}
           >
@@ -595,7 +595,7 @@
     {%- comment -%} Placeholder when no product selected {%- endcomment -%}
     <div class="fp-container grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-16 {{ container_class }}">
       <div class="relative" data-tween data-tween-type="clip-right">
-        <div class="fp-gallery relative overflow-hidden bg-[--color-background-secondary]">
+        <div class="fp-gallery relative overflow-hidden bg-(--color-background-secondary)">
           {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
         </div>
       </div>
@@ -605,7 +605,7 @@
         <h2 class="section-title" data-tween data-tween-type="fade-up">{{ 'onboarding.product_title' | t }}</h2>
         <div class="text-xl md:text-2xl lg:text-[clamp(1.25rem,3vw,1.75rem)] font-light mb-6" data-tween data-tween-type="fade-up">{{ 9999 | money }}</div>
         <div class="section-description" data-tween data-tween-type="fade-up">{{ 'onboarding.product_description' | t }}</div>
-        <button type="button" class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-[0.15em] text-[--color-primary-contrast] bg-[--color-primary] border-none cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled data-tween data-tween-type="fade-up">
+        <button type="button" class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-widest text-(--color-primary-contrast) bg-(--color-primary) border-none cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled data-tween data-tween-type="fade-up">
           {{ 'products.product.add_to_cart' | t }}
         </button>
       </div>

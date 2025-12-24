@@ -42,7 +42,7 @@
             {%- assign is_featured = true -%}
           {%- endif -%}
           <article
-            class="blog-item flex flex-col bg-[--color-background-secondary] rounded-[--card-radius] overflow-hidden border-[length:var(--card-border-width)] border-solid border-[--color-border] shadow-[--card-shadow]{% if is_featured %} blog-item--featured col-span-full lg:grid lg:grid-cols-2 lg:gap-16 lg:items-stretch{% endif %}"
+            class="blog-item flex flex-col bg-(--color-background-secondary) rounded-(--card-radius) overflow-hidden border-[length:var(--card-border-width)] border-solid border-(--color-border) shadow-(--card-shadow){% if is_featured %} blog-item--featured col-span-full lg:grid lg:grid-cols-2 lg:gap-16 lg:items-stretch{% endif %}"
             data-blog-item="{{ forloop.index0 }}"
             data-article-url="{{ article.url }}"
           >
@@ -57,21 +57,21 @@
                   alt: article.image.alt | default: article.title
                 }}
               {% else %}
-                <div class="w-full h-full flex items-center justify-center bg-[--color-background-secondary]">
-                  <i class="ph ph-article text-5xl text-[--color-text-secondary] opacity-30"></i>
+                <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
+                  <i class="ph ph-article text-5xl text-(--color-text-secondary) opacity-30"></i>
                 </div>
               {% endif %}
             </a>
 
             <div class="p-6 flex flex-col flex-1{% if is_featured %} lg:py-8 lg:pr-8 lg:pl-0 lg:justify-center{% endif %}" data-tween data-tween-type="fade-up">
               {% if article.tags.size > 0 %}
-                <p class="blog-item-category text-[0.8125rem] font-semibold uppercase tracking-[0.15em] text-[--color-text-secondary] mb-3 overflow-hidden">
+                <p class="blog-item-category blog-category overflow-hidden">
                   <span class="inline-block">{{ article.tags.first }}</span>
                 </p>
               {% endif %}
 
               <h2 class="blog-card-title{% if is_featured %} blog-card-title--featured{% endif %}">
-                <a href="{{ article.url }}" class="hover:text-[--color-primary] transition-colors">
+                <a href="{{ article.url }}" class="hover:text-(--color-primary) transition-colors">
                   {%- assign title_words = article.title | split: ' ' -%}
                   {%- for word in title_words -%}
                     <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
@@ -80,12 +80,12 @@
               </h2>
 
               {% if section.settings.show_excerpt %}
-                <p class="blog-item-excerpt mt-3 text-sm leading-relaxed text-[--color-text-secondary] line-clamp-3{% if is_featured %} lg:text-[0.9375rem] lg:line-clamp-6{% endif %}">
+                <p class="blog-item-excerpt mt-3 text-sm leading-relaxed text-(--color-text-secondary) line-clamp-3{% if is_featured %} lg:text-[0.9375rem] lg:line-clamp-6{% endif %}">
                   {{ article.excerpt_or_content | strip_html | truncate: 160 }}
                 </p>
               {% endif %}
 
-              <div class="blog-item-meta mt-4 text-xs text-[--color-text-secondary] overflow-hidden">
+              <div class="blog-item-meta mt-4 text-xs text-(--color-text-secondary) overflow-hidden">
                 <span class="inline-block">
                   <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
                     {{ article.published_at | date: '%b %d, %Y' }}
@@ -96,7 +96,7 @@
                 {% endif %}
               </div>
 
-              <a href="{{ article.url }}" class="blog-item-cta inline-flex items-center gap-2 mt-auto pt-4 text-sm font-semibold tracking-widest text-[--color-text] uppercase">
+              <a href="{{ article.url }}" class="blog-item-cta inline-flex items-center gap-2 mt-auto pt-4 text-sm font-semibold tracking-widest text-(--color-text) uppercase">
                 <span class="blog-item-cta-text-wrapper"><span class="blog-item-cta-text" data-hover="{{ 'blog.read_article' | t }}">{{ 'blog.read_article' | t }}</span></span>
                 <span class="sr-only">: {{ article.title }}</span>
                 <i class="ph ph-arrow-right" aria-hidden="true"></i>
@@ -110,25 +110,25 @@
     {% if paginate.pages > 1 %}
       <nav class="{{ container_class }} flex items-center justify-center gap-2 mt-12">
         {% if paginate.previous %}
-          <a href="{{ paginate.previous.url }}" class="w-10 h-10 flex items-center justify-center rounded-full border border-[--color-border] text-[--color-text] hover:bg-[--color-background-secondary] transition-colors" aria-label="{{ 'accessibility.previous_page' | t }}">
+          <a href="{{ paginate.previous.url }}" class="w-10 h-10 flex items-center justify-center rounded-full border border-(--color-border) text-(--color-text) hover:bg-(--color-background-secondary) transition-colors" aria-label="{{ 'accessibility.previous_page' | t }}">
             <i class="ph ph-arrow-left"></i>
           </a>
         {% endif %}
 
         {% for part in paginate.parts %}
           {% if part.is_link %}
-            <a href="{{ part.url }}" class="w-10 h-10 flex items-center justify-center text-sm text-[--color-text-secondary] hover:text-[--color-text] transition-colors">{{ part.title }}</a>
+            <a href="{{ part.url }}" class="w-10 h-10 flex items-center justify-center text-sm text-(--color-text-secondary) hover:text-(--color-text) transition-colors">{{ part.title }}</a>
           {% else %}
             {% if part.title == paginate.current_page %}
-              <span class="w-10 h-10 flex items-center justify-center text-sm font-semibold text-[--color-text] bg-[--color-background-secondary] rounded-full">{{ part.title }}</span>
+              <span class="w-10 h-10 flex items-center justify-center text-sm font-semibold text-(--color-text) bg-(--color-background-secondary) rounded-full">{{ part.title }}</span>
             {% else %}
-              <span class="w-10 h-10 flex items-center justify-center text-sm text-[--color-text-secondary]">{{ part.title }}</span>
+              <span class="w-10 h-10 flex items-center justify-center text-sm text-(--color-text-secondary)">{{ part.title }}</span>
             {% endif %}
           {% endif %}
         {% endfor %}
 
         {% if paginate.next %}
-          <a href="{{ paginate.next.url }}" class="w-10 h-10 flex items-center justify-center rounded-full border border-[--color-border] text-[--color-text] hover:bg-[--color-background-secondary] transition-colors" aria-label="{{ 'accessibility.next_page' | t }}">
+          <a href="{{ paginate.next.url }}" class="w-10 h-10 flex items-center justify-center rounded-full border border-(--color-border) text-(--color-text) hover:bg-(--color-background-secondary) transition-colors" aria-label="{{ 'accessibility.next_page' | t }}">
             <i class="ph ph-arrow-right"></i>
           </a>
         {% endif %}

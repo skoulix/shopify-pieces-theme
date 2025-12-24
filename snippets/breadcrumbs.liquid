@@ -35,10 +35,10 @@
 -%}
 
 <nav class="breadcrumbs py-4" aria-label="Breadcrumb" data-tween data-tween-type="fade-up">
-  <ol class="flex flex-wrap items-center gap-2 text-sm text-[--color-text-secondary] {{ align_class }}">
+  <ol class="flex flex-wrap items-center gap-2 text-sm text-(--color-text-secondary) {{ align_class }}">
     {%- comment -%} Home {%- endcomment -%}
     <li class="breadcrumb-item">
-      <a href="{{ routes.root_url }}" class="breadcrumb-link hover:text-[--color-text] transition-colors">
+      <a href="{{ routes.root_url }}" class="breadcrumb-link hover:text-(--color-text) transition-colors">
         {% if show_home_icon %}
           <i class="ph ph-house" aria-hidden="true"></i>
           <span class="sr-only">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</span>
@@ -54,25 +54,25 @@
       {% when 'product' %}
         {%- comment -%} Collection (if in collection context) {%- endcomment -%}
         {% if collection %}
-          <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+          <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
           <li class="breadcrumb-item">
-            <a href="{{ collection.url }}" class="breadcrumb-link hover:text-[--color-text] transition-colors">
+            <a href="{{ collection.url }}" class="breadcrumb-link hover:text-(--color-text) transition-colors">
               {{ collection.title }}
             </a>
           </li>
         {% elsif product.collections.size > 0 %}
           {%- assign primary_collection = product.collections | first -%}
-          <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+          <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
           <li class="breadcrumb-item">
-            <a href="{{ primary_collection.url }}" class="breadcrumb-link hover:text-[--color-text] transition-colors">
+            <a href="{{ primary_collection.url }}" class="breadcrumb-link hover:text-(--color-text) transition-colors">
               {{ primary_collection.title }}
             </a>
           </li>
         {% endif %}
         {%- comment -%} Product {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ product.title }}
           </span>
         </li>
@@ -80,60 +80,60 @@
       {% when 'collection' %}
         {%- comment -%} All Collections link (optional) {%- endcomment -%}
         {% if collection.handle != 'all' %}
-          <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+          <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
           <li class="breadcrumb-item">
-            <a href="{{ routes.collections_url }}" class="breadcrumb-link hover:text-[--color-text] transition-colors">
+            <a href="{{ routes.collections_url }}" class="breadcrumb-link hover:text-(--color-text) transition-colors">
               {{ 'general.breadcrumbs.collections' | t | default: 'Collections' }}
             </a>
           </li>
         {% endif %}
         {%- comment -%} Current Collection {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ collection.title }}
           </span>
         </li>
 
       {% when 'article' %}
         {%- comment -%} Blog {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <a href="{{ blog.url }}" class="breadcrumb-link hover:text-[--color-text] transition-colors">
+          <a href="{{ blog.url }}" class="breadcrumb-link hover:text-(--color-text) transition-colors">
             {{ blog.title }}
           </a>
         </li>
         {%- comment -%} Article {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ article.title }}
           </span>
         </li>
 
       {% when 'blog' %}
         {%- comment -%} Blog {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ blog.title }}
           </span>
         </li>
 
       {% when 'page' %}
         {%- comment -%} Page {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ page.title }}
           </span>
         </li>
 
       {% when 'search' %}
         {%- comment -%} Search {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ 'general.breadcrumbs.search' | t | default: 'Search' }}
             {% if search.terms != blank %}
               : "{{ search.terms }}"
@@ -143,18 +143,18 @@
 
       {% when 'cart' %}
         {%- comment -%} Cart {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ 'general.breadcrumbs.cart' | t | default: 'Cart' }}
           </span>
         </li>
 
       {% when 'list-collections' %}
         {%- comment -%} Collections List {%- endcomment -%}
-        <li class="breadcrumb-separator text-[--color-text-secondary] opacity-50" aria-hidden="true">{{ separator }}</li>
+        <li class="breadcrumb-separator text-(--color-text-secondary) opacity-50" aria-hidden="true">{{ separator }}</li>
         <li class="breadcrumb-item">
-          <span class="breadcrumb-current text-[--color-text] font-medium" aria-current="page">
+          <span class="breadcrumb-current text-(--color-text) font-medium" aria-current="page">
             {{ 'general.breadcrumbs.collections' | t | default: 'Collections' }}
           </span>
         </li>

@@ -236,7 +236,7 @@
         id="predictive-search-input-{{ unique_id }}"
         name="q"
         value="{{ search.terms | escape }}"
-        class="predictive-search__input w-full py-3 px-4 pr-12 bg-transparent border border-[--color-border] rounded-[--input-radius] text-[--color-text] placeholder:text-[--color-text-secondary] focus:outline-none focus:border-[--color-primary] transition-colors"
+        class="predictive-search__input w-full py-3 px-4 pr-12 bg-transparent border border-(--color-border) rounded-(--input-radius) text-(--color-text) placeholder:text-(--color-text-secondary) focus:outline-none focus:border-(--color-primary) transition-colors"
         placeholder="{{ 'search.placeholder' | t }}"
         autocomplete="off"
         autocorrect="off"
@@ -248,14 +248,14 @@
       >
       <button
         type="submit"
-        class="predictive-search__submit absolute right-0 top-0 h-full px-4 text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+        class="predictive-search__submit absolute right-0 top-0 h-full px-4 text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
         aria-label="{{ 'search.submit' | t }}"
       >
         <i class="ph ph-magnifying-glass text-xl"></i>
       </button>
       <button
         type="button"
-        class="predictive-search__clear absolute right-14 top-1/2 -translate-y-1/2 p-2 text-[--color-text-secondary] hover:text-[--color-text] transition-colors hidden"
+        class="predictive-search__clear absolute right-14 top-1/2 -translate-y-1/2 p-2 text-(--color-text-secondary) hover:text-(--color-text) transition-colors hidden"
         aria-label="{{ 'search.clear' | t }}"
         data-predictive-search-clear
       >
@@ -265,13 +265,13 @@
 
     <div
       id="predictive-search-results-{{ unique_id }}"
-      class="predictive-search__results absolute top-full left-0 right-0 mt-2 bg-[--color-background] border border-[--color-border] rounded-[--card-radius] shadow-xl overflow-hidden z-[999] hidden"
+      class="predictive-search__results absolute top-full left-0 right-0 mt-2 bg-(--color-background) border border-(--color-border) rounded-(--card-radius) shadow-xl overflow-hidden z-[999] hidden"
       role="listbox"
       data-predictive-search-results
       data-lenis-prevent
     >
-      <div class="predictive-search__loading bg-[--color-background] hidden" data-predictive-search-loading>
-        <div class="px-4 py-2 bg-[--color-background-secondary]">
+      <div class="predictive-search__loading bg-(--color-background) hidden" data-predictive-search-loading>
+        <div class="px-4 py-2 bg-(--color-background-secondary)">
           <div class="predictive-search__skeleton h-3 w-20"></div>
         </div>
         <div class="predictive-search__products-grid p-3">
@@ -287,7 +287,7 @@
         </div>
       </div>
 
-      <div class="predictive-search__content bg-[--color-background]" data-predictive-search-content>
+      <div class="predictive-search__content bg-(--color-background)" data-predictive-search-content>
         {%- comment -%} Results injected here via JS {%- endcomment -%}
       </div>
     </div>
@@ -452,7 +452,7 @@ class PredictiveSearch extends HTMLElement {
 
     const html = `
       <div class="predictive-search__section">
-        <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
+        <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-(--color-text-secondary) bg-(--color-background-secondary)">
           ${this.dataset.trendingHeading}
         </h3>
         <div class="predictive-search__products-grid">
@@ -466,7 +466,7 @@ class PredictiveSearch extends HTMLElement {
             return `
               <a href="${url}" class="predictive-search__product-card" role="option">
                 <div class="predictive-search__product-image">
-                  ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" loading="lazy" decoding="async">` : '<i class="ph ph-image text-xl text-[--color-text-secondary] opacity-40"></i>'}
+                  ${imageUrl ? `<img src="${imageUrl}" alt="${product.title}" loading="lazy" decoding="async">` : '<i class="ph ph-image text-xl text-(--color-text-secondary) opacity-40"></i>'}
                 </div>
                 <div class="predictive-search__product-info">
                   <p class="predictive-search__product-title">${product.title}</p>
@@ -503,7 +503,7 @@ class PredictiveSearch extends HTMLElement {
         return;
       }
       this.content.innerHTML = `
-        <div class="p-6 text-center text-[--color-text-secondary]">
+        <div class="p-6 text-center text-(--color-text-secondary)">
           <p class="text-sm">${this.dataset.noResultsText}</p>
         </div>
       `;
@@ -513,7 +513,7 @@ class PredictiveSearch extends HTMLElement {
       if (products.length > 0) {
         html += `
           <div class="predictive-search__section">
-            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
+            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-(--color-text-secondary) bg-(--color-background-secondary)">
               ${this.dataset.productsHeading}
             </h3>
             <div class="predictive-search__products-grid">
@@ -522,7 +522,7 @@ class PredictiveSearch extends HTMLElement {
                   <div class="predictive-search__product-image">
                     ${product.image ? `
                       <img src="${product.image}" alt="${product.title}" loading="lazy" decoding="async">
-                    ` : '<i class="ph ph-image text-xl text-[--color-text-secondary] opacity-40"></i>'}
+                    ` : '<i class="ph ph-image text-xl text-(--color-text-secondary) opacity-40"></i>'}
                   </div>
                   <div class="predictive-search__product-info">
                     <p class="predictive-search__product-title">${product.title}</p>
@@ -538,14 +538,14 @@ class PredictiveSearch extends HTMLElement {
       if (articles.length > 0) {
         html += `
           <div class="predictive-search__section">
-            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
+            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-(--color-text-secondary) bg-(--color-background-secondary)">
               ${this.dataset.articlesHeading}
             </h3>
-            <ul class="divide-y divide-[--color-border]">
+            <ul class="divide-y divide-(--color-border)">
               ${articles.map(article => `
                 <li>
-                  <a href="${article.url}" class="block p-4 hover:bg-[--color-background-secondary] transition-colors" role="option">
-                    <p class="text-sm font-medium text-[--color-text]">${article.title}</p>
+                  <a href="${article.url}" class="block p-4 hover:bg-(--color-background-secondary) transition-colors" role="option">
+                    <p class="text-sm font-medium text-(--color-text)">${article.title}</p>
                   </a>
                 </li>
               `).join('')}
@@ -557,14 +557,14 @@ class PredictiveSearch extends HTMLElement {
       if (pages.length > 0) {
         html += `
           <div class="predictive-search__section">
-            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-[--color-text-secondary] bg-[--color-background-secondary]">
+            <h3 class="px-4 py-2 text-sm font-semibold uppercase tracking-wider text-(--color-text-secondary) bg-(--color-background-secondary)">
               ${this.dataset.pagesHeading}
             </h3>
-            <ul class="divide-y divide-[--color-border]">
+            <ul class="divide-y divide-(--color-border)">
               ${pages.map(page => `
                 <li>
-                  <a href="${page.url}" class="block p-4 hover:bg-[--color-background-secondary] transition-colors" role="option">
-                    <p class="text-sm font-medium text-[--color-text]">${page.title}</p>
+                  <a href="${page.url}" class="block p-4 hover:bg-(--color-background-secondary) transition-colors" role="option">
+                    <p class="text-sm font-medium text-(--color-text)">${page.title}</p>
                   </a>
                 </li>
               `).join('')}
@@ -574,7 +574,7 @@ class PredictiveSearch extends HTMLElement {
       }
 
       html += `
-        <div class="p-4 border-t border-[--color-border]">
+        <div class="p-4 border-t border-(--color-border)">
           <button type="submit" class="btn btn--secondary btn--sm w-full">
             <span>${this.dataset.viewAllText} "${this.input.value}"</span>
           </button>

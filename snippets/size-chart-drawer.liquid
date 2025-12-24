@@ -25,9 +25,9 @@
   <div class="drawer-backdrop" data-size-chart-close></div>
 
   {%- comment -%} Panel {%- endcomment -%}
-  <div class="absolute top-0 right-0 bottom-0 w-full max-w-[540px] h-full bg-[--color-background] flex flex-col transform translate-x-full transition-transform duration-300 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-[--color-border] group-[.is-open]:translate-x-0">
+  <div class="absolute top-0 right-0 bottom-0 w-full max-w-[540px] h-full bg-(--color-background) flex flex-col transform translate-x-full transition-transform duration-300 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-(--color-border) group-[.is-open]:translate-x-0">
     {%- comment -%} Header {%- endcomment -%}
-    <div class="flex items-center gap-3 px-6 py-5 border-b border-[--color-border]">
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-(--color-border)">
       <h2 id="size-chart-drawer-title" class="flex-1 drawer-title text-xl m-0" data-size-chart-title>
         {%- liquid
           if heading != blank
@@ -39,7 +39,7 @@
       </h2>
       <button
         type="button"
-        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity hover:opacity-60"
+        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-(--color-text) cursor-pointer transition-opacity hover:opacity-60"
         data-size-chart-close
         aria-label="{{ 'accessibility.close' | t }}"
       >
@@ -62,7 +62,7 @@
         <div class="space-y-6" data-size-chart-default>
           <div>
             <h3 class="text-sm font-medium mb-2">{{ 'products.size_chart.how_to_measure' | t }}</h3>
-            <p class="text-sm text-[--color-text-secondary]">
+            <p class="text-sm text-(--color-text-secondary)">
               {{ 'products.size_chart.measure_instructions' | t }}
             </p>
           </div>
@@ -70,7 +70,7 @@
           <div class="overflow-x-auto">
             <table class="w-full text-sm border-collapse">
               <thead>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <th class="py-3 px-4 text-left font-medium">{{ 'products.size_chart.size' | t }}</th>
                   <th class="py-3 px-4 text-center font-medium">{{ 'products.size_chart.chest' | t }}</th>
                   <th class="py-3 px-4 text-center font-medium">{{ 'products.size_chart.waist' | t }}</th>
@@ -78,48 +78,48 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <td class="py-3 px-4 font-medium">XS</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">32-34"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">24-26"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">34-36"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">32-34"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">24-26"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">34-36"</td>
                 </tr>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <td class="py-3 px-4 font-medium">S</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">34-36"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">26-28"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">36-38"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">34-36"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">26-28"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">36-38"</td>
                 </tr>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <td class="py-3 px-4 font-medium">M</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">36-38"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">28-30"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">38-40"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">36-38"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">28-30"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">38-40"</td>
                 </tr>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <td class="py-3 px-4 font-medium">L</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">38-40"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">30-32"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">40-42"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">38-40"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">30-32"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">40-42"</td>
                 </tr>
-                <tr class="border-b border-[--color-border]">
+                <tr class="border-b border-(--color-border)">
                   <td class="py-3 px-4 font-medium">XL</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">40-42"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">32-34"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">42-44"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">40-42"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">32-34"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">42-44"</td>
                 </tr>
                 <tr>
                   <td class="py-3 px-4 font-medium">XXL</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">42-44"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">34-36"</td>
-                  <td class="py-3 px-4 text-center text-[--color-text-secondary]">44-46"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">42-44"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">34-36"</td>
+                  <td class="py-3 px-4 text-center text-(--color-text-secondary)">44-46"</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="p-4 bg-[--color-background-secondary] rounded-lg">
-            <p class="text-sm text-[--color-text-secondary]">
+          <div class="p-4 bg-(--color-background-secondary) rounded-lg">
+            <p class="text-sm text-(--color-text-secondary)">
               <i class="ph ph-info mr-2"></i>
               {{ 'products.size_chart.fit_note' | t }}
             </p>

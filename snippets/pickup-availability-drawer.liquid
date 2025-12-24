@@ -13,12 +13,12 @@
   data-pickup-availability-modal
 >
   <div class="drawer-backdrop" data-pickup-availability-modal-close></div>
-  <div class="pickup-availability-modal__drawer absolute top-0 right-0 bottom-0 w-full max-w-md h-full bg-[--color-background] flex flex-col transform translate-x-full transition-transform duration-300 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-[--color-border] group-[.is-open]:translate-x-0">
-    <div class="flex items-center gap-3 px-6 py-5 border-b border-[--color-border]">
+  <div class="pickup-availability-modal__drawer absolute top-0 right-0 bottom-0 w-full max-w-md h-full bg-(--color-background) flex flex-col transform translate-x-full transition-transform duration-300 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-(--color-border) group-[.is-open]:translate-x-0">
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-(--color-border)">
       <h2 id="pickup-modal-title" class="flex-1 drawer-title text-xl m-0">{{ 'products.pickup_availability.pickup_options' | t }}</h2>
       <button
         type="button"
-        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity hover:opacity-60"
+        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-(--color-text) cursor-pointer transition-opacity hover:opacity-60"
         aria-label="{{ 'accessibility.close' | t }}"
         data-pickup-availability-modal-close
       >

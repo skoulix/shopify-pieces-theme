@@ -52,13 +52,13 @@
   <div class="drawer-backdrop" data-cart-drawer-close></div>
 
   {%- comment -%} Drawer Panel {%- endcomment -%}
-  <div class="absolute top-0 right-0 w-full max-w-[420px] h-full bg-[--color-background] flex flex-col translate-x-full transition-transform duration-300 ease-out group-[.is-open]:translate-x-0 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-[--color-border]" data-cart-drawer-panel>
+  <div class="absolute top-0 right-0 w-full max-w-[420px] h-full bg-(--color-background) flex flex-col translate-x-full transition-transform duration-300 ease-out group-[.is-open]:translate-x-0 shadow-[-4px_0_24px_rgba(0,0,0,0.15)] border-l border-(--color-border)" data-cart-drawer-panel>
     {%- comment -%} Header {%- endcomment -%}
-    <div class="flex items-center gap-3 px-6 py-5 border-b border-[--color-border]">
+    <div class="flex items-center gap-3 px-6 py-5 border-b border-(--color-border)">
       <h2 class="flex-1 drawer-title text-xl m-0">{{ 'cart.title' | t }}</h2>
       <button
         type="button"
-        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-[--color-text] cursor-pointer transition-opacity hover:opacity-60"
+        class="flex items-center justify-center w-10 h-10 -m-2 ml-auto bg-transparent border-none text-(--color-text) cursor-pointer transition-opacity hover:opacity-60"
         data-cart-drawer-close
       >
         <span class="sr-only">{{ 'cart.close' | t }}</span>
@@ -80,8 +80,8 @@
       {% if cart.item_count > 0 %}
         <ul class="list-none m-0 p-0 flex flex-col gap-6" role="list">
           {% for item in cart.items %}
-            <li class="grid grid-cols-[80px_1fr] gap-4 pb-6 border-b border-[--color-border] last:pb-0 last:border-b-0" data-cart-item data-line-index="{{ forloop.index }}">
-              <div class="aspect-square overflow-hidden bg-[--color-background-secondary]">
+            <li class="grid grid-cols-[80px_1fr] gap-4 pb-6 border-b border-(--color-border) last:pb-0 last:border-b-0" data-cart-item data-line-index="{{ forloop.index }}">
+              <div class="aspect-square overflow-hidden bg-(--color-background-secondary)">
                 {% if item.image %}
                   <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
                     {{ item.image | image_url: width: 200 | image_tag:
@@ -95,16 +95,16 @@
               </div>
 
               <div class="flex flex-col gap-1">
-                <a href="{{ item.url }}" class="text-sm font-medium text-[--color-text] no-underline leading-tight hover:text-[--color-primary]">
+                <a href="{{ item.url }}" class="text-sm font-medium text-(--color-text) no-underline leading-tight hover:text-(--color-primary)">
                   {{ item.product.title }}
                 </a>
                 {% unless item.product.has_only_default_variant %}
-                  <p class="text-xs text-[--color-text-secondary] m-0">{{ item.variant.title }}</p>
+                  <p class="text-xs text-(--color-text-secondary) m-0">{{ item.variant.title }}</p>
                 {% endunless %}
 
                 {%- comment -%} Selling Plan - subscription info {%- endcomment -%}
                 {% if item.selling_plan_allocation %}
-                  <p class="text-xs text-[--color-primary] m-0">
+                  <p class="text-xs text-(--color-primary) m-0">
                     {{ item.selling_plan_allocation.selling_plan.name }}
                   </p>
                 {% endif %}
@@ -122,18 +122,18 @@
                     endif
                   -%}
                   {% if has_compare_at %}
-                    <span class="line-through text-[--color-text-secondary] mr-2">{{ compare_at_line_price | money }}</span>
+                    <span class="line-through text-(--color-text-secondary) mr-2">{{ compare_at_line_price | money }}</span>
                   {% elsif has_discount %}
-                    <span class="line-through text-[--color-text-secondary] mr-2">{{ item.original_line_price | money }}</span>
+                    <span class="line-through text-(--color-text-secondary) mr-2">{{ item.original_line_price | money }}</span>
                   {% endif %}
-                  <span class="{% if has_compare_at or has_discount %}text-[--color-sale]{% endif %}">
+                  <span class="{% if has_compare_at or has_discount %}text-(--color-sale){% endif %}">
                     {{ item.final_line_price | money }}
                   </span>
                 </div>
 
                 {%- comment -%} Unit Price {%- endcomment -%}
                 {%- if item.unit_price_measurement -%}
-                  <div class="text-xs text-[--color-text-secondary]">
+                  <div class="text-xs text-(--color-text-secondary)">
                     <span class="visually-hidden">{{ 'accessibility.unit_price_separator' | t }}</span>
                     {{ item.unit_price | money }}/{{ item.unit_price_measurement.reference_value }}{{ item.unit_price_measurement.reference_unit }}
                   </div>
@@ -186,7 +186,7 @@
                   </div>
                   <button
                     type="button"
-                    class="flex items-center justify-center w-8 h-8 bg-transparent border-none text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-sale]"
+                    class="flex items-center justify-center w-8 h-8 bg-transparent border-none text-(--color-text-secondary) cursor-pointer transition-colors hover:text-(--color-sale)"
                     data-remove-item
                     data-line="{{ forloop.index }}"
                     aria-label="{{ 'cart.remove_item' | t: title: item.product.title }}"
@@ -201,7 +201,7 @@
       {% else %}
         <div class="flex flex-col items-center justify-center text-center px-6 py-8 gap-3 h-full">
           <h3 class="drawer-title">{{ 'cart.empty' | t }}</h3>
-          <p class="m-0 text-[--color-text-secondary] text-sm">{{ 'cart.empty_description' | t }}</p>
+          <p class="m-0 text-(--color-text-secondary) text-sm">{{ 'cart.empty_description' | t }}</p>
           <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary btn--full mt-2" data-cart-drawer-close>
             <i class="ph ph-storefront"></i>
             <span>{{ 'cart.start_shopping' | t }}</span>
@@ -212,17 +212,17 @@
 
     {%- comment -%} Footer {%- endcomment -%}
     {% if cart.item_count > 0 %}
-      <div class="p-6 border-t border-[--color-border] bg-[--color-background]" data-cart-drawer-footer>
+      <div class="p-6 border-t border-(--color-border) bg-(--color-background)" data-cart-drawer-footer>
         {%- comment -%} Cart Note {%- endcomment -%}
         <details class="mb-4 group/note">
-          <summary class="flex items-center justify-between w-full py-3 text-sm font-semibold tracking-wide uppercase text-[--color-text-secondary] cursor-pointer transition-colors hover:text-[--color-text]">
+          <summary class="flex items-center justify-between w-full py-3 text-sm font-semibold tracking-wide uppercase text-(--color-text-secondary) cursor-pointer transition-colors hover:text-(--color-text)">
             <span>{{ 'cart.add_note' | t }}</span>
             <i class="ph ph-caret-down text-base transition-transform group-open/note:rotate-180"></i>
           </summary>
           <div class="pb-4">
             <textarea
               name="note"
-              class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-y focus:outline-2 focus:outline-[--color-primary] focus:-outline-offset-2"
+              class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-(--color-border) text-(--color-text) resize-y focus:outline-2 focus:outline-(--color-primary) focus:-outline-offset-2"
               placeholder="{{ 'cart.note_placeholder' | t }}"
               data-cart-note
             >{{ cart.note }}</textarea>
@@ -234,7 +234,7 @@
           <span>{{ 'cart.subtotal' | t }}</span>
           <span data-cart-subtotal>{{ cart.total_price | money }}</span>
         </div>
-        <p class="text-sm text-[--color-text-secondary] m-0 mb-4">
+        <p class="text-sm text-(--color-text-secondary) m-0 mb-4">
           {{ 'cart.taxes_shipping_note' | t }}
         </p>
 

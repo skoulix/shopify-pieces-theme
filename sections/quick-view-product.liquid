@@ -23,7 +23,7 @@
 <div class="quick-view-product md:h-full grid grid-cols-1 md:grid-cols-2 grid-rows-[auto_1fr] md:grid-rows-1">
   {%- comment -%} Product Images {%- endcomment -%}
   <div class="quick-view-product__images relative w-full aspect-square md:aspect-auto md:h-full overflow-hidden">
-    <div class="absolute inset-0 bg-[--color-background-secondary]" data-main-image-wrapper>
+    <div class="absolute inset-0 bg-(--color-background-secondary)" data-main-image-wrapper>
       {% if featured_image %}
         <img
           src="{{ featured_image | image_url: width: 800 }}"
@@ -37,7 +37,7 @@
         >
       {% else %}
         <div class="w-full h-full flex items-center justify-center">
-          <i class="ph ph-image text-6xl text-[--color-text-secondary] opacity-30"></i>
+          <i class="ph ph-image text-6xl text-(--color-text-secondary) opacity-30"></i>
         </div>
       {% endif %}
     </div>
@@ -47,7 +47,7 @@
         {% for image in product.images limit: 5 %}
           <button
             type="button"
-            class="quick-view-thumbnail w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all bg-[--color-background] shadow-md {% if image == featured_image %}border-[--color-primary] is-active{% else %}border-transparent hover:border-[--color-primary]{% endif %}"
+            class="quick-view-thumbnail w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all bg-(--color-background) shadow-md {% if image == featured_image %}border-(--color-primary) is-active{% else %}border-transparent hover:border-(--color-primary){% endif %}"
             aria-label="View image {{ forloop.index }}"
             data-thumbnail
             data-image-id="{{ image.id }}"
@@ -74,7 +74,7 @@
     {% endif %}
 
     <h2 class="popup-title text-balance pr-8">
-      <a href="{{ product.url }}" class="hover:text-[--color-primary] transition-colors">
+      <a href="{{ product.url }}" class="hover:text-(--color-primary) transition-colors">
         {{ product.title }}
       </a>
     </h2>
@@ -84,7 +84,7 @@
         {{ current_variant.price | money }}
       </span>
       {% if current_variant.compare_at_price > current_variant.price %}
-        <span class="text-sm text-[--color-text-secondary] line-through" data-quick-view-compare>
+        <span class="text-sm text-(--color-text-secondary) line-through" data-quick-view-compare>
           {{ current_variant.compare_at_price | money }}
         </span>
         <span class="badge badge--sale">
@@ -95,7 +95,7 @@
     </div>
 
     {% if product.description != blank %}
-      <p class="text-sm text-[--color-text-secondary] mb-4 leading-relaxed line-clamp-2">
+      <p class="text-sm text-(--color-text-secondary) mb-4 leading-relaxed line-clamp-2">
         {{ product.description | strip_html }}
       </p>
     {% endif %}
@@ -109,7 +109,7 @@
         <div class="space-y-3 mb-4">
           {% for option in product.options_with_values %}
             <div>
-              <label for="quick-view-option-{{ option.name | handleize }}" class="block text-xs font-semibold uppercase tracking-wider text-[--color-text-secondary] mb-2">
+              <label for="quick-view-option-{{ option.name | handleize }}" class="block text-xs font-semibold uppercase tracking-wider text-(--color-text-secondary) mb-2">
                 {{ option.name }}
               </label>
               <select
@@ -135,10 +135,10 @@
       {%- comment -%} Quantity and Add to Cart {%- endcomment -%}
       <div class="mt-auto">
         <div class="flex items-center gap-3 mb-3">
-          <div class="quick-view-qty-wrapper inline-flex items-center rounded-[--input-radius] border-solid border-[--color-border] bg-[--color-background] h-[2.375rem]" data-qty-wrapper>
+          <div class="quick-view-qty-wrapper inline-flex items-center rounded-(--input-radius) border-solid border-(--color-border) bg-(--color-background) h-[2.375rem]" data-qty-wrapper>
             <button
               type="button"
-              class="w-9 h-full flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
+              class="w-9 h-full flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast) active:scale-95"
               data-qty-minus
               aria-label="{{ 'products.product.decrease_quantity' | t }}"
             >
@@ -151,13 +151,13 @@
                 name="quantity"
                 value="1"
                 min="1"
-                class="w-full h-full text-center text-sm font-semibold bg-transparent !border-0 !shadow-none text-[--color-text] focus:outline-none"
+                class="w-full h-full text-center text-sm font-semibold bg-transparent !border-0 !shadow-none text-(--color-text) focus:outline-none"
                 data-qty-input
               >
             </div>
             <button
               type="button"
-              class="w-9 h-full flex items-center justify-center bg-transparent border-none cursor-pointer text-[--color-text] transition-all duration-300 hover:bg-[--color-primary] hover:text-[--color-primary-contrast] active:scale-95"
+              class="w-9 h-full flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast) active:scale-95"
               data-qty-plus
               aria-label="{{ 'products.product.increase_quantity' | t }}"
             >

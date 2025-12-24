@@ -51,12 +51,12 @@
         {%- comment -%} Cart Items {%- endcomment -%}
         <div class="lg:col-span-7">
           <form action="{{ routes.cart_url }}" method="post" id="cart-form" data-cart-form>
-            <ul role="list" class="divide-y divide-[--color-border]">
+            <ul role="list" class="divide-y divide-(--color-border)">
               {% for item in cart.items %}
                 <li class="py-8 first:pt-0" data-cart-item data-line="{{ forloop.index }}" data-tween data-tween-type="fade-up">
                   <div class="flex gap-6">
                     {%- comment -%} Image {%- endcomment -%}
-                    <div class="w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
+                    <div class="w-28 h-36 flex-shrink-0 overflow-hidden bg-(--color-background-secondary)">
                       {% if item.image %}
                         <a href="{{ item.url }}" aria-label="{{ item.product.title }}">
                           {{ item.image | image_url: width: 300 | image_tag:
@@ -74,16 +74,16 @@
                       <div>
                         <div class="flex justify-between">
                           <div>
-                            <h3 class="text-base font-medium text-[--color-text]">
-                              <a href="{{ item.url }}" class="hover:text-[--color-primary] transition-colors">
+                            <h3 class="text-base font-medium text-(--color-text)">
+                              <a href="{{ item.url }}" class="hover:text-(--color-primary) transition-colors">
                                 {{ item.product.title }}
                               </a>
                             </h3>
                             {% unless item.product.has_only_default_variant %}
-                              <p class="mt-1 text-sm text-[--color-text-secondary]">{{ item.variant.title }}</p>
+                              <p class="mt-1 text-sm text-(--color-text-secondary)">{{ item.variant.title }}</p>
                             {% endunless %}
                             {% if item.selling_plan_allocation %}
-                              <p class="mt-1 text-xs text-[--color-text-secondary]">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                              <p class="mt-1 text-xs text-(--color-text-secondary)">{{ item.selling_plan_allocation.selling_plan.name }}</p>
                             {% endif %}
                           </div>
                           <div class="text-right">
@@ -98,14 +98,14 @@
                                 assign has_discount = true
                               endif
                             -%}
-                            <p class="text-base font-medium {% if has_compare_at or has_discount %}text-red-600{% else %}text-[--color-text]{% endif %}">{{ item.final_line_price | money }}</p>
+                            <p class="text-base font-medium {% if has_compare_at or has_discount %}text-red-600{% else %}text-(--color-text){% endif %}">{{ item.final_line_price | money }}</p>
                             {% if has_compare_at %}
-                              <p class="text-sm text-[--color-text-secondary] line-through">{{ compare_at_line_price | money }}</p>
+                              <p class="text-sm text-(--color-text-secondary) line-through">{{ compare_at_line_price | money }}</p>
                             {% elsif has_discount %}
-                              <p class="text-sm text-[--color-text-secondary] line-through">{{ item.original_line_price | money }}</p>
+                              <p class="text-sm text-(--color-text-secondary) line-through">{{ item.original_line_price | money }}</p>
                             {% endif %}
                             {%- if item.unit_price_measurement -%}
-                              <p class="text-xs text-[--color-text-secondary] mt-1">
+                              <p class="text-xs text-(--color-text-secondary) mt-1">
                                 {{ item.unit_price | money }}/{{ item.unit_price_measurement.reference_value }}{{ item.unit_price_measurement.reference_unit }}
                               </p>
                             {%- endif -%}
@@ -151,7 +151,7 @@
                         {%- comment -%} Remove {%- endcomment -%}
                         <button
                           type="button"
-                          class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] hover:text-[--color-text] transition-colors"
+                          class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
                           data-remove-item
                           data-line="{{ forloop.index }}"
                         >
@@ -168,7 +168,7 @@
 
         {%- comment -%} Summary {%- endcomment -%}
         <div class="lg:col-span-5 mt-12 lg:mt-0">
-          <div class="sticky top-12 bg-[--color-background-secondary] p-8" data-tween data-tween-type="fade-up">
+          <div class="sticky top-12 bg-(--color-background-secondary) p-8" data-tween data-tween-type="fade-up">
             {%- comment -%} Free Shipping Progress {%- endcomment -%}
             <div class="mb-6" data-free-shipping-wrapper>
               {% render 'free-shipping-progress' %}
@@ -178,13 +178,13 @@
 
             <dl class="mt-6 space-y-4">
               <div class="flex items-center justify-between">
-                <dt class="text-sm text-[--color-text-secondary]">{{ 'cart.subtotal' | t }}</dt>
-                <dd class="text-sm font-medium text-[--color-text]" data-cart-subtotal>{{ cart.total_price | money }}</dd>
+                <dt class="text-sm text-(--color-text-secondary)">{{ 'cart.subtotal' | t }}</dt>
+                <dd class="text-sm font-medium text-(--color-text)" data-cart-subtotal>{{ cart.total_price | money }}</dd>
               </div>
               {% if cart.cart_level_discount_applications.size > 0 %}
                 {% for discount in cart.cart_level_discount_applications %}
                   <div class="flex items-center justify-between">
-                    <dt class="text-sm text-[--color-text-secondary]">
+                    <dt class="text-sm text-(--color-text-secondary)">
                       <i class="ph ph-tag mr-1"></i>
                       {{ discount.title }}
                     </dt>
@@ -194,17 +194,17 @@
               {% endif %}
             </dl>
 
-            <div class="mt-6 pt-6 border-t border-[--color-border]">
+            <div class="mt-6 pt-6 border-t border-(--color-border)">
               <div class="flex items-center justify-between">
-                <dt class="text-base font-medium text-[--color-text]">{{ 'cart.total' | t }}</dt>
-                <dd class="text-base font-medium text-[--color-text]" data-cart-total>{{ cart.total_price | money }}</dd>
+                <dt class="text-base font-medium text-(--color-text)">{{ 'cart.total' | t }}</dt>
+                <dd class="text-base font-medium text-(--color-text)" data-cart-total>{{ cart.total_price | money }}</dd>
               </div>
-              <p class="mt-1 text-xs text-[--color-text-secondary]">{{ 'cart.taxes_shipping_note' | t }}</p>
+              <p class="mt-1 text-xs text-(--color-text-secondary)">{{ 'cart.taxes_shipping_note' | t }}</p>
             </div>
 
             {%- comment -%} Cart Note {%- endcomment -%}
             <details class="mt-6">
-              <summary class="text-sm uppercase tracking-wider font-medium text-[--color-text-secondary] cursor-pointer hover:text-[--color-text] transition-colors flex items-center justify-between">
+              <summary class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) cursor-pointer hover:text-(--color-text) transition-colors flex items-center justify-between">
                 <span>{{ 'cart.add_note' | t }}</span>
                 <i class="ph ph-caret-down text-sm transition-transform"></i>
               </summary>
@@ -212,7 +212,7 @@
                 <textarea
                   name="note"
                   form="cart-form"
-                  class="w-full p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-none focus:border-[--color-primary] focus:outline-none"
+                  class="w-full p-3 text-sm bg-transparent border border-(--color-border) text-(--color-text) resize-none focus:border-(--color-primary) focus:outline-none"
                   rows="3"
                   placeholder="{{ 'cart.note_placeholder' | t }}"
                   data-cart-note
@@ -244,8 +244,8 @@
 
             {%- comment -%} Trust Badges {%- endcomment -%}
             {% if section.settings.show_trust_badges %}
-              <div class="mt-8 pt-6 border-t border-[--color-border]">
-                <div class="flex items-center justify-center gap-6 text-[--color-text-secondary]">
+              <div class="mt-8 pt-6 border-t border-(--color-border)">
+                <div class="flex items-center justify-center gap-6 text-(--color-text-secondary)">
                   {% if section.settings.badge_1_text != blank %}
                     <div class="flex items-center gap-2 text-xs">
                       <i class="ph ph-{{ section.settings.badge_1_icon }} text-lg"></i>
@@ -274,7 +274,7 @@
   {% else %}
     <div class="{{ container_class }}" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
       <h2 class="section-title">{{ 'cart.empty' | t }}</h2>
-      <p class="mt-4 text-[--color-text-secondary] max-w-sm">{{ 'cart.empty_description' | t }}</p>
+      <p class="mt-4 text-(--color-text-secondary) max-w-sm">{{ 'cart.empty_description' | t }}</p>
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4 max-w-xs sm:max-w-none">
         <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary w-full sm:w-auto">

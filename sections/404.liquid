@@ -17,7 +17,7 @@
 
 <div class="min-h-screen flex items-center relative overflow-hidden">
   {%- comment -%} Creative Background Text {%- endcomment -%}
-  <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(20rem,50vw,60rem)] font-black tracking-tighter leading-none opacity-[0.03] pointer-events-none select-none whitespace-nowrap text-[--color-text] font-heading">404</span>
+  <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(20rem,50vw,60rem)] font-black tracking-tighter leading-none opacity-[0.03] pointer-events-none select-none whitespace-nowrap text-(--color-text) font-heading">404</span>
 
   <div class="{{ container_class }} page-padding w-full relative z-10">
     <div class="max-w-4xl mx-auto text-center" data-tween-group="error-content" data-tween-start="top bottom">
@@ -25,7 +25,7 @@
       <h1 class="section-title" data-tween data-tween-type="split-text">
         {{ '404.title' | t }}
       </h1>
-      <p class="mt-4 text-lg text-[--color-text-secondary] max-w-md mx-auto" data-tween data-tween-type="fade-up">
+      <p class="mt-4 text-lg text-(--color-text-secondary) max-w-md mx-auto" data-tween data-tween-type="fade-up">
         {{ '404.description' | t }}
       </p>
 
