@@ -100,7 +100,7 @@
         </h2>
       {% endif %}
 
-      <p class="page-header-subtitle mt-6 {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
+      <p class="page-header-subtitle {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
         <span class="page-header-subtitle-line" data-subtitle-line></span>
         <span class="overflow-hidden"><span class="inline-block" data-wishlist-section-count data-subtitle-text>0 {{ 'products.wishlist.products' | t | default: 'saved items' }}</span></span>
       </p>
