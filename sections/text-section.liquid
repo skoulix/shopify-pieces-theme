@@ -12,7 +12,6 @@
 
 <style>
   .text-section-{{ section.id }} {
-    padding: var(--section-vertical-padding) 0;
     background-color: var(--color-background);
     color: var(--color-text);
   }
@@ -79,7 +78,7 @@
 </style>
 
 <section
-  class="text-section-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  class="text-section-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-text-section="{{ section.id }}"
 >
   <div class="{{ container_class }}">

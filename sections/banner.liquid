@@ -15,9 +15,6 @@
 -%}
 
 <style>
-  .banner-{{ section.id }} {
-    padding: var(--section-vertical-padding) 0;
-  }
 
   .banner-{{ section.id }}.banner-hidden {
     display: none;
@@ -61,7 +58,7 @@
 </style>
 
 <section
-  class="banner-{{ section.id }} color-{{ section.settings.color_scheme }}"
+  class="banner-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-banner-section="{{ section.id }}"
   {% if section.settings.remember_dismissal %}data-remember-dismissal="true"{% endif %}
 >
