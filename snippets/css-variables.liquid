@@ -372,6 +372,16 @@
     {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
   }
 
+  /* Dropdown featured label - uppercase depends on settings */
+  .dropdown-featured__label {
+    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
+  }
+
+  /* Cart note toggle - uppercase depends on settings */
+  .cart-drawer__note-toggle {
+    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
+  }
+
   /* Cards */
   .card {
     background-color: var(--color-background);

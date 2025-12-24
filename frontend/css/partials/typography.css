@@ -344,7 +344,7 @@
      ========================================================================== */
 
   .badge {
-    @apply inline-block py-1 px-2 text-xs font-semibold tracking-wide;
+    @apply inline-block py-1 px-2 text-xs font-semibold tracking-wider;
     border-radius: var(--badge-radius, 0.25rem);
   }
 

@@ -18,7 +18,10 @@
   }
 
   .mobile-nav__link {
-    @apply py-3 font-heading text-4xl md:text-5xl text-(--color-text) leading-snug tracking-tight;
+    @apply py-3 font-heading text-(--color-text) leading-snug;
+    font-size: calc(clamp(2.25rem, 6vw, 3rem) * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     transition: color var(--transition-base);
   }
 
@@ -63,7 +66,8 @@
   }
 
   .mobile-nav__submenu-link {
-    @apply py-2.5 text-lg;
+    @apply py-2.5 font-body;
+    font-size: calc(1.125rem * var(--body-font-scale, 1));
   }
 
   /* Sliding Panels */
@@ -87,16 +91,21 @@
   }
 
   .mobile-nav__panel-title {
-    @apply font-heading text-2xl md:text-3xl tracking-tight;
+    @apply font-heading leading-snug;
+    font-size: calc(clamp(1.5rem, 4vw, 1.875rem) * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
   }
 
   .mobile-nav--slide .mobile-nav__link {
-    @apply text-3xl md:text-4xl;
+    font-size: calc(clamp(1.875rem, 5vw, 2.25rem) * var(--heading-font-scale, 1));
   }
 
   .mobile-nav--slide .mobile-nav__panel[data-panel-level="2"] .mobile-nav__link:not(.mobile-nav__link--view-all),
   .mobile-nav--slide .mobile-nav__panel[data-panel-level="3"] .mobile-nav__link:not(.mobile-nav__link--view-all) {
-    @apply font-sans font-medium text-xl;
+    @apply font-body font-medium;
+    font-size: calc(1.25rem * var(--body-font-scale, 1));
+    letter-spacing: 0;
   }
 
   /* Desktop Dropdowns */
@@ -138,11 +147,14 @@
   }
 
   .dropdown-featured__label {
-    @apply text-xs font-semibold uppercase mb-1 tracking-widest text-(--color-text-secondary);
+    @apply text-xs font-semibold mb-1 tracking-widest text-(--color-text-secondary);
   }
 
   .dropdown-featured__title {
-    @apply text-lg font-semibold;
+    @apply font-heading leading-snug;
+    font-size: calc(1.125rem * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
   }
 
   .dropdown-featured__arrow {
