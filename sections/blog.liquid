@@ -42,7 +42,7 @@
             {%- assign is_featured = true -%}
           {%- endif -%}
           <article
-            class="blog-item flex flex-col bg-(--color-background-secondary) rounded-(--card-radius) overflow-hidden border-[--card-border-width] border-solid border-(--color-border) shadow-(--card-shadow){% if is_featured %} blog-item--featured col-span-full lg:grid lg:grid-cols-2 lg:gap-16 lg:items-stretch{% endif %}"
+            class="blog-item flex flex-col bg-(--color-background-secondary) rounded-(--card-radius) overflow-hidden border-(--card-border-width) border-solid border-(--color-border) shadow-(--card-shadow){% if is_featured %} blog-item--featured col-span-full lg:grid lg:grid-cols-2 lg:gap-16 lg:items-stretch{% endif %}"
             data-blog-item="{{ forloop.index0 }}"
             data-article-url="{{ article.url }}"
           >
