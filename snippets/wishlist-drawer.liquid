@@ -177,12 +177,12 @@
 </style>
 
 {%- comment -%} Drawer Container {%- endcomment -%}
-<div class="wishlist-drawer-container group color-scheme-1" data-wishlist-container role="dialog" aria-modal="true" aria-labelledby="wishlist-drawer-title" inert>
+<div class="wishlist-drawer-container group" data-wishlist-container role="dialog" aria-modal="true" aria-labelledby="wishlist-drawer-title" inert>
   {%- comment -%} Backdrop {%- endcomment -%}
   <div class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 group-[.is-open]:opacity-100" data-wishlist-close></div>
 
   {%- comment -%} Drawer Panel {%- endcomment -%}
-  <div class="wishlist-drawer" data-wishlist-drawer data-lenis-prevent>
+  <div class="wishlist-drawer color-scheme-1" data-wishlist-drawer data-lenis-prevent>
     <header class="wishlist-drawer__header">
       <h2 id="wishlist-drawer-title" class="wishlist-drawer__title">
         {{ 'products.wishlist.title' | t | default: 'Wishlist' }}
