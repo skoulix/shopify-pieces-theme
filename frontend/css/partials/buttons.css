@@ -33,7 +33,8 @@
 
   /* Primary */
   .btn--primary {
-    @apply text-(--color-primary-contrast) bg-(--color-primary) border border-(--color-primary);
+    @apply bg-(--color-primary) border border-(--color-primary);
+    color: var(--color-primary-contrast) !important;
   }
 
   .btn--primary::before {
@@ -42,18 +43,20 @@
 
   .btn--primary span, .btn--primary i, .btn--primary svg, .btn--primary > * {
     @apply transition-colors duration-200 delay-100;
+    color: var(--color-primary-contrast) !important;
   }
 
   .btn--primary:hover {
-    @apply text-(--color-primary);
+    color: var(--color-primary) !important;
   }
 
   .btn--primary:hover span, .btn--primary:hover i, .btn--primary:hover svg, .btn--primary:hover > * {
-    @apply text-(--color-primary);
+    color: var(--color-primary) !important;
   }
 
   .btn--primary:not(:hover) span, .btn--primary:not(:hover) i, .btn--primary:not(:hover) svg, .btn--primary:not(:hover) > * {
     @apply delay-0;
+    color: var(--color-primary-contrast) !important;
   }
 
   /* Secondary */
@@ -66,7 +69,7 @@
   }
 
   .btn--secondary span, .btn--secondary i, .btn--secondary svg, .btn--secondary > * {
-    @apply transition-colors duration-200 delay-100;
+    @apply text-(--color-text) transition-colors duration-200 delay-100;
   }
 
   .btn--secondary:hover {
@@ -78,7 +81,7 @@
   }
 
   .btn--secondary:not(:hover) span, .btn--secondary:not(:hover) i, .btn--secondary:not(:hover) svg, .btn--secondary:not(:hover) > * {
-    @apply delay-0;
+    @apply text-(--color-text) delay-0;
   }
 
   /* Outline */
