@@ -353,7 +353,7 @@
         {%- comment -%} Mobile hamburger {%- endcomment -%}
         <button
           type="button"
-          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text)"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text) cursor-pointer"
           data-mobile-nav-open
         >
           <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
@@ -537,7 +537,7 @@
         {%- comment -%} Mobile hamburger {%- endcomment -%}
         <button
           type="button"
-          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text)"
+          class="lg:hidden -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-(--color-text) cursor-pointer"
           data-mobile-nav-open
         >
           <span class="sr-only">{{ 'accessibility.open_menu' | t }}</span>
@@ -793,10 +793,10 @@
 
       // Only set up text animations if enabled
       if (shouldAnimateText) {
-        gsap.set(header, { opacity: 0, y: -20 });
-        gsap.set(linkItems, { opacity: 1 }); // Items visible, chars will animate
-        gsap.set(toggleIcons, { opacity: 0, scale: 0, rotation: -90 });
-        gsap.set(footer, { opacity: 0, y: 20 });
+        if (header) gsap.set(header, { opacity: 0, y: -20 });
+        if (linkItems.length > 0) gsap.set(linkItems, { opacity: 1 }); // Items visible, chars will animate
+        if (toggleIcons.length > 0) gsap.set(toggleIcons, { opacity: 0, scale: 0, rotation: -90 });
+        if (footer) gsap.set(footer, { opacity: 0, y: 20 });
 
         // Set link texts to hidden initially, will reveal by line
         if (SplitText) {
@@ -839,7 +839,7 @@
       // Only animate text content if enabled
       if (shouldAnimateText) {
         // Animate header
-        openTimeline.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4);
+        if (header) openTimeline.to(header, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.4);
 
         // Animate each link line reveal with stagger
         if (linkSplits.length > 0) {
@@ -864,7 +864,7 @@
           }, 0.7);
         }
 
-        openTimeline.to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.9);
+        if (footer) openTimeline.to(footer, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, 0.9);
       }
     } else {
       isAnimating = false;

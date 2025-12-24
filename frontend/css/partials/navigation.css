@@ -9,8 +9,12 @@
   }
 
   .mobile-nav__drawer {
-    @apply will-change-transform;
+    @apply will-change-transform transition-[clip-path] duration-500 ease-out;
     clip-path: inset(0 0 100% 0);
+  }
+
+  .mobile-nav.is-open .mobile-nav__drawer {
+    clip-path: inset(0 0 0 0);
   }
 
   .mobile-nav__link {

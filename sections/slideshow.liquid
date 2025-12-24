@@ -225,7 +225,7 @@
         <div class="slideshow__overlay absolute inset-0 pointer-events-none" style="background-color: {{ overlay_color | color_modify: 'alpha', overlay_alpha }};"></div>
 
         {%- comment -%} Content {%- endcomment -%}
-        <div class="slideshow__content relative z-[1] h-full flex flex-col p-8 page-container {{ content_justify }} {{ content_items }}">
+        <div class="slideshow__content relative z-1 h-full flex flex-col p-8 page-container {{ content_justify }} {{ content_items }}">
           <div class="max-w-[42rem] text-{{ text_alignment }}">
             {% if block.settings.label != blank %}
               <p class="slideshow__label text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider mb-4 opacity-80">

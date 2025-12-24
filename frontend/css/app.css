@@ -5,15 +5,15 @@
 
 /* All @imports must come first per CSS spec */
 @import "tailwindcss" source(none);
-@import './partials/base.css' layer(base);
-@import './partials/typography.css' layer(components);
-@import './partials/forms.css' layer(components);
-@import './partials/buttons.css' layer(components);
-@import './partials/navigation.css' layer(components);
-@import './partials/cart.css' layer(components);
-@import './partials/animations.css' layer(components);
-@import './partials/utilities.css' layer(components);
-@import './partials/glightbox.css' layer(components);
+@import './partials/base.css';
+@import './partials/typography.css';
+@import './partials/forms.css';
+@import './partials/buttons.css';
+@import './partials/navigation.css';
+@import './partials/cart.css';
+@import './partials/animations.css';
+@import './partials/utilities.css';
+@import './partials/glightbox.css';
 
 @plugin "@tailwindcss/typography";
 

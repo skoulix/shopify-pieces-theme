@@ -27,14 +27,14 @@
 
 <div
   id="search-drawer"
-  class="group fixed inset-0 z-[100] pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible"
+  class="group fixed inset-0 z-200 pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible"
   role="dialog"
   aria-modal="true"
   inert
   aria-label="{{ 'search.title' | t }}"
 >
   {%- comment -%} Backdrop {%- endcomment -%}
-  <div class="drawer-backdrop" data-search-drawer-close></div>
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 group-[.is-open]:opacity-100" data-search-drawer-close></div>
 
   {%- comment -%} Drawer Panel - slides from top {%- endcomment -%}
   <div class="absolute top-0 left-0 right-0 bg-(--color-background) -translate-y-full will-change-transform shadow-[0_4px_24px_rgba(0,0,0,0.15)] border-b border-(--color-border)" data-search-drawer-panel>
