@@ -601,19 +601,6 @@ TIMEOUT.cartFetch // 8000
 TIMEOUT.toast     // 3000
 ```
 
-### CSS Variables (`snippets/css-variables.liquid`)
-
-```css
---duration-fast: 150ms;
---duration-normal: 300ms;
---duration-slow: 500ms;
---z-drawer: 100;
---z-modal: 9999;
---z-toast: 10000;
-```
-
----
-
 ## Global API
 
 ### Window Objects
