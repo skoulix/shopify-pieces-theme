@@ -185,6 +185,25 @@
     @apply rounded-full;
   }
 
+  /* ==========================================================================
+     Share Button - Social share icons
+     Used in: article share buttons
+     ========================================================================== */
+
+  .share-btn {
+    @apply size-10 flex items-center justify-center border cursor-pointer;
+    border-color: var(--color-border);
+    border-radius: var(--button-radius);
+    color: var(--color-text);
+    transition: all var(--transition-base);
+  }
+
+  .share-btn:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+  }
+
   /* States */
   .btn:disabled, .btn[disabled], .btn.is-disabled {
     @apply cursor-not-allowed pointer-events-none opacity-50;
@@ -229,12 +248,61 @@
     color: var(--section-bg, var(--color-background));
   }
 
-  /* Link CTA */
+  /* ==========================================================================
+     Link CTA - Text links with arrow and slide-up hover effect
+     Used in: featured-collection, featured-blog, image-with-text, text-reveal
+     Usage: <a class="link-cta"><span class="link-cta-text"><span data-hover="Text">Text</span></span><i class="ph ph-arrow-right"></i></a>
+     ========================================================================== */
+
   .link-cta {
-    @apply inline-flex items-center gap-3 no-underline text-xs font-semibold tracking-widest;
+    @apply inline-flex items-center gap-3 no-underline text-sm font-semibold;
+    letter-spacing: 0.1em;
   }
 
-  /* Text Hover Reveal */
+  .link-cta-text {
+    @apply inline-block overflow-hidden;
+  }
+
+  .link-cta-text span[data-hover] {
+    @apply inline-block relative transition-transform duration-200;
+  }
+
+  .link-cta-text span[data-hover]::after {
+    @apply absolute left-0 top-full whitespace-nowrap content-[attr(data-hover)];
+  }
+
+  .link-cta:hover .link-cta-text span[data-hover] {
+    @apply -translate-y-full;
+  }
+
+  /* ==========================================================================
+     Arrow Link - Small navigation links with icon (back, prev, next)
+     Used in: article nav, account back links, breadcrumb-style navigation
+     ========================================================================== */
+
+  .arrow-link {
+    @apply inline-flex items-center gap-2 text-xs font-semibold tracking-widest overflow-hidden;
+    color: var(--color-text-secondary);
+  }
+
+  .arrow-link span[data-hover] {
+    @apply inline-block relative transition-transform duration-200;
+  }
+
+  .arrow-link span[data-hover]::after {
+    @apply absolute left-0 top-full content-[attr(data-hover)];
+  }
+
+  .arrow-link:hover span[data-hover],
+  .group:hover .arrow-link span[data-hover] {
+    @apply -translate-y-full;
+  }
+
+  .arrow-link--uppercase {
+    @apply uppercase;
+  }
+
+  /* Text Hover Reveal - Generic hover effect for any element */
   .text-hover-reveal {
     @apply overflow-hidden;
   }
@@ -248,22 +316,6 @@
   }
 
   .text-hover-reveal:hover span {
-    @apply -translate-y-full;
-  }
-
-  .link-cta--reveal {
-    @apply overflow-hidden;
-  }
-
-  .link-cta--reveal .link-cta-text {
-    @apply inline-block relative transition-transform duration-200;
-  }
-
-  .link-cta--reveal .link-cta-text::after {
-    @apply absolute left-0 top-full content-[attr(data-hover)];
-  }
-
-  .link-cta--reveal:hover .link-cta-text {
     @apply -translate-y-full;
   }
 }

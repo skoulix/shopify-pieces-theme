@@ -95,10 +95,8 @@
                 </p>
               {% endif %}
 
-              <a href="{{ article.url }}" class="link-cta link-cta--reveal mt-auto pt-4 uppercase">
-                <span class="overflow-hidden">
-                  <span class="link-cta-text" data-hover="{{ 'blog.read_article' | t }}">{{ 'blog.read_article' | t }}</span>
-                </span>
+              <a href="{{ article.url }}" class="link-cta mt-auto pt-4 uppercase">
+                <span class="link-cta-text"><span data-hover="{{ 'blog.read_article' | t }}">{{ 'blog.read_article' | t }}</span></span>
                 <span class="sr-only">: {{ article.title }}</span>
                 <i class="ph ph-arrow-right" aria-hidden="true"></i>
               </a>

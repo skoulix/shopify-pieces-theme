@@ -79,7 +79,7 @@
 <div class="page-container page-padding">
   {%- comment -%} Back Link {%- endcomment -%}
   {%- capture back_text -%}{{ 'customers.account.return' | t }}{%- endcapture -%}
-  <a href="{{ routes.account_url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-(--color-text-secondary) mb-8" data-no-swup>
+  <a href="{{ routes.account_url }}" class="arrow-link mb-8" data-no-swup>
     <i class="ph ph-arrow-left" aria-hidden="true"></i>
     <span data-hover="{{ back_text }}">{{ back_text }}</span>
   </a>

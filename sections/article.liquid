@@ -26,7 +26,7 @@
       {% endif %}
       {%- capture back_text -%}{{ 'blog.back_to_blog' | t: blog: blog.title }}{%- endcapture -%}
       <div class="mb-[clamp(1rem,2vw,1.5rem)]" data-tween data-tween-type="fade-up">
-        <a href="{{ blog.url }}" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary)">
+        <a href="{{ blog.url }}" class="arrow-link arrow-link--uppercase">
           <i class="ph ph-arrow-left" aria-hidden="true"></i>
           <span data-hover="{{ back_text }}">{{ back_text }}</span>
         </a>
@@ -90,16 +90,16 @@
         <div class="flex items-center gap-4 mt-8">
           <span class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary)">{{ 'general.share' | t }}</span>
           <div class="flex gap-3">
-            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-primary) hover:text-(--color-primary-contrast) hover:border-(--color-primary) transition-all duration-300" aria-label="{{ 'accessibility.share_on_twitter' | t }}">
+            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_twitter' | t }}">
               <i class="ph ph-x-logo"></i>
             </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-primary) hover:text-(--color-primary-contrast) hover:border-(--color-primary) transition-all duration-300" aria-label="{{ 'accessibility.share_on_facebook' | t }}">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_facebook' | t }}">
               <i class="ph ph-facebook-logo"></i>
             </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="w-10 h-10 flex items-center justify-center border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-primary) hover:text-(--color-primary-contrast) hover:border-(--color-primary) transition-all duration-300" aria-label="{{ 'accessibility.share_on_linkedin' | t }}">
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_linkedin' | t }}">
               <i class="ph ph-linkedin-logo"></i>
             </a>
-            <button type="button" class="w-10 h-10 flex items-center justify-center border border-(--color-border) rounded-(--button-radius) text-(--color-text) hover:bg-(--color-primary) hover:text-(--color-primary-contrast) hover:border-(--color-primary) transition-all duration-300 cursor-pointer" aria-label="{{ 'accessibility.copy_link' | t }}" data-copy-link="{{ shop.url }}{{ article.url }}">
+            <button type="button" class="share-btn" aria-label="{{ 'accessibility.copy_link' | t }}" data-copy-link="{{ shop.url }}{{ article.url }}">
               <i class="ph ph-link"></i>
             </button>
           </div>
@@ -110,7 +110,7 @@
         <nav class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mt-16 pt-16 border-t border-(--color-border)">
           {% if blog.previous_article %}
             <a href="{{ blog.previous_article.url }}" class="flex flex-col gap-2 no-underline group">
-              <span class="text-hover-reveal section-label section-label--inline flex items-center gap-2">
+              <span class="arrow-link arrow-link--uppercase">
                 <i class="ph ph-arrow-left" aria-hidden="true"></i>
                 <span data-hover="{{ 'general.previous' | t }}">{{ 'general.previous' | t }}</span>
               </span>
@@ -122,7 +122,7 @@
 
           {% if blog.next_article %}
             <a href="{{ blog.next_article.url }}" class="flex flex-col gap-2 sm:text-right sm:items-end no-underline group">
-              <span class="text-hover-reveal section-label section-label--inline flex items-center gap-2">
+              <span class="arrow-link arrow-link--uppercase">
                 <span data-hover="{{ 'general.next' | t }}">{{ 'general.next' | t }}</span>
                 <i class="ph ph-arrow-right" aria-hidden="true"></i>
               </span>

@@ -70,35 +70,6 @@
     {% endif %}
   }
 
-  .text-reveal-cta-{{ section.id }} {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .text-reveal-cta-text-wrapper-{{ section.id }} {
-    overflow: hidden;
-    display: inline-block;
-  }
-
-  .text-reveal-cta-{{ section.id }} .text-reveal-cta-text-{{ section.id }} {
-    display: inline-block;
-    position: relative;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .text-reveal-cta-{{ section.id }} .text-reveal-cta-text-{{ section.id }}::after {
-    content: attr(data-hover);
-    position: absolute;
-    left: 0;
-    top: 100%;
-    white-space: nowrap;
-  }
-
-  .text-reveal-cta-{{ section.id }}:hover .text-reveal-cta-text-{{ section.id }} {
-    transform: translateY(-100%);
-  }
-
   /* Staggered line offset - only for left alignment */
   {% if section.settings.header_alignment == 'left' %}
   .text-reveal-line-{{ section.id }}:nth-child(2) {
@@ -131,7 +102,6 @@
   }
 
   html.animations-disabled .text-reveal-subtext-{{ section.id }},
-  html.animations-disabled .text-reveal-cta-{{ section.id }},
   html.animations-disabled .text-reveal-label-{{ section.id }} {
     opacity: 1;
     transform: none;
@@ -185,10 +155,8 @@
 
     {% if section.settings.button_text != blank and section.settings.button_link != blank %}
       {% if section.settings.button_type == 'link' %}
-        <a href="{{ section.settings.button_link }}" class="text-reveal-cta-{{ section.id }} text-link-sm section-cta" data-text-reveal-cta>
-          <span class="text-reveal-cta-text-wrapper-{{ section.id }}">
-            <span class="text-reveal-cta-text-{{ section.id }}" data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span>
-          </span>
+        <a href="{{ section.settings.button_link }}" class="link-cta section-cta uppercase" data-text-reveal-cta>
+          <span class="link-cta-text"><span data-hover="{{ section.settings.button_text }}">{{ section.settings.button_text }}</span></span>
           <i class="ph ph-arrow-right"></i>
         </a>
       {% else %}
