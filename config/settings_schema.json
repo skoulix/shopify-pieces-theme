@@ -308,6 +308,18 @@
     "name": "Buttons",
     "settings": [
       {
+        "type": "select",
+        "id": "button_hover_style",
+        "label": "Hover effect",
+        "default": "swipe",
+        "options": [
+          { "value": "simple", "label": "Simple" },
+          { "value": "swipe", "label": "Swipe" },
+          { "value": "shine", "label": "Shine" }
+        ],
+        "info": "Simple: color transition. Swipe: horizontal fill. Shine: light sweep."
+      },
+      {
         "type": "range",
         "id": "button_letter_spacing",
         "min": 0,
