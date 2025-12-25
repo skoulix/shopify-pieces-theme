@@ -502,7 +502,7 @@
             aria-label="{{ 'accessibility.wishlist' | t | default: 'Open wishlist' }}"
           >
             <i class="ph ph-heart text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-(--color-text)" data-wishlist-count>0</span>
+            <span class="ml-1 text-sm font-medium text-(--color-text) hidden" data-wishlist-count></span>
           </button>
         {% endif %}
         {% if section.settings.show_cart %}
@@ -513,7 +513,7 @@
               data-cart-drawer-toggle
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary){% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </button>
           {% else %}
@@ -522,7 +522,7 @@
               class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary){% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </a>
           {% endif %}
@@ -692,7 +692,7 @@
             aria-label="{{ 'accessibility.wishlist' | t | default: 'Open wishlist' }}"
           >
             <i class="ph ph-heart text-xl"></i>
-            <span class="ml-1 text-sm font-medium text-(--color-text)" data-wishlist-count>0</span>
+            <span class="ml-1 text-sm font-medium text-(--color-text) hidden" data-wishlist-count></span>
           </button>
         {% endif %}
         {% if section.settings.show_cart %}
@@ -703,7 +703,7 @@
               data-cart-drawer-toggle
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary){% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </button>
           {% else %}
@@ -712,7 +712,7 @@
               class="group p-2 flex items-center text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
             >
               <i class="ph ph-bag text-xl"></i>
-              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary)" data-cart-count>{{ cart.item_count }}</span>
+              <span class="ml-1 text-sm font-medium text-(--color-text) group-hover:text-(--color-primary){% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
               <span class="sr-only">items in cart</span>
             </a>
           {% endif %}

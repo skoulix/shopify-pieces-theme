@@ -299,12 +299,8 @@ function init() {
     if (cart) {
       document.querySelectorAll('[data-cart-count]').forEach(el => {
         el.textContent = cart.item_count;
-        // Toggle visibility based on count
-        if (cart.item_count > 0) {
-          el.removeAttribute('hidden');
-        } else {
-          el.setAttribute('hidden', '');
-        }
+        // Toggle visibility based on count (hide when 0)
+        el.classList.toggle('hidden', cart.item_count === 0);
       });
     }
   });
