@@ -379,41 +379,143 @@ Custom component classes are defined using `@layer components`:
 Generated from theme settings in `snippets/css-variables.liquid`:
 
 ```css
-/* Colors */
+/* Colors (per color scheme) */
 --color-background
+--color-background-gradient
 --color-background-secondary
 --color-text
 --color-text-secondary
 --color-primary
 --color-primary-contrast
 --color-border
---color-sale
 
-/* Typography */
+/* Global Colors */
+--color-sale
+--color-success
+--color-error
+--color-warning
+--color-info
+
+/* Typography - Fonts */
 --font-body
+--font-body-weight
+--font-body-style
 --font-heading
---font-heading-weight          /* Heading font weight (default: 700) */
+--font-heading-weight
+--font-heading-style
+
+/* Typography - Scaling */
 --body-font-scale              /* Body text scale multiplier */
 --heading-font-scale           /* Heading text scale multiplier */
+--body-letter-spacing          /* Body letter spacing adjustment */
 --heading-letter-spacing       /* Heading letter spacing adjustment */
+
+/* Typography Scale */
+--text-2xs                     /* 11px */
+--text-xs                      /* 12px */
+--text-sm                      /* 14px */
+--text-md                      /* 13px */
+--text-base                    /* 16px */
+--text-lg                      /* 18px */
+--text-xl                      /* 20px */
+--text-2xl                     /* 24px */
+
+/* Line Heights */
+--leading-none                 /* 1 */
+--leading-tight                /* 0.95 */
+--leading-snug                 /* 1.1 */
+--leading-cozy                 /* 1.2 */
+--leading-normal               /* 1.3 */
+--leading-comfort              /* 1.4 */
+--leading-relaxed              /* 1.5 */
+--leading-loose                /* 1.7 */
+
+/* Letter Spacing */
+--tracking-tighter             /* -0.04em */
+--tracking-tight               /* -0.02em */
+--tracking-normal              /* 0 */
+--tracking-wide                /* 0.05em */
+--tracking-wider               /* 0.1em */
+--tracking-extra               /* 0.12em */
+--tracking-widest              /* 0.15em */
+--tracking-ultra               /* 0.2em */
 
 /* Layout */
 --page-max-width
 --page-padding
+--page-vertical-padding
 --section-vertical-padding
+--header-height
+--logo-width
 
-/* Components */
+/* Buttons */
 --button-radius
+--button-border-width
+--button-letter-spacing
+--button-shadow
+--button-shadow-hover
+
+/* Cards */
 --card-radius
+--card-border-width
+--card-shadow
+--badge-radius                 /* Proportional to card-radius */
+
+/* Inputs */
 --input-radius
---badge-radius
+--input-radius-textarea
 --input-border-width
+--input-shadow
+--input-shadow-focus
+
+/* Animation Durations */
+--duration-instant             /* 0ms */
+--duration-fast                /* 150ms */
+--duration-normal              /* 300ms */
+--duration-slow                /* 500ms */
+--duration-slower              /* 800ms */
+
+/* Easing Functions */
+--ease-out
+--ease-out-expo
+--ease-in-out
+
+/* Transitions */
+--transition-fast              /* 0.15s ease */
+--transition-sm                /* 0.2s ease */
+--transition-base              /* 0.3s ease */
+--transition-extended          /* 0.4s ease-out */
+--transition-slow              /* 0.5s ease-out */
 
 /* Opacity */
---opacity-muted
---opacity-secondary
---opacity-subtle
---opacity-disabled
+--opacity-muted                /* 0.7 */
+--opacity-secondary            /* 0.6 */
+--opacity-disabled             /* 0.5 */
+--opacity-subtle               /* 0.3 */
+--opacity-light                /* 0.15 */
+--opacity-faint                /* 0.1 */
+
+/* Max Widths */
+--max-w-prose                  /* 65ch */
+--max-w-prose-narrow           /* 45ch */
+--max-w-prose-wide             /* 80ch */
+
+/* Z-Index Layers */
+--z-base                       /* 1 */
+--z-content                    /* 10 */
+--z-dropdown                   /* 50 */
+--z-sticky                     /* 60 */
+--z-drawer                     /* 100 */
+--z-modal                      /* 9999 */
+--z-toast                      /* 10000 */
+
+/* Box Shadows */
+--shadow-sm
+--shadow-md
+--shadow-lg
+--shadow-xl
+--shadow-dropdown
+--shadow-drawer
 ```
 
 ### Container Classes
