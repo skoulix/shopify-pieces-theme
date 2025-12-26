@@ -103,14 +103,10 @@
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
     "server": "Une erreur s'est produite. Veuillez réessayer plus tard.",
-    "cart_add": "Impossible d'ajouter l'article au panier. Veuillez réessayer.",
-    "cart_update": "Impossible de mettre à jour le panier. Veuillez réessayer.",
-    "cart_remove": "Impossible de supprimer l'article. Veuillez réessayer.",
     "form_submit": "Impossible d'envoyer le formulaire. Veuillez réessayer.",
     "validation": "Veuillez vérifier vos informations et réessayer.",
     "unauthorized": "Veuillez vous connecter pour continuer.",
     "not_found": "L'article demandé n'a pas été trouvé.",
-    "out_of_stock": "Cet article est actuellement en rupture de stock.",
     "generic": "Une erreur s'est produite. Veuillez réessayer."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Vous avez débloqué la livraison gratuite !",
       "remaining_html": "Ajoutez {{ remaining }} de plus pour la livraison gratuite",
       "progress_label": "Progression vers la livraison gratuite"
+    },
+    "errors": {
+      "add": "Impossible d'ajouter l'article. Veuillez réessayer.",
+      "update": "Impossible de mettre à jour le panier. Veuillez réessayer.",
+      "remove": "Impossible de supprimer l'article. Veuillez réessayer.",
+      "out_of_stock": "Cet article est actuellement en rupture de stock.",
+      "quantity_error_html": "Vous ne pouvez ajouter que [quantity] de cet article à votre panier."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Une erreur s'est produite lors de la mise à jour de votre panier. Veuillez réessayer.",
-      "cart_quantity_error_html": "Vous ne pouvez ajouter que [quantity] de cet article à votre panier."
-    },
     "featured_collection": {
       "placeholder_product": "Produit"
     },

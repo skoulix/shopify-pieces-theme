@@ -103,14 +103,10 @@
   "errors": {
     "network": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
     "server": "Er ging iets mis. Probeer het later opnieuw.",
-    "cart_add": "Kon artikel niet aan winkelwagen toevoegen. Probeer het opnieuw.",
-    "cart_update": "Kon winkelwagen niet bijwerken. Probeer het opnieuw.",
-    "cart_remove": "Kon artikel niet verwijderen. Probeer het opnieuw.",
     "form_submit": "Kon formulier niet verzenden. Probeer het opnieuw.",
     "validation": "Controleer je invoer en probeer het opnieuw.",
     "unauthorized": "Log in om door te gaan.",
     "not_found": "Het gevraagde artikel is niet gevonden.",
-    "out_of_stock": "Dit artikel is momenteel niet op voorraad.",
     "generic": "Er is een fout opgetreden. Probeer het opnieuw."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Je hebt gratis verzending ontgrendeld!",
       "remaining_html": "Voeg {{ remaining }} toe voor gratis verzending",
       "progress_label": "Voortgang gratis verzending"
+    },
+    "errors": {
+      "add": "Kon artikel niet toevoegen. Probeer het opnieuw.",
+      "update": "Kon winkelwagen niet bijwerken. Probeer het opnieuw.",
+      "remove": "Kon artikel niet verwijderen. Probeer het opnieuw.",
+      "out_of_stock": "Dit artikel is momenteel niet op voorraad.",
+      "quantity_error_html": "U kunt slechts [quantity] van dit artikel aan uw winkelwagen toevoegen."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Er is een fout opgetreden bij het bijwerken van je winkelwagen. Probeer het opnieuw.",
-      "cart_quantity_error_html": "Je kunt maximaal [quantity] van dit artikel aan je winkelwagen toevoegen."
-    },
     "featured_collection": {
       "placeholder_product": "Product"
     },

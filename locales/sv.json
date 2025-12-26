@@ -103,14 +103,10 @@
   "errors": {
     "network": "Nätverksfel. Kontrollera din anslutning och försök igen.",
     "server": "Något gick fel. Försök igen senare.",
-    "cart_add": "Kunde inte lägga till i varukorgen. Försök igen.",
-    "cart_update": "Kunde inte uppdatera varukorgen. Försök igen.",
-    "cart_remove": "Kunde inte ta bort artikeln. Försök igen.",
     "form_submit": "Kunde inte skicka formuläret. Försök igen.",
     "validation": "Kontrollera din inmatning och försök igen.",
     "unauthorized": "Logga in för att fortsätta.",
     "not_found": "Den begärda artikeln hittades inte.",
-    "out_of_stock": "Denna artikel är för närvarande slut.",
     "generic": "Ett fel uppstod. Försök igen."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Du har låst upp fri frakt!",
       "remaining_html": "Lägg till {{ remaining }} mer för fri frakt",
       "progress_label": "Framsteg för fri frakt"
+    },
+    "errors": {
+      "add": "Kunde inte lägga till i varukorgen. Försök igen.",
+      "update": "Kunde inte uppdatera varukorgen. Försök igen.",
+      "remove": "Kunde inte ta bort artikeln. Försök igen.",
+      "out_of_stock": "Denna artikel är för närvarande slut i lager.",
+      "quantity_error_html": "Du kan bara lägga till [quantity] av denna artikel i din varukorg."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Det uppstod ett fel vid uppdatering av varukorgen. Försök igen.",
-      "cart_quantity_error_html": "Du kan bara lägga till [quantity] av denna artikel i varukorgen."
-    },
     "featured_collection": {
       "placeholder_product": "Produkt"
     },

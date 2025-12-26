@@ -103,14 +103,10 @@
   "errors": {
     "network": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
     "server": "Algo salió mal. Por favor, intenta de nuevo más tarde.",
-    "cart_add": "No se pudo agregar el artículo al carrito. Por favor, intenta de nuevo.",
-    "cart_update": "No se pudo actualizar el carrito. Por favor, intenta de nuevo.",
-    "cart_remove": "No se pudo eliminar el artículo. Por favor, intenta de nuevo.",
     "form_submit": "No se pudo enviar el formulario. Por favor, intenta de nuevo.",
     "validation": "Por favor, verifica tu información e intenta de nuevo.",
     "unauthorized": "Por favor, inicia sesión para continuar.",
     "not_found": "El artículo solicitado no fue encontrado.",
-    "out_of_stock": "Este artículo está actualmente agotado.",
     "generic": "Ocurrió un error. Por favor, intenta de nuevo."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "¡Has desbloqueado el envío gratis!",
       "remaining_html": "Añade {{ remaining }} más para envío gratis",
       "progress_label": "Progreso del envío gratis"
+    },
+    "errors": {
+      "add": "No se pudo añadir al carrito. Inténtalo de nuevo.",
+      "update": "No se pudo actualizar el carrito. Inténtalo de nuevo.",
+      "remove": "No se pudo eliminar el artículo. Inténtalo de nuevo.",
+      "out_of_stock": "Este artículo está agotado actualmente.",
+      "quantity_error_html": "Solo puedes añadir [quantity] de este artículo a tu carrito."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Hubo un error al actualizar tu carrito. Por favor, inténtalo de nuevo.",
-      "cart_quantity_error_html": "Solo puedes agregar [quantity] de este artículo a tu carrito."
-    },
     "featured_collection": {
       "placeholder_product": "Producto"
     },

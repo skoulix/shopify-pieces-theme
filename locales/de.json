@@ -103,14 +103,10 @@
   "errors": {
     "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
     "server": "Etwas ist schief gelaufen. Bitte versuchen Sie es später erneut.",
-    "cart_add": "Artikel konnte nicht zum Warenkorb hinzugefügt werden. Bitte versuchen Sie es erneut.",
-    "cart_update": "Warenkorb konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut.",
-    "cart_remove": "Artikel konnte nicht entfernt werden. Bitte versuchen Sie es erneut.",
     "form_submit": "Formular konnte nicht gesendet werden. Bitte versuchen Sie es erneut.",
     "validation": "Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
     "unauthorized": "Bitte melden Sie sich an, um fortzufahren.",
     "not_found": "Der angeforderte Artikel wurde nicht gefunden.",
-    "out_of_stock": "Dieser Artikel ist derzeit nicht auf Lager.",
     "generic": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Sie haben kostenlosen Versand freigeschaltet!",
       "remaining_html": "Fügen Sie {{ remaining }} mehr hinzu für kostenlosen Versand",
       "progress_label": "Fortschritt für kostenlosen Versand"
+    },
+    "errors": {
+      "add": "Artikel konnte nicht hinzugefügt werden. Bitte erneut versuchen.",
+      "update": "Warenkorb konnte nicht aktualisiert werden. Bitte erneut versuchen.",
+      "remove": "Artikel konnte nicht entfernt werden. Bitte erneut versuchen.",
+      "out_of_stock": "Dieser Artikel ist derzeit nicht vorrätig.",
+      "quantity_error_html": "Sie können nur [quantity] dieses Artikels in Ihren Warenkorb legen."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Beim Aktualisieren Ihres Warenkorbs ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-      "cart_quantity_error_html": "Sie können nur [quantity] dieses Artikels in Ihren Warenkorb legen."
-    },
     "featured_collection": {
       "placeholder_product": "Produkt"
     },

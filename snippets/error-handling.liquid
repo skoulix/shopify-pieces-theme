@@ -231,17 +231,19 @@ window.errorHandler = window.errorHandler || (function() {
 
   // Error messages with translations
   const messages = {
+    // General errors
     network: `{{ 'errors.network' | t | default: 'Network error. Please check your connection and try again.' }}`,
     server: `{{ 'errors.server' | t | default: 'Something went wrong. Please try again later.' }}`,
-    cart_add: `{{ 'errors.cart_add' | t | default: 'Could not add item to cart. Please try again.' }}`,
-    cart_update: `{{ 'errors.cart_update' | t | default: 'Could not update cart. Please try again.' }}`,
-    cart_remove: `{{ 'errors.cart_remove' | t | default: 'Could not remove item. Please try again.' }}`,
     form_submit: `{{ 'errors.form_submit' | t | default: 'Could not submit form. Please try again.' }}`,
     validation: `{{ 'errors.validation' | t | default: 'Please check your input and try again.' }}`,
     unauthorized: `{{ 'errors.unauthorized' | t | default: 'Please log in to continue.' }}`,
     not_found: `{{ 'errors.not_found' | t | default: 'The requested item was not found.' }}`,
-    out_of_stock: `{{ 'errors.out_of_stock' | t | default: 'This item is currently out of stock.' }}`,
-    generic: `{{ 'errors.generic' | t | default: 'An error occurred. Please try again.' }}`
+    generic: `{{ 'errors.generic' | t | default: 'An error occurred. Please try again.' }}`,
+    // Cart errors
+    cart_add: `{{ 'cart.errors.add' | t | default: 'Could not add item to cart. Please try again.' }}`,
+    cart_update: `{{ 'cart.errors.update' | t | default: 'Could not update cart. Please try again.' }}`,
+    cart_remove: `{{ 'cart.errors.remove' | t | default: 'Could not remove item. Please try again.' }}`,
+    out_of_stock: `{{ 'cart.errors.out_of_stock' | t | default: 'This item is currently out of stock.' }}`
   };
 
   /**

@@ -103,14 +103,10 @@
   "errors": {
     "network": "Błąd sieci. Sprawdź połączenie i spróbuj ponownie.",
     "server": "Coś poszło nie tak. Spróbuj ponownie później.",
-    "cart_add": "Nie udało się dodać do koszyka. Spróbuj ponownie.",
-    "cart_update": "Nie udało się zaktualizować koszyka. Spróbuj ponownie.",
-    "cart_remove": "Nie udało się usunąć produktu. Spróbuj ponownie.",
     "form_submit": "Nie udało się wysłać formularza. Spróbuj ponownie.",
     "validation": "Sprawdź wprowadzone dane i spróbuj ponownie.",
     "unauthorized": "Zaloguj się, aby kontynuować.",
     "not_found": "Nie znaleziono żądanego produktu.",
-    "out_of_stock": "Ten produkt jest obecnie niedostępny.",
     "generic": "Wystąpił błąd. Spróbuj ponownie."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Odblokowałeś darmową dostawę!",
       "remaining_html": "Dodaj {{ remaining }} więcej dla darmowej dostawy",
       "progress_label": "Postęp darmowej dostawy"
+    },
+    "errors": {
+      "add": "Nie udało się dodać do koszyka. Spróbuj ponownie.",
+      "update": "Nie udało się zaktualizować koszyka. Spróbuj ponownie.",
+      "remove": "Nie udało się usunąć produktu. Spróbuj ponownie.",
+      "out_of_stock": "Ten produkt jest obecnie niedostępny.",
+      "quantity_error_html": "Możesz dodać tylko [quantity] sztuk tego produktu do koszyka."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Wystąpił błąd podczas aktualizacji koszyka. Spróbuj ponownie.",
-      "cart_quantity_error_html": "Możesz dodać tylko [quantity] sztuk tego produktu do koszyka."
-    },
     "featured_collection": {
       "placeholder_product": "Produkt"
     },

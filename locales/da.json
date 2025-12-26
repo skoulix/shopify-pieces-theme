@@ -103,14 +103,10 @@
   "errors": {
     "network": "Netværksfejl. Tjek din forbindelse og prøv igen.",
     "server": "Noget gik galt. Prøv igen senere.",
-    "cart_add": "Kunne ikke tilføje til kurven. Prøv igen.",
-    "cart_update": "Kunne ikke opdatere kurven. Prøv igen.",
-    "cart_remove": "Kunne ikke fjerne varen. Prøv igen.",
     "form_submit": "Kunne ikke indsende formularen. Prøv igen.",
     "validation": "Tjek dine oplysninger og prøv igen.",
     "unauthorized": "Log ind for at fortsætte.",
     "not_found": "Den ønskede vare blev ikke fundet.",
-    "out_of_stock": "Denne vare er i øjeblikket udsolgt.",
     "generic": "Der opstod en fejl. Prøv igen."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Du har låst op for gratis fragt!",
       "remaining_html": "Tilføj {{ remaining }} mere for gratis fragt",
       "progress_label": "Fremskridt for gratis fragt"
+    },
+    "errors": {
+      "add": "Kunne ikke tilføje vare til kurven. Prøv igen.",
+      "update": "Kunne ikke opdatere kurven. Prøv igen.",
+      "remove": "Kunne ikke fjerne vare. Prøv igen.",
+      "out_of_stock": "Denne vare er i øjeblikket ikke på lager.",
+      "quantity_error_html": "Du kan kun tilføje [quantity] af denne vare til din kurv."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Der opstod en fejl under opdatering af kurven. Prøv igen.",
-      "cart_quantity_error_html": "Du kan kun tilføje [quantity] af denne vare til din kurv."
-    },
     "featured_collection": {
       "placeholder_product": "Produkt"
     },

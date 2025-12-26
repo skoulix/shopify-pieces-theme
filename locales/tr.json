@@ -103,14 +103,10 @@
   "errors": {
     "network": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
     "server": "Bir şeyler yanlış gitti. Lütfen daha sonra tekrar deneyin.",
-    "cart_add": "Ürün sepete eklenemedi. Lütfen tekrar deneyin.",
-    "cart_update": "Sepet güncellenemedi. Lütfen tekrar deneyin.",
-    "cart_remove": "Ürün kaldırılamadı. Lütfen tekrar deneyin.",
     "form_submit": "Form gönderilemedi. Lütfen tekrar deneyin.",
     "validation": "Lütfen girişinizi kontrol edip tekrar deneyin.",
     "unauthorized": "Devam etmek için lütfen giriş yapın.",
     "not_found": "İstenen öğe bulunamadı.",
-    "out_of_stock": "Bu ürün şu anda stokta yok.",
     "generic": "Bir hata oluştu. Lütfen tekrar deneyin."
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "Ücretsiz kargonun kilidini açtınız!",
       "remaining_html": "Ücretsiz kargo için {{ remaining }} daha ekleyin",
       "progress_label": "Ücretsiz kargo ilerlemesi"
+    },
+    "errors": {
+      "add": "Sepete eklenemedi. Lütfen tekrar deneyin.",
+      "update": "Sepet güncellenemedi. Lütfen tekrar deneyin.",
+      "remove": "Ürün kaldırılamadı. Lütfen tekrar deneyin.",
+      "out_of_stock": "Bu ürün şu anda stokta yok.",
+      "quantity_error_html": "Bu üründen sepetinize yalnızca [quantity] adet ekleyebilirsiniz."
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "Sepetiniz güncellenirken bir hata oluştu. Lütfen tekrar deneyin.",
-      "cart_quantity_error_html": "Bu üründen sepetinize yalnızca [quantity] adet ekleyebilirsiniz."
-    },
     "featured_collection": {
       "placeholder_product": "Ürün"
     },

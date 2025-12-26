@@ -1,0 +1,18 @@
+# Development files
+node_modules/
+frontend/
+.git/
+.github/
+*.log
+*.md
+!README.md
+.env
+.env.*
+vite.config.js
+package.json
+package-lock.json
+pnpm-lock.yaml
+.prettierrc
+.eslintrc*
+tsconfig.json
+*.zip

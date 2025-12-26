@@ -103,14 +103,10 @@
   "errors": {
     "network": "網路錯誤。請檢查您的連線並重試。",
     "server": "發生了一些問題。請稍後重試。",
-    "cart_add": "無法加入購物車。請重試。",
-    "cart_update": "無法更新購物車。請重試。",
-    "cart_remove": "無法移除商品。請重試。",
     "form_submit": "無法提交表單。請重試。",
     "validation": "請檢查您的輸入並重試。",
     "unauthorized": "請登入以繼續。",
     "not_found": "找不到請求的商品。",
-    "out_of_stock": "此商品目前缺貨。",
     "generic": "發生錯誤。請重試。"
   },
   "social": {
@@ -207,13 +203,16 @@
       "qualified": "您已獲得免費配送！",
       "remaining_html": "再加 {{ remaining }} 即可免費配送",
       "progress_label": "免費配送進度"
+    },
+    "errors": {
+      "add": "無法加入購物車，請重試。",
+      "update": "無法更新購物車，請重試。",
+      "remove": "無法移除商品，請重試。",
+      "out_of_stock": "此商品目前缺貨。",
+      "quantity_error_html": "此商品最多只能添加 [quantity] 件到購物車。"
     }
   },
   "sections": {
-    "cart": {
-      "cart_error": "更新購物車時發生錯誤。請重試。",
-      "cart_quantity_error_html": "此商品最多只能新增 [quantity] 件到購物車。"
-    },
     "featured_collection": {
       "placeholder_product": "產品"
     },
