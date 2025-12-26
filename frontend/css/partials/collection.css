@@ -444,12 +444,12 @@
   }
 
   .metro-item-badge {
-    @apply py-2 px-3.5 text-[0.8125rem] font-bold tracking-wide uppercase text-white md:px-4 md:text-sm;
+    @apply py-1 px-2 text-xs font-semibold tracking-wider uppercase text-white;
     border-radius: var(--badge-radius);
   }
 
   .metro-item--hero .metro-item-badge {
-    @apply py-2.5 px-[1.125rem] text-sm;
+    @apply py-1.5 px-2.5 text-xs;
   }
 
   .metro-item-badge--sale {
