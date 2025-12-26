@@ -198,17 +198,6 @@
                 {%- comment -%} Overlay {%- endcomment -%}
                 <div class="metro-item-overlay"></div>
 
-                {%- comment -%} Sale Badge {%- endcomment -%}
-                {% if is_on_sale and settings.show_sale_badge %}
-                  <span class="metro-item-sale-badge">
-                    {% if settings.sale_badge_style == 'percentage' %}
-                      -{{ save_percent }}%
-                    {% else %}
-                      {{ 'products.product.on_sale' | t }}
-                    {% endif %}
-                  </span>
-                {% endif %}
-
                 {%- comment -%} Content (text only - no buttons) {%- endcomment -%}
                 <div class="metro-item-content">
                   {%- comment -%} Vendor {%- endcomment -%}
@@ -230,6 +219,26 @@
                   </div>
                 </div>
               </a>
+
+              {%- comment -%} Badges - positioned outside <a> to avoid overflow clipping {%- endcomment -%}
+              <div class="metro-item-badges">
+                {% unless product.available %}
+                  {% if settings.show_sold_out_badge %}
+                    <span class="metro-item-badge metro-item-badge--soldout">
+                      {{ 'products.product.sold_out' | t }}
+                    </span>
+                  {% endif %}
+                {% endunless %}
+                {% if is_on_sale and settings.show_sale_badge %}
+                  <span class="metro-item-badge metro-item-badge--sale">
+                    {% if settings.sale_badge_style == 'percentage' %}
+                      -{{ save_percent }}%
+                    {% else %}
+                      {{ 'products.product.on_sale' | t }}
+                    {% endif %}
+                  </span>
+                {% endif %}
+              </div>
 
               {%- comment -%} Action buttons - positioned outside <a> to avoid nested links {%- endcomment -%}
               <div class="metro-item-actions-wrapper">

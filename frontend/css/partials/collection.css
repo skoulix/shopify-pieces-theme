@@ -337,7 +337,7 @@
 
   .metro-item-actions {
     @apply flex items-center gap-2.5 opacity-100 translate-y-0 pointer-events-auto;
-    transition: opacity 0.4s ease 0.1s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+    transition: opacity 0.4s ease 0.1s, translate 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
   }
 
   /* Hover devices: hide by default, show on hover */
@@ -352,16 +352,22 @@
   }
 
   .metro-item-action {
-    @apply flex items-center justify-center shrink-0 size-10 rounded-full text-white cursor-pointer;
+    @apply flex items-center justify-center shrink-0 size-10 rounded-full cursor-pointer no-underline;
+    color: white !important;
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .metro-item-action:hover {
-    @apply bg-white text-(--color-text) scale-110;
+    @apply bg-white scale-110;
+    color: var(--color-text) !important;
     border-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
@@ -426,16 +432,32 @@
   }
 
   /* ==========================================================================
-     Metro Sale Badge - Premium pill
+     Metro Badges - Container and styles
      ========================================================================== */
 
-  .metro-item-sale-badge {
-    @apply absolute top-4 left-4 z-[3] py-2 px-3.5 text-[0.8125rem] font-bold tracking-wide uppercase text-white bg-(--color-sale) md:top-5 md:left-5 md:px-4 md:text-sm;
+  .metro-item-badges {
+    @apply absolute top-4 left-4 z-[3] flex flex-col gap-2 md:top-5 md:left-5;
+  }
+
+  .metro-item--hero .metro-item-badges {
+    @apply top-6 left-6 md:top-8 md:left-8;
+  }
+
+  .metro-item-badge {
+    @apply py-2 px-3.5 text-[0.8125rem] font-bold tracking-wide uppercase text-white md:px-4 md:text-sm;
     border-radius: var(--badge-radius);
   }
 
-  .metro-item--hero .metro-item-sale-badge {
-    @apply top-6 left-6 py-2.5 px-[1.125rem] text-sm md:top-8 md:left-8;
+  .metro-item--hero .metro-item-badge {
+    @apply py-2.5 px-[1.125rem] text-sm;
+  }
+
+  .metro-item-badge--sale {
+    background-color: var(--color-sale);
+  }
+
+  .metro-item-badge--soldout {
+    background-color: var(--color-text);
   }
 
   /* ==========================================================================
