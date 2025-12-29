@@ -199,6 +199,9 @@
         countrySearch.addEventListener('click', (e) => e.stopPropagation());
       }
 
+      // Prevent clicks inside panel from closing it
+      countryPanel.addEventListener('click', (e) => e.stopPropagation());
+
       // Country selection
       countryPanel.querySelectorAll('[data-country-code]').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -216,6 +219,9 @@
         closeAllPanels();
         if (!isOpen) openPanel(languageTrigger, languagePanel);
       });
+
+      // Prevent clicks inside panel from closing it
+      languagePanel.addEventListener('click', (e) => e.stopPropagation());
 
       // Language selection
       languagePanel.querySelectorAll('[data-language-code]').forEach(btn => {
