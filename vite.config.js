@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig(() => ({
-  root: 'frontend',
+  root: 'src',
   base: './',
   build: {
     outDir: '../assets',
@@ -10,7 +10,7 @@ export default defineConfig(() => ({
     assetsDir: '',
     rollupOptions: {
       input: {
-        app: resolve(__dirname, 'frontend/js/app.js'),
+        app: resolve(__dirname, 'src/js/app.js'),
       },
       output: {
         entryFileNames: 'pieces-[name].js',
@@ -46,12 +46,12 @@ export default defineConfig(() => ({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'frontend'),
-      '@js': resolve(__dirname, 'frontend/js'),
-      '@css': resolve(__dirname, 'frontend/css'),
-      '@components': resolve(__dirname, 'frontend/js/components'),
-      '@managers': resolve(__dirname, 'frontend/js/managers'),
-      '@utils': resolve(__dirname, 'frontend/js/utils'),
+      '@': resolve(__dirname, 'src'),
+      '@js': resolve(__dirname, 'src/js'),
+      '@css': resolve(__dirname, 'src/css'),
+      '@components': resolve(__dirname, 'src/js/components'),
+      '@managers': resolve(__dirname, 'src/js/managers'),
+      '@utils': resolve(__dirname, 'src/js/utils'),
     },
   },
   // Optimize deps for faster dev
