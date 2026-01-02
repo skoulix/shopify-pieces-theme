@@ -11,16 +11,16 @@
 
   assign heading = section.settings.title | default: 'Contact'
 
-  case section.settings.text_alignment
+  case section.settings.header_alignment
     when 'center'
       assign text_align = 'text-center'
-      assign form_align = 'mx-auto'
+      assign desc_align = 'mx-auto'
     when 'right'
       assign text_align = 'text-right'
-      assign form_align = 'ml-auto'
+      assign desc_align = 'ml-auto'
     else
       assign text_align = 'text-left'
-      assign form_align = ''
+      assign desc_align = ''
   endcase
 -%}
 
@@ -45,15 +45,17 @@
     {% endif %}
 
     {% if section.settings.description != blank %}
-      <p class="mt-8 max-w-[420px] text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider leading-relaxed text-(--color-text-secondary) {{ form_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
+      <p class="mt-8 max-w-[420px] text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider leading-relaxed text-(--color-text-secondary) {{ desc_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
         {{ section.settings.description }}
       </p>
     {% endif %}
   </header>
 
   <div class="{{ container_class }}">
-    <div class="contact-form max-w-2xl {{ form_align }}" data-tween data-tween-type="fade-up">
-      {% form 'contact', id: 'ContactForm' %}
+    <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 xl:gap-20">
+      {%- comment -%} Left: Contact Form {%- endcomment -%}
+      <div class="contact-form lg:col-span-8 xl:col-span-7" data-tween data-tween-type="fade-up">
+        {% form 'contact', id: 'ContactForm' %}
         {% if form.posted_successfully? %}
           <div class="mb-8 rounded-(--card-radius) bg-green-50 p-4">
             <div class="flex items-center">
@@ -130,6 +132,81 @@
           </button>
         </div>
       {% endform %}
+      </div>
+
+      {%- comment -%} Right on desktop, below on mobile: Social Links {%- endcomment -%}
+      {% if section.settings.show_social_links %}
+        <div class="contact-social flex flex-col lg:col-span-4 xl:col-span-5 lg:justify-center" data-tween data-tween-type="fade-up">
+          {% if section.settings.social_heading != blank %}
+            <h3 class="text-label-sm text-(--color-text-secondary) mb-6">{{ section.settings.social_heading }}</h3>
+          {% endif %}
+
+          <div class="flex flex-row flex-wrap gap-3 lg:flex-col lg:gap-4">
+            {%- if settings.social_twitter_link != blank -%}
+              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="X (Twitter)">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-x-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">X / Twitter</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_facebook_link != blank -%}
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Facebook">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-facebook-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">Facebook</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_instagram_link != blank -%}
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Instagram">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-instagram-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">Instagram</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_tiktok_link != blank -%}
+              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="TikTok">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-tiktok-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">TikTok</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_youtube_link != blank -%}
+              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="YouTube">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-youtube-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">YouTube</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_pinterest_link != blank -%}
+              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Pinterest">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-pinterest-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">Pinterest</span>
+              </a>
+            {%- endif -%}
+
+            {%- if settings.social_linkedin_link != blank -%}
+              <a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="LinkedIn">
+                <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
+                  <i class="ph ph-linkedin-logo text-lg"></i>
+                </span>
+                <span class="hidden lg:inline text-sm font-medium">LinkedIn</span>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -241,8 +318,8 @@
     },
     {
       "type": "text_alignment",
-      "id": "text_alignment",
-      "label": "Text alignment",
+      "id": "header_alignment",
+      "label": "Header alignment",
       "default": "left"
     },
     {
@@ -250,6 +327,23 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Social links"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_links",
+      "label": "Show social links",
+      "default": true,
+      "info": "Display social media links next to the form (uses global social settings)"
+    },
+    {
+      "type": "text",
+      "id": "social_heading",
+      "label": "Social heading",
+      "default": "Follow us"
     },
     {
       "type": "header",
