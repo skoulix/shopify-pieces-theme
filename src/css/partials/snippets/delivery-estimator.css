@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Delivery Estimator Component Styles
+   ========================================================================== */
+
+@layer components {
+  .delivery-estimator {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: var(--color-background-secondary);
+    border-radius: var(--card-radius);
+    margin-top: 1rem;
+  }
+
+  .delivery-estimator__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-radius: 50%;
+    font-size: 1.25rem;
+  }
+
+  .delivery-estimator__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .delivery-estimator__label {
+    color: var(--color-text-secondary);
+  }
+
+  .delivery-estimator__dates {
+    font-size: 0.9375rem;
+    color: var(--color-text);
+  }
+
+  .delivery-estimator__dates strong {
+    font-weight: 600;
+  }
+
+  .delivery-estimator__separator {
+    margin: 0 0.25rem;
+    color: var(--color-text-secondary);
+  }
+
+  .delivery-estimator__urgency {
+    font-size: 0.75rem;
+    color: var(--color-sale);
+    font-weight: 500;
+    margin-top: 0.25rem;
+  }
+}

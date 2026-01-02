@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Back In Stock Form Component Styles
+   ========================================================================== */
+
+@layer components {
+  .back-in-stock-form__input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    flex: 1;
+    min-width: 0;
+    height: 2.75rem; /* Match btn default height */
+    padding: 0 1rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--input-radius, 0.25rem);
+    color: inherit;
+    transition: border-color 0.2s ease;
+  }
+
+  .back-in-stock-form__input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .back-in-stock-form__input:focus {
+    outline: none;
+    border-color: var(--color-text);
+  }
+}

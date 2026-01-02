@@ -46,6 +46,17 @@
 @import './partials/snippets/social-proof.css';
 @import './partials/snippets/sticky-product-bar.css';
 @import './partials/snippets/free-shipping-progress.css';
+@import './partials/snippets/mega-menu.css';
+@import './partials/snippets/error-handling.css';
+@import './partials/snippets/predictive-search.css';
+@import './partials/snippets/wishlist-drawer.css';
+@import './partials/snippets/accessibility.css';
+@import './partials/snippets/footer-classic.css';
+@import './partials/snippets/footer-modern.css';
+@import './partials/snippets/delivery-estimator.css';
+@import './partials/snippets/cart-drawer.css';
+@import './partials/snippets/search-drawer.css';
+@import './partials/snippets/back-in-stock-form.css';
 
 @plugin "@tailwindcss/typography";
 

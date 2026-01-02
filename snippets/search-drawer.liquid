@@ -3,28 +3,6 @@
   Renders when header search_type == 'drawer'
 {%- endcomment -%}
 
-<style>
-  /* Search drawer specific styles for results */
-  #search-drawer .predictive-search__results {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin-top: 1rem;
-    max-height: 60vh;
-    overflow-y: auto;
-    box-shadow: none;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
-  }
-
-  #search-drawer .predictive-search__results:not(.hidden) {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-
 <div
   id="search-drawer"
   class="group fixed inset-0 z-200 pointer-events-none invisible [&.is-open]:pointer-events-auto [&.is-open]:visible"
