@@ -39,11 +39,6 @@
   .collection-card-image {
     @apply relative overflow-hidden bg-(--color-background-secondary);
     aspect-ratio: 4/5;
-    clip-path: inset(0 100% 0 0);
-  }
-
-  html.animations-disabled .collection-card-image {
-    clip-path: none;
   }
 
   .collection-card-image img {
@@ -61,16 +56,8 @@
     @apply mt-4;
   }
 
-  .collection-card-title .overflow-hidden span {
-    @apply inline-block;
-  }
-
   .collection-card-count {
     @apply text-(--color-text-secondary) mt-1;
-  }
-
-  .collection-card-count .overflow-hidden span {
-    @apply inline-block;
   }
 
   /* ==========================================================================

@@ -138,11 +138,11 @@
             <h3 class="collection-card-title font-heading text-(--color-text)">
               {%- assign card_title_words = collection.title | split: ' ' -%}
               {%- for word in card_title_words -%}
-                <span class="overflow-hidden"><span>{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
+                <span class="overflow-hidden inline-block"><span class="inline-block">{{ word }}</span></span>{% unless forloop.last %} {% endunless %}
               {%- endfor -%}
             </h3>
             <p class="collection-card-count text-label-sm">
-              <span class="overflow-hidden"><span>{{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}</span></span>
+              <span class="overflow-hidden inline-block"><span class="inline-block">{{ collection.products_count }} {{ collection.products_count | pluralize: 'Product', 'Products' }}</span></span>
             </p>
           </a>
         {% endfor %}
