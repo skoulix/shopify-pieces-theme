@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Free Shipping Progress Bar Styles
+   ========================================================================== */
+
+@layer components {
+  .free-shipping-bar {
+    padding: 1rem;
+    background: var(--color-background-secondary);
+    border-radius: var(--card-radius);
+    margin-bottom: 1rem;
+  }
+
+  .free-shipping-bar__content {
+    margin-bottom: 0.75rem;
+  }
+
+  .free-shipping-bar__message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
+
+  .free-shipping-bar__message--success {
+    color: var(--color-success, #22c55e);
+    font-weight: 600;
+  }
+
+  .free-shipping-bar__track {
+    height: 6px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .free-shipping-bar__progress {
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+
+  .free-shipping-bar__progress--complete {
+    background: var(--color-success, #22c55e);
+  }
+
+  .free-shipping-bar.is-hidden {
+    display: none;
+  }
+}

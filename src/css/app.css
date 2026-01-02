@@ -37,6 +37,15 @@
 @import './partials/sections/marquee.css';
 @import './partials/sections/text-section.css';
 @import './partials/sections/trust-badges.css';
+@import './partials/sections/wishlist.css';
+@import './partials/sections/map.css';
+
+/* Snippet component styles */
+@import './partials/snippets/modal-dialog.css';
+@import './partials/snippets/skeleton.css';
+@import './partials/snippets/social-proof.css';
+@import './partials/snippets/sticky-product-bar.css';
+@import './partials/snippets/free-shipping-progress.css';
 
 @plugin "@tailwindcss/typography";
 

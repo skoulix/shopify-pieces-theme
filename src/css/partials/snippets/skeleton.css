@@ -1,0 +1,219 @@
+/* ==========================================================================
+   Loading Skeleton Component Styles
+   ========================================================================== */
+
+@layer components {
+  /* Base skeleton */
+  .skeleton {
+    background: var(--color-skeleton, color-mix(in srgb, var(--color-text) 10%, transparent));
+    border-radius: var(--skeleton-radius, 4px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Pulse animation */
+  .skeleton--animated .skeleton,
+  .skeleton.skeleton--animated {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  /* Shimmer animation (alternative) */
+  .skeleton--shimmer .skeleton::after,
+  .skeleton.skeleton--shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      transparent 100%
+    );
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeleton-shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Text skeleton */
+  .skeleton-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton-text__line {
+    height: 1rem;
+    width: 100%;
+  }
+
+  /* Image skeleton */
+  .skeleton-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    aspect-ratio: 1/1;
+    border-radius: var(--card-radius, 8px);
+    color: var(--color-text-secondary);
+  }
+
+  /* Avatar skeleton */
+  .skeleton-avatar {
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Button skeleton */
+  .skeleton-button {
+    height: 2.75rem;
+    min-width: 8rem;
+    border-radius: var(--button-radius, 4px);
+  }
+
+  /* Input skeleton */
+  .skeleton-input {
+    height: 3rem;
+    width: 100%;
+    border-radius: var(--input-radius, 4px);
+  }
+
+  /* Card skeleton */
+  .skeleton-card {
+    border-radius: var(--card-radius, 8px);
+    overflow: hidden;
+  }
+
+  .skeleton-card__image {
+    aspect-ratio: 16/9;
+    border-radius: 0;
+  }
+
+  .skeleton-card__content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton-card__title {
+    height: 1.25rem;
+    width: 70%;
+  }
+
+  .skeleton-card__text {
+    height: 0.875rem;
+    width: 100%;
+  }
+
+  /* Product card skeleton */
+  .skeleton-product-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--card-radius, 8px);
+    overflow: hidden;
+  }
+
+  .skeleton-product-card__image {
+    aspect-ratio: 3/4;
+    border-radius: 0;
+  }
+
+  .skeleton-product-card__content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton-product-card__vendor {
+    height: 0.625rem;
+    width: 30%;
+  }
+
+  .skeleton-product-card__title {
+    height: 0.875rem;
+    width: 80%;
+  }
+
+  .skeleton-product-card__price {
+    height: 0.875rem;
+    width: 25%;
+    margin-top: 0.25rem;
+  }
+
+  /* Product grid skeleton */
+  .skeleton-product-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--skeleton-columns, 4), 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .skeleton-product-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .skeleton-product-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* List item skeleton */
+  .skeleton-list-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .skeleton-list-item__image {
+    width: 4rem;
+    height: 4rem;
+    flex-shrink: 0;
+  }
+
+  .skeleton-list-item__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .skeleton-list-item__title {
+    height: 1rem;
+    width: 60%;
+  }
+
+  .skeleton-list-item__text {
+    height: 0.75rem;
+    width: 40%;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton--animated .skeleton,
+    .skeleton.skeleton--animated,
+    .skeleton--shimmer .skeleton::after,
+    .skeleton.skeleton--shimmer::after {
+      animation: none;
+    }
+  }
+}

@@ -46,9 +46,9 @@
   {% case style %}
 
     {% when 'minimal' %}
-      <div class="inventory-countdown inventory-countdown--minimal flex items-center gap-1.5 text-xs font-medium text-(--color-sale)" data-inventory-countdown>
+      <div class="inventory-countdown inventory-countdown--minimal flex items-center gap-2 text-sm font-medium text-(--color-sale)" data-inventory-countdown>
         {% if show_icon %}
-          <i class="ph ph-warning-circle" aria-hidden="true"></i>
+          <i class="ph ph-warning-circle text-lg leading-none" aria-hidden="true"></i>
         {% endif %}
         {% if show_exact %}
           {%- capture fallback_text -%}Only {{ inventory_quantity }} left{%- endcapture -%}
@@ -60,12 +60,12 @@
 
     {% when 'badge' %}
       <div
-        class="inventory-countdown inventory-countdown--badge inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full
+        class="inventory-countdown inventory-countdown--badge inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold rounded-full
           {% if urgency == 'critical' %}bg-red-100 text-red-700{% elsif urgency == 'high' %}bg-orange-100 text-orange-700{% else %}bg-yellow-100 text-yellow-700{% endif %}"
         data-inventory-countdown
       >
         {% if show_icon %}
-          <i class="ph ph-fire{% if urgency == 'critical' %}-fill{% endif %}" aria-hidden="true"></i>
+          <i class="ph ph-fire{% if urgency == 'critical' %}-fill{% endif %} text-lg leading-none" aria-hidden="true"></i>
         {% endif %}
         {% if show_exact %}
           {%- capture fallback_text -%}Only {{ inventory_quantity }} left{%- endcapture -%}
@@ -84,15 +84,15 @@
     {% when 'bar' %}
       {%- assign fill_percent = inventory_quantity | times: 100.0 | divided_by: threshold | round -%}
       <div class="inventory-countdown inventory-countdown--bar" data-inventory-countdown>
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="text-xs font-medium text-(--color-text-secondary)">
+        <div class="flex items-center justify-between mb-2">
+          <span class="inline-flex items-center gap-1.5 text-sm font-medium text-(--color-text-secondary)">
             {% if show_icon %}
-              <i class="ph ph-package mr-1" aria-hidden="true"></i>
+              <i class="ph ph-package text-lg leading-none" aria-hidden="true"></i>
             {% endif %}
             {{ 'products.inventory.stock_level' | t | default: 'Stock level' }}
           </span>
           {% if show_exact %}
-            <span class="text-xs font-semibold text-(--color-sale)">
+            <span class="text-sm font-semibold text-(--color-sale)">
               {{ inventory_quantity }} {{ 'products.inventory.remaining' | t | default: 'remaining' }}
             </span>
           {% endif %}
@@ -110,7 +110,7 @@
           ></div>
         </div>
         {% unless show_exact %}
-          <p class="mt-1.5 text-xs text-(--color-sale)">
+          <p class="mt-2 text-sm text-(--color-sale)">
             {% if urgency == 'critical' %}
               {{ 'products.inventory.hurry_almost_gone' | t | default: 'Hurry, almost gone!' }}
             {% elsif urgency == 'high' %}
