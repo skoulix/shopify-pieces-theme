@@ -455,6 +455,11 @@
       render();
       document.dispatchEvent(new CustomEvent('compare:cleared'));
     });
+
+    // Notify that content has changed (for footer reveal recalculation)
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new CustomEvent('content:resize'));
+    });
   }
 
   render();

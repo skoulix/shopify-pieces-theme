@@ -68,7 +68,7 @@
 
   /* Role */
   .team-member-role {
-    @apply opacity-0 mt-1;
+    @apply opacity-0 mt-0;
     transform: translateY(10px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
   }

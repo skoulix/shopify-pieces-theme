@@ -152,13 +152,37 @@
     // Register Swup callback to reinitialize after page transitions
     if (window.onSwupContentReplaced) {
       window.onSwupContentReplaced('footer-reveal', () => {
-        // Wait for DOM to settle after Swup navigation
+        // Wait for DOM and layout to fully settle after Swup navigation
+        // Use multiple rAFs and a small delay to ensure content has rendered
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            updateFooterHeight();
-            initFooterReveal();
+            setTimeout(() => {
+              updateFooterHeight();
+              initFooterReveal();
+            }, 100);
           });
         });
+      });
+    }
+
+    // Also listen to swup:transitionEnd which fires after all animations complete
+    // This is a backup in case onSwupContentReplaced doesn't catch everything
+    if (!window._footerTransitionEndRegistered) {
+      window._footerTransitionEndRegistered = true;
+      window.addEventListener('swup:transitionEnd', () => {
+        // Small delay to ensure page content is fully laid out
+        setTimeout(() => {
+          updateFooterHeight();
+          initFooterReveal();
+        }, 50);
+      });
+
+      // Listen for dynamic content changes (e.g., compare page async content)
+      window.addEventListener('content:resize', () => {
+        setTimeout(() => {
+          updateFooterHeight();
+          initFooterReveal();
+        }, 100);
       });
     }
   } else {
