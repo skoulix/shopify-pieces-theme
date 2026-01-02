@@ -6,156 +6,68 @@
 {%- liquid
   if section.settings.full_width
     assign container_class = ''
+    assign header_padding = '0'
+    assign wrapper_max_width = 'none'
+    assign wrapper_margin = '0'
+    assign wrapper_padding = '0'
+    assign mask_offset = '0'
   else
     assign container_class = 'page-container'
+    assign header_padding = '0'
+    assign wrapper_max_width = '1280px'
+    assign wrapper_margin = '0 auto'
+    assign wrapper_padding = '0 clamp(1rem, 3vw, 2rem)'
+    assign mask_offset = 'clamp(1rem, 3vw, 2rem)'
   endif
+
+  if section.settings.full_width and section.settings.header_alignment != 'center'
+    assign header_padding = '0 var(--page-padding, clamp(1rem, 3vw, 2rem))'
+  endif
+
+  assign opacity = section.settings.logo_opacity | divided_by: 100.0
+
+  capture filter_value
+    if section.settings.grayscale
+      echo 'grayscale(100%)'
+    endif
+    if section.settings.invert
+      if section.settings.grayscale
+        echo ' '
+      endif
+      echo 'invert(1)'
+    endif
+  endcapture
+
+  capture filter_hover_value
+    if section.settings.invert
+      echo 'invert(1)'
+    else
+      echo 'none'
+    endif
+  endcapture
 -%}
 
-<style>
-  .logo-marquee-{{ section.id }} {
-    overflow: hidden;
-  }
-
-  .logo-marquee-header-{{ section.id }} {
-    text-align: {{ section.settings.header_alignment }};
-    margin-bottom: clamp(2rem, 4vh, 3rem);
-    {% if section.settings.full_width and section.settings.header_alignment != 'center' %}
-    padding: 0 var(--page-padding, clamp(1rem, 3vw, 2rem));
-    {% endif %}
-  }
-
-  .logo-marquee-label-{{ section.id }} {
-  }
-
-  .logo-marquee-track-wrapper-{{ section.id }} {
-    position: relative;
-    overflow: hidden;
-    {% unless section.settings.full_width %}
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 clamp(1rem, 3vw, 2rem);
-    {% endunless %}
-  }
-
-  /* Gradient masks */
-  .logo-marquee-track-wrapper-{{ section.id }}::before,
-  .logo-marquee-track-wrapper-{{ section.id }}::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: clamp(50px, 10vw, 150px);
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .logo-marquee-track-wrapper-{{ section.id }}::before {
-    left: {% if section.settings.full_width %}0{% else %}clamp(1rem, 3vw, 2rem){% endif %};
-    background: linear-gradient(to right, var(--color-background), transparent);
-  }
-
-  .logo-marquee-track-wrapper-{{ section.id }}::after {
-    right: {% if section.settings.full_width %}0{% else %}clamp(1rem, 3vw, 2rem){% endif %};
-    background: linear-gradient(to left, var(--color-background), transparent);
-  }
-
-  .logo-marquee-track-{{ section.id }} {
-    display: flex;
-    width: max-content;
-  }
-
-  .logo-marquee-item-{{ section.id }} {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 clamp(1.5rem, 4vw, 3rem);
-    height: {{ section.settings.logo_height }}px;
-  }
-
-  .logo-marquee-item-{{ section.id }} img {
-    max-height: 100%;
-    width: auto;
-    max-width: {{ section.settings.logo_max_width }}px;
-    object-fit: contain;
-    opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
-    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-    filter: {% if section.settings.grayscale %}grayscale(100%){% endif %}{% if section.settings.invert %}{% if section.settings.grayscale %} {% endif %}invert(1){% endif %};
-  }
-
-  .logo-marquee-item-{{ section.id }}:hover img {
-    opacity: 1;
-    transform: scale(1.05);
-    filter: {% if section.settings.invert %}invert(1){% else %}none{% endif %};
-  }
-
-  .logo-marquee-item-{{ section.id }} svg {
-    max-height: 100%;
-    width: auto;
-    max-width: {{ section.settings.logo_max_width }}px;
-    fill: currentColor;
-    opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
-    transition: opacity 0.3s ease;
-  }
-
-  .logo-marquee-item-{{ section.id }}:hover svg {
-    opacity: 1;
-  }
-
-  /* Placeholder styling */
-  .logo-marquee-placeholder-{{ section.id }} {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: {{ section.settings.logo_max_width }}px;
-    height: 100%;
-    background: var(--color-border);
-    border-radius: 8px;
-    opacity: 0.5;
-  }
-
-  .logo-marquee-placeholder-{{ section.id }} i {
-    font-size: 1.5rem;
-    opacity: 0.3;
-  }
-
-  /* Reduced motion - show static logos */
-  @media (prefers-reduced-motion: reduce) {
-    .logo-marquee-track-{{ section.id }} {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-    }
-  }
-
-  html.animations-disabled .logo-marquee-track-{{ section.id }} {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-</style>
-
 <section
-  class="logo-marquee-{{ section.id }} section-padding-sm color-{{ section.settings.color_scheme }}"
+  class="logo-marquee section-padding-sm color-{{ section.settings.color_scheme }}"
+  style="--logo-marquee-align: {{ section.settings.header_alignment }}; --logo-marquee-header-padding: {{ header_padding }}; --logo-marquee-max-width: {{ wrapper_max_width }}; --logo-marquee-margin: {{ wrapper_margin }}; --logo-marquee-padding: {{ wrapper_padding }}; --logo-marquee-mask-offset: {{ mask_offset }}; --logo-marquee-height: {{ section.settings.logo_height }}px; --logo-marquee-max-logo-width: {{ section.settings.logo_max_width }}px; --logo-marquee-opacity: {{ opacity }}; --logo-marquee-filter: {{ filter_value | default: 'none' }}; --logo-marquee-filter-hover: {{ filter_hover_value }};"
   data-logo-marquee="{{ section.id }}"
   data-direction="{{ section.settings.direction }}"
   data-speed="{{ section.settings.speed }}"
 >
   <div class="{{ container_class }}">
     {% if section.settings.label != blank %}
-      <div class="logo-marquee-header-{{ section.id }}">
-        <span class="logo-marquee-label-{{ section.id }} text-label" data-tween data-tween-type="fade-up">
+      <div class="logo-marquee-header">
+        <span class="text-label" data-tween data-tween-type="fade-up">
           {{ section.settings.label }}
         </span>
       </div>
     {% endif %}
   </div>
 
-  <div class="logo-marquee-track-wrapper-{{ section.id }}">
-    <div class="logo-marquee-track-{{ section.id }}" data-logo-track>
+  <div class="logo-marquee-track-wrapper">
+    <div class="logo-marquee-track" data-logo-track>
       {% for block in section.blocks %}
-        <div class="logo-marquee-item-{{ section.id }}" {{ block.shopify_attributes }}>
+        <div class="logo-marquee-item" {{ block.shopify_attributes }}>
           {% if block.settings.logo != blank %}
             {% if block.settings.link != blank %}
               <a href="{{ block.settings.link }}" target="_blank" rel="noopener">
@@ -171,7 +83,7 @@
               </a>
             {% endif %}
           {% else %}
-            <div class="logo-marquee-placeholder-{{ section.id }}">
+            <div class="logo-marquee-placeholder">
               <i class="ph ph-image"></i>
             </div>
           {% endif %}
@@ -219,7 +131,7 @@
       return;
     }
 
-    const items = currentTrack.querySelectorAll('[class*="logo-marquee-item-"]');
+    const items = currentTrack.querySelectorAll('.logo-marquee-item');
     if (items.length === 0) return;
 
     // Only clone items on first init (check if already has clones)
@@ -246,7 +158,7 @@
 
     // Calculate total width after cloning
     let totalWidth = 0;
-    const allItems = currentTrack.querySelectorAll('[class*="logo-marquee-item-"]');
+    const allItems = currentTrack.querySelectorAll('.logo-marquee-item');
     // Only count original items (first set)
     const originalCount = items.length;
     for (let i = 0; i < originalCount; i++) {
