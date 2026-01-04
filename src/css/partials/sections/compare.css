@@ -13,9 +13,8 @@
     margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
-  /* Empty state */
+  /* Empty state - alignment controlled by JS via text-center/text-right classes */
   .compare-empty {
-    @apply text-center;
     padding: 4rem 0;
   }
 
@@ -32,6 +31,12 @@
 
   .compare-empty__text {
     @apply opacity-70 mb-6;
+    max-width: 24rem;
+  }
+
+  .compare-empty__actions {
+    display: flex;
+    margin-top: 1.5rem;
   }
 
   /* Table container */

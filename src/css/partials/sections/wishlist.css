@@ -13,9 +13,8 @@
     margin-left: clamp(0.5rem, 4vw, 2rem);
   }
 
-  /* Empty state */
+  /* Empty state - alignment controlled by JS via text-center/text-right classes */
   .wishlist-empty {
-    text-align: center;
     padding: 4rem 0;
   }
 
@@ -34,6 +33,12 @@
   .wishlist-empty__text {
     opacity: 0.7;
     margin-bottom: 1.5rem;
+    max-width: 24rem;
+  }
+
+  .wishlist-empty__actions {
+    display: flex;
+    margin-top: 1.5rem;
   }
 
   /* Grid layout */

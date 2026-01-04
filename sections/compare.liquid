@@ -11,7 +11,7 @@
   endif
 -%}
 
-<section class="compare-section page-padding color-{{ section.settings.color_scheme }}" data-compare-section id="compare-section-{{ section.id }}">
+<section class="compare-section page-padding color-{{ section.settings.color_scheme }}" data-compare-section data-header-alignment="{{ section.settings.header_alignment }}" id="compare-section-{{ section.id }}">
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     <div class="section-header-spacing {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween-group="compare-header-{{ section.id }}">
@@ -253,27 +253,29 @@
 
     if (products.length === 0) {
       content.innerHTML = `
-        <div class="compare-empty">
-          <div class="compare-empty__icon">
+        <div class="compare-empty text-center">
+          <div class="compare-empty__icon mx-auto">
             <i class="ph ph-scales"></i>
           </div>
           <h2 class="compare-empty__title">{{ 'products.compare.empty_title' | t | default: 'No products to compare' }}</h2>
-          <p class="compare-empty__text">{{ 'products.compare.empty_text' | t | default: 'Add products to compare by clicking the compare icon on product cards.' }}</p>
-          <a href="/collections/all" class="btn btn--primary">
-            <span>{{ 'products.compare.browse_products' | t | default: 'Browse Products' }}</span>
-          </a>
+          <p class="compare-empty__text mx-auto">{{ 'products.compare.empty_text' | t | default: 'Add products to compare by clicking the compare icon on product cards.' }}</p>
+          <div class="compare-empty__actions justify-center">
+            <a href="/collections/all" class="btn btn--primary">
+              <span>{{ 'products.compare.browse_products' | t | default: 'Browse Products' }}</span>
+            </a>
+          </div>
         </div>
       `;
       return;
     }
 
-    // Show loading state
+    // Show loading state (always centered)
     content.innerHTML = `
-      <div class="compare-empty">
-        <div class="compare-empty__icon">
+      <div class="compare-empty text-center">
+        <div class="compare-empty__icon mx-auto">
           <i class="ph ph-spinner animate-spin"></i>
         </div>
-        <p class="compare-empty__text">{{ 'products.compare.loading' | t | default: 'Loading comparison data...' }}</p>
+        <p class="compare-empty__text mx-auto">{{ 'products.compare.loading' | t | default: 'Loading comparison data...' }}</p>
       </div>
     `;
 

@@ -31,14 +31,14 @@
 </style>
 
 <div class="min-h-screen page-padding" data-search-wrapper>
-  <header class="section-header-spacing {{ container_class }}" data-tween-group="search-header" data-tween-start="top bottom">
+  <header class="section-header-spacing {{ container_class }} {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween-group="search-header" data-tween-start="top bottom">
     <h1 class="page-title" data-tween data-tween-type="split-text">
       {{ 'search.title' | t }}
     </h1>
 
     <div id="search-subtitle-fragment">
       {% if search.performed %}
-        <p class="page-header-subtitle">
+        <p class="page-header-subtitle {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
           <span class="page-header-subtitle-line" data-subtitle-line></span>
           <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>
             {% if search.results_count > 0 %}
@@ -54,7 +54,7 @@
 
   {%- comment -%} Search Form - Simple form without predictive search (use drawer for that) {%- endcomment -%}
   <div class="{{ container_class }} relative z-10">
-    <div class="max-w-2xl" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
+    <div class="max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
       <form action="{{ routes.search_url }}" method="get" role="search" class="search-input-container">
         <input type="hidden" name="type" value="product,article,page">
         <input type="hidden" name="options[prefix]" value="last">
@@ -81,27 +81,56 @@
       <div id="search-filters-fragment">
         {% if search.performed and search.results_count > 0 %}
           <div class="flex flex-wrap gap-2 mt-6">
+            {%- liquid
+              if search.types.size > 1
+                assign all_active = true
+              else
+                assign all_active = false
+              endif
+
+              if search.types contains 'product' and search.types.size == 1
+                assign product_active = true
+              else
+                assign product_active = false
+              endif
+
+              if search.types contains 'article' and search.types.size == 1
+                assign article_active = true
+              else
+                assign article_active = false
+              endif
+
+              if search.types contains 'page' and search.types.size == 1
+                assign page_active = true
+              else
+                assign page_active = false
+              endif
+            -%}
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product,article,page"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types.size > 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if all_active %}border-(--color-primary) pointer-events-none{% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-primary) hover:text-(--color-primary){% endif %}"
+              {% if all_active %}style="background-color: var(--color-primary); color: var(--color-primary-contrast);"{% endif %}
             >
               {{ 'search.filter_all' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=product"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'product' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if product_active %}border-(--color-primary) pointer-events-none{% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-primary) hover:text-(--color-primary){% endif %}"
+              {% if product_active %}style="background-color: var(--color-primary); color: var(--color-primary-contrast);"{% endif %}
             >
               {{ 'search.filter_products' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=article"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'article' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if article_active %}border-(--color-primary) pointer-events-none{% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-primary) hover:text-(--color-primary){% endif %}"
+              {% if article_active %}style="background-color: var(--color-primary); color: var(--color-primary-contrast);"{% endif %}
             >
               {{ 'search.filter_articles' | t }}
             </a>
             <a
               href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&type=page"
-              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if search.types contains 'page' and search.types.size == 1 %}bg-(--color-text) text-(--color-background) border-(--color-text){% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-text) hover:text-(--color-text){% endif %}"
+              class="px-4 py-2 text-sm uppercase tracking-wider font-medium border rounded-(--button-radius) transition-colors {% if page_active %}border-(--color-primary) pointer-events-none{% else %}border-(--color-border) text-(--color-text-secondary) hover:border-(--color-primary) hover:text-(--color-primary){% endif %}"
+              {% if page_active %}style="background-color: var(--color-primary); color: var(--color-primary-contrast);"{% endif %}
             >
               {{ 'search.filter_pages' | t }}
             </a>
@@ -209,10 +238,10 @@
         {% endpaginate %}
       {% else %}
         {%- comment -%} No Results {%- endcomment -%}
-        <div class="max-w-2xl -mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
+        <div class="max-w-2xl -mt-6 {% if section.settings.header_alignment == 'center' %}mx-auto text-center{% elsif section.settings.header_alignment == 'right' %}ml-auto text-right{% endif %}" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
           <p class="text-(--color-text-secondary)">{{ 'search.no_results_description' | t }}</p>
 
-          <div class="mt-8 flex flex-wrap gap-3">
+          <div class="mt-8 flex flex-wrap gap-3 {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
             <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
               <i class="ph ph-storefront"></i>
               <span>{{ '404.browse_products' | t }}</span>
@@ -225,9 +254,9 @@
 
           {%- comment -%} Popular Searches {%- endcomment -%}
           {% if section.settings.show_popular_searches %}
-            <div class="mt-12 pt-12 border-t border-(--color-border)">
+            <div class="mt-12 pt-12 border-t border-(--color-border) max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}">
               <p class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) mb-4">{{ 'search.popular_searches' | t }}</p>
-              <div class="flex flex-wrap gap-2">
+              <div class="flex flex-wrap gap-2 {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
                 {% assign popular_terms = section.settings.popular_searches | split: ',' %}
                 {% for term in popular_terms %}
                   {% assign trimmed_term = term | strip %}
@@ -247,16 +276,16 @@
       {% endif %}
     {% else %}
       {%- comment -%} Initial State - No search performed yet {%- endcomment -%}
-      <div class="-mt-6" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
-        <p class="text-(--color-text-secondary)">
+      <div class="-mt-6 {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween data-tween-type="fade-up" data-tween-start="top bottom">
+        <p class="text-(--color-text-secondary) max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}">
           {{ 'search.initial_prompt' | t }}
         </p>
 
         {%- comment -%} Popular Searches {%- endcomment -%}
         {% if section.settings.show_popular_searches %}
-          <div class="mt-12 pt-12 border-t border-(--color-border)">
+          <div class="mt-12 pt-12 border-t border-(--color-border) max-w-2xl {% if section.settings.header_alignment == 'center' %}mx-auto{% elsif section.settings.header_alignment == 'right' %}ml-auto{% endif %}">
             <p class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) mb-4">{{ 'search.popular_searches' | t }}</p>
-            <div class="flex flex-wrap gap-2">
+            <div class="flex flex-wrap gap-2 {% if section.settings.header_alignment == 'center' %}justify-center{% elsif section.settings.header_alignment == 'right' %}justify-end{% endif %}">
               {% assign popular_terms = section.settings.popular_searches | split: ',' %}
               {% for term in popular_terms %}
                 {% assign trimmed_term = term | strip %}
@@ -335,6 +364,12 @@
       "id": "full_width",
       "label": "Full width",
       "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "default": "left",
+      "label": "Header alignment"
     },
     {
       "type": "checkbox",
