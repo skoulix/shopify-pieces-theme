@@ -104,7 +104,6 @@ class SwupManager {
               name: 'search-filters',
             },
           ],
-          debug: true,
         }),
         new SwupJsPlugin(animationOptions),
         new SwupHeadPlugin({
@@ -112,7 +111,8 @@ class SwupManager {
           persistTags: 'link[rel="stylesheet"], style, script[src]',
         }),
         new SwupPreloadPlugin({
-          preloadVisibleLinks: true,
+          preloadVisibleLinks: false,
+          preloadHoveredLinks: true,
         }),
         new SwupBodyClassPlugin(),
         new SwupScriptsPlugin({
