@@ -365,10 +365,16 @@
           clearInterval(interval);
         }
       }, 1000);
+
+      // Cleanup on Swup navigation
+      window.addEventListener('swup:willReplaceContent', function cleanup() {
+        clearInterval(interval);
+        window.removeEventListener('swup:willReplaceContent', cleanup);
+      }, { once: true });
     }
 
-    // Initial update
-    updateCountdown();
+    // Initial update and start
+    startCountdown();
   })();
 </script>
 

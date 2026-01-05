@@ -141,7 +141,12 @@
   if (!footer.dataset.footerInitialized) {
     footer.dataset.footerInitialized = 'true';
     updateFooterHeight();
-    window.addEventListener('resize', updateFooterHeight);
+    // Debounced resize handler
+    let footerResizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(footerResizeTimeout);
+      footerResizeTimeout = setTimeout(updateFooterHeight, 150);
+    });
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => waitForGsapAndFonts(initFooterReveal));

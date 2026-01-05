@@ -224,11 +224,15 @@
       mapInstance.scrollWheelZoom.disable();
     });
 
-    // Handle resize
+    // Handle resize (debounced to avoid excessive map recalculations)
     function handleResize() {
       if (mapInstance) mapInstance.invalidateSize();
     }
-    window.addEventListener('resize', handleResize);
+    let mapResizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(mapResizeTimeout);
+      mapResizeTimeout = setTimeout(handleResize, 200);
+    });
 
     // Handle Swup transitions
     if (window.onSwupContentReplaced) {

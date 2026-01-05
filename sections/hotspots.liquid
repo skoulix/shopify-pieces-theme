@@ -388,13 +388,17 @@
     }
   });
 
-  // Reposition on resize
+  // Reposition on resize (debounced)
+  let hotspotsResizeTimeout;
   window.addEventListener('resize', function() {
-    popovers.forEach(function(popover) {
-      if (popover.matches(':popover-open')) {
-        positionPopover(popover);
-      }
-    });
+    clearTimeout(hotspotsResizeTimeout);
+    hotspotsResizeTimeout = setTimeout(function() {
+      popovers.forEach(function(popover) {
+        if (popover.matches(':popover-open')) {
+          positionPopover(popover);
+        }
+      });
+    }, 150);
   });
 })();
 </script>

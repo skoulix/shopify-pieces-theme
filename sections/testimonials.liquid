@@ -217,9 +217,11 @@
   // Initial position
   updateSlider(0);
 
-  // Recalculate on resize
+  // Recalculate on resize (debounced)
+  let testimonialsResizeTimeout;
   window.addEventListener('resize', () => {
-    updateSlider(currentIndex);
+    clearTimeout(testimonialsResizeTimeout);
+    testimonialsResizeTimeout = setTimeout(() => updateSlider(currentIndex), 150);
   });
 })();
 </script>

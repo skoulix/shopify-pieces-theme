@@ -1181,7 +1181,12 @@
     }
 
     updateHeaderHeight();
-    window.addEventListener('resize', updateHeaderHeight);
+    // Debounced resize handler to avoid excessive recalculations
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateHeaderHeight, 150);
+    });
     // Recalculate when announcement bar is dismissed
     window.addEventListener('announcement:dismissed', () => {
       // Small delay to let CSS transition/display change complete
