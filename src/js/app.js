@@ -51,7 +51,7 @@ function initCriticalCSSElements() {
 
   // Find all elements that are hidden by critical CSS
   const criticalElements = document.querySelectorAll(
-    '[data-subtitle-line], [data-subtitle-text], [data-shuffle-text], [data-text-reveal-label], [data-text-reveal-subtext], [data-text-reveal-cta]'
+    '[data-subtitle-line], [data-subtitle-text], [data-shuffle-text], [data-text-reveal-label], [data-text-reveal-subtext], [data-text-reveal-cta], .product-title-line > span'
   );
 
   // Set opacity: 1 on each element so they can be revealed by their animations
