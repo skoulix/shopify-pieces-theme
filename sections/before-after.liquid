@@ -137,7 +137,12 @@
   }
 
   updateBeforeImageWidth();
-  window.addEventListener('resize', updateBeforeImageWidth);
+  // Debounced resize handler
+  let beforeAfterResizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(beforeAfterResizeTimeout);
+    beforeAfterResizeTimeout = setTimeout(updateBeforeImageWidth, 150);
+  });
 
   let isDragging = false;
 

@@ -148,6 +148,8 @@
 </style>
 
 <section id="slideshow-{{ section.id }}" class="slideshow-section {{ section.blocks.first.settings.color_scheme | prepend: 'color-' }}" data-slideshow data-transition="{{ transition_effect }}">
+  {%- comment -%} Screen reader announcements for slide changes {%- endcomment -%}
+  <div class="sr-only" aria-live="polite" aria-atomic="true" data-slideshow-status></div>
   <div class="slideshow relative overflow-hidden h-(--slideshow-height) min-h-[400px] bg-(--color-background)" aria-label="{{ 'accessibility.slideshow' | t }}" role="region">
     {%- comment -%} Slides {%- endcomment -%}
     {% for block in section.blocks %}
@@ -593,6 +595,12 @@
           }
         });
         currentSlide = index;
+
+        // Announce slide change to screen readers
+        const statusEl = section.querySelector('[data-slideshow-status]');
+        if (statusEl) {
+          statusEl.textContent = `{{ 'accessibility.slide_x_of_y' | t: current: '${index + 1}', total: '${totalSlides}' }}`;
+        }
 
         // Reset progress bar
         if (progress && autoplayEnabled) {

@@ -1,15 +1,45 @@
 /**
- * ProductLightboxManager
- * Handles product image lightbox using GLightbox
- * Supports images, videos, and external videos (YouTube/Vimeo)
+ * ProductLightboxManager - Handles product image lightbox using GLightbox
+ * Supports images, videos, and external videos (YouTube/Vimeo).
+ * GLightbox is dynamically imported only when lightbox is first initialized,
+ * reducing initial bundle size for pages that don't need it.
+ *
+ * @class ProductLightboxManager
+ * @example
+ * import { productLightbox } from './managers/ProductLightboxManager.js';
+ *
+ * // Initialize on product gallery
+ * productLightbox.init(document.querySelector('[data-product-gallery]'));
+ *
+ * // Open at specific slide
+ * productLightbox.open(2);
  */
 
-import GLightbox from 'glightbox';
+// GLightbox is dynamically imported to reduce initial bundle size
+let GLightbox = null;
 
 class ProductLightboxManager {
   constructor() {
     this.lightbox = null;
     this.initialized = false;
+    this.glightboxLoaded = false;
+  }
+
+  /**
+   * Load GLightbox library dynamically
+   * @returns {Promise} Resolves when GLightbox is loaded
+   */
+  async loadGLightbox() {
+    if (this.glightboxLoaded) return;
+
+    try {
+      const module = await import('glightbox');
+      GLightbox = module.default;
+      this.glightboxLoaded = true;
+    } catch (error) {
+      console.error('[ProductLightboxManager] Failed to load GLightbox:', error);
+      throw error;
+    }
   }
 
   /**
@@ -17,8 +47,11 @@ class ProductLightboxManager {
    * @param {HTMLElement} gallery - The product gallery container
    * @param {Object} options - Configuration options
    */
-  init(gallery, options = {}) {
+  async init(gallery, options = {}) {
     if (!gallery) return;
+
+    // Dynamically load GLightbox if not already loaded
+    await this.loadGLightbox();
 
     const defaults = {
       touchNavigation: true,
@@ -244,9 +277,9 @@ class ProductLightboxManager {
    * @param {HTMLElement} gallery - The product gallery container
    * @param {Object} options - Configuration options
    */
-  refresh(gallery, options = {}) {
+  async refresh(gallery, options = {}) {
     this.destroy();
-    this.init(gallery, options);
+    await this.init(gallery, options);
   }
 }
 

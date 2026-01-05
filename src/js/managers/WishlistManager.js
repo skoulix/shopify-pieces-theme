@@ -1,8 +1,19 @@
 import { formatMoney } from '../utils/formatMoney.js';
 
 /**
- * WishlistManager - Track and display wishlist/favorite products
- * Stores product data in localStorage for persistence
+ * WishlistManager - Track and display wishlist/favorite products singleton
+ * Stores product data in localStorage for persistence across sessions.
+ * Supports subscriber pattern for reactive UI updates.
+ *
+ * @class WishlistManager
+ * @example
+ * import { wishlistManager } from './managers/WishlistManager.js';
+ *
+ * // Add product to wishlist
+ * wishlistManager.addProduct({ id: 123, title: 'Product', price: 1999 });
+ *
+ * // Subscribe to changes
+ * wishlistManager.subscribe(() => updateUI());
  */
 class WishlistManager {
   constructor() {

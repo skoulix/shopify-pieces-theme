@@ -1,8 +1,19 @@
 import { formatMoney } from '../utils/formatMoney.js';
 
 /**
- * CompareManager - Track and display product comparisons
- * Stores product data in localStorage for persistence
+ * CompareManager - Track and display product comparisons singleton
+ * Stores product data in localStorage for persistence across sessions.
+ * Limited to 4 products for side-by-side comparison UI.
+ *
+ * @class CompareManager
+ * @example
+ * import { compareManager } from './managers/CompareManager.js';
+ *
+ * // Add product to compare
+ * compareManager.addProduct({ id: 123, title: 'Product', price: 1999 });
+ *
+ * // Subscribe to changes
+ * compareManager.subscribe(() => updateCompareUI());
  */
 class CompareManager {
   constructor() {

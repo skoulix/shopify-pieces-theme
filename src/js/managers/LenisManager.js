@@ -5,8 +5,24 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * LenisManager - Smooth scroll management
- * Handles smooth scrolling with Lenis and GSAP ScrollTrigger integration
+ * LenisManager - Smooth scroll management singleton
+ * Handles smooth scrolling with Lenis and GSAP ScrollTrigger integration.
+ * Provides methods for programmatic scrolling, stopping/starting scroll,
+ * and integrates seamlessly with GSAP animations.
+ *
+ * @class LenisManager
+ * @example
+ * // Import and use
+ * import { lenisManager } from './managers/LenisManager.js';
+ *
+ * // Initialize (typically in app.js)
+ * lenisManager.init();
+ *
+ * // Scroll to element
+ * lenisManager.scrollTo('#section-id', { offset: -100 });
+ *
+ * // Stop scroll during modal open
+ * lenisManager.stop();
  */
 class LenisManager {
   constructor() {

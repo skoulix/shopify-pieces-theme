@@ -4,8 +4,30 @@ import { createFocusTrap } from '../utils/dom.js';
 import { DURATION, DEBOUNCE, TIMEOUT } from '../utils/constants.js';
 
 /**
- * CartDrawerManager - Handles cart drawer functionality
- * Uses global CartState for data, CSS transitions for animations, Lenis for scroll
+ * CartDrawerManager - Handles cart drawer functionality singleton
+ * Uses global CartState for data, CSS transitions for animations, Lenis for scroll.
+ * Provides accessible drawer with focus trap, keyboard navigation, and live region updates.
+ *
+ * @class CartDrawerManager
+ * @description
+ * Features:
+ * - Reactive updates via CartState subscription
+ * - Focus trap for accessibility
+ * - Keyboard escape to close
+ * - Smooth scroll disabled when open
+ * - Cart note saving with debounce
+ * - Quantity updates with loading states
+ *
+ * @example
+ * // Import and initialize
+ * import { cartDrawerManager } from './managers/CartDrawerManager.js';
+ * cartDrawerManager.init();
+ *
+ * // Open programmatically
+ * cartDrawerManager.open();
+ *
+ * // Close
+ * cartDrawerManager.close();
  */
 class CartDrawerManager {
   constructor() {

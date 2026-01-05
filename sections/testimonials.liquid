@@ -33,7 +33,8 @@
     {% endif %}
 
     {%- comment -%} Slider {%- endcomment -%}
-    <div class="testimonials-slider" data-tween data-tween-type="fade-up">
+    <div class="sr-only" aria-live="polite" aria-atomic="true" data-testimonials-status></div>
+    <div class="testimonials-slider" data-tween data-tween-type="fade-up" role="region" aria-label="{{ 'accessibility.testimonials' | t | default: 'Testimonials' }}">
       <div class="testimonials-track" data-testimonials-track>
         {% for block in section.blocks %}
           <div class="testimonial" data-testimonial {{ block.shopify_attributes }}>
@@ -172,6 +173,12 @@
     });
 
     currentIndex = index;
+
+    // Announce slide change to screen readers
+    const statusEl = section.querySelector('[data-testimonials-status]');
+    if (statusEl) {
+      statusEl.textContent = `{{ 'accessibility.testimonial_x_of_y' | t: current: '${index + 1}', total: '${totalSlides}' | default: 'Testimonial ${index + 1} of ${totalSlides}' }}`;
+    }
   }
 
   function nextSlide() {

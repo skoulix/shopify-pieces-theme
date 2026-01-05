@@ -5,8 +5,10 @@ import { SplitText } from 'gsap/SplitText';
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /**
- * TweenManager - Global declarative animation system
+ * TweenManager - Global declarative animation system singleton
  *
+ * @class TweenManager
+ * @description
  * Usage:
  * Add data-tween to any element to opt it into the animation system.
  * Use data-tween-type to specify the animation type.

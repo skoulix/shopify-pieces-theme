@@ -13,8 +13,30 @@ import { lenisManager } from './LenisManager.js';
 gsap.registerPlugin(ScrollTrigger);
 
 /**
- * SwupManager - Page transition management
- * Handles SPA-like page transitions with GSAP animations
+ * SwupManager - Page transition management singleton
+ * Handles SPA-like page transitions with GSAP animations.
+ * Integrates with Lenis smooth scroll, manages component reinitialization,
+ * and provides accessible navigation announcements.
+ *
+ * @class SwupManager
+ * @description
+ * Features:
+ * - Multiple transition styles: fade, slide, curtain
+ * - Fragment navigation for filter pages (search, collections)
+ * - ScrollTrigger cleanup on navigation
+ * - Screen reader announcements for page changes
+ * - Shopify PaymentButton reinitialization
+ *
+ * @example
+ * // Import and initialize
+ * import { swupManager } from './managers/SwupManager.js';
+ * swupManager.init();
+ *
+ * // Programmatic navigation
+ * swupManager.navigateTo('/products/example');
+ *
+ * // Clear cart cache before navigation
+ * swupManager.clearCache('/cart');
  */
 class SwupManager {
   constructor() {
