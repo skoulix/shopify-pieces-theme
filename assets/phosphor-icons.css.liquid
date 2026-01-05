@@ -1,8 +1,8 @@
 @font-face {
   font-family: "Phosphor";
   src:
-    url("pieces-Phosphor.woff2") format("woff2"),
-    url("pieces-Phosphor.ttf") format("truetype");
+    url("{{ 'pieces-Phosphor.woff2' | asset_url }}") format("woff2"),
+    url("{{ 'pieces-Phosphor.ttf' | asset_url }}") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -444,8 +444,8 @@
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("pieces-Phosphor-Fill.woff2") format("woff2"),
-    url("pieces-Phosphor-Fill.ttf") format("truetype");
+    url("{{ 'pieces-Phosphor-Fill.woff2' | asset_url }}") format("woff2"),
+    url("{{ 'pieces-Phosphor-Fill.ttf' | asset_url }}") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -471,4 +471,7 @@
 
 .ph-fill.ph-heart:before {
   content: "\e2a8";
+}
+.ph-fill.ph-star:before {
+  content: "\e46a";
 }

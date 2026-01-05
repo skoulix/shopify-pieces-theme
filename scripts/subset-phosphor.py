@@ -187,6 +187,7 @@ USED_ICONS = [
 # Fill icons (use ph-fill class)
 USED_FILL_ICONS = [
     "heart",
+    "star",
 ]
 
 # Get directory paths
@@ -205,7 +206,7 @@ FILL_TTF_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/
 OUTPUT_FILL_TTF = os.path.join(ASSETS_DIR, "pieces-Phosphor-Fill.ttf")
 OUTPUT_FILL_WOFF2 = os.path.join(ASSETS_DIR, "pieces-Phosphor-Fill.woff2")
 
-OUTPUT_CSS = os.path.join(ASSETS_DIR, "phosphor-icons.css")
+OUTPUT_CSS = os.path.join(ASSETS_DIR, "phosphor-icons.css.liquid")
 
 def extract_unicode_map(css_file, is_fill=False):
     """Extract icon name to unicode mapping from CSS file."""
@@ -328,12 +329,12 @@ def main():
     print("\nDone!")
 
 def generate_subset_css(unicode_map, fill_unicode_map=None):
-    """Generate CSS file with only the used icon definitions."""
+    """Generate CSS file with only the used icon definitions (Liquid template)."""
     css_content = '''@font-face {
   font-family: "Phosphor";
   src:
-    url("pieces-Phosphor.woff2") format("woff2"),
-    url("pieces-Phosphor.ttf") format("truetype");
+    url("{{ 'pieces-Phosphor.woff2' | asset_url }}") format("woff2"),
+    url("{{ 'pieces-Phosphor.ttf' | asset_url }}") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -370,8 +371,8 @@ def generate_subset_css(unicode_map, fill_unicode_map=None):
 @font-face {
   font-family: "Phosphor-Fill";
   src:
-    url("pieces-Phosphor-Fill.woff2") format("woff2"),
-    url("pieces-Phosphor-Fill.ttf") format("truetype");
+    url("{{ 'pieces-Phosphor-Fill.woff2' | asset_url }}") format("woff2"),
+    url("{{ 'pieces-Phosphor-Fill.ttf' | asset_url }}") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

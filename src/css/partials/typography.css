@@ -22,10 +22,11 @@
      ========================================================================== */
 
   .section-title {
-    @apply font-heading leading-tight text-balance lg:text-[calc(clamp(2rem,3vw,2.75rem)*var(--heading-font-scale,1))] 2xl:text-[calc(clamp(2.25rem,2.5vw,3rem)*var(--heading-font-scale,1))];
+    @apply font-heading text-balance lg:text-[calc(clamp(2rem,3vw,2.75rem)*var(--heading-font-scale,1))] 2xl:text-[calc(clamp(2.25rem,2.5vw,3rem)*var(--heading-font-scale,1))];
     font-weight: var(--font-heading-weight, 700);
     letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(1.5rem, 4vw, 2.25rem) * var(--heading-font-scale, 1));
+    line-height: 1.15;
   }
 
   /* Hero title - primary hero headline (larger than page-title) */
