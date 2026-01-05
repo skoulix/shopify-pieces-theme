@@ -114,36 +114,39 @@
   }
 
   .shoppable-lightbox-content {
-    @apply flex gap-8 flex-col md:flex-row;
+    @apply flex gap-4 flex-col w-[calc(100%-1rem)] m-2;
     max-width: 1400px;
-    width: calc(100% - 1rem);
     max-height: calc(100vh - 1rem);
-    margin: 0.5rem;
   }
 
-  @media (min-width: 768px) {
+  /* xl+: side-by-side layout */
+  @media (min-width: 1280px) {
     .shoppable-lightbox-content {
-      width: 90%;
+      @apply flex-row items-stretch gap-8 w-[90%] m-0;
       max-height: 85vh;
-      margin: 0;
     }
   }
 
   .shoppable-lightbox-video {
-    @apply flex-1 relative flex items-center justify-center w-full md:w-auto;
-    min-height: 0;
+    @apply flex-1 relative flex items-center justify-center w-full min-h-0;
   }
 
   .shoppable-lightbox-video video {
-    @apply w-full h-auto;
+    @apply w-full h-auto max-w-full transition-opacity duration-300;
     max-height: 60vh;
-    max-width: 100%;
     object-fit: contain;
-    transition: opacity 0.3s ease;
     border-radius: var(--card-radius) var(--card-radius) 0 0;
   }
 
-  @media (min-width: 768px) {
+  /* md/lg: video can be taller since product card is below */
+  @media (min-width: 768px) and (max-width: 1279px) {
+    .shoppable-lightbox-video video {
+      max-height: 55vh;
+    }
+  }
+
+  /* xl+: video with full radius since product card is beside it */
+  @media (min-width: 1280px) {
     .shoppable-lightbox-video video {
       max-height: 75vh;
       border-radius: var(--card-radius);
@@ -151,18 +154,27 @@
   }
 
   .shoppable-lightbox-product {
-    @apply shrink-0 overflow-y-auto w-full md:w-80;
+    @apply shrink-0 overflow-y-auto w-full p-4;
     background: white;
-    padding: 1rem;
     border-radius: 0 0 var(--card-radius) var(--card-radius);
     max-height: 35vh;
   }
 
-  @media (min-width: 768px) {
+  /* md/lg: product card full width below video */
+  @media (min-width: 768px) and (max-width: 1279px) {
     .shoppable-lightbox-product {
-      padding: 1.5rem;
+      @apply p-5;
+      max-height: none;
       border-radius: var(--card-radius);
-      max-height: 75vh;
+    }
+  }
+
+  /* xl+: product card as sidebar */
+  @media (min-width: 1280px) {
+    .shoppable-lightbox-product {
+      @apply w-80 p-6 flex flex-col;
+      max-height: none;
+      border-radius: var(--card-radius);
     }
   }
 

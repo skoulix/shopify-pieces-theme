@@ -209,7 +209,7 @@
       {%- comment -%} theme-check-enable RemoteAsset {%- endcomment -%}
     </div>
 
-    <div class="shoppable-lightbox-product">
+    <div class="shoppable-lightbox-product" data-lenis-prevent>
       <div id="shoppable-product-info-{{ section.id }}"></div>
     </div>
   </div>
@@ -575,24 +575,38 @@
 
   function displayProductInfo(product) {
     if (!productInfo) return;
+    // Layout breakpoints:
+    // - xl+: vertical card (image top, info below, button full width) - sidebar layout
+    // - md/lg: horizontal 3-column (image | info | button right) - full width below video
+    // - mobile: horizontal 2-column (image | info), button full width below
     productInfo.innerHTML = `
-      <div class="shoppable-product-lightbox-info">
-        ${product.image ? `<img src="${product.image}" alt="${product.title}" class="w-full rounded-lg mb-4 object-cover aspect-square" loading="lazy" decoding="async">` : ''}
-        <h3 class="text-base font-semibold mb-3"><a href="/products/${product.handle}" class="hover:underline">${product.title}</a></h3>
-        <div class="text-lg font-bold mb-6">
-          ${product.compare_at_price ? `<span class="text-gray-500 line-through text-sm mr-2">${formatMoney(product.compare_at_price)}</span>` : ''}
-          ${formatMoney(product.price)}
+      <div class="shoppable-product-lightbox-info" data-lenis-prevent>
+        <div class="flex gap-3 md:gap-4 md:items-center xl:block">
+          ${product.image ? `<img src="${product.image}" alt="${product.title}" class="w-20 h-20 md:w-24 md:h-24 xl:w-full xl:h-auto shrink-0 rounded-lg object-cover xl:mb-4" loading="lazy" decoding="async">` : ''}
+          <div class="flex flex-col justify-center md:flex-1 xl:block">
+            <h3 class="text-sm md:text-base font-semibold mb-1 xl:mb-3"><a href="/products/${product.handle}" class="hover:underline">${product.title}</a></h3>
+            <div class="text-base md:text-lg font-bold">
+              ${product.compare_at_price ? `<span class="text-gray-500 line-through text-xs md:text-sm mr-2">${formatMoney(product.compare_at_price)}</span>` : ''}
+              ${formatMoney(product.price)}
+            </div>
+          </div>
+          <form class="shoppable-add-to-cart-form hidden md:block md:shrink-0 xl:hidden" data-product-id="${product.id}">
+            <input type="hidden" name="id" value="${product.variantId}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="btn btn--primary btn--sm"><span>{{ 'products.product.add_to_cart' | t }}</span></button>
+          </form>
         </div>
-        <form class="shoppable-add-to-cart-form" data-product-id="${product.id}">
+        <form class="shoppable-add-to-cart-form mt-3 md:hidden xl:block xl:mt-4" data-product-id="${product.id}">
           <input type="hidden" name="id" value="${product.variantId}">
           <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="btn btn--primary w-full"><span>{{ 'products.product.add_to_cart' | t }}</span></button>
+          <button type="submit" class="btn btn--primary btn--sm w-full"><span>{{ 'products.product.add_to_cart' | t }}</span></button>
         </form>
       </div>
     `;
 
-    const form = productInfo.querySelector('.shoppable-add-to-cart-form');
-    if (form) {
+    // Handle both forms (one for md/lg inline, one for mobile/xl full-width)
+    const forms = productInfo.querySelectorAll('.shoppable-add-to-cart-form');
+    forms.forEach(form => {
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const button = form.querySelector('button[type="submit"]');
@@ -634,13 +648,13 @@
                 }
               } else if (cartType === 'notification') {
                 // Show notification instead of drawer
-                const productInfo = {
+                const prodInfo = {
                   title: item.product_title,
                   variant_title: item.variant_title !== 'Default Title' ? item.variant_title : null,
                   image: item.image ? item.image.replace(/(\.[^.]+)$/, '_200x$1') : null
                 };
                 document.dispatchEvent(new CustomEvent('cart:notification', {
-                  detail: { product: productInfo, cart: cart }
+                  detail: { product: prodInfo, cart: cart }
                 }));
                 setTimeout(() => { closeLightbox(); button.innerHTML = originalText; button.disabled = false; }, 500);
               } else {
@@ -658,7 +672,7 @@
             setTimeout(() => { button.innerHTML = originalText; button.disabled = false; }, 2000);
           });
       });
-    }
+    });
   }
 
   function formatMoney(cents) {
