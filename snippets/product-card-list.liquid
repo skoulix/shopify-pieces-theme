@@ -3,12 +3,12 @@
   A unified list view card used by both grid and metro layouts
 
   Usage:
-    {% render 'product-card-list', product: product, index: forloop.index0, collection: collection %}
+  {% render 'product-card-list', product: product, index: forloop.index0, collection: collection %}
 
   Parameters:
-    - product: Product object (required)
-    - collection: Collection object (optional) - preserves collection context in URL
-    - index: Card index for animation stagger (optional, default: 0)
+  - product: Product object (required)
+  - collection: Collection object (optional) - preserves collection context in URL
+  - index: Card index for animation stagger (optional, default: 0)
 {%- endcomment -%}
 
 {%- liquid
@@ -37,25 +37,20 @@
 -%}
 
 <div
-  class="product-card-list group"
+  class="product-card-list group p-2 grid gap-4 items-start grid-cols-[60px_1fr] sm:grid-cols-[80px_1fr] md:grid-cols-[100px_1fr_auto] md:gap-6 md:items-center"
   data-product-card="{{ index }}"
   data-product-id="{{ product.id }}"
   data-tween
-  data-tween-type="fade-up"
->
+  data-tween-type="fade-up">
   {%- comment -%} Image {%- endcomment -%}
-  <a href="{{ product_url }}" class="product-card-list__image" aria-label="{{ product.title }}">
+  <a
+    href="{{ product_url }}"
+    class="product-card-list__image"
+    aria-label="{{ product.title }}">
     {% if product.featured_image %}
       {%- assign focal_point = product.featured_image.presentation.focal_point | default: '50% 50%' -%}
       {%- assign focal_point_style = 'object-position: ' | append: focal_point -%}
-      {{ product.featured_image | image_url: width: 400 | image_tag:
-        class: 'w-full h-full object-cover',
-        style: focal_point_style,
-        loading: 'lazy',
-        decoding: 'async',
-        sizes: '100px',
-        widths: '100, 200, 400',
-        alt: product.title
+      {{ product.featured_image | image_url: width: 400 | image_tag: class: 'w-full h-full object-cover', style: focal_point_style, loading: 'lazy', decoding: 'async', sizes: '100px', widths: '100, 200, 400', alt: product.title
       }}
     {% else %}
       <div class="w-full h-full flex items-center justify-center bg-(--color-background-secondary)">
@@ -85,21 +80,32 @@
   </div>
 
   {%- comment -%} Mobile buttons {%- endcomment -%}
-  <div class="product-card-list__buttons-mobile">
+  <div class="product-card-list__buttons-mobile col-span-2">
     {% if product.available %}
       {% if has_variants %}
-        <a href="{{ product_url }}" class="btn btn--primary btn--sm" aria-label="{{ 'products.product.select_options' | t }}: {{ product.title }}">
+        <a
+          href="{{ product_url }}"
+          class="btn btn--primary btn--sm"
+          aria-label="{{ 'products.product.select_options' | t }}: {{ product.title }}">
           <span>{{ 'products.product.select_options' | t }}</span>
         </a>
       {% else %}
-        <button type="button" class="btn btn--primary btn--sm" data-quick-add="{{ first_available_variant.id }}" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title }}">
+        <button
+          type="button"
+          class="btn btn--primary btn--sm"
+          data-quick-add="{{ first_available_variant.id }}"
+          aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title }}">
           <span data-add-text>{{ 'products.product.add_to_cart' | t }}</span>
           <span data-adding-text class="hidden">{{ 'cart.adding' | t }}</span>
           <span data-added-text class="hidden">{{ 'cart.added' | t }}</span>
         </button>
       {% endif %}
     {% else %}
-      <button type="button" class="btn btn--secondary btn--sm" disabled aria-label="{{ 'products.product.sold_out' | t }}: {{ product.title }}">
+      <button
+        type="button"
+        class="btn btn--secondary btn--sm"
+        disabled
+        aria-label="{{ 'products.product.sold_out' | t }}: {{ product.title }}">
         <span>{{ 'products.product.sold_out' | t }}</span>
       </button>
     {% endif %}
@@ -107,19 +113,35 @@
     {% if show_action_buttons %}
       <div class="product-card-list__actions-mobile">
         {% if settings.enable_quick_view and product.available %}
-          <button type="button" class="btn btn--secondary btn--sm btn--icon" data-quick-view-trigger="{{ product.handle }}" aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: {{ product.title }}">
+          <button
+            type="button"
+            class="btn btn--secondary btn--sm btn--icon"
+            data-quick-view-trigger="{{ product.handle }}"
+            aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: {{ product.title }}">
             <i class="ph ph-eye text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
         {% if settings.enable_wishlist %}
           {%- capture wishlist_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-          <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ wishlist_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
+          <button
+            type="button"
+            class="product-card-wishlist btn btn--secondary btn--sm btn--icon"
+            data-wishlist-toggle="{{ product.id }}"
+            data-product-json='{{ wishlist_json | strip_newlines | replace: "'", "&#39;" }}'
+            aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}"
+            aria-pressed="false">
             <i class="ph ph-heart text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
         {% if settings.enable_compare %}
           {%- capture compare_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-          <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon" data-compare-toggle="{{ product.id }}" data-product-json='{{ compare_json | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
+          <button
+            type="button"
+            class="product-card-compare btn btn--secondary btn--sm btn--icon"
+            data-compare-toggle="{{ product.id }}"
+            data-product-json='{{ compare_json | strip_newlines | replace: "'", "&#39;" }}'
+            aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}"
+            aria-pressed="false">
             <i class="ph ph-scales text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
@@ -131,18 +153,29 @@
   <div class="product-card-list__buttons-desktop">
     {% if product.available %}
       {% if has_variants %}
-        <a href="{{ product_url }}" class="btn btn--primary" aria-label="{{ 'products.product.select_options' | t }}: {{ product.title }}">
+        <a
+          href="{{ product_url }}"
+          class="btn btn--primary"
+          aria-label="{{ 'products.product.select_options' | t }}: {{ product.title }}">
           <span>{{ 'products.product.select_options' | t }}</span>
         </a>
       {% else %}
-        <button type="button" class="btn btn--primary" data-quick-add="{{ first_available_variant.id }}" aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title }}">
+        <button
+          type="button"
+          class="btn btn--primary"
+          data-quick-add="{{ first_available_variant.id }}"
+          aria-label="{{ 'products.product.add_to_cart' | t }}: {{ product.title }}">
           <span data-add-text>{{ 'products.product.add_to_cart' | t }}</span>
           <span data-adding-text class="hidden">{{ 'cart.adding' | t }}</span>
           <span data-added-text class="hidden">{{ 'cart.added' | t }}</span>
         </button>
       {% endif %}
     {% else %}
-      <button type="button" class="btn btn--secondary" disabled aria-label="{{ 'products.product.sold_out' | t }}: {{ product.title }}">
+      <button
+        type="button"
+        class="btn btn--secondary"
+        disabled
+        aria-label="{{ 'products.product.sold_out' | t }}: {{ product.title }}">
         <span>{{ 'products.product.sold_out' | t }}</span>
       </button>
     {% endif %}
@@ -150,19 +183,35 @@
     {% if show_action_buttons %}
       <div class="product-card-list__actions-desktop">
         {% if settings.enable_quick_view and product.available %}
-          <button type="button" class="btn btn--secondary btn--sm btn--icon" data-quick-view-trigger="{{ product.handle }}" aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: {{ product.title }}">
+          <button
+            type="button"
+            class="btn btn--secondary btn--sm btn--icon"
+            data-quick-view-trigger="{{ product.handle }}"
+            aria-label="{{ 'products.product.quick_view' | t | default: 'Quick view' }}: {{ product.title }}">
             <i class="ph ph-eye text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
         {% if settings.enable_wishlist %}
           {%- capture wishlist_json_desktop -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-          <button type="button" class="product-card-wishlist btn btn--secondary btn--sm btn--icon" data-wishlist-toggle="{{ product.id }}" data-product-json='{{ wishlist_json_desktop | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}" aria-pressed="false">
+          <button
+            type="button"
+            class="product-card-wishlist btn btn--secondary btn--sm btn--icon"
+            data-wishlist-toggle="{{ product.id }}"
+            data-product-json='{{ wishlist_json_desktop | strip_newlines | replace: "'", "&#39;" }}'
+            aria-label="{{ 'products.wishlist.add_to_wishlist' | t | default: 'Add to wishlist' }}: {{ product.title }}"
+            aria-pressed="false">
             <i class="ph ph-heart text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
         {% if settings.enable_compare %}
           {%- capture compare_json_desktop -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ product.featured_image | image_url: width: 800 | json }},"price":{{ product.price | json }},"compareAtPrice":{{ product.compare_at_price | default: 0 | json }},"vendor":{{ product.vendor | json }},"type":{{ product.type | json }},"sku":{{ product.selected_or_first_available_variant.sku | json }},"available":{{ product.available | json }}}{%- endcapture -%}
-          <button type="button" class="product-card-compare btn btn--secondary btn--sm btn--icon" data-compare-toggle="{{ product.id }}" data-product-json='{{ compare_json_desktop | strip_newlines | replace: "'", "&#39;" }}' aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}" aria-pressed="false">
+          <button
+            type="button"
+            class="product-card-compare btn btn--secondary btn--sm btn--icon"
+            data-compare-toggle="{{ product.id }}"
+            data-product-json='{{ compare_json_desktop | strip_newlines | replace: "'", "&#39;" }}'
+            aria-label="{{ 'products.compare.add_to_compare' | t | default: 'Add to compare' }}: {{ product.title }}"
+            aria-pressed="false">
             <i class="ph ph-scales text-lg" aria-hidden="true"></i>
           </button>
         {% endif %}
