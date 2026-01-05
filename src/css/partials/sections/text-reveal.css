@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Text Reveal Section
+   Large typography that reveals on scroll with word-by-word animation
+   ========================================================================== */
+
+@layer components {
+  /* Container */
+  .text-reveal {
+    @apply overflow-hidden;
+  }
+
+  /* Alignment modifiers */
+  .text-reveal--center {
+    @apply text-center;
+  }
+
+  .text-reveal--right {
+    @apply text-right;
+  }
+
+  /* Heading */
+  .text-reveal-heading {
+    font-size: calc(clamp(1.75rem, 6vw, 3rem) * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
+    line-height: 1.05;
+  }
+
+  @media (min-width: 1024px) {
+    .text-reveal-heading {
+      font-size: calc(clamp(2.5rem, 5vw, 4rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .text-reveal-heading {
+      font-size: calc(clamp(3rem, 4vw, 5rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  /* Word wrapper for reveal animation */
+  .text-reveal-word {
+    @apply inline-block overflow-hidden align-top;
+    padding-bottom: 0.25em;
+    margin-bottom: -0.25em;
+  }
+
+  .text-reveal-word span {
+    @apply inline-block;
+    transform: translateY(120%);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .text-reveal-word.is-visible span {
+    transform: translateY(0);
+  }
+
+  /* Highlight styling - uses CSS variable for accent color */
+  .text-reveal-highlight {
+    color: var(--text-reveal-accent-color, var(--color-primary));
+  }
+
+  /* Subtext positioning */
+  .text-reveal-subtext {
+    max-width: 50ch;
+  }
+
+  .text-reveal--center .text-reveal-subtext {
+    @apply mx-auto;
+  }
+
+  .text-reveal--right .text-reveal-subtext {
+    @apply ml-auto;
+  }
+
+  /* Staggered line offset - left alignment only */
+  .text-reveal-line:nth-child(2) {
+    margin-left: clamp(1rem, 5vw, 4rem);
+  }
+
+  .text-reveal-line:nth-child(3) {
+    margin-left: clamp(0.5rem, 2vw, 2rem);
+  }
+
+  /* Center and right alignment remove stagger */
+  .text-reveal--center .text-reveal-line,
+  .text-reveal--right .text-reveal-line {
+    margin-left: 0;
+  }
+
+  /* Large background number */
+  .text-reveal-bg-number {
+    @apply absolute top-1/2 right-0 -translate-y-1/2 pointer-events-none z-0;
+    font-size: calc(clamp(18rem, 35vw, 45rem) * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.05em + var(--heading-letter-spacing, 0em));
+    line-height: 0.8;
+    opacity: 0.03;
+  }
+
+  /* Animation disabled state */
+  html.animations-disabled .text-reveal-word span {
+    transform: none;
+  }
+
+  html.animations-disabled .text-reveal-subtext,
+  html.animations-disabled .text-reveal .section-label {
+    opacity: 1;
+    transform: none;
+  }
+}

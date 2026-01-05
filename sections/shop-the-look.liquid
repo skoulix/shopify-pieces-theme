@@ -424,38 +424,38 @@
           {%- comment -%} Complete the Look / Add All {%- endcomment -%}
           {% if product_count > 0 and section.settings.show_add_all %}
             <div class="shop-the-look-complete-{{ section.id }}" data-tween data-tween-type="fade-up">
-              <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div class="flex-1">
-                  {%- liquid
-                    if section.settings.add_all_title != blank
-                      assign add_all_title = section.settings.add_all_title
-                    else
-                      assign add_all_title = 'sections.shop_the_look.complete_the_look' | t
-                    endif
-                  -%}
-                  <h3 class="complete-title font-heading">{{ add_all_title }}</h3>
-                  <p class="complete-subtitle">{{ 'sections.shop_the_look.items_in_look' | t: count: product_count }}</p>
-                </div>
-                <div class="flex items-center justify-between sm:justify-end gap-4 sm:gap-6">
-                  <div class="text-left sm:text-right">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    {%- liquid
+                      if section.settings.add_all_title != blank
+                        assign add_all_title = section.settings.add_all_title
+                      else
+                        assign add_all_title = 'sections.shop_the_look.complete_the_look' | t
+                      endif
+                    -%}
+                    <h3 class="complete-title font-heading">{{ add_all_title }}</h3>
+                    <p class="complete-subtitle">{{ 'sections.shop_the_look.items_in_look' | t: count: product_count }}</p>
+                  </div>
+                  <div class="text-right">
                     <div class="complete-total-label text-label">{{ 'sections.shop_the_look.total' | t }}</div>
                     <div class="complete-total-price">{{ total_price | money }}</div>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn--primary btn--sm whitespace-nowrap"
-                    data-add-all-to-cart
-                  >
-                    {%- liquid
-                      if section.settings.add_all_button != blank
-                        assign add_all_button = section.settings.add_all_button
-                      else
-                        assign add_all_button = 'sections.shop_the_look.add_all' | t
-                      endif
-                    -%}
-                    <span>{{ add_all_button }}</span>
-                  </button>
                 </div>
+                <button
+                  type="button"
+                  class="btn btn--primary w-full"
+                  data-add-all-to-cart
+                >
+                  {%- liquid
+                    if section.settings.add_all_button != blank
+                      assign add_all_button = section.settings.add_all_button
+                    else
+                      assign add_all_button = 'sections.shop_the_look.add_all' | t
+                    endif
+                  -%}
+                  <span>{{ add_all_button }}</span>
+                </button>
               </div>
             </div>
           {% endif %}

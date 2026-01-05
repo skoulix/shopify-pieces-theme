@@ -13,72 +13,9 @@
   assign positions = '12,8,0.3,180|82,15,0.5,280|18,28,0.4,220|75,35,0.6,320|8,48,0.35,200|88,55,0.45,260|25,65,0.5,300|70,72,0.4,240|15,82,0.55,280|55,90,0.3,200|40,45,0.45,260' | split: '|'
 -%}
 
-<style>
-  .floating-images-{{ section.id }} {
-    height: {{ section_height_mobile }}vh;
-  }
-
-  @media (min-width: 768px) {
-    .floating-images-{{ section.id }} {
-      height: {{ section_height }}vh;
-    }
-  }
-
-  /* Label, title, description use global .section-* classes from typography.css */
-
-  /* Button styling - secondary buttons use text/background for visibility */
-  .floating-images-{{ section.id }} .btn--secondary {
-    color: var(--color-text);
-    border-color: var(--color-text);
-  }
-  .floating-images-{{ section.id }} .btn--secondary::before {
-    background: var(--color-text);
-  }
-  .floating-images-{{ section.id }} .btn--secondary:hover,
-  .floating-images-{{ section.id }} .btn--secondary:hover span,
-  .floating-images-{{ section.id }} .btn--secondary:hover i {
-    color: var(--color-background);
-  }
-  .floating-images-{{ section.id }} .btn--solid-secondary {
-    background: var(--color-text);
-    border-color: var(--color-text);
-    color: var(--color-background);
-  }
-  .floating-images-{{ section.id }} .btn--solid-secondary::before {
-    background: var(--color-background);
-  }
-  .floating-images-{{ section.id }} .btn--solid-secondary:hover,
-  .floating-images-{{ section.id }} .btn--solid-secondary:hover span,
-  .floating-images-{{ section.id }} .btn--solid-secondary:hover i {
-    color: var(--color-text);
-  }
-
-  .floating-images-{{ section.id }} .parallax-image {
-    will-change: transform;
-    opacity: {{ image_opacity }};
-  }
-
-  /* Varied transition durations for organic movement */
-  .floating-images-{{ section.id }} .parallax-image:nth-child(1) { transition: transform 0.15s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(2) { transition: transform 0.08s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(3) { transition: transform 0.12s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(4) { transition: transform 0.2s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(5) { transition: transform 0.1s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(6) { transition: transform 0.18s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(7) { transition: transform 0.14s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(8) { transition: transform 0.09s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(9) { transition: transform 0.16s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(10) { transition: transform 0.11s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(11) { transition: transform 0.13s ease-out; }
-  .floating-images-{{ section.id }} .parallax-image:nth-child(12) { transition: transform 0.17s ease-out; }
-
-  html.animations-disabled .floating-images-{{ section.id }} .parallax-image {
-    transform: translate(-50%, -50%) !important;
-  }
-</style>
-
 <section
-  class="floating-images-{{ section.id }} color-{{ section.settings.color_scheme }} relative"
+  class="floating-images color-{{ section.settings.color_scheme }}"
+  style="--floating-images-height: {{ section_height }}vh; --floating-images-height-mobile: {{ section_height_mobile }}vh; --floating-images-opacity: {{ image_opacity }};"
   data-floating-images-section="{{ section.id }}"
 >
   {%- comment -%} Floating Background Images {%- endcomment -%}

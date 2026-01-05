@@ -9,111 +9,25 @@
   else
     assign container_class = 'page-container'
   endif
+
+  # Alignment modifier class
+  case section.settings.header_alignment
+    when 'center'
+      assign alignment_class = 'text-reveal--center'
+    when 'right'
+      assign alignment_class = 'text-reveal--right'
+    else
+      assign alignment_class = ''
+  endcase
 -%}
 
-<style>
-  .text-reveal-{{ section.id }} {
-    overflow: hidden;
-    text-align: {{ section.settings.header_alignment }};
-  }
-
-  .text-reveal-heading-{{ section.id }} {
-    font-size: calc(clamp(1.75rem, 6vw, 3rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
-    line-height: 1.05;
-  }
-
-  @media (min-width: 1024px) {
-    .text-reveal-heading-{{ section.id }} {
-      font-size: calc(clamp(2.5rem, 5vw, 4rem) * var(--heading-font-scale, 1));
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .text-reveal-heading-{{ section.id }} {
-      font-size: calc(clamp(3rem, 4vw, 5rem) * var(--heading-font-scale, 1));
-    }
-  }
-
-  .text-reveal-word-{{ section.id }} {
-    display: inline-block;
-    overflow: hidden;
-    vertical-align: top;
-    padding-bottom: 0.25em;
-    margin-bottom: -0.25em;
-  }
-
-  .text-reveal-word-{{ section.id }} span {
-    display: inline-block;
-    transform: translateY(120%);
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .text-reveal-word-{{ section.id }}.is-visible span {
-    transform: translateY(0);
-  }
-
-  /* Highlight word styling */
-  .text-reveal-highlight-{{ section.id }} {
-    color: {{ section.settings.accent_color }};
-    /* font-style: italic; */
-  }
-
-  .text-reveal-subtext-{{ section.id }} {
-    max-width: 50ch;
-    {% if section.settings.header_alignment == 'center' %}
-    margin-left: auto;
-    margin-right: auto;
-    {% elsif section.settings.header_alignment == 'right' %}
-    margin-left: auto;
-    {% endif %}
-  }
-
-  /* Staggered line offset - only for left alignment */
-  {% if section.settings.header_alignment == 'left' %}
-  .text-reveal-line-{{ section.id }}:nth-child(2) {
-    margin-left: clamp(1rem, 5vw, 4rem);
-  }
-
-  .text-reveal-line-{{ section.id }}:nth-child(3) {
-    margin-left: clamp(0.5rem, 2vw, 2rem);
-  }
-  {% endif %}
-
-  /* Large background number */
-  .text-reveal-bg-number-{{ section.id }} {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    font-size: calc(clamp(18rem, 35vw, 45rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.05em + var(--heading-letter-spacing, 0em));
-    line-height: 0.8;
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Animation disabled state */
-  html.animations-disabled .text-reveal-word-{{ section.id }} span {
-    transform: none;
-  }
-
-  html.animations-disabled .text-reveal-subtext-{{ section.id }},
-  html.animations-disabled .text-reveal-label-{{ section.id }} {
-    opacity: 1;
-    transform: none;
-  }
-</style>
-
 <section
-  class="text-reveal-{{ section.id }} section-padding-lg color-{{ section.settings.color_scheme }} relative"
+  class="text-reveal {{ alignment_class }} section-padding-lg color-{{ section.settings.color_scheme }} relative"
+  style="--text-reveal-accent-color: {{ section.settings.accent_color }};"
   data-text-reveal-section="{{ section.id }}"
 >
   {% if section.settings.show_background_number %}
-    <span class="text-reveal-bg-number-{{ section.id }} font-heading" aria-hidden="true">
+    <span class="text-reveal-bg-number font-heading" aria-hidden="true">
       {{ section.settings.background_number }}
     </span>
   {% endif %}
@@ -125,19 +39,19 @@
       </p>
     {% endif %}
 
-    <h2 class="text-reveal-heading-{{ section.id }} font-heading" data-text-reveal-heading>
+    <h2 class="text-reveal-heading font-heading" data-text-reveal-heading>
       {%- assign lines = section.settings.text | newline_to_br | split: '<br />' -%}
       {%- for line in lines -%}
-        <div class="text-reveal-line-{{ section.id }}">
+        <div class="text-reveal-line">
           {%- assign words = line | strip | split: ' ' -%}
           {%- for word in words -%}
             {%- if word contains '*' -%}
               {%- assign clean_word = word | remove: '*' -%}
-              <span class="text-reveal-word-{{ section.id }}" data-text-reveal-word>
-                <span class="text-reveal-highlight-{{ section.id }}">{{ clean_word }}</span>
+              <span class="text-reveal-word" data-text-reveal-word>
+                <span class="text-reveal-highlight">{{ clean_word }}</span>
               </span>
             {%- else -%}
-              <span class="text-reveal-word-{{ section.id }}" data-text-reveal-word>
+              <span class="text-reveal-word" data-text-reveal-word>
                 <span>{{ word }}</span>
               </span>
             {%- endif -%}
@@ -148,7 +62,7 @@
     </h2>
 
     {% if section.settings.subtext != blank %}
-      <p class="text-reveal-subtext-{{ section.id }} section-description" data-text-reveal-subtext>
+      <p class="text-reveal-subtext section-description" data-text-reveal-subtext>
         {{ section.settings.subtext }}
       </p>
     {% endif %}

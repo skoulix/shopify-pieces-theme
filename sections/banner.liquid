@@ -14,60 +14,18 @@
   assign card_shadow = settings.card_shadow | default: 'none'
 -%}
 
-<style>
-
-  .banner-{{ section.id }}.banner-hidden {
-    display: none;
-  }
-
-  .banner-content-{{ section.id }} {
-    background-color: var(--color-background);
-    color: var(--color-text);
-    border-radius: {{ card_radius }}px;
-    border: 1px solid var(--color-border);
-    {% if card_shadow != 'none' %}
-    box-shadow: {{ card_shadow }};
-    {% endif %}
-  }
-
-  .banner-heading-{{ section.id }} {
-    font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
-    line-height: 1.2;
-  }
-
-  .banner-text-{{ section.id }} a {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .banner-text-{{ section.id }} a:hover {
-    opacity: 0.7;
-  }
-
-  .banner-close-{{ section.id }} {
-    color: var(--color-text);
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-  }
-
-  .banner-close-{{ section.id }}:hover {
-    opacity: 1;
-  }
-</style>
-
 <section
-  class="banner-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
+  class="banner section-padding color-{{ section.settings.color_scheme }}"
+  style="--banner-card-radius: {{ card_radius }}px;{% if card_shadow != 'none' %} --banner-card-shadow: {{ card_shadow }};{% endif %}"
   data-banner-section="{{ section.id }}"
   {% if section.settings.remember_dismissal %}data-remember-dismissal="true"{% endif %}
 >
   <div class="{{ container_class }}">
-    <div class="banner-content-{{ section.id }} relative p-4 md:p-6">
+    <div class="banner-content p-4 md:p-6">
       {% if section.settings.show_close_button %}
         <button
           type="button"
-          class="banner-close-{{ section.id }} absolute top-3 right-3 w-8 h-8 flex items-center justify-center hover:bg-black/5 rounded-full transition-colors"
+          class="banner-close"
           data-banner-close
           aria-label="{{ 'accessibility.close' | t }}"
         >
@@ -77,13 +35,13 @@
 
       <div class="{% if section.settings.show_close_button %}pr-8{% endif %}" data-banner-content data-tween-group="banner-{{ section.id }}">
         {% if section.settings.heading != blank %}
-          <h2 class="banner-heading-{{ section.id }} font-heading mb-3" data-tween data-tween-type="fade-up">
+          <h2 class="banner-heading font-heading mb-3" data-tween data-tween-type="fade-up">
             {{ section.settings.heading }}
           </h2>
         {% endif %}
 
         {% if section.settings.text != blank %}
-          <div class="banner-text-{{ section.id }} text-base md:text-lg" data-tween data-tween-type="fade-up">
+          <div class="banner-text text-base md:text-lg" data-tween data-tween-type="fade-up">
             {{ section.settings.text }}
           </div>
         {% endif %}

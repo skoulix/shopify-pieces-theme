@@ -38,27 +38,22 @@
 <section
   class="fp-section section-padding overflow-hidden color-{{ section.settings.color_scheme }}"
   data-fp-section="{{ section.id }}"
-  data-layout="{{ section.settings.layout }}"
->
+  data-layout="{{ section.settings.layout }}">
   {% if product != blank %}
     <div class="fp-container grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-16 {{ container_class }}">
       {%- comment -%} Gallery {%- endcomment -%}
-      <div class="relative" data-tween data-tween-type="clip-right">
+      <div
+        class="relative"
+        data-tween
+        data-tween-type="clip-right">
         <div class="fp-gallery relative overflow-hidden bg-(--color-background-secondary)" data-fp-gallery>
           {% for media in product.media %}
             <div
               class="fp-gallery-image{% if forloop.first %} is-active{% endif %}"
               data-gallery-image="{{ forloop.index0 }}"
-              data-media-id="{{ media.id }}"
-            >
+              data-media-id="{{ media.id }}">
               {% if media.media_type == 'image' %}
-                {{ media | image_url: width: 1600 | image_tag:
-                  class: 'w-full h-full object-cover',
-                  loading: 'lazy',
-                  decoding: 'async',
-                  sizes: '(max-width: 1024px) 100vw, 50vw',
-                  widths: '600, 800, 1000, 1200, 1600',
-                  alt: media.alt | default: product.title
+                {{ media | image_url: width: 1600 | image_tag: class: 'w-full h-full object-cover', loading: 'lazy', decoding: 'async', sizes: '(max-width: 1024px) 100vw, 50vw', widths: '600, 800, 1000, 1200, 1600', alt: media.alt | default: product.title
                 }}
               {% endif %}
             </div>
@@ -78,13 +73,8 @@
                   class="fp-thumbnail w-[60px] h-[60px] overflow-hidden opacity-50 border-2 border-transparent transition-all duration-300 cursor-pointer hover:opacity-100{% if forloop.first %} is-active{% endif %}"
                   data-thumbnail-index="{{ forloop.index0 }}"
                   data-media-id="{{ media.id }}"
-                  aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}"
-                >
-                  {{ media | image_url: width: 120 | image_tag:
-                    class: 'w-full h-full object-cover',
-                    loading: 'lazy',
-                    decoding: 'async',
-                    alt: media.alt | default: product.title
+                  aria-label="{{ 'products.product.media.load_image' | t: index: forloop.index }}">
+                  {{ media | image_url: width: 120 | image_tag: class: 'w-full h-full object-cover', loading: 'lazy', decoding: 'async', alt: media.alt | default: product.title
                   }}
                 </button>
               {% endif %}
@@ -96,17 +86,27 @@
       {%- comment -%} Content {%- endcomment -%}
       <div class="max-w-xl lg:mx-auto {{ content_class }}" data-tween-group="fp-content-{{ section.id }}">
         {% if section.settings.show_vendor and product.vendor != blank %}
-          <span class="section-label" data-tween data-tween-type="fade-up">{{ product.vendor }}</span>
+          <span
+            class="section-label"
+            data-tween
+            data-tween-type="fade-up">{{ product.vendor }}</span>
         {% endif %}
 
         <a href="{{ product.url }}" class="block hover:opacity-70 transition-opacity">
-          <h2 class="section-title" data-tween data-tween-type="fade-up">
+          <h2
+            class="section-title"
+            data-tween
+            data-tween-type="fade-up">
             {{ product.title }}
           </h2>
         </a>
 
         {%- comment -%} Price {%- endcomment -%}
-        <div class="text-xl md:text-2xl lg:text-[clamp(1.25rem,3vw,1.75rem)] font-light mb-6" data-tween data-tween-type="fade-up" data-fp-price>
+        <div
+          class="text-lg md:text-xl font-light mt-4 mb-6"
+          data-tween
+          data-tween-type="fade-up"
+          data-fp-price>
           {% if current_variant.compare_at_price > current_variant.price %}
             <span class="line-through opacity-60 mr-2" data-compare-price>
               {{ current_variant.compare_at_price | money }}
@@ -116,7 +116,10 @@
         </div>
 
         {% if section.settings.show_description and product.description != blank %}
-          <div class="section-description line-clamp-3" data-tween data-tween-type="fade-up">
+          <div
+            class="section-description line-clamp-3 mb-5"
+            data-tween
+            data-tween-type="fade-up">
             {{ product.description | strip_html | truncate: 200 }}
           </div>
         {% endif %}
@@ -127,9 +130,12 @@
           action="{{ routes.cart_add_url }}"
           data-fp-form
           data-tween
-          data-tween-type="fade-up"
-        >
-          <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+          data-tween-type="fade-up">
+          <input
+            type="hidden"
+            name="id"
+            value="{{ current_variant.id }}"
+            data-variant-id>
 
           {%- comment -%} Variant Pickers {%- endcomment -%}
           {% unless product.has_only_default_variant %}
@@ -138,12 +144,12 @@
                 <div class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">
                   {{ option.name }}:
                   <span class="font-normal opacity-70" data-selected-option="{{ option.name }}">{{ option.selected_value }}</span>
-                </div>
+              </div>
 
                 {%- comment -%} Check if option has native swatches {%- endcomment -%}
                 {%- assign swatch_count = option.values | map: 'swatch' | compact | size -%}
 
-                {% if swatch_count > 0 and section.settings.variant_picker_type == 'buttons' %}
+                  {% if swatch_count > 0 and section.settings.variant_picker_type == 'buttons' %}
                   {%- comment -%} Native Color Swatches {%- endcomment -%}
                   <div class="flex flex-wrap gap-3">
                     {% for value in option.values %}
@@ -169,18 +175,19 @@
                         name="{{ option.name }}"
                         value="{{ value | escape }}"
                         data-option-position="{{ option.position }}"
-                        {% if value.selected %}checked{% endif %}
-                        {% if option_disabled %}disabled{% endif %}
-                      >
+                        {% if value.selected %}
+                        checked{% endif %}
+                        {% if option_disabled %}
+                        disabled{% endif %}>
                       <label
                         class="fp-swatch-label inline-block cursor-pointer rounded-full transition-all duration-200{% if option_disabled %} opacity-50 cursor-not-allowed{% endif %}"
                         for="fp-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index }}"
-                        title="{{ value }}"
-                      >
+                        title="{{ value }}">
                         <span
                           class="block w-10 h-10 rounded-full border border-(--color-border) bg-cover bg-center transition-transform duration-200"
-                          {% if swatch_value %}style="background: {{ swatch_value }};"{% endif %}
-                        ></span>
+                          {% if swatch_value %}
+                          style="background: {{ swatch_value }};"
+                          {% endif %}></span>
                       </label>
                     {% endfor %}
                   </div>
@@ -202,13 +209,11 @@
                         name="{{ option.name }}"
                         value="{{ value | escape }}"
                         data-option-position="{{ option.position }}"
-                        {% if value.selected %}checked{% endif %}
-                        {% if option_disabled %}disabled{% endif %}
-                      >
-                      <label
-                        class="fp-variant-button inline-flex items-center justify-center px-5 py-3 text-sm font-medium uppercase tracking-wider border border-(--color-border) bg-transparent text-(--color-text) cursor-pointer transition-all duration-200 hover:border-(--color-text){% if option_disabled %} opacity-50 cursor-not-allowed line-through{% endif %}"
-                        for="fp-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index }}"
-                      >
+                        {% if value.selected %}
+                        checked{% endif %}
+                        {% if option_disabled %}
+                        disabled{% endif %}>
+                      <label class="fp-variant-button inline-flex items-center justify-center px-5 py-3 text-sm font-medium uppercase tracking-wider border border-(--color-border) bg-transparent text-(--color-text) cursor-pointer transition-all duration-200 hover:border-(--color-text){% if option_disabled %} opacity-50 cursor-not-allowed line-through{% endif %}" for="fp-{{ section.id }}-{{ option.name | handleize }}-{{ forloop.index }}">
                         {{ value }}
                       </label>
                     {% endfor %}
@@ -219,13 +224,12 @@
                     <select
                       class="w-full py-3.5 pr-10 pl-4 text-sm font-medium text-(--color-text) bg-(--color-background) border border-(--color-border) rounded-(--input-radius) appearance-none cursor-pointer transition-colors duration-200 focus:outline-none focus:border-(--color-text)"
                       name="{{ option.name }}"
-                      data-option-position="{{ option.position }}"
-                    >
+                      data-option-position="{{ option.position }}">
                       {% for value in option.values %}
                         <option
                           value="{{ value | escape }}"
-                          {% if option.selected_value == value %}selected{% endif %}
-                        >
+                          {% if option.selected_value == value %}
+                          selected{% endif %}>
                           {{ value }}
                         </option>
                       {% endfor %}
@@ -242,7 +246,11 @@
             <div class="mb-6">
               <div class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">{{ 'products.product.quantity' | t }}</div>
               <div class="inline-flex items-center border border-(--color-border) rounded-(--input-radius) overflow-hidden">
-                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)" data-quantity-minus aria-label="{{ 'products.product.decrease_quantity' | t }}">
+                <button
+                  type="button"
+                  class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)"
+                  data-quantity-minus
+                  aria-label="{{ 'products.product.decrease_quantity' | t }}">
                   <i class="ph ph-minus"></i>
                 </button>
                 <input
@@ -252,9 +260,12 @@
                   min="1"
                   class="fp-quantity-input w-12 h-10 text-center text-base font-semibold bg-transparent border-none! text-(--color-text)"
                   data-quantity-input
-                  aria-label="{{ 'products.product.quantity' | t }}"
-                >
-                <button type="button" class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)" data-quantity-plus aria-label="{{ 'products.product.increase_quantity' | t }}">
+                  aria-label="{{ 'products.product.quantity' | t }}">
+                <button
+                  type="button"
+                  class="w-10 h-10 flex items-center justify-center bg-transparent border-none cursor-pointer text-(--color-text) transition-all duration-300 hover:bg-(--color-primary) hover:text-(--color-primary-contrast)"
+                  data-quantity-plus
+                  aria-label="{{ 'products.product.increase_quantity' | t }}">
                   <i class="ph ph-plus"></i>
                 </button>
               </div>
@@ -266,8 +277,8 @@
             type="submit"
             class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-widest text-(--color-primary-contrast) bg-(--color-primary) border-none cursor-pointer transition-all duration-300 hover:opacity-90 hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             data-add-to-cart
-            {% unless current_variant.available %}disabled{% endunless %}
-          >
+            {% unless current_variant.available %}
+            disabled{% endunless %}>
             <span data-add-to-cart-text>
               {% if current_variant.available %}
                 {{ 'products.product.add_to_cart' | t }}
@@ -518,18 +529,38 @@
   {% else %}
     {%- comment -%} Placeholder when no product selected {%- endcomment -%}
     <div class="fp-container grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-16 {{ container_class }}">
-      <div class="relative" data-tween data-tween-type="clip-right">
+      <div
+        class="relative"
+        data-tween
+        data-tween-type="clip-right">
         <div class="fp-gallery relative overflow-hidden bg-(--color-background-secondary)">
           {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
         </div>
       </div>
 
       <div class="max-w-xl lg:mx-auto {{ content_class }}" data-tween-group="fp-content-{{ section.id }}">
-        <span class="section-label" data-tween data-tween-type="fade-up">{{ 'onboarding.product_vendor' | t }}</span>
-        <h2 class="section-title" data-tween data-tween-type="fade-up">{{ 'onboarding.product_title' | t }}</h2>
-        <div class="text-xl md:text-2xl lg:text-[clamp(1.25rem,3vw,1.75rem)] font-light mb-6" data-tween data-tween-type="fade-up">{{ 9999 | money }}</div>
-        <div class="section-description" data-tween data-tween-type="fade-up">{{ 'onboarding.product_description' | t }}</div>
-        <button type="button" class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-widest text-(--color-primary-contrast) bg-(--color-primary) border-none cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled data-tween data-tween-type="fade-up">
+        <span
+          class="section-label"
+          data-tween
+          data-tween-type="fade-up">{{ 'onboarding.product_vendor' | t }}</span>
+        <h2
+          class="section-title"
+          data-tween
+          data-tween-type="fade-up">{{ 'onboarding.product_title' | t }}</h2>
+        <div
+          class="text-lg md:text-xl font-light mt-4 mb-6"
+          data-tween
+          data-tween-type="fade-up">{{ 9999 | money }}</div>
+        <div
+          class="section-description mb-5"
+          data-tween
+          data-tween-type="fade-up">{{ 'onboarding.product_description' | t }}</div>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-sm font-semibold uppercase tracking-widest text-(--color-primary-contrast) bg-(--color-primary) border-none cursor-pointer transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled
+          data-tween
+          data-tween-type="fade-up">
           {{ 'products.product.add_to_cart' | t }}
         </button>
       </div>
@@ -538,96 +569,120 @@
 </section>
 
 {% schema %}
-{
-  "name": "Featured Product",
-  "tag": "section",
-  "class": "section-featured-product",
-  "settings": [
-    {
-      "type": "product",
-      "id": "product",
-      "label": "Product"
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "label": "Layout",
-      "options": [
-        { "value": "image_left", "label": "Image left" },
-        { "value": "image_right", "label": "Image right" }
-      ],
-      "default": "image_left"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Full width",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "image_ratio",
-      "label": "Image ratio",
-      "options": [
-        { "value": "1/1", "label": "Square (1:1)" },
-        { "value": "3/4", "label": "Portrait (3:4)" },
-        { "value": "4/3", "label": "Landscape (4:3)" },
-        { "value": "16/9", "label": "Wide (16:9)" }
-      ],
-      "default": "3/4"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_thumbnails",
-      "label": "Show image thumbnails",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_description",
-      "label": "Show description",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "variant_picker_type",
-      "label": "Variant picker type",
-      "options": [
-        { "value": "buttons", "label": "Buttons" },
-        { "value": "dropdown", "label": "Dropdown" }
-      ],
-      "default": "buttons"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_quantity",
-      "label": "Show quantity selector",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_view_details",
-      "label": "Show view details link",
-      "default": true
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Featured Product",
-      "category": "Products"
-    }
-  ]
-}
+  {
+    "name": "Featured Product",
+    "tag": "section",
+    "class": "section-featured-product",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          {
+            "value": "image_left",
+            "label": "Image left"
+          },
+          {
+            "value": "image_right",
+            "label": "Image right"
+          }
+        ],
+        "default": "image_left"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "image_ratio",
+        "label": "Image ratio",
+        "options": [
+          {
+            "value": "1/1",
+            "label": "Square (1:1)"
+          },
+          {
+            "value": "3/4",
+            "label": "Portrait (3:4)"
+          },
+          {
+            "value": "4/3",
+            "label": "Landscape (4:3)"
+          },
+          {
+            "value": "16/9",
+            "label": "Wide (16:9)"
+          }
+        ],
+        "default": "3/4"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_thumbnails",
+        "label": "Show image thumbnails",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_description",
+        "label": "Show description",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "variant_picker_type",
+        "label": "Variant picker type",
+        "options": [
+          {
+            "value": "buttons",
+            "label": "Buttons"
+          },
+          {
+            "value": "dropdown",
+            "label": "Dropdown"
+          }
+        ],
+        "default": "buttons"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity",
+        "label": "Show quantity selector",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_details",
+        "label": "Show view details link",
+        "default": true
+      },
+      {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "Color scheme",
+        "default": "scheme-1"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Product",
+        "category": "Products"
+      }
+    ]
+  }
 {% endschema %}

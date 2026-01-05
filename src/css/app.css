@@ -42,6 +42,9 @@
 @import './partials/sections/trust-badges.css';
 @import './partials/sections/wishlist.css';
 @import './partials/sections/map.css';
+@import './partials/sections/banner.css';
+@import './partials/sections/text-reveal.css';
+@import './partials/sections/floating-images.css';
 
 /* Snippet component styles */
 @import './partials/snippets/modal-dialog.css';

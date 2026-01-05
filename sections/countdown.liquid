@@ -17,534 +17,86 @@
   else
     assign container_class = 'page-container'
   endif
+
+  # Build design class
+  assign design_class = 'countdown--' | append: design
+  if section.settings.show_dividers
+    assign design_class = design_class | append: ' show-dividers'
+  endif
+
+  # Alignment class for hero
+  assign align_class = ''
+  if section.settings.content_alignment == 'center'
+    assign align_class = 'text-center'
+  elsif section.settings.content_alignment == 'right'
+    assign align_class = 'text-right'
+  endif
+
+  # Button class
+  if section.settings.button_style == 'outline'
+    if section.settings.button_color == 'secondary'
+      assign btn_class = 'btn--secondary'
+    else
+      assign btn_class = 'btn--outline'
+    endif
+  else
+    if section.settings.button_color == 'secondary'
+      assign btn_class = 'btn--solid-secondary'
+    else
+      assign btn_class = 'btn--primary'
+    endif
+  endif
 -%}
-
-<style>
-  .countdown-{{ section.id }} {
-    background-color: var(--color-background);
-    color: var(--color-text);
-  }
-
-  .countdown-{{ section.id }}.is-expired {
-    display: none;
-  }
-
-  {% case design %}
-  {% when 'hero' %}
-  /* ============================================
-     HERO DESIGN - Large dramatic countdown
-     ============================================ */
-
-  .countdown-grid-{{ section.id }} {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 640px) {
-    .countdown-grid-{{ section.id }} {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .countdown-grid-{{ section.id }} {
-      gap: 4rem;
-    }
-  }
-
-  .countdown-item-{{ section.id }} {
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .countdown-item-{{ section.id }}.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .countdown-value-{{ section.id }} {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    font-size: calc(clamp(3rem, 12vw, 7rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    font-family: var(--font-heading);
-    line-height: 1;
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
-    min-width: 2ch;
-  }
-
-  .countdown-label-{{ section.id }} {
-    margin-top: 0.75rem;
-    font-size: clamp(0.75rem, 1.5vw, 0.75rem);
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.2em;
-    opacity: 0.5;
-  }
-
-  .countdown-header-{{ section.id }} {
-    text-align: {{ section.settings.content_alignment }};
-    margin-bottom: 4rem;
-  }
-
-  /* Title uses global .section-title, subtitle uses .section-description from utilities.css */
-  .countdown-header-{{ section.id }} .section-description {
-    max-width: 600px;
-    {% if section.settings.content_alignment == 'center' %}
-    margin-left: auto;
-    margin-right: auto;
-    {% elsif section.settings.content_alignment == 'right' %}
-    margin-left: auto;
-    {% endif %}
-  }
-
-  .countdown-cta-{{ section.id }} {
-    margin-top: 3rem;
-    text-align: {{ section.settings.content_alignment }};
-  }
-
-  /* Hero CTA uses standard btn--secondary which inherits from color scheme */
-
-  /* Email signup form for hero */
-  .countdown-form-{{ section.id }} {
-    margin-top: 3rem;
-    {% if section.settings.content_alignment == 'center' %}
-    display: flex;
-    justify-content: center;
-    {% endif %}
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    width: 100%;
-    max-width: 400px;
-  }
-
-  @media (min-width: 640px) {
-    .countdown-form-{{ section.id }} .countdown-form-inner {
-      flex-direction: row;
-      gap: 0.5rem;
-    }
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"] {
-    flex: 1;
-    min-width: 0;
-    padding: 0.875rem 1rem;
-    font-size: 0.875rem;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--input-radius, 4px);
-    color: var(--color-text);
-    caret-color: var(--color-text);
-    transition: border-color 0.2s ease;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
-    color: var(--color-text);
-    opacity: 0.5;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"]:focus {
-    outline: none;
-    border-color: var(--color-text);
-  }
-
-  /* Hero form button - match input height */
-  .countdown-form-{{ section.id }} .btn {
-    height: auto;
-    padding: 0.875rem 1.5rem;
-    font-size: 0.875rem;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message {
-    margin-top: 0.75rem;
-    font-size: 0.875rem;
-    {% if section.settings.content_alignment == 'center' %}
-    text-align: center;
-    {% endif %}
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message.success {
-    color: #22c55e;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message.error {
-    color: #ef4444;
-  }
-
-  /* Divider style for hero */
-  {% if section.settings.show_dividers %}
-  .countdown-item-{{ section.id }} {
-    position: relative;
-  }
-
-  .countdown-item-{{ section.id }}:not(:last-child)::after {
-    content: ':';
-    position: absolute;
-    right: -0.75rem;
-    top: 0;
-    font-size: calc(clamp(2rem, 8vw, 4rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    font-family: var(--font-heading);
-    opacity: 0.3;
-  }
-
-  @media (max-width: 639px) {
-    .countdown-item-{{ section.id }}:nth-child(2)::after {
-      display: none;
-    }
-  }
-
-  @media (min-width: 640px) {
-    .countdown-item-{{ section.id }}:not(:last-child)::after {
-      right: -1rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .countdown-item-{{ section.id }}:not(:last-child)::after {
-      right: -2rem;
-    }
-  }
-  {% endif %}
-
-  {% when 'compact' %}
-  /* ============================================
-     COMPACT DESIGN - Medium-sized countdown
-     ============================================ */
-  .countdown-{{ section.id }} {
-    padding: clamp(2rem, 4vw, 3rem) 0;
-  }
-
-  .countdown-inner-{{ section.id }} {
-    display: flex;
-    flex-direction: column;
-    align-items: {{ section.settings.content_alignment }};
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .countdown-inner-{{ section.id }} {
-      flex-direction: row;
-      justify-content: {{ section.settings.content_alignment }};
-      align-items: center;
-      gap: 3rem;
-    }
-  }
-
-  .countdown-header-{{ section.id }} {
-    text-align: {{ section.settings.content_alignment }};
-  }
-
-  @media (min-width: 768px) {
-    .countdown-header-{{ section.id }} {
-      text-align: left;
-    }
-  }
-
-  .countdown-title-{{ section.id }} {
-    font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
-    line-height: 1.2;
-  }
-
-  .countdown-subtitle-{{ section.id }} {
-    margin-top: 0.5rem;
-    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    opacity: 0.7;
-  }
-
-  .countdown-grid-{{ section.id }} {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 640px) {
-    .countdown-grid-{{ section.id }} {
-      gap: 0.75rem;
-    }
-  }
-
-  .countdown-item-{{ section.id }} {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .countdown-item-inner-{{ section.id }} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .countdown-item-{{ section.id }}.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .countdown-value-{{ section.id }} {
-    font-size: calc(clamp(1.25rem, 3.5vw, 1.75rem) * var(--heading-font-scale, 1));
-    font-weight: var(--font-heading-weight, 700);
-    font-family: var(--font-heading);
-    line-height: 1;
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
-    min-width: 2ch;
-  }
-
-  .countdown-label-{{ section.id }} {
-    margin-top: 0.2rem;
-    font-size: 0.625rem;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.15em;
-    opacity: 0.5;
-  }
-
-  /* Compact CTA uses standard btn--secondary which inherits from color scheme */
-
-  /* Divider style for compact */
-  .countdown-divider-{{ section.id }} {
-    font-size: calc(clamp(1rem, 2.5vw, 1.25rem) * var(--heading-font-scale, 1));
-    font-weight: 600;
-    opacity: 0.3;
-    line-height: 1;
-    align-self: flex-start;
-    padding-top: 0.1em;
-  }
-
-  /* Email signup form for compact */
-  .countdown-form-{{ section.id }} {
-    flex-shrink: 0;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-inner {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"] {
-    width: 200px;
-    padding: 0.625rem 0.875rem;
-    font-size: 0.8rem;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--input-radius, 4px);
-    color: var(--color-text);
-    caret-color: var(--color-text);
-    transition: border-color 0.2s ease;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
-    color: var(--color-text);
-    opacity: 0.5;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"]:focus {
-    outline: none;
-    border-color: var(--color-text);
-  }
-
-  /* Compact form button - match input height */
-  .countdown-form-{{ section.id }} .btn {
-    height: auto;
-    padding: 0.625rem 1rem;
-    font-size: 0.8125rem;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message {
-    position: absolute;
-    margin-top: 0.5rem;
-    font-size: 0.8125rem;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message.success {
-    color: #22c55e;
-  }
-
-  .countdown-form-{{ section.id }} .countdown-form-message.error {
-    color: #ef4444;
-  }
-
-  {% when 'minimal' %}
-  /* ============================================
-     MINIMAL DESIGN - Inline for headers/announcements
-     ============================================ */
-  .countdown-{{ section.id }} {
-    padding: 0.75rem 0;
-  }
-
-  .countdown-inner-{{ section.id }} {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem 1rem;
-  }
-
-  .countdown-text-{{ section.id }} {
-    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-  }
-
-  .countdown-grid-{{ section.id }} {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-    letter-spacing: 0.02em;
-  }
-
-  .countdown-item-{{ section.id }} {
-    display: flex;
-    align-items: center;
-    gap: 0.15rem;
-  }
-
-  .countdown-value-{{ section.id }} {
-    font-variant-numeric: tabular-nums;
-    min-width: 1.5ch;
-  }
-
-  .countdown-label-{{ section.id }} {
-    font-size: 0.65em;
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-    opacity: 0.7;
-  }
-
-  .countdown-separator-{{ section.id }} {
-    opacity: 0.4;
-    margin: 0 0.15rem;
-  }
-
-  .countdown-cta-{{ section.id }} .btn {
-    font-size: clamp(0.75rem, 1vw, 0.75rem);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    color: var(--color-text);
-    opacity: 0.9;
-    transition: opacity 0.2s ease;
-  }
-
-  .countdown-cta-{{ section.id }} .btn:hover {
-    opacity: 1;
-  }
-
-  /* Email signup form for minimal */
-  .countdown-form-{{ section.id }} .countdown-form-inner {
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"] {
-    width: 180px;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8125rem;
-    background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--input-radius, 4px);
-    color: var(--color-text);
-    caret-color: var(--color-text);
-  }
-
-  .countdown-form-{{ section.id }} input[type="email"]::placeholder {
-    color: var(--color-text);
-    opacity: 0.5;
-  }
-
-  /* Minimal form button - match input height */
-  .countdown-form-{{ section.id }} .btn {
-    height: auto;
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8125rem;
-  }
-  {% endcase %}
-
-  /* Reduced motion fallback */
-  @media (prefers-reduced-motion: reduce) {
-    .countdown-item-{{ section.id }} {
-      opacity: 1;
-      transform: none;
-    }
-  }
-</style>
 
 {% case design %}
 {% when 'hero' %}
 {%- comment -%} HERO DESIGN {%- endcomment -%}
-<section class="countdown-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="hero">
+<section
+  class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}"
+  data-countdown="{{ section.id }}"
+  data-target-date="{{ section.settings.target_date }}"
+  data-design="hero"
+>
   <div class="{{ container_class }}">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <header class="countdown-header-{{ section.id }}" data-tween-group="countdown-header-{{ section.id }}">
+      <header class="countdown-header" data-tween-group="countdown-header-{{ section.id }}">
         {% if section.settings.title != blank %}
           <h2 class="section-title" data-tween data-tween-type="split-text">{{ section.settings.title }}</h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
-          <p class="section-description" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
+          <p class="section-description{% if section.settings.content_alignment == 'center' %} mx-auto{% elsif section.settings.content_alignment == 'right' %} ml-auto{% endif %}" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
         {% endif %}
       </header>
     {% endif %}
 
-    <div class="countdown-grid-{{ section.id }}">
-      <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 0ms;">
-        <div class="countdown-value-{{ section.id }}" data-countdown-days>00</div>
-        <p class="countdown-label-{{ section.id }}">{{ section.settings.days_label }}</p>
+    <div class="countdown-grid">
+      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 0ms;">
+        <div class="countdown-value" data-countdown-days>00</div>
+        <p class="countdown-label">{{ section.settings.days_label }}</p>
       </div>
-      <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 150ms;">
-        <div class="countdown-value-{{ section.id }}" data-countdown-hours>00</div>
-        <p class="countdown-label-{{ section.id }}">{{ section.settings.hours_label }}</p>
+      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 150ms;">
+        <div class="countdown-value" data-countdown-hours>00</div>
+        <p class="countdown-label">{{ section.settings.hours_label }}</p>
       </div>
-      <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 300ms;">
-        <div class="countdown-value-{{ section.id }}" data-countdown-minutes>00</div>
-        <p class="countdown-label-{{ section.id }}">{{ section.settings.minutes_label }}</p>
+      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 300ms;">
+        <div class="countdown-value" data-countdown-minutes>00</div>
+        <p class="countdown-label">{{ section.settings.minutes_label }}</p>
       </div>
-      <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 450ms;">
-        <div class="countdown-value-{{ section.id }}" data-countdown-seconds>00</div>
-        <p class="countdown-label-{{ section.id }}">{{ section.settings.seconds_label }}</p>
+      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 450ms;">
+        <div class="countdown-value" data-countdown-seconds>00</div>
+        <p class="countdown-label">{{ section.settings.seconds_label }}</p>
       </div>
     </div>
 
-    {%- liquid
-      if section.settings.button_style == 'outline'
-        if section.settings.button_color == 'secondary'
-          assign btn_class = 'btn--secondary'
-        else
-          assign btn_class = 'btn--outline'
-        endif
-      else
-        if section.settings.button_color == 'secondary'
-          assign btn_class = 'btn--solid-secondary'
-        else
-          assign btn_class = 'btn--primary'
-        endif
-      endif
-    -%}
     {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-      <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
+      <div class="countdown-cta" data-tween data-tween-type="fade-up">
         <a href="{{ section.settings.button_link }}" class="btn {{ btn_class }}">
           <span>{{ section.settings.button_text }}</span>
           <i class="ph ph-arrow-right"></i>
         </a>
       </div>
     {% elsif section.settings.cta_type == 'email_form' %}
-      <div class="countdown-form-{{ section.id }}" data-countdown-form data-tween data-tween-type="fade-up">
+      <div class="countdown-form" data-countdown-form data-tween data-tween-type="fade-up">
         {% form 'customer', id: 'countdown-form-hero' %}
           <div class="countdown-form-inner">
             <input
@@ -574,74 +126,64 @@
 
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
-<section class="countdown-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="compact">
+<section
+  class="countdown-section {{ design_class }} color-{{ section.settings.color_scheme }}"
+  data-countdown="{{ section.id }}"
+  data-target-date="{{ section.settings.target_date }}"
+  data-design="compact"
+>
   <div class="{{ container_class }}">
-    <div class="countdown-inner-{{ section.id }}" data-tween-group="countdown-compact-{{ section.id }}">
+    <div class="countdown-inner" data-tween-group="countdown-compact-{{ section.id }}">
       {% if section.settings.title != blank or section.settings.subtitle != blank %}
-        <div class="countdown-header-{{ section.id }}">
+        <div class="countdown-header">
           {% if section.settings.title != blank %}
-            <h2 class="countdown-title-{{ section.id }} font-heading" data-tween data-tween-type="fade-up">{{ section.settings.title }}</h2>
+            <h2 class="countdown-title font-heading" data-tween data-tween-type="fade-up">{{ section.settings.title }}</h2>
           {% endif %}
           {% if section.settings.subtitle != blank %}
-            <p class="countdown-subtitle-{{ section.id }}" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
+            <p class="countdown-subtitle" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
           {% endif %}
         </div>
       {% endif %}
 
-      <div class="countdown-grid-{{ section.id }}">
-        <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 0ms;">
-          <div class="countdown-item-inner-{{ section.id }}">
-            <div class="countdown-value-{{ section.id }}" data-countdown-days>00</div>
-            <p class="countdown-label-{{ section.id }}">{{ section.settings.days_label }}</p>
+      <div class="countdown-grid">
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 0ms;">
+          <div class="countdown-item-inner">
+            <div class="countdown-value" data-countdown-days>00</div>
+            <p class="countdown-label">{{ section.settings.days_label }}</p>
           </div>
-          {% if section.settings.show_dividers %}<span class="countdown-divider-{{ section.id }}">:</span>{% endif %}
+          {% if section.settings.show_dividers %}<span class="countdown-divider">:</span>{% endif %}
         </div>
-        <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 100ms;">
-          <div class="countdown-item-inner-{{ section.id }}">
-            <div class="countdown-value-{{ section.id }}" data-countdown-hours>00</div>
-            <p class="countdown-label-{{ section.id }}">{{ section.settings.hours_label }}</p>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 100ms;">
+          <div class="countdown-item-inner">
+            <div class="countdown-value" data-countdown-hours>00</div>
+            <p class="countdown-label">{{ section.settings.hours_label }}</p>
           </div>
-          {% if section.settings.show_dividers %}<span class="countdown-divider-{{ section.id }}">:</span>{% endif %}
+          {% if section.settings.show_dividers %}<span class="countdown-divider">:</span>{% endif %}
         </div>
-        <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 200ms;">
-          <div class="countdown-item-inner-{{ section.id }}">
-            <div class="countdown-value-{{ section.id }}" data-countdown-minutes>00</div>
-            <p class="countdown-label-{{ section.id }}">{{ section.settings.minutes_label }}</p>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 200ms;">
+          <div class="countdown-item-inner">
+            <div class="countdown-value" data-countdown-minutes>00</div>
+            <p class="countdown-label">{{ section.settings.minutes_label }}</p>
           </div>
-          {% if section.settings.show_dividers %}<span class="countdown-divider-{{ section.id }}">:</span>{% endif %}
+          {% if section.settings.show_dividers %}<span class="countdown-divider">:</span>{% endif %}
         </div>
-        <div class="countdown-item-{{ section.id }}" data-countdown-item style="transition-delay: 300ms;">
-          <div class="countdown-item-inner-{{ section.id }}">
-            <div class="countdown-value-{{ section.id }}" data-countdown-seconds>00</div>
-            <p class="countdown-label-{{ section.id }}">{{ section.settings.seconds_label }}</p>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 300ms;">
+          <div class="countdown-item-inner">
+            <div class="countdown-value" data-countdown-seconds>00</div>
+            <p class="countdown-label">{{ section.settings.seconds_label }}</p>
           </div>
         </div>
       </div>
 
-      {%- liquid
-        if section.settings.button_style == 'outline'
-          if section.settings.button_color == 'secondary'
-            assign btn_class_compact = 'btn--secondary'
-          else
-            assign btn_class_compact = 'btn--outline'
-          endif
-        else
-          if section.settings.button_color == 'secondary'
-            assign btn_class_compact = 'btn--solid-secondary'
-          else
-            assign btn_class_compact = 'btn--primary'
-          endif
-        endif
-      -%}
       {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-        <div class="countdown-cta-{{ section.id }}" data-tween data-tween-type="fade-up">
-          <a href="{{ section.settings.button_link }}" class="btn btn--sm {{ btn_class_compact }}">
+        <div class="countdown-cta" data-tween data-tween-type="fade-up">
+          <a href="{{ section.settings.button_link }}" class="btn btn--sm {{ btn_class }}">
             <span>{{ section.settings.button_text }}</span>
             <i class="ph ph-arrow-right"></i>
           </a>
         </div>
       {% elsif section.settings.cta_type == 'email_form' %}
-        <div class="countdown-form-{{ section.id }}" data-countdown-form data-tween data-tween-type="fade-up">
+        <div class="countdown-form" data-countdown-form data-tween data-tween-type="fade-up">
           {% form 'customer', id: 'countdown-form-compact' %}
             <div class="countdown-form-inner">
               <input
@@ -652,7 +194,7 @@
                 autocomplete="email"
               >
               <input type="hidden" name="contact[tags]" value="countdown,notify">
-              <button type="submit" class="btn {{ btn_class_compact }}">
+              <button type="submit" class="btn {{ btn_class }}">
                 <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
               </button>
             </div>
@@ -671,56 +213,46 @@
 
 {% when 'minimal' %}
 {%- comment -%} MINIMAL DESIGN - for headers/announcements {%- endcomment -%}
-<div class="countdown-{{ section.id }} color-{{ section.settings.color_scheme }}" data-countdown="{{ section.id }}" data-target-date="{{ section.settings.target_date }}" data-design="minimal">
+<div
+  class="countdown-section {{ design_class }} color-{{ section.settings.color_scheme }}"
+  data-countdown="{{ section.id }}"
+  data-target-date="{{ section.settings.target_date }}"
+  data-design="minimal"
+>
   <div class="{{ container_class }}">
-    <div class="countdown-inner-{{ section.id }}">
+    <div class="countdown-inner">
       {% if section.settings.title != blank %}
-        <span class="countdown-text-{{ section.id }}">{{ section.settings.title }}</span>
+        <span class="countdown-text">{{ section.settings.title }}</span>
       {% endif %}
 
-      <div class="countdown-grid-{{ section.id }}">
-        <div class="countdown-item-{{ section.id }}">
-          <span class="countdown-value-{{ section.id }}" data-countdown-days>00</span>
-          <span class="countdown-label-{{ section.id }}">{{ section.settings.days_label | slice: 0 }}</span>
+      <div class="countdown-grid">
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}">
+          <span class="countdown-value" data-countdown-days>00</span>
+          <span class="countdown-label">{{ section.settings.days_label | slice: 0 }}</span>
         </div>
-        <span class="countdown-separator-{{ section.id }}">:</span>
-        <div class="countdown-item-{{ section.id }}">
-          <span class="countdown-value-{{ section.id }}" data-countdown-hours>00</span>
-          <span class="countdown-label-{{ section.id }}">{{ section.settings.hours_label | slice: 0 }}</span>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}">
+          <span class="countdown-value" data-countdown-hours>00</span>
+          <span class="countdown-label">{{ section.settings.hours_label | slice: 0 }}</span>
         </div>
-        <span class="countdown-separator-{{ section.id }}">:</span>
-        <div class="countdown-item-{{ section.id }}">
-          <span class="countdown-value-{{ section.id }}" data-countdown-minutes>00</span>
-          <span class="countdown-label-{{ section.id }}">{{ section.settings.minutes_label | slice: 0 }}</span>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}">
+          <span class="countdown-value" data-countdown-minutes>00</span>
+          <span class="countdown-label">{{ section.settings.minutes_label | slice: 0 }}</span>
         </div>
-        <span class="countdown-separator-{{ section.id }}">:</span>
-        <div class="countdown-item-{{ section.id }}">
-          <span class="countdown-value-{{ section.id }}" data-countdown-seconds>00</span>
-          <span class="countdown-label-{{ section.id }}">{{ section.settings.seconds_label | slice: 0 }}</span>
+        <span class="countdown-separator">:</span>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}">
+          <span class="countdown-value" data-countdown-seconds>00</span>
+          <span class="countdown-label">{{ section.settings.seconds_label | slice: 0 }}</span>
         </div>
       </div>
 
-      {%- liquid
-        if section.settings.button_style == 'outline'
-          if section.settings.button_color == 'secondary'
-            assign btn_class_minimal = 'btn--secondary'
-          else
-            assign btn_class_minimal = 'btn--outline'
-          endif
-        else
-          if section.settings.button_color == 'secondary'
-            assign btn_class_minimal = 'btn--solid-secondary'
-          else
-            assign btn_class_minimal = 'btn--primary'
-          endif
-        endif
-      -%}
       {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-        <div class="countdown-cta-{{ section.id }}">
-          <a href="{{ section.settings.button_link }}" class="btn {{ btn_class_minimal }}">{{ section.settings.button_text }}</a>
+        <div class="countdown-cta">
+          <a href="{{ section.settings.button_link }}" class="btn {{ btn_class }}">{{ section.settings.button_text }}</a>
         </div>
       {% elsif section.settings.cta_type == 'email_form' %}
-        <div class="countdown-form-{{ section.id }}" data-countdown-form>
+        <div class="countdown-form" data-countdown-form>
           {% form 'customer', id: 'countdown-form-minimal' %}
             <div class="countdown-form-inner">
               <input
@@ -731,7 +263,7 @@
                 autocomplete="email"
               >
               <input type="hidden" name="contact[tags]" value="countdown,notify">
-              <button type="submit" class="btn {{ btn_class_minimal }}">
+              <button type="submit" class="btn {{ btn_class }}">
                 <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
               </button>
             </div>

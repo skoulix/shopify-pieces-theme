@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Banner Section
+   Dismissable announcement banner with customizable styling
+   ========================================================================== */
+
+@layer components {
+  /* Hidden state */
+  .banner.banner-hidden {
+    @apply hidden;
+  }
+
+  /* Content container - uses CSS variables for card styling */
+  .banner-content {
+    @apply relative;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    border-radius: var(--banner-card-radius, 8px);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--banner-card-shadow, none);
+  }
+
+  /* Heading */
+  .banner-heading {
+    font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+    line-height: 1.2;
+  }
+
+  /* Text with links */
+  .banner-text a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .banner-text a:hover {
+    opacity: 0.7;
+  }
+
+  /* Close button */
+  .banner-close {
+    @apply absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full transition-colors;
+    color: var(--color-text);
+    opacity: 0.6;
+  }
+
+  .banner-close:hover {
+    opacity: 1;
+    background: rgb(0 0 0 / 0.05);
+  }
+}
