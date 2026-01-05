@@ -91,21 +91,7 @@
     </div>
 
     {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-      {%- liquid
-        if section.settings.button_style == 'outline'
-          if section.settings.button_color == 'secondary'
-            assign btn_class = 'btn--secondary'
-          else
-            assign btn_class = 'btn--outline'
-          endif
-        else
-          if section.settings.button_color == 'secondary'
-            assign btn_class = 'btn--solid-secondary'
-          else
-            assign btn_class = 'btn--primary'
-          endif
-        endif
-      -%}
+      {%- render 'button-class', style: section.settings.button_style, color: section.settings.button_color -%}
       <div class="hero-orbit-cta" data-orbit-cta>
         <a href="{{ section.settings.button_link }}" class="btn {{ btn_class }}{% if section.settings.button_size == 'small' %} btn--sm{% elsif section.settings.button_size == 'large' %} btn--lg{% endif %}">
           <span>{{ section.settings.button_text }}</span>
@@ -451,7 +437,13 @@
       }
 
       // Flip a random card every 2 seconds
-      setInterval(flipRandomCard, 2000);
+      const flipInterval = setInterval(flipRandomCard, 2000);
+
+      // Cleanup on Swup navigation
+      window.addEventListener('swup:willReplaceContent', function cleanup() {
+        clearInterval(flipInterval);
+        window.removeEventListener('swup:willReplaceContent', cleanup);
+      }, { once: true });
       {% endif %}
     }
   }
@@ -462,11 +454,6 @@
   } else {
     initAnimation();
   }
-
-  // Cleanup on Swup navigation
-  window.addEventListener('swup:willReplaceContent', function cleanup() {
-    window.removeEventListener('swup:willReplaceContent', cleanup);
-  }, { once: true });
   })();
 </script>
 

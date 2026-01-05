@@ -261,21 +261,7 @@
             {% endif %}
 
             {% if block.settings.button_text != blank and block.settings.button_link != blank %}
-              {%- liquid
-                if block.settings.button_style == 'outline'
-                  if block.settings.button_color == 'secondary'
-                    assign btn_class = 'btn--secondary'
-                  else
-                    assign btn_class = 'btn--outline'
-                  endif
-                else
-                  if block.settings.button_color == 'secondary'
-                    assign btn_class = 'btn--solid-secondary'
-                  else
-                    assign btn_class = 'btn--primary'
-                  endif
-                endif
-              -%}
+              {%- render 'button-class', style: block.settings.button_style, color: block.settings.button_color -%}
               <div class="scroll-panel-button-{{ section.id }}">
                 <a href="{{ block.settings.button_link }}" class="btn {{ btn_class }}{% if block.settings.button_size == 'small' %} btn--sm{% elsif block.settings.button_size == 'large' %} btn--lg{% endif %}">
                   <span>{{ block.settings.button_text }}</span>

@@ -254,21 +254,7 @@
 
             {% if block.settings.button_label != blank and block.settings.button_link != blank %}
               <div class="slideshow__cta">
-                {%- liquid
-                  if block.settings.button_style == 'outline'
-                    if block.settings.button_color == 'secondary'
-                      assign btn_class = 'btn--secondary'
-                    else
-                      assign btn_class = 'btn--outline'
-                    endif
-                  else
-                    if block.settings.button_color == 'secondary'
-                      assign btn_class = 'btn--solid-secondary'
-                    else
-                      assign btn_class = 'btn--primary'
-                    endif
-                  endif
-                -%}
+                {%- render 'button-class', style: block.settings.button_style, color: block.settings.button_color -%}
                 <a
                   href="{{ block.settings.button_link }}"
                   class="btn {{ btn_class }}{% if block.settings.button_size == 'small' %} btn--sm{% elsif block.settings.button_size == 'large' %} btn--lg{% endif %}"
@@ -763,6 +749,12 @@
 
       startAutoplay();
       if (progress && autoplayEnabled) progress.classList.add('is-animating');
+
+      // Cleanup on Swup navigation
+      window.addEventListener('swup:willReplaceContent', function cleanup() {
+        stopAutoplay();
+        window.removeEventListener('swup:willReplaceContent', cleanup);
+      }, { once: true });
     }
 
     // Start initialization as early as possible

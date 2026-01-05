@@ -124,21 +124,7 @@
                   </p>
                 {%- endif -%}
                 {%- if block.settings.button_text != blank -%}
-                  {%- liquid
-                    if block.settings.button_style == 'outline'
-                      if block.settings.button_color == 'secondary'
-                        assign btn_class = 'btn--secondary'
-                      else
-                        assign btn_class = 'btn--outline'
-                      endif
-                    else
-                      if block.settings.button_color == 'secondary'
-                        assign btn_class = 'btn--solid-secondary'
-                      else
-                        assign btn_class = 'btn--primary'
-                      endif
-                    endif
-                  -%}
+                  {%- render 'button-class', style: block.settings.button_style, color: block.settings.button_color -%}
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
                     class="btn {{ btn_class }}{% if block.settings.button_size == 'small' %} btn--sm{% elsif block.settings.button_size == 'large' %} btn--lg{% endif %}"
@@ -183,21 +169,7 @@
                   </p>
                 {%- endif -%}
                 {%- if block.settings.button_text != blank -%}
-                  {%- liquid
-                    if block.settings.button_style == 'outline'
-                      if block.settings.button_color == 'secondary'
-                        assign btn_class = 'btn--secondary'
-                      else
-                        assign btn_class = 'btn--outline'
-                      endif
-                    else
-                      if block.settings.button_color == 'secondary'
-                        assign btn_class = 'btn--solid-secondary'
-                      else
-                        assign btn_class = 'btn--primary'
-                      endif
-                    endif
-                  -%}
+                  {%- render 'button-class', style: block.settings.button_style, color: block.settings.button_color -%}
                   <a
                     href="{{ block.settings.button_url | default: '#' }}"
                     class="btn {{ btn_class }}{% if block.settings.button_size == 'small' %} btn--sm{% elsif block.settings.button_size == 'large' %} btn--lg{% endif %}"
