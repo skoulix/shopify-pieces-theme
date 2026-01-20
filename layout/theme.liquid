@@ -4,55 +4,76 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="{{ settings.color_primary }}">
-    <meta name="theme-color" content="{{ settings.color_primary }}" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="{{ settings.color_background }}" media="(prefers-color-scheme: dark)">
+    <meta
+      name="theme-color"
+      content="{{ settings.color_primary }}"
+      media="(prefers-color-scheme: light)">
+    <meta
+      name="theme-color"
+      content="{{ settings.color_background }}"
+      media="(prefers-color-scheme: dark)">
 
-    {%- comment -%} Resource Hints - Establish early connections to required origins {%- endcomment -%}
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {%- comment -%} Resource Hints - Establish early connections to required origins {%- endcomment -%}
+    <link
+      rel="preconnect"
+      href="https://cdn.shopify.com"
+      crossorigin>
+    <link
+      rel="preconnect"
+      href="https://fonts.shopifycdn.com"
+      crossorigin>
     <link rel="dns-prefetch" href="https://shop.app">
 
     <link rel="canonical" href="{{ canonical_url }}">
 
     {% if settings.favicon != blank %}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
       <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
     {% endif %}
 
     <title>
       {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+      {%- if current_tags %}
+        &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}
+      {%- if current_page != 1 %}
+        &ndash; Page {{ current_page }}{% endif %}
+      {%- unless page_title contains shop.name %}
+        &ndash; {{ shop.name }}{% endunless %}
     </title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    {% render 'meta-tags' %}
+  {% render 'meta-tags' %}
 
     {%- comment -%} Structured Data (JSON-LD) {%- endcomment -%}
-    {% render 'structured-data' %}
+  {% render 'structured-data' %}
 
     {%- comment -%} CSS Variables & Font Loading {%- endcomment -%}
-    {% render 'css-variables' %}
+  {% render 'css-variables' %}
 
     {%- comment -%} Critical CSS - Inlined for fast initial render {%- endcomment -%}
-    {% render 'critical-css' %}
+  {% render 'critical-css' %}
 
     {%- comment -%} Accessibility utilities - Focus styles, screen reader support {%- endcomment -%}
-    {% render 'accessibility' %}
+  {% render 'accessibility' %}
 
     {%- comment -%} Error handling - Toast notifications, global error handler {%- endcomment -%}
-    {% render 'error-handling' %}
+  {% render 'error-handling' %}
 
     {%- comment -%} Non-critical CSS {%- endcomment -%}
     {{ 'phosphor-icons.css' | asset_url | stylesheet_tag }}
     {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%} Pieces App - Swup, Lenis, GSAP (defer prevents render blocking) {%- endcomment -%}
-    <script src="{{ 'pieces-app.js' | asset_url }}" type="module" defer></script>
+    <script
+      src="{{ 'pieces-app.js' | asset_url }}"
+      type="module"
+      defer></script>
 
     {{ content_for_header }}
 
@@ -150,7 +171,11 @@
     </a>
 
     {%- comment -%} Aria-live region for cart announcements (screen readers) {%- endcomment -%}
-    <div id="cart-live-region" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+    <div
+      id="cart-live-region"
+      class="visually-hidden"
+      aria-live="polite"
+      aria-atomic="true"></div>
 
     {% sections 'header-group' %}
 
@@ -176,7 +201,7 @@
         {% render 'cart-drawer' %}
       {% when 'notification' %}
         {% render 'cart-notification' %}
-    {% endcase %}
+  {% endcase %}
 
     {%- comment -%} Newsletter Popup {%- endcomment -%}
     {% render 'newsletter-popup' %}
@@ -184,10 +209,10 @@
     {%- comment -%} Quick View Modal {%- endcomment -%}
     {% if settings.enable_quick_view %}
       {% render 'quick-view-modal' %}
-    {% endif %}
+  {% endif %}
 
     {%- comment -%} Size Chart Drawer - shell rendered here, content populated by product section {%- endcomment -%}
-    {% render 'size-chart-drawer' %}
+  {% render 'size-chart-drawer' %}
 
     {%- comment -%} Pickup Availability Drawer {%- endcomment -%}
     {% render 'pickup-availability-drawer' %}
