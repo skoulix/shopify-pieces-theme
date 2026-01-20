@@ -129,10 +129,6 @@
     width: 120px;
   }
 
-  .mega-menu-wrapper.is-open .mega-menu-featured__product:hover {
-    transform: translateY(-4px);
-  }
-
   .mega-menu-featured__product-image {
     aspect-ratio: 1;
     border-radius: var(--card-radius);
