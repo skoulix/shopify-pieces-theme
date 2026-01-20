@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Collections Carousel Section Styles
+   ========================================================================== */
+
+@layer components {
+  /* Section wrapper */
+  .collections-carousel-section {
+    @apply overflow-hidden;
+  }
+
+  /* Header row with nav */
+  .collections-carousel-header-row {
+    @apply flex items-end justify-between gap-6 mb-[clamp(2rem,5vh,4rem)];
+  }
+
+  .collections-carousel-header-content {
+    @apply flex-1 min-w-0;
+  }
+
+  /* Panels container */
+  .collections-carousel-panels {
+    @apply relative;
+  }
+
+  /* Individual panel */
+  .collections-carousel-panel {
+    @apply w-full;
+  }
+
+  /* ==========================================================================
+     Tabs / Pills
+     ========================================================================== */
+
+  .collections-carousel-tabs {
+    @apply flex flex-wrap gap-2 mb-8;
+  }
+
+  .collections-carousel-tab {
+    @apply px-5 py-2.5 text-sm font-medium cursor-pointer;
+    @apply bg-transparent text-(--color-text) border border-(--color-border);
+    @apply transition-all duration-300;
+    border-radius: var(--button-radius);
+  }
+
+  .collections-carousel-tab:hover {
+    @apply bg-(--color-background-secondary);
+  }
+
+  .collections-carousel-tab.is-active {
+    @apply bg-(--color-text) text-(--color-background) border-(--color-text);
+  }
+
+  /* ==========================================================================
+     Slider
+     ========================================================================== */
+
+  .collections-carousel-slider {
+    @apply relative;
+  }
+
+  .collections-carousel-track {
+    @apply flex gap-4 md:gap-6 overflow-x-auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .collections-carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  /* Individual slide */
+  .collections-carousel-slide {
+    @apply flex shrink-0;
+    scroll-snap-align: start;
+    /* Calculate width based on slides per view setting */
+    --gap: 1rem; /* gap-4 = 1rem */
+    width: calc((100% - (var(--gap) * (var(--slides-mobile) - 1))) / var(--slides-mobile));
+  }
+
+  @media (min-width: 768px) {
+    .collections-carousel-slide {
+      --gap: 1.5rem; /* md:gap-6 = 1.5rem */
+      width: calc((100% - (var(--gap) * (var(--slides-tablet) - 1))) / var(--slides-tablet));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .collections-carousel-slide {
+      width: calc((100% - (var(--gap) * (var(--slides-desktop) - 1))) / var(--slides-desktop));
+    }
+  }
+
+  /* Product card inside slide should fill the slide */
+  .collections-carousel-slide .product-card {
+    @apply w-full;
+  }
+
+}

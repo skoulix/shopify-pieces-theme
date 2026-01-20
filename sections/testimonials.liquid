@@ -13,11 +13,12 @@
 <section
   class="testimonials-section-wrapper section-padding color-{{ section.settings.color_scheme }}"
   data-testimonials="{{ section.id }}"
+  style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }}; --testimonial-text-size: {{ section.settings.text_size }};"
 >
   <div class="{{ container_class }}">
-    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
-    {% if section.settings.label != blank or section.settings.title != blank %}
-      <div class="testimonials-header text-{{ section.settings.header_alignment }}" data-tween-group="testimonials-header-{{ section.id }}">
+    {%- comment -%} Header with Navigation {%- endcomment -%}
+    <div class="testimonials-header-row" data-tween-group="testimonials-header-{{ section.id }}">
+      <div class="testimonials-header-content">
         {% if section.settings.label != blank %}
           <span class="section-label" data-tween data-tween-type="fade-up">
             {{ section.settings.label }}
@@ -30,7 +31,19 @@
           </h2>
         {% endif %}
       </div>
-    {% endif %}
+
+      {%- comment -%} Navigation Arrows {%- endcomment -%}
+      {% if section.blocks.size > 1 %}
+        <div class="slider-nav" data-testimonials-nav data-tween data-tween-type="fade-up">
+          <button class="slider-nav-btn" data-testimonials-prev disabled aria-label="{{ 'accessibility.previous_testimonial' | t | default: 'Previous' }}">
+            <i class="ph ph-arrow-left"></i>
+          </button>
+          <button class="slider-nav-btn" data-testimonials-next aria-label="{{ 'accessibility.next_testimonial' | t | default: 'Next' }}">
+            <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      {% endif %}
+    </div>
 
     {%- comment -%} Slider {%- endcomment -%}
     <div class="sr-only" aria-live="polite" aria-atomic="true" data-testimonials-status></div>
@@ -93,28 +106,6 @@
       </div>
     </div>
 
-    {%- comment -%} Navigation {%- endcomment -%}
-    {% if section.blocks.size > 1 %}
-      <div class="testimonials-nav" data-tween data-tween-type="fade-up">
-        <button class="testimonials-nav-btn" data-testimonials-prev aria-label="{{ 'accessibility.previous_testimonial' | t }}">
-          <i class="ph ph-arrow-left"></i>
-        </button>
-
-        <div class="testimonials-dots" data-testimonials-dots>
-          {% for block in section.blocks %}
-            <button
-              class="testimonials-dot{% if forloop.first %} is-active{% endif %}"
-              data-testimonials-dot="{{ forloop.index0 }}"
-              aria-label="{{ 'accessibility.go_to_testimonial' | t: index: forloop.index }}"
-            ></button>
-          {% endfor %}
-        </div>
-
-        <button class="testimonials-nav-btn" data-testimonials-next aria-label="{{ 'accessibility.next_testimonial' | t }}">
-          <i class="ph ph-arrow-right"></i>
-        </button>
-      </div>
-    {% endif %}
   </div>
 </section>
 
@@ -124,112 +115,126 @@
   if (!section || section.dataset.testimonialsInitialized) return;
   section.dataset.testimonialsInitialized = 'true';
 
-  // Slider functionality
   const track = section.querySelector('[data-testimonials-track]');
   const slides = section.querySelectorAll('[data-testimonial]');
   const prevBtn = section.querySelector('[data-testimonials-prev]');
   const nextBtn = section.querySelector('[data-testimonials-next]');
-  const dots = section.querySelectorAll('[data-testimonials-dot]');
+  const nav = section.querySelector('[data-testimonials-nav]');
+  const statusEl = section.querySelector('[data-testimonials-status]');
 
-  if (slides.length <= 1) return;
+  if (!track || slides.length <= 1) return;
 
-  let currentIndex = 0;
   const totalSlides = slides.length;
+  let isAnimating = false;
 
-  function getSlideWidth() {
-    const slide = slides[0];
-    const trackStyle = getComputedStyle(track);
-    const gap = parseFloat(trackStyle.gap) || 0;
-    return slide.offsetWidth + gap;
+  // Get slides per view for current breakpoint
+  function getSlidesPerView() {
+    const width = window.innerWidth;
+    if (width >= 1024) return {{ section.settings.slides_desktop }};
+    if (width >= 768) return {{ section.settings.slides_tablet }};
+    return {{ section.settings.slides_mobile }};
   }
 
-  function getMaxTranslate() {
-    // Calculate total track width
+  // Get max scroll index (last position where we can scroll to)
+  function getMaxIndex() {
+    const slidesPerView = getSlidesPerView();
+    return Math.max(0, totalSlides - slidesPerView);
+  }
+
+  // Get current slide index based on scroll position
+  function getCurrentIndex() {
     const slideWidth = slides[0].offsetWidth;
-    const trackStyle = getComputedStyle(track);
-    const gap = parseFloat(trackStyle.gap) || 0;
-    const totalTrackWidth = (slideWidth * totalSlides) + (gap * (totalSlides - 1));
-    const containerWidth = track.parentElement.offsetWidth;
-
-    // Max translate is when the last slide's right edge aligns with container's right edge
-    return Math.max(0, totalTrackWidth - containerWidth);
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return Math.round(track.scrollLeft / (slideWidth + gap));
   }
 
-  function updateSlider(index) {
-    const slideWidth = getSlideWidth();
+  // Scroll to specific slide
+  function scrollToSlide(index) {
+    const slide = slides[index];
+    if (!slide || isAnimating) return;
 
-    // Start from left edge (no offset for first slide)
-    let translateX = index * slideWidth;
+    isAnimating = true;
+    // Pre-update button states for target position
+    const maxIndex = getMaxIndex();
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = index >= maxIndex;
 
-    // Clamp to max translate so last slide ends within container
-    const maxTranslate = getMaxTranslate();
-    translateX = Math.min(translateX, maxTranslate);
+    const slideWidth = slide.offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    const targetScroll = index * (slideWidth + gap);
 
-    track.style.transform = `translateX(${-translateX}px)`;
+    track.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  }
 
-    // Update dots
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('is-active', i === index);
-    });
+  // Update button states based on current position
+  function updateButtonStates(index) {
+    const maxIndex = getMaxIndex();
 
-    currentIndex = index;
+    if (prevBtn) {
+      prevBtn.disabled = index <= 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = index >= maxIndex;
+    }
 
-    // Announce slide change to screen readers
-    const statusEl = section.querySelector('[data-testimonials-status]');
+    // Announce to screen readers
     if (statusEl) {
-      statusEl.textContent = '{{ "accessibility.testimonial_x_of_y" | t }}'.replace('{{ current }}', index + 1).replace('{{ total }}', totalSlides);
+      statusEl.textContent = `Testimonial ${index + 1} of ${totalSlides}`;
     }
   }
 
-  function nextSlide() {
-    const next = (currentIndex + 1) % totalSlides;
-    updateSlider(next);
+  // Update nav visibility based on whether scrolling is needed
+  function updateNavVisibility() {
+    if (!nav) return;
+    const slidesPerView = getSlidesPerView();
+    if (totalSlides <= slidesPerView) {
+      nav.classList.add('is-hidden');
+    } else {
+      nav.classList.remove('is-hidden');
+    }
+    // Also update button states after visibility change
+    updateButtonStates(getCurrentIndex());
   }
 
-  function prevSlide() {
-    const prev = (currentIndex - 1 + totalSlides) % totalSlides;
-    updateSlider(prev);
-  }
-
-  // Event listeners
-  if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-  if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-
-  dots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const index = parseInt(dot.dataset.testimonialsDot);
-      updateSlider(index);
-    });
-  });
-
-  // Touch/swipe support
-  let touchStartX = 0;
-  track.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  track.addEventListener('touchend', (e) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        nextSlide();
-      } else {
-        prevSlide();
+  // Navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      const current = getCurrentIndex();
+      if (current > 0) {
+        scrollToSlide(current - 1);
       }
-    }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const current = getCurrentIndex();
+      const maxIndex = getMaxIndex();
+      if (current < maxIndex) {
+        scrollToSlide(current + 1);
+      }
+    });
+  }
+
+  // Sync button states with scroll position
+  let scrollTimeout;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      isAnimating = false;
+      updateButtonStates(getCurrentIndex());
+    }, 50);
   }, { passive: true });
 
-  // Initial position
-  updateSlider(0);
-
-  // Recalculate on resize (debounced)
-  let testimonialsResizeTimeout;
+  // Update on resize
   window.addEventListener('resize', () => {
-    clearTimeout(testimonialsResizeTimeout);
-    testimonialsResizeTimeout = setTimeout(() => updateSlider(currentIndex), 150);
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateNavVisibility, 100);
   });
+
+  // Initial state
+  updateNavVisibility();
+  updateButtonStates(0);
 })();
 </script>
 
@@ -256,10 +261,15 @@
       "label": "Title"
     },
     {
-      "type": "text_alignment",
+      "type": "select",
       "id": "header_alignment",
       "default": "left",
-      "label": "Header alignment"
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "checkbox",
@@ -276,6 +286,54 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "default": "1",
+      "label": "Slides per view (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_tablet",
+      "default": "2",
+      "label": "Slides per view (tablet)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_desktop",
+      "default": "2",
+      "label": "Slides per view (desktop)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "default": "medium",
+      "label": "Quote text size",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
     },
     {
       "type": "header",

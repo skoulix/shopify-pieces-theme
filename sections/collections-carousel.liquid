@@ -1,0 +1,526 @@
+{%- comment -%}
+  Collections Carousel Section - Multiple collections with tab navigation
+{%- endcomment -%}
+
+{%- liquid
+  if section.settings.full_width
+    assign container_class = 'page-full'
+  else
+    assign container_class = 'page-container'
+  endif
+
+  assign products_to_show = section.settings.products_to_show
+
+  case section.settings.header_alignment
+    when 'center'
+      assign desc_margin_class = 'mx-auto'
+      assign tabs_justify = 'justify-center'
+    when 'right'
+      assign desc_margin_class = 'ml-auto'
+      assign tabs_justify = 'justify-end'
+    else
+      assign desc_margin_class = ''
+      assign tabs_justify = 'justify-start'
+  endcase
+-%}
+
+<section
+  class="collections-carousel-section section-padding color-{{ section.settings.color_scheme }}"
+  data-collections-carousel="{{ section.id }}"
+  style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }};"
+>
+  <div class="{{ container_class }}">
+    {%- comment -%} Header with Navigation {%- endcomment -%}
+    <div class="collections-carousel-header-row" data-tween-group="cc-header-{{ section.id }}">
+      <div class="collections-carousel-header-content">
+        {% if section.settings.label != blank %}
+          <span class="section-label" data-tween data-tween-type="fade-up">
+            {{ section.settings.label }}
+          </span>
+        {% endif %}
+
+        {% if section.settings.title != blank %}
+          <h2 class="section-title" data-tween data-tween-type="split-text">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <p class="section-description {{ desc_margin_class }}" data-tween data-tween-type="fade-up">
+            {{ section.settings.description }}
+          </p>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Navigation Arrows {%- endcomment -%}
+      <div class="slider-nav" data-carousel-nav data-tween data-tween-type="fade-up">
+        <button class="slider-nav-btn" data-carousel-prev disabled aria-label="{{ 'accessibility.previous' | t | default: 'Previous' }}">
+          <i class="ph ph-arrow-left"></i>
+        </button>
+        <button class="slider-nav-btn" data-carousel-next aria-label="{{ 'accessibility.next' | t | default: 'Next' }}">
+          <i class="ph ph-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} Collection Tabs {%- endcomment -%}
+    {% if section.blocks.size > 1 %}
+      <div class="collections-carousel-tabs {{ tabs_justify }}" data-tween data-tween-type="fade-up" role="tablist">
+        {% for block in section.blocks %}
+          {% if block.settings.collection != blank %}
+            <button
+              type="button"
+              class="collections-carousel-tab{% if forloop.first %} is-active{% endif %}"
+              data-tab="{{ block.id }}"
+              data-collection-handle="{{ block.settings.collection.handle }}"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="panel-{{ block.id }}"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.tab_label | default: block.settings.collection.title }}
+            </button>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {%- comment -%} Carousel Panels {%- endcomment -%}
+    <div class="collections-carousel-panels">
+      {% for block in section.blocks %}
+        {% assign collection = block.settings.collection %}
+        {% if collection != blank %}
+          <div
+            class="collections-carousel-panel{% unless forloop.first %} hidden{% endunless %}"
+            data-panel="{{ block.id }}"
+            data-panel-index="{{ forloop.index0 }}"
+            id="panel-{{ block.id }}"
+            role="tabpanel"
+            aria-labelledby="tab-{{ block.id }}"
+          >
+            {%- comment -%} Carousel {%- endcomment -%}
+            <div class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-status></div>
+            <div class="collections-carousel-slider" role="region" aria-label="{{ collection.title }}">
+              <div class="collections-carousel-track" data-carousel-track>
+                {% for product in collection.products limit: products_to_show %}
+                  <div class="collections-carousel-slide" data-carousel-slide{% if forloop.parentloop.first %} data-tween data-tween-type="fade-up"{% endif %}>
+                    {% comment %} Only first panel uses global tween system, others use JS-driven animations {% endcomment %}
+                    {% render 'product-card',
+                      product: product,
+                      collection: collection,
+                      index: forloop.index0,
+                      show_vendor: section.settings.show_vendor,
+                      lazy_load: true,
+                      animate_image: forloop.parentloop.first
+                    %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {%- comment -%} Placeholder when no collections {%- endcomment -%}
+    {% if section.blocks.size == 0 %}
+      <div class="collections-carousel-slider" data-tween data-tween-type="fade-up">
+        <div class="collections-carousel-track" data-carousel-track>
+          {% for i in (1..products_to_show) %}
+            {%- assign placeholder_index = forloop.index | modulo: 6 | plus: 1 -%}
+            <div class="collections-carousel-slide" data-carousel-slide>
+              <div class="product-card flex flex-col cursor-pointer rounded-(--card-radius) overflow-hidden h-full border border-(--color-border) shadow-(--card-shadow)">
+                <div class="product-card-image relative overflow-hidden aspect-3/4">
+                  {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                </div>
+                <div class="product-card-content flex-1 p-4 bg-(--color-background)">
+                  <h3 class="product-card-title card-title mt-2">
+                    {{ 'sections.featured_collection.placeholder_product' | t }} {{ forloop.index }}
+                  </h3>
+                  <div class="product-card-price mt-2 text-sm text-(--color-text-secondary)">
+                    $99.00
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+(function() {
+  const section = document.querySelector('[data-collections-carousel="{{ section.id }}"]');
+  if (!section || section.dataset.carouselInitialized) return;
+  section.dataset.carouselInitialized = 'true';
+
+  const tabs = section.querySelectorAll('[data-tab]');
+  const panels = section.querySelectorAll('[data-panel]');
+  const nav = section.querySelector('[data-carousel-nav]');
+  const prevBtn = section.querySelector('[data-carousel-prev]');
+  const nextBtn = section.querySelector('[data-carousel-next]');
+
+  let activePanel = panels[0];
+  let scrollTimeout;
+  let isAnimating = false;
+
+  // Get slides per view for current breakpoint
+  function getSlidesPerView() {
+    const width = window.innerWidth;
+    if (width >= 1024) return {{ section.settings.slides_desktop }};
+    if (width >= 768) return {{ section.settings.slides_tablet }};
+    return {{ section.settings.slides_mobile }};
+  }
+
+  // Get active panel's track and slides
+  function getActiveTrackAndSlides() {
+    if (!activePanel) return { track: null, slides: [] };
+    const track = activePanel.querySelector('[data-carousel-track]');
+    const slides = activePanel.querySelectorAll('[data-carousel-slide]');
+    return { track, slides };
+  }
+
+  // Get max scroll index for active panel
+  function getMaxIndex() {
+    const { slides } = getActiveTrackAndSlides();
+    const slidesPerView = getSlidesPerView();
+    return Math.max(0, slides.length - slidesPerView);
+  }
+
+  // Get current slide index based on scroll position
+  function getCurrentIndex() {
+    const { track, slides } = getActiveTrackAndSlides();
+    if (!track || slides.length === 0) return 0;
+    const slideWidth = slides[0].offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    return Math.round(track.scrollLeft / (slideWidth + gap));
+  }
+
+  // Scroll to slide
+  function scrollToSlide(index) {
+    const { track, slides } = getActiveTrackAndSlides();
+    if (!track || !slides[index] || isAnimating) return;
+
+    isAnimating = true;
+    // Pre-update button states for target position
+    const maxIndex = getMaxIndex();
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = index >= maxIndex;
+
+    const slideWidth = slides[index].offsetWidth;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    track.scrollTo({ left: index * (slideWidth + gap), behavior: 'smooth' });
+  }
+
+  // Update button states based on current position
+  function updateButtonStates(index) {
+    const maxIndex = getMaxIndex();
+
+    if (prevBtn) {
+      prevBtn.disabled = index <= 0;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = index >= maxIndex;
+    }
+  }
+
+  // Update nav visibility based on whether scrolling is needed
+  function updateNavVisibility() {
+    if (!nav) return;
+    const { slides } = getActiveTrackAndSlides();
+    const slidesPerView = getSlidesPerView();
+    if (slides.length <= slidesPerView) {
+      nav.classList.add('is-hidden');
+    } else {
+      nav.classList.remove('is-hidden');
+    }
+    updateButtonStates(getCurrentIndex());
+  }
+
+  // Initialize scroll listener for a panel
+  function initPanelScrollListener(panel) {
+    const track = panel.querySelector('[data-carousel-track]');
+    if (!track) return;
+
+    track.addEventListener('scroll', () => {
+      if (panel !== activePanel) return;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isAnimating = false;
+        updateButtonStates(getCurrentIndex());
+      }, 50);
+    }, { passive: true });
+  }
+
+  // Navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      const current = getCurrentIndex();
+      if (current > 0) {
+        scrollToSlide(current - 1);
+      }
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      const current = getCurrentIndex();
+      const maxIndex = getMaxIndex();
+      if (current < maxIndex) {
+        scrollToSlide(current + 1);
+      }
+    });
+  }
+
+  // Initialize all panels' scroll listeners
+  panels.forEach(initPanelScrollListener);
+
+  // Update on resize
+  window.addEventListener('resize', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateNavVisibility, 100);
+  });
+
+  // Initial state
+  updateNavVisibility();
+
+  // Tab switching with animations
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.tab;
+
+      // Skip if already active
+      if (tab.classList.contains('is-active')) return;
+
+      // Update tab states
+      tabs.forEach(t => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      // Switch panels with animation
+      panels.forEach(panel => {
+        if (panel.dataset.panel === targetId) {
+          panel.classList.remove('hidden');
+          activePanel = panel;
+
+          // Reset scroll position
+          const track = panel.querySelector('[data-carousel-track]');
+          if (track) track.scrollLeft = 0;
+
+          // Update nav state for new panel
+          updateNavVisibility();
+          updateButtonStates(0);
+
+          // Animate slides in with stagger using GSAP if available
+          const productCards = panel.querySelectorAll('.product-card');
+          const imageContainers = panel.querySelectorAll('.product-card-image');
+          const contentAreas = panel.querySelectorAll('.product-card-content, .product-card-quick-add');
+
+          if (typeof gsap !== 'undefined') {
+            // Use GSAP for smoother animations
+            // Reset all elements
+            gsap.set(productCards, { opacity: 0, y: 20 });
+            gsap.set(imageContainers, { clipPath: 'inset(0 100% 0 0)' });
+            gsap.set(contentAreas, { opacity: 0, y: 20 });
+
+            // Animate product cards fade-up with stagger
+            gsap.to(productCards, {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              ease: 'power2.out',
+              stagger: 0.08
+            });
+
+            // Animate image clip-right reveal with stagger
+            gsap.to(imageContainers, {
+              clipPath: 'inset(0 0% 0 0)',
+              duration: 1.2,
+              ease: 'expo.inOut',
+              stagger: 0.1,
+              delay: 0.1
+            });
+
+            // Animate content areas fade-up with stagger
+            gsap.to(contentAreas, {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              ease: 'power2.out',
+              stagger: 0.08,
+              delay: 0.2
+            });
+          } else {
+            // Fallback to CSS animations
+            const slides = panel.querySelectorAll('[data-carousel-slide]');
+            slides.forEach((slide, index) => {
+              slide.style.opacity = '0';
+              slide.style.transform = 'translateY(20px)';
+              slide.style.transition = 'none';
+              slide.offsetHeight;
+              requestAnimationFrame(() => {
+                setTimeout(() => {
+                  slide.style.transition = 'opacity 0.4s ease-out, transform 0.4s ease-out';
+                  slide.style.opacity = '1';
+                  slide.style.transform = 'translateY(0)';
+                }, index * 50);
+              });
+            });
+          }
+        } else {
+          panel.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Collections Carousel",
+  "tag": "section",
+  "class": "collections-carousel-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop by Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "default": "left",
+      "label": "Header alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Products"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show vendor"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "default": "1",
+      "label": "Products per view (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_tablet",
+      "default": "2",
+      "label": "Products per view (tablet)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "slides_desktop",
+      "default": "4",
+      "label": "Products per view (desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab label",
+          "info": "Leave blank to use collection title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collections Carousel",
+      "category": "Products",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

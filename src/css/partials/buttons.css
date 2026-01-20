@@ -812,4 +812,31 @@
   .remove-btn:focus-visible {
     @apply outline-2 outline-offset-2 outline-(--color-primary);
   }
+
+  /* ==========================================================================
+     Slider Navigation Button - Arrow buttons for carousels/sliders
+     Used in: testimonials, collections-carousel, featured-collection
+     ========================================================================== */
+
+  .slider-nav {
+    @apply flex items-center gap-2;
+  }
+
+  .slider-nav.is-hidden {
+    @apply hidden;
+  }
+
+  .slider-nav-btn {
+    @apply w-11 h-11 shrink-0 rounded-full bg-transparent flex items-center justify-center cursor-pointer;
+    @apply border border-solid border-(--color-text) text-(--color-text);
+    @apply transition-all duration-300;
+  }
+
+  .slider-nav-btn:hover:not(:disabled) {
+    @apply bg-(--color-text) text-(--color-background);
+  }
+
+  .slider-nav-btn:disabled {
+    @apply opacity-30 cursor-not-allowed;
+  }
 }

@@ -19,28 +19,29 @@
 </div>
 
 {% schema %}
-{
-  "name": "Custom Liquid",
-  "tag": "section",
-  "class": "section-custom-liquid",
-  "settings": [
-    {
-      "type": "liquid",
-      "id": "liquid",
-      "label": "Liquid",
-      "info": "Add custom Liquid code. [Learn more](https://shopify.dev/docs/api/liquid)"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "label": "Full width",
-      "default": false
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Liquid"
-    }
-  ]
-}
+  {
+    "name": "Custom Liquid",
+    "tag": "section",
+    "class": "section-custom-liquid",
+    "settings": [
+      {
+        "type": "liquid",
+        "id": "liquid",
+        "label": "Liquid",
+        "info": "Add custom Liquid code. [Learn more](https://shopify.dev/docs/api/liquid)"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "label": "Full width",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Liquid",
+        "category": "Text & content"
+      }
+    ]
+  }
 {% endschema %}
