@@ -99,8 +99,9 @@
       return;
     }
 
-    currentHandle = productHandle;
+    // Clear previous content immediately to prevent flash of old product
     body.innerHTML = skeletonHTML;
+    currentHandle = productHandle;
     modal.classList.add('is-open');
     modal.removeAttribute('inert');
     lockScroll();
