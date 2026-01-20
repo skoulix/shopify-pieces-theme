@@ -104,6 +104,13 @@
           </div>
         {% endfor %}
       </div>
+
+      {%- comment -%} Progress Bar {%- endcomment -%}
+      {% if section.settings.show_progress_bar %}
+        <div class="h-0.5 bg-current/15 rounded-sm overflow-hidden mt-8" data-testimonials-progress>
+          <div class="h-full w-0 bg-current transition-[width] duration-400 ease-out" data-testimonials-progress-bar></div>
+        </div>
+      {% endif %}
     </div>
 
   </div>
@@ -121,6 +128,8 @@
   const nextBtn = section.querySelector('[data-testimonials-next]');
   const nav = section.querySelector('[data-testimonials-nav]');
   const statusEl = section.querySelector('[data-testimonials-status]');
+  const progressBar = section.querySelector('[data-testimonials-progress-bar]');
+  const progressContainer = section.querySelector('[data-testimonials-progress]');
 
   if (!track || slides.length <= 1) return;
 
@@ -154,10 +163,15 @@
     if (!slide || isAnimating) return;
 
     isAnimating = true;
-    // Pre-update button states for target position
+    // Pre-update button states and progress bar for target position (instant feedback)
     const maxIndex = getMaxIndex();
+    const slidesPerView = getSlidesPerView();
     if (prevBtn) prevBtn.disabled = index <= 0;
     if (nextBtn) nextBtn.disabled = index >= maxIndex;
+    if (progressBar) {
+      const progress = maxIndex > 0 ? ((index + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
 
     const slideWidth = slide.offsetWidth;
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
@@ -166,9 +180,10 @@
     track.scrollTo({ left: targetScroll, behavior: 'smooth' });
   }
 
-  // Update button states based on current position
+  // Update button states and progress bar based on current position
   function updateButtonStates(index) {
     const maxIndex = getMaxIndex();
+    const slidesPerView = getSlidesPerView();
 
     if (prevBtn) {
       prevBtn.disabled = index <= 0;
@@ -177,21 +192,35 @@
       nextBtn.disabled = index >= maxIndex;
     }
 
+    // Update progress bar
+    if (progressBar) {
+      const progress = maxIndex > 0 ? ((index + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
+
     // Announce to screen readers
     if (statusEl) {
       statusEl.textContent = `Testimonial ${index + 1} of ${totalSlides}`;
     }
   }
 
-  // Update nav visibility based on whether scrolling is needed
+  // Update nav and progress bar visibility based on whether scrolling is needed
   function updateNavVisibility() {
-    if (!nav) return;
     const slidesPerView = getSlidesPerView();
-    if (totalSlides <= slidesPerView) {
-      nav.classList.add('is-hidden');
-    } else {
-      nav.classList.remove('is-hidden');
+    const shouldHide = totalSlides <= slidesPerView;
+
+    if (nav) {
+      if (shouldHide) {
+        nav.classList.add('is-hidden');
+      } else {
+        nav.classList.remove('is-hidden');
+      }
     }
+
+    if (progressContainer) {
+      progressContainer.style.display = shouldHide ? 'none' : '';
+    }
+
     // Also update button states after visibility change
     updateButtonStates(getCurrentIndex());
   }
@@ -216,13 +245,24 @@
     });
   }
 
-  // Sync button states with scroll position
+  // Sync button states and progress bar with scroll position
   let scrollTimeout;
   track.addEventListener('scroll', () => {
+    // Update progress bar and button states immediately during scroll (real-time feedback)
+    const currentIndex = getCurrentIndex();
+    const maxIndex = getMaxIndex();
+    const slidesPerView = getSlidesPerView();
+    if (progressBar) {
+      const progress = maxIndex > 0 ? ((currentIndex + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
+    if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
+
+    // Debounce isAnimating reset
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(() => {
       isAnimating = false;
-      updateButtonStates(getCurrentIndex());
     }, 50);
   }, { passive: true });
 
@@ -319,6 +359,12 @@
         { "value": "3", "label": "3" },
         { "value": "4", "label": "4" }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "default": true,
+      "label": "Show progress bar"
     },
     {
       "type": "header",

@@ -63,8 +63,20 @@
       </div>
     </div>
 
+    {%- comment -%} Check if any blocks have a collection selected {%- endcomment -%}
+    {%- liquid
+      assign has_collections = false
+      assign collections_count = 0
+      for block in section.blocks
+        if block.settings.collection != blank
+          assign has_collections = true
+          assign collections_count = collections_count | plus: 1
+        endif
+      endfor
+    -%}
+
     {%- comment -%} Collection Tabs {%- endcomment -%}
-    {% if section.blocks.size > 1 %}
+    {% if has_collections and collections_count > 1 %}
       <div class="collections-carousel-tabs {{ tabs_justify }}" data-tween data-tween-type="fade-up" role="tablist">
         {% for block in section.blocks %}
           {% if block.settings.collection != blank %}
@@ -83,48 +95,64 @@
           {% endif %}
         {% endfor %}
       </div>
+    {% elsif has_collections == false %}
+      {%- comment -%} Placeholder tabs when no collections selected {%- endcomment -%}
+      <div class="collections-carousel-tabs {{ tabs_justify }}" data-tween data-tween-type="fade-up" role="tablist">
+        {% for i in (1..3) %}
+          <button
+            type="button"
+            class="collections-carousel-tab{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          >
+            Collection {{ forloop.index }}
+          </button>
+        {% endfor %}
+      </div>
     {% endif %}
 
     {%- comment -%} Carousel Panels {%- endcomment -%}
-    <div class="collections-carousel-panels">
-      {% for block in section.blocks %}
-        {% assign collection = block.settings.collection %}
-        {% if collection != blank %}
-          <div
-            class="collections-carousel-panel{% unless forloop.first %} hidden{% endunless %}"
-            data-panel="{{ block.id }}"
-            data-panel-index="{{ forloop.index0 }}"
-            id="panel-{{ block.id }}"
-            role="tabpanel"
-            aria-labelledby="tab-{{ block.id }}"
-          >
-            {%- comment -%} Carousel {%- endcomment -%}
-            <div class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-status></div>
-            <div class="collections-carousel-slider" role="region" aria-label="{{ collection.title }}">
-              <div class="collections-carousel-track" data-carousel-track>
-                {% for product in collection.products limit: products_to_show %}
-                  <div class="collections-carousel-slide" data-carousel-slide{% if forloop.parentloop.first %} data-tween data-tween-type="fade-up"{% endif %}>
-                    {% comment %} Only first panel uses global tween system, others use JS-driven animations {% endcomment %}
-                    {% render 'product-card',
-                      product: product,
-                      collection: collection,
-                      index: forloop.index0,
-                      show_vendor: section.settings.show_vendor,
-                      lazy_load: true,
-                      animate_image: forloop.parentloop.first
-                    %}
-                  </div>
-                {% endfor %}
+    {% if has_collections %}
+      <div class="collections-carousel-panels">
+        {% for block in section.blocks %}
+          {% assign collection = block.settings.collection %}
+          {% if collection != blank %}
+            <div
+              class="collections-carousel-panel{% unless forloop.first %} hidden{% endunless %}"
+              data-panel="{{ block.id }}"
+              data-panel-index="{{ forloop.index0 }}"
+              id="panel-{{ block.id }}"
+              role="tabpanel"
+              aria-labelledby="tab-{{ block.id }}"
+            >
+              {%- comment -%} Carousel {%- endcomment -%}
+              <div class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-status></div>
+              <div class="collections-carousel-slider" role="region" aria-label="{{ collection.title }}">
+                <div class="collections-carousel-track" data-carousel-track>
+                  {% for product in collection.products limit: products_to_show %}
+                    <div class="collections-carousel-slide" data-carousel-slide{% if forloop.parentloop.first %} data-tween data-tween-type="fade-up"{% endif %}>
+                      {% comment %} Only first panel uses global tween system, others use JS-driven animations {% endcomment %}
+                      {% render 'product-card',
+                        product: product,
+                        collection: collection,
+                        index: forloop.index0,
+                        show_vendor: section.settings.show_vendor,
+                        lazy_load: true,
+                        animate_image: forloop.parentloop.first
+                      %}
+                    </div>
+                  {% endfor %}
+                </div>
               </div>
+
             </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
 
-          </div>
-        {% endif %}
-      {% endfor %}
-    </div>
-
-    {%- comment -%} Placeholder when no collections {%- endcomment -%}
-    {% if section.blocks.size == 0 %}
+    {%- comment -%} Placeholder when no collections selected {%- endcomment -%}
+    {% unless has_collections %}
       <div class="collections-carousel-slider" data-tween data-tween-type="fade-up">
         <div class="collections-carousel-track" data-carousel-track>
           {% for i in (1..products_to_show) %}
@@ -147,6 +175,13 @@
           {% endfor %}
         </div>
       </div>
+    {% endunless %}
+
+    {%- comment -%} Progress Bar {%- endcomment -%}
+    {% if section.settings.show_progress_bar %}
+      <div class="h-0.5 bg-current/15 rounded-sm overflow-hidden mt-8" data-carousel-progress>
+        <div class="h-full w-0 bg-current transition-[width] duration-400 ease-out" data-carousel-progress-bar></div>
+      </div>
     {% endif %}
   </div>
 </section>
@@ -162,6 +197,8 @@
   const nav = section.querySelector('[data-carousel-nav]');
   const prevBtn = section.querySelector('[data-carousel-prev]');
   const nextBtn = section.querySelector('[data-carousel-next]');
+  const progressBar = section.querySelector('[data-carousel-progress-bar]');
+  const progressContainer = section.querySelector('[data-carousel-progress]');
 
   let activePanel = panels[0];
   let scrollTimeout;
@@ -205,19 +242,28 @@
     if (!track || !slides[index] || isAnimating) return;
 
     isAnimating = true;
-    // Pre-update button states for target position
+    // Pre-update button states and progress bar for target position (instant feedback)
     const maxIndex = getMaxIndex();
+    const slidesPerView = getSlidesPerView();
+    const totalSlides = slides.length;
     if (prevBtn) prevBtn.disabled = index <= 0;
     if (nextBtn) nextBtn.disabled = index >= maxIndex;
+    if (progressBar) {
+      const progress = maxIndex > 0 ? ((index + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
 
     const slideWidth = slides[index].offsetWidth;
     const gap = parseFloat(getComputedStyle(track).gap) || 0;
     track.scrollTo({ left: index * (slideWidth + gap), behavior: 'smooth' });
   }
 
-  // Update button states based on current position
+  // Update button states and progress bar based on current position
   function updateButtonStates(index) {
+    const { slides } = getActiveTrackAndSlides();
     const maxIndex = getMaxIndex();
+    const slidesPerView = getSlidesPerView();
+    const totalSlides = slides.length;
 
     if (prevBtn) {
       prevBtn.disabled = index <= 0;
@@ -225,18 +271,32 @@
     if (nextBtn) {
       nextBtn.disabled = index >= maxIndex;
     }
+
+    // Update progress bar
+    if (progressBar) {
+      const progress = maxIndex > 0 ? ((index + slidesPerView) / totalSlides) * 100 : 100;
+      progressBar.style.width = `${Math.min(100, progress)}%`;
+    }
   }
 
-  // Update nav visibility based on whether scrolling is needed
+  // Update nav and progress bar visibility based on whether scrolling is needed
   function updateNavVisibility() {
-    if (!nav) return;
     const { slides } = getActiveTrackAndSlides();
     const slidesPerView = getSlidesPerView();
-    if (slides.length <= slidesPerView) {
-      nav.classList.add('is-hidden');
-    } else {
-      nav.classList.remove('is-hidden');
+    const shouldHide = slides.length <= slidesPerView;
+
+    if (nav) {
+      if (shouldHide) {
+        nav.classList.add('is-hidden');
+      } else {
+        nav.classList.remove('is-hidden');
+      }
     }
+
+    if (progressContainer) {
+      progressContainer.style.display = shouldHide ? 'none' : '';
+    }
+
     updateButtonStates(getCurrentIndex());
   }
 
@@ -247,10 +307,24 @@
 
     track.addEventListener('scroll', () => {
       if (panel !== activePanel) return;
+
+      // Update progress bar and button states immediately during scroll (real-time feedback)
+      const { slides } = getActiveTrackAndSlides();
+      const currentIndex = getCurrentIndex();
+      const maxIndex = getMaxIndex();
+      const slidesPerView = getSlidesPerView();
+      const totalSlides = slides.length;
+      if (progressBar) {
+        const progress = maxIndex > 0 ? ((currentIndex + slidesPerView) / totalSlides) * 100 : 100;
+        progressBar.style.width = `${Math.min(100, progress)}%`;
+      }
+      if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+      if (nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
+
+      // Debounce isAnimating reset
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
         isAnimating = false;
-        updateButtonStates(getCurrentIndex());
       }, 50);
     }, { passive: true });
   }
@@ -480,6 +554,12 @@
         { "value": "4", "label": "4" },
         { "value": "5", "label": "5" }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "default": true,
+      "label": "Show progress bar"
     },
     {
       "type": "header",

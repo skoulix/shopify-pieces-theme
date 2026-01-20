@@ -154,6 +154,7 @@
     const prevBtn = section.querySelector('[data-carousel-prev]');
     const nextBtn = section.querySelector('[data-carousel-next]');
     const progressBar = section.querySelector('[data-carousel-progress-bar]');
+    const progressContainer = section.querySelector('[data-carousel-progress]');
     const nav = section.querySelector('[data-carousel-nav]');
 
     let totalSlides = 0;
@@ -219,15 +220,23 @@
       }
     }
 
-    // Update nav visibility
+    // Update nav and progress bar visibility
     function updateNavVisibility() {
-      if (!nav) return;
       const slidesPerView = getSlidesPerView();
-      if (totalSlides <= slidesPerView) {
-        nav.classList.add('is-hidden');
-      } else {
-        nav.classList.remove('is-hidden');
+      const shouldHide = totalSlides <= slidesPerView;
+
+      if (nav) {
+        if (shouldHide) {
+          nav.classList.add('is-hidden');
+        } else {
+          nav.classList.remove('is-hidden');
+        }
       }
+
+      if (progressContainer) {
+        progressContainer.style.display = shouldHide ? 'none' : '';
+      }
+
       updateButtonStates(getCurrentIndex());
     }
 
