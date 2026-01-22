@@ -33,20 +33,21 @@
   }
 
   .logo-marquee-track-wrapper::before {
+    @apply left-0;
     left: var(--logo-marquee-mask-offset, 0);
     background: linear-gradient(to right, var(--color-background), transparent);
   }
 
   .logo-marquee-track-wrapper::after {
+    @apply right-0;
     right: var(--logo-marquee-mask-offset, 0);
     background: linear-gradient(to left, var(--color-background), transparent);
   }
 
   /* Track - GSAP handles animation */
   .logo-marquee-track {
-    @apply flex;
+    @apply flex will-change-transform;
     width: max-content;
-    will-change: transform;
   }
 
   /* Items */
@@ -57,46 +58,35 @@
   }
 
   .logo-marquee-item img {
-    max-height: 100%;
-    width: auto;
+    @apply max-h-full w-auto object-contain transition-all duration-300 ease-out;
     max-width: var(--logo-marquee-max-logo-width, 120px);
-    object-fit: contain;
     opacity: var(--logo-marquee-opacity, 0.6);
     filter: var(--logo-marquee-filter, none);
-    transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
   }
 
   .logo-marquee-item:hover img {
-    opacity: 1;
-    transform: scale(1.05);
+    @apply opacity-100 scale-105;
     filter: var(--logo-marquee-filter-hover, none);
   }
 
   .logo-marquee-item svg {
-    max-height: 100%;
-    width: auto;
+    @apply max-h-full w-auto fill-current transition-opacity duration-300 ease-out;
     max-width: var(--logo-marquee-max-logo-width, 120px);
-    fill: currentColor;
     opacity: var(--logo-marquee-opacity, 0.6);
-    transition: opacity 0.3s ease;
   }
 
   .logo-marquee-item:hover svg {
-    opacity: 1;
+    @apply opacity-100;
   }
 
   /* Placeholder */
   .logo-marquee-placeholder {
-    @apply flex items-center justify-center h-full;
+    @apply flex items-center justify-center h-full rounded-lg opacity-50;
     width: var(--logo-marquee-max-logo-width, 120px);
     background: var(--color-border);
-    border-radius: 8px;
-    opacity: 0.5;
   }
 
   .logo-marquee-placeholder i {
-    font-size: 1.5rem;
-    opacity: 0.3;
+    @apply text-2xl opacity-30;
   }
-
 }

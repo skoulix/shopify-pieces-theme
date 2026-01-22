@@ -6,8 +6,7 @@
 @layer components {
   /* Section container */
   .marquee-section {
-    @apply relative overflow-hidden;
-    padding: clamp(1.5rem, 3vh, 3rem) 0;
+    @apply relative overflow-hidden py-6 lg:py-10;
   }
 
   /* Wrapper */
@@ -17,10 +16,9 @@
 
   /* Content track - GSAP handles animation */
   .marquee-content {
-    @apply flex items-center;
+    @apply flex items-center will-change-transform;
     gap: clamp(2rem, 5vw, 5rem);
     width: max-content;
-    will-change: transform;
   }
 
   /* Item */
@@ -29,52 +27,28 @@
     gap: clamp(2rem, 5vw, 5rem);
   }
 
-  /* Text */
+  /* Text - fluid typography with clamp() */
   .marquee-text {
-    @apply font-bold uppercase leading-none;
-    font-size: clamp(1.5rem, 6vw, 3rem);
-    line-height: 1;
+    @apply font-bold uppercase leading-none text-2xl lg:text-4xl 2xl:text-5xl;
     letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
-  }
-
-  @media (min-width: 1024px) {
-    .marquee-text {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .marquee-text {
-      font-size: clamp(2.5rem, 3.5vw, 4.5rem);
-    }
   }
 
   /* Outline text variant */
   .marquee-text.outline {
-    color: transparent;
+    @apply text-transparent;
     -webkit-text-stroke: 1px var(--color-text);
   }
 
   /* Separator dot */
   .marquee-separator {
-    @apply rounded-full shrink-0;
+    @apply rounded-full shrink-0 opacity-40;
     width: clamp(6px, 1vw, 12px);
     height: clamp(6px, 1vw, 12px);
     background-color: currentColor;
-    opacity: 0.4;
   }
 
   /* Icon */
   .marquee-icon {
-    @apply shrink-0;
-    font-size: clamp(1.25rem, 3vw, 2rem);
-    opacity: 0.6;
+    @apply shrink-0 opacity-60 text-xl lg:text-2xl 2xl:text-3xl;
   }
-
-  @media (min-width: 1536px) {
-    .marquee-icon {
-      font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-    }
-  }
-
 }
