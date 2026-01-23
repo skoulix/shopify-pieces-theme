@@ -114,7 +114,7 @@
       </button>
 
       {%- comment -%} Form container {%- endcomment -%}
-      <div data-newsletter-popup-form-container>
+      <div data-newsletter-popup-form-container class="overflow-visible">
         <h2 class="popup-title mb-3" id="newsletter-popup-title">
           {{ settings.popup_title }}
         </h2>
@@ -123,7 +123,7 @@
           <p class="text-[15px] opacity-70 mb-6 leading-relaxed" id="newsletter-popup-description">{{ settings.popup_text }}</p>
         {% endif %}
 
-        {% form 'customer', id: 'newsletter-popup-form', class: 'flex flex-col gap-3' %}
+        {% form 'customer', id: 'newsletter-popup-form', class: 'flex flex-col gap-3 overflow-visible' %}
           <input
             type="email"
             name="contact[email]"
