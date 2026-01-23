@@ -463,11 +463,11 @@
   }
 
   .variant-picker__dropdown-swatch {
-    @apply absolute left-0 pointer-events-none z-1;
+    @apply absolute left-4 pointer-events-none z-1;
   }
 
   .variant-picker__select {
-    @apply w-full py-4 pr-10 pl-0 text-sm bg-transparent border-0 border-b cursor-pointer appearance-none border-(--color-border) text-(--color-text) focus:outline-none focus:border-(--color-text);
+    @apply w-full py-4 px-4 pr-10 text-sm bg-transparent border-0 border-b cursor-pointer appearance-none border-(--color-border) text-(--color-text) focus:outline-none focus:border-(--color-text);
   }
 
   .variant-picker__select option {
@@ -475,11 +475,11 @@
   }
 
   .variant-picker__select--with-swatch {
-    @apply pl-10;
+    @apply pl-14;
   }
 
   .variant-picker__select-icon {
-    @apply absolute right-0 pointer-events-none text-(--color-text-secondary);
+    @apply absolute right-4 pointer-events-none text-(--color-text-secondary);
   }
 
   /* ==========================================================================
