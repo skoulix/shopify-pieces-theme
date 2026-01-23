@@ -10,10 +10,6 @@
   capture header_align_class
     render 'alignment-classes', alignment: section.settings.header_alignment, output: 'text'
   endcapture
-
-  capture description_align_class
-    render 'alignment-classes', alignment: section.settings.header_alignment, output: 'margin'
-  endcapture
 -%}
 
 <section
@@ -22,26 +18,16 @@
   style="--before-after-aspect-ratio: {{ section.settings.aspect_ratio }};"
 >
   <div class="{{ container_class }}">
-    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
+    {%- comment -%} Header {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank %}
       <div class="before-after-header {{ header_align_class }}" data-tween-group="before-after-header-{{ section.id }}">
-        {% if section.settings.label != blank %}
-          <span class="section-label" data-tween data-tween-type="fade-up">
-            {{ section.settings.label }}
-          </span>
-        {% endif %}
-
-        {% if section.settings.title != blank %}
-          <h2 class="section-title" data-tween data-tween-type="split-text">
-            {{ section.settings.title }}
-          </h2>
-        {% endif %}
-
-        {% if section.settings.description != blank %}
-          <p class="section-description {{ description_align_class }}" data-tween data-tween-type="fade-up">
-            {{ section.settings.description }}
-          </p>
-        {% endif %}
+        {% render 'section-header',
+          label: section.settings.label,
+          title: section.settings.title,
+          description: section.settings.description,
+          alignment: section.settings.header_alignment,
+          nowrap: true
+        %}
       </div>
     {% endif %}
 

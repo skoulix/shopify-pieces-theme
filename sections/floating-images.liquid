@@ -69,26 +69,16 @@
     {% endfor %}
   </div>
 
-  {%- comment -%} Sticky Content - uses global data-tween system for animations {%- endcomment -%}
+  {%- comment -%} Sticky Content {%- endcomment -%}
   <div class="sticky top-0 h-screen flex items-center justify-center z-10">
     <div class="text-center px-4 max-w-4xl mx-auto" data-tween-group="floating-images-content-{{ section.id }}">
-      {% if section.settings.label != blank %}
-        <span class="section-label" data-tween data-tween-type="fade-up">
-          {{ section.settings.label }}
-        </span>
-      {% endif %}
-
-      {% if section.settings.title != blank %}
-        <h2 class="section-title" data-tween data-tween-type="split-text">
-          {{ section.settings.title }}
-        </h2>
-      {% endif %}
-
-      {% if section.settings.description != blank %}
-        <p class="section-description mx-auto" data-tween data-tween-type="fade-up">
-          {{ section.settings.description }}
-        </p>
-      {% endif %}
+      {% render 'section-header',
+        label: section.settings.label,
+        title: section.settings.title,
+        description: section.settings.description,
+        alignment: 'center',
+        nowrap: true
+      %}
 
       {% if section.settings.button_text != blank %}
         <div class="mt-8" data-tween data-tween-type="fade-up">

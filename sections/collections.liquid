@@ -548,13 +548,14 @@
       "label": "Columns on tablet"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "columns_mobile",
-      "min": 1,
-      "max": 2,
-      "step": 1,
-      "default": 1,
-      "label": "Columns on mobile"
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
     },
     {
       "type": "color_scheme",

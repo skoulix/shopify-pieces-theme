@@ -9,10 +9,6 @@
   capture header_text_class
     render 'alignment-classes', alignment: section.settings.header_alignment, output: 'text'
   endcapture
-
-  capture desc_margin_class
-    render 'alignment-classes', alignment: section.settings.header_alignment, output: 'margin'
-  endcapture
 -%}
 
 <style>
@@ -36,29 +32,18 @@
   data-featured-collection="{{ section.id }}"
 >
   <div class="{{ container_class }}">
-    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
+    {%- comment -%} Header {%- endcomment -%}
     {% if section.settings.label != blank or section.settings.title != blank or collection.title != blank or section.settings.show_view_all %}
       <div class="flex flex-col gap-6 mb-[clamp(2rem,5vh,4rem)] md:flex-row md:justify-between md:items-end md:gap-8">
         <div class="flex-1 {{ header_text_class }}" data-tween-group="fc-header-{{ section.id }}">
-          {% if section.settings.label != blank %}
-            <span class="section-label" data-tween data-tween-type="fade-up">
-              {{ section.settings.label }}
-            </span>
-          {% endif %}
-
-          <h2 class="section-title" data-tween data-tween-type="split-text">
-            {% if section.settings.title != blank %}
-              {{ section.settings.title }}
-            {% else %}
-              {{ collection.title | default: 'Featured' }}
-            {% endif %}
-          </h2>
-
-          {% if section.settings.description != blank %}
-            <p class="section-description {{ desc_margin_class }}" data-tween data-tween-type="fade-up">
-              {{ section.settings.description }}
-            </p>
-          {% endif %}
+          {% render 'section-header',
+            label: section.settings.label,
+            title: section.settings.title,
+            title_fallback: collection.title | default: 'Featured',
+            description: section.settings.description,
+            alignment: section.settings.header_alignment,
+            nowrap: true
+          %}
         </div>
 
         {% if section.settings.show_view_all and collection %}

@@ -28,6 +28,7 @@
   - description_max_width: (string) Max width for description - defaults to 'max-w-prose'
   - group_id: (string) Unique ID for animation group (usually section.id)
   - animate: (boolean) Whether to add data-tween attributes - defaults to true
+  - nowrap: (boolean) If true, outputs content without wrapper div - defaults to false
 {%- endcomment -%}
 
 {%- liquid
@@ -37,6 +38,7 @@
   assign description_max_width = description_max_width | default: 'max-w-prose'
   assign alignment = alignment | default: 'left'
   assign animate = animate | default: true
+  assign nowrap = nowrap | default: false
 
   case alignment
     when 'center'
@@ -57,7 +59,7 @@
 -%}
 
 {%- if has_content -%}
-  <div class="{{ text_class }}"{% if animate and group_id %} data-tween-group="section-header-{{ group_id }}"{% endif %}>
+  {%- unless nowrap -%}<div class="{{ text_class }}"{% if animate and group_id %} data-tween-group="section-header-{{ group_id }}"{% endif %}>{%- endunless -%}
     {%- if label != blank -%}
       <span class="section-label"{% if animate %} data-tween data-tween-type="fade-up"{% endif %}>
         {{- label -}}
@@ -79,5 +81,5 @@
         {{- description -}}
       </p>
     {%- endif -%}
-  </div>
+  {%- unless nowrap -%}</div>{%- endunless -%}
 {%- endif -%}
