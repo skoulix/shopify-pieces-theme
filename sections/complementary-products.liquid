@@ -43,7 +43,7 @@
       <header class="mb-6 flex flex-col gap-4 {% if section.settings.alignment == 'center' %}items-center text-center{% elsif section.settings.alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}" data-tween data-tween-type="fade-up">
         <div>
           {% if section.settings.label != blank %}
-            <p class="label mb-2">{{ section.settings.label }}</p>
+            <p class="section-label section-label--inline mb-2">{{ section.settings.label }}</p>
           {% endif %}
           {% if section.settings.title != blank %}
             <h2 class="section-title">

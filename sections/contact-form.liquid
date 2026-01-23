@@ -120,10 +120,17 @@
         </div>
 
         <div class="contact-form-submit mt-8">
-          <button type="submit" class="btn btn--primary">
-            <span>{{ 'contact.form.submit' | t }}</span>
-            <i class="ph ph-arrow-right"></i>
-          </button>
+          {%- liquid
+            assign submit_text = 'contact.form.submit' | t
+          -%}
+          {% render 'button',
+              type: 'submit',
+              text: submit_text,
+              style: section.settings.button_style,
+              color: section.settings.button_color,
+              size: section.settings.button_size,
+              show_arrow: true
+          %}
         </div>
       {% endform %}
       </div>
@@ -321,6 +328,41 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "solid",
+      "options": [
+        { "value": "solid", "label": "Solid" },
+        { "value": "outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "primary",
+      "options": [
+        { "value": "primary", "label": "Primary (accent)" },
+        { "value": "secondary", "label": "Secondary (neutral)" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button size",
+      "default": "default",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "default", "label": "Default" },
+        { "value": "large", "label": "Large" }
+      ]
     },
     {
       "type": "header",
