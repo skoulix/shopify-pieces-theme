@@ -184,7 +184,7 @@ Toast notifications automatically:
 
 ---
 
-## Sections (57 Total)
+## Sections (65 Total)
 
 ### Hero & Landing
 
@@ -192,12 +192,14 @@ Toast notifications automatically:
 - `hero-orbit` - Animated orbiting elements
 - `banner` - Smaller promotional banner
 - `slideshow` - Image/video slideshow carousel
+- `background-zoom` - Parallax zoom effect on scroll
 
 ### Products & Collections
 
 - `product` - Product page with variants, gallery
 - `collection` - Collection with filtering
 - `collections` - Collection list/grid
+- `collections-carousel` - Swipeable collection cards
 - `featured-collection` - Featured product grid
 - `featured-product` - Single product showcase with variant picker
 - `related-products` - Related products carousel
@@ -206,6 +208,8 @@ Toast notifications automatically:
 - `quick-view-product` - Quick view modal content
 - `wishlist` - Saved products page
 - `compare` - Product comparison table
+- `compare-product-data` - Product data for comparison (utility)
+- `pickup-availability` - Store pickup information (utility)
 
 ### Interactive
 
@@ -215,6 +219,7 @@ Toast notifications automatically:
 - `shoppable-videos` - Video with product tags
 - `pinned-image-reveal` - Scrollytelling layout
 - `scroll-panels` - Scroll-driven panel animations
+- `image-sequence` - Frame-by-frame scroll animation
 
 ### Content
 
@@ -222,6 +227,7 @@ Toast notifications automatically:
 - `image` - Single image section
 - `text-reveal` - Animated text on scroll
 - `text-section` - Rich text content
+- `highlight-text` - Text with highlighted keywords
 - `video` - Video player section
 - `testimonials` - Customer testimonials
 - `faq` - Accordion FAQ
@@ -232,6 +238,7 @@ Toast notifications automatically:
 - `floating-images` - Decorative floating images
 - `custom-liquid` - Custom Liquid code section
 - `featured-blog` - Featured blog posts grid
+- `main-about` - About page spacer/layout
 
 ### Animation Showcase
 
@@ -239,7 +246,9 @@ Toast notifications automatically:
 - `rolling-numbers` - Animated counters
 - `horizontal-scroll` - Horizontal gallery
 - `marquee` - Scrolling text ticker
+- `marquee-radial` - Circular rotating marquee
 - `logo-marquee` - Infinite logo carousel
+- `logo-wall-cycle` - Animated logo grid with cycling
 
 ### Conversion
 
