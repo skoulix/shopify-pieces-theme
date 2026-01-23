@@ -3,24 +3,17 @@
 {%- endcomment -%}
 
 {%- liquid
-  if section.settings.full_width
-    assign container_class = ''
-  else
-    assign container_class = 'page-container'
-  endif
+  capture container_class
+    render 'container-class', full_width: section.settings.full_width
+  endcapture
 
-  # Header alignment classes
-  case section.settings.header_alignment
-    when 'center'
-      assign header_align_class = 'text-center'
-      assign description_align_class = 'mx-auto'
-    when 'right'
-      assign header_align_class = 'text-right'
-      assign description_align_class = 'ml-auto'
-    else
-      assign header_align_class = 'text-left'
-      assign description_align_class = ''
-  endcase
+  capture header_align_class
+    render 'alignment-classes', alignment: section.settings.header_alignment, output: 'text'
+  endcapture
+
+  capture description_align_class
+    render 'alignment-classes', alignment: section.settings.header_alignment, output: 'margin'
+  endcapture
 -%}
 
 <section

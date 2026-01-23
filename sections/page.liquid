@@ -3,14 +3,9 @@
 {%- endcomment -%}
 
 {%- liquid
-  case section.settings.header_alignment
-    when 'center'
-      assign header_align_class = 'text-center'
-    when 'right'
-      assign header_align_class = 'text-right'
-    else
-      assign header_align_class = 'text-left'
-  endcase
+  capture header_align_class
+    render 'alignment-classes', alignment: section.settings.header_alignment, output: 'text'
+  endcapture
 -%}
 
 <style>
