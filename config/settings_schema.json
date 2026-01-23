@@ -314,10 +314,11 @@
         "default": "swipe",
         "options": [
           { "value": "simple", "label": "Simple" },
-          { "value": "swipe", "label": "Swipe" },
+          { "value": "swipe", "label": "Swipe horizontal" },
+          { "value": "swipe-vertical", "label": "Swipe vertical" },
           { "value": "shine", "label": "Shine" }
         ],
-        "info": "Simple: color transition. Swipe: horizontal fill. Shine: light sweep."
+        "info": "Simple: color transition. Swipe: fill animation. Shine: light sweep."
       },
       {
         "type": "range",
