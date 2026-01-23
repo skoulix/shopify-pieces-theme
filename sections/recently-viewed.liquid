@@ -308,7 +308,8 @@
         return `
         <div class="recently-viewed-slide shrink-0 min-w-0 flex" style="scroll-snap-align: start;">
           <article
-            class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full w-full border-(--card-border-width) border-solid border-(--color-border) shadow-(--card-shadow)"
+            class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full w-full border-solid border-(--color-border)"
+            style="box-shadow: var(--card-shadow); border-width: var(--card-border-width);"
           >
             <div class="product-card-image relative overflow-hidden ${imageRatioClass}" data-tween data-tween-type="clip-right">
               <a href="${escapeHtml(product.url)}" class="block w-full h-full" aria-label="${escapeHtml(product.title)}">

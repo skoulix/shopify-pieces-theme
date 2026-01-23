@@ -145,7 +145,7 @@
         {% paginate search.results by 20 %}
           <div class="search-grid" data-search-results>
             {% for result in search.results %}
-              <article class="group rounded-(--card-radius) overflow-hidden border-(--card-border-width) border-solid border-(--color-border)" style="box-shadow: var(--card-shadow);" data-tween data-tween-type="fade-up">
+              <article class="group rounded-(--card-radius) overflow-hidden border-solid border-(--color-border)" style="box-shadow: var(--card-shadow); border-width: var(--card-border-width);" data-tween data-tween-type="fade-up">
                 <a href="{{ result.url }}" class="block">
                   {%- comment -%} Image {%- endcomment -%}
                   <div class="search-result-image relative" data-tween data-tween-type="clip-right">
