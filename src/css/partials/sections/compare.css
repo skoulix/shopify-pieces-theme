@@ -55,7 +55,7 @@
 
   /* Header cell with sticky positioning and backdrop blur */
   .compare-table__header-cell {
-    @apply sticky left-0 z-10;
+    @apply sticky left-0 z-[12];
     padding: 1rem;
     border-bottom: 1px solid var(--color-border);
     color: var(--color-text);
@@ -93,7 +93,7 @@
     max-width: 200px;
     aspect-ratio: 3/4;
     border-radius: var(--card-radius);
-    background: var(--color-background-secondary, rgba(0,0,0,0.03));
+    background: var(--color-background-secondary, rgba(0, 0, 0, 0.03));
   }
 
   .compare-table__product-image img {
