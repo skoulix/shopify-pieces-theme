@@ -76,15 +76,17 @@
 
   .footer-classic__newsletter-form {
     display: flex;
+    align-items: center;
     gap: 0;
+    border: 1px solid color-mix(in srgb, currentColor 50%, transparent);
+    border-radius: var(--input-radius);
   }
 
   .footer-classic__newsletter-input {
     flex: 1;
     padding: 0.75rem 1rem;
     background: transparent;
-    border: 1px solid currentColor;
-    border-radius: var(--input-radius) 0 0 var(--input-radius);
+    border: none;
     color: inherit;
     font-size: 0.875rem;
     min-width: 0;
@@ -97,15 +99,12 @@
 
   .footer-classic__newsletter-input:focus {
     outline: none;
-    border-color: var(--color-primary);
   }
 
   .footer-classic__newsletter-btn {
     padding: 0.75rem 1rem;
     background: transparent;
-    border: 1px solid currentColor;
-    border-left: none;
-    border-radius: 0 var(--input-radius) var(--input-radius) 0;
+    border: none;
     color: inherit;
     cursor: pointer;
     transition: opacity 0.3s ease;
