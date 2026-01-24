@@ -234,7 +234,7 @@
                                 {{ value.label }}
                               </span>
                               {%- comment -%} Count {%- endcomment -%}
-                              <span class="text-xs text-(--color-text-secondary)">({{ value.count }})</span>
+                              <span class="text-xs text-(--color-text-secondary) pr-2">({{ value.count }})</span>
                             </label>
                           </li>
                         {%- endfor -%}
@@ -260,7 +260,7 @@
                               <span class="flex-1 text-sm {% if value.count == 0 and value.active == false %}text-(--color-text-secondary) opacity-50{% endif %}">
                                 {{ value.label }}
                               </span>
-                              <span class="text-xs text-(--color-text-secondary)">({{ value.count }})</span>
+                              <span class="text-xs text-(--color-text-secondary) pr-2">({{ value.count }})</span>
                             </label>
                           </li>
                         {%- endfor -%}
