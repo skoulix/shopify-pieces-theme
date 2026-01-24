@@ -10,6 +10,12 @@
     margin-bottom: 1rem;
   }
 
+  /* When inside a secondary background container (like cart summary), use primary background */
+  .bg-\(--color-background-secondary\) .free-shipping-bar {
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+  }
+
   .free-shipping-bar__content {
     margin-bottom: 0.75rem;
   }
