@@ -887,8 +887,24 @@
   const section = document.querySelector('[data-product-section]');
   if (!section) return;
 
-  // Variant handling
-  const variants = {{ product.variants | json }};
+  // Variant handling (with inventory data for dynamic updates)
+  const variants = [
+    {%- for variant in product.variants -%}
+      {
+        "id": {{ variant.id | json }},
+        "title": {{ variant.title | json }},
+        "options": {{ variant.options | json }},
+        "price": {{ variant.price }},
+        "compare_at_price": {{ variant.compare_at_price | json }},
+        "available": {{ variant.available | json }},
+        "featured_media": {{ variant.featured_media | json }},
+        "featured_image": {{ variant.featured_image | json }},
+        "inventory_management": {{ variant.inventory_management | json }},
+        "inventory_policy": {{ variant.inventory_policy | json }},
+        "inventory_quantity": {{ variant.inventory_quantity | default: 0 }}
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ];
   const moneyFormat = {{ shop.money_format | json }};
   const variantPicker = section.querySelector('[data-variant-picker]');
   const hiddenSelect = section.querySelector('[data-variant-select]');
@@ -1035,10 +1051,107 @@
       }
     }
 
+    // Update inventory countdown
+    updateInventoryCountdown(variant);
+
     // Dispatch event for other components (e.g., sticky bar)
     document.dispatchEvent(new CustomEvent('variant:change', {
       detail: { variant: variant }
     }));
+  }
+
+  function updateInventoryCountdown(variant) {
+    const wrapper = section.querySelector('[data-inventory-wrapper]');
+    if (!wrapper) return;
+
+    const threshold = parseInt(wrapper.dataset.threshold) || 10;
+    const showExact = wrapper.dataset.showExact === 'true';
+    const style = wrapper.dataset.style || 'bar';
+    const showIcon = wrapper.dataset.showIcon === 'true';
+    const strings = JSON.parse(wrapper.dataset.strings || '{}');
+
+    // Check if variant has trackable inventory
+    const isTracked = variant.inventory_management === 'shopify' && variant.inventory_policy === 'deny';
+    const quantity = variant.inventory_quantity || 0;
+    const canShow = isTracked && quantity > 0 && quantity <= threshold;
+
+    // Show/hide wrapper
+    wrapper.classList.toggle('hidden', !canShow);
+
+    if (!canShow) return;
+
+    // Calculate urgency
+    let urgency = 'low';
+    if (quantity <= 3) urgency = 'critical';
+    else if (quantity <= 5) urgency = 'high';
+
+    // Generate HTML based on style
+    let html = '';
+
+    if (style === 'minimal') {
+      const icon = showIcon ? '<i class="ph ph-warning-circle text-lg leading-none" aria-hidden="true"></i>' : '';
+      const text = showExact
+        ? strings.only_x_left.replace('[COUNT]', quantity)
+        : strings.low_stock;
+      html = `
+        <div class="inventory-countdown inventory-countdown--minimal flex items-center gap-2 text-sm font-medium text-(--color-sale)" data-inventory-countdown>
+          ${icon}
+          <span>${text}</span>
+        </div>
+      `;
+    } else if (style === 'badge') {
+      const iconClass = urgency === 'critical' ? 'ph-fire-fill' : 'ph-fire';
+      const icon = showIcon ? `<i class="ph ${iconClass} text-lg leading-none" aria-hidden="true"></i>` : '';
+      let text = strings.low_stock;
+      if (showExact) {
+        text = strings.only_x_left.replace('[COUNT]', quantity);
+      } else if (urgency === 'critical') {
+        text = strings.almost_gone;
+      } else if (urgency === 'high') {
+        text = strings.selling_fast;
+      }
+      const bgClass = urgency === 'critical' ? 'bg-red-100 text-red-700' :
+                      urgency === 'high' ? 'bg-orange-100 text-orange-700' : 'bg-yellow-100 text-yellow-700';
+      html = `
+        <div class="inventory-countdown inventory-countdown--badge inline-flex items-center gap-2 px-3 py-1.5 text-sm font-semibold rounded-full ${bgClass}" data-inventory-countdown>
+          ${icon}
+          <span>${text}</span>
+        </div>
+      `;
+    } else if (style === 'bar') {
+      const fillPercent = Math.round((quantity / threshold) * 100);
+      const icon = showIcon ? '<i class="ph ph-package text-lg leading-none" aria-hidden="true"></i>' : '';
+      const barColor = urgency === 'critical' ? 'bg-red-500' :
+                       urgency === 'high' ? 'bg-orange-500' : 'bg-yellow-500';
+      let urgencyText = strings.low_stock_warning;
+      if (urgency === 'critical') urgencyText = strings.hurry_almost_gone;
+      else if (urgency === 'high') urgencyText = strings.order_soon;
+
+      html = `
+        <div class="inventory-countdown inventory-countdown--bar" data-inventory-countdown>
+          <div class="flex items-center justify-between mb-2">
+            <span class="inline-flex items-center gap-1.5 text-sm font-medium text-(--color-text-secondary)">
+              ${icon}
+              ${strings.stock_level}
+            </span>
+            ${showExact ? `<span class="text-sm font-semibold text-(--color-sale)">${quantity} ${strings.remaining}</span>` : ''}
+          </div>
+          <div class="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              class="h-full rounded-full transition-all duration-500 ${barColor}"
+              style="width: ${fillPercent}%"
+              role="progressbar"
+              aria-valuenow="${quantity}"
+              aria-valuemin="0"
+              aria-valuemax="${threshold}"
+            ></div>
+          </div>
+          ${!showExact ? `<p class="mt-2 text-sm text-(--color-sale)">${urgencyText}</p>` : ''}
+        </div>
+      `;
+    }
+
+    wrapper.innerHTML = html;
   }
 
   function getSelectedOptions() {

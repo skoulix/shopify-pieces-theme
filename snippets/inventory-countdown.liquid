@@ -25,8 +25,10 @@
   # Check if we can show inventory info
   assign can_show = false
   assign inventory_quantity = 0
+  assign is_tracked = false
 
   if variant.inventory_management == 'shopify' and variant.inventory_policy == 'deny'
+    assign is_tracked = true
     if variant.inventory_quantity > 0 and variant.inventory_quantity <= threshold
       assign can_show = true
       assign inventory_quantity = variant.inventory_quantity
@@ -42,6 +44,26 @@
   endif
 -%}
 
+{%- comment -%} Wrapper with data for JS updates {%- endcomment -%}
+<div
+  class="inventory-countdown-wrapper{% unless can_show %} hidden{% endunless %}"
+  data-inventory-wrapper
+  data-threshold="{{ threshold }}"
+  data-show-exact="{{ show_exact }}"
+  data-style="{{ style }}"
+  data-show-icon="{{ show_icon }}"
+  data-strings='{
+    "only_x_left": {{ 'products.inventory.only_x_left' | t: count: '[COUNT]' | default: 'Only [COUNT] left' | json }},
+    "low_stock": {{ 'products.inventory.low_stock' | t | default: 'Low stock' | json }},
+    "almost_gone": {{ 'products.inventory.almost_gone' | t | default: 'Almost gone!' | json }},
+    "selling_fast": {{ 'products.inventory.selling_fast' | t | default: 'Selling fast' | json }},
+    "stock_level": {{ 'products.inventory.stock_level' | t | default: 'Stock level' | json }},
+    "remaining": {{ 'products.inventory.remaining' | t | default: 'remaining' | json }},
+    "hurry_almost_gone": {{ 'products.inventory.hurry_almost_gone' | t | default: 'Hurry, almost gone!' | json }},
+    "order_soon": {{ 'products.inventory.order_soon' | t | default: 'Order soon - selling fast!' | json }},
+    "low_stock_warning": {{ 'products.inventory.low_stock_warning' | t | default: 'Low stock - order soon' | json }}
+  }'
+>
 {% if can_show %}
   {% case style %}
 
@@ -124,3 +146,4 @@
 
   {% endcase %}
 {% endif %}
+</div>
