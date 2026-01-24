@@ -19,10 +19,20 @@
   assign header_font_url = settings.type_header_font | font_url
 -%}
 {%- if body_font_url != blank and settings.type_body_font.system? == false -%}
-  <link rel="preload" href="{{ body_font_url }}" as="font" type="font/woff2" crossorigin>
+  <link
+    rel="preload"
+    href="{{ body_font_url }}"
+    as="font"
+    type="font/woff2"
+    crossorigin>
 {%- endif -%}
 {%- if header_font_url != blank and settings.type_header_font.system? == false -%}
-  <link rel="preload" href="{{ header_font_url }}" as="font" type="font/woff2" crossorigin>
+  <link
+    rel="preload"
+    href="{{ header_font_url }}"
+    as="font"
+    type="font/woff2"
+    crossorigin>
 {%- endif -%}
 
 {%- comment -%} Shadow presets {%- endcomment -%}
@@ -77,519 +87,571 @@
 -%}
 
 <style>
-  /* ==========================================================================
-     Color Scheme CSS Variables
-     Generates classes for each color scheme that sections can use
-     ========================================================================== */
+
+
+  /*
+   ==========================================================================
+   Color Scheme CSS Variables
+   Generates classes for each color scheme that sections can use
+   ==========================================================================
+*/
 
   {% for scheme in settings.color_schemes -%}
     {% if forloop.index == 1 -%}
-      :root,
+      :root, 
     {%- endif %}
     .color-{{ scheme.id }} {
       --color-background: {{ scheme.settings.background }};
-      --color-background-gradient: {% if scheme.settings.background_gradient != blank %}{{ scheme.settings.background_gradient }}{% else %}{{ scheme.settings.background }}{% endif %};
-      --color-background-secondary: color-mix(in srgb, {{ scheme.settings.text }} 5%, {{ scheme.settings.background }});
-      --color-text: {{ scheme.settings.text }};
-      --color-text-secondary: {{ scheme.settings.text_secondary }};
-      --color-primary: {{ scheme.settings.primary }};
-      --color-primary-contrast: {{ scheme.settings.primary_contrast }};
-      --color-border: {{ scheme.settings.border }};
-    }
-  {% endfor %}
-
-  :root {
-    /* Typography */
-    --font-body: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
-    --font-body-weight: {{ settings.type_body_font.weight }};
-    --font-body-style: {{ settings.type_body_font.style }};
-    --font-heading: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
-    --font-heading-weight: {{ settings.type_header_font.weight }};
-    --font-heading-style: {{ settings.type_header_font.style }};
-    --body-font-scale: {{ body_font_scale }};
-    --heading-font-scale: {{ heading_font_scale }};
-    --heading-letter-spacing: {{ heading_letter_spacing }}em;
-    --body-letter-spacing: {{ body_letter_spacing }}em;
-
-    /* Global UI colors (not part of schemes) */
-    --color-sale: {{ settings.color_sale }};
-
-    /* Status Colors */
-    --color-success: #22c55e;
-    --color-error: #ef4444;
-    --color-warning: #f59e0b;
-    --color-info: #3b82f6;
-
-    /* Layout */
-    --page-max-width: {{ settings.page_width }}px;
-    --page-padding: 24px;
-    --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.4 }}px;
-    --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.5 }}px;
-    --header-height: 65px;
-
-    /* Buttons */
-    --button-radius: {{ settings.button_radius }}px;
-    --button-border-width: {{ settings.button_border_width }}px;
-    --button-letter-spacing: calc({{ settings.button_letter_spacing | default: 10 }} * 0.01em);
-    --button-shadow: {{ button_shadow_value }};
-    --button-shadow-hover: {{ button_shadow_hover_value }};
-
-    /* Cards */
-    --card-radius: {{ settings.card_radius }}px;
-    --card-border-width: {{ settings.card_border_width }}px;
-    --card-shadow: {{ card_shadow_value }};
-
-    /* Badges - proportional to card radius */
-    --badge-radius: {{ settings.card_radius | times: 0.5 | round }}px;
-
-    /* Inputs */
-    --input-radius: {{ settings.input_radius }}px;
-    --input-radius-textarea: min({{ settings.input_radius }}px, 16px);
-    --input-border-width: {{ settings.input_border_width }}px;
-    --input-shadow: {{ input_shadow_value }};
-    --input-shadow-focus: {{ input_shadow_focus_value }};
-
-    /* Logo */
-    --logo-width: {{ settings.logo_width_mobile | default: 80 }}px;
-
-    /* Animation Durations - Shared timing values */
-    --duration-instant: 0ms;
-    --duration-fast: 150ms;
-    --duration-normal: 300ms;
-    --duration-slow: 500ms;
-    --duration-slower: 800ms;
-
-    /* Easing Functions */
-    --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
-
-    /* Transitions - Commonly used combinations */
-    --transition-fast: 0.15s ease;
-    --transition-sm: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-extended: 0.4s var(--ease-out);
-    --transition-slow: 0.5s var(--ease-out);
-
-    /* Typography Scale */
-    --text-2xs: 0.6875rem;   /* 11px */
-    --text-xs: 0.75rem;      /* 12px */
-    --text-sm: 0.875rem;     /* 14px */
-    --text-md: 0.8125rem;    /* 13px - between xs and sm */
-    --text-base: 1rem;       /* 16px */
-    --text-lg: 1.125rem;     /* 18px */
-    --text-xl: 1.25rem;      /* 20px */
-    --text-2xl: 1.5rem;      /* 24px */
-
-    /* Line Heights */
-    --leading-none: 1;
-    --leading-tight: 0.95;
-    --leading-snug: 1.1;
-    --leading-cozy: 1.2;
-    --leading-normal: 1.3;
-    --leading-comfort: 1.4;
-    --leading-relaxed: 1.5;
-    --leading-loose: 1.7;
-
-    /* Letter Spacing */
-    --tracking-tighter: -0.04em;
-    --tracking-tight: -0.02em;
-    --tracking-normal: 0;
-    --tracking-wide: 0.05em;
-    --tracking-wider: 0.1em;
-    --tracking-extra: 0.12em;
-    --tracking-widest: 0.15em;
-    --tracking-ultra: 0.2em;
-
-    /* Opacity Scale */
-    --opacity-muted: 0.7;
-    --opacity-secondary: 0.6;
-    --opacity-disabled: 0.5;
-    --opacity-subtle: 0.3;
-    --opacity-light: 0.15;
-    --opacity-faint: 0.1;
-
-    /* Max Widths - Text containers */
-    --max-w-prose: 65ch;
-    --max-w-prose-narrow: 45ch;
-    --max-w-prose-wide: 80ch;
-
-    /* Z-Index Layers */
-    --z-base: 1;
-    --z-content: 10;
-    --z-dropdown: 50;
-    --z-sticky: 60;
-    --z-drawer: 100;
-    --z-modal: 9999;
-    --z-toast: 10000;
-
-    /* Box Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
-    --shadow-dropdown: 0 10px 40px -10px rgb(0 0 0 / 0.15);
-    --shadow-drawer: -4px 0 24px rgb(0 0 0 / 0.15);
+      --color-background-gradient: {% if scheme.settings.background_gradient != blank %}{{ scheme.settings.background_gradient }}
+    {% else %}{{ scheme.settings.background }}
+  {% endif %};
+    --color-background-secondary: color-mix(in srgb, {{ scheme.settings.text }} 5%, {{ scheme.settings.background }});
+    --color-text: {{ scheme.settings.text }};
+    --color-text-secondary: {{ scheme.settings.text_secondary }};
+    --color-primary: {{ scheme.settings.primary }};
+    --color-primary-contrast: {{ scheme.settings.primary_contrast }};
+    --color-border: {{ scheme.settings.border }};
   }
+{% endfor %}
 
-  /* Color scheme sections apply background gradient and text colors */
-  {% for scheme in settings.color_schemes -%}
-    .color-{{ scheme.id }}{% unless forloop.last %},{% endunless %}
-  {% endfor %} {
-    background: var(--color-background-gradient);
-    color: var(--color-text);
-  }
+:root  {
+  /* Typography */
+  --font-body: {{ settings.type_body_font.family }}, 
+  {{ settings.type_body_font.fallback_families }};
+  --font-body-weight: {{ settings.type_body_font.weight }};
+  --font-body-style: {{ settings.type_body_font.style }};
+  --font-heading: {{ settings.type_header_font.family }}, 
+  {{ settings.type_header_font.fallback_families }};
+  --font-heading-weight: {{ settings.type_header_font.weight }};
+  --font-heading-style: {{ settings.type_header_font.style }};
+  --body-font-scale: {{ body_font_scale }};
+  --heading-font-scale: {{ heading_font_scale }};
+  --heading-letter-spacing: {{ heading_letter_spacing }}em;
+  --body-letter-spacing: {{ body_letter_spacing }}em;
 
-  @media (min-width: 1024px) {
-    :root {
-      --logo-width: {{ settings.logo_width }}px;
-    }
-  }
+  /* Global UI colors (not part of schemes) */
+  --color-sale: {{ settings.color_sale }};
 
-  /* Apply base styles */
-  html {
-    font-size: calc(1rem * var(--body-font-scale));
-    /* Prevent layout shift when scrollbar appears/disappears during page transitions */
-    scrollbar-gutter: stable;
-  }
+  /* Status Colors */
+  --color-success: #22c55e;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
 
-  body {
-    font-family: var(--font-body);
-    font-weight: var(--font-body-weight);
-    font-style: var(--font-body-style);
-    background-color: var(--color-background);
-    color: var(--color-text);
-  }
+  /* Layout */
+  --page-max-width: {{ settings.page_width }}px;
+  --page-padding: 24px;
+  --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.4 }}px;
+  --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.5 }}px;
+  --header-height: 65px;
 
-  h1, h2, h3, h4, h5, h6,
-  .heading,
-  .font-heading,
-  .page-header-subtitle,
-  .section-label {
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
-    font-style: var(--font-heading-style);
-    {% if settings.headings_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Heading scale - defined in Tailwind base.css to avoid Preflight override */
-
-  /* Links */
-  a {
-    color: inherit;
-  }
-
-  a:hover:not(.header-icon) {
-    color: var(--color-primary);
-  }
-
-  /* Button uppercase setting - applied to all button variants */
-  .btn,
-  button[type="submit"] {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Section links */
-  .text-hover-reveal,
-  .section-link,
-  .link-cta {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* ==========================================================================
-     Typography Utility Classes
-     Reusable text styles for labels, meta, links, and counters
-     Respects theme uppercase settings
-     ========================================================================== */
-
-  /* Primary label - Form labels, section eyebrows, drawer titles */
-  .text-label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.15em;
-  }
-
-  /* Secondary label - Counters, back-to-top, small UI labels */
-  .text-label-sm {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.1em;
-  }
-
-  /* Meta text - Vendor, category, date, counts */
-  .text-meta {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.1em;
-    color: var(--color-text-secondary);
-  }
-
-  /* Small CTA links with arrows */
-  .text-link-sm {
-    font-size: 0.875rem;
-    font-weight: 600;
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.1em;
-  }
-
-  /* Image counters (01 / 05 style) */
-  .text-counter {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-    letter-spacing: 0.2em;
-  }
-
-  /* Section label - uppercase depends on settings */
-  .section-label {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Blog category - uppercase depends on settings */
-  .blog-category {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Form label - uppercase depends on settings */
-  .form-label {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Badge - uppercase depends on settings */
-  .badge {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Page header subtitle - uppercase depends on settings */
-  .page-header-subtitle {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Card meta - uppercase depends on settings */
-  .card-meta {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Dropdown featured label - uppercase depends on settings */
-  .dropdown-featured__label {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
-
-  /* Cart note toggle - uppercase depends on settings */
-  .cart-drawer__note-toggle {
-    {% if settings.buttons_uppercase %}text-transform: uppercase;{% endif %}
-  }
+  /* Buttons */
+  --button-radius: {{ settings.button_radius }}px;
+  --button-border-width: {{ settings.button_border_width }}px;
+  --button-letter-spacing: calc({{ settings.button_letter_spacing | default: 10 }} * 0.01em);
+  --button-shadow: {{ button_shadow_value }};
+  --button-shadow-hover: {{ button_shadow_hover_value }};
 
   /* Cards */
-  .card {
-    background-color: var(--color-background);
-    border: var(--card-border-width) solid var(--color-border);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
-  }
+  --card-radius: {{ settings.card_radius }}px;
+  --card-border-width: {{ settings.card_border_width }}px;
+  --card-shadow: {{ card_shadow_value }};
+
+  /* Badges - proportional to card radius */
+  --badge-radius: {{ settings.card_radius | times: 0.5 | round }}px;
 
   /* Inputs */
-  input:not([type="checkbox"]):not([type="radio"]),
-  select {
-    background-color: var(--color-background);
-    border: var(--input-border-width) solid var(--color-border);
-    border-radius: var(--input-radius);
-    box-shadow: var(--input-shadow);
-    color: var(--color-text);
-  }
+  --input-radius: {{ settings.input_radius }}px;
+  --input-radius-textarea: min({{ settings.input_radius }}px, 16px);
+  --input-border-width: {{ settings.input_border_width }}px;
+  --input-shadow: {{ input_shadow_value }};
+  --input-shadow-focus: {{ input_shadow_focus_value }};
 
-  textarea {
-    background-color: var(--color-background);
-    border: var(--input-border-width) solid var(--color-border);
-    border-radius: var(--input-radius-textarea);
-    box-shadow: var(--input-shadow);
-    color: var(--color-text);
-  }
+  /* Logo */
+  --logo-width: {{ settings.logo_width_mobile | default: 80 }}px;
 
-  input:not([type="checkbox"]):not([type="radio"]):focus,
-  textarea:focus,
-  select:focus {
-    border-color: var(--color-primary);
-    outline: none;
-    box-shadow: var(--input-shadow-focus);
-  }
+  /* Animation Durations - Shared timing values */
+  --duration-instant: 0;
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
 
-  /* Sale prices */
-  .sale-price,
-  .price--on-sale {
-    color: var(--color-sale);
-  }
+  /* Easing Functions */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
 
-  /* Secondary text */
-  .text-secondary {
-    color: var(--color-text-secondary);
-  }
+  /* Transitions - Commonly used combinations */
+  --transition-fast: 0.15s ease;
+  --transition-sm: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-extended: 0.4s var(--ease-out);
+  --transition-slow: 0.5s var(--ease-out);
 
-  /* Background utilities */
-  .bg-secondary {
-    background-color: var(--color-background-secondary);
-  }
+  /* Typography Scale */
+  --text-2xs: 0.6875rem;
+  /* 11px */
+  --text-xs: 0.75rem;
+  /* 12px */
+  --text-sm: 0.875rem;
+  /* 14px */
+  --text-md: 0.8125rem;
+  /* 13px - between xs and sm */
+  --text-base: 1rem;
+  /* 16px */
+  --text-lg: 1.125rem;
+  /* 18px */
+  --text-xl: 1.25rem;
+  /* 20px */
+  --text-2xl: 1.5rem;
+  /* 24px */
 
-  /* Border utilities */
-  .border-theme {
-    border-color: var(--color-border);
-  }
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 0.95;
+  --leading-snug: 1.1;
+  --leading-cozy: 1.2;
+  --leading-normal: 1.3;
+  --leading-comfort: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.7;
 
-  /* ==========================================================================
-     Focus Ring - Accessible focus indicator
-     Usage: Add .focus-ring to interactive elements
-     ========================================================================== */
-  .focus-ring:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
+  /* Letter Spacing */
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.05em;
+  --tracking-wider: 0.1em;
+  --tracking-extra: 0.12em;
+  --tracking-widest: 0.15em;
+  --tracking-ultra: 0.2em;
 
-  .focus-ring:focus:not(:focus-visible) {
-    outline: none;
-  }
+  /* Opacity Scale */
+  --opacity-muted: 0.7;
+  --opacity-secondary: 0.6;
+  --opacity-disabled: 0.5;
+  --opacity-subtle: 0.3;
+  --opacity-light: 0.15;
+  --opacity-faint: 0.1;
 
-  .focus-ring:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
+  /* Max Widths - Text containers */
+  --max-w-prose: 65ch;
+  --max-w-prose-narrow: 45ch;
+  --max-w-prose-wide: 80ch;
 
-  /* Responsive page and section vertical padding */
-  @media (min-width: 768px) {
-    :root {
-      --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.6 }}px;
-      --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.7 }}px;
-    }
-  }
+  /* Z-Index Layers */
+  --z-base: 1;
+  --z-content: 10;
+  --z-dropdown: 50;
+  --z-sticky: 60;
+  --z-drawer: 100;
+  --z-modal: 9999;
+  --z-toast: 10000;
 
-  @media (min-width: 1024px) {
-    :root {
-      --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.8 }}px;
-      --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.85 }}px;
-    }
-  }
+  /* Box Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1)
+  , 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1)
+  , 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  --shadow-dropdown: 0 10px 40px -10px rgb(0 0 0 / 0.15);
+  --shadow-drawer: -4px 0 24px rgb(0 0 0 / 0.15);
+}
 
-  @media (min-width: 1280px) {
-    :root {
-      --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 }}px;
-      --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 }}px;
-    }
-  }
+/* Color scheme sections apply background gradient and text colors */
+{% for scheme in settings.color_schemes -%}
+  .color-{{ scheme.id }}
+  {% unless forloop.last %}, {% endunless %}
+{% endfor %} {
+  background: var(--color-background-gradient);
+  color: var(--color-text);
+}
 
-  /* Layout utilities - respect theme settings */
-  .page-container {
-    max-width: var(--page-max-width);
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--page-padding);
-    padding-right: var(--page-padding);
+@media (min-width: 1024px) {
+  :root {
+    --logo-width: {{ settings.logo_width }}px;
   }
+}
 
-  .page-full {
-    width: 100%;
+/* Apply base styles */
+html {
+  font-size: calc(1rem * var(--body-font-scale));
+  /* Prevent layout shift when scrollbar appears/disappears during page transitions */
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: var(--font-body-weight);
+  font-style: var(--font-body-style);
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.heading,
+.font-heading,
+.page-header-subtitle,
+.section-label {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-style: var(--font-heading-style);
+  {% if settings.headings_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Heading scale - defined in Tailwind base.css to avoid Preflight override */
+
+/* Links */a {
+  color: inherit;
+}
+
+a:hover:not(.header-icon) {
+  color: var(--color-primary);
+}
+
+/* Button uppercase setting - applied to all button variants */
+.btn,
+button[type="submit"] {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Section links */
+.text-hover-reveal,
+.section-link,
+.link-cta {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+
+/*
+   ==========================================================================
+   Typography Utility Classes
+   Reusable text styles for labels, meta, links, and counters
+   Respects theme uppercase settings
+   ==========================================================================
+*/
+
+/* Primary label - Form labels, section eyebrows, drawer titles */.text-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+letter-spacing: 0.15em;
+}
+
+/* Secondary label - Counters, back-to-top, small UI labels */
+.text-label-sm {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+letter-spacing: 0.1em;
+}
+
+/* Meta text - Vendor, category, date, counts */
+.text-meta {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+letter-spacing: 0.1em;
+color: var(--color-text-secondary);
+}
+
+/* Small CTA links with arrows */
+.text-link-sm {
+  font-size: 0.875rem;
+  font-weight: 600;
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+letter-spacing: 0.1em;
+}
+
+/* Image counters (01 / 05 style) */
+.text-counter {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+letter-spacing: 0.2em;
+}
+
+/* Section label - uppercase depends on settings */
+.section-label {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Blog category - uppercase depends on settings */
+.blog-category {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Form label - uppercase depends on settings */
+.form-label {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Badge - uppercase depends on settings */
+.badge {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Page header subtitle - uppercase depends on settings */
+.page-header-subtitle {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Card meta - uppercase depends on settings */
+.card-meta {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Dropdown featured label - uppercase depends on settings */
+.dropdown-featured__label {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Cart note toggle - uppercase depends on settings */
+.cart-drawer__note-toggle {
+  {% if settings.buttons_uppercase %}text-transform: uppercase;
+{% endif %}
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-background);
+  border: var(--card-border-width) solid var(--color-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Inputs */
+input:not([type="checkbox"]):not([type="radio"]),
+select {
+  background-color: var(--color-background);
+  border: var(--input-border-width) solid var(--color-border);
+  border-radius: var(--input-radius);
+  box-shadow: var(--input-shadow);
+  color: var(--color-text);
+}
+
+textarea {
+  background-color: var(--color-background);
+  border: var(--input-border-width) solid var(--color-border);
+  border-radius: var(--input-radius-textarea);
+  box-shadow: var(--input-shadow);
+  color: var(--color-text);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: var(--input-shadow-focus);
+}
+
+/* Sale prices */
+.sale-price,
+.price--on-sale {
+  color: var(--color-sale);
+}
+
+/* Secondary text */
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+/* Background utilities */
+.bg-secondary {
+  background-color: var(--color-background-secondary);
+}
+
+/* Border utilities */
+.border-theme {
+  border-color: var(--color-border);
+}
+
+
+/*
+   ==========================================================================
+   Focus Ring - Accessible focus indicator
+   Usage: Add .focus-ring to interactive elements
+   ==========================================================================
+*/
+.focus-ring:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.focus-ring:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive page and section vertical padding */
+@media (min-width: 768px) {
+  :root {
+    --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.6 }}px;
+    --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.7 }}px;
   }
+}
 
-  /* Policy pages styling - use !important to override Shopify's default 65ch max-width */
-  /* Matches .page-padding utility: top = page-vertical-padding + header-height, bottom = page-vertical-padding */
-  .shopify-policy__container {
-    max-width: var(--page-max-width) !important;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--page-padding);
-    padding-right: var(--page-padding);
-    padding-top: calc(var(--page-vertical-padding) + var(--header-height, 65px));
-    padding-bottom: var(--page-vertical-padding);
+@media (min-width: 1024px) {
+  :root {
+    --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 | times: 0.8 }}px;
+    --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 | times: 0.85 }}px;
   }
+}
 
-  .shopify-policy__body {
-    max-width: none !important;
-    color: var(--color-text);
+@media (min-width: 1280px) {
+  :root {
+    --page-vertical-padding: {{ settings.page_vertical_padding | default: 80 }}px;
+    --section-vertical-padding: {{ settings.section_vertical_padding | default: 80 }}px;
   }
+}
 
+/* Layout utilities - respect theme settings */
+.page-container {
+  max-width: var(--page-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.page-full {
+  width: 100%;
+}
+
+/* Policy pages styling - use !important to override Shopify's default 65ch max-width */
+/* Matches .page-padding utility: top = page-vertical-padding + header-height, bottom = page-vertical-padding */.shopify-policy__container {
+  max-width: var(--page-max-width) !important;
+  margin-left: auto;
+  margin-right: auto;
+  padding: calc(var(--page-vertical-padding) + var(--header-height, 65px)) var(--page-padding) var(--page-vertical-padding);
+}
+
+.shopify-policy__body {
+  max-width: none !important;
+  color: var(--color-text);
+}
+
+.shopify-policy__title {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.shopify-policy__title,
+.shopify-policy__title * {
+  text-align: left !important;
+}
+
+.shopify-policy__title h1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--font-heading);
+  font-size: calc(clamp(1.75rem, 5vw, 2.75rem) * var(--heading-font-scale, 1)) !important;
+  font-weight: var(--font-heading-weight, 700);
+  letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
+  line-height: 1.1;
+  text-wrap: balance;
+  color: var(--color-text);
+}
+
+@media (min-width: 1024px) {
   .shopify-policy__title {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    margin-bottom: clamp(2rem, 4vw, 3rem);
-  }
-
-  .shopify-policy__title,
-  .shopify-policy__title * {
-    text-align: left !important;
+    margin-bottom: clamp(2.5rem, 4vw, 4rem);
   }
 
   .shopify-policy__title h1 {
-    margin: 0 !important;
-    padding: 0 !important;
-    font-family: var(--font-heading);
-    font-size: calc(clamp(1.75rem, 5vw, 2.75rem) * var(--heading-font-scale, 1)) !important;
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
-    line-height: 1.1;
-    text-wrap: balance;
-    color: var(--color-text);
+    font-size: calc(clamp(2.5rem, 4vw, 3.5rem) * var(--heading-font-scale, 1)) !important;
   }
+}
 
-  @media (min-width: 1024px) {
-    .shopify-policy__title {
-      margin-bottom: clamp(2.5rem, 4vw, 4rem);
-    }
-
-    .shopify-policy__title h1 {
-      font-size: calc(clamp(2.5rem, 4vw, 3.5rem) * var(--heading-font-scale, 1)) !important;
-    }
+@media (min-width: 1536px) {
+  .shopify-policy__title h1 {
+    font-size: calc(clamp(3rem, 3.5vw, 4rem) * var(--heading-font-scale, 1)) !important;
   }
+}
 
-  @media (min-width: 1536px) {
-    .shopify-policy__title h1 {
-      font-size: calc(clamp(3rem, 3.5vw, 4rem) * var(--heading-font-scale, 1)) !important;
-    }
-  }
+.shopify-policy__body {
+  max-width: 48rem;
+  color: var(--color-text);
+}
 
-  .shopify-policy__body {
-    max-width: 48rem;
-    color: var(--color-text);
-  }
+.shopify-policy__body h1,
+.shopify-policy__body h2,
+.shopify-policy__body h3,
+.shopify-policy__body h4,
+.shopify-policy__body h5,
+.shopify-policy__body h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight, 600);
+  letter-spacing: var(--heading-letter-spacing, 0);
+  color: var(--color-text);
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
 
-  .shopify-policy__body h1,
-  .shopify-policy__body h2,
-  .shopify-policy__body h3,
-  .shopify-policy__body h4,
-  .shopify-policy__body h5,
-  .shopify-policy__body h6 {
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight, 600);
-    letter-spacing: var(--heading-letter-spacing, 0);
-    color: var(--color-text);
-    margin-top: 2em;
-    margin-bottom: 0.5em;
-  }
+.shopify-policy__body h1 {
+  font-size: 2rem !important;
+}
+.shopify-policy__body h2 {
+  font-size: 1.5rem !important;
+}
+.shopify-policy__body h3 {
+  font-size: 1.25rem !important;
+}
+.shopify-policy__body h4 {
+  font-size: 1.125rem !important;
+}
+.shopify-policy__body h5 {
+  font-size: 1rem !important;
+}
+.shopify-policy__body h6 {
+  font-size: 0.875rem !important;
+}
 
-  .shopify-policy__body h1 { font-size: 2rem !important; }
-  .shopify-policy__body h2 { font-size: 1.5rem !important; }
-  .shopify-policy__body h3 { font-size: 1.25rem !important; }
-  .shopify-policy__body h4 { font-size: 1.125rem !important; }
-  .shopify-policy__body h5 { font-size: 1rem !important; }
-  .shopify-policy__body h6 { font-size: 0.875rem !important; }
+.shopify-policy__body p {
+  margin-bottom: 1em;
+  line-height: 1.7;
+}
 
-  .shopify-policy__body p {
-    margin-bottom: 1em;
-    line-height: 1.7;
-  }
+.shopify-policy__body a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
 
-  .shopify-policy__body a {
-    color: var(--color-primary);
-    text-decoration: underline;
-  }
+.shopify-policy__body ul,
+.shopify-policy__body ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
 
-  .shopify-policy__body ul,
-  .shopify-policy__body ol {
-    margin-bottom: 1em;
-    padding-left: 1.5em;
-  }
-
-  .shopify-policy__body li {
-    margin-bottom: 0.5em;
-  }
+.shopify-policy__body li {
+  margin-bottom: 0.5em;
+}
 </style>

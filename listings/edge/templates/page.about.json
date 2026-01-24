@@ -1,9 +1,5 @@
 {
   "sections": {
-    "main_about": {
-      "type": "main-about",
-      "settings": {}
-    },
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
@@ -20,7 +16,8 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-2",
+        "add_top_padding": true
       }
     },
     "image_with_text": {
@@ -41,7 +38,10 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2"],
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
       "settings": {
         "image_ratio": "16/9",
         "label": "THE TECH",
@@ -145,7 +145,12 @@
           }
         }
       },
-      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
       "settings": {
         "label": "WHY US",
         "title": "THE EDGE ADVANTAGE",
@@ -290,7 +295,6 @@
     }
   },
   "order": [
-    "main_about",
     "text_reveal",
     "image_with_text",
     "timeline",

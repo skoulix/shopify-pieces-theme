@@ -1,9 +1,5 @@
 {
   "sections": {
-    "main_about": {
-      "type": "main-about",
-      "settings": {}
-    },
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
@@ -20,7 +16,8 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": ""
+        "color_scheme": "",
+        "add_top_padding": true
       }
     },
     "image_with_text": {
@@ -41,7 +38,10 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2"],
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
       "settings": {
         "image_ratio": "4/5",
         "label": "Our Promise",
@@ -209,7 +209,12 @@
           }
         }
       },
-      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
+      "block_order": [
+        "badge_1",
+        "badge_2",
+        "badge_3",
+        "badge_4"
+      ],
       "settings": {
         "columns": 4,
         "show_icons": true,
@@ -235,7 +240,6 @@
     }
   },
   "order": [
-    "main_about",
     "text_reveal",
     "image_with_text",
     "timeline",

@@ -9,10 +9,6 @@
  */
 {
   "sections": {
-    "main_about": {
-      "type": "main-about",
-      "settings": {}
-    },
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
@@ -28,6 +24,7 @@
         "button_size": "default",
         "show_background_number": false,
         "background_number": "01",
+        "add_top_padding": true,
         "full_width": false,
         "color_scheme": "",
         "accent_color": "#6366f1"
@@ -225,7 +222,6 @@
     }
   },
   "order": [
-    "main_about",
     "text_reveal",
     "timeline",
     "team",

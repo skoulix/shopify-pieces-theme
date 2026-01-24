@@ -1,9 +1,5 @@
 {
   "sections": {
-    "main_about": {
-      "type": "main-about",
-      "settings": {}
-    },
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
@@ -20,7 +16,8 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": ""
+        "color_scheme": "",
+        "add_top_padding": true
       }
     },
     "timeline": {
@@ -208,7 +205,6 @@
     }
   },
   "order": [
-    "main_about",
     "text_reveal",
     "timeline",
     "team",

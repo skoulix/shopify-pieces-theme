@@ -1,15 +1,11 @@
 {
   "sections": {
-    "main_about": {
-      "type": "main-about",
-      "settings": {}
-    },
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
         "label": "THE VISION",
         "text": "WE DON'T FOLLOW *TRENDS*.\nWE SET *THEM*.\nBUILT FOR THE CULTURE.",
-        "subtext": "Every piece tells a story. Every drop makes a statement. This isn't just fashion—it's a movement.",
+        "subtext": "Every piece tells a story. Every drop makes a statement. This isn't just fashion\u2014it's a movement.",
         "header_alignment": "left",
         "button_text": "SHOP THE DROP",
         "button_link": "shopify://collections/all",
@@ -20,7 +16,8 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-2",
+        "add_top_padding": true
       }
     },
     "image_with_text": {
@@ -41,12 +38,15 @@
           }
         }
       },
-      "block_order": ["stat_1", "stat_2"],
+      "block_order": [
+        "stat_1",
+        "stat_2"
+      ],
       "settings": {
         "image_ratio": "1/1",
         "label": "THE STORY",
         "title": "FROM THE GARAGE TO THE GLOBE",
-        "text": "<p>Started in 2019 with one screen printer, a dream, and zero budget. We built this brand from the ground up—no investors, no shortcuts, just hustle. Every design is personal. Every piece is limited. When it's gone, it's gone. That's how we keep it real.</p>",
+        "text": "<p>Started in 2019 with one screen printer, a dream, and zero budget. We built this brand from the ground up\u2014no investors, no shortcuts, just hustle. Every design is personal. Every piece is limited. When it's gone, it's gone. That's how we keep it real.</p>",
         "button_text": "OUR STORY",
         "button_link": "",
         "button_type": "link",
@@ -244,7 +244,6 @@
     }
   },
   "order": [
-    "main_about",
     "text_reveal",
     "image_with_text",
     "timeline",
