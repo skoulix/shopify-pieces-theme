@@ -3,7 +3,18 @@
    ========================================================================== */
 
 @layer components {
-  /* Page Container */
+  /* Page Container Classes - used by container-class snippet */
+  .page-container {
+    @apply mx-auto w-full max-w-(--page-max-width);
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+  }
+
+  .page-full {
+    @apply w-full;
+  }
+
+  /* Page Width - legacy class */
   .page-width {
     @apply mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-(--page-max-width);
   }
@@ -139,6 +150,35 @@
 
   .toast__close:hover {
     @apply opacity-100;
+  }
+
+  /* ==========================================================================
+     Image Hover Swap - Secondary image reveals on hover
+     Used in: product-card, collection metro items
+     Wrap images in a container with group class, primary gets .image-primary,
+     secondary gets .image-secondary
+     ========================================================================== */
+
+  .image-primary {
+    @apply absolute inset-0 w-full h-full object-cover scale-100;
+    transition: scale var(--transition-slow), opacity var(--transition-slow);
+  }
+
+  .group:hover .image-primary.has-secondary {
+    @apply scale-105 opacity-0;
+  }
+
+  .group:hover .image-primary:not(.has-secondary) {
+    @apply scale-105;
+  }
+
+  .image-secondary {
+    @apply absolute inset-0 w-full h-full object-cover scale-100 opacity-0;
+    transition: scale var(--transition-slow), opacity var(--transition-slow);
+  }
+
+  .group:hover .image-secondary {
+    @apply scale-105 opacity-100;
   }
 
   /* Shopify Placeholder SVGs */
