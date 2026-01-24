@@ -274,13 +274,14 @@
                         <div class="relative">
                           <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-(--color-text-secondary)">{{ cart.currency.symbol }}</span>
                           <input
-                            type="number"
+                            type="text"
+                            inputmode="decimal"
                             name="{{ filter.min_value.param_name }}"
                             id="Filter-{{ filter.min_value.param_name }}"
-                            {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                            min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {% if filter.min_value.value %}value="{{ filter.min_value.value | money_without_currency }}"{% endif %}
                             placeholder="0"
+                            data-min="0"
+                            data-max="{{ filter.range_max | money_without_currency }}"
                             class="w-full border border-(--color-border) rounded-(--input-radius) px-3 py-2 pl-7 text-sm focus:border-(--color-text) focus:outline-none transition-colors"
                           >
                         </div>
@@ -291,13 +292,14 @@
                         <div class="relative">
                           <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-(--color-text-secondary)">{{ cart.currency.symbol }}</span>
                           <input
-                            type="number"
+                            type="text"
+                            inputmode="decimal"
                             name="{{ filter.max_value.param_name }}"
                             id="Filter-{{ filter.max_value.param_name }}"
-                            {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"{% endif %}
-                            min="0"
-                            max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                            placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                            {% if filter.max_value.value %}value="{{ filter.max_value.value | money_without_currency }}"{% endif %}
+                            placeholder="{{ filter.range_max | money_without_currency }}"
+                            data-min="0"
+                            data-max="{{ filter.range_max | money_without_currency }}"
                             class="w-full border border-(--color-border) rounded-(--input-radius) px-3 py-2 pl-7 text-sm focus:border-(--color-text) focus:outline-none transition-colors"
                           >
                         </div>
