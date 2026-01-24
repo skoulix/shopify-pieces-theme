@@ -1,29 +1,20 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "overlay_opacity": 40,
-        "label": "",
-        "title": "Elevate Your Style",
-        "description": "Discover our curated collection of premium products designed for the modern lifestyle.",
-        "content_alignment": "left",
-        "button_text": "Shop Now",
+        "overlay_opacity": 60,
+        "label": "NEXT GEN",
+        "title": "ENGINEERED FOR VICTORY",
+        "description": "Professional-grade gaming gear designed for peak performance. Dominate every frame.",
+        "content_alignment": "center",
+        "button_text": "SHOP NOW",
         "button_link": "shopify://collections/all",
         "button_style": "solid",
         "button_color": "primary",
         "button_size": "large",
         "color_scheme": "scheme-1",
-        "full_width": false,
+        "full_width": true,
         "show_scroll_indicator": true
       }
     },
@@ -33,7 +24,7 @@
         "text_1": {
           "type": "text",
           "settings": {
-            "text": "Free Shipping",
+            "text": "1MS RESPONSE",
             "outline": false
           }
         },
@@ -41,13 +32,13 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
           }
         },
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "New Arrivals",
+            "text": "PRO GRADE",
             "outline": true
           }
         },
@@ -55,13 +46,13 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
           }
         },
         "text_3": {
           "type": "text",
           "settings": {
-            "text": "Limited Edition",
+            "text": "RGB SYNC",
             "outline": false
           }
         },
@@ -69,42 +60,146 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "FREE SHIPPING",
+            "outline": true
+          }
+        },
+        "sep_4": {
+          "type": "separator",
+          "settings": {
+            "style": "icon",
+            "icon": "lightning"
           }
         }
       },
-      "block_order": [
-        "text_1",
-        "sep_1",
-        "text_2",
-        "sep_2",
-        "text_3",
-        "sep_3"
-      ],
+      "block_order": ["text_1", "sep_1", "text_2", "sep_2", "text_3", "sep_3", "text_4", "sep_4"],
       "settings": {
         "direction": "left",
-        "speed": 30,
+        "speed": 35,
         "scroll_aware": true,
         "scroll_speed": 2,
-        "pause_on_hover": true,
-        "color_scheme": ""
+        "pause_on_hover": false,
+        "color_scheme": "scheme-2"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "",
-        "label": "New Arrivals",
-        "title": "Featured Collection",
-        "description": "",
+        "label": "FEATURED",
+        "title": "BEST SELLERS",
+        "description": "Battle-tested gear trusted by pros worldwide",
         "header_alignment": "left",
-        "products_to_show": 4,
+        "products_to_show": 8,
         "columns": 4,
         "show_vendor": false,
         "show_view_all": true,
-        "view_all_text": "View All",
+        "view_all_text": "VIEW ALL",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "rolling_numbers": {
+      "type": "rolling-numbers",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "500",
+            "suffix": "K+",
+            "label": "UNITS SOLD"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "99",
+            "suffix": "%",
+            "label": "5-STAR REVIEWS"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "number": "50",
+            "suffix": "+",
+            "label": "PRO TEAMS"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "number": "1",
+            "suffix": "MS",
+            "label": "RESPONSE TIME"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2", "stat_3", "stat_4"],
+      "settings": {
+        "title": "",
+        "animate_on_scroll": true,
+        "duration": 2,
         "full_width": false,
         "color_scheme": "scheme-2"
+      }
+    },
+    "collections_carousel": {
+      "type": "collections-carousel",
+      "blocks": {
+        "collection_1": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "KEYBOARDS"
+          }
+        },
+        "collection_2": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "MICE"
+          }
+        },
+        "collection_3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "HEADSETS"
+          }
+        },
+        "collection_4": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "CONTROLLERS"
+          }
+        },
+        "collection_5": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "ACCESSORIES"
+          }
+        }
+      },
+      "block_order": ["collection_1", "collection_2", "collection_3", "collection_4", "collection_5"],
+      "settings": {
+        "label": "CATEGORIES",
+        "title": "SHOP BY GEAR",
+        "description": "",
+        "header_alignment": "left",
+        "layout": "carousel",
+        "card_style": "default",
+        "show_product_count": true,
+        "full_width": false,
+        "color_scheme": "scheme-1"
       }
     },
     "image_with_text": {
@@ -113,28 +208,25 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10+",
-            "label": "Years"
+            "number": "8000",
+            "label": "DPI Sensor"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "50K",
-            "label": "Customers"
+            "number": "50M",
+            "label": "Click Durability"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2"
-      ],
+      "block_order": ["stat_1", "stat_2"],
       "settings": {
-        "image_ratio": "4/5",
-        "label": "Our Story",
-        "title": "Crafted With Purpose",
-        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-        "button_text": "Learn More",
+        "image_ratio": "1/1",
+        "label": "TECH SPECS",
+        "title": "PRECISION ENGINEERED",
+        "text": "<p>Every product undergoes rigorous testing by professional esports athletes. We don't compromise on latency, durability, or ergonomics. Built for tournament-level performance, designed for everyday gaming.</p>",
+        "button_text": "LEARN MORE",
         "button_link": "",
         "button_type": "link",
         "button_style": "solid",
@@ -143,101 +235,127 @@
         "layout": "image_left",
         "full_width": false,
         "remove_padding": false,
-        "color_scheme": "scheme-1"
-      }
-    },
-    "featured_blog_GWjPQG": {
-      "type": "featured-blog",
-      "name": "Featured Blog",
-      "settings": {
-        "blog": "",
-        "label": "Our Stories",
-        "title": "Featured Blog",
-        "description": "",
-        "header_alignment": "left",
-        "posts_to_show": 4,
-        "columns": 3,
-        "feature_first": true,
-        "show_tags": true,
-        "show_excerpt": true,
-        "show_author": true,
-        "show_read_more": true,
-        "show_view_all": true,
-        "view_all_text": "View All",
-        "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
-    "testimonials_UML8MP": {
-      "type": "testimonials",
+    "features_grid": {
+      "type": "features-grid",
       "blocks": {
-        "testimonial_BF9x6V": {
-          "type": "testimonial",
+        "feature_1": {
+          "type": "feature",
           "settings": {
-            "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.",
-            "rating": 5,
-            "author": "Sarah Johnson",
-            "author_title": "Verified Buyer"
+            "icon": "lightning",
+            "title": "1ms Response",
+            "description": "Zero-lag performance with tournament-grade polling rates"
           }
         },
-        "testimonial_6aGUB4": {
-          "type": "testimonial",
+        "feature_2": {
+          "type": "feature",
           "settings": {
-            "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.",
-            "rating": 5,
-            "author": "Michael Chen",
-            "author_title": "Loyal Customer"
+            "icon": "cpu",
+            "title": "Pro Sensors",
+            "description": "Premium optical sensors with flawless tracking accuracy"
           }
         },
-        "testimonial_H7jk47": {
-          "type": "testimonial",
+        "feature_3": {
+          "type": "feature",
           "settings": {
-            "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.",
-            "rating": 5,
-            "author": "Emily Davis",
-            "author_title": "Repeat Customer"
+            "icon": "rainbow",
+            "title": "RGB Ecosystem",
+            "description": "Full RGB customization with cross-device sync"
           }
         },
-        "testimonial_FKV7Ym": {
-          "type": "testimonial",
+        "feature_4": {
+          "type": "feature",
           "settings": {
-            "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.",
-            "rating": 5,
-            "author": "David Wilson",
-            "author_title": "Verified Buyer"
-          }
-        },
-        "testimonial_dH4rBy": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.",
-            "rating": 5,
-            "author": "Rachel Thompson",
-            "author_title": "First-time Buyer"
-          }
-        },
-        "testimonial_H4HFVR": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.",
-            "rating": 5,
-            "author": "James Martinez",
-            "author_title": "Repeat Customer"
+            "icon": "shield-check",
+            "title": "2-Year Warranty",
+            "description": "Comprehensive coverage on all products"
           }
         }
       },
-      "block_order": [
-        "testimonial_BF9x6V",
-        "testimonial_6aGUB4",
-        "testimonial_H7jk47",
-        "testimonial_FKV7Ym",
-        "testimonial_dH4rBy",
-        "testimonial_H4HFVR"
-      ],
-      "name": "Testimonials",
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
       "settings": {
-        "label": "Testimonials",
-        "title": "What Our Customers Say",
+        "label": "WHY US",
+        "title": "THE EDGE ADVANTAGE",
+        "columns": 4,
+        "header_alignment": "left",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "video": {
+      "type": "video",
+      "settings": {
+        "label": "IN ACTION",
+        "title": "SEE IT PERFORM",
+        "description": "Watch our gear in competitive play",
+        "video_url": "",
+        "autoplay": false,
+        "loop": true,
+        "muted": true,
+        "show_controls": true,
+        "full_width": true,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "featured_product": {
+      "type": "featured-product",
+      "settings": {
+        "product": "",
+        "label": "FLAGSHIP",
+        "title": "PRO SERIES MOUSE",
+        "show_vendor": false,
+        "show_sku": true,
+        "layout": "image_left",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Switched from a big brand and immediately noticed the difference. The response time is unreal. Best mouse I've ever used.",
+            "rating": 5,
+            "author": "ProGamer_Alex",
+            "author_title": "Esports Professional"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The build quality is insane. Mechanical switches feel premium, RGB is bright, and the software actually works. 10/10.",
+            "rating": 5,
+            "author": "TechReviewMike",
+            "author_title": "Tech Reviewer"
+          }
+        },
+        "testimonial_3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally a headset that doesn't hurt after 8-hour sessions. Sound quality rivals studio monitors. Game changer.",
+            "rating": 5,
+            "author": "StreamerKate",
+            "author_title": "Content Creator"
+          }
+        },
+        "testimonial_4": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Went from Silver to Diamond after getting this setup. Okay maybe I practiced too, but the gear definitely helped.",
+            "rating": 5,
+            "author": "CasualCompetitor",
+            "author_title": "Verified Buyer"
+          }
+        }
+      },
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
+      "settings": {
+        "label": "REVIEWS",
+        "title": "PLAYER FEEDBACK",
         "header_alignment": "left",
         "show_rating": true,
         "full_width": false,
@@ -246,22 +364,85 @@
         "slides_desktop": "2",
         "show_progress_bar": true,
         "text_size": "medium",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "Is your gear compatible with PS5/Xbox?",
+            "answer": "<p>Most of our peripherals are cross-platform compatible. Each product page lists specific platform support. Our wireless products work seamlessly with PC, PlayStation, and Xbox via our universal receiver or Bluetooth.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "What's your warranty policy?",
+            "answer": "<p>All products include a 2-year manufacturer warranty covering defects in materials and workmanship. For mechanical keyboards, switches are covered for 50 million actuations.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "Do you offer software for customization?",
+            "answer": "<p>Yes! Our free software suite lets you customize RGB lighting, create macros, adjust DPI settings, and sync effects across all compatible devices. Available for Windows and macOS.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "How fast is shipping?",
+            "answer": "<p>Orders ship within 24 hours on business days. Free standard shipping on orders over $99. Express and international shipping options available at checkout.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4"],
+      "settings": {
+        "label": "SUPPORT",
+        "title": "FAQ",
+        "layout": "accordion",
+        "header_alignment": "left",
+        "full_width": false,
         "color_scheme": "scheme-1"
+      }
+    },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "",
+        "label": "TECH LAB",
+        "title": "LATEST FROM THE BLOG",
+        "description": "Guides, reviews, and gaming tips",
+        "header_alignment": "left",
+        "posts_to_show": 3,
+        "columns": 3,
+        "feature_first": false,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": false,
+        "show_read_more": true,
+        "show_view_all": true,
+        "view_all_text": "READ MORE",
+        "full_width": false,
+        "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "JOIN THE SQUAD",
+        "text": "Get exclusive deals, early access to new products, and pro gaming tips. No spam, just wins.",
+        "button_text": "SIGN UP",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     }
   },
@@ -269,9 +450,15 @@
     "hero",
     "marquee",
     "featured_collection",
+    "rolling_numbers",
+    "collections_carousel",
     "image_with_text",
-    "featured_blog_GWjPQG",
-    "testimonials_UML8MP",
+    "features_grid",
+    "video",
+    "featured_product",
+    "testimonials",
+    "faq",
+    "featured_blog",
     "newsletter"
   ]
 }

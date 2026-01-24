@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_about": {
@@ -16,11 +7,11 @@
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
-        "label": "Our Mission",
-        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
-        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
-        "header_alignment": "left",
-        "button_text": "Learn More",
+        "label": "Our Philosophy",
+        "text": "We believe *healthy* skin\nis *beautiful* skin.\nNature meets science.",
+        "subtext": "Every formula is crafted with clinically-proven ingredients and botanical extracts to reveal your skin's natural radiance.",
+        "header_alignment": "center",
+        "button_text": "Explore Our Ingredients",
         "button_link": "",
         "button_type": "link",
         "button_style": "solid",
@@ -29,8 +20,43 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "",
-        "accent_color": "#6366f1"
+        "color_scheme": ""
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "100%",
+            "label": "Clean Formulas"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "0",
+            "label": "Harmful Chemicals"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2"],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "Our Promise",
+        "title": "Clean Beauty, Real Results",
+        "text": "<p>We started with a simple question: why should you have to choose between effective skincare and clean ingredients? Our formulas are dermatologist-developed, cruelty-free, and free from parabens, sulfates, and synthetic fragrances. Every product is tested for efficacy and safety before it reaches your skin.</p>",
+        "button_text": "Our Ingredients",
+        "button_link": "",
+        "button_type": "link",
+        "button_style": "outline",
+        "button_color": "primary",
+        "button_size": "default",
+        "layout": "image_left",
+        "full_width": false,
+        "remove_padding": false,
+        "color_scheme": "scheme-2"
       }
     },
     "timeline": {
@@ -39,33 +65,33 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "2014",
-            "title": "The Beginning",
-            "text": "Founded with a simple idea and a passion for quality."
+            "year": "2019",
+            "title": "The Vision",
+            "text": "Founded by a dermatologist and a cosmetic chemist with a shared passion for clean skincare."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "2017",
-            "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first store."
+            "year": "2020",
+            "title": "First Collection",
+            "text": "Launched our core ritual with 5 products designed to work in harmony."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "2020",
-            "title": "Going Global",
-            "text": "Expanded to 50+ countries worldwide."
+            "year": "2022",
+            "title": "Clinical Recognition",
+            "text": "Studies show 98% of users saw visible improvements in skin texture."
           }
         },
         "milestone_4": {
           "type": "milestone",
           "settings": {
             "year": "2024",
-            "title": "Today & Beyond",
-            "text": "Continuing to innovate and grow our community."
+            "title": "Growing Community",
+            "text": "Over 100,000 people have made our products part of their daily ritual."
           }
         }
       },
@@ -77,11 +103,10 @@
       ],
       "settings": {
         "label": "Our Journey",
-        "title": "How We Got Here",
+        "title": "The Glow Story",
         "header_alignment": "center",
         "full_width": false,
-        "color_scheme": "scheme-2",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-1"
       }
     },
     "team": {
@@ -90,9 +115,9 @@
         "member_1": {
           "type": "member",
           "settings": {
-            "name": "Alex Thompson",
-            "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products.",
+            "name": "Dr. Lauren Kim",
+            "role": "Co-Founder & Dermatologist",
+            "bio": "Board-certified dermatologist with 15 years of clinical experience.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -101,9 +126,9 @@
         "member_2": {
           "type": "member",
           "settings": {
-            "name": "Sarah Chen",
-            "role": "Creative Director",
-            "bio": "Bringing creative visions to life.",
+            "name": "Maya Chen",
+            "role": "Co-Founder & Chemist",
+            "bio": "Cosmetic chemist specializing in botanical formulations.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -112,9 +137,9 @@
         "member_3": {
           "type": "member",
           "settings": {
-            "name": "Michael Brown",
-            "role": "Head of Product",
-            "bio": "Obsessed with user experience.",
+            "name": "Dr. James Park",
+            "role": "Head of Research",
+            "bio": "Leading our clinical studies and ingredient innovation.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -123,9 +148,9 @@
         "member_4": {
           "type": "member",
           "settings": {
-            "name": "Emily Davis",
-            "role": "Customer Success",
-            "bio": "Making sure customers are happy.",
+            "name": "Sophie Williams",
+            "role": "Skincare Educator",
+            "bio": "Helping our community build their perfect routines.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -139,97 +164,83 @@
         "member_4"
       ],
       "settings": {
-        "label": "Our Team",
-        "title": "Meet the People Behind the Brand",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
+        "label": "Our Experts",
+        "title": "The Team Behind Your Glow",
+        "description": "Dermatologists, chemists, and skincare enthusiasts united by a passion for healthy skin.",
         "header_alignment": "center",
         "columns": 4,
         "full_width": false,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     },
-    "rolling_numbers": {
-      "type": "rolling-numbers",
+    "trust_badges": {
+      "type": "trust-badges",
       "blocks": {
-        "stat_1": {
-          "type": "stat",
+        "badge_1": {
+          "type": "badge",
           "settings": {
-            "number": "10",
-            "prefix": "",
-            "suffix": "+",
-            "label": "Years in Business",
-            "description": "A decade of excellence"
+            "icon": "seal-check",
+            "title": "Dermatologist Developed",
+            "description": "Created by skin experts"
           }
         },
-        "stat_2": {
-          "type": "stat",
+        "badge_2": {
+          "type": "badge",
           "settings": {
-            "number": "50",
-            "prefix": "",
-            "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "And counting"
+            "icon": "paw-print",
+            "title": "Cruelty Free",
+            "description": "Never tested on animals"
           }
         },
-        "stat_3": {
-          "type": "stat",
+        "badge_3": {
+          "type": "badge",
           "settings": {
-            "number": "150",
-            "prefix": "",
-            "suffix": "+",
-            "label": "Countries Served",
-            "description": "Global reach"
+            "icon": "leaf",
+            "title": "Clean Ingredients",
+            "description": "No harmful chemicals"
           }
         },
-        "stat_4": {
-          "type": "stat",
+        "badge_4": {
+          "type": "badge",
           "settings": {
-            "number": "98",
-            "prefix": "",
-            "suffix": "%",
-            "label": "Satisfaction Rate",
-            "description": "Based on reviews"
+            "icon": "recycle",
+            "title": "Sustainable Packaging",
+            "description": "Eco-friendly materials"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2",
-        "stat_3",
-        "stat_4"
-      ],
+      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
       "settings": {
-        "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "",
+        "columns": 4,
+        "show_icons": true,
+        "icon_style": "default",
         "full_width": false,
-        "show_dividers": true
+        "color_scheme": "scheme-1"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "centered",
+        "title": "Join the Glow Community",
+        "text": "Subscribe for skincare tips, exclusive offers, and 15% off your first order.",
         "button_text": "Subscribe",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "Your privacy matters. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     }
   },
   "order": [
     "main_about",
     "text_reveal",
+    "image_with_text",
     "timeline",
     "team",
-    "rolling_numbers",
+    "trust_badges",
     "newsletter"
   ]
 }

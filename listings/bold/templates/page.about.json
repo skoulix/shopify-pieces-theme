@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_about": {
@@ -16,21 +7,56 @@
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
-        "label": "Our Mission",
-        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
-        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+        "label": "THE VISION",
+        "text": "WE DON'T FOLLOW *TRENDS*.\nWE SET *THEM*.\nBUILT FOR THE CULTURE.",
+        "subtext": "Every piece tells a story. Every drop makes a statement. This isn't just fashion—it's a movement.",
         "header_alignment": "left",
-        "button_text": "Learn More",
-        "button_link": "",
+        "button_text": "SHOP THE DROP",
+        "button_link": "shopify://collections/all",
         "button_type": "link",
         "button_style": "solid",
         "button_color": "primary",
-        "button_size": "default",
+        "button_size": "large",
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-2"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "50K+",
+            "label": "Community"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "24",
+            "label": "Drops/Year"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2"],
+      "settings": {
+        "image_ratio": "1/1",
+        "label": "THE STORY",
+        "title": "FROM THE GARAGE TO THE GLOBE",
+        "text": "<p>Started in 2019 with one screen printer, a dream, and zero budget. We built this brand from the ground up—no investors, no shortcuts, just hustle. Every design is personal. Every piece is limited. When it's gone, it's gone. That's how we keep it real.</p>",
+        "button_text": "OUR STORY",
+        "button_link": "",
+        "button_type": "link",
+        "button_style": "outline",
+        "button_color": "primary",
+        "button_size": "default",
+        "layout": "image_right",
+        "full_width": false,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
       }
     },
     "timeline": {
@@ -39,33 +65,33 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "2014",
-            "title": "The Beginning",
-            "text": "Founded with a simple idea and a passion for quality."
+            "year": "2019",
+            "title": "THE GARAGE ERA",
+            "text": "First drop: 50 tees. Sold out in 24 hours. The rest is history."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "2017",
-            "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first store."
+            "year": "2020",
+            "title": "GOING VIRAL",
+            "text": "Our collab got featured. Community hit 10K overnight."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "2020",
-            "title": "Going Global",
-            "text": "Expanded to 50+ countries worldwide."
+            "year": "2022",
+            "title": "GLOBAL REACH",
+            "text": "Shipping to 30+ countries. The culture is worldwide."
           }
         },
         "milestone_4": {
           "type": "milestone",
           "settings": {
             "year": "2024",
-            "title": "Today & Beyond",
-            "text": "Continuing to innovate and grow our community."
+            "title": "JUST GETTING STARTED",
+            "text": "New collabs, bigger drops, same authenticity. We're not slowing down."
           }
         }
       },
@@ -76,12 +102,11 @@
         "milestone_4"
       ],
       "settings": {
-        "label": "Our Journey",
-        "title": "How We Got Here",
-        "header_alignment": "center",
+        "label": "THE JOURNEY",
+        "title": "HOW WE GOT HERE",
+        "header_alignment": "left",
         "full_width": false,
-        "color_scheme": "scheme-2",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-2"
       }
     },
     "team": {
@@ -90,9 +115,9 @@
         "member_1": {
           "type": "member",
           "settings": {
-            "name": "Alex Thompson",
-            "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products.",
+            "name": "Marcus Rodriguez",
+            "role": "Founder & Creative",
+            "bio": "Self-taught designer. Culture first, always.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -101,9 +126,9 @@
         "member_2": {
           "type": "member",
           "settings": {
-            "name": "Sarah Chen",
-            "role": "Creative Director",
-            "bio": "Bringing creative visions to life.",
+            "name": "Jasmine Lee",
+            "role": "Head of Design",
+            "bio": "Turning ideas into wearable art.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -112,9 +137,9 @@
         "member_3": {
           "type": "member",
           "settings": {
-            "name": "Michael Brown",
-            "role": "Head of Product",
-            "bio": "Obsessed with user experience.",
+            "name": "Devon Brooks",
+            "role": "Community Lead",
+            "bio": "Keeping it real with the fam.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -123,9 +148,9 @@
         "member_4": {
           "type": "member",
           "settings": {
-            "name": "Emily Davis",
-            "role": "Customer Success",
-            "bio": "Making sure customers are happy.",
+            "name": "Tyler Jackson",
+            "role": "Production",
+            "bio": "Quality control. No shortcuts.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -139,10 +164,10 @@
         "member_4"
       ],
       "settings": {
-        "label": "Our Team",
-        "title": "Meet the People Behind the Brand",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
-        "header_alignment": "center",
+        "label": "THE CREW",
+        "title": "MEET THE TEAM",
+        "description": "Small team, big vision. We do this for the love.",
+        "header_alignment": "left",
         "columns": 4,
         "full_width": false,
         "color_scheme": "scheme-1"
@@ -154,11 +179,10 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10",
+            "number": "100",
             "prefix": "",
             "suffix": "+",
-            "label": "Years in Business",
-            "description": "A decade of excellence"
+            "label": "DROPS RELEASED"
           }
         },
         "stat_2": {
@@ -166,29 +190,26 @@
           "settings": {
             "number": "50",
             "prefix": "",
-            "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "And counting"
+            "suffix": "K",
+            "label": "COMMUNITY MEMBERS"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "150",
+            "number": "30",
             "prefix": "",
             "suffix": "+",
-            "label": "Countries Served",
-            "description": "Global reach"
+            "label": "COUNTRIES"
           }
         },
         "stat_4": {
           "type": "stat",
           "settings": {
-            "number": "98",
+            "number": "24",
             "prefix": "",
-            "suffix": "%",
-            "label": "Satisfaction Rate",
-            "description": "Based on reviews"
+            "suffix": "HR",
+            "label": "AVERAGE SELLOUT"
           }
         }
       },
@@ -199,25 +220,23 @@
         "stat_4"
       ],
       "settings": {
-        "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "",
+        "title": "BY THE NUMBERS",
+        "animate_on_scroll": true,
+        "duration": 2,
         "full_width": false,
-        "show_dividers": true
+        "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "JOIN THE CREW",
+        "text": "Early access to drops, exclusive content, and member-only deals. No spam, just heat.",
+        "button_text": "SIGN UP",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your privacy. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-1"
@@ -227,6 +246,7 @@
   "order": [
     "main_about",
     "text_reveal",
+    "image_with_text",
     "timeline",
     "team",
     "rolling_numbers",

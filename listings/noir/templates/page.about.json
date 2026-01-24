@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_about": {
@@ -16,21 +7,56 @@
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
-        "label": "Our Mission",
-        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
-        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
-        "header_alignment": "left",
-        "button_text": "Learn More",
-        "button_link": "",
+        "label": "Our Legacy",
+        "text": "Where *heritage* meets\n*innovation*.\nCrafted for generations.",
+        "subtext": "Since 1892, our atelier has been dedicated to the pursuit of perfection. Each piece represents centuries of craftsmanship tradition.",
+        "header_alignment": "center",
+        "button_text": "Explore Collections",
+        "button_link": "shopify://collections/all",
         "button_type": "link",
-        "button_style": "solid",
+        "button_style": "outline",
         "button_color": "primary",
         "button_size": "default",
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "",
-        "accent_color": "#6366f1"
+        "color_scheme": ""
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1892",
+            "label": "Established"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "5th",
+            "label": "Generation"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2"],
+      "settings": {
+        "image_ratio": "4/5",
+        "label": "The Atelier",
+        "title": "A Heritage of Excellence",
+        "text": "<p>For over a century, our master craftsmen have dedicated their lives to the art of fine jewelry and luxury accessories. Each piece is meticulously handcrafted using time-honored techniques passed down through five generations, combined with the finest materials sourced from around the world.</p>",
+        "button_text": "Our Craftsmanship",
+        "button_link": "",
+        "button_type": "link",
+        "button_style": "outline",
+        "button_color": "primary",
+        "button_size": "default",
+        "layout": "image_left",
+        "full_width": false,
+        "remove_padding": false,
+        "color_scheme": "scheme-2"
       }
     },
     "timeline": {
@@ -39,33 +65,33 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "2014",
-            "title": "The Beginning",
-            "text": "Founded with a simple idea and a passion for quality."
+            "year": "1892",
+            "title": "The Foundation",
+            "text": "Established in Paris by master jeweler Henri Laurent with a vision for uncompromising excellence."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "2017",
-            "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first store."
+            "year": "1925",
+            "title": "Royal Appointment",
+            "text": "Received our first royal commission, establishing relationships that continue to this day."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "2020",
-            "title": "Going Global",
-            "text": "Expanded to 50+ countries worldwide."
+            "year": "1968",
+            "title": "Global Expansion",
+            "text": "Opened flagship ateliers in London, New York, and Hong Kong."
           }
         },
         "milestone_4": {
           "type": "milestone",
           "settings": {
-            "year": "2024",
-            "title": "Today & Beyond",
-            "text": "Continuing to innovate and grow our community."
+            "year": "Today",
+            "title": "Continuing Excellence",
+            "text": "Five generations later, our commitment to craftsmanship remains unwavering."
           }
         }
       },
@@ -76,12 +102,57 @@
         "milestone_4"
       ],
       "settings": {
-        "label": "Our Journey",
-        "title": "How We Got Here",
+        "label": "Our History",
+        "title": "A Century of Distinction",
         "header_alignment": "center",
         "full_width": false,
-        "color_scheme": "scheme-2",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-1"
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "diamond",
+            "title": "Exceptional Materials",
+            "description": "Only the finest diamonds, precious metals, and exotic leathers selected by our master craftsmen"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "certificate",
+            "title": "Certified Authenticity",
+            "description": "Every piece includes certification of authenticity and detailed provenance documentation"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Lifetime Guarantee",
+            "description": "Our commitment to excellence extends beyond purchase with comprehensive lifetime service"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "gift",
+            "title": "White Glove Service",
+            "description": "Complimentary luxury packaging and personalized concierge assistance"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
+      "settings": {
+        "label": "Our Commitment",
+        "title": "The Noir Difference",
+        "columns": 4,
+        "header_alignment": "center",
+        "full_width": false,
+        "color_scheme": "scheme-2"
       }
     },
     "team": {
@@ -90,9 +161,9 @@
         "member_1": {
           "type": "member",
           "settings": {
-            "name": "Alex Thompson",
-            "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products.",
+            "name": "Philippe Laurent",
+            "role": "Creative Director",
+            "bio": "Fifth-generation heir continuing the family legacy of excellence.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -101,9 +172,9 @@
         "member_2": {
           "type": "member",
           "settings": {
-            "name": "Sarah Chen",
-            "role": "Creative Director",
-            "bio": "Bringing creative visions to life.",
+            "name": "Isabelle Moreau",
+            "role": "Master Jeweler",
+            "bio": "40 years of expertise in haute joaillerie.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -112,9 +183,9 @@
         "member_3": {
           "type": "member",
           "settings": {
-            "name": "Michael Brown",
-            "role": "Head of Product",
-            "bio": "Obsessed with user experience.",
+            "name": "James Worthington",
+            "role": "Head of Acquisitions",
+            "bio": "Sourcing the world's most exceptional gemstones.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -123,9 +194,9 @@
         "member_4": {
           "type": "member",
           "settings": {
-            "name": "Emily Davis",
-            "role": "Customer Success",
-            "bio": "Making sure customers are happy.",
+            "name": "Catherine Chen",
+            "role": "Client Relations",
+            "bio": "Curating personalized experiences for discerning clientele.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -139,97 +210,38 @@
         "member_4"
       ],
       "settings": {
-        "label": "Our Team",
-        "title": "Meet the People Behind the Brand",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
+        "label": "Our Artisans",
+        "title": "The Masters Behind the Craft",
+        "description": "A team of dedicated artisans and connoisseurs united by an unwavering pursuit of perfection.",
         "header_alignment": "center",
         "columns": 4,
         "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
-    "rolling_numbers": {
-      "type": "rolling-numbers",
-      "blocks": {
-        "stat_1": {
-          "type": "stat",
-          "settings": {
-            "number": "10",
-            "prefix": "",
-            "suffix": "+",
-            "label": "Years in Business",
-            "description": "A decade of excellence"
-          }
-        },
-        "stat_2": {
-          "type": "stat",
-          "settings": {
-            "number": "50",
-            "prefix": "",
-            "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "And counting"
-          }
-        },
-        "stat_3": {
-          "type": "stat",
-          "settings": {
-            "number": "150",
-            "prefix": "",
-            "suffix": "+",
-            "label": "Countries Served",
-            "description": "Global reach"
-          }
-        },
-        "stat_4": {
-          "type": "stat",
-          "settings": {
-            "number": "98",
-            "prefix": "",
-            "suffix": "%",
-            "label": "Satisfaction Rate",
-            "description": "Based on reviews"
-          }
-        }
-      },
-      "block_order": [
-        "stat_1",
-        "stat_2",
-        "stat_3",
-        "stat_4"
-      ],
-      "settings": {
-        "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "",
-        "full_width": false,
-        "show_dividers": true
-      }
-    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "centered",
+        "title": "Join Our World",
+        "text": "Be the first to discover new collections, exclusive events, and insider stories from the atelier.",
         "button_text": "Subscribe",
-        "button_style": "solid",
+        "button_style": "outline",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "Your privacy is paramount. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     }
   },
   "order": [
     "main_about",
     "text_reveal",
+    "image_with_text",
     "timeline",
+    "features_grid",
     "team",
-    "rolling_numbers",
     "newsletter"
   ]
 }

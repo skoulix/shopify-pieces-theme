@@ -1,110 +1,81 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "hero": {
-      "type": "hero",
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "label": "New Collection",
+            "title": "Radiance Redefined",
+            "description": "Discover skincare rituals that nurture your natural glow. Clean ingredients, visible results.",
+            "button_text": "Shop Skincare",
+            "button_link": "shopify://collections/all",
+            "button_style": "solid",
+            "overlay_opacity": 20,
+            "content_alignment": "center"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "label": "Bestsellers",
+            "title": "Your Glow Ritual",
+            "description": "Clinically proven formulas infused with botanical extracts for luminous, healthy skin.",
+            "button_text": "Explore Now",
+            "button_link": "shopify://collections/all",
+            "button_style": "outline",
+            "overlay_opacity": 25,
+            "content_alignment": "center"
+          }
+        }
+      },
+      "block_order": ["slide_1", "slide_2"],
       "settings": {
-        "overlay_opacity": 40,
-        "label": "",
-        "title": "Elevate Your Style",
-        "description": "Discover our curated collection of premium products designed for the modern lifestyle.",
-        "content_alignment": "left",
-        "button_text": "Shop Now",
-        "button_link": "shopify://collections/all",
-        "button_style": "solid",
-        "button_color": "primary",
-        "button_size": "large",
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_scroll_indicator": true
+        "autoplay": true,
+        "autoplay_speed": 6,
+        "show_navigation": true,
+        "show_pagination": true,
+        "transition": "fade",
+        "full_width": true,
+        "height": "large",
+        "color_scheme": "scheme-1"
       }
     },
-    "marquee": {
-      "type": "marquee",
+    "logo_marquee": {
+      "type": "logo-marquee",
       "blocks": {
         "text_1": {
           "type": "text",
           "settings": {
-            "text": "Free Shipping",
-            "outline": false
-          }
-        },
-        "sep_1": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
-          }
-        },
-        "text_2": {
-          "type": "text",
-          "settings": {
-            "text": "New Arrivals",
-            "outline": true
-          }
-        },
-        "sep_2": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
-          }
-        },
-        "text_3": {
-          "type": "text",
-          "settings": {
-            "text": "Limited Edition",
-            "outline": false
-          }
-        },
-        "sep_3": {
-          "type": "separator",
-          "settings": {
-            "style": "icon",
-            "icon": "star-four"
+            "text": "As Seen In"
           }
         }
       },
-      "block_order": [
-        "text_1",
-        "sep_1",
-        "text_2",
-        "sep_2",
-        "text_3",
-        "sep_3"
-      ],
+      "block_order": ["text_1"],
       "settings": {
+        "title": "Featured In",
         "direction": "left",
-        "speed": 30,
-        "scroll_aware": true,
-        "scroll_speed": 2,
-        "pause_on_hover": true,
-        "color_scheme": ""
+        "speed": 25,
+        "grayscale": true,
+        "color_scheme": "scheme-2"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "",
-        "label": "New Arrivals",
-        "title": "Featured Collection",
-        "description": "",
-        "header_alignment": "left",
+        "label": "Curated For You",
+        "title": "Bestselling Rituals",
+        "description": "Our most-loved formulas for radiant, healthy skin",
+        "header_alignment": "center",
         "products_to_show": 4,
         "columns": 4,
         "show_vendor": false,
         "show_view_all": true,
-        "view_all_text": "View All",
+        "view_all_text": "Shop All",
         "full_width": false,
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     },
     "image_with_text": {
@@ -113,28 +84,25 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10+",
-            "label": "Years"
+            "number": "98%",
+            "label": "Saw Results"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "50K",
-            "label": "Customers"
+            "number": "100%",
+            "label": "Clean Ingredients"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2"
-      ],
+      "block_order": ["stat_1", "stat_2"],
       "settings": {
         "image_ratio": "4/5",
-        "label": "Our Story",
-        "title": "Crafted With Purpose",
-        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-        "button_text": "Learn More",
+        "label": "Our Promise",
+        "title": "Science Meets Nature",
+        "text": "<p>We believe in the power of botanicals backed by clinical research. Every formula is dermatologist-tested, cruelty-free, and crafted with ingredients you can trust. Your skin deserves nothing less.</p>",
+        "button_text": "Learn Our Story",
         "button_link": "",
         "button_type": "link",
         "button_style": "solid",
@@ -143,102 +111,164 @@
         "layout": "image_left",
         "full_width": false,
         "remove_padding": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "collections_carousel": {
+      "type": "collections-carousel",
+      "blocks": {
+        "collection_1": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Cleansers"
+          }
+        },
+        "collection_2": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Serums"
+          }
+        },
+        "collection_3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Moisturizers"
+          }
+        },
+        "collection_4": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Eye Care"
+          }
+        },
+        "collection_5": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "Masks"
+          }
+        }
+      },
+      "block_order": ["collection_1", "collection_2", "collection_3", "collection_4", "collection_5"],
+      "settings": {
+        "label": "Shop By",
+        "title": "Your Skincare Routine",
+        "description": "Build your perfect ritual step by step",
+        "header_alignment": "center",
+        "layout": "carousel",
+        "card_style": "default",
+        "show_product_count": true,
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
-    "featured_blog_GWjPQG": {
-      "type": "featured-blog",
-      "name": "Featured Blog",
+    "before_after": {
+      "type": "before-after",
       "settings": {
-        "blog": "",
-        "label": "Our Stories",
-        "title": "Featured Blog",
-        "description": "",
-        "header_alignment": "left",
-        "posts_to_show": 4,
-        "columns": 3,
-        "feature_first": true,
-        "show_tags": true,
-        "show_excerpt": true,
-        "show_author": true,
-        "show_read_more": true,
-        "show_view_all": true,
-        "view_all_text": "View All",
+        "label": "Real Results",
+        "title": "The Transformation",
+        "description": "See the visible difference after 4 weeks of consistent use",
+        "before_label": "Before",
+        "after_label": "After",
+        "initial_position": 50,
         "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
-    "testimonials_UML8MP": {
+    "trust_badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_1": {
+          "type": "badge",
+          "settings": {
+            "icon": "leaf",
+            "title": "Clean Beauty",
+            "description": "No harmful chemicals"
+          }
+        },
+        "badge_2": {
+          "type": "badge",
+          "settings": {
+            "icon": "paw-print",
+            "title": "Cruelty Free",
+            "description": "Never tested on animals"
+          }
+        },
+        "badge_3": {
+          "type": "badge",
+          "settings": {
+            "icon": "seal-check",
+            "title": "Dermatologist Tested",
+            "description": "Clinically proven safe"
+          }
+        },
+        "badge_4": {
+          "type": "badge",
+          "settings": {
+            "icon": "recycle",
+            "title": "Sustainable",
+            "description": "Eco-conscious packaging"
+          }
+        }
+      },
+      "block_order": ["badge_1", "badge_2", "badge_3", "badge_4"],
+      "settings": {
+        "columns": 4,
+        "show_icons": true,
+        "icon_style": "default",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "testimonials": {
       "type": "testimonials",
       "blocks": {
-        "testimonial_BF9x6V": {
+        "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.",
+            "quote": "My skin has never looked better. The hydrating serum is my holy grail product—I've repurchased three times already!",
             "rating": 5,
-            "author": "Sarah Johnson",
+            "author": "Jennifer L.",
             "author_title": "Verified Buyer"
           }
         },
-        "testimonial_6aGUB4": {
+        "testimonial_2": {
           "type": "testimonial",
           "settings": {
-            "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.",
+            "quote": "Finally, a brand that delivers on its promises. My dark spots have visibly faded and my skin is glowing.",
             "rating": 5,
-            "author": "Michael Chen",
-            "author_title": "Loyal Customer"
+            "author": "Amanda K.",
+            "author_title": "Skincare Enthusiast"
           }
         },
-        "testimonial_H7jk47": {
+        "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.",
+            "quote": "I have sensitive skin and these products are so gentle yet effective. No irritation, just results.",
             "rating": 5,
-            "author": "Emily Davis",
-            "author_title": "Repeat Customer"
+            "author": "Michelle R.",
+            "author_title": "Esthetician"
           }
         },
-        "testimonial_FKV7Ym": {
+        "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.",
+            "quote": "The texture, the scent, the packaging—everything feels luxurious. My skincare routine is now my favorite part of the day.",
             "rating": 5,
-            "author": "David Wilson",
-            "author_title": "Verified Buyer"
-          }
-        },
-        "testimonial_dH4rBy": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.",
-            "rating": 5,
-            "author": "Rachel Thompson",
-            "author_title": "First-time Buyer"
-          }
-        },
-        "testimonial_H4HFVR": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.",
-            "rating": 5,
-            "author": "James Martinez",
+            "author": "Sophia T.",
             "author_title": "Repeat Customer"
           }
         }
       },
-      "block_order": [
-        "testimonial_BF9x6V",
-        "testimonial_6aGUB4",
-        "testimonial_H7jk47",
-        "testimonial_FKV7Ym",
-        "testimonial_dH4rBy",
-        "testimonial_H4HFVR"
-      ],
-      "name": "Testimonials",
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
       "settings": {
-        "label": "Testimonials",
-        "title": "What Our Customers Say",
-        "header_alignment": "left",
+        "label": "Real Reviews",
+        "title": "What Our Community Says",
+        "header_alignment": "center",
         "show_rating": true,
         "full_width": false,
         "slides_mobile": "1",
@@ -246,32 +276,99 @@
         "slides_desktop": "2",
         "show_progress_bar": true,
         "text_size": "medium",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "faq_1": {
+          "type": "question",
+          "settings": {
+            "question": "Are your products suitable for sensitive skin?",
+            "answer": "<p>Yes! All our formulas are dermatologist-tested and free from common irritants. We recommend patch testing new products and starting with our sensitive skin collection if you have concerns.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "question",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day satisfaction guarantee. If you're not completely happy with your purchase, return it for a full refund—no questions asked.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "question",
+          "settings": {
+            "question": "How long until I see results?",
+            "answer": "<p>Most customers notice improvements within 2-4 weeks of consistent use. For best results, we recommend using products as directed for at least 8 weeks.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "question",
+          "settings": {
+            "question": "Are your products vegan and cruelty-free?",
+            "answer": "<p>Absolutely. We're proudly certified cruelty-free and the majority of our products are vegan. Each product page indicates if it contains any animal-derived ingredients.</p>"
+          }
+        }
+      },
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4"],
+      "settings": {
+        "label": "Questions?",
+        "title": "Frequently Asked",
+        "layout": "accordion",
+        "header_alignment": "center",
+        "full_width": false,
         "color_scheme": "scheme-1"
+      }
+    },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "",
+        "label": "Glow Guide",
+        "title": "Skincare Tips & Rituals",
+        "description": "Expert advice for your healthiest skin yet",
+        "header_alignment": "center",
+        "posts_to_show": 3,
+        "columns": 3,
+        "feature_first": false,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": false,
+        "show_read_more": true,
+        "show_view_all": true,
+        "view_all_text": "Read More",
+        "full_width": false,
+        "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "centered",
+        "title": "Join the Glow Community",
+        "text": "Subscribe for skincare tips, exclusive offers, and 15% off your first order.",
         "button_text": "Subscribe",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your inbox. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     }
   },
   "order": [
-    "hero",
-    "marquee",
+    "slideshow",
+    "logo_marquee",
     "featured_collection",
     "image_with_text",
-    "featured_blog_GWjPQG",
-    "testimonials_UML8MP",
+    "collections_carousel",
+    "before_after",
+    "trust_badges",
+    "testimonials",
+    "faq",
+    "featured_blog",
     "newsletter"
   ]
 }

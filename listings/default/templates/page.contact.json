@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "contact_form": {
@@ -14,7 +5,7 @@
       "settings": {
         "label": "Contact",
         "title": "Get in Touch",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
+        "description": "Have a question about our products or want to collaborate? We'd love to hear from you.",
         "enable_description_shuffle": true,
         "header_alignment": "left",
         "full_width": false,
@@ -29,15 +20,15 @@
         "address": {
           "type": "address",
           "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
+            "title": "Visit Our Studio",
+            "address": "123 Design District\nNew York, NY 10001"
           }
         },
         "hours": {
           "type": "hours",
           "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+            "title": "Studio Hours",
+            "hours": "Mon - Fri: 10am - 6pm\nSat: 11am - 5pm\nSun: Closed"
           }
         },
         "contact": {
@@ -56,10 +47,10 @@
       ],
       "settings": {
         "label": "Visit Us",
-        "title": "Our Location",
+        "title": "Our Studio",
         "header_alignment": "left",
-        "location_name": "Our Store",
-        "address": "123 Main Street\nNew York, NY 10001",
+        "location_name": "Design Studio",
+        "address": "123 Design District, New York, NY 10001",
         "latitude": "40.7128",
         "longitude": "-74.0060",
         "zoom": 14,
@@ -75,31 +66,31 @@
       "type": "faq",
       "blocks": {
         "faq_1": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
             "question": "How quickly do you respond to inquiries?",
-            "answer": "<p>We typically respond within 24 hours during business days.</p>"
+            "answer": "<p>We typically respond within 24 hours during business days. For urgent matters, give us a call.</p>"
           }
         },
         "faq_2": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Do you have a physical store?",
-            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York.</p>"
+            "question": "Do you offer wholesale partnerships?",
+            "answer": "<p>Yes! We work with select retailers who share our design philosophy. Reach out with details about your store.</p>"
           }
         },
         "faq_3": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Can I schedule an appointment?",
-            "answer": "<p>Absolutely! Reach out through the contact form to schedule a time.</p>"
+            "question": "Can I visit your studio?",
+            "answer": "<p>Absolutely! Our studio is open during business hours. We recommend scheduling an appointment for personalized attention.</p>"
           }
         },
         "faq_4": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "What are your business hours?",
-            "answer": "<p>Monday-Friday 9am-6pm, Saturday 10am-4pm, closed Sunday.</p>"
+            "question": "Do you ship internationally?",
+            "answer": "<p>Yes, we ship to over 50 countries. Shipping costs and delivery times vary by location.</p>"
           }
         }
       },
@@ -112,9 +103,9 @@
       "settings": {
         "full_width": false,
         "label": "Support",
-        "title": "Frequently Asked Questions",
-        "description": "Find answers to common questions about our products and services.",
+        "title": "Common Questions",
         "header_alignment": "left",
+        "layout": "accordion",
         "color_scheme": "scheme-1"
       }
     },
@@ -122,12 +113,12 @@
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "title": "Stay Connected",
+        "text": "Subscribe for product updates, design tips, and exclusive offers.",
         "button_text": "Subscribe",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your privacy. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"

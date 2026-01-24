@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_about": {
@@ -20,8 +11,8 @@
         "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
         "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
         "header_alignment": "left",
-        "button_text": "Learn More",
-        "button_link": "",
+        "button_text": "Shop Our Collection",
+        "button_link": "shopify://collections/all",
         "button_type": "link",
         "button_style": "solid",
         "button_color": "primary",
@@ -29,8 +20,7 @@
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "",
-        "accent_color": "#6366f1"
+        "color_scheme": ""
       }
     },
     "timeline": {
@@ -39,25 +29,25 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "2014",
+            "year": "2018",
             "title": "The Beginning",
-            "text": "Founded with a simple idea and a passion for quality."
+            "text": "Started in a small studio with a vision for thoughtful, sustainable design."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "2017",
-            "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first store."
+            "year": "2020",
+            "title": "Growing Community",
+            "text": "Reached our first 10,000 customers who shared our design philosophy."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "2020",
-            "title": "Going Global",
-            "text": "Expanded to 50+ countries worldwide."
+            "year": "2022",
+            "title": "Sustainable Shift",
+            "text": "Committed to 100% eco-friendly packaging and sustainable materials."
           }
         },
         "milestone_4": {
@@ -65,7 +55,7 @@
           "settings": {
             "year": "2024",
             "title": "Today & Beyond",
-            "text": "Continuing to innovate and grow our community."
+            "text": "Continuing to design products that elevate everyday living."
           }
         }
       },
@@ -78,10 +68,9 @@
       "settings": {
         "label": "Our Journey",
         "title": "How We Got Here",
-        "header_alignment": "center",
+        "header_alignment": "left",
         "full_width": false,
-        "color_scheme": "scheme-2",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-2"
       }
     },
     "team": {
@@ -91,8 +80,8 @@
           "type": "member",
           "settings": {
             "name": "Alex Thompson",
-            "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products.",
+            "role": "Founder & Designer",
+            "bio": "Passionate about creating products that stand the test of time.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -103,7 +92,7 @@
           "settings": {
             "name": "Sarah Chen",
             "role": "Creative Director",
-            "bio": "Bringing creative visions to life.",
+            "bio": "Bringing minimalist aesthetics to everyday objects.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -113,8 +102,8 @@
           "type": "member",
           "settings": {
             "name": "Michael Brown",
-            "role": "Head of Product",
-            "bio": "Obsessed with user experience.",
+            "role": "Head of Sustainability",
+            "bio": "Ensuring every product respects our planet.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -124,8 +113,8 @@
           "type": "member",
           "settings": {
             "name": "Emily Davis",
-            "role": "Customer Success",
-            "bio": "Making sure customers are happy.",
+            "role": "Customer Experience",
+            "bio": "Making sure every interaction delights.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -140,9 +129,9 @@
       ],
       "settings": {
         "label": "Our Team",
-        "title": "Meet the People Behind the Brand",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
-        "header_alignment": "center",
+        "title": "The People Behind the Brand",
+        "description": "A small team dedicated to creating products you'll love for years to come.",
+        "header_alignment": "left",
         "columns": 4,
         "full_width": false,
         "color_scheme": "scheme-1"
@@ -154,41 +143,37 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10",
+            "number": "6",
             "prefix": "",
             "suffix": "+",
-            "label": "Years in Business",
-            "description": "A decade of excellence"
+            "label": "Years in Business"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "50",
+            "number": "25",
             "prefix": "",
             "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "And counting"
+            "label": "Happy Customers"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "150",
+            "number": "50",
             "prefix": "",
             "suffix": "+",
-            "label": "Countries Served",
-            "description": "Global reach"
+            "label": "Countries Served"
           }
         },
         "stat_4": {
           "type": "stat",
           "settings": {
-            "number": "98",
+            "number": "100",
             "prefix": "",
             "suffix": "%",
-            "label": "Satisfaction Rate",
-            "description": "Based on reviews"
+            "label": "Sustainable"
           }
         }
       },
@@ -200,24 +185,22 @@
       ],
       "settings": {
         "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "",
+        "animate_on_scroll": true,
+        "duration": 2,
         "full_width": false,
-        "show_dividers": true
+        "color_scheme": "scheme-2"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "title": "Join the Community",
+        "text": "Get early access to new arrivals and design inspiration delivered to your inbox.",
         "button_text": "Subscribe",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your privacy. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-1"

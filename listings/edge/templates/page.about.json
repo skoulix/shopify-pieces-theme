@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_about": {
@@ -16,21 +7,56 @@
     "text_reveal": {
       "type": "text-reveal",
       "settings": {
-        "label": "Our Mission",
-        "text": "We create *beautiful* products\nthat inspire and *delight*\nour customers every day.",
-        "subtext": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+        "label": "OUR MISSION",
+        "text": "ENGINEERED FOR *VICTORY*.\nBUILT FOR *GAMERS*.\nBY GAMERS.",
+        "subtext": "Every millisecond counts. Every click matters. We engineer gear that gives you the competitive edge.",
         "header_alignment": "left",
-        "button_text": "Learn More",
-        "button_link": "",
+        "button_text": "SHOP GEAR",
+        "button_link": "shopify://collections/all",
         "button_type": "link",
         "button_style": "solid",
         "button_color": "primary",
-        "button_size": "default",
+        "button_size": "large",
         "show_background_number": false,
         "background_number": "01",
         "full_width": false,
-        "color_scheme": "",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-2"
+      }
+    },
+    "image_with_text": {
+      "type": "image-with-text",
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "number": "1MS",
+            "label": "Response Time"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "number": "50+",
+            "label": "Pro Teams"
+          }
+        }
+      },
+      "block_order": ["stat_1", "stat_2"],
+      "settings": {
+        "image_ratio": "16/9",
+        "label": "THE TECH",
+        "title": "PERFORMANCE WITHOUT COMPROMISE",
+        "text": "<p>We started as competitive gamers frustrated with gear that couldn't keep up. So we built our own. Every product is designed with tournament-level specs, tested by pro players, and refined until it's perfect. Zero shortcuts. Zero compromises. Just pure performance.</p>",
+        "button_text": "OUR TECHNOLOGY",
+        "button_link": "",
+        "button_type": "link",
+        "button_style": "outline",
+        "button_color": "primary",
+        "button_size": "default",
+        "layout": "image_left",
+        "full_width": false,
+        "remove_padding": false,
+        "color_scheme": "scheme-1"
       }
     },
     "timeline": {
@@ -39,33 +65,33 @@
         "milestone_1": {
           "type": "milestone",
           "settings": {
-            "year": "2014",
-            "title": "The Beginning",
-            "text": "Founded with a simple idea and a passion for quality."
+            "year": "2018",
+            "title": "FOUNDED",
+            "text": "Three esports pros set out to build the gear they always wanted but couldn't find."
           }
         },
         "milestone_2": {
           "type": "milestone",
           "settings": {
-            "year": "2017",
-            "title": "First Milestone",
-            "text": "Reached 10,000 customers and opened our first store."
+            "year": "2020",
+            "title": "FIRST PRO WIN",
+            "text": "Our mouse helped secure a major championship victory. The pros took notice."
           }
         },
         "milestone_3": {
           "type": "milestone",
           "settings": {
-            "year": "2020",
-            "title": "Going Global",
-            "text": "Expanded to 50+ countries worldwide."
+            "year": "2022",
+            "title": "FULL ECOSYSTEM",
+            "text": "Launched complete peripheral lineup: keyboards, headsets, controllers, accessories."
           }
         },
         "milestone_4": {
           "type": "milestone",
           "settings": {
             "year": "2024",
-            "title": "Today & Beyond",
-            "text": "Continuing to innovate and grow our community."
+            "title": "INDUSTRY LEADER",
+            "text": "50+ pro teams sponsored. 500K+ units shipped. Still pushing boundaries."
           }
         }
       },
@@ -76,12 +102,57 @@
         "milestone_4"
       ],
       "settings": {
-        "label": "Our Journey",
-        "title": "How We Got Here",
-        "header_alignment": "center",
+        "label": "THE JOURNEY",
+        "title": "FROM LAN PARTIES TO WORLD STAGES",
+        "header_alignment": "left",
         "full_width": false,
-        "color_scheme": "scheme-2",
-        "accent_color": "#6366f1"
+        "color_scheme": "scheme-2"
+      }
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "lightning",
+            "title": "1ms Response",
+            "description": "Zero-lag performance with tournament-grade polling rates"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "cpu",
+            "title": "Pro Sensors",
+            "description": "Premium optical sensors with flawless tracking accuracy"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "rainbow",
+            "title": "RGB Ecosystem",
+            "description": "Full RGB customization with cross-device sync"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield-check",
+            "title": "2-Year Warranty",
+            "description": "Comprehensive coverage on all products"
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
+      "settings": {
+        "label": "WHY US",
+        "title": "THE EDGE ADVANTAGE",
+        "columns": 4,
+        "header_alignment": "left",
+        "full_width": false,
+        "color_scheme": "scheme-1"
       }
     },
     "team": {
@@ -90,9 +161,9 @@
         "member_1": {
           "type": "member",
           "settings": {
-            "name": "Alex Thompson",
-            "role": "Founder & CEO",
-            "bio": "Passionate about creating exceptional products.",
+            "name": "Alex 'Clutch' Kim",
+            "role": "Co-Founder & CEO",
+            "bio": "Former pro player. 3x tournament champion.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -101,9 +172,9 @@
         "member_2": {
           "type": "member",
           "settings": {
-            "name": "Sarah Chen",
-            "role": "Creative Director",
-            "bio": "Bringing creative visions to life.",
+            "name": "Marcus Chen",
+            "role": "Head of Engineering",
+            "bio": "Hardware engineer obsessed with latency.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -112,9 +183,9 @@
         "member_3": {
           "type": "member",
           "settings": {
-            "name": "Michael Brown",
-            "role": "Head of Product",
-            "bio": "Obsessed with user experience.",
+            "name": "Sarah 'Viper' Rodriguez",
+            "role": "Pro Relations",
+            "bio": "Connecting our tech with top-tier talent.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -123,9 +194,9 @@
         "member_4": {
           "type": "member",
           "settings": {
-            "name": "Emily Davis",
-            "role": "Customer Success",
-            "bio": "Making sure customers are happy.",
+            "name": "Jake Thompson",
+            "role": "Lead Designer",
+            "bio": "Making pro-grade gear look as good as it performs.",
             "linkedin": "",
             "twitter": "",
             "instagram": ""
@@ -139,13 +210,13 @@
         "member_4"
       ],
       "settings": {
-        "label": "Our Team",
-        "title": "Meet the People Behind the Brand",
-        "description": "We're a passionate team dedicated to creating products you'll love.",
-        "header_alignment": "center",
+        "label": "THE TEAM",
+        "title": "BUILT BY GAMERS",
+        "description": "Competitive gamers, hardware engineers, and design nerds united by one goal: the perfect peripheral.",
+        "header_alignment": "left",
         "columns": 4,
         "full_width": false,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     },
     "rolling_numbers": {
@@ -154,11 +225,10 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10",
+            "number": "500",
             "prefix": "",
-            "suffix": "+",
-            "label": "Years in Business",
-            "description": "A decade of excellence"
+            "suffix": "K+",
+            "label": "UNITS SOLD"
           }
         },
         "stat_2": {
@@ -166,29 +236,26 @@
           "settings": {
             "number": "50",
             "prefix": "",
-            "suffix": "K+",
-            "label": "Happy Customers",
-            "description": "And counting"
+            "suffix": "+",
+            "label": "PRO TEAMS"
           }
         },
         "stat_3": {
           "type": "stat",
           "settings": {
-            "number": "150",
+            "number": "99",
             "prefix": "",
-            "suffix": "+",
-            "label": "Countries Served",
-            "description": "Global reach"
+            "suffix": "%",
+            "label": "5-STAR REVIEWS"
           }
         },
         "stat_4": {
           "type": "stat",
           "settings": {
-            "number": "98",
+            "number": "1",
             "prefix": "",
-            "suffix": "%",
-            "label": "Satisfaction Rate",
-            "description": "Based on reviews"
+            "suffix": "MS",
+            "label": "RESPONSE TIME"
           }
         }
       },
@@ -199,35 +266,35 @@
         "stat_4"
       ],
       "settings": {
-        "title": "By the Numbers",
-        "subtitle": "",
-        "content_alignment": "center",
-        "animation_duration": 1500,
-        "color_scheme": "",
+        "title": "BY THE NUMBERS",
+        "animate_on_scroll": true,
+        "duration": 2,
         "full_width": false,
-        "show_dividers": true
+        "color_scheme": "scheme-1"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "JOIN THE SQUAD",
+        "text": "Get exclusive deals, early access to new products, and pro gaming tips. No spam, just wins.",
+        "button_text": "SIGN UP",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-2"
       }
     }
   },
   "order": [
     "main_about",
     "text_reveal",
+    "image_with_text",
     "timeline",
+    "features_grid",
     "team",
     "rolling_numbers",
     "newsletter"

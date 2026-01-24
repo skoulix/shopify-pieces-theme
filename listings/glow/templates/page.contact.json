@@ -1,105 +1,48 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "contact_form": {
       "type": "contact-form",
       "settings": {
-        "label": "Contact",
-        "title": "Get in Touch",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
+        "label": "Get in Touch",
+        "title": "We're Here to Help",
+        "description": "Have questions about your skincare routine or need product recommendations? Our skincare experts are here to guide you.",
         "enable_description_shuffle": true,
-        "header_alignment": "left",
+        "header_alignment": "center",
         "full_width": false,
         "show_social_links": true,
-        "social_heading": "Follow us",
+        "social_heading": "Follow our journey",
         "color_scheme": "scheme-1"
-      }
-    },
-    "map": {
-      "type": "map",
-      "blocks": {
-        "address": {
-          "type": "address",
-          "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
-          }
-        },
-        "hours": {
-          "type": "hours",
-          "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "title": "Contact",
-            "phone": "(555) 123-4567",
-            "email": "hello@example.com"
-          }
-        }
-      },
-      "block_order": [
-        "address",
-        "hours",
-        "contact"
-      ],
-      "settings": {
-        "label": "Visit Us",
-        "title": "Our Location",
-        "header_alignment": "left",
-        "location_name": "Our Store",
-        "address": "123 Main Street\nNew York, NY 10001",
-        "latitude": "40.7128",
-        "longitude": "-74.0060",
-        "zoom": 14,
-        "show_popup": true,
-        "map_height": 450,
-        "marker_color": "#000000",
-        "grayscale": false,
-        "full_width": false,
-        "color_scheme": "scheme-2"
       }
     },
     "faq": {
       "type": "faq",
       "blocks": {
         "faq_1": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "How quickly do you respond to inquiries?",
-            "answer": "<p>We typically respond within 24 hours during business days.</p>"
+            "question": "How do I know which products are right for my skin type?",
+            "answer": "<p>Take our skin quiz or reach out to our skincare educators for personalized recommendations based on your skin concerns and goals.</p>"
           }
         },
         "faq_2": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Do you have a physical store?",
-            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York.</p>"
+            "question": "Are your products suitable for sensitive skin?",
+            "answer": "<p>Yes! All our products are dermatologist-tested and free from common irritants. We recommend patch testing and starting with our sensitive skin collection.</p>"
           }
         },
         "faq_3": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Can I schedule an appointment?",
-            "answer": "<p>Absolutely! Reach out through the contact form to schedule a time.</p>"
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day satisfaction guarantee. If you're not completely happy with your purchase, return it for a full refund—no questions asked.</p>"
           }
         },
         "faq_4": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "What are your business hours?",
-            "answer": "<p>Monday-Friday 9am-6pm, Saturday 10am-4pm, closed Sunday.</p>"
+            "question": "Do you offer professional consultations?",
+            "answer": "<p>Yes! Book a complimentary virtual consultation with one of our skincare educators to build your perfect routine.</p>"
           }
         }
       },
@@ -111,23 +54,71 @@
       ],
       "settings": {
         "full_width": false,
-        "label": "Support",
-        "title": "Frequently Asked Questions",
-        "description": "Find answers to common questions about our products and services.",
-        "header_alignment": "left",
+        "label": "Common Questions",
+        "title": "Frequently Asked",
+        "header_alignment": "center",
+        "layout": "accordion",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "map": {
+      "type": "map",
+      "blocks": {
+        "address": {
+          "type": "address",
+          "settings": {
+            "title": "Flagship Location",
+            "address": "456 Beauty Lane\nLos Angeles, CA 90001"
+          }
+        },
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "title": "Hours",
+            "hours": "Mon - Sat: 10am - 7pm\nSun: 11am - 5pm"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "phone": "(555) 987-6543",
+            "email": "care@glowskincare.com"
+          }
+        }
+      },
+      "block_order": [
+        "address",
+        "hours",
+        "contact"
+      ],
+      "settings": {
+        "label": "Visit Us",
+        "title": "Experience Center",
+        "header_alignment": "center",
+        "location_name": "Glow Flagship",
+        "address": "456 Beauty Lane, Los Angeles, CA 90001",
+        "latitude": "34.0522",
+        "longitude": "-118.2437",
+        "zoom": 14,
+        "show_popup": true,
+        "map_height": 400,
+        "marker_color": "#d4a574",
+        "grayscale": true,
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "centered",
+        "title": "Stay Glowing",
+        "text": "Subscribe for skincare tips, exclusive offers, and early access to new products.",
         "button_text": "Subscribe",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "Your privacy matters. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"
@@ -136,8 +127,8 @@
   },
   "order": [
     "contact_form",
-    "map",
     "faq",
+    "map",
     "newsletter"
   ]
 }

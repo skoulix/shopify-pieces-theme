@@ -1,25 +1,16 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "contact_form": {
       "type": "contact-form",
       "settings": {
-        "label": "Contact",
-        "title": "Get in Touch",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
-        "enable_description_shuffle": true,
-        "header_alignment": "left",
+        "label": "Inquiries",
+        "title": "We Welcome Your Correspondence",
+        "description": "Whether you seek a bespoke commission, wish to arrange a private viewing, or have questions about our collections, our client relations team awaits your inquiry.",
+        "enable_description_shuffle": false,
+        "header_alignment": "center",
         "full_width": false,
         "show_social_links": true,
-        "social_heading": "Follow us",
+        "social_heading": "Follow our journey",
         "color_scheme": "scheme-1"
       }
     },
@@ -29,23 +20,23 @@
         "address": {
           "type": "address",
           "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
+            "title": "Flagship Atelier",
+            "address": "12 Place Vendôme\nParis, 75001\nFrance"
           }
         },
         "hours": {
           "type": "hours",
           "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+            "title": "Private Appointments",
+            "hours": "Monday - Saturday\n10:00 - 19:00\nSunday by appointment"
           }
         },
         "contact": {
           "type": "contact",
           "settings": {
-            "title": "Contact",
-            "phone": "(555) 123-4567",
-            "email": "hello@example.com"
+            "title": "Direct Line",
+            "phone": "+33 1 42 60 00 00",
+            "email": "concierge@maisonlaurent.com"
           }
         }
       },
@@ -56,17 +47,17 @@
       ],
       "settings": {
         "label": "Visit Us",
-        "title": "Our Location",
-        "header_alignment": "left",
-        "location_name": "Our Store",
-        "address": "123 Main Street\nNew York, NY 10001",
-        "latitude": "40.7128",
-        "longitude": "-74.0060",
-        "zoom": 14,
+        "title": "Our Flagship Atelier",
+        "header_alignment": "center",
+        "location_name": "Maison Laurent",
+        "address": "12 Place Vendôme, Paris 75001, France",
+        "latitude": "48.8671",
+        "longitude": "2.3294",
+        "zoom": 15,
         "show_popup": true,
         "map_height": 450,
-        "marker_color": "#000000",
-        "grayscale": false,
+        "marker_color": "#1a1a1a",
+        "grayscale": true,
         "full_width": false,
         "color_scheme": "scheme-2"
       }
@@ -75,31 +66,31 @@
       "type": "faq",
       "blocks": {
         "faq_1": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "How quickly do you respond to inquiries?",
-            "answer": "<p>We typically respond within 24 hours during business days.</p>"
+            "question": "Do you offer bespoke commissions?",
+            "answer": "<p>Indeed. Our master craftsmen welcome the opportunity to create one-of-a-kind pieces tailored to your exact specifications. Please arrange a private consultation to discuss your vision.</p>"
           }
         },
         "faq_2": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Do you have a physical store?",
-            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York.</p>"
+            "question": "How may I arrange a private viewing?",
+            "answer": "<p>Private viewings may be scheduled at any of our flagship ateliers. Contact our concierge team to arrange a personalized appointment at your convenience.</p>"
           }
         },
         "faq_3": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Can I schedule an appointment?",
-            "answer": "<p>Absolutely! Reach out through the contact form to schedule a time.</p>"
+            "question": "What authentication accompanies each piece?",
+            "answer": "<p>Every creation includes comprehensive certification of authenticity, detailed provenance documentation, and our lifetime guarantee of craftsmanship.</p>"
           }
         },
         "faq_4": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "What are your business hours?",
-            "answer": "<p>Monday-Friday 9am-6pm, Saturday 10am-4pm, closed Sunday.</p>"
+            "question": "Do you offer international delivery?",
+            "answer": "<p>We provide secure, insured delivery worldwide through our trusted courier partners. White glove delivery service is available for significant acquisitions.</p>"
           }
         }
       },
@@ -111,23 +102,23 @@
       ],
       "settings": {
         "full_width": false,
-        "label": "Support",
+        "label": "Client Services",
         "title": "Frequently Asked Questions",
-        "description": "Find answers to common questions about our products and services.",
-        "header_alignment": "left",
+        "header_alignment": "center",
+        "layout": "accordion",
         "color_scheme": "scheme-1"
       }
     },
     "newsletter": {
       "type": "newsletter",
       "settings": {
-        "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
+        "design": "centered",
+        "title": "Remain Informed",
+        "text": "Subscribe to receive exclusive invitations to private events, early access to new collections, and news from our atelier.",
         "button_text": "Subscribe",
-        "button_style": "solid",
+        "button_style": "outline",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "Your privacy is paramount. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"

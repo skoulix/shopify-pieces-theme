@@ -1,105 +1,48 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "contact_form": {
       "type": "contact-form",
       "settings": {
-        "label": "Contact",
-        "title": "Get in Touch",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
+        "label": "CONTACT",
+        "title": "GET IN TOUCH",
+        "description": "Got questions about our gear? Need tech support? Want to join a pro team sponsorship? Hit us up.",
         "enable_description_shuffle": true,
         "header_alignment": "left",
         "full_width": false,
         "show_social_links": true,
-        "social_heading": "Follow us",
+        "social_heading": "FOLLOW US",
         "color_scheme": "scheme-1"
-      }
-    },
-    "map": {
-      "type": "map",
-      "blocks": {
-        "address": {
-          "type": "address",
-          "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
-          }
-        },
-        "hours": {
-          "type": "hours",
-          "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "title": "Contact",
-            "phone": "(555) 123-4567",
-            "email": "hello@example.com"
-          }
-        }
-      },
-      "block_order": [
-        "address",
-        "hours",
-        "contact"
-      ],
-      "settings": {
-        "label": "Visit Us",
-        "title": "Our Location",
-        "header_alignment": "left",
-        "location_name": "Our Store",
-        "address": "123 Main Street\nNew York, NY 10001",
-        "latitude": "40.7128",
-        "longitude": "-74.0060",
-        "zoom": 14,
-        "show_popup": true,
-        "map_height": 450,
-        "marker_color": "#000000",
-        "grayscale": false,
-        "full_width": false,
-        "color_scheme": "scheme-2"
       }
     },
     "faq": {
       "type": "faq",
       "blocks": {
         "faq_1": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "How quickly do you respond to inquiries?",
-            "answer": "<p>We typically respond within 24 hours during business days.</p>"
+            "question": "Is your gear compatible with PS5/Xbox?",
+            "answer": "<p>Most of our peripherals are cross-platform compatible. Each product page lists specific platform support. Our wireless products work seamlessly with PC, PlayStation, and Xbox via our universal receiver or Bluetooth.</p>"
           }
         },
         "faq_2": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Do you have a physical store?",
-            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York.</p>"
+            "question": "How do I apply for team sponsorship?",
+            "answer": "<p>We're always looking for talented teams and content creators. Fill out our sponsorship form with your team info, tournament history, and content links. We review applications monthly.</p>"
           }
         },
         "faq_3": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Can I schedule an appointment?",
-            "answer": "<p>Absolutely! Reach out through the contact form to schedule a time.</p>"
+            "question": "What's your warranty policy?",
+            "answer": "<p>All products include a 2-year manufacturer warranty covering defects in materials and workmanship. For mechanical keyboards, switches are covered for 50 million actuations. We've got your back.</p>"
           }
         },
         "faq_4": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "What are your business hours?",
-            "answer": "<p>Monday-Friday 9am-6pm, Saturday 10am-4pm, closed Sunday.</p>"
+            "question": "Do you offer software for customization?",
+            "answer": "<p>Yes! Our free software suite lets you customize RGB lighting, create macros, adjust DPI settings, and sync effects across all compatible devices. Available for Windows and macOS.</p>"
           }
         }
       },
@@ -111,10 +54,58 @@
       ],
       "settings": {
         "full_width": false,
-        "label": "Support",
-        "title": "Frequently Asked Questions",
-        "description": "Find answers to common questions about our products and services.",
+        "label": "SUPPORT",
+        "title": "FAQ",
         "header_alignment": "left",
+        "layout": "accordion",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "map": {
+      "type": "map",
+      "blocks": {
+        "address": {
+          "type": "address",
+          "settings": {
+            "title": "HQ",
+            "address": "500 Tech Drive\nSan Jose, CA 95110"
+          }
+        },
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "title": "Support Hours",
+            "hours": "Mon - Fri: 9am - 6pm PST\nWeekend: Online support only"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "phone": "(888) EDGE-GG1",
+            "email": "support@edgegaming.gg"
+          }
+        }
+      },
+      "block_order": [
+        "address",
+        "hours",
+        "contact"
+      ],
+      "settings": {
+        "label": "FIND US",
+        "title": "HEADQUARTERS",
+        "header_alignment": "left",
+        "location_name": "Edge Gaming HQ",
+        "address": "500 Tech Drive, San Jose, CA 95110",
+        "latitude": "37.3382",
+        "longitude": "-121.8863",
+        "zoom": 14,
+        "show_popup": true,
+        "map_height": 400,
+        "marker_color": "#00ff88",
+        "grayscale": true,
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -122,12 +113,12 @@
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "STAY IN THE LOOP",
+        "text": "New product drops, firmware updates, and exclusive deals. Level up your inbox.",
+        "button_text": "SUBSCRIBE",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your data. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"
@@ -136,8 +127,8 @@
   },
   "order": [
     "contact_form",
-    "map",
     "faq",
+    "map",
     "newsletter"
   ]
 }

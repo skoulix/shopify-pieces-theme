@@ -1,29 +1,20 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "overlay_opacity": 40,
-        "label": "",
-        "title": "Elevate Your Style",
-        "description": "Discover our curated collection of premium products designed for the modern lifestyle.",
-        "content_alignment": "left",
-        "button_text": "Shop Now",
+        "overlay_opacity": 50,
+        "label": "DROP 001",
+        "title": "BREAK THE RULES",
+        "description": "Limited edition streetwear for those who refuse to blend in. Every piece tells a story.",
+        "content_alignment": "center",
+        "button_text": "SHOP THE DROP",
         "button_link": "shopify://collections/all",
         "button_style": "solid",
         "button_color": "primary",
         "button_size": "large",
         "color_scheme": "scheme-1",
-        "full_width": false,
+        "full_width": true,
         "show_scroll_indicator": true
       }
     },
@@ -33,7 +24,7 @@
         "text_1": {
           "type": "text",
           "settings": {
-            "text": "Free Shipping",
+            "text": "NEW DROP",
             "outline": false
           }
         },
@@ -41,13 +32,13 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
           }
         },
         "text_2": {
           "type": "text",
           "settings": {
-            "text": "New Arrivals",
+            "text": "LIMITED EDITION",
             "outline": true
           }
         },
@@ -55,13 +46,13 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
           }
         },
         "text_3": {
           "type": "text",
           "settings": {
-            "text": "Limited Edition",
+            "text": "SOLD OUT SOON",
             "outline": false
           }
         },
@@ -69,42 +60,120 @@
           "type": "separator",
           "settings": {
             "style": "icon",
-            "icon": "star-four"
+            "icon": "lightning"
+          }
+        },
+        "text_4": {
+          "type": "text",
+          "settings": {
+            "text": "FREE SHIPPING",
+            "outline": true
+          }
+        },
+        "sep_4": {
+          "type": "separator",
+          "settings": {
+            "style": "icon",
+            "icon": "lightning"
           }
         }
       },
-      "block_order": [
-        "text_1",
-        "sep_1",
-        "text_2",
-        "sep_2",
-        "text_3",
-        "sep_3"
-      ],
+      "block_order": ["text_1", "sep_1", "text_2", "sep_2", "text_3", "sep_3", "text_4", "sep_4"],
       "settings": {
         "direction": "left",
-        "speed": 30,
+        "speed": 40,
         "scroll_aware": true,
-        "scroll_speed": 2,
-        "pause_on_hover": true,
-        "color_scheme": ""
+        "scroll_speed": 3,
+        "pause_on_hover": false,
+        "color_scheme": "scheme-2"
       }
     },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
         "collection": "",
-        "label": "New Arrivals",
-        "title": "Featured Collection",
-        "description": "",
+        "label": "JUST DROPPED",
+        "title": "LATEST RELEASES",
+        "description": "Fresh heat. Don't sleep on it.",
         "header_alignment": "left",
-        "products_to_show": 4,
+        "products_to_show": 8,
         "columns": 4,
         "show_vendor": false,
         "show_view_all": true,
-        "view_all_text": "View All",
+        "view_all_text": "VIEW ALL",
+        "full_width": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "countdown": {
+      "type": "countdown",
+      "settings": {
+        "label": "COMING SOON",
+        "title": "NEXT DROP",
+        "description": "Set your alarms. This one won't last.",
+        "countdown_date": "",
+        "show_days": true,
+        "show_hours": true,
+        "show_minutes": true,
+        "show_seconds": true,
+        "button_text": "GET NOTIFIED",
+        "button_link": "",
+        "button_style": "solid",
+        "expired_message": "DROP IS LIVE",
         "full_width": false,
         "color_scheme": "scheme-2"
+      }
+    },
+    "collections_carousel": {
+      "type": "collections-carousel",
+      "blocks": {
+        "collection_1": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "TEES"
+          }
+        },
+        "collection_2": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "HOODIES"
+          }
+        },
+        "collection_3": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "BOTTOMS"
+          }
+        },
+        "collection_4": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "ACCESSORIES"
+          }
+        },
+        "collection_5": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "custom_title": "COLLABS"
+          }
+        }
+      },
+      "block_order": ["collection_1", "collection_2", "collection_3", "collection_4", "collection_5"],
+      "settings": {
+        "label": "CATEGORIES",
+        "title": "SHOP BY STYLE",
+        "description": "",
+        "header_alignment": "left",
+        "layout": "carousel",
+        "card_style": "default",
+        "show_product_count": false,
+        "full_width": false,
+        "color_scheme": "scheme-1"
       }
     },
     "image_with_text": {
@@ -113,131 +182,107 @@
         "stat_1": {
           "type": "stat",
           "settings": {
-            "number": "10+",
-            "label": "Years"
+            "number": "50K+",
+            "label": "Community"
           }
         },
         "stat_2": {
           "type": "stat",
           "settings": {
-            "number": "50K",
-            "label": "Customers"
+            "number": "24",
+            "label": "Drops/Year"
           }
         }
       },
-      "block_order": [
-        "stat_1",
-        "stat_2"
-      ],
+      "block_order": ["stat_1", "stat_2"],
       "settings": {
-        "image_ratio": "4/5",
-        "label": "Our Story",
-        "title": "Crafted With Purpose",
-        "text": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-        "button_text": "Learn More",
+        "image_ratio": "1/1",
+        "label": "THE BRAND",
+        "title": "BUILT DIFFERENT",
+        "text": "<p>We started in a garage with one screen printer and a dream. Now we're a global movement. Every piece we make represents the hustle, the grind, and the refusal to conform. This isn't just clothing—it's a statement.</p>",
+        "button_text": "OUR STORY",
         "button_link": "",
         "button_type": "link",
-        "button_style": "solid",
+        "button_style": "outline",
         "button_color": "primary",
         "button_size": "default",
-        "layout": "image_left",
+        "layout": "image_right",
         "full_width": false,
         "remove_padding": false,
+        "color_scheme": "scheme-2"
+      }
+    },
+    "video": {
+      "type": "video",
+      "settings": {
+        "label": "LOOKBOOK",
+        "title": "SPRING '25 COLLECTION",
+        "description": "See the latest drop in action",
+        "video_url": "",
+        "autoplay": false,
+        "loop": true,
+        "muted": true,
+        "show_controls": true,
+        "full_width": true,
         "color_scheme": "scheme-1"
       }
     },
-    "featured_blog_GWjPQG": {
-      "type": "featured-blog",
-      "name": "Featured Blog",
+    "shop_the_look": {
+      "type": "shop-the-look",
       "settings": {
-        "blog": "",
-        "label": "Our Stories",
-        "title": "Featured Blog",
-        "description": "",
+        "label": "GET THE FIT",
+        "title": "SHOP THE LOOK",
+        "description": "Complete outfits curated by our style team",
+        "layout": "slider",
         "header_alignment": "left",
-        "posts_to_show": 4,
-        "columns": 3,
-        "feature_first": true,
-        "show_tags": true,
-        "show_excerpt": true,
-        "show_author": true,
-        "show_read_more": true,
-        "show_view_all": true,
-        "view_all_text": "View All",
         "full_width": false,
         "color_scheme": "scheme-2"
       }
     },
-    "testimonials_UML8MP": {
+    "testimonials": {
       "type": "testimonials",
       "blocks": {
-        "testimonial_BF9x6V": {
+        "testimonial_1": {
           "type": "testimonial",
           "settings": {
-            "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.",
+            "quote": "Finally a brand that gets it. The quality is insane and the designs are fire. Instantly became my go-to.",
             "rating": 5,
-            "author": "Sarah Johnson",
+            "author": "Jake T.",
+            "author_title": "@jakethecreator"
+          }
+        },
+        "testimonial_2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Copped the last drop and the hoodie fits perfect. Heavy weight, great print quality. Worth every penny.",
+            "rating": 5,
+            "author": "Marcus D.",
             "author_title": "Verified Buyer"
           }
         },
-        "testimonial_6aGUB4": {
+        "testimonial_3": {
           "type": "testimonial",
           "settings": {
-            "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.",
+            "quote": "Been following since day one. The consistency in quality and design is unmatched. Keep doing your thing.",
             "rating": 5,
-            "author": "Michael Chen",
-            "author_title": "Loyal Customer"
+            "author": "Alicia R.",
+            "author_title": "Day One Supporter"
           }
         },
-        "testimonial_H7jk47": {
+        "testimonial_4": {
           "type": "testimonial",
           "settings": {
-            "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.",
+            "quote": "Shipping was fast AF and the packaging was dope. Felt like Christmas morning opening that box.",
             "rating": 5,
-            "author": "Emily Davis",
-            "author_title": "Repeat Customer"
-          }
-        },
-        "testimonial_FKV7Ym": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.",
-            "rating": 5,
-            "author": "David Wilson",
-            "author_title": "Verified Buyer"
-          }
-        },
-        "testimonial_dH4rBy": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.",
-            "rating": 5,
-            "author": "Rachel Thompson",
-            "author_title": "First-time Buyer"
-          }
-        },
-        "testimonial_H4HFVR": {
-          "type": "testimonial",
-          "settings": {
-            "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.",
-            "rating": 5,
-            "author": "James Martinez",
+            "author": "Tyler K.",
             "author_title": "Repeat Customer"
           }
         }
       },
-      "block_order": [
-        "testimonial_BF9x6V",
-        "testimonial_6aGUB4",
-        "testimonial_H7jk47",
-        "testimonial_FKV7Ym",
-        "testimonial_dH4rBy",
-        "testimonial_H4HFVR"
-      ],
-      "name": "Testimonials",
+      "block_order": ["testimonial_1", "testimonial_2", "testimonial_3", "testimonial_4"],
       "settings": {
-        "label": "Testimonials",
-        "title": "What Our Customers Say",
+        "label": "THE PEOPLE",
+        "title": "COMMUNITY LOVE",
         "header_alignment": "left",
         "show_rating": true,
         "full_width": false,
@@ -249,19 +294,40 @@
         "color_scheme": "scheme-1"
       }
     },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "blog": "",
+        "label": "THE CULTURE",
+        "title": "LATEST FROM THE BLOG",
+        "description": "Behind the drops, artist collabs, and street style",
+        "header_alignment": "left",
+        "posts_to_show": 3,
+        "columns": 3,
+        "feature_first": false,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": false,
+        "show_read_more": true,
+        "show_view_all": true,
+        "view_all_text": "READ MORE",
+        "full_width": false,
+        "color_scheme": "scheme-2"
+      }
+    },
     "newsletter": {
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "JOIN THE CREW",
+        "text": "Early access to drops, exclusive content, and member-only deals. No spam, just heat.",
+        "button_text": "SIGN UP",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your privacy. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
-        "color_scheme": "scheme-2"
+        "color_scheme": "scheme-1"
       }
     }
   },
@@ -269,9 +335,13 @@
     "hero",
     "marquee",
     "featured_collection",
+    "countdown",
+    "collections_carousel",
     "image_with_text",
-    "featured_blog_GWjPQG",
-    "testimonials_UML8MP",
+    "video",
+    "shop_the_look",
+    "testimonials",
+    "featured_blog",
     "newsletter"
   ]
 }

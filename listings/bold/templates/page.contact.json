@@ -1,105 +1,48 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "contact_form": {
       "type": "contact-form",
       "settings": {
-        "label": "Contact",
-        "title": "Get in Touch",
-        "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
+        "label": "HIT US UP",
+        "title": "LET'S TALK",
+        "description": "Got questions about a drop? Want to collab? Slide into our inbox and we'll get back to you ASAP.",
         "enable_description_shuffle": true,
         "header_alignment": "left",
         "full_width": false,
         "show_social_links": true,
-        "social_heading": "Follow us",
+        "social_heading": "FOLLOW THE MOVEMENT",
         "color_scheme": "scheme-1"
-      }
-    },
-    "map": {
-      "type": "map",
-      "blocks": {
-        "address": {
-          "type": "address",
-          "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
-          }
-        },
-        "hours": {
-          "type": "hours",
-          "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "title": "Contact",
-            "phone": "(555) 123-4567",
-            "email": "hello@example.com"
-          }
-        }
-      },
-      "block_order": [
-        "address",
-        "hours",
-        "contact"
-      ],
-      "settings": {
-        "label": "Visit Us",
-        "title": "Our Location",
-        "header_alignment": "left",
-        "location_name": "Our Store",
-        "address": "123 Main Street\nNew York, NY 10001",
-        "latitude": "40.7128",
-        "longitude": "-74.0060",
-        "zoom": 14,
-        "show_popup": true,
-        "map_height": 450,
-        "marker_color": "#000000",
-        "grayscale": false,
-        "full_width": false,
-        "color_scheme": "scheme-2"
       }
     },
     "faq": {
       "type": "faq",
       "blocks": {
         "faq_1": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "How quickly do you respond to inquiries?",
-            "answer": "<p>We typically respond within 24 hours during business days.</p>"
+            "question": "When's the next drop?",
+            "answer": "<p>Follow us on socials and join the newsletter. That's where we announce everything first. If you're late, you're gonna miss out.</p>"
           }
         },
         "faq_2": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Do you have a physical store?",
-            "answer": "<p>Yes! Our flagship store is located at 123 Main Street, New York.</p>"
+            "question": "Do you do collabs?",
+            "answer": "<p>Always down to work with dope artists and creators. Hit us up with your portfolio and ideas. Let's make something fire.</p>"
           }
         },
         "faq_3": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "Can I schedule an appointment?",
-            "answer": "<p>Absolutely! Reach out through the contact form to schedule a time.</p>"
+            "question": "Why did my size sell out so fast?",
+            "answer": "<p>We keep runs limited on purpose. Quality over quantity. Sign up for notifications to get first dibs on the next drop.</p>"
           }
         },
         "faq_4": {
-          "type": "faq_item",
+          "type": "question",
           "settings": {
-            "question": "What are your business hours?",
-            "answer": "<p>Monday-Friday 9am-6pm, Saturday 10am-4pm, closed Sunday.</p>"
+            "question": "Do you restock sold out items?",
+            "answer": "<p>Rarely. When a drop is gone, it's gone. That's what makes each piece special. Sometimes we do anniversary restocks though.</p>"
           }
         }
       },
@@ -111,10 +54,58 @@
       ],
       "settings": {
         "full_width": false,
-        "label": "Support",
-        "title": "Frequently Asked Questions",
-        "description": "Find answers to common questions about our products and services.",
+        "label": "FAQ",
+        "title": "COMMON QUESTIONS",
         "header_alignment": "left",
+        "layout": "accordion",
+        "color_scheme": "scheme-2"
+      }
+    },
+    "map": {
+      "type": "map",
+      "blocks": {
+        "address": {
+          "type": "address",
+          "settings": {
+            "title": "HQ",
+            "address": "789 Street Culture Ave\nLos Angeles, CA 90012"
+          }
+        },
+        "hours": {
+          "type": "hours",
+          "settings": {
+            "title": "Pop-Up Hours",
+            "hours": "Follow our socials for\npop-up shop announcements"
+          }
+        },
+        "contact": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact",
+            "phone": "",
+            "email": "crew@boldstreet.com"
+          }
+        }
+      },
+      "block_order": [
+        "address",
+        "hours",
+        "contact"
+      ],
+      "settings": {
+        "label": "FIND US",
+        "title": "THE HQ",
+        "header_alignment": "left",
+        "location_name": "Bold HQ",
+        "address": "789 Street Culture Ave, Los Angeles, CA 90012",
+        "latitude": "34.0522",
+        "longitude": "-118.2437",
+        "zoom": 14,
+        "show_popup": true,
+        "map_height": 400,
+        "marker_color": "#000000",
+        "grayscale": true,
+        "full_width": false,
         "color_scheme": "scheme-1"
       }
     },
@@ -122,12 +113,12 @@
       "type": "newsletter",
       "settings": {
         "design": "side-by-side",
-        "title": "Want product news and updates?",
-        "text": "Subscribe to our newsletter for exclusive updates and special offers.",
-        "button_text": "Subscribe",
+        "title": "DON'T SLEEP ON IT",
+        "text": "Get drop alerts, exclusive content, and early access. The insiders always eat first.",
+        "button_text": "JOIN",
         "button_style": "solid",
         "button_color": "primary",
-        "privacy_text": "We care about your data. Read our",
+        "privacy_text": "We respect your inbox. Read our",
         "privacy_link": "",
         "privacy_link_text": "privacy policy",
         "color_scheme": "scheme-2"
@@ -136,8 +127,8 @@
   },
   "order": [
     "contact_form",
-    "map",
     "faq",
+    "map",
     "newsletter"
   ]
 }
