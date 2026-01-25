@@ -1,6 +1,6 @@
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
   assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
 -%}
@@ -250,7 +250,7 @@
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width content",
+      "label": "Full width",
       "info": "Content uses page padding. Background media is always full bleed."
     },
     {

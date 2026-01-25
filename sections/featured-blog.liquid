@@ -1,6 +1,10 @@
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 
   assign blog = section.settings.blog
@@ -19,8 +23,8 @@
   class="fb-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-featured-blog="{{ section.id }}"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
+  {%- comment -%} Header - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     {% render 'section-header-link',
       label: section.settings.label,
       title: section.settings.title,
@@ -33,8 +37,10 @@
       link_sr_text: blog.title,
       show_link: section.settings.show_view_all
     %}
+  </div>
 
-    {%- comment -%} Blog Grid {%- endcomment -%}
+  {%- comment -%} Blog Grid {%- endcomment -%}
+  <div class="{{ container_class }}">
     <div class="fb-grid grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
       {% if blog != blank %}
         {% for article in blog.articles limit: posts_to_show %}

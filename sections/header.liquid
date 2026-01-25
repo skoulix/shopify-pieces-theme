@@ -5,11 +5,9 @@
 {%- endcomment -%}
 
 {%- liquid
-  if section.settings.full_width
-    assign nav_class = 'page-full'
-  else
-    assign nav_class = 'page-container'
-  endif
+  capture nav_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
 
   assign is_transparent = false
   if section.settings.transparent_home and request.page_type == 'index'
@@ -2028,7 +2026,7 @@
           "type": "checkbox",
           "id": "full_width",
           "default": true,
-          "label": "Full width content"
+          "label": "Full width"
         },
         {
           "type": "select",

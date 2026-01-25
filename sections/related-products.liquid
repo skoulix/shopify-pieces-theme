@@ -5,7 +5,11 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 -%}
 
@@ -49,8 +53,8 @@
   data-slides-desktop="{{ section.settings.slides_desktop }}"
   style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }};"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
+  {%- comment -%} Header - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     <div class="section-header-spacing">
       {% render 'section-header-nav',
         label: section.settings.label,
@@ -62,7 +66,9 @@
         nav_next_label: 'accessibility.next_products' | t
       %}
     </div>
+  </div>
 
+  <div class="{{ container_class }}">
     {%- comment -%} Carousel Container {%- endcomment -%}
     <div class="relative">
       {%- comment -%} Loading State - uses same slide class for consistent sizing {%- endcomment -%}

@@ -1,6 +1,10 @@
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 
   assign collection = section.settings.collection
@@ -27,8 +31,8 @@
   class="fc-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-featured-collection="{{ section.id }}"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header {%- endcomment -%}
+  {%- comment -%} Header {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     {% render 'section-header-link',
       label: section.settings.label,
       title: section.settings.title,
@@ -41,8 +45,10 @@
       link_sr_text: collection.title,
       show_link: section.settings.show_view_all
     %}
+  </div>
 
-    {%- comment -%} Product Grid {%- endcomment -%}
+  {%- comment -%} Product Grid {%- endcomment -%}
+  <div class="{{ container_class }}">
     <div class="fc-grid grid gap-[clamp(1rem,3vw,2rem)]">
       {% if collection != blank %}
         {% for product in collection.products limit: products_to_show %}

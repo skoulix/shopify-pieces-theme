@@ -4,7 +4,11 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 -%}
 
@@ -13,8 +17,8 @@
   data-testimonials="{{ section.id }}"
   style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }}; --testimonial-text-size: {{ section.settings.text_size }};"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header with Navigation {%- endcomment -%}
+  {%- comment -%} Header with Navigation - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     {% render 'section-header-nav',
       label: section.settings.label,
       title: section.settings.title,
@@ -23,7 +27,9 @@
       nav_data_prefix: 'testimonials',
       show_nav: section.blocks.size > 1
     %}
+  </div>
 
+  <div class="{{ container_class }}">
     {%- comment -%} Slider {%- endcomment -%}
     <div class="sr-only" aria-live="polite" aria-atomic="true" data-testimonials-status></div>
     <div class="testimonials-slider" data-tween data-tween-type="fade-up" role="region" aria-label="{{ 'accessibility.testimonials' | t | default: 'Testimonials' }}">

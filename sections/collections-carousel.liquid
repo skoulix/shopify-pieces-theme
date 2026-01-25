@@ -4,7 +4,11 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 
   assign products_to_show = section.settings.products_to_show
@@ -24,8 +28,8 @@
   data-collections-carousel="{{ section.id }}"
   style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }};"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header with Navigation {%- endcomment -%}
+  {%- comment -%} Header with Navigation - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     {% render 'section-header-nav',
       label: section.settings.label,
       title: section.settings.title,
@@ -34,7 +38,9 @@
       group_id: section.id,
       nav_data_prefix: 'carousel'
     %}
+  </div>
 
+  <div class="{{ container_class }}">
     {%- comment -%} Check if any blocks have a collection selected {%- endcomment -%}
     {%- liquid
       assign has_collections = false

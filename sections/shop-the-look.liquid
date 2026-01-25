@@ -4,7 +4,11 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 
   # Use global card settings
@@ -217,8 +221,8 @@
   class="shop-the-look-{{ section.id }} section-padding color-{{ section.settings.color_scheme }}"
   data-shop-the-look-section="{{ section.id }}"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
+  {%- comment -%} Header - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     <header class="shop-the-look-header-{{ section.id }}">
       {% render 'section-header',
         label: section.settings.label,
@@ -228,7 +232,9 @@
         group_id: section.id
       %}
     </header>
+  </div>
 
+  <div class="{{ container_class }}">
     {%- comment -%} Main Content Grid {%- endcomment -%}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
       {%- comment -%} Image Column {%- endcomment -%}

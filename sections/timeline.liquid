@@ -4,7 +4,11 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
+  capture header_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 -%}
 
@@ -12,8 +16,8 @@
   class="timeline-section-wrapper section-padding color-{{ section.settings.color_scheme }}"
   data-timeline-section="{{ section.id }}"
 >
-  <div class="{{ container_class }}">
-    {%- comment -%} Header - uses global data-tween system for animations {%- endcomment -%}
+  {%- comment -%} Header - always contained {%- endcomment -%}
+  <div class="{{ header_container_class }}">
     <div class="timeline-header">
       {% render 'section-header',
         label: section.settings.label,
@@ -22,7 +26,9 @@
         group_id: section.id
       %}
     </div>
+  </div>
 
+  <div class="{{ container_class }}">
     {%- comment -%} Timeline {%- endcomment -%}
     <div class="timeline-wrapper" data-timeline-wrapper>
       <div class="timeline-line">

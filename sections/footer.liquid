@@ -6,7 +6,7 @@
 {%- liquid
   assign footer_design = section.settings.footer_design | default: 'minimal'
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 -%}
 

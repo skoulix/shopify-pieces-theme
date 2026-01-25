@@ -5,6 +5,12 @@
   Animations handled by global TweenManager via data-tween attributes in snippets
 {%- endcomment -%}
 
+{%- liquid
+  capture container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+-%}
+
 <section class="newsletter-section color-{{ section.settings.color_scheme }}">
   {% case section.settings.design %}
     {% when 'side-by-side' %}
@@ -16,7 +22,8 @@
         button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
-        privacy_link_text: section.settings.privacy_link_text
+        privacy_link_text: section.settings.privacy_link_text,
+        container_class: container_class
       %}
 
     {% when 'stacked' %}
@@ -28,7 +35,8 @@
         button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
-        privacy_link_text: section.settings.privacy_link_text
+        privacy_link_text: section.settings.privacy_link_text,
+        container_class: container_class
       %}
 
     {% when 'card' %}
@@ -40,7 +48,8 @@
         button_color: section.settings.button_color,
         privacy_text: section.settings.privacy_text,
         privacy_link: section.settings.privacy_link,
-        privacy_link_text: section.settings.privacy_link_text
+        privacy_link_text: section.settings.privacy_link_text,
+        container_class: container_class
       %}
   {% endcase %}
 </section>
@@ -124,6 +133,16 @@
       "id": "privacy_link_text",
       "label": "Privacy link text",
       "default": "privacy policy"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
     },
     {
       "type": "header",
