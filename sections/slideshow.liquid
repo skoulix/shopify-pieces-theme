@@ -234,8 +234,15 @@
         </div>
 
         {%- comment -%} Content {%- endcomment -%}
-        <div class="slideshow__content relative z-1 h-full flex flex-col p-8 page-container {{ content_justify }} {{ content_items }}">
-          <div class="max-w-[42rem] text-{{ text_alignment }}">
+        {%- liquid
+          if block.settings.full_width_content
+            assign content_container = 'container-fluid'
+          else
+            assign content_container = 'page-container'
+          endif
+        -%}
+        <div class="slideshow__content relative z-1 h-full flex flex-col {{ content_container }} {{ content_justify }} {{ content_items }}">
+          <div class="text-{{ text_alignment }}">
             {% if block.settings.label != blank %}
               <p class="slideshow__label text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider mb-4 opacity-80">
                 {{ block.settings.label }}
@@ -243,13 +250,13 @@
             {% endif %}
 
             {% if block.settings.title != blank %}
-              <h2 class="slideshow__title hero-title mb-6">
+              <h2 class="slideshow__title hero-title mb-6 text-balance">
                 {{ block.settings.title }}
               </h2>
             {% endif %}
 
             {% if block.settings.description != blank %}
-              <p class="slideshow__description text-lg opacity-90 mb-8 max-w-lg {% if text_alignment == 'center' %}mx-auto{% elsif text_alignment == 'right' %}ml-auto{% endif %}">
+              <p class="slideshow__description text-lg opacity-90 mb-8 text-balance">
                 {{ block.settings.description }}
               </p>
             {% endif %}
@@ -270,48 +277,99 @@
       </div>
     {% endfor %}
 
-    {%- comment -%} Navigation Arrows {%- endcomment -%}
-    {% if show_arrows and section.blocks.size > 1 %}
-      <button
-        type="button"
-        class="slideshow__arrow slideshow__nav absolute top-1/2 -translate-y-1/2 left-4 md:left-8 z-10 w-12 h-12 flex items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
-        data-slideshow-prev
-        aria-label="{{ 'accessibility.previous_slide' | t }}"
-      >
-        <i class="ph ph-caret-left text-xl"></i>
-      </button>
-      <button
-        type="button"
-        class="slideshow__arrow slideshow__nav absolute top-1/2 -translate-y-1/2 right-4 md:right-8 z-10 w-12 h-12 flex items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
-        data-slideshow-next
-        aria-label="{{ 'accessibility.next_slide' | t }}"
-      >
-        <i class="ph ph-caret-right text-xl"></i>
-      </button>
-    {% endif %}
+    {%- comment -%} Navigation - Combined on mobile, separate on desktop {%- endcomment -%}
+    {% if section.blocks.size > 1 %}
+      {%- comment -%} Mobile Navigation: arrows + dots in one row at bottom {%- endcomment -%}
+      <div class="slideshow__mobile-nav md:hidden absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-4">
+        {% if show_arrows %}
+          <button
+            type="button"
+            class="slideshow__arrow slideshow__nav w-12 h-12 flex items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
+            data-slideshow-prev
+            aria-label="{{ 'accessibility.previous_slide' | t }}"
+          >
+            <i class="ph ph-caret-left text-xl"></i>
+          </button>
+        {% endif %}
 
-    {%- comment -%} Navigation Dots {%- endcomment -%}
-    {% if show_dots and section.blocks.size > 1 %}
-      <div class="slideshow__dots slideshow__nav absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-5">
-        {% for block in section.blocks %}
-          <div class="slideshow__dot-wrapper relative">
-            <button
-              type="button"
-              class="slideshow__dot block rounded-full border-0 cursor-pointer transition-all duration-300 w-[10px] h-[10px]{% if forloop.first %} is-active{% endif %}"
-              data-slideshow-dot="{{ forloop.index0 }}"
-              aria-label="{{ 'accessibility.go_to_slide' | t: index: forloop.index }}"
-            ></button>
-            {% if autoplay and progress_type == 'dots' %}
-            <div class="slideshow__dot-timer" style="position:absolute;top:-9px;left:-9px;width:28px;height:28px;pointer-events:none;opacity:0;">
-              <svg width="28" height="28" viewBox="0 0 28 28" style="display:block;">
-                <circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="2"/>
-                <circle class="timer-progress" cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-dot-progress/>
-              </svg>
-            </div>
-            {% endif %}
+        {% if show_dots %}
+          <div class="slideshow__dots flex items-center gap-5">
+            {% for block in section.blocks %}
+              <div class="slideshow__dot-wrapper relative">
+                <button
+                  type="button"
+                  class="slideshow__dot block rounded-full border-0 cursor-pointer transition-all duration-300 w-2.5 h-2.5{% if forloop.first %} is-active{% endif %}"
+                  data-slideshow-dot="{{ forloop.index0 }}"
+                  aria-label="{{ 'accessibility.go_to_slide' | t: index: forloop.index }}"
+                ></button>
+                {% if autoplay and progress_type == 'dots' %}
+                <div class="slideshow__dot-timer" style="position:absolute;top:-9px;left:-9px;width:28px;height:28px;pointer-events:none;opacity:0;">
+                  <svg width="28" height="28" viewBox="0 0 28 28" style="display:block;">
+                    <circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="2"/>
+                    <circle class="timer-progress" cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-dot-progress/>
+                  </svg>
+                </div>
+                {% endif %}
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
+        {% endif %}
+
+        {% if show_arrows %}
+          <button
+            type="button"
+            class="slideshow__arrow slideshow__nav w-12 h-12 flex items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
+            data-slideshow-next
+            aria-label="{{ 'accessibility.next_slide' | t }}"
+          >
+            <i class="ph ph-caret-right text-xl"></i>
+          </button>
+        {% endif %}
       </div>
+
+      {%- comment -%} Desktop Navigation: arrows on sides {%- endcomment -%}
+      {% if show_arrows %}
+        <button
+          type="button"
+          class="slideshow__arrow slideshow__nav hidden md:flex absolute top-1/2 -translate-y-1/2 left-8 z-10 w-12 h-12 items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
+          data-slideshow-prev
+          aria-label="{{ 'accessibility.previous_slide' | t }}"
+        >
+          <i class="ph ph-caret-left text-xl"></i>
+        </button>
+        <button
+          type="button"
+          class="slideshow__arrow slideshow__nav hidden md:flex absolute top-1/2 -translate-y-1/2 right-8 z-10 w-12 h-12 items-center justify-center backdrop-blur-md rounded-full cursor-pointer transition-all duration-300"
+          data-slideshow-next
+          aria-label="{{ 'accessibility.next_slide' | t }}"
+        >
+          <i class="ph ph-caret-right text-xl"></i>
+        </button>
+      {% endif %}
+
+      {%- comment -%} Desktop Navigation: dots centered at bottom {%- endcomment -%}
+      {% if show_dots %}
+        <div class="slideshow__dots slideshow__nav hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 z-10 items-center gap-5">
+          {% for block in section.blocks %}
+            <div class="slideshow__dot-wrapper relative">
+              <button
+                type="button"
+                class="slideshow__dot block rounded-full border-0 cursor-pointer transition-all duration-300 w-2.5 h-2.5{% if forloop.first %} is-active{% endif %}"
+                data-slideshow-dot="{{ forloop.index0 }}"
+                aria-label="{{ 'accessibility.go_to_slide' | t: index: forloop.index }}"
+              ></button>
+              {% if autoplay and progress_type == 'dots' %}
+              <div class="slideshow__dot-timer" style="position:absolute;top:-9px;left:-9px;width:28px;height:28px;pointer-events:none;opacity:0;">
+                <svg width="28" height="28" viewBox="0 0 28 28" style="display:block;">
+                  <circle cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="2"/>
+                  <circle class="timer-progress" cx="14" cy="14" r="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" data-dot-progress/>
+                </svg>
+              </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
     {% endif %}
 
     {%- comment -%} Progress Bar {%- endcomment -%}
@@ -351,8 +409,8 @@
 
       const slides = container.querySelectorAll('[data-slide-index]');
       const dots = container.querySelectorAll('[data-slideshow-dot]');
-      const prevBtn = container.querySelector('[data-slideshow-prev]');
-      const nextBtn = container.querySelector('[data-slideshow-next]');
+      const prevBtns = container.querySelectorAll('[data-slideshow-prev]');
+      const nextBtns = container.querySelectorAll('[data-slideshow-next]');
       const progress = container.querySelector('[data-slideshow-progress]');
       const parallaxMedia = container.querySelectorAll('[data-parallax-media]');
       const transition = container.dataset.transition || 'fade';
@@ -580,15 +638,16 @@
           isAnimating = false;
         }, trans.duration * 1000);
 
-        // Update dots and their timers
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('is-active', i === index);
+        // Update dots and their timers (handles both mobile and desktop nav)
+        dots.forEach(dot => {
+          const dotIndex = parseInt(dot.dataset.slideshowDot, 10);
+          dot.classList.toggle('is-active', dotIndex === index);
           // Find timer via parent wrapper
           const wrapper = dot.closest('.slideshow__dot-wrapper');
           const dotProgress = wrapper?.querySelector('[data-dot-progress]');
           if (dotProgress) {
             dotProgress.classList.remove('is-animating');
-            if (i === index && autoplayEnabled) {
+            if (dotIndex === index && autoplayEnabled) {
               void dotProgress.getBoundingClientRect(); // Force reflow
               dotProgress.classList.add('is-animating');
             }
@@ -627,13 +686,14 @@
       }
 
       // Event listeners
-      if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoplay(); });
-      if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoplay(); });
+      prevBtns.forEach(btn => btn.addEventListener('click', () => { prevSlide(); resetAutoplay(); }));
+      nextBtns.forEach(btn => btn.addEventListener('click', () => { nextSlide(); resetAutoplay(); }));
 
-      dots.forEach((dot, i) => {
+      dots.forEach(dot => {
         dot.addEventListener('click', () => {
-          const direction = i > currentSlide ? 'next' : 'prev';
-          showSlide(i, direction);
+          const dotIndex = parseInt(dot.dataset.slideshowDot, 10);
+          const direction = dotIndex > currentSlide ? 'next' : 'prev';
+          showSlide(dotIndex, direction);
           resetAutoplay();
         });
       });
@@ -665,14 +725,15 @@
       }
 
       function getActiveDotProgress() {
-        const activeDot = dots[currentSlide];
-        if (!activeDot) return null;
-        // Use parentElement to find the wrapper, then query within it
-        const wrapper = activeDot.closest('.slideshow__dot-wrapper');
-        if (wrapper) {
-          return wrapper.querySelector('[data-dot-progress]');
-        }
-        return null;
+        // Find all dots matching current slide (handles both mobile and desktop)
+        const activeDots = container.querySelectorAll(`[data-slideshow-dot="${currentSlide}"]`);
+        const progressElements = [];
+        activeDots.forEach(dot => {
+          const wrapper = dot.closest('.slideshow__dot-wrapper');
+          const progress = wrapper?.querySelector('[data-dot-progress]');
+          if (progress) progressElements.push(progress);
+        });
+        return progressElements;
       }
 
       function stopAutoplay() {
@@ -680,9 +741,8 @@
         clearInterval(autoplayInterval);
         autoplayInterval = null;
         if (progress) progress.classList.remove('is-animating');
-        // Pause dot timer
-        const activeDotProgress = getActiveDotProgress();
-        if (activeDotProgress) activeDotProgress.style.animationPlayState = 'paused';
+        // Pause dot timers (both mobile and desktop)
+        getActiveDotProgress().forEach(el => el.style.animationPlayState = 'paused');
       }
 
       function resetAutoplay() {
@@ -699,9 +759,8 @@
 
       function resumeAutoplay() {
         isPaused = false;
-        // Resume dot timer
-        const activeDotProgress = getActiveDotProgress();
-        if (activeDotProgress) activeDotProgress.style.animationPlayState = 'running';
+        // Resume dot timers (both mobile and desktop)
+        getActiveDotProgress().forEach(el => el.style.animationPlayState = 'running');
         startAutoplay();
       }
 
@@ -744,15 +803,18 @@
         animateContent(firstSlide, true);
       }
 
-      // Initialize first dot timer animation BEFORE starting autoplay
+      // Initialize first dot timer animation BEFORE starting autoplay (both mobile and desktop)
       if (autoplayEnabled) {
-        const firstDotWrapper = container.querySelector('.slideshow__dot-wrapper');
-        if (firstDotWrapper) {
-          const dotTimer = firstDotWrapper.querySelector('.slideshow__dot-timer');
-          const dotProgress = firstDotWrapper.querySelector('[data-dot-progress]');
-          if (dotTimer) dotTimer.style.opacity = '1';
-          if (dotProgress) dotProgress.classList.add('is-animating');
-        }
+        const firstDots = container.querySelectorAll('[data-slideshow-dot="0"]');
+        firstDots.forEach(dot => {
+          const wrapper = dot.closest('.slideshow__dot-wrapper');
+          if (wrapper) {
+            const dotTimer = wrapper.querySelector('.slideshow__dot-timer');
+            const dotProgress = wrapper.querySelector('[data-dot-progress]');
+            if (dotTimer) dotTimer.style.opacity = '1';
+            if (dotProgress) dotProgress.classList.add('is-animating');
+          }
+        });
       }
 
       startAutoplay();
@@ -1001,6 +1063,13 @@
           "id": "text_alignment",
           "label": "Text alignment",
           "default": "center"
+        },
+        {
+          "type": "checkbox",
+          "id": "full_width_content",
+          "label": "Full width content",
+          "default": false,
+          "info": "Position content across full width instead of contained"
         },
         {
           "type": "color_scheme",
