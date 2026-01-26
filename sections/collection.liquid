@@ -28,7 +28,7 @@
   endcase
 -%}
 <div
-  class="collection-wrapper is-loading min-h-screen page-padding color-{{ section.settings.color_scheme }}"
+  class="collection-wrapper is-loading min-h-screen section-padding color-{{ section.settings.color_scheme }}"
   data-collection-wrapper
   data-layout-style="{{ layout_style }}"
   data-header-align="{{ section.settings.header_alignment }}"
@@ -1115,6 +1115,7 @@
 {% schema %}
 {
   "name": "Collection",
+  "tag": "section",
   "settings": [
     {
       "type": "checkbox",

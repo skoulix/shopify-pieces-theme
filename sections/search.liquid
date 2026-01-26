@@ -28,7 +28,7 @@
   {% endif %}
 </style>
 
-<div class="min-h-screen page-padding" data-search-wrapper>
+<div class="min-h-screen section-padding" data-search-wrapper>
   <header class="section-header-spacing {{ container_class }} {% if section.settings.header_alignment == 'center' %}text-center{% elsif section.settings.header_alignment == 'right' %}text-right{% endif %}" data-tween-group="search-header" data-tween-start="top bottom">
     <h1 class="page-title" data-tween data-tween-type="split-text">
       {{ 'search.title' | t }}
@@ -360,6 +360,7 @@
 {% schema %}
 {
   "name": "Search",
+  "tag": "section",
   "settings": [
     {
       "type": "header",

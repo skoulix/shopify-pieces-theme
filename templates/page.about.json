@@ -24,7 +24,6 @@
         "button_size": "default",
         "show_background_number": false,
         "background_number": "01",
-        "add_top_padding": true,
         "full_width": false,
         "color_scheme": ""
       }

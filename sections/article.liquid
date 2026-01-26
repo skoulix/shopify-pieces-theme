@@ -16,7 +16,7 @@
   /* article-image animation handled by TweenManager */
 </style>
 
-<article class="article-wrapper page-padding" data-article-wrapper>
+<article class="article-wrapper section-padding" data-article-wrapper>
   <header class="section-header-spacing" data-tween-group="article-header-{{ section.id }}">
     <div class="{{ container_class }}">
       {% if section.settings.show_breadcrumbs %}
@@ -230,6 +230,7 @@
 {% schema %}
 {
   "name": "Article",
+  "tag": "section",
   "settings": [
     {
       "type": "checkbox",

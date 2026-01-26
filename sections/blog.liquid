@@ -11,7 +11,7 @@
   .blog-item-author::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); margin-right: 0.5rem; vertical-align: middle; }
 </style>
 
-<section class="blog-wrapper page-padding" data-blog-wrapper>
+<div class="blog-wrapper section-padding" data-blog-wrapper>
   <div class="section-header-spacing" data-tween-group="blog-header-{{ section.id }}">
     <div class="{{ container_class }}">
       <h1 class="page-title" data-tween data-tween-type="split-text">
@@ -128,7 +128,7 @@
       </nav>
     {% endif %}
   {% endpaginate %}
-</section>
+</div>
 
 <script>
 (function() {
@@ -175,6 +175,7 @@
 {% schema %}
 {
   "name": "Blog",
+  "tag": "section",
   "settings": [
     {
       "type": "header",
