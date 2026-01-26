@@ -20,7 +20,7 @@
   }
 {%- endstyle -%}
 
-<div id="{{ section_id }}" class="trust-badges section-padding-sm color-{{ section.settings.color_scheme }}">
+<div id="{{ section_id }}" class="trust-badges section-padding-sm color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}">
   <div class="{{ container_class }}">
     {%- if section.settings.title != blank -%}
       <div class="text-{{ section.settings.header_alignment }} mb-8{% if section.settings.full_width and section.settings.header_alignment != 'center' %} px-[var(--page-padding)]{% endif %}">
@@ -93,6 +93,13 @@
       "id": "full_width",
       "label": "Full width",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add_top_padding",
+      "default": false,
+      "label": "Add top padding",
+      "info": "Enable when using as the first section on a page to offset for the header"
     },
     {
       "type": "text_alignment",
