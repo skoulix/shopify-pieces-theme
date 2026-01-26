@@ -19,7 +19,7 @@
   }
 </style>
 
-<section
+<div
   id="highlight-text-{{ section.id }}"
   class="highlight-text color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-section-id="{{ section.id }}"
@@ -58,7 +58,7 @@
       {% endcase %}
     {% endfor %}
   </div>
-</section>
+</div>
 
 <script>
 (function() {

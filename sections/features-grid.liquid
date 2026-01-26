@@ -12,7 +12,7 @@
   endcapture
 -%}
 
-<section
+<div
   class="features-grid-section-wrapper section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-features-grid-section="{{ section.id }}"
   style="--features-columns: {{ section.settings.columns }}"
@@ -82,7 +82,7 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {

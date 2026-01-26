@@ -9,7 +9,7 @@
   endcapture
 -%}
 
-<section class="faq-section section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}" data-faq-section="{{ section.id }}">
+<div class="faq-section section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}" data-faq-section="{{ section.id }}">
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
     <div class="section-header-spacing">
@@ -69,7 +69,7 @@
       </div>
     {% endif %}
   </div>
-</section>
+</div>
 
 <script data-swup-reload-script>
 (function() {

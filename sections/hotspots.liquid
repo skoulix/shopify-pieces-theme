@@ -44,7 +44,7 @@
   endif
 -%}
 
-<section
+<div
   class="hotspots-section section-padding color-{{ section.settings.color_scheme }}"
   style="--hotspots-align: {{ section.settings.header_alignment }}; --hotspots-description-ml: {{ description_ml }}; --hotspots-description-mr: {{ description_mr }}; --hotspots-border: {{ image_border }}; --hotspots-shadow: {{ image_shadow }}; --hotspots-popover-shadow: {{ popover_shadow }}; --hotspots-popover-border: {{ popover_border }};"
   data-hotspots-section="{{ section.id }}"
@@ -211,7 +211,7 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 <script>
 (function() {

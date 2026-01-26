@@ -44,7 +44,7 @@
 {% case design %}
 {% when 'hero' %}
 {%- comment -%} HERO DESIGN {%- endcomment -%}
-<section
+<div
   class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
@@ -117,11 +117,11 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
-<section
+<div
   class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
@@ -207,7 +207,7 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 {% when 'minimal' %}
 {%- comment -%} MINIMAL DESIGN - for headers/announcements {%- endcomment -%}

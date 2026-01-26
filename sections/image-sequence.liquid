@@ -15,7 +15,7 @@
   assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
 -%}
 
-<section
+<div
   id="image-sequence-{{ section.id }}"
   class="image-sequence color-{{ section.settings.color_scheme }}"
   data-image-sequence-init
@@ -76,7 +76,7 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 <script>
 (function() {

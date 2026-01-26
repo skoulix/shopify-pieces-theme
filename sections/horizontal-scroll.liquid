@@ -9,7 +9,7 @@
   assign wrapper_height_vw = panel_count | times: 100
 -%}
 
-<section
+<div
   class="hscroll-section color-{{ section.settings.color_scheme }}"
   data-hscroll-section="{{ section.id }}"
   style="--hscroll-wrapper-height: calc({{ wrapper_height_vw }}vw + 100vh);"
@@ -98,7 +98,7 @@
   </div>
 
   <div class="hscroll-progress" data-hscroll-progress></div>
-</section>
+</div>
 
 <script>
 (function() {

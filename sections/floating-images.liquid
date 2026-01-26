@@ -13,7 +13,7 @@
   assign positions = '12,8,0.3,180|82,15,0.5,280|18,28,0.4,220|75,35,0.6,320|8,48,0.35,200|88,55,0.45,260|25,65,0.5,300|70,72,0.4,240|15,82,0.55,280|55,90,0.3,200|40,45,0.45,260' | split: '|'
 -%}
 
-<section
+<div
   class="floating-images color-{{ section.settings.color_scheme }}"
   style="--floating-images-height: {{ section_height }}vh; --floating-images-height-mobile: {{ section_height_mobile }}vh; --floating-images-opacity: {{ image_opacity }};"
   data-floating-images-section="{{ section.id }}"
@@ -93,7 +93,7 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 <script>
 (function() {

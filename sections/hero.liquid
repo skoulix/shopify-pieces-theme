@@ -5,7 +5,7 @@
   assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
 -%}
 
-<section
+<div
   class="hero-section color-{{ section.settings.color_scheme }}"
   style="--hero-overlay-opacity: {{ overlay_opacity }};"
   data-hero-section="{{ section.id }}"
@@ -92,7 +92,7 @@
       <div class="hero-scroll-line"></div>
     </div>
   {% endif %}
-</section>
+</div>
 
 <script>
   (function() {
