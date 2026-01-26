@@ -9,12 +9,8 @@
   assign current_variant = product.selected_or_first_available_variant
 
   if section.settings.full_width
-    if section.settings.layout == 'image_left'
-      assign container_class = 'lg:pr-(--page-padding)'
-    else
-      assign container_class = 'lg:pl-(--page-padding)'
-    endif
-    assign content_class = 'px-(--page-padding) lg:px-0'
+    assign container_class = 'container-fluid'
+    assign content_class = ''
   else
     assign container_class = 'page-container'
     assign content_class = ''
