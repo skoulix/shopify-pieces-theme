@@ -34,7 +34,7 @@
 
 <div
   id="logo-wall-cycle-{{ section.id }}"
-  class="logo-wall-cycle section-padding color-{{ section.settings.color_scheme }}"
+  class="logo-wall-cycle section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-logo-wall-cycle-init
   data-logo-wall-shuffle="{{ section.settings.shuffle }}"
   data-logo-wall-loop-delay="{{ section.settings.loop_delay }}"
@@ -372,6 +372,13 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_top_padding",
+      "default": false,
+      "label": "Add top padding",
+      "info": "Enable when using as the first section on a page to offset for the header"
     },
     {
       "type": "select",
