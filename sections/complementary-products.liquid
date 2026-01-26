@@ -300,34 +300,15 @@
       "default": false
     },
     {
-      "type": "header",
-      "content": "Label"
-    },
-    {
-      "type": "text",
-      "id": "label",
-      "label": "Label"
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Pairs well with"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description"
-    },
-    {
-      "type": "text_alignment",
+      "type": "select",
       "id": "alignment",
       "label": "Text alignment",
-      "default": "left"
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "range",
@@ -353,6 +334,26 @@
       "label": "Show 'Add all to cart' button",
       "default": true,
       "info": "Only shown when all products have a single variant"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Pairs well with"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "header",
