@@ -13,7 +13,7 @@
 -%}
 
 <section
-  class="team-section-wrapper section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="team-section-wrapper section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-team-section="{{ section.id }}"
   style="--team-columns: {{ section.settings.columns }}"
 >

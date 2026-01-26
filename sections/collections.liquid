@@ -16,7 +16,7 @@
 -%}
 
 <div
-  class="collections-wrapper is-loading min-h-screen page-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="collections-wrapper is-loading min-h-screen page-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-collections-wrapper
   data-layout-style="{{ layout_style }}"
   data-header-align="{{ section.settings.header_alignment }}"

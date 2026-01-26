@@ -19,7 +19,7 @@
 -%}
 
 <section
-  class="video-section{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="video-section{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-video-section="{{ section.id }}"
   style="--video-aspect-ratio: {{ section.settings.aspect_ratio }}; --video-border-radius: {{ section.settings.border_radius }}px;"
 >

@@ -45,7 +45,7 @@
 {% when 'hero' %}
 {%- comment -%} HERO DESIGN {%- endcomment -%}
 <section
-  class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
   data-design="hero"
@@ -122,7 +122,7 @@
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
 <section
-  class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
   data-design="compact"

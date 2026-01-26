@@ -60,7 +60,7 @@
 </style>
 
 <section
-  class="image-section-{{ section.id }}{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
+  class="image-section-{{ section.id }}{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-image-section="{{ section.id }}"
 >
   <div class="{{ container_class }}">

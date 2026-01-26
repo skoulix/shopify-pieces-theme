@@ -45,6 +45,11 @@
     padding-bottom: var(--page-vertical-padding);
   }
 
+  /* Header offset - adds header height to top padding for first sections on a page */
+  .header-offset {
+    padding-top: calc(var(--section-vertical-padding) + var(--header-height, 65px));
+  }
+
   .section {
     @apply py-16 sm:py-24;
   }

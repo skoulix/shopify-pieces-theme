@@ -18,7 +18,7 @@
   }
 </style>
 
-<section
+<div
   id="background-zoom-{{ section.id }}"
   class="background-zoom color-{{ section.settings.color_scheme }}"
   data-bg-zoom-init
@@ -94,18 +94,18 @@
       {% endcase %}
     {% endfor %}
   </div>
-</section>
+</div>
 
 {%- comment -%} Optional After Section {%- endcomment -%}
 {% if section.settings.show_after_section %}
-  <section class="background-zoom-after color-{{ section.settings.after_color_scheme | default: section.settings.color_scheme }}">
+  <div class="background-zoom-after color-{{ section.settings.after_color_scheme | default: section.settings.color_scheme }}">
     {% if section.settings.after_overlay_text != blank %}
       <p class="background-zoom-after__text">{{ section.settings.after_overlay_text }}</p>
     {% endif %}
     {% if section.settings.after_heading != blank %}
       <h2 class="background-zoom__heading">{{ section.settings.after_heading }}</h2>
     {% endif %}
-  </section>
+  </div>
 {% endif %}
 
 <script>

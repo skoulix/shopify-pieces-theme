@@ -23,7 +23,7 @@
   endcase
 -%}
 
-<section
+<div
   class="collections-carousel-section section-padding color-{{ section.settings.color_scheme }}"
   data-collections-carousel="{{ section.id }}"
   style="--slides-mobile: {{ section.settings.slides_mobile }}; --slides-tablet: {{ section.settings.slides_tablet }}; --slides-desktop: {{ section.settings.slides_desktop }};"
@@ -162,7 +162,7 @@
       </div>
     {% endif %}
   </div>
-</section>
+</div>
 
 <script>
 (function() {
