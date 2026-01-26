@@ -38,7 +38,8 @@
   /* Header */
   .stacking-cards-header {
     @apply relative z-2;
-    padding: var(--section-vertical-padding) 0;
+    padding-top: var(--section-vertical-padding);
+    padding-bottom: var(--section-vertical-padding);
   }
 
   .stacking-cards-header .section-description {

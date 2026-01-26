@@ -4,6 +4,10 @@
 {%- endcomment -%}
 
 {%- liquid
+  capture container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
+
   capture filter_value
     if section.settings.grayscale
       echo 'grayscale(100%)'
@@ -39,7 +43,7 @@
   data-logo-wall-visible-tablet="{{ section.settings.visible_tablet }}"
   data-logo-wall-visible-mobile="{{ section.settings.visible_mobile }}"
 >
-  <div class="page-width">
+  <div class="{{ container_class }}">
     {% if section.settings.label != blank %}
       <div class="logo-wall-cycle__header" style="text-align: {{ section.settings.label_alignment }};">
         <span class="text-label" data-tween data-tween-type="fade-up">
@@ -362,6 +366,12 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
     },
     {
       "type": "select",

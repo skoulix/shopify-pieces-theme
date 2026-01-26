@@ -4,11 +4,17 @@
 {%- endcomment -%}
 
 {%- liquid
+  # Map container: empty when full width (edge-to-edge), page-container otherwise
   if section.settings.full_width
-    assign container_class = ''
+    assign map_container_class = ''
   else
-    assign container_class = 'page-container'
+    assign map_container_class = 'page-container'
   endif
+
+  # Header and info containers: container-fluid when full width (side padding, no max-width)
+  capture content_container_class
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
+  endcapture
 
   # Default coordinates (New York City) if none provided
   assign default_lat = 40.7128
@@ -20,7 +26,7 @@
 
 <section class="map-section section-padding color-{{ section.settings.color_scheme }}" style="--map-height: {{ section.settings.map_height }}px;">
   {%- comment -%} Header {%- endcomment -%}
-  <div class="page-container section-header-spacing">
+  <div class="{{ content_container_class }} section-header-spacing">
     {% render 'section-header',
       label: section.settings.label,
       title: section.settings.title,
@@ -30,7 +36,7 @@
     %}
   </div>
 
-  <div class="{{ container_class }}">
+  <div class="{{ map_container_class }}">
     <div
       id="map-{{ section.id }}"
       class="map-container {% if section.settings.full_width %}full-width{% endif %} {% if section.settings.grayscale %}grayscale{% endif %}"
@@ -52,7 +58,7 @@
   </div>
 
   {% if section.blocks.size > 0 %}
-    <div class="map-info page-container">
+    <div class="map-info {{ content_container_class }}">
       <div class="map-info-grid">
         {% for block in section.blocks %}
           <div class="map-info-item" {{ block.shopify_attributes }} data-tween data-tween-type="fade-up">

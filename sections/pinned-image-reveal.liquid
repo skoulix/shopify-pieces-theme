@@ -360,12 +360,13 @@
 
       if (nextSlide && currentSlide) {
         // Image reveal animation tied to scrolling past each content block
+        // scrub: 0.5 adds smoothing (0.5s catch-up time) for more fluid feel
         gsap.timeline({
           scrollTrigger: {
             trigger: contentBlock,
             start: 'center center',
             end: 'bottom top',
-            scrub: true
+            scrub: 0.5
           }
         })
         .to(section, {
