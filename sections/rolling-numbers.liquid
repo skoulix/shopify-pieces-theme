@@ -30,20 +30,7 @@
     --roll-duration: {{ section.settings.animation_duration }}ms;
   }
 
-  #shopify-section-{{ section.id }} .rolling-numbers-header {
-    text-align: {{ section.settings.content_alignment }};
-  }
-
-  #shopify-section-{{ section.id }} .rolling-numbers-description {
-    {% if section.settings.content_alignment == 'center' %}
-    margin-left: auto;
-    margin-right: auto;
-    {% elsif section.settings.content_alignment == 'right' %}
-    margin-left: auto;
-    {% endif %}
-  }
-
-  #shopify-section-{{ section.id }} .rolling-numbers-header .section-description {
+  #shopify-section-{{ section.id }} .rolling-numbers-item-description {
     {% if section.settings.content_alignment == 'center' %}
     margin-left: auto;
     margin-right: auto;
@@ -62,16 +49,16 @@
 
 <section class="section-padding color-{{ section.settings.color_scheme }}" data-rolling-numbers="{{ section.id }}">
   <div class="{{ container_class }}">
-    {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <header class="rolling-numbers-header" data-tween-group="rolling-numbers-header-{{ section.id }}">
-        {% if section.settings.title != blank %}
-          <h2 class="section-title" data-tween data-tween-type="split-text">{{ section.settings.title }}</h2>
-        {% endif %}
-        {% if section.settings.subtitle != blank %}
-          <p class="section-description" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
-        {% endif %}
-      </header>
-    {% endif %}
+    <div class="section-header-spacing">
+      {% render 'section-header',
+        label: section.settings.label,
+        title: section.settings.title,
+        description: section.settings.description,
+        alignment: section.settings.header_alignment,
+        group_id: section.id,
+        animate: true
+      %}
+    </div>
 
     <div class="rolling-numbers-grid{% if section.settings.show_dividers %} rolling-numbers-grid--dividers{% endif %}">
       {% for block in section.blocks %}
@@ -94,7 +81,7 @@
             <p class="rolling-numbers-label text-label">{{ block.settings.label }}</p>
           {% endif %}
           {% if block.settings.description != blank %}
-            <p class="rolling-numbers-description">{{ block.settings.description }}</p>
+            <p class="rolling-numbers-item-description">{{ block.settings.description }}</p>
           {% endif %}
         </div>
       {% endfor %}
@@ -180,14 +167,19 @@
     },
     {
       "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
       "id": "title",
       "label": "Title",
       "default": "By the Numbers"
     },
     {
       "type": "textarea",
-      "id": "subtitle",
-      "label": "Subtitle"
+      "id": "description",
+      "label": "Description"
     },
     {
       "type": "header",
@@ -198,6 +190,17 @@
       "id": "full_width",
       "default": false,
       "label": "Full width"
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
     },
     {
       "type": "select",
@@ -286,6 +289,10 @@
     {
       "name": "Rolling Numbers",
       "category": "Text & content",
+      "settings": {
+        "title": "By the Numbers",
+        "description": "Our impact in numbers that speak for themselves."
+      },
       "blocks": [
         {
           "type": "stat",

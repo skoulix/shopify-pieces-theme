@@ -19,7 +19,7 @@
   endif
 
   capture container_class
-    render 'container-class', full_width: is_full_width
+    render 'container-class', full_width: is_full_width, full_class: 'container-fluid'
   endcapture
 
   # Build design class
@@ -51,90 +51,94 @@
   data-design="hero"
 >
   <div class="{{ container_class }}">
-    {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <header class="countdown-header" data-tween-group="countdown-header-{{ section.id }}">
-        {% if section.settings.title != blank %}
-          <h2 class="section-title" data-tween data-tween-type="split-text">{{ section.settings.title }}</h2>
-        {% endif %}
-        {% if section.settings.subtitle != blank %}
-          {%- capture desc_margin -%}{%- render 'alignment-classes', alignment: section.settings.content_alignment, output: 'margin' -%}{%- endcapture -%}
-          <p class="section-description {{ desc_margin }}" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
-        {% endif %}
-      </header>
-    {% endif %}
+    <div class="countdown-wrapper">
+      <div class="countdown-header">
+        {% render 'section-header',
+          label: section.settings.label,
+          title: section.settings.title,
+          description: section.settings.description,
+          alignment: section.settings.content_alignment,
+          group_id: section.id,
+          animate: true
+        %}
+      </div>
 
-    <div class="countdown-grid">
-      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 0ms;">
-        <div class="countdown-value" data-countdown-days>00</div>
-        <p class="countdown-label">{{ section.settings.days_label }}</p>
+      <div class="countdown-grid">
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 0ms;">
+          <div class="countdown-value" data-countdown-days>00</div>
+          <p class="countdown-label">{{ section.settings.days_label }}</p>
+        </div>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 150ms;">
+          <div class="countdown-value" data-countdown-hours>00</div>
+          <p class="countdown-label">{{ section.settings.hours_label }}</p>
+        </div>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 300ms;">
+          <div class="countdown-value" data-countdown-minutes>00</div>
+          <p class="countdown-label">{{ section.settings.minutes_label }}</p>
+        </div>
+        <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 450ms;">
+          <div class="countdown-value" data-countdown-seconds>00</div>
+          <p class="countdown-label">{{ section.settings.seconds_label }}</p>
+        </div>
       </div>
-      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 150ms;">
-        <div class="countdown-value" data-countdown-hours>00</div>
-        <p class="countdown-label">{{ section.settings.hours_label }}</p>
-      </div>
-      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 300ms;">
-        <div class="countdown-value" data-countdown-minutes>00</div>
-        <p class="countdown-label">{{ section.settings.minutes_label }}</p>
-      </div>
-      <div class="countdown-item{% if settings.headings_uppercase %} uppercase{% endif %}" data-countdown-item style="transition-delay: 450ms;">
-        <div class="countdown-value" data-countdown-seconds>00</div>
-        <p class="countdown-label">{{ section.settings.seconds_label }}</p>
-      </div>
+
+      {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
+        <div class="countdown-cta" data-tween data-tween-type="fade-up">
+          <a href="{{ section.settings.button_link }}" class="btn{{ btn_class }} {{ btn_size }}">
+            <span>{{ section.settings.button_text }}</span>
+            <i class="ph ph-arrow-right"></i>
+          </a>
+        </div>
+      {% elsif section.settings.cta_type == 'email_form' %}
+        <div class="countdown-form" data-countdown-form data-tween data-tween-type="fade-up">
+          {% form 'customer', id: 'countdown-form-hero' %}
+            <div class="countdown-form-inner">
+              <input
+                type="email"
+                name="contact[email]"
+                placeholder="{{ section.settings.form_placeholder | default: 'Enter your email' }}"
+                required
+                autocomplete="email"
+              >
+              <input type="hidden" name="contact[tags]" value="countdown,notify">
+              <button type="submit" class="btn{{ btn_class }} {{ btn_size }}">
+                <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
+              </button>
+            </div>
+            <div class="countdown-form-message" style="display: none;" data-form-message></div>
+            {% if form.posted_successfully? %}
+              <p class="countdown-form-message success">{{ 'general.newsletter.success' | t }}</p>
+            {% endif %}
+            {% if form.errors %}
+              <p class="countdown-form-message error">{{ form.errors.messages['email'] }}</p>
+            {% endif %}
+          {% endform %}
+        </div>
+      {% endif %}
     </div>
-
-    {% if section.settings.cta_type == 'link' and section.settings.button_text != blank and section.settings.button_link != blank %}
-      <div class="countdown-cta" data-tween data-tween-type="fade-up">
-        <a href="{{ section.settings.button_link }}" class="btn{{ btn_class }} {{ btn_size }}">
-          <span>{{ section.settings.button_text }}</span>
-          <i class="ph ph-arrow-right"></i>
-        </a>
-      </div>
-    {% elsif section.settings.cta_type == 'email_form' %}
-      <div class="countdown-form" data-countdown-form data-tween data-tween-type="fade-up">
-        {% form 'customer', id: 'countdown-form-hero' %}
-          <div class="countdown-form-inner">
-            <input
-              type="email"
-              name="contact[email]"
-              placeholder="{{ section.settings.form_placeholder | default: 'Enter your email' }}"
-              required
-              autocomplete="email"
-            >
-            <input type="hidden" name="contact[tags]" value="countdown,notify">
-            <button type="submit" class="btn{{ btn_class }} {{ btn_size }}">
-              <span>{{ section.settings.button_text | default: 'Notify Me' }}</span>
-            </button>
-          </div>
-          <div class="countdown-form-message" style="display: none;" data-form-message></div>
-          {% if form.posted_successfully? %}
-            <p class="countdown-form-message success">{{ 'general.newsletter.success' | t }}</p>
-          {% endif %}
-          {% if form.errors %}
-            <p class="countdown-form-message error">{{ form.errors.messages['email'] }}</p>
-          {% endif %}
-        {% endform %}
-      </div>
-    {% endif %}
   </div>
 </section>
 
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
 <section
-  class="countdown-section {{ design_class }} color-{{ section.settings.color_scheme }}"
+  class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
   data-design="compact"
 >
   <div class="{{ container_class }}">
     <div class="countdown-inner" data-tween-group="countdown-compact-{{ section.id }}">
-      {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
         <div class="countdown-header">
+          {% if section.settings.label != blank %}
+            <span class="section-label" data-tween data-tween-type="fade-up">{{ section.settings.label }}</span>
+          {% endif %}
           {% if section.settings.title != blank %}
             <h2 class="countdown-title font-heading" data-tween data-tween-type="fade-up">{{ section.settings.title }}</h2>
           {% endif %}
-          {% if section.settings.subtitle != blank %}
-            <p class="countdown-subtitle" data-tween data-tween-type="fade-up">{{ section.settings.subtitle }}</p>
+          {% if section.settings.description != blank %}
+            <p class="countdown-description" data-tween data-tween-type="fade-up">{{ section.settings.description }}</p>
           {% endif %}
         </div>
       {% endif %}
@@ -393,19 +397,25 @@
   "settings": [
     {
       "type": "header",
-      "content": "Design"
+      "content": "Content"
     },
     {
-      "type": "select",
-      "id": "design",
-      "label": "Design style",
-      "options": [
-        { "value": "hero", "label": "Hero - Large dramatic" },
-        { "value": "compact", "label": "Compact - Medium size" },
-        { "value": "minimal", "label": "Minimal - Inline (for headers)" }
-      ],
-      "default": "hero",
-      "info": "Minimal is perfect for announcement bars and headers"
+      "type": "text",
+      "id": "label",
+      "label": "Label"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Coming Soon"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Something exciting is on the way. Stay tuned!",
+      "info": "Not shown in minimal design"
     },
     {
       "type": "header",
@@ -420,26 +430,39 @@
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "Layout"
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Coming Soon"
+      "type": "select",
+      "id": "design",
+      "label": "Design style",
+      "options": [
+        { "value": "hero", "label": "Hero - Large dramatic" },
+        { "value": "compact", "label": "Compact - Medium size" },
+        { "value": "minimal", "label": "Minimal - Inline (for headers)" }
+      ],
+      "default": "hero",
+      "info": "Minimal is perfect for announcement bars and headers"
     },
     {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Something exciting is on the way. Stay tuned!",
-      "info": "Not shown in minimal design"
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width",
+      "info": "Minimal design is always full width"
     },
     {
       "type": "text_alignment",
       "id": "content_alignment",
       "default": "center",
       "label": "Content alignment"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "default": true,
+      "label": "Show dividers between items",
+      "info": "Hero and Compact designs only"
     },
     {
       "type": "header",
@@ -545,24 +568,6 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "scheme-3"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
-      "type": "checkbox",
-      "id": "full_width",
-      "default": false,
-      "label": "Full width",
-      "info": "Minimal design is always full width"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_dividers",
-      "default": true,
-      "label": "Show dividers between items",
-      "info": "Hero and Compact designs only"
     }
   ],
   "presets": [
@@ -573,7 +578,7 @@
         "design": "hero",
         "target_date": "2026-12-31",
         "title": "Coming Soon",
-        "subtitle": "Something exciting is on the way. Stay tuned!",
+        "description": "Something exciting is on the way. Stay tuned!",
         "cta_type": "email_form",
         "button_text": "Notify Me",
         "form_placeholder": "Enter your email",

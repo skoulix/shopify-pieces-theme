@@ -13,6 +13,21 @@
     @apply hidden;
   }
 
+  /* Wrapper for constraining content width */
+  .countdown-wrapper {
+    max-width: 1000px;
+  }
+
+  /* Center wrapper when text-center */
+  .countdown--hero.text-center .countdown-wrapper {
+    @apply mx-auto;
+  }
+
+  /* Right align wrapper when text-right */
+  .countdown--hero.text-right .countdown-wrapper {
+    @apply ml-auto;
+  }
+
   /* ============================================
      HERO DESIGN - Large dramatic countdown
      ============================================ */
@@ -58,6 +73,14 @@
     @apply mt-12;
   }
 
+  .countdown--hero.text-center .countdown-cta {
+    @apply flex justify-center;
+  }
+
+  .countdown--hero.text-right .countdown-cta {
+    @apply flex justify-end;
+  }
+
   /* Hero form */
   .countdown--hero .countdown-form {
     @apply mt-12;
@@ -65,6 +88,10 @@
 
   .countdown--hero.text-center .countdown-form {
     @apply flex justify-center;
+  }
+
+  .countdown--hero.text-right .countdown-form {
+    @apply flex justify-end;
   }
 
   .countdown--hero .countdown-form-inner {
@@ -150,8 +177,31 @@
     @apply flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-12;
   }
 
+  /* Left alignment - default horizontal layout */
+  .countdown--compact.text-left .countdown-inner {
+    @apply justify-start;
+  }
+
+  /* Center alignment - stack vertically */
+  .countdown--compact.text-center .countdown-inner {
+    @apply flex-col justify-center md:flex-col md:gap-6;
+  }
+
+  /* Right alignment - horizontal layout, aligned right */
+  .countdown--compact.text-right .countdown-inner {
+    @apply justify-end;
+  }
+
   .countdown--compact .countdown-header {
     @apply text-center md:text-left;
+  }
+
+  .countdown--compact.text-center .countdown-header {
+    @apply md:text-center;
+  }
+
+  .countdown--compact.text-right .countdown-header {
+    @apply md:text-right;
   }
 
   .countdown--compact .countdown-title {
@@ -162,7 +212,7 @@
     line-height: 1.2;
   }
 
-  .countdown--compact .countdown-subtitle {
+  .countdown--compact .countdown-description {
     @apply mt-2 opacity-70;
     font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   }
