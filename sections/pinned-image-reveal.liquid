@@ -105,6 +105,15 @@
                   decoding="async"
                 >
               </div>
+            {%- else -%}
+              {%- liquid
+                assign placeholder_names = 'lifestyle-1,lifestyle-2,product-1,product-2,collection-1,collection-2' | split: ','
+                assign placeholder_index = forloop.index0 | modulo: 6
+                assign placeholder_name = placeholder_names[placeholder_index]
+              -%}
+              <div class="mobile-image-wrapper w-full h-90 overflow-hidden mb-4 rounded-(--card-border-radius) bg-(--color-background-secondary) flex items-center justify-center p-8">
+                {{ placeholder_name | placeholder_svg_tag: 'max-w-full max-h-full' }}
+              </div>
             {%- endif -%}
             <div class="slide-content" data-bg-color="{{ block.settings.background_color | default: '#ffffff' }}">
               <div class="content w-full">

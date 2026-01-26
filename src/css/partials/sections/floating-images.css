@@ -19,6 +19,10 @@
   /* Parallax image base styles */
   .floating-images .parallax-image {
     will-change: transform;
+  }
+
+  /* Apply opacity only to actual images, not placeholder containers */
+  .floating-images img.parallax-image {
     opacity: var(--floating-images-opacity, 0.5);
   }
 
