@@ -17,7 +17,7 @@
 </style>
 
 <div class="product-section-wrapper{% if section.settings.full_width %} is-full-width{% endif %}">
-  <section class="product-hero color-{{ section.settings.color_scheme }}" data-product-section>
+  <div class="product-hero color-{{ section.settings.color_scheme }}" data-product-section>
     <div class="product-gallery{% if section.settings.image_fit != 'cover' %} fit-{{ section.settings.image_fit }}{% endif %}" data-product-gallery>
       <div class="product-gallery-main" data-gallery-main>
         {% for media in product.media %}
@@ -873,7 +873,7 @@
         {%- endfor -%}
       </div>
     </div>
-  </section>
+  </div>
 
   {% if section.settings.show_sticky_bar %}
     {% render 'sticky-product-bar'
@@ -2121,6 +2121,8 @@
 {% schema %}
   {
     "name": "Product",
+    "tag": "section",
+    "class": "product-section no-header-offset",
     "settings": [
       {
         "type": "header",

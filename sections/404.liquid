@@ -8,7 +8,7 @@
   endcapture
 -%}
 
-<div class="min-h-screen flex items-center relative overflow-hidden">
+<div class="h-screen flex items-center relative overflow-hidden">
   {%- comment -%} Creative Background Text {%- endcomment -%}
   <span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[clamp(20rem,50vw,60rem)] font-black tracking-tighter leading-none opacity-[0.03] pointer-events-none select-none whitespace-nowrap text-(--color-text) font-heading">404</span>
 
@@ -43,6 +43,7 @@
 {
   "name": "404",
   "tag": "section",
+  "class": "error-404-section no-header-offset",
   "settings": [
     {
       "type": "header",
