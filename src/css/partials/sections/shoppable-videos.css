@@ -10,19 +10,6 @@
     color: var(--color-text);
   }
 
-  /* Header */
-  .shoppable-videos-header {
-    margin-bottom: clamp(3rem, 6vh, 5rem);
-  }
-
-  .shoppable-videos-header.text-center .section-description {
-    @apply mx-auto;
-  }
-
-  .shoppable-videos-header.text-right .section-description {
-    @apply ml-auto;
-  }
-
   /* Slider container */
   .shoppable-videos-slider {
     @apply relative overflow-hidden;
@@ -71,35 +58,6 @@
 
   .shoppable-video-card.cursor-default {
     cursor: default !important;
-  }
-
-  /* Navigation */
-  .shoppable-videos-nav {
-    @apply flex items-center justify-center gap-4 mt-12;
-  }
-
-  .shoppable-videos-nav-btn {
-    @apply flex items-center justify-center rounded-full cursor-pointer;
-    width: 48px;
-    height: 48px;
-    background: transparent;
-    border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
-    color: var(--color-text);
-    transition: all 0.3s ease;
-  }
-
-  .shoppable-videos-nav-btn:hover {
-    background: var(--color-text);
-    color: var(--color-background);
-  }
-
-  .shoppable-videos-nav-btn:disabled {
-    @apply opacity-30 cursor-not-allowed;
-  }
-
-  .shoppable-videos-nav-btn:disabled:hover {
-    background: transparent;
-    color: var(--color-text);
   }
 
   /* Lightbox */

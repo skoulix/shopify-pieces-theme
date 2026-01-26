@@ -70,14 +70,19 @@
   data-shoppable-videos="{{ section.id }}"
   style="--shoppable-aspect-ratio: {{ video_aspect_ratio }}; --shoppable-video-gap: {{ gap_value }}; --shoppable-slide-width-mobile: {{ slide_width_mobile }}; --shoppable-slide-width-tablet: {{ slide_width_tablet }}; --shoppable-slide-width-desktop: {{ slide_width_desktop }};"
 >
-  {%- comment -%} Header - always contained {%- endcomment -%}
+  {%- comment -%} Header with nav - always contained {%- endcomment -%}
   <div class="{{ header_container_class }}">
-    {% render 'section-header',
+    {% render 'section-header-nav',
       label: section.settings.label,
       title: section.settings.title,
       description: section.settings.description,
       alignment: section.settings.header_alignment,
-      group_id: section.id
+      group_id: section.id,
+      nav_data_prefix: 'shoppable-videos',
+      nav_prev_label: 'accessibility.previous_slide' | t,
+      nav_next_label: 'accessibility.next_slide' | t,
+      show_nav: section.blocks.size > 1,
+      nav_disabled_prev: false
     %}
   </div>
 
@@ -163,17 +168,6 @@
       </div>
     </div>
 
-    <!-- Navigation Buttons -->
-    {% if section.blocks.size > 1 %}
-      <div class="shoppable-videos-nav" data-tween data-tween-type="fade-up">
-        <button type="button" class="shoppable-videos-nav-btn" data-shoppable-videos-prev aria-label="{{ 'accessibility.previous_slide' | t }}">
-          <i class="ph ph-arrow-left"></i>
-        </button>
-        <button type="button" class="shoppable-videos-nav-btn" data-shoppable-videos-next aria-label="{{ 'accessibility.next_slide' | t }}">
-          <i class="ph ph-arrow-right"></i>
-        </button>
-      </div>
-    {% endif %}
   </div>
 </section>
 
