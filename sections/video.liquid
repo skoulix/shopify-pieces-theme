@@ -19,7 +19,7 @@
 -%}
 
 <section
-  class="video-section{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}"
+  class="video-section{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} pt-[calc(var(--section-vertical-padding)*1.5+var(--header-height,65px))]{% endif %}"
   data-video-section="{{ section.id }}"
   style="--video-aspect-ratio: {{ section.settings.aspect_ratio }}; --video-border-radius: {{ section.settings.border_radius }}px;"
 >
@@ -257,6 +257,13 @@
       "id": "header_alignment",
       "label": "Content alignment",
       "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "add_top_padding",
+      "default": false,
+      "label": "Add top padding",
+      "info": "Enable when using as the first section on a page to offset for the header"
     },
     {
       "type": "checkbox",
