@@ -17,7 +17,7 @@
 -%}
 
 <div
-  class="before-after-section section-padding color-{{ section.settings.color_scheme }}{% if section.settings.full_width %} is-full-width{% endif %}{% if section.settings.add_top_padding %} header-offset{% endif %}"
+  class="before-after-section section-padding color-{{ section.settings.color_scheme }}{% if section.settings.full_width %} is-full-width{% endif %}"
   data-before-after-section="{{ section.id }}"
   style="--before-after-aspect-ratio: {{ section.settings.aspect_ratio }};"
 >
@@ -279,11 +279,6 @@
       "label": "Full width"
     },
     {
-      "type": "checkbox",
-      "id": "add_top_padding",
-      "default": false,
-      "label": "Add top padding",
-      "info": "Enable when using as the first section on a page to offset for the header"
     },
     {
       "type": "text_alignment",

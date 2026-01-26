@@ -45,8 +45,12 @@
     padding-bottom: var(--page-vertical-padding);
   }
 
-  /* Header offset - adds header height to existing top padding for first sections on a page */
-  .header-offset {
+  /*
+   * Auto header offset - automatically adds header height to the first section on a page
+   * Only applies when header is NOT transparent (transparent headers overlay content intentionally)
+   * Sections can opt-out by adding .no-header-offset class (e.g., full-height hero sections)
+   */
+  body:not(:has(.header-wrapper.is-transparent)) #swup-container > section:first-child:not(.no-header-offset) {
     padding-top: calc(var(--section-vertical-padding) + var(--header-height, 65px));
 
     /* Variants for different section padding sizes */
@@ -56,6 +60,11 @@
 
     &.section-padding-lg {
       padding-top: calc(var(--section-vertical-padding) * 1.5 + var(--header-height, 65px));
+    }
+
+    /* Sections without explicit padding get just the header offset */
+    &:not(.section-padding):not(.section-padding-sm):not(.section-padding-lg) {
+      padding-top: var(--header-height, 65px);
     }
   }
 

@@ -45,7 +45,7 @@
 {% when 'hero' %}
 {%- comment -%} HERO DESIGN {%- endcomment -%}
 <div
-  class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
+  class="countdown-section {{ design_class }} {{ align_class }} section-padding color-{{ section.settings.color_scheme }}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
   data-design="hero"
@@ -122,7 +122,7 @@
 {% when 'compact' %}
 {%- comment -%} COMPACT DESIGN {%- endcomment -%}
 <div
-  class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
+  class="countdown-section {{ design_class }} {{ align_class }} color-{{ section.settings.color_scheme }}"
   data-countdown="{{ section.id }}"
   data-target-date="{{ section.settings.target_date }}"
   data-design="compact"
@@ -452,11 +452,6 @@
       "info": "Minimal design is always full width"
     },
     {
-      "type": "checkbox",
-      "id": "add_top_padding",
-      "default": false,
-      "label": "Add top padding",
-      "info": "Enable when using as the first section on a page to offset for the header"
     },
     {
       "type": "text_alignment",
