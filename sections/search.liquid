@@ -363,6 +363,24 @@
   "settings": [
     {
       "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_popular_searches",
+      "label": "Show popular searches",
+      "default": true,
+      "info": "Displayed when no search has been performed"
+    },
+    {
+      "type": "text",
+      "id": "popular_searches",
+      "label": "Popular search terms",
+      "default": "New arrivals, Sale, Best sellers",
+      "info": "Comma-separated list of terms"
+    },
+    {
+      "type": "header",
       "content": "Layout"
     },
     {
@@ -381,24 +399,6 @@
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ]
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_popular_searches",
-      "label": "Show popular searches",
-      "default": true,
-      "info": "Displayed when no search has been performed"
-    },
-    {
-      "type": "text",
-      "id": "popular_searches",
-      "label": "Popular search terms",
-      "default": "New arrivals, Sale, Best sellers",
-      "info": "Comma-separated list of terms"
     }
   ],
   "disabled_on": {
