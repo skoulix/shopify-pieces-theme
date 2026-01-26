@@ -213,7 +213,7 @@
   /* Note: This section requires scroll animation to function - no reduced motion fallback */
 </style>
 
-<section class="scroll-panels-{{ section.id }} color-{{ section.settings.color_scheme }}" data-scroll-panels="{{ section.id }}">
+<div class="scroll-panels-{{ section.id }} color-{{ section.settings.color_scheme }}" data-scroll-panels="{{ section.id }}">
   <div class="scroll-panels-wrapper-{{ section.id }}" data-panels-wrapper>
     <div class="scroll-panels-sticky-{{ section.id }}" data-panels-sticky>
       {% for block in section.blocks %}
@@ -288,7 +288,7 @@
       {% endfor %}
     </div>
   {% endif %}
-</section>
+</div>
 
 <script>
 (function() {

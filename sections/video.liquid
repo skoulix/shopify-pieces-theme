@@ -18,7 +18,7 @@
   endcase
 -%}
 
-<section
+<div
   class="video-section{% unless section.settings.remove_padding %} section-padding{% endunless %} color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-video-section="{{ section.id }}"
   style="--video-aspect-ratio: {{ section.settings.aspect_ratio }}; --video-border-radius: {{ section.settings.border_radius }}px;"
@@ -96,7 +96,7 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 {%- comment -%} Animations handled by global TweenManager via data-tween attributes {%- endcomment -%}
 

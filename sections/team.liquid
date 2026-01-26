@@ -12,7 +12,7 @@
   endcapture
 -%}
 
-<section
+<div
   class="team-section-wrapper section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   data-team-section="{{ section.id }}"
   style="--team-columns: {{ section.settings.columns }}"
@@ -102,7 +102,7 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {

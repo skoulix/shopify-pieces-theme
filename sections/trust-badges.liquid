@@ -20,7 +20,7 @@
   }
 {%- endstyle -%}
 
-<section id="{{ section_id }}" class="trust-badges section-padding-sm color-{{ section.settings.color_scheme }}">
+<div id="{{ section_id }}" class="trust-badges section-padding-sm color-{{ section.settings.color_scheme }}">
   <div class="{{ container_class }}">
     {%- if section.settings.title != blank -%}
       <div class="text-{{ section.settings.header_alignment }} mb-8{% if section.settings.full_width and section.settings.header_alignment != 'center' %} px-[var(--page-padding)]{% endif %}">
@@ -71,7 +71,7 @@
       </div>
     {%- endif -%}
   </div>
-</section>
+</div>
 
 {% schema %}
 {

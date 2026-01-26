@@ -23,7 +23,7 @@
   endif
 -%}
 
-<section
+<div
   class="text-section section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}"
   style="--text-section-align: {{ section.settings.content_alignment }}; --text-section-max-width: {{ section.settings.content_width }}rem; --text-section-ml: {{ ml }}; --text-section-mr: {{ mr }}; --text-section-desc-ml: {{ ml }}; --text-section-desc-mr: {{ mr }}; --text-section-justify: {{ justify }};"
   data-text-section="{{ section.id }}"
@@ -74,7 +74,7 @@
       {% endif %}
     </div>
   </div>
-</section>
+</div>
 
 {% schema %}
 {

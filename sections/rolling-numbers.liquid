@@ -47,7 +47,7 @@
   }
 </style>
 
-<section class="section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}" data-rolling-numbers="{{ section.id }}">
+<div class="section-padding color-{{ section.settings.color_scheme }}{% if section.settings.add_top_padding %} header-offset{% endif %}" data-rolling-numbers="{{ section.id }}">
   <div class="{{ container_class }}">
     <div class="section-header-spacing">
       {% render 'section-header',
@@ -87,7 +87,7 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
 
 <script type="module">
   // Load the rolling number web component
