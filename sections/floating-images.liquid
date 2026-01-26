@@ -57,12 +57,12 @@
           >
         {% else %}
           <div
-            class="parallax-image absolute -translate-x-1/2 -translate-y-1/2 w-[120px] md:w-[180px] lg:w-[{{ base_width | minus: 80 }}px] xl:w-[{{ base_width }}px]"
+            class="parallax-image absolute -translate-x-1/2 -translate-y-1/2 w-[120px] md:w-[180px] lg:w-[{{ base_width | minus: 80 }}px] xl:w-[{{ base_width }}px] aspect-square bg-(--color-background-secondary) rounded-(--card-radius) flex items-center justify-center p-4"
             data-speed="{{ speed }}"
             style="left: {{ pos_x }}%; top: {{ pos_y }}%;"
             {{ block.shopify_attributes }}
           >
-            {{ placeholder_name | placeholder_svg_tag: 'w-full h-full' }}
+            {{ placeholder_name | placeholder_svg_tag: 'max-w-full max-h-full' }}
           </div>
         {% endif %}
       {% endif %}

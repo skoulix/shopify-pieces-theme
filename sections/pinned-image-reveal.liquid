@@ -190,11 +190,11 @@
       <div class="pinned-images md:w-1/2 lg:w-2/5">
         {%- for block in section.blocks -%}
           {%- if block.type == 'slide' -%}
-            <div
-              class="slide-image w-full overflow-hidden"
-              data-index="{{ forloop.index0 }}"
-            >
-              {%- if block.settings.image != blank -%}
+            {%- if block.settings.image != blank -%}
+              <div
+                class="slide-image w-full overflow-hidden"
+                data-index="{{ forloop.index0 }}"
+              >
                 <img
                   src="{{ block.settings.image | image_url: width: 1200 }}"
                   alt="{{ block.settings.image.alt | default: block.settings.title | default: section.settings.title }}"
@@ -204,10 +204,20 @@
                   fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
                   decoding="async"
                 >
-              {%- else -%}
-                {{ 'lifestyle-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}
-              {%- endif -%}
-            </div>
+              </div>
+            {%- else -%}
+              {%- liquid
+                assign placeholder_names = 'lifestyle-1,lifestyle-2,product-1,product-2,collection-1,collection-2' | split: ','
+                assign placeholder_index = forloop.index0 | modulo: 6
+                assign placeholder_name = placeholder_names[placeholder_index]
+              -%}
+              <div
+                class="slide-image w-full overflow-hidden aspect-3/4 bg-(--color-background-secondary) rounded-(--card-radius) flex items-center justify-center p-8"
+                data-index="{{ forloop.index0 }}"
+              >
+                {{ placeholder_name | placeholder_svg_tag: 'max-w-full max-h-full' }}
+              </div>
+            {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
       </div>
