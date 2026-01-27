@@ -204,71 +204,71 @@
 
 {% schema %}
 {
-  "name": "Stacking Cards",
+  "name": "t:sections.stacking_cards.name",
   "tag": "section",
   "class": "stacking-cards-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Features",
-      "label": "Label"
+      "label": "t:sections.stacking_cards.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "Why Choose Us",
-      "label": "Title"
+      "label": "t:sections.stacking_cards.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
       "default": "Discover what makes our products stand out from the rest.",
-      "label": "Description"
+      "label": "t:sections.stacking_cards.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.stacking_cards.settings.header_alignment.label",
       "default": "center"
     },
     {
       "type": "header",
-      "content": "Background"
+      "content": "t:sections.stacking_cards.settings.header__background.content"
     },
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image"
+      "label": "t:sections.stacking_cards.settings.background_image.label"
     },
     {
       "type": "select",
       "id": "background_image_position",
-      "label": "Background image position",
+      "label": "t:sections.stacking_cards.settings.background_image_position.label",
       "options": [
-        { "value": "top left", "label": "Top left" },
-        { "value": "top center", "label": "Top center" },
-        { "value": "top right", "label": "Top right" },
-        { "value": "center left", "label": "Center left" },
-        { "value": "center center", "label": "Center" },
-        { "value": "center right", "label": "Center right" },
-        { "value": "bottom left", "label": "Bottom left" },
-        { "value": "bottom center", "label": "Bottom center" },
-        { "value": "bottom right", "label": "Bottom right" }
+        { "value": "top left", "label": "t:sections.stacking_cards.settings.background_image_position.options__0.label" },
+        { "value": "top center", "label": "t:sections.stacking_cards.settings.background_image_position.options__1.label" },
+        { "value": "top right", "label": "t:sections.stacking_cards.settings.background_image_position.options__2.label" },
+        { "value": "center left", "label": "t:sections.stacking_cards.settings.background_image_position.options__3.label" },
+        { "value": "center center", "label": "t:sections.stacking_cards.settings.background_image_position.options__4.label" },
+        { "value": "center right", "label": "t:sections.stacking_cards.settings.background_image_position.options__5.label" },
+        { "value": "bottom left", "label": "t:sections.stacking_cards.settings.background_image_position.options__6.label" },
+        { "value": "bottom center", "label": "t:sections.stacking_cards.settings.background_image_position.options__7.label" },
+        { "value": "bottom right", "label": "t:sections.stacking_cards.settings.background_image_position.options__8.label" }
       ],
       "default": "center center"
     },
@@ -280,12 +280,12 @@
       "step": 1,
       "default": 0,
       "unit": "px",
-      "label": "Background image blur"
+      "label": "t:sections.stacking_cards.settings.background_image_blur.label"
     },
     {
       "type": "color",
       "id": "background_overlay_color",
-      "label": "Background overlay color"
+      "label": "t:sections.stacking_cards.settings.background_overlay_color.label"
     },
     {
       "type": "range",
@@ -295,59 +295,59 @@
       "step": 5,
       "default": 0,
       "unit": "%",
-      "label": "Background overlay opacity"
+      "label": "t:sections.stacking_cards.settings.background_overlay_opacity.label"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "card",
-      "name": "Card",
+      "name": "t:sections.stacking_cards.blocks.card.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.stacking_cards.blocks.card.settings.image.label"
         },
         {
           "type": "text",
           "id": "title",
           "default": "Feature Title",
-          "label": "Title"
+          "label": "t:sections.stacking_cards.blocks.card.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
           "default": "Describe this feature and how it benefits your customers. Keep it concise and compelling.",
-          "label": "Text"
+          "label": "t:sections.stacking_cards.blocks.card.settings.text.label"
         },
         {
           "type": "text",
           "id": "link_text",
           "default": "Learn More",
-          "label": "Link text"
+          "label": "t:sections.stacking_cards.blocks.card.settings.link_text.label"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.stacking_cards.blocks.card.settings.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Stacking Cards",
-      "category": "Scrolling & animation",
+      "name": "t:sections.stacking_cards.presets.stacking_cards.name",
+      "category": "t:sections.stacking_cards.presets.stacking_cards.category",
       "blocks": [
         { "type": "card", "settings": { "title": "Premium Quality", "text": "We source only the finest materials and work with skilled artisans to create products that last." } },
         { "type": "card", "settings": { "title": "Sustainable Practices", "text": "Every step of our process is designed with the environment in mind, from sourcing to shipping." } },

@@ -141,101 +141,101 @@
 
 {% schema %}
 {
-  "name": "Timeline",
+  "name": "t:sections.timeline.name",
   "tag": "section",
   "class": "timeline-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Our Journey",
-      "label": "Label"
+      "label": "t:sections.timeline.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "How We Got Here",
-      "label": "Title"
+      "label": "t:sections.timeline.settings.title.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.timeline.settings.header_alignment.label",
       "default": "center"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "blocks": [
     {
       "type": "milestone",
-      "name": "Milestone",
+      "name": "t:sections.timeline.blocks.milestone.name",
       "settings": [
         {
           "type": "text",
           "id": "year",
           "default": "2020",
-          "label": "Year"
+          "label": "t:sections.timeline.blocks.milestone.settings.year.label"
         },
         {
           "type": "text",
           "id": "title",
           "default": "Milestone Title",
-          "label": "Title"
+          "label": "t:sections.timeline.blocks.milestone.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
           "default": "Describe this milestone and what it meant for your brand's journey.",
-          "label": "Description"
+          "label": "t:sections.timeline.blocks.milestone.settings.text.label"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image (optional)"
+          "label": "t:sections.timeline.blocks.milestone.settings.image.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Timeline",
-      "category": "Text & content",
+      "name": "t:sections.timeline.presets.timeline.name",
+      "category": "t:sections.timeline.presets.timeline.category",
       "blocks": [
         { "type": "milestone", "settings": { "year": "2018", "title": "The Beginning", "text": "Started with a simple idea and a passion for quality products." } },
         { "type": "milestone", "settings": { "year": "2019", "title": "First Collection", "text": "Launched our inaugural product line to overwhelming response." } },

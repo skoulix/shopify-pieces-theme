@@ -86,57 +86,57 @@
 
 {% schema %}
 {
-  "name": "Features Grid",
+  "name": "t:sections.features_grid.name",
   "tag": "section",
   "class": "features-grid-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Why Choose Us",
-      "label": "Label"
+      "label": "t:sections.features_grid.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "Features That Set Us Apart",
-      "label": "Title"
+      "label": "t:sections.features_grid.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
       "default": "Everything you need to create an amazing shopping experience.",
-      "label": "Description"
+      "label": "t:sections.features_grid.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.features_grid.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "layout",
       "options": [
-        { "value": "standard", "label": "Standard Grid" },
-        { "value": "bento", "label": "Bento (Featured First)" }
+        { "value": "standard", "label": "t:sections.features_grid.settings.layout.options__0.label" },
+        { "value": "bento", "label": "t:sections.features_grid.settings.layout.options__1.label" }
       ],
       "default": "standard",
-      "label": "Layout style"
+      "label": "t:sections.features_grid.settings.layout.label"
     },
     {
       "type": "range",
@@ -145,111 +145,111 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "Columns (standard layout)"
+      "label": "t:sections.features_grid.settings.columns.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "feature",
-      "name": "Feature",
+      "name": "t:sections.features_grid.blocks.feature.name",
       "settings": [
         {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "t:sections.features_grid.blocks.feature.settings.icon.label",
           "default": "star",
           "options": [
-            { "value": "none", "label": "None" },
-            { "value": "star", "label": "Star (Quality)" },
-            { "value": "shield-check", "label": "Shield check (Security)" },
-            { "value": "lock-simple", "label": "Lock (Secure)" },
-            { "value": "truck", "label": "Truck (Shipping)" },
-            { "value": "package", "label": "Package (Delivery)" },
-            { "value": "arrow-counter-clockwise", "label": "Return arrow (Returns)" },
-            { "value": "credit-card", "label": "Credit card (Payment)" },
-            { "value": "headset", "label": "Headset (Support)" },
-            { "value": "chat-circle", "label": "Chat (Support)" },
-            { "value": "medal", "label": "Medal (Award)" },
-            { "value": "certificate", "label": "Certificate (Certified)" },
-            { "value": "heart", "label": "Heart (Love)" },
-            { "value": "leaf", "label": "Leaf (Eco)" },
-            { "value": "recycle", "label": "Recycle (Sustainable)" },
-            { "value": "hand-heart", "label": "Hand heart (Care)" },
-            { "value": "clock", "label": "Clock (Fast)" },
-            { "value": "gift", "label": "Gift (Free gift)" },
-            { "value": "percent", "label": "Percent (Discount)" },
-            { "value": "globe", "label": "Globe (Worldwide)" },
-            { "value": "lightning", "label": "Lightning (Fast)" },
-            { "value": "sparkle", "label": "Sparkle (Premium)" },
-            { "value": "users", "label": "Users (Community)" },
-            { "value": "chart-line-up", "label": "Chart (Growth)" },
-            { "value": "target", "label": "Target (Goal)" },
-            { "value": "rocket", "label": "Rocket (Launch)" },
-            { "value": "code", "label": "Code (Tech)" },
-            { "value": "paint-brush", "label": "Paint brush (Design)" },
-            { "value": "wrench", "label": "Wrench (Tools)" },
-            { "value": "gear", "label": "Gear (Settings)" }
+            { "value": "none", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__0.label" },
+            { "value": "star", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__1.label" },
+            { "value": "shield-check", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__2.label" },
+            { "value": "lock-simple", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__3.label" },
+            { "value": "truck", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__4.label" },
+            { "value": "package", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__5.label" },
+            { "value": "arrow-counter-clockwise", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__6.label" },
+            { "value": "credit-card", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__7.label" },
+            { "value": "headset", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__8.label" },
+            { "value": "chat-circle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__9.label" },
+            { "value": "medal", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__10.label" },
+            { "value": "certificate", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__11.label" },
+            { "value": "heart", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__12.label" },
+            { "value": "leaf", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__13.label" },
+            { "value": "recycle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__14.label" },
+            { "value": "hand-heart", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__15.label" },
+            { "value": "clock", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__16.label" },
+            { "value": "gift", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__17.label" },
+            { "value": "percent", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__18.label" },
+            { "value": "globe", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__19.label" },
+            { "value": "lightning", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__20.label" },
+            { "value": "sparkle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__21.label" },
+            { "value": "users", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__22.label" },
+            { "value": "chart-line-up", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__23.label" },
+            { "value": "target", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__24.label" },
+            { "value": "rocket", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__25.label" },
+            { "value": "code", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__26.label" },
+            { "value": "paint-brush", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__27.label" },
+            { "value": "wrench", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__28.label" },
+            { "value": "gear", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__29.label" }
           ]
         },
         {
           "type": "image_picker",
           "id": "custom_icon",
-          "label": "Custom icon",
-          "info": "Overrides the icon selection above"
+          "label": "t:sections.features_grid.blocks.feature.settings.custom_icon.label",
+          "info": "t:sections.features_grid.blocks.feature.settings.custom_icon.info"
         },
         {
           "type": "text",
           "id": "title",
           "default": "Feature Title",
-          "label": "Title"
+          "label": "t:sections.features_grid.blocks.feature.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
           "default": "Describe this feature and how it benefits your customers.",
-          "label": "Description"
+          "label": "t:sections.features_grid.blocks.feature.settings.text.label"
         },
         {
           "type": "text",
           "id": "link_text",
           "default": "Learn More",
-          "label": "Link text"
+          "label": "t:sections.features_grid.blocks.feature.settings.link_text.label"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.features_grid.blocks.feature.settings.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Features Grid",
-      "category": "Text & content",
+      "name": "t:sections.features_grid.presets.features_grid.name",
+      "category": "t:sections.features_grid.presets.features_grid.category",
       "blocks": [
         { "type": "feature", "settings": { "icon": "truck", "title": "Free Shipping", "text": "Enjoy free shipping on all orders over $50. Fast and reliable delivery to your doorstep." } },
         { "type": "feature", "settings": { "icon": "shield-check", "title": "Secure Payment", "text": "Your payment information is protected with industry-leading encryption." } },

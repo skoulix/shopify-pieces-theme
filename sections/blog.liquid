@@ -183,18 +183,18 @@
 
 {% schema %}
 {
-  "name": "Blog",
+  "name": "t:sections.blog.name",
   "tag": "section",
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "range",
@@ -203,61 +203,61 @@
       "max": 24,
       "step": 3,
       "default": 9,
-      "label": "Articles per page"
+      "label": "t:sections.blog.settings.articles_per_page.label"
     },
     {
       "type": "checkbox",
       "id": "feature_first",
       "default": true,
-      "label": "Feature first article"
+      "label": "t:sections.blog.settings.feature_first.label"
     },
     {
       "type": "checkbox",
       "id": "show_tags",
       "default": true,
-      "label": "Show tags"
+      "label": "t:sections.blog.settings.show_tags.label"
     },
     {
       "type": "checkbox",
       "id": "show_excerpt",
       "default": true,
-      "label": "Show excerpt"
+      "label": "t:sections.blog.settings.show_excerpt.label"
     },
     {
       "type": "checkbox",
       "id": "show_date",
       "default": true,
-      "label": "Show date"
+      "label": "t:sections.blog.settings.show_date.label"
     },
     {
       "type": "checkbox",
       "id": "show_author",
       "default": true,
-      "label": "Show author"
+      "label": "t:sections.blog.settings.show_author.label"
     },
     {
       "type": "checkbox",
       "id": "show_read_more",
       "default": true,
-      "label": "Show read more link"
+      "label": "t:sections.blog.settings.show_read_more.label"
     },
     {
       "type": "checkbox",
       "id": "show_article_count",
       "default": true,
-      "label": "Show article count"
+      "label": "t:sections.blog.settings.show_article_count.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     }
   ],

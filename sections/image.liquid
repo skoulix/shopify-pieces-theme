@@ -147,37 +147,37 @@
 
 {% schema %}
 {
-  "name": "Image",
+  "name": "t:sections.image.name",
   "tag": "section",
   "class": "image-section",
   "settings": [
     {
       "type": "header",
-      "content": "Image"
+      "content": "t:sections.image.settings.header__image.content"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "t:sections.image.settings.image.label"
     },
     {
       "type": "text",
       "id": "caption",
-      "label": "Caption"
+      "label": "t:sections.image.settings.caption.label"
     },
     {
       "type": "url",
       "id": "link",
-      "label": "Link"
+      "label": "t:sections.image.settings.link.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "range",
       "id": "image_width",
-      "label": "Image width",
+      "label": "t:sections.image.settings.image_width.label",
       "min": 50,
       "max": 100,
       "step": 5,
@@ -187,34 +187,34 @@
     {
       "type": "select",
       "id": "image_alignment",
-      "label": "Image alignment",
+      "label": "t:sections.image.settings.image_alignment.label",
       "default": "center",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.image.settings.image_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.image.settings.image_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.image.settings.image_alignment.options__2.label" }
       ]
     },
     {
       "type": "select",
       "id": "aspect_ratio",
-      "label": "Aspect ratio",
+      "label": "t:sections.image.settings.aspect_ratio.label",
       "default": "auto",
       "options": [
-        { "value": "auto", "label": "Original" },
-        { "value": "1/1", "label": "Square (1:1)" },
-        { "value": "4/3", "label": "Standard (4:3)" },
-        { "value": "3/2", "label": "Classic (3:2)" },
-        { "value": "16/9", "label": "Widescreen (16:9)" },
-        { "value": "21/9", "label": "Cinematic (21:9)" },
-        { "value": "3/4", "label": "Portrait (3:4)" },
-        { "value": "2/3", "label": "Portrait (2:3)" }
+        { "value": "auto", "label": "t:sections.image.settings.aspect_ratio.options__0.label" },
+        { "value": "1/1", "label": "t:sections.image.settings.aspect_ratio.options__1.label" },
+        { "value": "4/3", "label": "t:sections.image.settings.aspect_ratio.options__2.label" },
+        { "value": "3/2", "label": "t:sections.image.settings.aspect_ratio.options__3.label" },
+        { "value": "16/9", "label": "t:sections.image.settings.aspect_ratio.options__4.label" },
+        { "value": "21/9", "label": "t:sections.image.settings.aspect_ratio.options__5.label" },
+        { "value": "3/4", "label": "t:sections.image.settings.aspect_ratio.options__6.label" },
+        { "value": "2/3", "label": "t:sections.image.settings.aspect_ratio.options__7.label" }
       ]
     },
     {
       "type": "range",
       "id": "border_radius",
-      "label": "Border radius",
+      "label": "t:sections.image.settings.border_radius.label",
       "min": 0,
       "max": 40,
       "step": 2,
@@ -225,50 +225,50 @@
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Animation"
+      "content": "t:sections.image.settings.header__animation.content"
     },
     {
       "type": "select",
       "id": "reveal_effect",
-      "label": "Reveal effect",
+      "label": "t:sections.image.settings.reveal_effect.label",
       "default": "clip-right",
       "options": [
-        { "value": "none", "label": "None" },
-        { "value": "fade-up", "label": "Fade up" },
-        { "value": "scale", "label": "Scale" },
-        { "value": "clip-right", "label": "Clip right" },
-        { "value": "clip-left", "label": "Clip left" },
-        { "value": "clip-up", "label": "Clip up" },
-        { "value": "clip-down", "label": "Clip down" }
+        { "value": "none", "label": "t:sections.image.settings.reveal_effect.options__0.label" },
+        { "value": "fade-up", "label": "t:sections.image.settings.reveal_effect.options__1.label" },
+        { "value": "scale", "label": "t:sections.image.settings.reveal_effect.options__2.label" },
+        { "value": "clip-right", "label": "t:sections.image.settings.reveal_effect.options__3.label" },
+        { "value": "clip-left", "label": "t:sections.image.settings.reveal_effect.options__4.label" },
+        { "value": "clip-up", "label": "t:sections.image.settings.reveal_effect.options__5.label" },
+        { "value": "clip-down", "label": "t:sections.image.settings.reveal_effect.options__6.label" }
       ]
     },
     {
       "type": "checkbox",
       "id": "enable_parallax",
       "default": false,
-      "label": "Enable parallax"
+      "label": "t:sections.image.settings.enable_parallax.label"
     },
     {
       "type": "range",
       "id": "parallax_intensity",
-      "label": "Parallax intensity",
+      "label": "t:sections.image.settings.parallax_intensity.label",
       "min": 50,
       "max": 200,
       "step": 10,
@@ -277,19 +277,19 @@
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "presets": [
     {
-      "name": "Image",
-      "category": "Image & media"
+      "name": "t:sections.image.presets.image.name",
+      "category": "t:sections.image.presets.image.category"
     }
   ],
   "disabled_on": {

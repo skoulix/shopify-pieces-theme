@@ -359,54 +359,54 @@
 
 {% schema %}
 {
-  "name": "Search",
+  "name": "t:sections.search.name",
   "tag": "section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "checkbox",
       "id": "show_popular_searches",
-      "label": "Show popular searches",
+      "label": "t:sections.search.settings.show_popular_searches.label",
       "default": true,
-      "info": "Displayed when no search has been performed"
+      "info": "t:sections.search.settings.show_popular_searches.info"
     },
     {
       "type": "text",
       "id": "popular_searches",
-      "label": "Popular search terms",
+      "label": "t:sections.search.settings.popular_searches.label",
       "default": "New arrivals, Sale, Best sellers",
-      "info": "Comma-separated list of terms"
+      "info": "t:sections.search.settings.popular_searches.info"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Full width",
+      "label": "t:shared.settings.full_width.label",
       "default": false
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
       "default": "left",
-      "label": "Header alignment"
+      "label": "t:sections.search.settings.header_alignment.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     }
   ],

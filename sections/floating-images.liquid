@@ -159,97 +159,97 @@
 
 {% schema %}
 {
-  "name": "Floating Images",
+  "name": "t:sections.floating_images.name",
   "tag": "section",
   "class": "floating-images-section",
   "max_blocks": 12,
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label",
+      "label": "t:sections.floating_images.settings.label.label",
       "default": "Discover"
     },
     {
       "type": "textarea",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.floating_images.settings.title.label",
       "default": "Outstanding products with exceptional brands"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description"
+      "label": "t:sections.floating_images.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Button"
+      "content": "t:sections.floating_images.settings.header__button.content"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text",
+      "label": "t:sections.floating_images.settings.button_text.label",
       "default": "View More"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "t:sections.floating_images.settings.button_link.label"
     },
     {
       "type": "select",
       "id": "button_style",
-      "label": "Button style",
+      "label": "t:sections.floating_images.settings.button_style.label",
       "default": "outline",
       "options": [
-        { "value": "solid", "label": "Solid" },
-        { "value": "outline", "label": "Outline" }
+        { "value": "solid", "label": "t:sections.floating_images.settings.button_style.options__0.label" },
+        { "value": "outline", "label": "t:sections.floating_images.settings.button_style.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_color",
-      "label": "Button color",
+      "label": "t:sections.floating_images.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "Primary (accent)" },
-        { "value": "secondary", "label": "Secondary (neutral)" }
+        { "value": "primary", "label": "t:sections.floating_images.settings.button_color.options__0.label" },
+        { "value": "secondary", "label": "t:sections.floating_images.settings.button_color.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_size",
-      "label": "Button size",
+      "label": "t:sections.floating_images.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "default", "label": "Default" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.floating_images.settings.button_size.options__0.label" },
+        { "value": "default", "label": "t:sections.floating_images.settings.button_size.options__1.label" },
+        { "value": "large", "label": "t:sections.floating_images.settings.button_size.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "range",
       "id": "section_height",
-      "label": "Section height (desktop)",
+      "label": "t:sections.floating_images.settings.section_height.label",
       "default": 300,
       "min": 200,
       "max": 500,
       "step": 50,
       "unit": "vh",
-      "info": "Total height for the scroll effect"
+      "info": "t:sections.floating_images.settings.section_height.info"
     },
     {
       "type": "range",
       "id": "section_height_mobile",
-      "label": "Section height (mobile)",
+      "label": "t:sections.floating_images.settings.section_height_mobile.label",
       "default": 200,
       "min": 150,
       "max": 400,
@@ -258,55 +258,55 @@
     },
     {
       "type": "header",
-      "content": "Images"
+      "content": "t:sections.floating_images.settings.header__images.content"
     },
     {
       "type": "range",
       "id": "image_opacity",
-      "label": "Image opacity",
+      "label": "t:sections.floating_images.settings.image_opacity.label",
       "default": 50,
       "min": 5,
       "max": 100,
       "step": 5,
       "unit": "%",
-      "info": "100% = fully visible"
+      "info": "t:sections.floating_images.settings.image_opacity.info"
     },
     {
       "type": "checkbox",
       "id": "enable_parallax",
-      "label": "Enable parallax effect",
+      "label": "t:sections.floating_images.settings.enable_parallax.label",
       "default": true,
-      "info": "Adds subtle movement to images on scroll"
+      "info": "t:sections.floating_images.settings.enable_parallax.info"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "blocks": [
     {
       "type": "image",
-      "name": "Floating Image",
+      "name": "t:sections.floating_images.blocks.image.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image",
-          "info": "Add alt text via the image's metadata in Files"
+          "label": "t:sections.floating_images.blocks.image.settings.image.label",
+          "info": "t:sections.floating_images.blocks.image.settings.image.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Floating Images",
-      "category": "Scrolling & animation",
+      "name": "t:sections.floating_images.presets.floating_images.name",
+      "category": "t:sections.floating_images.presets.floating_images.category",
       "blocks": [
         { "type": "image" },
         { "type": "image" },

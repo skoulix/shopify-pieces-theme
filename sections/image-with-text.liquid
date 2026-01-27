@@ -102,174 +102,174 @@
 
 {% schema %}
 {
-  "name": "Image with Text",
+  "name": "t:sections.image_with_text.name",
   "tag": "section",
   "class": "iwt-section-wrapper",
   "settings": [
     {
       "type": "header",
-      "content": "Image"
+      "content": "t:sections.image_with_text.settings.header__image.content"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "t:sections.image_with_text.settings.image.label"
     },
     {
       "type": "select",
       "id": "image_ratio",
       "options": [
-        { "value": "1/1", "label": "Square (1:1)" },
-        { "value": "4/5", "label": "Portrait (4:5)" },
-        { "value": "3/4", "label": "Portrait (3:4)" },
-        { "value": "16/9", "label": "Landscape (16:9)" }
+        { "value": "1/1", "label": "t:sections.image_with_text.settings.image_ratio.options__0.label" },
+        { "value": "4/5", "label": "t:sections.image_with_text.settings.image_ratio.options__1.label" },
+        { "value": "3/4", "label": "t:sections.image_with_text.settings.image_ratio.options__2.label" },
+        { "value": "16/9", "label": "t:sections.image_with_text.settings.image_ratio.options__3.label" }
       ],
       "default": "4/5",
-      "label": "Image ratio"
+      "label": "t:sections.image_with_text.settings.image_ratio.label"
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Our Story",
-      "label": "Label"
+      "label": "t:sections.image_with_text.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "Crafted With Purpose",
-      "label": "Title"
+      "label": "t:sections.image_with_text.settings.title.label"
     },
     {
       "type": "richtext",
       "id": "text",
       "default": "<p>We believe in creating products that stand the test of time. Each piece is thoughtfully designed and meticulously crafted using the finest materials and traditional techniques.</p>",
-      "label": "Text"
+      "label": "t:sections.image_with_text.settings.text.label"
     },
     {
       "type": "text",
       "id": "button_text",
       "default": "Learn More",
-      "label": "Button text"
+      "label": "t:sections.image_with_text.settings.button_text.label"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "t:sections.image_with_text.settings.button_link.label"
     },
     {
       "type": "select",
       "id": "button_type",
-      "label": "Button type",
+      "label": "t:sections.image_with_text.settings.button_type.label",
       "default": "link",
       "options": [
-        { "value": "link", "label": "Text link" },
-        { "value": "button", "label": "Button" }
+        { "value": "link", "label": "t:sections.image_with_text.settings.button_type.options__0.label" },
+        { "value": "button", "label": "t:sections.image_with_text.settings.button_type.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_style",
-      "label": "Button style",
+      "label": "t:sections.image_with_text.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "Solid" },
-        { "value": "outline", "label": "Outline" }
+        { "value": "solid", "label": "t:sections.image_with_text.settings.button_style.options__0.label" },
+        { "value": "outline", "label": "t:sections.image_with_text.settings.button_style.options__1.label" }
       ],
-      "info": "Only applies when Button type is set to Button"
+      "info": "t:sections.image_with_text.settings.button_style.info"
     },
     {
       "type": "select",
       "id": "button_color",
-      "label": "Button color",
+      "label": "t:sections.image_with_text.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "Primary (accent)" },
-        { "value": "secondary", "label": "Secondary (neutral)" }
+        { "value": "primary", "label": "t:sections.image_with_text.settings.button_color.options__0.label" },
+        { "value": "secondary", "label": "t:sections.image_with_text.settings.button_color.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_size",
-      "label": "Button size",
+      "label": "t:sections.image_with_text.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "default", "label": "Default" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.image_with_text.settings.button_size.options__0.label" },
+        { "value": "default", "label": "t:sections.image_with_text.settings.button_size.options__1.label" },
+        { "value": "large", "label": "t:sections.image_with_text.settings.button_size.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "select",
       "id": "layout",
       "options": [
-        { "value": "image_left", "label": "Image left" },
-        { "value": "image_right", "label": "Image right" }
+        { "value": "image_left", "label": "t:sections.image_with_text.settings.layout.options__0.label" },
+        { "value": "image_right", "label": "t:sections.image_with_text.settings.layout.options__1.label" }
       ],
       "default": "image_left",
-      "label": "Layout"
+      "label": "t:sections.image_with_text.settings.layout.label"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "blocks": [
     {
       "type": "stat",
-      "name": "Statistic",
+      "name": "t:sections.image_with_text.blocks.stat.name",
       "settings": [
         {
           "type": "text",
           "id": "number",
           "default": "100+",
-          "label": "Number"
+          "label": "t:sections.image_with_text.blocks.stat.settings.number.label"
         },
         {
           "type": "text",
           "id": "label",
           "default": "Products",
-          "label": "Label"
+          "label": "t:sections.image_with_text.blocks.stat.settings.label.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Image with Text",
-      "category": "Image & media",
+      "name": "t:sections.image_with_text.presets.image_with_text.name",
+      "category": "t:sections.image_with_text.presets.image_with_text.category",
       "blocks": [
         { "type": "stat", "settings": { "number": "10+", "label": "Years" } },
         { "type": "stat", "settings": { "number": "50K", "label": "Customers" } }

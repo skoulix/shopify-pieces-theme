@@ -230,83 +230,83 @@
 
 {% schema %}
 {
-  "name": "Article",
+  "name": "t:sections.article.name",
   "tag": "section",
   "settings": [
     {
       "type": "checkbox",
       "id": "show_breadcrumbs",
-      "label": "Show breadcrumbs",
+      "label": "t:sections.article.settings.show_breadcrumbs.label",
       "default": false
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Article details"
+      "content": "t:sections.article.settings.header__article_details.content"
     },
     {
       "type": "checkbox",
       "id": "show_date",
       "default": true,
-      "label": "Show date"
+      "label": "t:sections.article.settings.show_date.label"
     },
     {
       "type": "checkbox",
       "id": "show_author",
       "default": true,
-      "label": "Show author"
+      "label": "t:sections.article.settings.show_author.label"
     },
     {
       "type": "checkbox",
       "id": "show_reading_time",
       "default": true,
-      "label": "Show reading time"
+      "label": "t:sections.article.settings.show_reading_time.label"
     },
     {
       "type": "checkbox",
       "id": "show_tags",
       "default": true,
-      "label": "Show tags"
+      "label": "t:sections.article.settings.show_tags.label"
     },
     {
       "type": "checkbox",
       "id": "show_share",
       "default": true,
-      "label": "Show share buttons"
+      "label": "t:sections.article.settings.show_share.label"
     },
     {
       "type": "checkbox",
       "id": "show_prev_next",
       "default": true,
-      "label": "Show previous/next navigation"
+      "label": "t:sections.article.settings.show_prev_next.label"
     },
     {
       "type": "checkbox",
       "id": "show_progress_bar",
       "default": true,
-      "label": "Show reading progress bar"
+      "label": "t:sections.article.settings.show_progress_bar.label"
     }
   ],
   "disabled_on": {

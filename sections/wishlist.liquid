@@ -279,75 +279,75 @@
 
 {% schema %}
 {
-  "name": "Wishlist",
+  "name": "t:sections.wishlist.name",
   "tag": "section",
   "class": "section-wishlist",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label",
+      "label": "t:sections.wishlist.settings.label.label",
       "default": "Saved"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.wishlist.settings.title.label",
       "default": "Wishlist"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description"
+      "label": "t:sections.wishlist.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Full width",
+      "label": "t:shared.settings.full_width.label",
       "default": false
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.wishlist.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "presets": [
     {
-      "name": "Wishlist",
-      "category": "Products"
+      "name": "t:sections.wishlist.presets.wishlist.name",
+      "category": "t:sections.wishlist.presets.wishlist.category"
     }
   ],
   "disabled_on": {

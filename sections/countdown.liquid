@@ -391,202 +391,202 @@
 
 {% schema %}
 {
-  "name": "Countdown",
+  "name": "t:sections.countdown.name",
   "tag": "section",
   "class": "countdown-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label"
+      "label": "t:sections.countdown.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.countdown.settings.title.label",
       "default": "Coming Soon"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description",
+      "label": "t:sections.countdown.settings.description.label",
       "default": "Something exciting is on the way. Stay tuned!",
-      "info": "Not shown in minimal design"
+      "info": "t:sections.countdown.settings.description.info"
     },
     {
       "type": "header",
-      "content": "Countdown"
+      "content": "t:sections.countdown.settings.header__countdown.content"
     },
     {
       "type": "text",
       "id": "target_date",
-      "label": "Target date",
-      "info": "Format: YYYY-MM-DD (e.g., 2026-12-25)",
+      "label": "t:sections.countdown.settings.target_date.label",
+      "info": "t:sections.countdown.settings.target_date.info",
       "default": "2026-12-31"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "select",
       "id": "design",
-      "label": "Design style",
+      "label": "t:sections.countdown.settings.design.label",
       "options": [
-        { "value": "hero", "label": "Hero - Large dramatic" },
-        { "value": "compact", "label": "Compact - Medium size" },
-        { "value": "minimal", "label": "Minimal - Inline (for headers)" }
+        { "value": "hero", "label": "t:sections.countdown.settings.design.options__0.label" },
+        { "value": "compact", "label": "t:sections.countdown.settings.design.options__1.label" },
+        { "value": "minimal", "label": "t:sections.countdown.settings.design.options__2.label" }
       ],
       "default": "hero",
-      "info": "Minimal is perfect for announcement bars and headers"
+      "info": "t:sections.countdown.settings.design.info"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width",
-      "info": "Minimal design is always full width"
+      "label": "t:shared.settings.full_width.label",
+      "info": "t:sections.countdown.settings.full_width.info"
     },
     {
       "type": "text_alignment",
       "id": "content_alignment",
       "default": "center",
-      "label": "Content alignment"
+      "label": "t:sections.countdown.settings.content_alignment.label"
     },
     {
       "type": "checkbox",
       "id": "show_dividers",
       "default": true,
-      "label": "Show dividers between items",
-      "info": "Hero and Compact designs only"
+      "label": "t:sections.countdown.settings.show_dividers.label",
+      "info": "t:sections.countdown.settings.show_dividers.info"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Labels"
+      "content": "t:sections.countdown.settings.header__labels.content"
     },
     {
       "type": "text",
       "id": "days_label",
-      "label": "Days label",
+      "label": "t:sections.countdown.settings.days_label.label",
       "default": "Days",
-      "info": "Minimal design shows only first letter"
+      "info": "t:sections.countdown.settings.days_label.info"
     },
     {
       "type": "text",
       "id": "hours_label",
-      "label": "Hours label",
+      "label": "t:sections.countdown.settings.hours_label.label",
       "default": "Hours"
     },
     {
       "type": "text",
       "id": "minutes_label",
-      "label": "Minutes label",
+      "label": "t:sections.countdown.settings.minutes_label.label",
       "default": "Minutes"
     },
     {
       "type": "text",
       "id": "seconds_label",
-      "label": "Seconds label",
+      "label": "t:sections.countdown.settings.seconds_label.label",
       "default": "Seconds"
     },
     {
       "type": "header",
-      "content": "Call to action"
+      "content": "t:sections.countdown.settings.header__call_to_action.content"
     },
     {
       "type": "select",
       "id": "cta_type",
-      "label": "CTA type",
+      "label": "t:sections.countdown.settings.cta_type.label",
       "options": [
-        { "value": "none", "label": "None" },
-        { "value": "link", "label": "Link button" },
-        { "value": "email_form", "label": "Email signup form" }
+        { "value": "none", "label": "t:sections.countdown.settings.cta_type.options__0.label" },
+        { "value": "link", "label": "t:sections.countdown.settings.cta_type.options__1.label" },
+        { "value": "email_form", "label": "t:sections.countdown.settings.cta_type.options__2.label" }
       ],
       "default": "email_form",
-      "info": "Email form collects emails as Shopify customers with 'countdown' and 'notify' tags. Minimal design only supports link."
+      "info": "t:sections.countdown.settings.cta_type.info"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text",
+      "label": "t:sections.countdown.settings.button_text.label",
       "default": "Notify Me"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link",
-      "info": "Required when using 'Link button' type"
+      "label": "t:sections.countdown.settings.button_link.label",
+      "info": "t:sections.countdown.settings.button_link.info"
     },
     {
       "type": "text",
       "id": "form_placeholder",
-      "label": "Email placeholder",
+      "label": "t:sections.countdown.settings.form_placeholder.label",
       "default": "Enter your email",
-      "info": "Placeholder text for email input (email form only)"
+      "info": "t:sections.countdown.settings.form_placeholder.info"
     },
     {
       "type": "select",
       "id": "button_style",
-      "label": "Button style",
+      "label": "t:sections.countdown.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "Solid" },
-        { "value": "outline", "label": "Outline" }
+        { "value": "solid", "label": "t:sections.countdown.settings.button_style.options__0.label" },
+        { "value": "outline", "label": "t:sections.countdown.settings.button_style.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_color",
-      "label": "Button color",
+      "label": "t:sections.countdown.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "Primary (accent)" },
-        { "value": "secondary", "label": "Secondary (neutral)" }
+        { "value": "primary", "label": "t:sections.countdown.settings.button_color.options__0.label" },
+        { "value": "secondary", "label": "t:sections.countdown.settings.button_color.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_size",
-      "label": "Button size",
+      "label": "t:sections.countdown.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "default", "label": "Default" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.countdown.settings.button_size.options__0.label" },
+        { "value": "default", "label": "t:sections.countdown.settings.button_size.options__1.label" },
+        { "value": "large", "label": "t:sections.countdown.settings.button_size.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "presets": [
     {
-      "name": "Countdown",
-      "category": "Text & content",
+      "name": "t:sections.countdown.presets.countdown.name",
+      "category": "t:sections.countdown.presets.countdown.category",
       "settings": {
         "design": "hero",
         "target_date": "2026-12-31",

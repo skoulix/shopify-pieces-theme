@@ -378,84 +378,84 @@
 
 {% schema %}
   {
-    "name": "Marquee Radial",
+    "name": "t:sections.marquee_radial.name",
     "tag": "section",
     "class": "marquee-radial-section",
     "settings": [
       {
         "type": "header",
-        "content": "Content"
+        "content": "t:shared.headers.content"
       },
       {
         "type": "text",
         "id": "text",
-        "label": "Text",
+        "label": "t:sections.marquee_radial.settings.text.label",
         "default": "Radial Text Marquee"
       },
       {
         "type": "checkbox",
         "id": "outline",
-        "label": "Outline style",
+        "label": "t:sections.marquee_radial.settings.outline.label",
         "default": false
       },
       {
         "type": "header",
-        "content": "Animation"
+        "content": "t:sections.marquee_radial.settings.header__animation.content"
       },
       {
         "type": "range",
         "id": "speed",
-        "label": "Speed",
+        "label": "t:sections.marquee_radial.settings.speed.label",
         "min": 1,
         "max": 10,
         "step": 1,
         "default": 2,
-        "info": "Higher = faster"
+        "info": "t:sections.marquee_radial.settings.speed.info"
       },
       {
         "type": "range",
         "id": "radius",
-        "label": "Curve radius",
+        "label": "t:sections.marquee_radial.settings.radius.label",
         "min": 0,
         "max": 10,
         "step": 1,
         "default": 8,
-        "info": "0 = flat, 10 = most curved"
+        "info": "t:sections.marquee_radial.settings.radius.info"
       },
       {
         "type": "header",
-        "content": "Spacer"
+        "content": "t:sections.marquee_radial.settings.header__spacer.content"
       },
       {
         "type": "text",
         "id": "spacer",
-        "label": "Spacer character",
+        "label": "t:sections.marquee_radial.settings.spacer.label",
         "default": "-",
-        "info": "Character between text repetitions"
+        "info": "t:sections.marquee_radial.settings.spacer.info"
       },
       {
         "type": "color",
         "id": "spacer_color",
-        "label": "Spacer color"
+        "label": "t:sections.marquee_radial.settings.spacer_color.label"
       },
       {
         "type": "range",
         "id": "spacer_padding",
-        "label": "Spacer padding",
+        "label": "t:sections.marquee_radial.settings.spacer_padding.label",
         "min": 0,
         "max": 10,
         "step": 1,
         "default": 1,
-        "info": "Space around the spacer"
+        "info": "t:sections.marquee_radial.settings.spacer_padding.info"
       },
       {
         "type": "header",
-        "content": "Layout"
+        "content": "t:shared.headers.layout"
       },
       {
         "type": "range",
         "id": "padding_top",
-        "label": "Padding top",
+        "label": "t:sections.marquee_radial.settings.padding_top.label",
         "min": 0,
         "max": 200,
         "step": 10,
@@ -465,7 +465,7 @@
       {
         "type": "range",
         "id": "padding_bottom",
-        "label": "Padding bottom",
+        "label": "t:sections.marquee_radial.settings.padding_bottom.label",
         "min": 0,
         "max": 200,
         "step": 10,
@@ -474,19 +474,19 @@
       },
       {
         "type": "header",
-        "content": "Colors"
+        "content": "t:shared.headers.colors"
       },
       {
         "type": "color_scheme",
         "id": "color_scheme",
-        "label": "Color scheme",
+        "label": "t:shared.settings.color_scheme.label",
         "default": "scheme-1"
       }
     ],
     "presets": [
       {
-        "name": "Marquee Radial",
-        "category": "Scrolling & animation",
+        "name": "t:sections.marquee_radial.presets.marquee_radial.name",
+        "category": "t:sections.marquee_radial.presets.marquee_radial.category",
         "settings": {
           "text": "Radial Text Marquee",
           "speed": 2,

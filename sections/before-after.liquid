@@ -194,124 +194,124 @@
 
 {% schema %}
 {
-  "name": "Before/After",
+  "name": "t:sections.before_after.name",
   "tag": "section",
   "class": "before-after-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Compare",
-      "label": "Label"
+      "label": "t:sections.before_after.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "See the Difference",
-      "label": "Title"
+      "label": "t:sections.before_after.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
       "default": "Drag the slider to compare before and after.",
-      "label": "Description"
+      "label": "t:sections.before_after.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Images"
+      "content": "t:sections.before_after.settings.header__images.content"
     },
     {
       "type": "image_picker",
       "id": "image_before",
-      "label": "Before image"
+      "label": "t:sections.before_after.settings.image_before.label"
     },
     {
       "type": "image_picker",
       "id": "image_after",
-      "label": "After image"
+      "label": "t:sections.before_after.settings.image_after.label"
     },
     {
       "type": "select",
       "id": "aspect_ratio",
       "options": [
-        { "value": "16/9", "label": "Landscape (16:9)" },
-        { "value": "4/3", "label": "Standard (4:3)" },
-        { "value": "1/1", "label": "Square (1:1)" },
-        { "value": "3/4", "label": "Portrait (3:4)" }
+        { "value": "16/9", "label": "t:sections.before_after.settings.aspect_ratio.options__0.label" },
+        { "value": "4/3", "label": "t:sections.before_after.settings.aspect_ratio.options__1.label" },
+        { "value": "1/1", "label": "t:sections.before_after.settings.aspect_ratio.options__2.label" },
+        { "value": "3/4", "label": "t:sections.before_after.settings.aspect_ratio.options__3.label" }
       ],
       "default": "16/9",
-      "label": "Aspect ratio"
+      "label": "t:sections.before_after.settings.aspect_ratio.label"
     },
     {
       "type": "header",
-      "content": "Labels"
+      "content": "t:sections.before_after.settings.header__labels.content"
     },
     {
       "type": "checkbox",
       "id": "show_labels",
       "default": true,
-      "label": "Show labels"
+      "label": "t:sections.before_after.settings.show_labels.label"
     },
     {
       "type": "text",
       "id": "before_label",
       "default": "Before",
-      "label": "Before label"
+      "label": "t:sections.before_after.settings.before_label.label"
     },
     {
       "type": "text",
       "id": "after_label",
       "default": "After",
-      "label": "After label"
+      "label": "t:sections.before_after.settings.after_label.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.before_after.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "presets": [
     {
-      "name": "Before/After",
-      "category": "Image & media"
+      "name": "t:sections.before_after.presets.before_after.name",
+      "category": "t:sections.before_after.presets.before_after.category"
     }
   ],
   "disabled_on": {

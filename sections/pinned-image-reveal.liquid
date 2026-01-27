@@ -394,132 +394,132 @@
 
 {% schema %}
 {
-  "name": "Pinned Image Reveal",
+  "name": "t:sections.pinned_image_reveal.name",
   "tag": "section",
   "class": "pinned-reveal-section no-header-offset",
   "settings": [
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "t:sections.pinned_image_reveal.blocks.slide.name",
       "settings": [
         {
           "type": "header",
-          "content": "Image"
+          "content": "t:sections.pinned_image_reveal.blocks.slide.settings.header__image.content"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.image.label"
         },
         {
           "type": "header",
-          "content": "Content"
+          "content": "t:shared.headers.content"
         },
         {
           "type": "text",
           "id": "label",
-          "label": "Label"
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.label.label"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.title.label",
           "default": "Discover Our Story"
         },
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.description.label",
           "default": "Scroll to reveal beautiful imagery and learn more about what makes us unique."
         },
         {
           "type": "header",
-          "content": "Button"
+          "content": "t:sections.pinned_image_reveal.blocks.slide.settings.header__button.content"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button text",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_text.label",
           "default": "Learn More"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button link"
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_link.label"
         },
         {
           "type": "select",
           "id": "button_style",
-          "label": "Button style",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_style.label",
           "default": "outline",
           "options": [
-            { "value": "solid", "label": "Solid" },
-            { "value": "outline", "label": "Outline" }
+            { "value": "solid", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_style.options__0.label" },
+            { "value": "outline", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_style.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_color",
-          "label": "Button color",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_color.label",
           "default": "primary",
           "options": [
-            { "value": "primary", "label": "Primary (accent)" },
-            { "value": "secondary", "label": "Secondary (neutral)" }
+            { "value": "primary", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_color.options__0.label" },
+            { "value": "secondary", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_color.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_size",
-          "label": "Button size",
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_size.label",
           "default": "default",
           "options": [
-            { "value": "small", "label": "Small" },
-            { "value": "default", "label": "Default" },
-            { "value": "large", "label": "Large" }
+            { "value": "small", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_size.options__0.label" },
+            { "value": "default", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_size.options__1.label" },
+            { "value": "large", "label": "t:sections.pinned_image_reveal.blocks.slide.settings.button_size.options__2.label" }
           ]
         },
         {
           "type": "header",
-          "content": "Colors"
+          "content": "t:shared.headers.colors"
         },
         {
           "type": "color",
           "id": "background_color",
-          "label": "Background color",
-          "info": "Background color when this slide is active"
+          "label": "t:sections.pinned_image_reveal.blocks.slide.settings.background_color.label",
+          "info": "t:sections.pinned_image_reveal.blocks.slide.settings.background_color.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Pinned Image Reveal",
-      "category": "Scrolling & animation",
+      "name": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.name",
+      "category": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.category",
       "blocks": [
         {
           "type": "slide",

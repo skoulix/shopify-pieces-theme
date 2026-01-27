@@ -281,53 +281,53 @@
 
 {% schema %}
 {
-  "name": "Complementary Products",
+  "name": "t:sections.complementary_products.name",
   "tag": "section",
   "class": "complementary-products-section",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Shows products frequently bought together. To set up complementary products, use the Search & Discovery app."
+      "content": "t:sections.complementary_products.settings.paragraph__setup.content"
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label"
+      "label": "t:sections.complementary_products.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.complementary_products.settings.title.label",
       "default": "Pairs well with"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description"
+      "label": "t:sections.complementary_products.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
-      "label": "Full width",
+      "label": "t:shared.settings.full_width.label",
       "default": false
     },
     {
       "type": "select",
       "id": "alignment",
-      "label": "Text alignment",
+      "label": "t:sections.complementary_products.settings.alignment.label",
       "default": "left",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.complementary_products.settings.alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.complementary_products.settings.alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.complementary_products.settings.alignment.options__2.label" }
       ]
     },
     {
@@ -337,7 +337,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Products to show"
+      "label": "t:sections.complementary_products.settings.products_to_show.label"
     },
     {
       "type": "range",
@@ -346,43 +346,43 @@
       "max": 4,
       "step": 1,
       "default": 4,
-      "label": "Columns on desktop"
+      "label": "t:sections.complementary_products.settings.columns.label"
     },
     {
       "type": "checkbox",
       "id": "show_add_all",
-      "label": "Show 'Add all to cart' button",
+      "label": "t:sections.complementary_products.settings.show_add_all.label",
       "default": true,
-      "info": "Only shown when all products have a single variant"
+      "info": "t:sections.complementary_products.settings.show_add_all.info"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "presets": [
     {
-      "name": "Complementary Products",
-      "category": "Products"
+      "name": "t:sections.complementary_products.presets.complementary_products.name",
+      "category": "t:sections.complementary_products.presets.complementary_products.category"
     }
   ],
   "enabled_on": {

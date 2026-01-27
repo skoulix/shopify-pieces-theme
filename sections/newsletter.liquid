@@ -56,127 +56,127 @@
 
 {% schema %}
 {
-  "name": "Newsletter",
+  "name": "t:sections.newsletter.name",
   "tag": "section",
   "settings": [
     {
       "type": "select",
       "id": "design",
-      "label": "Design",
+      "label": "t:sections.newsletter.settings.design.label",
       "default": "side-by-side",
       "options": [
-        { "value": "side-by-side", "label": "Side by side" },
-        { "value": "stacked", "label": "Stacked" },
-        { "value": "card", "label": "Card" }
+        { "value": "side-by-side", "label": "t:sections.newsletter.settings.design.options__0.label" },
+        { "value": "stacked", "label": "t:sections.newsletter.settings.design.options__1.label" },
+        { "value": "card", "label": "t:sections.newsletter.settings.design.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.newsletter.settings.title.label",
       "default": "Want product news and updates?"
     },
     {
       "type": "textarea",
       "id": "text",
-      "label": "Description",
+      "label": "t:sections.newsletter.settings.text.label",
       "default": "Subscribe to our newsletter for exclusive updates and special offers.",
-      "info": "Used in Stacked and Card designs"
+      "info": "t:sections.newsletter.settings.text.info"
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text",
+      "label": "t:sections.newsletter.settings.button_text.label",
       "default": "Subscribe"
     },
     {
       "type": "select",
       "id": "button_style",
-      "label": "Button style",
+      "label": "t:sections.newsletter.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "Solid" },
-        { "value": "outline", "label": "Outline" }
+        { "value": "solid", "label": "t:sections.newsletter.settings.button_style.options__0.label" },
+        { "value": "outline", "label": "t:sections.newsletter.settings.button_style.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_color",
-      "label": "Button color",
+      "label": "t:sections.newsletter.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "Primary (accent)" },
-        { "value": "secondary", "label": "Secondary (neutral)" }
+        { "value": "primary", "label": "t:sections.newsletter.settings.button_color.options__0.label" },
+        { "value": "secondary", "label": "t:sections.newsletter.settings.button_color.options__1.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Privacy notice"
+      "content": "t:sections.newsletter.settings.header__privacy_notice.content"
     },
     {
       "type": "text",
       "id": "privacy_text",
-      "label": "Privacy text",
+      "label": "t:sections.newsletter.settings.privacy_text.label",
       "default": "We care about your data. Read our",
-      "info": "Displayed below the form"
+      "info": "t:sections.newsletter.settings.privacy_text.info"
     },
     {
       "type": "url",
       "id": "privacy_link",
-      "label": "Privacy policy link"
+      "label": "t:sections.newsletter.settings.privacy_link.label"
     },
     {
       "type": "text",
       "id": "privacy_link_text",
-      "label": "Privacy link text",
+      "label": "t:sections.newsletter.settings.privacy_link_text.label",
       "default": "privacy policy"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "header",
-      "content": "Padding"
+      "content": "t:shared.headers.padding"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Vertical padding",
+      "label": "t:sections.newsletter.settings.padding.label",
       "default": "default",
-      "info": "Default padding is set in global theme settings",
+      "info": "t:shared.settings.padding.info",
       "options": [
-        { "value": "none", "label": "None" },
-        { "value": "small", "label": "Small" },
-        { "value": "default", "label": "Default" },
-        { "value": "large", "label": "Large" }
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "presets": [
     {
-      "name": "Newsletter",
-      "category": "Marketing",
+      "name": "t:sections.newsletter.presets.newsletter.name",
+      "category": "t:sections.newsletter.presets.newsletter.category",
       "settings": {
         "design": "side-by-side"
       }

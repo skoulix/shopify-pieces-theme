@@ -211,194 +211,194 @@
 
 {% schema %}
 {
-  "name": "Footer",
+  "name": "t:sections.footer.name",
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "select",
       "id": "footer_design",
-      "label": "Footer design",
+      "label": "t:sections.footer.settings.footer_design.label",
       "options": [
-        { "value": "minimal", "label": "Minimal" },
-        { "value": "modern", "label": "Modern" },
-        { "value": "classic", "label": "Classic" }
+        { "value": "minimal", "label": "t:sections.footer.settings.footer_design.options__0.label" },
+        { "value": "modern", "label": "t:sections.footer.settings.footer_design.options__1.label" },
+        { "value": "classic", "label": "t:sections.footer.settings.footer_design.options__2.label" }
       ],
       "default": "minimal",
-      "info": "Minimal: Centered blocks. Modern: Split layout with newsletter. Classic: Multi-column."
+      "info": "t:sections.footer.settings.footer_design.info"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "checkbox",
       "id": "enable_reveal_effect",
       "default": true,
-      "label": "Enable reveal effect",
-      "info": "Footer stays fixed at the bottom and is revealed as you scroll past the content"
+      "label": "t:sections.footer.settings.enable_reveal_effect.label",
+      "info": "t:sections.footer.settings.enable_reveal_effect.info"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "blocks": [
     {
       "type": "brand",
-      "name": "Brand",
+      "name": "t:sections.footer.blocks.brand.name",
       "limit": 1,
       "settings": [
         {
           "type": "image_picker",
           "id": "logo",
-          "label": "Logo",
-          "info": "If not set, shop name will be displayed."
+          "label": "t:sections.footer.blocks.brand.settings.logo.label",
+          "info": "t:sections.footer.blocks.brand.settings.logo.info"
         },
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
+          "label": "t:sections.footer.blocks.brand.settings.description.label",
           "default": "Your brand tagline or brief description goes here."
         },
         {
           "type": "checkbox",
           "id": "show_social",
-          "label": "Show social links",
+          "label": "t:sections.footer.blocks.brand.settings.show_social.label",
           "default": true
         }
       ]
     },
     {
       "type": "navigation",
-      "name": "Navigation",
+      "name": "t:sections.footer.blocks.navigation.name",
       "settings": [
         {
           "type": "link_list",
           "id": "menu",
-          "label": "Menu",
+          "label": "t:sections.footer.blocks.navigation.settings.menu.label",
           "default": "footer"
         },
         {
           "type": "checkbox",
           "id": "nav_uppercase",
           "default": false,
-          "label": "Uppercase navigation"
+          "label": "t:sections.footer.blocks.navigation.settings.nav_uppercase.label"
         }
       ]
     },
     {
       "type": "menu_column",
-      "name": "Menu column",
+      "name": "t:sections.footer.blocks.menu_column.name",
       "settings": [
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.footer.blocks.menu_column.settings.heading.label",
           "default": "Quick links"
         },
         {
           "type": "link_list",
           "id": "menu",
-          "label": "Menu",
+          "label": "t:sections.footer.blocks.menu_column.settings.menu.label",
           "default": "footer"
         }
       ]
     },
     {
       "type": "newsletter",
-      "name": "Newsletter",
+      "name": "t:sections.footer.blocks.newsletter.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.footer.blocks.newsletter.settings.heading.label",
           "default": "Subscribe to our newsletter"
         },
         {
           "type": "text",
           "id": "description",
-          "label": "Description",
+          "label": "t:sections.footer.blocks.newsletter.settings.description.label",
           "default": "Get the latest updates and offers."
         }
       ]
     },
     {
       "type": "social",
-      "name": "Social links",
+      "name": "t:sections.footer.blocks.social.name",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Social links can be managed in Theme settings > Social media"
+          "content": "t:sections.footer.blocks.social.settings.paragraph__social.content"
         }
       ]
     },
     {
       "type": "payment",
-      "name": "Payment icons",
+      "name": "t:sections.footer.blocks.payment.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "grayscale",
-          "label": "Grayscale",
+          "label": "t:sections.footer.blocks.payment.settings.grayscale.label",
           "default": false,
-          "info": "Display payment icons in grayscale for a more minimal look"
+          "info": "t:sections.footer.blocks.payment.settings.grayscale.info"
         }
       ]
     },
     {
       "type": "copyright",
-      "name": "Copyright",
+      "name": "t:sections.footer.blocks.copyright.name",
       "limit": 1,
       "settings": []
     },
     {
       "type": "back_to_top",
-      "name": "Back to top",
+      "name": "t:sections.footer.blocks.back_to_top.name",
       "limit": 1,
       "settings": []
     },
     {
       "type": "text",
-      "name": "Text",
+      "name": "t:sections.footer.blocks.text.name",
       "settings": [
         {
           "type": "richtext",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.footer.blocks.text.settings.text.label",
           "default": "<p>Custom footer text</p>"
         }
       ]
     },
     {
       "type": "spacer",
-      "name": "Spacer",
+      "name": "t:sections.footer.blocks.spacer.name",
       "settings": [
         {
           "type": "range",
@@ -407,40 +407,40 @@
           "max": 100,
           "step": 5,
           "unit": "px",
-          "label": "Height",
+          "label": "t:sections.footer.blocks.spacer.settings.height.label",
           "default": 40
         }
       ]
     },
     {
       "type": "localization",
-      "name": "Country/Language selector",
+      "name": "t:sections.footer.blocks.localization.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_country",
-          "label": "Show country selector",
+          "label": "t:sections.footer.blocks.localization.settings.show_country.label",
           "default": true,
-          "info": "Allows customers to change their currency"
+          "info": "t:sections.footer.blocks.localization.settings.show_country.info"
         },
         {
           "type": "checkbox",
           "id": "show_language",
-          "label": "Show language selector",
+          "label": "t:sections.footer.blocks.localization.settings.show_language.label",
           "default": true,
-          "info": "Allows customers to change their language"
+          "info": "t:sections.footer.blocks.localization.settings.show_language.info"
         }
       ]
     },
     {
       "type": "follow_on_shop",
-      "name": "Follow on Shop",
+      "name": "t:sections.footer.blocks.follow_on_shop.name",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Allow customers to follow your shop on the Shop app. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)"
+          "content": "t:sections.footer.blocks.follow_on_shop.settings.paragraph__follow.content"
         }
       ]
     }

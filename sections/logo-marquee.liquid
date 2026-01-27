@@ -325,44 +325,44 @@
 
 {% schema %}
 {
-  "name": "Logo Marquee",
+  "name": "t:sections.logo_marquee.name",
   "tag": "section",
   "class": "logo-marquee-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "As Featured In",
-      "label": "Label"
+      "label": "t:sections.logo_marquee.settings.label.label"
     },
     {
       "type": "select",
       "id": "label_alignment",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.logo_marquee.settings.label_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.logo_marquee.settings.label_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.logo_marquee.settings.label_alignment.options__2.label" }
       ],
       "default": "center",
-      "label": "Label alignment"
+      "label": "t:sections.logo_marquee.settings.label_alignment.label"
     },
     {
       "type": "header",
-      "content": "Animation"
+      "content": "t:sections.logo_marquee.settings.header__animation.content"
     },
     {
       "type": "select",
       "id": "direction",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.logo_marquee.settings.direction.options__0.label" },
+        { "value": "right", "label": "t:sections.logo_marquee.settings.direction.options__1.label" }
       ],
       "default": "left",
-      "label": "Scroll direction"
+      "label": "t:sections.logo_marquee.settings.direction.label"
     },
     {
       "type": "range",
@@ -372,15 +372,15 @@
       "step": 5,
       "default": 30,
       "unit": "s",
-      "label": "Animation speed",
-      "info": "Duration for one complete loop"
+      "label": "t:sections.logo_marquee.settings.speed.label",
+      "info": "t:sections.logo_marquee.settings.speed.info"
     },
     {
       "type": "checkbox",
       "id": "scroll_aware",
       "default": true,
-      "label": "Scroll-aware movement",
-      "info": "Inverts direction and accelerates based on scroll"
+      "label": "t:sections.logo_marquee.settings.scroll_aware.label",
+      "info": "t:sections.logo_marquee.settings.scroll_aware.info"
     },
     {
       "type": "range",
@@ -389,12 +389,12 @@
       "max": 5,
       "step": 1,
       "default": 2,
-      "label": "Scroll acceleration",
-      "info": "Max speed multiplier while scrolling"
+      "label": "t:sections.logo_marquee.settings.scroll_speed.label",
+      "info": "t:sections.logo_marquee.settings.scroll_speed.info"
     },
     {
       "type": "header",
-      "content": "Logo Styling"
+      "content": "t:sections.logo_marquee.settings.header__logo_styling.content"
     },
     {
       "type": "range",
@@ -404,7 +404,7 @@
       "step": 5,
       "default": 50,
       "unit": "px",
-      "label": "Logo height"
+      "label": "t:sections.logo_marquee.settings.logo_height.label"
     },
     {
       "type": "range",
@@ -414,7 +414,7 @@
       "step": 10,
       "default": 120,
       "unit": "px",
-      "label": "Logo max width"
+      "label": "t:sections.logo_marquee.settings.logo_max_width.label"
     },
     {
       "type": "range",
@@ -424,79 +424,79 @@
       "step": 5,
       "default": 60,
       "unit": "%",
-      "label": "Logo opacity"
+      "label": "t:sections.logo_marquee.settings.logo_opacity.label"
     },
     {
       "type": "checkbox",
       "id": "grayscale",
       "default": true,
-      "label": "Grayscale logos",
-      "info": "Color on hover"
+      "label": "t:sections.logo_marquee.settings.grayscale.label",
+      "info": "t:sections.logo_marquee.settings.grayscale.info"
     },
     {
       "type": "checkbox",
       "id": "invert",
       "default": false,
-      "label": "Invert logos",
-      "info": "Invert logo colors (useful for dark backgrounds)"
+      "label": "t:sections.logo_marquee.settings.invert.label",
+      "info": "t:sections.logo_marquee.settings.invert.info"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": true,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "small",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "blocks": [
     {
       "type": "logo",
-      "name": "Logo",
+      "name": "t:sections.logo_marquee.blocks.logo.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "logo",
-          "label": "Logo image",
-          "info": "Add alt text via the image's metadata in Files"
+          "label": "t:sections.logo_marquee.blocks.logo.settings.logo.label",
+          "info": "t:sections.logo_marquee.blocks.logo.settings.logo.info"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link (optional)"
+          "label": "t:sections.logo_marquee.blocks.logo.settings.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Logo Marquee",
-      "category": "Social proof",
+      "name": "t:sections.logo_marquee.presets.logo_marquee.name",
+      "category": "t:sections.logo_marquee.presets.logo_marquee.category",
       "blocks": [
         { "type": "logo" },
         { "type": "logo" },

@@ -225,83 +225,83 @@
 
 {% schema %}
 {
-  "name": "Horizontal Scroll",
+  "name": "t:sections.horizontal_scroll.name",
   "tag": "section",
   "class": "horizontal-scroll-section no-header-offset",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Gallery",
-      "label": "Label"
+      "label": "t:sections.horizontal_scroll.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "Explore Our Collection",
-      "label": "Title"
+      "label": "t:sections.horizontal_scroll.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
       "default": "Scroll to discover our carefully curated selection of products and experiences.",
-      "label": "Description"
+      "label": "t:sections.horizontal_scroll.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "blocks": [
     {
       "type": "image",
-      "name": "Image",
+      "name": "t:sections.horizontal_scroll.blocks.image.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "t:sections.horizontal_scroll.blocks.image.settings.image.label"
         },
         {
           "type": "text",
           "id": "label",
           "default": "Category",
-          "label": "Label"
+          "label": "t:sections.horizontal_scroll.blocks.image.settings.label.label"
         },
         {
           "type": "text",
           "id": "title",
           "default": "Image Title",
-          "label": "Title"
+          "label": "t:sections.horizontal_scroll.blocks.image.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
           "default": "A brief description of this image or collection.",
-          "label": "Text"
+          "label": "t:sections.horizontal_scroll.blocks.image.settings.text.label"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.horizontal_scroll.blocks.image.settings.link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Horizontal Scroll",
-      "category": "Scrolling & animation",
+      "name": "t:sections.horizontal_scroll.presets.horizontal_scroll.name",
+      "category": "t:sections.horizontal_scroll.presets.horizontal_scroll.category",
       "blocks": [
         { "type": "image", "settings": { "label": "01", "title": "Curated Selection", "text": "Discover our handpicked favorites" } },
         { "type": "image", "settings": { "label": "02", "title": "New Arrivals", "text": "The latest additions to our collection" } },

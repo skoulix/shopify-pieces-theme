@@ -436,101 +436,101 @@
 
 {% schema %}
 {
-  "name": "Collections Carousel",
+  "name": "t:sections.collections_carousel.name",
   "tag": "section",
   "class": "collections-carousel-wrapper",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label"
+      "label": "t:sections.collections_carousel.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.collections_carousel.settings.title.label",
       "default": "Shop by Collection"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description"
+      "label": "t:sections.collections_carousel.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.collections_carousel.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "slides_mobile",
       "default": "1",
-      "label": "Products per view (mobile)",
+      "label": "t:sections.collections_carousel.settings.slides_mobile.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
+        { "value": "1", "label": "t:sections.collections_carousel.settings.slides_mobile.options__0.label" },
+        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_mobile.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "slides_tablet",
       "default": "2",
-      "label": "Products per view (tablet)",
+      "label": "t:sections.collections_carousel.settings.slides_tablet.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" }
+        { "value": "1", "label": "t:sections.collections_carousel.settings.slides_tablet.options__0.label" },
+        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_tablet.options__1.label" },
+        { "value": "3", "label": "t:sections.collections_carousel.settings.slides_tablet.options__2.label" }
       ]
     },
     {
       "type": "select",
       "id": "slides_desktop",
       "default": "4",
-      "label": "Products per view (desktop)",
+      "label": "t:sections.collections_carousel.settings.slides_desktop.label",
       "options": [
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" },
-        { "value": "4", "label": "4" },
-        { "value": "5", "label": "5" }
+        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_desktop.options__0.label" },
+        { "value": "3", "label": "t:sections.collections_carousel.settings.slides_desktop.options__1.label" },
+        { "value": "4", "label": "t:sections.collections_carousel.settings.slides_desktop.options__2.label" },
+        { "value": "5", "label": "t:sections.collections_carousel.settings.slides_desktop.options__3.label" }
       ]
     },
     {
       "type": "checkbox",
       "id": "show_progress_bar",
       "default": true,
-      "label": "Show progress bar"
+      "label": "t:sections.collections_carousel.settings.show_progress_bar.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Products"
+      "content": "t:sections.collections_carousel.settings.header__products.content"
     },
     {
       "type": "range",
@@ -539,48 +539,48 @@
       "max": 12,
       "step": 1,
       "default": 8,
-      "label": "Products to show"
+      "label": "t:sections.collections_carousel.settings.products_to_show.label"
     },
     {
       "type": "checkbox",
       "id": "show_vendor",
       "default": false,
-      "label": "Show vendor"
+      "label": "t:sections.collections_carousel.settings.show_vendor.label"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "collection",
-      "name": "Collection",
+      "name": "t:sections.collections_carousel.blocks.collection.name",
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.collections_carousel.blocks.collection.settings.collection.label"
         },
         {
           "type": "text",
           "id": "tab_label",
-          "label": "Tab label",
-          "info": "Leave blank to use collection title"
+          "label": "t:sections.collections_carousel.blocks.collection.settings.tab_label.label",
+          "info": "t:sections.collections_carousel.blocks.collection.settings.tab_label.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Collections Carousel",
-      "category": "Products",
+      "name": "t:sections.collections_carousel.presets.collections_carousel.name",
+      "category": "t:sections.collections_carousel.presets.collections_carousel.category",
       "blocks": [
         { "type": "collection" },
         { "type": "collection" },

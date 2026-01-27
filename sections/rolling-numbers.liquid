@@ -157,80 +157,80 @@
 
 {% schema %}
 {
-  "name": "Rolling Numbers",
+  "name": "t:sections.rolling_numbers.name",
   "tag": "section",
   "class": "rolling-numbers-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label"
+      "label": "t:sections.rolling_numbers.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.rolling_numbers.settings.title.label",
       "default": "By the Numbers"
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description"
+      "label": "t:sections.rolling_numbers.settings.description.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.rolling_numbers.settings.header_alignment.label",
       "default": "center"
     },
     {
       "type": "select",
       "id": "content_alignment",
       "default": "center",
-      "label": "Content alignment",
+      "label": "t:sections.rolling_numbers.settings.content_alignment.label",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.rolling_numbers.settings.content_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.rolling_numbers.settings.content_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.rolling_numbers.settings.content_alignment.options__2.label" }
       ]
     },
     {
       "type": "checkbox",
       "id": "show_dividers",
       "default": true,
-      "label": "Show dividers between items",
-      "info": "Vertical lines between stats on desktop"
+      "label": "t:sections.rolling_numbers.settings.show_dividers.label",
+      "info": "t:sections.rolling_numbers.settings.show_dividers.info"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Animation"
+      "content": "t:sections.rolling_numbers.settings.header__animation.content"
     },
     {
       "type": "range",
@@ -240,63 +240,63 @@
       "step": 100,
       "default": 1500,
       "unit": "ms",
-      "label": "Roll duration",
-      "info": "How long the number rolling animation takes"
+      "label": "t:sections.rolling_numbers.settings.animation_duration.label",
+      "info": "t:sections.rolling_numbers.settings.animation_duration.info"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "blocks": [
     {
       "type": "stat",
-      "name": "Statistic",
+      "name": "t:sections.rolling_numbers.blocks.stat.name",
       "settings": [
         {
           "type": "text",
           "id": "number",
-          "label": "Number",
+          "label": "t:sections.rolling_numbers.blocks.stat.settings.number.label",
           "default": "100",
-          "info": "The target number to animate to"
+          "info": "t:sections.rolling_numbers.blocks.stat.settings.number.info"
         },
         {
           "type": "text",
           "id": "prefix",
-          "label": "Prefix",
-          "info": "Symbol before number (e.g., $, +)"
+          "label": "t:sections.rolling_numbers.blocks.stat.settings.prefix.label",
+          "info": "t:sections.rolling_numbers.blocks.stat.settings.prefix.info"
         },
         {
           "type": "text",
           "id": "suffix",
-          "label": "Suffix",
-          "info": "Symbol after number (e.g., %, K, M)"
+          "label": "t:sections.rolling_numbers.blocks.stat.settings.suffix.label",
+          "info": "t:sections.rolling_numbers.blocks.stat.settings.suffix.info"
         },
         {
           "type": "text",
           "id": "label",
-          "label": "Label",
+          "label": "t:sections.rolling_numbers.blocks.stat.settings.label.label",
           "default": "Happy Customers"
         },
         {
           "type": "text",
           "id": "description",
-          "label": "Description",
-          "info": "Optional short description"
+          "label": "t:sections.rolling_numbers.blocks.stat.settings.description.label",
+          "info": "t:sections.rolling_numbers.blocks.stat.settings.description.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Rolling Numbers",
-      "category": "Text & content",
+      "name": "t:sections.rolling_numbers.presets.rolling_numbers.name",
+      "category": "t:sections.rolling_numbers.presets.rolling_numbers.category",
       "settings": {
         "title": "By the Numbers",
         "description": "Our impact in numbers that speak for themselves."

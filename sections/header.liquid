@@ -1816,168 +1816,168 @@
 
 {% schema %}
 {
-  "name": "Header",
+  "name": "t:sections.header.name",
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Menu"
+      "label": "t:sections.header.settings.menu.label"
     },
     {
       "type": "select",
       "id": "header_layout",
-      "label": "Header layout",
+      "label": "t:sections.header.settings.header_layout.label",
       "default": "logo_left",
       "options": [
-        { "value": "logo_left", "label": "Logo left" },
-        { "value": "logo_center", "label": "Logo centered" }
+        { "value": "logo_left", "label": "t:sections.header.settings.header_layout.options__0.label" },
+        { "value": "logo_center", "label": "t:sections.header.settings.header_layout.options__1.label" }
       ],
-      "info": "Logo centered places menu on left, logo in center, and icons on right"
+      "info": "t:sections.header.settings.header_layout.info"
     },
     {
       "type": "select",
       "id": "nav_position",
-      "label": "Navigation position",
+      "label": "t:sections.header.settings.nav_position.label",
       "default": "center",
       "options": [
-        { "value": "left", "label": "Left (after logo)" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right (before icons)" }
+        { "value": "left", "label": "t:sections.header.settings.nav_position.options__0.label" },
+        { "value": "center", "label": "t:sections.header.settings.nav_position.options__1.label" },
+        { "value": "right", "label": "t:sections.header.settings.nav_position.options__2.label" }
       ],
-      "info": "Only applies when logo is on the left"
+      "info": "t:sections.header.settings.nav_position.info"
     },
     {
       "type": "checkbox",
       "id": "nav_uppercase",
       "default": false,
-      "label": "Uppercase navigation"
+      "label": "t:sections.header.settings.nav_uppercase.label"
     },
     {
       "type": "header",
-      "content": "Header icons"
+      "content": "t:sections.header.settings.header__header_icons.content"
     },
     {
       "type": "checkbox",
       "id": "show_search",
       "default": true,
-      "label": "Show search icon"
+      "label": "t:sections.header.settings.show_search.label"
     },
     {
       "type": "select",
       "id": "search_type",
-      "label": "Search behavior",
+      "label": "t:sections.header.settings.search_type.label",
       "default": "drawer",
       "options": [
-        { "value": "drawer", "label": "Open search drawer" },
-        { "value": "page", "label": "Link to search page" }
+        { "value": "drawer", "label": "t:sections.header.settings.search_type.options__0.label" },
+        { "value": "page", "label": "t:sections.header.settings.search_type.options__1.label" }
       ],
-      "info": "Drawer shows predictive search results as you type"
+      "info": "t:sections.header.settings.search_type.info"
     },
     {
       "type": "checkbox",
       "id": "show_wishlist",
       "default": false,
-      "label": "Show wishlist icon"
+      "label": "t:sections.header.settings.show_wishlist.label"
     },
     {
       "type": "checkbox",
       "id": "show_cart",
       "default": true,
-      "label": "Show cart icon"
+      "label": "t:sections.header.settings.show_cart.label"
     },
     {
       "type": "header",
-      "content": "Localization"
+      "content": "t:sections.header.settings.header__localization.content"
     },
     {
       "type": "checkbox",
       "id": "enable_country_selector",
       "default": false,
-      "label": "Enable country/region selector",
-      "info": "Only shows when multiple countries are available in your market settings"
+      "label": "t:sections.header.settings.enable_country_selector.label",
+      "info": "t:sections.header.settings.enable_country_selector.info"
     },
     {
       "type": "checkbox",
       "id": "enable_language_selector",
       "default": false,
-      "label": "Enable language selector",
-      "info": "Only shows when multiple languages are available"
+      "label": "t:sections.header.settings.enable_language_selector.label",
+      "info": "t:sections.header.settings.enable_language_selector.info"
     },
     {
       "type": "header",
-      "content": "Mobile menu"
+      "content": "t:sections.header.settings.header__mobile_menu.content"
     },
     {
       "type": "select",
       "id": "mobile_menu_style",
-      "label": "Mobile menu style",
+      "label": "t:sections.header.settings.mobile_menu_style.label",
       "default": "accordion",
       "options": [
-        { "value": "accordion", "label": "Accordion (expand in place)" },
-        { "value": "slide", "label": "Sliding panels" }
+        { "value": "accordion", "label": "t:sections.header.settings.mobile_menu_style.options__0.label" },
+        { "value": "slide", "label": "t:sections.header.settings.mobile_menu_style.options__1.label" }
       ],
-      "info": "Sliding panels work better for menus with 3+ levels"
+      "info": "t:sections.header.settings.mobile_menu_style.info"
     },
     {
       "type": "header",
-      "content": "Sticky behavior"
+      "content": "t:sections.header.settings.header__sticky_behavior.content"
     },
     {
       "type": "checkbox",
       "id": "sticky_header",
       "default": true,
-      "label": "Sticky header",
-      "info": "Keep header fixed at top while scrolling"
+      "label": "t:sections.header.settings.sticky_header.label",
+      "info": "t:sections.header.settings.sticky_header.info"
     },
     {
       "type": "checkbox",
       "id": "hide_on_scroll",
       "default": true,
-      "label": "Hide on scroll down",
-      "info": "Hide header when scrolling down, reveal when scrolling up"
+      "label": "t:sections.header.settings.hide_on_scroll.label",
+      "info": "t:sections.header.settings.hide_on_scroll.info"
     },
     {
       "type": "header",
-      "content": "Transparent header"
+      "content": "t:sections.header.settings.header__transparent_header.content"
     },
     {
       "type": "checkbox",
       "id": "transparent_home",
       "default": false,
-      "label": "Transparent on homepage",
-      "info": "Header overlays content with transparent background on homepage"
+      "label": "t:sections.header.settings.transparent_home.label",
+      "info": "t:sections.header.settings.transparent_home.info"
     },
     {
       "type": "color",
       "id": "transparent_text_color",
-      "label": "Text color",
+      "label": "t:sections.header.settings.transparent_text_color.label",
       "default": "#ffffff",
-      "info": "Color for links, text, and icons when transparent"
+      "info": "t:sections.header.settings.transparent_text_color.info"
     },
     {
       "type": "header",
-      "content": "Announcement bar"
+      "content": "t:sections.header.settings.header__announcement_bar.content"
     },
     {
       "type": "checkbox",
       "id": "show_announcement_bar",
       "default": true,
-      "label": "Show announcement bar"
+      "label": "t:sections.header.settings.show_announcement_bar.label"
     },
     {
       "type": "color_scheme",
       "id": "announcement_color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     },
     {
@@ -1988,7 +1988,7 @@
       "step": 4,
       "default": 40,
       "unit": "px",
-      "label": "Bar height"
+      "label": "t:sections.header.settings.announcement_height.label"
     },
     {
       "type": "range",
@@ -1998,81 +1998,81 @@
       "step": 1,
       "default": 5,
       "unit": "s",
-      "label": "Auto-rotate speed",
-      "info": "Set to 0 to disable auto-rotation"
+      "label": "t:sections.header.settings.announcement_rotation.label",
+      "info": "t:sections.header.settings.announcement_rotation.info"
     },
     {
       "type": "checkbox",
       "id": "announcement_arrows",
       "default": false,
-      "label": "Show navigation arrows"
+      "label": "t:sections.header.settings.announcement_arrows.label"
     },
     {
       "type": "checkbox",
       "id": "announcement_dismissible",
       "default": true,
-      "label": "Allow dismissal",
-      "info": "Shows close button and remembers user preference"
+      "label": "t:sections.header.settings.announcement_dismissible.label",
+      "info": "t:sections.header.settings.announcement_dismissible.info"
     }
   ],
   "blocks": [
     {
       "type": "mega_menu",
-      "name": "Mega menu",
+      "name": "t:sections.header.blocks.mega_menu.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item",
-          "label": "Menu item",
-          "info": "Enter the name of the menu item exactly as it appears in your navigation (e.g., 'Shop', 'Collections', 'Theme Sections')"
+          "label": "t:sections.header.blocks.mega_menu.settings.menu_item.label",
+          "info": "t:sections.header.blocks.mega_menu.settings.menu_item.info"
         },
         {
           "type": "checkbox",
           "id": "full_width",
           "default": true,
-          "label": "Full width"
+          "label": "t:shared.settings.full_width.label"
         },
         {
           "type": "select",
           "id": "animation",
-          "label": "Animation style",
+          "label": "t:sections.header.blocks.mega_menu.settings.animation.label",
           "default": "fade-slide",
           "options": [
             {
               "value": "fade-slide",
-              "label": "Fade + slide"
+              "label": "t:sections.header.blocks.mega_menu.settings.animation.options__0.label"
             },
             {
               "value": "fade",
-              "label": "Fade only"
+              "label": "t:sections.header.blocks.mega_menu.settings.animation.options__1.label"
             }
           ]
         },
         {
           "type": "header",
-          "content": "Featured content"
+          "content": "t:sections.header.blocks.mega_menu.settings.header__featured_content.content"
         },
         {
           "type": "checkbox",
           "id": "show_featured",
           "default": true,
-          "label": "Show featured section"
+          "label": "t:sections.header.blocks.mega_menu.settings.show_featured.label"
         },
         {
           "type": "text",
           "id": "featured_heading",
-          "label": "Featured heading",
+          "label": "t:sections.header.blocks.mega_menu.settings.featured_heading.label",
           "default": "Featured"
         },
         {
           "type": "collection",
           "id": "featured_collection",
-          "label": "Featured collection"
+          "label": "t:sections.header.blocks.mega_menu.settings.featured_collection.label"
         },
         {
           "type": "range",
           "id": "featured_limit",
-          "label": "Products to show",
+          "label": "t:sections.header.blocks.mega_menu.settings.featured_limit.label",
           "min": 1,
           "max": 6,
           "step": 1,
@@ -2080,80 +2080,80 @@
         },
         {
           "type": "header",
-          "content": "Promotional image"
+          "content": "t:sections.header.blocks.mega_menu.settings.header__promotional_image.content"
         },
         {
           "type": "image_picker",
           "id": "promo_image",
-          "label": "Image"
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_image.label"
         },
         {
           "type": "text",
           "id": "promo_heading",
-          "label": "Heading"
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_heading.label"
         },
         {
           "type": "text",
           "id": "promo_text",
-          "label": "Text"
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_text.label"
         },
         {
           "type": "url",
           "id": "promo_link",
-          "label": "Link"
+          "label": "t:sections.header.blocks.mega_menu.settings.promo_link.label"
         }
       ]
     },
     {
       "type": "announcement",
-      "name": "Announcement message",
+      "name": "t:sections.header.blocks.announcement.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.header.blocks.announcement.settings.text.label",
           "default": "Free shipping on orders over $50"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Link"
+          "label": "t:sections.header.blocks.announcement.settings.link.label"
         },
         {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "t:sections.header.blocks.announcement.settings.icon.label",
           "default": "none",
           "options": [
-            { "value": "none", "label": "None" },
-            { "value": "truck", "label": "Truck (Shipping)" },
-            { "value": "tag", "label": "Tag (Sale)" },
-            { "value": "gift", "label": "Gift" },
-            { "value": "star", "label": "Star" },
-            { "value": "sparkle", "label": "Sparkle" },
-            { "value": "percent", "label": "Percent" },
-            { "value": "lightning", "label": "Lightning" },
-            { "value": "heart", "label": "Heart" },
-            { "value": "fire", "label": "Fire" },
-            { "value": "clock", "label": "Clock" },
-            { "value": "calendar", "label": "Calendar" }
+            { "value": "none", "label": "t:sections.header.blocks.announcement.settings.icon.options__0.label" },
+            { "value": "truck", "label": "t:sections.header.blocks.announcement.settings.icon.options__1.label" },
+            { "value": "tag", "label": "t:sections.header.blocks.announcement.settings.icon.options__2.label" },
+            { "value": "gift", "label": "t:sections.header.blocks.announcement.settings.icon.options__3.label" },
+            { "value": "star", "label": "t:sections.header.blocks.announcement.settings.icon.options__4.label" },
+            { "value": "sparkle", "label": "t:sections.header.blocks.announcement.settings.icon.options__5.label" },
+            { "value": "percent", "label": "t:sections.header.blocks.announcement.settings.icon.options__6.label" },
+            { "value": "lightning", "label": "t:sections.header.blocks.announcement.settings.icon.options__7.label" },
+            { "value": "heart", "label": "t:sections.header.blocks.announcement.settings.icon.options__8.label" },
+            { "value": "fire", "label": "t:sections.header.blocks.announcement.settings.icon.options__9.label" },
+            { "value": "clock", "label": "t:sections.header.blocks.announcement.settings.icon.options__10.label" },
+            { "value": "calendar", "label": "t:sections.header.blocks.announcement.settings.icon.options__11.label" }
           ]
         },
         {
           "type": "header",
-          "content": "Countdown timer"
+          "content": "t:sections.header.blocks.announcement.settings.header__countdown_timer.content"
         },
         {
           "type": "checkbox",
           "id": "show_countdown",
           "default": false,
-          "label": "Show countdown timer"
+          "label": "t:sections.header.blocks.announcement.settings.show_countdown.label"
         },
         {
           "type": "text",
           "id": "countdown_date",
-          "label": "End date and time",
-          "info": "Format: YYYY-MM-DD HH:MM (e.g., 2024-12-31 23:59)"
+          "label": "t:sections.header.blocks.announcement.settings.countdown_date.label",
+          "info": "t:sections.header.blocks.announcement.settings.countdown_date.info"
         }
       ]
     }

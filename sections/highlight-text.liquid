@@ -137,29 +137,29 @@
 
 {% schema %}
 {
-  "name": "Highlight Text",
+  "name": "t:sections.highlight_text.name",
   "tag": "section",
   "class": "highlight-text-section",
   "settings": [
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "select",
       "id": "text_alignment",
-      "label": "Text alignment",
+      "label": "t:sections.highlight_text.settings.text_alignment.label",
       "default": "center",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.highlight_text.settings.text_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.highlight_text.settings.text_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.highlight_text.settings.text_alignment.options__2.label" }
       ]
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding top",
+      "label": "t:sections.highlight_text.settings.padding_top.label",
       "min": 0,
       "max": 200,
       "step": 10,
@@ -169,7 +169,7 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding bottom",
+      "label": "t:sections.highlight_text.settings.padding_bottom.label",
       "min": 0,
       "max": 200,
       "step": 10,
@@ -178,148 +178,148 @@
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "heading",
-      "name": "Heading",
+      "name": "t:sections.highlight_text.blocks.heading.name",
       "settings": [
         {
           "type": "textarea",
           "id": "heading",
-          "label": "Heading",
+          "label": "t:sections.highlight_text.blocks.heading.settings.heading.label",
           "default": "Highlight text as you scroll down the page"
         },
         {
           "type": "select",
           "id": "heading_tag",
-          "label": "Heading tag",
+          "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.label",
           "default": "h2",
           "options": [
-            { "value": "h2", "label": "H2" },
-            { "value": "h3", "label": "H3" },
-            { "value": "h4", "label": "H4" },
-            { "value": "h5", "label": "H5" },
-            { "value": "h6", "label": "H6" }
+            { "value": "h2", "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.options__0.label" },
+            { "value": "h3", "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.options__1.label" },
+            { "value": "h4", "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.options__2.label" },
+            { "value": "h5", "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.options__3.label" },
+            { "value": "h6", "label": "t:sections.highlight_text.blocks.heading.settings.heading_tag.options__4.label" }
           ]
         },
         {
           "type": "select",
           "id": "heading_size",
-          "label": "Heading size",
+          "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.label",
           "default": "xl",
           "options": [
-            { "value": "sm", "label": "Small" },
-            { "value": "md", "label": "Medium" },
-            { "value": "lg", "label": "Large" },
-            { "value": "xl", "label": "Extra large" },
-            { "value": "2xl", "label": "2X large" }
+            { "value": "sm", "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.options__0.label" },
+            { "value": "md", "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.options__1.label" },
+            { "value": "lg", "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.options__2.label" },
+            { "value": "xl", "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.options__3.label" },
+            { "value": "2xl", "label": "t:sections.highlight_text.blocks.heading.settings.heading_size.options__4.label" }
           ]
         },
         {
           "type": "header",
-          "content": "Animation"
+          "content": "t:sections.highlight_text.blocks.heading.settings.header__animation.content"
         },
         {
           "type": "text",
           "id": "scroll_start",
-          "label": "Scroll start",
+          "label": "t:sections.highlight_text.blocks.heading.settings.scroll_start.label",
           "default": "top 90%",
-          "info": "When the animation starts (e.g., 'top 90%')"
+          "info": "t:sections.highlight_text.blocks.heading.settings.scroll_start.info"
         },
         {
           "type": "text",
           "id": "scroll_end",
-          "label": "Scroll end",
+          "label": "t:sections.highlight_text.blocks.heading.settings.scroll_end.label",
           "default": "center 40%",
-          "info": "When the animation ends (e.g., 'center 40%')"
+          "info": "t:sections.highlight_text.blocks.heading.settings.scroll_end.info"
         },
         {
           "type": "range",
           "id": "fade_opacity",
-          "label": "Pre-highlight opacity",
+          "label": "t:sections.highlight_text.blocks.heading.settings.fade_opacity.label",
           "min": 0.1,
           "max": 0.9,
           "step": 0.1,
           "default": 0.2,
-          "info": "Opacity of text before highlighting"
+          "info": "t:sections.highlight_text.blocks.heading.settings.fade_opacity.info"
         },
         {
           "type": "range",
           "id": "stagger",
-          "label": "Stagger duration",
+          "label": "t:sections.highlight_text.blocks.heading.settings.stagger.label",
           "min": 0.1,
           "max": 1,
           "step": 0.1,
           "default": 0.1,
-          "info": "Lower = smoother reveal"
+          "info": "t:sections.highlight_text.blocks.heading.settings.stagger.info"
         }
       ]
     },
     {
       "type": "text",
-      "name": "Text",
+      "name": "t:sections.highlight_text.blocks.text.name",
       "settings": [
         {
           "type": "textarea",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.highlight_text.blocks.text.settings.text.label",
           "default": "Add supporting text below your heading."
         }
       ]
     },
     {
       "type": "button",
-      "name": "Button",
+      "name": "t:sections.highlight_text.blocks.button.name",
       "settings": [
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button text",
+          "label": "t:sections.highlight_text.blocks.button.settings.button_text.label",
           "default": "Learn More"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button link"
+          "label": "t:sections.highlight_text.blocks.button.settings.button_link.label"
         },
         {
           "type": "select",
           "id": "button_style",
-          "label": "Button style",
+          "label": "t:sections.highlight_text.blocks.button.settings.button_style.label",
           "default": "solid",
           "options": [
-            { "value": "solid", "label": "Solid" },
-            { "value": "outline", "label": "Outline" }
+            { "value": "solid", "label": "t:sections.highlight_text.blocks.button.settings.button_style.options__0.label" },
+            { "value": "outline", "label": "t:sections.highlight_text.blocks.button.settings.button_style.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_color",
-          "label": "Button color",
+          "label": "t:sections.highlight_text.blocks.button.settings.button_color.label",
           "default": "primary",
           "options": [
-            { "value": "primary", "label": "Primary (accent)" },
-            { "value": "secondary", "label": "Secondary (neutral)" }
+            { "value": "primary", "label": "t:sections.highlight_text.blocks.button.settings.button_color.options__0.label" },
+            { "value": "secondary", "label": "t:sections.highlight_text.blocks.button.settings.button_color.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_size",
-          "label": "Button size",
+          "label": "t:sections.highlight_text.blocks.button.settings.button_size.label",
           "default": "default",
           "options": [
-            { "value": "small", "label": "Small" },
-            { "value": "default", "label": "Default" },
-            { "value": "large", "label": "Large" }
+            { "value": "small", "label": "t:sections.highlight_text.blocks.button.settings.button_size.options__0.label" },
+            { "value": "default", "label": "t:sections.highlight_text.blocks.button.settings.button_size.options__1.label" },
+            { "value": "large", "label": "t:sections.highlight_text.blocks.button.settings.button_size.options__2.label" }
           ]
         }
       ]
@@ -327,8 +327,8 @@
   ],
   "presets": [
     {
-      "name": "Highlight Text",
-      "category": "Scrolling & animation",
+      "name": "t:sections.highlight_text.presets.highlight_text.name",
+      "category": "t:sections.highlight_text.presets.highlight_text.category",
       "blocks": [
         {
           "type": "heading",

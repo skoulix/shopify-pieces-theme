@@ -265,53 +265,53 @@
 
 {% schema %}
 {
-  "name": "Testimonials",
+  "name": "t:sections.testimonials.name",
   "tag": "section",
   "class": "testimonials-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Testimonials",
-      "label": "Label"
+      "label": "t:sections.testimonials.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
       "default": "What Our Customers Say",
-      "label": "Title"
+      "label": "t:sections.testimonials.settings.title.label"
     },
     {
       "type": "checkbox",
       "id": "show_rating",
       "default": true,
-      "label": "Show star rating"
+      "label": "t:sections.testimonials.settings.show_rating.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.testimonials.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "slides_mobile",
       "default": "1",
-      "label": "Slides per view (mobile)",
+      "label": "t:sections.testimonials.settings.slides_mobile.label",
       "options": [
         { "value": "1", "label": "1" },
         { "value": "2", "label": "2" }
@@ -321,7 +321,7 @@
       "type": "select",
       "id": "slides_tablet",
       "default": "2",
-      "label": "Slides per view (tablet)",
+      "label": "t:sections.testimonials.settings.slides_tablet.label",
       "options": [
         { "value": "1", "label": "1" },
         { "value": "2", "label": "2" },
@@ -332,7 +332,7 @@
       "type": "select",
       "id": "slides_desktop",
       "default": "2",
-      "label": "Slides per view (desktop)",
+      "label": "t:sections.testimonials.settings.slides_desktop.label",
       "options": [
         { "value": "1", "label": "1" },
         { "value": "2", "label": "2" },
@@ -344,57 +344,57 @@
       "type": "checkbox",
       "id": "show_progress_bar",
       "default": true,
-      "label": "Show progress bar"
+      "label": "t:sections.testimonials.settings.show_progress_bar.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Text"
+      "content": "t:sections.testimonials.settings.header__text.content"
     },
     {
       "type": "select",
       "id": "text_size",
       "default": "medium",
-      "label": "Quote text size",
+      "label": "t:sections.testimonials.settings.text_size.label",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.testimonials.settings.text_size.options__0.label" },
+        { "value": "medium", "label": "t:sections.testimonials.settings.text_size.options__1.label" },
+        { "value": "large", "label": "t:sections.testimonials.settings.text_size.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-2"
     }
   ],
   "blocks": [
     {
       "type": "testimonial",
-      "name": "Testimonial",
+      "name": "t:sections.testimonials.blocks.testimonial.name",
       "settings": [
         {
           "type": "textarea",
           "id": "quote",
           "default": "This product exceeded all my expectations. The quality is outstanding and the customer service was exceptional.",
-          "label": "Quote"
+          "label": "t:sections.testimonials.blocks.testimonial.settings.quote.label"
         },
         {
           "type": "range",
@@ -403,32 +403,32 @@
           "max": 5,
           "step": 1,
           "default": 5,
-          "label": "Rating"
+          "label": "t:sections.testimonials.blocks.testimonial.settings.rating.label"
         },
         {
           "type": "image_picker",
           "id": "avatar",
-          "label": "Author photo"
+          "label": "t:sections.testimonials.blocks.testimonial.settings.avatar.label"
         },
         {
           "type": "text",
           "id": "author",
           "default": "Sarah Johnson",
-          "label": "Author name"
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author.label"
         },
         {
           "type": "text",
           "id": "author_title",
           "default": "Verified Buyer",
-          "label": "Author title"
+          "label": "t:sections.testimonials.blocks.testimonial.settings.author_title.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Testimonials",
-      "category": "Social proof",
+      "name": "t:sections.testimonials.presets.testimonials.name",
+      "category": "t:sections.testimonials.presets.testimonials.category",
       "blocks": [
         { "type": "testimonial", "settings": { "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.", "author": "Sarah Johnson", "author_title": "Verified Buyer", "rating": 5 } },
         { "type": "testimonial", "settings": { "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.", "author": "Michael Chen", "author_title": "Loyal Customer", "rating": 5 } },

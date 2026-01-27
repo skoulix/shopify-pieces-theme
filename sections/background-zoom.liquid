@@ -322,201 +322,201 @@
 
 {% schema %}
   {
-    "name": "Background Zoom",
+    "name": "t:sections.background_zoom.name",
     "tag": "section",
     "class": "background-zoom-section no-header-offset",
     "settings": [
       {
         "type": "header",
-        "content": "Image"
+        "content": "t:sections.background_zoom.settings.header__image.content"
       },
       {
         "type": "image_picker",
         "id": "image",
-        "label": "Image"
+        "label": "t:sections.background_zoom.settings.image.label"
       },
       {
         "type": "header",
-        "content": "Title (Before Zoom)"
+        "content": "t:sections.background_zoom.settings.header__title_before_zoom.content"
       },
       {
         "type": "text",
         "id": "title_before",
-        "label": "Title",
+        "label": "t:sections.background_zoom.settings.title_before.label",
         "default": "Image to Background"
       },
       {
         "type": "text",
         "id": "title_before_accent",
-        "label": "Accent text",
+        "label": "t:sections.background_zoom.settings.title_before_accent.label",
         "default": "(Zoom)"
       },
       {
         "type": "header",
-        "content": "Image Overlay"
+        "content": "t:sections.background_zoom.settings.header__image_overlay.content"
       },
       {
         "type": "text",
         "id": "overlay_text",
-        "label": "Overlay text",
-        "info": "Text displayed on top of the image"
+        "label": "t:sections.background_zoom.settings.overlay_text.label",
+        "info": "t:sections.background_zoom.settings.overlay_text.info"
       },
       {
         "type": "header",
-        "content": "After Section"
+        "content": "t:sections.background_zoom.settings.header__after_section.content"
       },
       {
         "type": "checkbox",
         "id": "show_after_section",
-        "label": "Show after section",
+        "label": "t:sections.background_zoom.settings.show_after_section.label",
         "default": false
       },
       {
         "type": "text",
         "id": "after_heading",
-        "label": "After section heading",
+        "label": "t:sections.background_zoom.settings.after_heading.label",
         "default": "And we reached the end!"
       },
       {
         "type": "text",
         "id": "after_overlay_text",
-        "label": "After section overlay text"
+        "label": "t:sections.background_zoom.settings.after_overlay_text.label"
       },
       {
         "type": "color_scheme",
         "id": "after_color_scheme",
-        "label": "After section color scheme",
+        "label": "t:sections.background_zoom.settings.after_color_scheme.label",
         "default": "scheme-1"
       },
       {
         "type": "header",
-        "content": "Colors"
+        "content": "t:shared.headers.colors"
       },
       {
         "type": "color_scheme",
         "id": "color_scheme",
-        "label": "Color scheme",
+        "label": "t:shared.settings.color_scheme.label",
         "default": "scheme-3"
       },
       {
         "type": "color",
         "id": "content_bg_color",
-        "label": "Content background color",
-        "info": "Background of the zoom container"
+        "label": "t:sections.background_zoom.settings.content_bg_color.label",
+        "info": "t:sections.background_zoom.settings.content_bg_color.info"
       },
       {
         "type": "color",
         "id": "overlay_text_color",
-        "label": "Overlay text color"
+        "label": "t:sections.background_zoom.settings.overlay_text_color.label"
       },
       {
         "type": "color",
         "id": "dark_overlay_color",
-        "label": "Dark overlay color"
+        "label": "t:sections.background_zoom.settings.dark_overlay_color.label"
       }
     ],
     "blocks": [
       {
         "type": "heading",
-        "name": "Heading",
+        "name": "t:sections.background_zoom.blocks.heading.name",
         "settings": [
           {
             "type": "text",
             "id": "text",
-            "label": "Text",
+            "label": "t:sections.background_zoom.blocks.heading.settings.text.label",
             "default": "This is the after phase"
           },
           {
             "type": "text",
             "id": "accent_text",
-            "label": "Accent text",
-            "info": "Appears on a new line with accent color"
+            "label": "t:sections.background_zoom.blocks.heading.settings.accent_text.label",
+            "info": "t:sections.background_zoom.blocks.heading.settings.accent_text.info"
           },
           {
             "type": "checkbox",
             "id": "add_margin_top",
-            "label": "Add top margin",
+            "label": "t:sections.background_zoom.blocks.heading.settings.add_margin_top.label",
             "default": false,
-            "info": "Adds vertical spacing (33dvh)"
+            "info": "t:sections.background_zoom.blocks.heading.settings.add_margin_top.info"
           }
         ]
       },
       {
         "type": "text",
-        "name": "Text",
+        "name": "t:sections.background_zoom.blocks.text.name",
         "settings": [
           {
             "type": "textarea",
             "id": "text",
-            "label": "Text",
+            "label": "t:sections.background_zoom.blocks.text.settings.text.label",
             "default": "Continue scrolling to reveal more content as the image zooms to fill the background."
           }
         ]
       },
       {
         "type": "button",
-        "name": "Button",
+        "name": "t:sections.background_zoom.blocks.button.name",
         "settings": [
           {
             "type": "text",
             "id": "button_text",
-            "label": "Button text",
+            "label": "t:sections.background_zoom.blocks.button.settings.button_text.label",
             "default": "Learn More"
           },
           {
             "type": "url",
             "id": "button_link",
-            "label": "Button link"
+            "label": "t:sections.background_zoom.blocks.button.settings.button_link.label"
           },
           {
             "type": "select",
             "id": "button_style",
-            "label": "Button style",
+            "label": "t:sections.background_zoom.blocks.button.settings.button_style.label",
             "default": "outline",
             "options": [
               {
                 "value": "solid",
-                "label": "Solid"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_style.options__0.label"
               },
               {
                 "value": "outline",
-                "label": "Outline"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_style.options__1.label"
               }
             ]
           },
           {
             "type": "select",
             "id": "button_color",
-            "label": "Button color",
+            "label": "t:sections.background_zoom.blocks.button.settings.button_color.label",
             "default": "primary",
             "options": [
               {
                 "value": "primary",
-                "label": "Primary (accent)"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_color.options__0.label"
               },
               {
                 "value": "secondary",
-                "label": "Secondary (neutral)"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_color.options__1.label"
               }
             ]
           },
           {
             "type": "select",
             "id": "button_size",
-            "label": "Button size",
+            "label": "t:sections.background_zoom.blocks.button.settings.button_size.label",
             "default": "default",
             "options": [
               {
                 "value": "small",
-                "label": "Small"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_size.options__0.label"
               },
               {
                 "value": "default",
-                "label": "Default"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_size.options__1.label"
               },
               {
                 "value": "large",
-                "label": "Large"
+                "label": "t:sections.background_zoom.blocks.button.settings.button_size.options__2.label"
               }
             ]
           }
@@ -525,8 +525,8 @@
     ],
     "presets": [
       {
-        "name": "Background Zoom",
-        "category": "Scrolling & animation",
+        "name": "t:sections.background_zoom.presets.background_zoom.name",
+        "category": "t:sections.background_zoom.presets.background_zoom.category",
         "settings": {
           "title_before": "Image to Background",
           "title_before_accent": "(Zoom)",

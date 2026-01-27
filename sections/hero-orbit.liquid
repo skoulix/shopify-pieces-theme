@@ -461,90 +461,90 @@
 
 {% schema %}
   {
-    "name": "Hero Orbit",
+    "name": "t:sections.hero_orbit.name",
     "tag": "section",
     "class": "hero-orbit-section no-header-offset",
     "settings": [
       {
         "type": "header",
-        "content": "Content"
+        "content": "t:shared.headers.content"
       },
       {
         "type": "text",
         "id": "title_line_1",
         "default": "Celestial",
-        "label": "Title line 1"
+        "label": "t:sections.hero_orbit.settings.title_line_1.label"
       },
       {
         "type": "text",
         "id": "title_line_2",
         "default": "Visions",
-        "label": "Title line 2"
+        "label": "t:sections.hero_orbit.settings.title_line_2.label"
       },
       {
         "type": "text",
         "id": "subtitle",
         "default": "2024",
-        "label": "Subtitle"
+        "label": "t:sections.hero_orbit.settings.subtitle.label"
       },
       {
         "type": "text",
         "id": "button_text",
-        "label": "Button text"
+        "label": "t:sections.hero_orbit.settings.button_text.label"
       },
       {
         "type": "url",
         "id": "button_link",
-        "label": "Button link"
+        "label": "t:sections.hero_orbit.settings.button_link.label"
       },
       {
         "type": "select",
         "id": "button_style",
-        "label": "Button style",
+        "label": "t:sections.hero_orbit.settings.button_style.label",
         "default": "outline",
         "options": [
           {
             "value": "solid",
-            "label": "Solid"
+            "label": "t:sections.hero_orbit.settings.button_style.options__0.label"
           },
           {
             "value": "outline",
-            "label": "Outline"
+            "label": "t:sections.hero_orbit.settings.button_style.options__1.label"
           }
         ]
       },
       {
         "type": "select",
         "id": "button_color",
-        "label": "Button color",
+        "label": "t:sections.hero_orbit.settings.button_color.label",
         "default": "primary",
         "options": [
           {
             "value": "primary",
-            "label": "Primary (accent)"
+            "label": "t:sections.hero_orbit.settings.button_color.options__0.label"
           },
           {
             "value": "secondary",
-            "label": "Secondary (neutral)"
+            "label": "t:sections.hero_orbit.settings.button_color.options__1.label"
           }
         ]
       },
       {
         "type": "select",
         "id": "button_size",
-        "label": "Button size",
+        "label": "t:sections.hero_orbit.settings.button_size.label",
         "options": [
           {
             "value": "small",
-            "label": "Small"
+            "label": "t:sections.hero_orbit.settings.button_size.options__0.label"
           },
           {
             "value": "default",
-            "label": "Default"
+            "label": "t:sections.hero_orbit.settings.button_size.options__1.label"
           },
           {
             "value": "large",
-            "label": "Large"
+            "label": "t:sections.hero_orbit.settings.button_size.options__2.label"
           }
         ],
         "default": "large"
@@ -553,38 +553,38 @@
         "type": "checkbox",
         "id": "show_scroll_indicator",
         "default": true,
-        "label": "Show scroll indicator"
+        "label": "t:sections.hero_orbit.settings.show_scroll_indicator.label"
       },
       {
         "type": "header",
-        "content": "Animation"
+        "content": "t:sections.hero_orbit.settings.header__animation.content"
       },
       {
         "type": "select",
         "id": "animation_style",
-        "label": "Animation style",
+        "label": "t:sections.hero_orbit.settings.animation_style.label",
         "options": [
           {
             "value": "orbit",
-            "label": "Orbit - Expand from center"
+            "label": "t:sections.hero_orbit.settings.animation_style.options__0.label"
           },
           {
             "value": "cascade",
-            "label": "Cascade - Flip up from below"
+            "label": "t:sections.hero_orbit.settings.animation_style.options__1.label"
           },
           {
             "value": "spiral",
-            "label": "Spiral - Enter from sides"
+            "label": "t:sections.hero_orbit.settings.animation_style.options__2.label"
           }
         ],
         "default": "orbit",
-        "info": "Choose how images animate into the circle"
+        "info": "t:sections.hero_orbit.settings.animation_style.info"
       },
       {
         "type": "checkbox",
         "id": "enable_rotation",
         "default": true,
-        "label": "Enable continuous rotation"
+        "label": "t:sections.hero_orbit.settings.enable_rotation.label"
       },
       {
         "type": "range",
@@ -594,70 +594,70 @@
         "step": 10,
         "default": 60,
         "unit": "s",
-        "label": "Rotation speed",
-        "info": "Time for one full rotation"
+        "label": "t:sections.hero_orbit.settings.rotation_speed.label",
+        "info": "t:sections.hero_orbit.settings.rotation_speed.info"
       },
       {
         "type": "checkbox",
         "id": "enable_flip",
         "default": true,
-        "label": "Enable random card flips"
+        "label": "t:sections.hero_orbit.settings.enable_flip.label"
       },
       {
         "type": "header",
-        "content": "Colors"
+        "content": "t:shared.headers.colors"
       },
       {
         "type": "color_scheme",
         "id": "color_scheme",
-        "label": "Color scheme",
+        "label": "t:shared.settings.color_scheme.label",
         "default": "scheme-3"
       },
       {
         "type": "image_picker",
         "id": "background_image",
-        "label": "Background image"
+        "label": "t:sections.hero_orbit.settings.background_image.label"
       },
       {
         "type": "select",
         "id": "background_image_position",
-        "label": "Background image position",
+        "label": "t:sections.hero_orbit.settings.background_image_position.label",
         "options": [
           {
             "value": "top left",
-            "label": "Top left"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__0.label"
           },
           {
             "value": "top center",
-            "label": "Top center"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__1.label"
           },
           {
             "value": "top right",
-            "label": "Top right"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__2.label"
           },
           {
             "value": "center left",
-            "label": "Center left"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__3.label"
           },
           {
             "value": "center center",
-            "label": "Center"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__4.label"
           },
           {
             "value": "center right",
-            "label": "Center right"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__5.label"
           },
           {
             "value": "bottom left",
-            "label": "Bottom left"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__6.label"
           },
           {
             "value": "bottom center",
-            "label": "Bottom center"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__7.label"
           },
           {
             "value": "bottom right",
-            "label": "Bottom right"
+            "label": "t:sections.hero_orbit.settings.background_image_position.options__8.label"
           }
         ],
         "default": "center center"
@@ -670,13 +670,13 @@
         "step": 1,
         "default": 0,
         "unit": "px",
-        "label": "Background image blur"
+        "label": "t:sections.hero_orbit.settings.background_image_blur.label"
       },
       {
         "type": "color",
         "id": "overlay_color",
         "default": "#000000",
-        "label": "Overlay color"
+        "label": "t:sections.hero_orbit.settings.overlay_color.label"
       },
       {
         "type": "range",
@@ -686,35 +686,35 @@
         "step": 5,
         "default": 40,
         "unit": "%",
-        "label": "Overlay opacity",
-        "info": "Darkens the background for better text readability"
+        "label": "t:sections.hero_orbit.settings.overlay_opacity.label",
+        "info": "t:sections.hero_orbit.settings.overlay_opacity.info"
       },
       {
         "type": "header",
-        "content": "Cards"
+        "content": "t:sections.hero_orbit.settings.header__cards.content"
       },
       {
         "type": "color",
         "id": "card_background",
-        "label": "Card background",
+        "label": "t:sections.hero_orbit.settings.card_background.label",
         "default": "#ffffff"
       },
       {
         "type": "select",
         "id": "image_fit",
-        "label": "Image fit",
+        "label": "t:sections.hero_orbit.settings.image_fit.label",
         "options": [
           {
             "value": "cover",
-            "label": "Cover"
+            "label": "t:sections.hero_orbit.settings.image_fit.options__0.label"
           },
           {
             "value": "contain",
-            "label": "Contain"
+            "label": "t:sections.hero_orbit.settings.image_fit.options__1.label"
           }
         ],
         "default": "cover",
-        "info": "Cover fills the card, Contain shows the full image"
+        "info": "t:sections.hero_orbit.settings.image_fit.info"
       },
       {
         "type": "range",
@@ -724,27 +724,27 @@
         "step": 1,
         "default": -15,
         "unit": "°",
-        "label": "Card tilt",
-        "info": "Subtle creative tilt applied to all cards"
+        "label": "t:sections.hero_orbit.settings.card_tilt.label",
+        "info": "t:sections.hero_orbit.settings.card_tilt.info"
       }
     ],
     "blocks": [
       {
         "type": "image",
-        "name": "Image",
+        "name": "t:sections.hero_orbit.blocks.image.name",
         "settings": [
           {
             "type": "image_picker",
             "id": "image",
-            "label": "Image"
+            "label": "t:sections.hero_orbit.blocks.image.settings.image.label"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "Hero Orbit",
-        "category": "Image & media",
+        "name": "t:sections.hero_orbit.presets.hero_orbit.name",
+        "category": "t:sections.hero_orbit.presets.hero_orbit.category",
         "blocks": [
           {
             "type": "image"

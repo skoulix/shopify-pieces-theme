@@ -276,13 +276,13 @@
 
 {% schema %}
   {
-    "name": "Marquee",
+    "name": "t:sections.marquee.name",
     "tag": "section",
     "class": "marquee-section-wrapper",
     "settings": [
       {
         "type": "header",
-        "content": "Animation"
+        "content": "t:sections.marquee.settings.header__animation.content"
       },
       {
         "type": "select",
@@ -290,15 +290,15 @@
         "options": [
           {
             "value": "left",
-            "label": "Left"
+            "label": "t:sections.marquee.settings.direction.options__0.label"
           },
           {
             "value": "right",
-            "label": "Right"
+            "label": "t:sections.marquee.settings.direction.options__1.label"
           }
         ],
         "default": "left",
-        "label": "Direction"
+        "label": "t:sections.marquee.settings.direction.label"
       },
       {
         "type": "range",
@@ -308,15 +308,15 @@
         "step": 5,
         "default": 30,
         "unit": "s",
-        "label": "Animation speed",
-        "info": "Duration for one complete loop"
+        "label": "t:sections.marquee.settings.speed.label",
+        "info": "t:sections.marquee.settings.speed.info"
       },
       {
         "type": "checkbox",
         "id": "scroll_aware",
         "default": true,
-        "label": "Scroll-aware movement",
-        "info": "Inverts direction and accelerates based on scroll"
+        "label": "t:sections.marquee.settings.scroll_aware.label",
+        "info": "t:sections.marquee.settings.scroll_aware.info"
       },
       {
         "type": "range",
@@ -325,65 +325,65 @@
         "max": 5,
         "step": 1,
         "default": 2,
-        "label": "Scroll acceleration",
-        "info": "Max speed multiplier while scrolling"
+        "label": "t:sections.marquee.settings.scroll_speed.label",
+        "info": "t:sections.marquee.settings.scroll_speed.info"
       },
       {
         "type": "checkbox",
         "id": "pause_on_hover",
         "default": true,
-        "label": "Pause on hover"
+        "label": "t:sections.marquee.settings.pause_on_hover.label"
       },
       {
         "type": "header",
-        "content": "Padding"
+        "content": "t:shared.headers.padding"
       },
       {
         "type": "select",
         "id": "padding",
-        "label": "Vertical padding",
+        "label": "t:sections.marquee.settings.padding.label",
         "default": "small",
-        "info": "Default padding is set in global theme settings",
+        "info": "t:shared.settings.padding.info",
         "options": [
-          { "value": "none", "label": "None" },
-          { "value": "small", "label": "Small" },
-          { "value": "default", "label": "Default" },
-          { "value": "large", "label": "Large" }
+          { "value": "none", "label": "t:shared.settings.padding.options__0.label" },
+          { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+          { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+          { "value": "large", "label": "t:shared.settings.padding.options__3.label" }
         ]
       },
       {
         "type": "header",
-        "content": "Colors"
+        "content": "t:shared.headers.colors"
       },
       {
         "type": "color_scheme",
         "id": "color_scheme",
-        "label": "Color scheme",
+        "label": "t:shared.settings.color_scheme.label",
         "default": "scheme-3"
       }
     ],
     "blocks": [
       {
         "type": "text",
-        "name": "Text",
+        "name": "t:sections.marquee.blocks.text.name",
         "settings": [
           {
             "type": "text",
             "id": "text",
             "default": "Free Shipping",
-            "label": "Text"
+            "label": "t:sections.marquee.blocks.text.settings.text.label"
           },
           {
             "type": "checkbox",
             "id": "outline",
             "default": false,
-            "label": "Outline style"
+            "label": "t:sections.marquee.blocks.text.settings.outline.label"
           }
         ]
       },
       {
         "type": "separator",
-        "name": "Separator",
+        "name": "t:sections.marquee.blocks.separator.name",
         "settings": [
           {
             "type": "select",
@@ -391,30 +391,30 @@
             "options": [
               {
                 "value": "dot",
-                "label": "Dot"
+                "label": "t:sections.marquee.blocks.separator.settings.style.options__0.label"
               },
               {
                 "value": "icon",
-                "label": "Icon"
+                "label": "t:sections.marquee.blocks.separator.settings.style.options__1.label"
               }
             ],
             "default": "dot",
-            "label": "Style"
+            "label": "t:sections.marquee.blocks.separator.settings.style.label"
           },
           {
             "type": "text",
             "id": "icon",
             "default": "star-four",
-            "label": "Icon name",
-            "info": "Phosphor icon name (e.g., star-four, asterisk, diamond)"
+            "label": "t:sections.marquee.blocks.separator.settings.icon.label",
+            "info": "t:sections.marquee.blocks.separator.settings.icon.info"
           }
         ]
       }
     ],
     "presets": [
       {
-        "name": "Marquee",
-        "category": "Scrolling & animation",
+        "name": "t:sections.marquee.presets.marquee.name",
+        "category": "t:sections.marquee.presets.marquee.category",
         "blocks": [
           {
             "type": "text",

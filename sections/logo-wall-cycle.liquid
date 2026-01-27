@@ -349,52 +349,52 @@
 
 {% schema %}
 {
-  "name": "Logo Wall Cycle",
+  "name": "t:sections.logo_wall_cycle.name",
   "tag": "section",
   "class": "logo-wall-cycle-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Trusted By",
-      "label": "Label"
+      "label": "t:sections.logo_wall_cycle.settings.label.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "select",
       "id": "label_alignment",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__2.label" }
       ],
       "default": "center",
-      "label": "Label alignment"
+      "label": "t:sections.logo_wall_cycle.settings.label_alignment.label"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
@@ -404,7 +404,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Columns on desktop"
+      "label": "t:sections.logo_wall_cycle.settings.columns_desktop.label"
     },
     {
       "type": "range",
@@ -413,7 +413,7 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "Columns on tablet"
+      "label": "t:sections.logo_wall_cycle.settings.columns_tablet.label"
     },
     {
       "type": "range",
@@ -422,7 +422,7 @@
       "max": 3,
       "step": 1,
       "default": 2,
-      "label": "Columns on mobile"
+      "label": "t:sections.logo_wall_cycle.settings.columns_mobile.label"
     },
     {
       "type": "range",
@@ -431,8 +431,8 @@
       "max": 12,
       "step": 1,
       "default": 8,
-      "label": "Visible logos (Desktop)",
-      "info": "Number of logos visible at once"
+      "label": "t:sections.logo_wall_cycle.settings.visible_desktop.label",
+      "info": "t:sections.logo_wall_cycle.settings.visible_desktop.info"
     },
     {
       "type": "range",
@@ -441,7 +441,7 @@
       "max": 9,
       "step": 1,
       "default": 6,
-      "label": "Visible logos (Tablet)"
+      "label": "t:sections.logo_wall_cycle.settings.visible_tablet.label"
     },
     {
       "type": "range",
@@ -450,7 +450,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Visible logos (Mobile)"
+      "label": "t:sections.logo_wall_cycle.settings.visible_mobile.label"
     },
     {
       "type": "range",
@@ -460,11 +460,11 @@
       "step": 4,
       "default": 16,
       "unit": "px",
-      "label": "Gap between items"
+      "label": "t:sections.logo_wall_cycle.settings.gap.label"
     },
     {
       "type": "header",
-      "content": "Animation"
+      "content": "t:sections.logo_wall_cycle.settings.header__animation.content"
     },
     {
       "type": "range",
@@ -474,8 +474,8 @@
       "step": 0.5,
       "default": 1.5,
       "unit": "s",
-      "label": "Cycle interval",
-      "info": "Time between logo swaps"
+      "label": "t:sections.logo_wall_cycle.settings.loop_delay.label",
+      "info": "t:sections.logo_wall_cycle.settings.loop_delay.info"
     },
     {
       "type": "range",
@@ -485,18 +485,18 @@
       "step": 0.1,
       "default": 0.9,
       "unit": "s",
-      "label": "Animation duration"
+      "label": "t:sections.logo_wall_cycle.settings.animation_duration.label"
     },
     {
       "type": "checkbox",
       "id": "shuffle",
       "default": true,
-      "label": "Shuffle initial logos",
-      "info": "Randomize which logos appear first"
+      "label": "t:sections.logo_wall_cycle.settings.shuffle.label",
+      "info": "t:sections.logo_wall_cycle.settings.shuffle.info"
     },
     {
       "type": "header",
-      "content": "Logo Styling"
+      "content": "t:sections.logo_wall_cycle.settings.header__logo_styling.content"
     },
     {
       "type": "range",
@@ -506,50 +506,50 @@
       "step": 5,
       "default": 50,
       "unit": "px",
-      "label": "Logo height"
+      "label": "t:sections.logo_wall_cycle.settings.logo_height.label"
     },
     {
       "type": "checkbox",
       "id": "grayscale",
       "default": false,
-      "label": "Grayscale logos"
+      "label": "t:sections.logo_wall_cycle.settings.grayscale.label"
     },
     {
       "type": "checkbox",
       "id": "invert",
       "default": false,
-      "label": "Invert logos",
-      "info": "Invert logo colors (useful for dark backgrounds)"
+      "label": "t:sections.logo_wall_cycle.settings.invert.label",
+      "info": "t:sections.logo_wall_cycle.settings.invert.info"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "logo",
-      "name": "Logo",
+      "name": "t:sections.logo_wall_cycle.blocks.logo.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "logo",
-          "label": "Logo image",
-          "info": "Add alt text via the image's metadata in Files"
+          "label": "t:sections.logo_wall_cycle.blocks.logo.settings.logo.label",
+          "info": "t:sections.logo_wall_cycle.blocks.logo.settings.logo.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Logo Wall Cycle",
-      "category": "Social proof",
+      "name": "t:sections.logo_wall_cycle.presets.logo_wall_cycle.name",
+      "category": "t:sections.logo_wall_cycle.presets.logo_wall_cycle.category",
       "blocks": [
         { "type": "logo" },
         { "type": "logo" },

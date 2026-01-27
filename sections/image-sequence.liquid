@@ -307,103 +307,103 @@
 
 {% schema %}
 {
-  "name": "Image Sequence",
+  "name": "t:sections.image_sequence.name",
   "tag": "section",
   "class": "image-sequence-section",
   "settings": [
     {
       "type": "header",
-      "content": "Image Sequence"
+      "content": "t:sections.image_sequence.settings.header__image_sequence.content"
     },
     {
       "type": "text",
       "id": "desktop_source",
-      "label": "Desktop source URL",
-      "info": "Base URL for desktop frames (e.g., https://cdn.com/sequence/desktop/frame-). The frame number and extension will be appended automatically."
+      "label": "t:sections.image_sequence.settings.desktop_source.label",
+      "info": "t:sections.image_sequence.settings.desktop_source.info"
     },
     {
       "type": "text",
       "id": "mobile_source",
-      "label": "Mobile source URL",
-      "info": "Base URL for mobile frames. Falls back to desktop if not set."
+      "label": "t:sections.image_sequence.settings.mobile_source.label",
+      "info": "t:sections.image_sequence.settings.mobile_source.info"
     },
     {
       "type": "image_picker",
       "id": "static_image",
-      "label": "Static fallback image",
-      "info": "Shown when user prefers reduced motion"
+      "label": "t:sections.image_sequence.settings.static_image.label",
+      "info": "t:sections.image_sequence.settings.static_image.info"
     },
     {
       "type": "range",
       "id": "frames",
-      "label": "Total frames",
+      "label": "t:sections.image_sequence.settings.frames.label",
       "min": 10,
       "max": 300,
       "step": 10,
       "default": 120,
-      "info": "Number of frames in the sequence"
+      "info": "t:sections.image_sequence.settings.frames.info"
     },
     {
       "type": "range",
       "id": "digits",
-      "label": "Filename digits",
+      "label": "t:sections.image_sequence.settings.digits.label",
       "min": 1,
       "max": 5,
       "step": 1,
       "default": 3,
-      "info": "Zero-padding in filenames (e.g., 3 = 000, 001, 002)"
+      "info": "t:sections.image_sequence.settings.digits.info"
     },
     {
       "type": "number",
       "id": "index_start",
-      "label": "Start index",
+      "label": "t:sections.image_sequence.settings.index_start.label",
       "default": 0,
-      "info": "First frame number in filenames (usually 0 or 1)"
+      "info": "t:sections.image_sequence.settings.index_start.info"
     },
     {
       "type": "select",
       "id": "filetype",
-      "label": "File type",
+      "label": "t:sections.image_sequence.settings.filetype.label",
       "options": [
-        { "value": "webp", "label": "WebP (Recommended)" },
-        { "value": "jpg", "label": "JPG" },
-        { "value": "png", "label": "PNG" },
-        { "value": "avif", "label": "AVIF" }
+        { "value": "webp", "label": "t:sections.image_sequence.settings.filetype.options__0.label" },
+        { "value": "jpg", "label": "t:sections.image_sequence.settings.filetype.options__1.label" },
+        { "value": "png", "label": "t:sections.image_sequence.settings.filetype.options__2.label" },
+        { "value": "avif", "label": "t:sections.image_sequence.settings.filetype.options__3.label" }
       ],
       "default": "webp"
     },
     {
       "type": "header",
-      "content": "Scroll Behavior"
+      "content": "t:sections.image_sequence.settings.header__scroll_behavior.content"
     },
     {
       "type": "range",
       "id": "scroll_height",
-      "label": "Scroll height",
+      "label": "t:sections.image_sequence.settings.scroll_height.label",
       "min": 100,
       "max": 500,
       "step": 50,
       "default": 300,
       "unit": "vh",
-      "info": "Total scroll distance to play through the sequence"
+      "info": "t:sections.image_sequence.settings.scroll_height.info"
     },
     {
       "type": "text",
       "id": "scroll_start",
-      "label": "Scroll start",
+      "label": "t:sections.image_sequence.settings.scroll_start.label",
       "default": "top top",
-      "info": "ScrollTrigger start position (e.g., top top, top center)"
+      "info": "t:sections.image_sequence.settings.scroll_start.info"
     },
     {
       "type": "text",
       "id": "scroll_end",
-      "label": "Scroll end",
+      "label": "t:sections.image_sequence.settings.scroll_end.label",
       "default": "bottom top",
-      "info": "ScrollTrigger end position (e.g., bottom top, bottom center)"
+      "info": "t:sections.image_sequence.settings.scroll_end.info"
     },
     {
       "type": "header",
-      "content": "Overlay & Content"
+      "content": "t:sections.image_sequence.settings.header__overlay_and_content.content"
     },
     {
       "type": "range",
@@ -413,111 +413,111 @@
       "step": 5,
       "default": 0,
       "unit": "%",
-      "label": "Overlay opacity"
+      "label": "t:sections.image_sequence.settings.overlay_opacity.label"
     },
     {
       "type": "select",
       "id": "content_alignment",
-      "label": "Text alignment",
+      "label": "t:sections.image_sequence.settings.content_alignment.label",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.image_sequence.settings.content_alignment.options__0.label" },
+        { "value": "center", "label": "t:sections.image_sequence.settings.content_alignment.options__1.label" },
+        { "value": "right", "label": "t:sections.image_sequence.settings.content_alignment.options__2.label" }
       ],
       "default": "center"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "label",
-      "name": "Label",
+      "name": "t:sections.image_sequence.blocks.label.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.image_sequence.blocks.label.settings.text.label",
           "default": "SCROLL TO EXPLORE"
         }
       ]
     },
     {
       "type": "heading",
-      "name": "Heading",
+      "name": "t:sections.image_sequence.blocks.heading.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.image_sequence.blocks.heading.settings.text.label",
           "default": "Image Sequence"
         }
       ]
     },
     {
       "type": "text",
-      "name": "Text",
+      "name": "t:sections.image_sequence.blocks.text.name",
       "settings": [
         {
           "type": "textarea",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.image_sequence.blocks.text.settings.text.label",
           "default": "Scroll through this section to see the animation unfold frame by frame."
         }
       ]
     },
     {
       "type": "button",
-      "name": "Button",
+      "name": "t:sections.image_sequence.blocks.button.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text",
+          "label": "t:sections.image_sequence.blocks.button.settings.text.label",
           "default": "Learn More"
         },
         {
           "type": "url",
           "id": "url",
-          "label": "URL"
+          "label": "t:sections.image_sequence.blocks.button.settings.url.label"
         },
         {
           "type": "select",
           "id": "button_style",
-          "label": "Style",
+          "label": "t:sections.image_sequence.blocks.button.settings.button_style.label",
           "default": "solid",
           "options": [
-            { "value": "solid", "label": "Solid" },
-            { "value": "outline", "label": "Outline" }
+            { "value": "solid", "label": "t:sections.image_sequence.blocks.button.settings.button_style.options__0.label" },
+            { "value": "outline", "label": "t:sections.image_sequence.blocks.button.settings.button_style.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_color",
-          "label": "Color",
+          "label": "t:sections.image_sequence.blocks.button.settings.button_color.label",
           "default": "primary",
           "options": [
-            { "value": "primary", "label": "Primary" },
-            { "value": "secondary", "label": "Secondary" }
+            { "value": "primary", "label": "t:sections.image_sequence.blocks.button.settings.button_color.options__0.label" },
+            { "value": "secondary", "label": "t:sections.image_sequence.blocks.button.settings.button_color.options__1.label" }
           ]
         },
         {
           "type": "select",
           "id": "button_size",
-          "label": "Size",
+          "label": "t:sections.image_sequence.blocks.button.settings.button_size.label",
           "default": "default",
           "options": [
-            { "value": "small", "label": "Small" },
-            { "value": "default", "label": "Default" },
-            { "value": "large", "label": "Large" }
+            { "value": "small", "label": "t:sections.image_sequence.blocks.button.settings.button_size.options__0.label" },
+            { "value": "default", "label": "t:sections.image_sequence.blocks.button.settings.button_size.options__1.label" },
+            { "value": "large", "label": "t:sections.image_sequence.blocks.button.settings.button_size.options__2.label" }
           ]
         }
       ]
@@ -525,8 +525,8 @@
   ],
   "presets": [
     {
-      "name": "Image Sequence",
-      "category": "Scrolling & animation",
+      "name": "t:sections.image_sequence.presets.image_sequence.name",
+      "category": "t:sections.image_sequence.presets.image_sequence.category",
       "settings": {
         "frames": 120,
         "digits": 3,

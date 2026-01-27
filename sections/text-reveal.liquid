@@ -206,146 +206,146 @@
 
 {% schema %}
 {
-  "name": "Text Reveal",
+  "name": "t:sections.text_reveal.name",
   "tag": "section",
   "class": "text-reveal-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
       "default": "Our Mission",
-      "label": "Label"
+      "label": "t:sections.text_reveal.settings.label.label"
     },
     {
       "type": "textarea",
       "id": "text",
       "default": "Crafted with *care*,\ndesigned to *inspire*.",
-      "label": "Heading text",
-      "info": "Use * around words to highlight them (e.g., *word*). Use line breaks to create multiple lines."
+      "label": "t:sections.text_reveal.settings.text.label",
+      "info": "t:sections.text_reveal.settings.text.info"
     },
     {
       "type": "textarea",
       "id": "subtext",
       "default": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
-      "label": "Subtext"
+      "label": "t:sections.text_reveal.settings.subtext.label"
     },
     {
       "type": "text",
       "id": "button_text",
       "default": "Learn More",
-      "label": "Button text"
+      "label": "t:sections.text_reveal.settings.button_text.label"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link"
+      "label": "t:sections.text_reveal.settings.button_link.label"
     },
     {
       "type": "select",
       "id": "button_type",
-      "label": "Button type",
+      "label": "t:sections.text_reveal.settings.button_type.label",
       "default": "link",
       "options": [
-        { "value": "link", "label": "Text link" },
-        { "value": "button", "label": "Button" }
+        { "value": "link", "label": "t:sections.text_reveal.settings.button_type.options__0.label" },
+        { "value": "button", "label": "t:sections.text_reveal.settings.button_type.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_style",
-      "label": "Button style",
+      "label": "t:sections.text_reveal.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "Solid" },
-        { "value": "outline", "label": "Outline" }
+        { "value": "solid", "label": "t:sections.text_reveal.settings.button_style.options__0.label" },
+        { "value": "outline", "label": "t:sections.text_reveal.settings.button_style.options__1.label" }
       ],
-      "info": "Only applies when Button type is set to Button"
+      "info": "t:sections.text_reveal.settings.button_style.info"
     },
     {
       "type": "select",
       "id": "button_color",
-      "label": "Button color",
+      "label": "t:sections.text_reveal.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "Primary (accent)" },
-        { "value": "secondary", "label": "Secondary (neutral)" }
+        { "value": "primary", "label": "t:sections.text_reveal.settings.button_color.options__0.label" },
+        { "value": "secondary", "label": "t:sections.text_reveal.settings.button_color.options__1.label" }
       ]
     },
     {
       "type": "select",
       "id": "button_size",
-      "label": "Button size",
+      "label": "t:sections.text_reveal.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "default", "label": "Default" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.text_reveal.settings.button_size.options__0.label" },
+        { "value": "default", "label": "t:sections.text_reveal.settings.button_size.options__1.label" },
+        { "value": "large", "label": "t:sections.text_reveal.settings.button_size.options__2.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Background Number"
+      "content": "t:sections.text_reveal.settings.header__background_number.content"
     },
     {
       "type": "checkbox",
       "id": "show_background_number",
       "default": false,
-      "label": "Show background number"
+      "label": "t:sections.text_reveal.settings.show_background_number.label"
     },
     {
       "type": "text",
       "id": "background_number",
       "default": "01",
-      "label": "Background number"
+      "label": "t:sections.text_reveal.settings.background_number.label"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.text_reveal.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "large",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-3"
     }
   ],
   "presets": [
     {
-      "name": "Text Reveal",
-      "category": "Text & content"
+      "name": "t:sections.text_reveal.presets.text_reveal.name",
+      "category": "t:sections.text_reveal.presets.text_reveal.category"
     }
   ],
   "disabled_on": {

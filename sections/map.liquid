@@ -311,57 +311,57 @@
 
 {% schema %}
 {
-  "name": "Map",
+  "name": "t:sections.map.name",
   "tag": "section",
   "class": "map-section",
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "t:shared.headers.content"
     },
     {
       "type": "text",
       "id": "label",
-      "label": "Label",
+      "label": "t:sections.map.settings.label.label",
       "default": "Visit Us"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.map.settings.title.label",
       "default": "Our Location"
     },
     {
       "type": "header",
-      "content": "Location"
+      "content": "t:sections.map.settings.header__location.content"
     },
     {
       "type": "text",
       "id": "location_name",
-      "label": "Location name",
+      "label": "t:sections.map.settings.location_name.label",
       "default": "Our Store",
-      "info": "Shown in the map popup"
+      "info": "t:sections.map.settings.location_name.info"
     },
     {
       "type": "textarea",
       "id": "address",
-      "label": "Address",
+      "label": "t:sections.map.settings.address.label",
       "default": "123 Main Street\nNew York, NY 10001",
-      "info": "Shown in the map popup"
+      "info": "t:sections.map.settings.address.info"
     },
     {
       "type": "text",
       "id": "latitude",
-      "label": "Latitude",
+      "label": "t:sections.map.settings.latitude.label",
       "default": "40.7128",
-      "info": "Get coordinates from Google Maps or similar"
+      "info": "t:sections.map.settings.latitude.info"
     },
     {
       "type": "text",
       "id": "longitude",
-      "label": "Longitude",
+      "label": "t:sections.map.settings.longitude.label",
       "default": "-74.0060",
-      "info": "Right-click location on Google Maps → 'What's here?'"
+      "info": "t:sections.map.settings.longitude.info"
     },
     {
       "type": "range",
@@ -370,18 +370,18 @@
       "max": 18,
       "step": 1,
       "default": 14,
-      "label": "Zoom level",
-      "info": "Higher = more zoomed in"
+      "label": "t:sections.map.settings.zoom.label",
+      "info": "t:sections.map.settings.zoom.info"
     },
     {
       "type": "checkbox",
       "id": "show_popup",
-      "label": "Show popup by default",
+      "label": "t:sections.map.settings.show_popup.label",
       "default": true
     },
     {
       "type": "header",
-      "content": "Styling"
+      "content": "t:sections.map.settings.header__styling.content"
     },
     {
       "type": "range",
@@ -391,141 +391,141 @@
       "step": 50,
       "default": 450,
       "unit": "px",
-      "label": "Map height"
+      "label": "t:sections.map.settings.map_height.label"
     },
     {
       "type": "color",
       "id": "marker_color",
-      "label": "Marker color",
+      "label": "t:sections.map.settings.marker_color.label",
       "default": "#000000"
     },
     {
       "type": "checkbox",
       "id": "grayscale",
-      "label": "Grayscale map",
+      "label": "t:sections.map.settings.grayscale.label",
       "default": false,
-      "info": "Apply grayscale filter to map tiles"
+      "info": "t:sections.map.settings.grayscale.info"
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:shared.headers.layout"
     },
     {
       "type": "checkbox",
       "id": "full_width",
       "default": false,
-      "label": "Full width"
+      "label": "t:shared.settings.full_width.label"
     },
     {
       "type": "text_alignment",
       "id": "header_alignment",
-      "label": "Header alignment",
+      "label": "t:sections.map.settings.header_alignment.label",
       "default": "left"
     },
     {
       "type": "select",
       "id": "padding",
-      "label": "Section padding",
-      "info": "Default padding is set in global theme settings",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "Default" },
-        { "value": "small", "label": "Small" },
-        { "value": "large", "label": "Large" },
-        { "value": "none", "label": "None" }
+        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
       ]
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "t:shared.headers.colors"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:shared.settings.color_scheme.label",
       "default": "scheme-1"
     }
   ],
   "blocks": [
     {
       "type": "address",
-      "name": "Address",
+      "name": "t:sections.map.blocks.address.name",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.map.blocks.address.settings.title.label",
           "default": "Address"
         },
         {
           "type": "textarea",
           "id": "address",
-          "label": "Address",
+          "label": "t:sections.map.blocks.address.settings.address.label",
           "default": "123 Main Street\nNew York, NY 10001"
         }
       ]
     },
     {
       "type": "hours",
-      "name": "Hours",
+      "name": "t:sections.map.blocks.hours.name",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.map.blocks.hours.settings.title.label",
           "default": "Hours"
         },
         {
           "type": "textarea",
           "id": "hours",
-          "label": "Hours",
+          "label": "t:sections.map.blocks.hours.settings.hours.label",
           "default": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
         }
       ]
     },
     {
       "type": "contact",
-      "name": "Contact Info",
+      "name": "t:sections.map.blocks.contact.name",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.map.blocks.contact.settings.title.label",
           "default": "Contact"
         },
         {
           "type": "text",
           "id": "phone",
-          "label": "Phone"
+          "label": "t:sections.map.blocks.contact.settings.phone.label"
         },
         {
           "type": "text",
           "id": "email",
-          "label": "Email"
+          "label": "t:sections.map.blocks.contact.settings.email.label"
         }
       ]
     },
     {
       "type": "custom",
-      "name": "Custom Content",
+      "name": "t:sections.map.blocks.custom.name",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title"
+          "label": "t:sections.map.blocks.custom.settings.title.label"
         },
         {
           "type": "richtext",
           "id": "content",
-          "label": "Content"
+          "label": "t:sections.map.blocks.custom.settings.content.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Map",
-      "category": "Store information",
+      "name": "t:sections.map.presets.map.name",
+      "category": "t:sections.map.presets.map.category",
       "blocks": [
         {
           "type": "address",

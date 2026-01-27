@@ -566,31 +566,31 @@
 
 {% schema %}
   {
-    "name": "Featured Product",
+    "name": "t:sections.featured_product.name",
     "tag": "section",
     "class": "section-featured-product",
     "settings": [
       {
         "type": "product",
         "id": "product",
-        "label": "Product"
+        "label": "t:sections.featured_product.settings.product.label"
       },
       {
         "type": "header",
-        "content": "Layout"
+        "content": "t:shared.headers.layout"
       },
       {
         "type": "select",
         "id": "layout",
-        "label": "Layout",
+        "label": "t:sections.featured_product.settings.layout.label",
         "options": [
           {
             "value": "image_left",
-            "label": "Image left"
+            "label": "t:sections.featured_product.settings.layout.options__0.label"
           },
           {
             "value": "image_right",
-            "label": "Image right"
+            "label": "t:sections.featured_product.settings.layout.options__1.label"
           }
         ],
         "default": "image_left"
@@ -598,29 +598,29 @@
       {
         "type": "checkbox",
         "id": "full_width",
-        "label": "Full width",
+        "label": "t:shared.settings.full_width.label",
         "default": false
       },
       {
         "type": "select",
         "id": "image_ratio",
-        "label": "Image ratio",
+        "label": "t:sections.featured_product.settings.image_ratio.label",
         "options": [
           {
             "value": "1/1",
-            "label": "Square (1:1)"
+            "label": "t:sections.featured_product.settings.image_ratio.options__0.label"
           },
           {
             "value": "3/4",
-            "label": "Portrait (3:4)"
+            "label": "t:sections.featured_product.settings.image_ratio.options__1.label"
           },
           {
             "value": "4/3",
-            "label": "Landscape (4:3)"
+            "label": "t:sections.featured_product.settings.image_ratio.options__2.label"
           },
           {
             "value": "16/9",
-            "label": "Wide (16:9)"
+            "label": "t:sections.featured_product.settings.image_ratio.options__3.label"
           }
         ],
         "default": "3/4"
@@ -628,33 +628,33 @@
       {
         "type": "checkbox",
         "id": "show_thumbnails",
-        "label": "Show image thumbnails",
+        "label": "t:sections.featured_product.settings.show_thumbnails.label",
         "default": true
       },
       {
         "type": "checkbox",
         "id": "show_vendor",
-        "label": "Show vendor",
+        "label": "t:sections.featured_product.settings.show_vendor.label",
         "default": true
       },
       {
         "type": "checkbox",
         "id": "show_description",
-        "label": "Show description",
+        "label": "t:sections.featured_product.settings.show_description.label",
         "default": true
       },
       {
         "type": "select",
         "id": "variant_picker_type",
-        "label": "Variant picker type",
+        "label": "t:sections.featured_product.settings.variant_picker_type.label",
         "options": [
           {
             "value": "buttons",
-            "label": "Buttons"
+            "label": "t:sections.featured_product.settings.variant_picker_type.options__0.label"
           },
           {
             "value": "dropdown",
-            "label": "Dropdown"
+            "label": "t:sections.featured_product.settings.variant_picker_type.options__1.label"
           }
         ],
         "default": "buttons"
@@ -662,20 +662,20 @@
       {
         "type": "select",
         "id": "swatch_shape",
-        "label": "Color swatch style",
-        "info": "Options with color swatches will display as visual swatches instead of the picker type above.",
+        "label": "t:sections.featured_product.settings.swatch_shape.label",
+        "info": "t:sections.featured_product.settings.swatch_shape.info",
         "options": [
           {
             "value": "circle",
-            "label": "Circle"
+            "label": "t:sections.featured_product.settings.swatch_shape.options__0.label"
           },
           {
             "value": "square",
-            "label": "Square"
+            "label": "t:sections.featured_product.settings.swatch_shape.options__1.label"
           },
           {
             "value": "none",
-            "label": "None (use picker type)"
+            "label": "t:sections.featured_product.settings.swatch_shape.options__2.label"
           }
         ],
         "default": "circle"
@@ -683,39 +683,39 @@
       {
         "type": "checkbox",
         "id": "show_quantity",
-        "label": "Show quantity selector",
+        "label": "t:sections.featured_product.settings.show_quantity.label",
         "default": true
       },
       {
         "type": "checkbox",
         "id": "show_view_details",
-        "label": "Show view details link",
+        "label": "t:sections.featured_product.settings.show_view_details.label",
         "default": true
       },
       {
         "type": "select",
         "id": "padding",
-        "label": "Section padding",
-        "info": "Default padding is set in global theme settings",
+        "label": "t:shared.settings.padding.label",
+        "info": "t:shared.settings.padding.info",
         "default": "default",
         "options": [
-          { "value": "default", "label": "Default" },
-          { "value": "small", "label": "Small" },
-          { "value": "large", "label": "Large" },
-          { "value": "none", "label": "None" }
+          { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
+          { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
+          { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
+          { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
         ]
       },
       {
         "type": "color_scheme",
         "id": "color_scheme",
-        "label": "Color scheme",
+        "label": "t:shared.settings.color_scheme.label",
         "default": "scheme-1"
       }
     ],
     "presets": [
       {
-        "name": "Featured Product",
-        "category": "Products"
+        "name": "t:sections.featured_product.presets.featured_product.name",
+        "category": "t:sections.featured_product.presets.featured_product.category"
       }
     ],
     "disabled_on": {
