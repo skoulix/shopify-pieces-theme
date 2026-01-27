@@ -122,6 +122,469 @@
       },
       "text": {
         "label": "Text"
+      },
+      "icon": {
+        "label": "Icon",
+        "options__0": {
+          "label": "None"
+        },
+        "options__1": {
+          "label": "Shield"
+        },
+        "options__2": {
+          "label": "Lock"
+        },
+        "options__3": {
+          "label": "Certificate"
+        },
+        "options__4": {
+          "label": "Medal"
+        },
+        "options__5": {
+          "label": "Crown"
+        },
+        "options__6": {
+          "label": "Truck"
+        },
+        "options__7": {
+          "label": "Package"
+        },
+        "options__8": {
+          "label": "Storefront"
+        },
+        "options__9": {
+          "label": "Shopping cart"
+        },
+        "options__10": {
+          "label": "Bag"
+        },
+        "options__11": {
+          "label": "Credit card"
+        },
+        "options__12": {
+          "label": "Wallet"
+        },
+        "options__13": {
+          "label": "Receipt"
+        },
+        "options__14": {
+          "label": "Tag"
+        },
+        "options__15": {
+          "label": "Barcode"
+        },
+        "options__16": {
+          "label": "Headset"
+        },
+        "options__17": {
+          "label": "Chat"
+        },
+        "options__18": {
+          "label": "Phone"
+        },
+        "options__19": {
+          "label": "Envelope"
+        },
+        "options__20": {
+          "label": "Returns"
+        },
+        "options__21": {
+          "label": "Exchange"
+        },
+        "options__22": {
+          "label": "Heart"
+        },
+        "options__23": {
+          "label": "Handmade"
+        },
+        "options__24": {
+          "label": "Star"
+        },
+        "options__25": {
+          "label": "Four-point star"
+        },
+        "options__26": {
+          "label": "Sparkle"
+        },
+        "options__27": {
+          "label": "Leaf"
+        },
+        "options__28": {
+          "label": "Recycle"
+        },
+        "options__29": {
+          "label": "Globe"
+        },
+        "options__30": {
+          "label": "Clock"
+        },
+        "options__31": {
+          "label": "Hourglass"
+        },
+        "options__32": {
+          "label": "Calendar"
+        },
+        "options__33": {
+          "label": "Gift"
+        },
+        "options__34": {
+          "label": "Percent"
+        },
+        "options__35": {
+          "label": "Lightning"
+        },
+        "options__36": {
+          "label": "Fire"
+        },
+        "options__37": {
+          "label": "Bell"
+        },
+        "options__38": {
+          "label": "Growth"
+        },
+        "options__39": {
+          "label": "Target"
+        },
+        "options__40": {
+          "label": "Rocket"
+        },
+        "options__41": {
+          "label": "Users"
+        },
+        "options__42": {
+          "label": "Compass"
+        },
+        "options__43": {
+          "label": "Flag"
+        },
+        "options__44": {
+          "label": "Code"
+        },
+        "options__45": {
+          "label": "Paint brush"
+        },
+        "options__46": {
+          "label": "Wrench"
+        },
+        "options__47": {
+          "label": "Gear"
+        },
+        "options__48": {
+          "label": "Pencil"
+        },
+        "options__49": {
+          "label": "Ruler"
+        },
+        "options__50": {
+          "label": "Flask"
+        },
+        "options__51": {
+          "label": "Camera"
+        },
+        "options__52": {
+          "label": "Image"
+        },
+        "options__53": {
+          "label": "Play"
+        },
+        "options__54": {
+          "label": "Music"
+        },
+        "options__55": {
+          "label": "Microphone"
+        },
+        "options__56": {
+          "label": "Article"
+        },
+        "options__57": {
+          "label": "Bookmark"
+        },
+        "options__58": {
+          "label": "Map pin"
+        },
+        "options__59": {
+          "label": "Mountains"
+        },
+        "options__60": {
+          "label": "Key"
+        },
+        "options__61": {
+          "label": "Diamond"
+        },
+        "options__62": {
+          "label": "Circle"
+        },
+        "options__63": {
+          "label": "Flower"
+        },
+        "options__64": {
+          "label": "Dash"
+        },
+        "options__65": {
+          "label": "Arrow"
+        },
+        "options__66": {
+          "label": "Caret"
+        }
+      },
+      "custom_icon": {
+        "label": "Custom icon",
+        "info": "Overrides the icon setting above. Recommended: 80×80px"
+      },
+      "aspect_ratio": {
+        "label": "Aspect ratio",
+        "options__0": {
+          "label": "Auto"
+        },
+        "options__1": {
+          "label": "Square (1:1)"
+        },
+        "options__2": {
+          "label": "4/5"
+        },
+        "options__3": {
+          "label": "3/4"
+        },
+        "options__4": {
+          "label": "2/3"
+        },
+        "options__5": {
+          "label": "Standard (4:3)"
+        },
+        "options__6": {
+          "label": "3/2"
+        },
+        "options__7": {
+          "label": "Widescreen (16:9)"
+        },
+        "options__8": {
+          "label": "Ultrawide (21:9)"
+        },
+        "options__9": {
+          "label": "Portrait (9:16)"
+        }
+      },
+      "label": {
+        "label": "Label"
+      },
+      "style": {
+        "label": "Style"
+      },
+      "layout": {
+        "label": "Layout"
+      },
+      "content": {
+        "label": "Content"
+      },
+      "product": {
+        "label": "Product"
+      },
+      "collection": {
+        "label": "Collection"
+      },
+      "menu": {
+        "label": "Menu"
+      },
+      "logo": {
+        "label": "Logo"
+      },
+      "speed": {
+        "label": "Speed"
+      },
+      "link_text": {
+        "label": "Link text"
+      },
+      "grayscale": {
+        "label": "Grayscale"
+      },
+      "show_date": {
+        "label": "Show date"
+      },
+      "show_author": {
+        "label": "Show author"
+      },
+      "show_tags": {
+        "label": "Show tags"
+      },
+      "show_breadcrumbs": {
+        "label": "Show breadcrumbs"
+      },
+      "show_arrows": {
+        "label": "Show arrows"
+      },
+      "show_countdown": {
+        "label": "Show countdown"
+      },
+      "countdown_date": {
+        "label": "Countdown date"
+      },
+      "show_dividers": {
+        "label": "Show dividers"
+      },
+      "pause_on_hover": {
+        "label": "Pause on hover"
+      },
+      "show_description": {
+        "label": "Show description"
+      },
+      "show_excerpt": {
+        "label": "Show excerpt"
+      },
+      "show_read_more": {
+        "label": "Show read more"
+      },
+      "feature_first": {
+        "label": "Feature first"
+      },
+      "show_add_all": {
+        "label": "Show add all button"
+      },
+      "enable_description_shuffle": {
+        "label": "Enable description shuffle"
+      },
+      "slides_mobile": {
+        "label": "Slides per view (mobile)"
+      },
+      "slides_tablet": {
+        "label": "Slides per view (tablet)"
+      },
+      "slides_desktop": {
+        "label": "Slides per view (desktop)"
+      },
+      "columns_desktop": {
+        "label": "Columns desktop"
+      },
+      "columns_tablet": {
+        "label": "Columns tablet"
+      },
+      "columns_mobile": {
+        "label": "Columns mobile"
+      },
+      "rotation_speed": {
+        "label": "Rotation speed"
+      },
+      "view_all_text": {
+        "label": "View all text"
+      },
+      "enable_bento_pattern": {
+        "label": "Enable bento pattern"
+      },
+      "design": {
+        "label": "Design"
+      },
+      "number": {
+        "label": "Number"
+      },
+      "border_radius": {
+        "label": "Border radius"
+      },
+      "section_height": {
+        "label": "Section height"
+      },
+      "enable_parallax": {
+        "label": "Enable parallax"
+      },
+      "show_social": {
+        "label": "Show social links"
+      },
+      "direction": {
+        "label": "Direction"
+      },
+      "scroll_aware": {
+        "label": "Scroll aware"
+      },
+      "scroll_speed": {
+        "label": "Scroll speed"
+      },
+      "logo_height": {
+        "label": "Logo height"
+      },
+      "invert": {
+        "label": "Invert"
+      },
+      "label_alignment": {
+        "label": "Label alignment"
+      },
+      "animation_duration": {
+        "label": "Animation duration"
+      },
+      "outline": {
+        "label": "Outline"
+      },
+      "autoplay": {
+        "label": "Autoplay"
+      },
+      "autoplay_speed": {
+        "label": "Autoplay speed"
+      },
+      "swatch_shape": {
+        "label": "Swatch shape"
+      },
+      "image_ratio": {
+        "label": "Image ratio"
+      },
+      "button_type": {
+        "label": "Button type"
+      },
+      "position_x": {
+        "label": "Position X"
+      },
+      "position_y": {
+        "label": "Position Y"
+      },
+      "position_x_mobile": {
+        "label": "Position X mobile"
+      },
+      "position_y_mobile": {
+        "label": "Position Y mobile"
+      },
+      "dot_color": {
+        "label": "Dot color"
+      },
+      "icon_color": {
+        "label": "Icon color"
+      },
+      "show_scroll_indicator": {
+        "label": "Show scroll indicator"
+      },
+      "background_image": {
+        "label": "Background image"
+      },
+      "background_image_position": {
+        "label": "Background image position"
+      },
+      "background_image_blur": {
+        "label": "Background image blur"
+      },
+      "text_alignment": {
+        "label": "Text alignment"
+      },
+      "padding_top": {
+        "label": "Padding top"
+      },
+      "padding_bottom": {
+        "label": "Padding bottom"
+      },
+      "scroll_start": {
+        "label": "Scroll start"
+      },
+      "scroll_end": {
+        "label": "Scroll end"
+      },
+      "show_share": {
+        "label": "Show share button"
+      },
+      "address": {
+        "label": "Address"
+      },
+      "nav_uppercase": {
+        "label": "Nav uppercase"
+      },
+      "image_fit": {
+        "label": "Image fit"
+      },
+      "show_controls": {
+        "label": "Show controls"
       }
     }
   },
@@ -136,11 +599,7 @@
           "label": "Bar height"
         },
         "rotation_speed": {
-          "label": "Rotation speed",
           "info": "Time in seconds between message rotations"
-        },
-        "show_arrows": {
-          "label": "Show arrows"
         },
         "dismissible": {
           "label": "Dismissible",
@@ -155,104 +614,7 @@
               "label": "Text",
               "default": "Free shipping on orders over $50"
             },
-            "icon": {
-              "label": "Icon",
-              "options__0": {
-                "label": "None"
-              },
-              "options__1": {
-                "label": "Truck"
-              },
-              "options__2": {
-                "label": "Package"
-              },
-              "options__3": {
-                "label": "Storefront"
-              },
-              "options__4": {
-                "label": "Tag"
-              },
-              "options__5": {
-                "label": "Credit card"
-              },
-              "options__6": {
-                "label": "Gift"
-              },
-              "options__7": {
-                "label": "Percent"
-              },
-              "options__8": {
-                "label": "Star"
-              },
-              "options__9": {
-                "label": "Sparkle"
-              },
-              "options__10": {
-                "label": "Lightning"
-              },
-              "options__11": {
-                "label": "Fire"
-              },
-              "options__12": {
-                "label": "Crown"
-              },
-              "options__13": {
-                "label": "Bell"
-              },
-              "options__14": {
-                "label": "Heart"
-              },
-              "options__15": {
-                "label": "Chat"
-              },
-              "options__16": {
-                "label": "Phone"
-              },
-              "options__17": {
-                "label": "Envelope"
-              },
-              "options__18": {
-                "label": "Clock"
-              },
-              "options__19": {
-                "label": "Hourglass"
-              },
-              "options__20": {
-                "label": "Calendar"
-              },
-              "options__21": {
-                "label": "Shield"
-              },
-              "options__22": {
-                "label": "Lock"
-              },
-              "options__23": {
-                "label": "Medal"
-              },
-              "options__24": {
-                "label": "Certificate"
-              },
-              "options__25": {
-                "label": "Returns"
-              },
-              "options__26": {
-                "label": "Leaf"
-              },
-              "options__27": {
-                "label": "Globe"
-              },
-              "options__28": {
-                "label": "Map pin"
-              },
-              "options__29": {
-                "label": "Rocket"
-              }
-            },
-            "show_countdown": {
-              "label": "Show countdown"
-            },
             "countdown_date": {
-              "label": "Countdown date",
               "info": "Format: YYYY-MM-DD HH:MM"
             }
           }
@@ -285,26 +647,11 @@
     "article": {
       "name": "Article",
       "settings": {
-        "show_breadcrumbs": {
-          "label": "Show Breadcrumbs"
-        },
         "header__article_details": {
           "content": "Article Details"
         },
-        "show_date": {
-          "label": "Show Date"
-        },
-        "show_author": {
-          "label": "Show Author"
-        },
         "show_reading_time": {
           "label": "Show Reading Time"
-        },
-        "show_tags": {
-          "label": "Show Tags"
-        },
-        "show_share": {
-          "label": "Show share button"
         },
         "show_prev_next": {
           "label": "Show Prev Next"
@@ -453,7 +800,6 @@
       "name": "Before & after",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Compare"
         },
         "title": {
@@ -464,21 +810,6 @@
         },
         "image_after": {
           "label": "Image After"
-        },
-        "aspect_ratio": {
-          "options__0": {
-            "label": "Widescreen (16:9)"
-          },
-          "options__1": {
-            "label": "Standard (4:3)"
-          },
-          "options__2": {
-            "label": "Square (1:1)"
-          },
-          "options__3": {
-            "label": "3/4"
-          },
-          "label": "Aspect ratio"
         },
         "show_labels": {
           "label": "Show Labels"
@@ -508,24 +839,6 @@
         "articles_per_page": {
           "label": "Articles Per Page"
         },
-        "feature_first": {
-          "label": "Feature First"
-        },
-        "show_tags": {
-          "label": "Show Tags"
-        },
-        "show_excerpt": {
-          "label": "Show Excerpt"
-        },
-        "show_date": {
-          "label": "Show Date"
-        },
-        "show_author": {
-          "label": "Show Author"
-        },
-        "show_read_more": {
-          "label": "Show Read More"
-        },
         "show_article_count": {
           "label": "Show Article Count"
         }
@@ -543,247 +856,13 @@
         "show_trust_badges": {
           "label": "Show Trust Badges"
         },
-        "badge_1_icon": {
-          "label": "Badge 1 Icon",
-          "options__0": {
-            "label": "None"
-          },
-          "options__1": {
-            "label": "Shield"
-          },
-          "options__2": {
-            "label": "Lock"
-          },
-          "options__3": {
-            "label": "Certificate"
-          },
-          "options__4": {
-            "label": "Medal"
-          },
-          "options__5": {
-            "label": "Truck"
-          },
-          "options__6": {
-            "label": "Package"
-          },
-          "options__7": {
-            "label": "Credit card"
-          },
-          "options__8": {
-            "label": "Wallet"
-          },
-          "options__9": {
-            "label": "Tag"
-          },
-          "options__10": {
-            "label": "Headset"
-          },
-          "options__11": {
-            "label": "Chat"
-          },
-          "options__12": {
-            "label": "Phone"
-          },
-          "options__13": {
-            "label": "Returns"
-          },
-          "options__14": {
-            "label": "Exchange"
-          },
-          "options__15": {
-            "label": "Heart"
-          },
-          "options__16": {
-            "label": "Handmade"
-          },
-          "options__17": {
-            "label": "Star"
-          },
-          "options__18": {
-            "label": "Leaf"
-          },
-          "options__19": {
-            "label": "Recycle"
-          },
-          "options__20": {
-            "label": "Globe"
-          },
-          "options__21": {
-            "label": "Clock"
-          },
-          "options__22": {
-            "label": "Gift"
-          },
-          "options__23": {
-            "label": "Percent"
-          },
-          "options__24": {
-            "label": "Lightning"
-          }
-        },
         "badge_1_text": {
           "label": "Badge 1 Text",
           "default": "Secure"
         },
-        "badge_2_icon": {
-          "label": "Badge 2 Icon",
-          "options__0": {
-            "label": "None"
-          },
-          "options__1": {
-            "label": "Shield"
-          },
-          "options__2": {
-            "label": "Lock"
-          },
-          "options__3": {
-            "label": "Certificate"
-          },
-          "options__4": {
-            "label": "Medal"
-          },
-          "options__5": {
-            "label": "Truck"
-          },
-          "options__6": {
-            "label": "Package"
-          },
-          "options__7": {
-            "label": "Credit card"
-          },
-          "options__8": {
-            "label": "Wallet"
-          },
-          "options__9": {
-            "label": "Tag"
-          },
-          "options__10": {
-            "label": "Headset"
-          },
-          "options__11": {
-            "label": "Chat"
-          },
-          "options__12": {
-            "label": "Phone"
-          },
-          "options__13": {
-            "label": "Returns"
-          },
-          "options__14": {
-            "label": "Exchange"
-          },
-          "options__15": {
-            "label": "Heart"
-          },
-          "options__16": {
-            "label": "Handmade"
-          },
-          "options__17": {
-            "label": "Star"
-          },
-          "options__18": {
-            "label": "Leaf"
-          },
-          "options__19": {
-            "label": "Recycle"
-          },
-          "options__20": {
-            "label": "Globe"
-          },
-          "options__21": {
-            "label": "Clock"
-          },
-          "options__22": {
-            "label": "Gift"
-          },
-          "options__23": {
-            "label": "Percent"
-          },
-          "options__24": {
-            "label": "Lightning"
-          }
-        },
         "badge_2_text": {
           "label": "Badge 2 Text",
           "default": "Fast Shipping"
-        },
-        "badge_3_icon": {
-          "label": "Badge 3 Icon",
-          "options__0": {
-            "label": "None"
-          },
-          "options__1": {
-            "label": "Shield"
-          },
-          "options__2": {
-            "label": "Lock"
-          },
-          "options__3": {
-            "label": "Certificate"
-          },
-          "options__4": {
-            "label": "Medal"
-          },
-          "options__5": {
-            "label": "Truck"
-          },
-          "options__6": {
-            "label": "Package"
-          },
-          "options__7": {
-            "label": "Credit card"
-          },
-          "options__8": {
-            "label": "Wallet"
-          },
-          "options__9": {
-            "label": "Tag"
-          },
-          "options__10": {
-            "label": "Headset"
-          },
-          "options__11": {
-            "label": "Chat"
-          },
-          "options__12": {
-            "label": "Phone"
-          },
-          "options__13": {
-            "label": "Returns"
-          },
-          "options__14": {
-            "label": "Exchange"
-          },
-          "options__15": {
-            "label": "Heart"
-          },
-          "options__16": {
-            "label": "Handmade"
-          },
-          "options__17": {
-            "label": "Star"
-          },
-          "options__18": {
-            "label": "Leaf"
-          },
-          "options__19": {
-            "label": "Recycle"
-          },
-          "options__20": {
-            "label": "Globe"
-          },
-          "options__21": {
-            "label": "Clock"
-          },
-          "options__22": {
-            "label": "Gift"
-          },
-          "options__23": {
-            "label": "Percent"
-          },
-          "options__24": {
-            "label": "Lightning"
-          }
         },
         "badge_3_text": {
           "label": "Badge 3 Text",
@@ -794,32 +873,19 @@
     "collection": {
       "name": "Collection",
       "settings": {
-        "show_breadcrumbs": {
-          "label": "Show Breadcrumbs"
-        },
         "show_product_count": {
           "label": "Show Product Count"
         },
-        "show_description": {
-          "label": "Show Description"
-        },
         "enable_description_shuffle": {
-          "label": "Enable Description Shuffle",
           "info": "Shuffles the description sentence order on each page load"
         },
         "enable_bento_pattern": {
-          "label": "Enable Bento Pattern",
           "info": "Applies a bento grid layout to the product grid"
         },
         "columns_desktop": {
-          "label": "Columns Desktop",
           "info": "Number of columns on desktop screens"
         },
-        "columns_tablet": {
-          "label": "Columns Tablet"
-        },
         "columns_mobile": {
-          "label": "Columns Mobile",
           "options__0": {
             "label": "1"
           },
@@ -862,14 +928,10 @@
     "collections_carousel": {
       "name": "Collections carousel",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Shop by Collection"
         },
         "slides_mobile": {
-          "label": "Slides per view (mobile)",
           "options__0": {
             "label": "1"
           },
@@ -878,7 +940,6 @@
           }
         },
         "slides_tablet": {
-          "label": "Slides per view (tablet)",
           "options__0": {
             "label": "1"
           },
@@ -890,7 +951,6 @@
           }
         },
         "slides_desktop": {
-          "label": "Slides per view (desktop)",
           "options__0": {
             "label": "2"
           },
@@ -909,9 +969,6 @@
         "collection": {
           "name": "Collection",
           "settings": {
-            "collection": {
-              "label": "Collection"
-            },
             "tab_label": {
               "label": "Tab Label",
               "info": "Custom label for the tab. Leave blank to use collection title"
@@ -929,14 +986,10 @@
     "collections": {
       "name": "Collections",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Collections"
         },
         "enable_description_shuffle": {
-          "label": "Enable Description Shuffle",
           "info": "Shuffles the description sentence order on each page load"
         },
         "show_collection_count": {
@@ -946,18 +999,12 @@
           "info": "Extends the section to the full width of the page"
         },
         "enable_bento_pattern": {
-          "label": "Enable Bento Pattern",
           "info": "Applies a bento grid layout to the collection cards"
         },
         "columns_desktop": {
-          "label": "Columns Desktop",
           "info": "Number of columns on desktop screens"
         },
-        "columns_tablet": {
-          "label": "Columns Tablet"
-        },
         "columns_mobile": {
-          "label": "Columns Mobile",
           "options__0": {
             "label": "1"
           },
@@ -982,7 +1029,6 @@
       "name": "Product comparison",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Compare"
         },
         "title": {
@@ -1002,9 +1048,6 @@
         "paragraph__setup": {
           "content": "Setup"
         },
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Pairs well with"
         },
@@ -1012,7 +1055,6 @@
           "label": "Alignment"
         },
         "show_add_all": {
-          "label": "Show add all button",
           "info": "Shows a button to add all complementary products at once"
         }
       },
@@ -1026,14 +1068,10 @@
     "contact_form": {
       "name": "Contact form",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Contact"
         },
         "enable_description_shuffle": {
-          "label": "Enable Description Shuffle",
           "info": "Shuffles the description sentence order on each page load"
         },
         "show_social_links": {
@@ -1058,9 +1096,6 @@
     "countdown": {
       "name": "Countdown",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Coming Soon"
         },
@@ -1073,7 +1108,6 @@
           "default": "2026-12-31"
         },
         "design": {
-          "label": "Design",
           "options__0": {
             "label": "Hero"
           },
@@ -1089,7 +1123,6 @@
           "info": "Extends the section to the full width of the page"
         },
         "show_dividers": {
-          "label": "Show dividers",
           "info": "Shows separator lines between time units"
         },
         "days_label": {
@@ -1176,7 +1209,6 @@
       "name": "FAQ",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Support"
         },
         "title": {
@@ -1230,9 +1262,6 @@
         "blog": {
           "label": "Blog"
         },
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "info": "Leave blank to use the blog title"
         },
@@ -1243,26 +1272,9 @@
           "label": "Posts To Show"
         },
         "feature_first": {
-          "label": "Feature First",
           "info": "Makes the first post larger and more prominent"
         },
-        "show_tags": {
-          "label": "Show Tags"
-        },
-        "show_excerpt": {
-          "label": "Show Excerpt"
-        },
-        "show_date": {
-          "label": "Show Date"
-        },
-        "show_author": {
-          "label": "Show Author"
-        },
-        "show_read_more": {
-          "label": "Show Read More"
-        },
         "view_all_text": {
-          "label": "View All Text",
           "default": "View All"
         }
       },
@@ -1276,17 +1288,10 @@
     "featured_collection": {
       "name": "Featured collection",
       "settings": {
-        "collection": {
-          "label": "Collection"
-        },
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "info": "Leave blank to use the collection title"
         },
         "view_all_text": {
-          "label": "View All Text",
           "default": "View All"
         }
       },
@@ -1300,11 +1305,7 @@
     "featured_product": {
       "name": "Featured product",
       "settings": {
-        "product": {
-          "label": "Product"
-        },
         "layout": {
-          "label": "Layout",
           "options__0": {
             "label": "Image left"
           },
@@ -1312,26 +1313,8 @@
             "label": "Image right"
           }
         },
-        "image_ratio": {
-          "label": "Image ratio",
-          "options__0": {
-            "label": "Square (1:1)"
-          },
-          "options__1": {
-            "label": "3/4"
-          },
-          "options__2": {
-            "label": "Standard (4:3)"
-          },
-          "options__3": {
-            "label": "Widescreen (16:9)"
-          }
-        },
         "show_thumbnails": {
           "label": "Show Thumbnails"
-        },
-        "show_description": {
-          "label": "Show Description"
         },
         "variant_picker_type": {
           "label": "Variant Picker Type",
@@ -1343,7 +1326,6 @@
           }
         },
         "swatch_shape": {
-          "label": "Swatch shape",
           "info": "Only applies to color and image swatches",
           "options__0": {
             "label": "Circle"
@@ -1373,7 +1355,6 @@
       "name": "Features grid",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Why Choose Us"
         },
         "title": {
@@ -1385,8 +1366,7 @@
           },
           "options__1": {
             "label": "Bento"
-          },
-          "label": "Layout"
+          }
         },
         "text": {
           "default": "Everything you need to create an amazing shopping experience."
@@ -1396,196 +1376,6 @@
         "feature": {
           "name": "Feature",
           "settings": {
-            "icon": {
-              "label": "Icon",
-              "options__0": {
-                "label": "None"
-              },
-              "options__1": {
-                "label": "Shield"
-              },
-              "options__2": {
-                "label": "Lock"
-              },
-              "options__3": {
-                "label": "Certificate"
-              },
-              "options__4": {
-                "label": "Medal"
-              },
-              "options__5": {
-                "label": "Crown"
-              },
-              "options__6": {
-                "label": "Truck"
-              },
-              "options__7": {
-                "label": "Package"
-              },
-              "options__8": {
-                "label": "Storefront"
-              },
-              "options__9": {
-                "label": "Shopping cart"
-              },
-              "options__10": {
-                "label": "Bag"
-              },
-              "options__11": {
-                "label": "Credit card"
-              },
-              "options__12": {
-                "label": "Wallet"
-              },
-              "options__13": {
-                "label": "Receipt"
-              },
-              "options__14": {
-                "label": "Tag"
-              },
-              "options__15": {
-                "label": "Barcode"
-              },
-              "options__16": {
-                "label": "Headset"
-              },
-              "options__17": {
-                "label": "Chat"
-              },
-              "options__18": {
-                "label": "Phone"
-              },
-              "options__19": {
-                "label": "Envelope"
-              },
-              "options__20": {
-                "label": "Returns"
-              },
-              "options__21": {
-                "label": "Exchange"
-              },
-              "options__22": {
-                "label": "Heart"
-              },
-              "options__23": {
-                "label": "Handmade"
-              },
-              "options__24": {
-                "label": "Star"
-              },
-              "options__25": {
-                "label": "Sparkle"
-              },
-              "options__26": {
-                "label": "Leaf"
-              },
-              "options__27": {
-                "label": "Recycle"
-              },
-              "options__28": {
-                "label": "Globe"
-              },
-              "options__29": {
-                "label": "Clock"
-              },
-              "options__30": {
-                "label": "Hourglass"
-              },
-              "options__31": {
-                "label": "Calendar"
-              },
-              "options__32": {
-                "label": "Gift"
-              },
-              "options__33": {
-                "label": "Percent"
-              },
-              "options__34": {
-                "label": "Lightning"
-              },
-              "options__35": {
-                "label": "Fire"
-              },
-              "options__36": {
-                "label": "Bell"
-              },
-              "options__37": {
-                "label": "Growth"
-              },
-              "options__38": {
-                "label": "Target"
-              },
-              "options__39": {
-                "label": "Rocket"
-              },
-              "options__40": {
-                "label": "Users"
-              },
-              "options__41": {
-                "label": "Compass"
-              },
-              "options__42": {
-                "label": "Flag"
-              },
-              "options__43": {
-                "label": "Code"
-              },
-              "options__44": {
-                "label": "Paint brush"
-              },
-              "options__45": {
-                "label": "Wrench"
-              },
-              "options__46": {
-                "label": "Gear"
-              },
-              "options__47": {
-                "label": "Pencil"
-              },
-              "options__48": {
-                "label": "Ruler"
-              },
-              "options__49": {
-                "label": "Flask"
-              },
-              "options__50": {
-                "label": "Camera"
-              },
-              "options__51": {
-                "label": "Image"
-              },
-              "options__52": {
-                "label": "Play"
-              },
-              "options__53": {
-                "label": "Music"
-              },
-              "options__54": {
-                "label": "Microphone"
-              },
-              "options__55": {
-                "label": "Article"
-              },
-              "options__56": {
-                "label": "Bookmark"
-              },
-              "options__57": {
-                "label": "Map pin"
-              },
-              "options__58": {
-                "label": "Mountains"
-              },
-              "options__59": {
-                "label": "Key"
-              },
-              "options__60": {
-                "label": "Diamond"
-              }
-            },
-            "custom_icon": {
-              "label": "Custom icon",
-              "info": "Overrides the selected icon above"
-            },
             "title": {
               "default": "Feature Title"
             },
@@ -1594,7 +1384,6 @@
               "default": "Describe this feature and how it benefits your customers."
             },
             "link_text": {
-              "label": "Link text",
               "default": "Learn More"
             }
           }
@@ -1627,7 +1416,6 @@
       "name": "Floating images",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Discover"
         },
         "title": {
@@ -1637,7 +1425,6 @@
           "default": "View More"
         },
         "section_height": {
-          "label": "Section height",
           "info": "Height in viewport units (vh)"
         },
         "section_height_mobile": {
@@ -1648,7 +1435,6 @@
           "info": "Opacity of the floating images"
         },
         "enable_parallax": {
-          "label": "Enable Parallax",
           "info": "Images move at different speeds when scrolling"
         }
       },
@@ -1695,11 +1481,7 @@
           "name": "Brand",
           "settings": {
             "logo": {
-              "label": "Logo",
               "info": "Logo displayed in the footer brand column"
-            },
-            "show_social": {
-              "label": "Show social links"
             },
             "text": {
               "default": "Your brand tagline or brief description goes here."
@@ -1710,11 +1492,7 @@
           "name": "Navigation",
           "settings": {
             "menu": {
-              "label": "Menu",
               "default": "footer"
-            },
-            "nav_uppercase": {
-              "label": "Nav Uppercase"
             }
           }
         },
@@ -1725,7 +1503,6 @@
               "default": "Quick links"
             },
             "menu": {
-              "label": "Menu",
               "default": "footer"
             }
           }
@@ -1753,7 +1530,6 @@
           "name": "Payment",
           "settings": {
             "grayscale": {
-              "label": "Grayscale",
               "info": "Displays payment icons in grayscale"
             }
           }
@@ -1807,9 +1583,6 @@
     "header": {
       "name": "Header",
       "settings": {
-        "menu": {
-          "label": "Menu"
-        },
         "header_layout": {
           "label": "Header Layout",
           "options__0": {
@@ -1832,9 +1605,6 @@
             "label": "Right"
           },
           "info": "Position of the main navigation links"
-        },
-        "nav_uppercase": {
-          "label": "Nav Uppercase"
         },
         "header__header_icons": {
           "content": "Header Icons"
@@ -1982,104 +1752,7 @@
               "label": "Text",
               "default": "Free shipping on orders over $50"
             },
-            "icon": {
-              "label": "Icon",
-              "options__0": {
-                "label": "None"
-              },
-              "options__1": {
-                "label": "Truck"
-              },
-              "options__2": {
-                "label": "Package"
-              },
-              "options__3": {
-                "label": "Storefront"
-              },
-              "options__4": {
-                "label": "Tag"
-              },
-              "options__5": {
-                "label": "Credit card"
-              },
-              "options__6": {
-                "label": "Gift"
-              },
-              "options__7": {
-                "label": "Percent"
-              },
-              "options__8": {
-                "label": "Star"
-              },
-              "options__9": {
-                "label": "Sparkle"
-              },
-              "options__10": {
-                "label": "Lightning"
-              },
-              "options__11": {
-                "label": "Fire"
-              },
-              "options__12": {
-                "label": "Crown"
-              },
-              "options__13": {
-                "label": "Bell"
-              },
-              "options__14": {
-                "label": "Heart"
-              },
-              "options__15": {
-                "label": "Chat"
-              },
-              "options__16": {
-                "label": "Phone"
-              },
-              "options__17": {
-                "label": "Envelope"
-              },
-              "options__18": {
-                "label": "Clock"
-              },
-              "options__19": {
-                "label": "Hourglass"
-              },
-              "options__20": {
-                "label": "Calendar"
-              },
-              "options__21": {
-                "label": "Shield"
-              },
-              "options__22": {
-                "label": "Lock"
-              },
-              "options__23": {
-                "label": "Medal"
-              },
-              "options__24": {
-                "label": "Certificate"
-              },
-              "options__25": {
-                "label": "Returns"
-              },
-              "options__26": {
-                "label": "Leaf"
-              },
-              "options__27": {
-                "label": "Globe"
-              },
-              "options__28": {
-                "label": "Map pin"
-              },
-              "options__29": {
-                "label": "Rocket"
-              }
-            },
-            "show_countdown": {
-              "label": "Show countdown"
-            },
             "countdown_date": {
-              "label": "Countdown date",
               "info": "Format: YYYY-MM-DD HH:MM"
             }
           }
@@ -2101,9 +1774,6 @@
           "label": "Subtitle",
           "default": "2024"
         },
-        "show_scroll_indicator": {
-          "label": "Show Scroll Indicator"
-        },
         "animation_style": {
           "label": "Animation Style",
           "options__0": {
@@ -2121,17 +1791,12 @@
           "label": "Enable Rotation"
         },
         "rotation_speed": {
-          "label": "Rotation speed",
           "info": "Time in seconds between message rotations"
         },
         "enable_flip": {
           "label": "Enable Flip"
         },
-        "background_image": {
-          "label": "Background image"
-        },
         "background_image_position": {
-          "label": "Background image position",
           "options__0": {
             "label": "Top left"
           },
@@ -2160,9 +1825,6 @@
             "label": "Bottom right"
           }
         },
-        "background_image_blur": {
-          "label": "Background image blur"
-        },
         "overlay_opacity": {
           "info": "Opacity of the overlay on the background image"
         },
@@ -2173,7 +1835,6 @@
           "label": "Card Background"
         },
         "image_fit": {
-          "label": "Image fit",
           "options__0": {
             "label": "Cover"
           },
@@ -2205,9 +1866,6 @@
         "video": {
           "info": "Upload a video file"
         },
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Elevate Your Style"
         },
@@ -2219,9 +1877,6 @@
         },
         "full_width": {
           "info": "Extends the section to the full width of the page"
-        },
-        "show_scroll_indicator": {
-          "label": "Show Scroll Indicator"
         },
         "text": {
           "default": "Discover our curated collection of premium products designed for the modern lifestyle."
@@ -2236,17 +1891,6 @@
     },
     "highlight_text": {
       "name": "Highlight text",
-      "settings": {
-        "text_alignment": {
-          "label": "Text alignment"
-        },
-        "padding_top": {
-          "label": "Padding Top"
-        },
-        "padding_bottom": {
-          "label": "Padding Bottom"
-        }
-      },
       "blocks": {
         "heading": {
           "name": "Heading",
@@ -2291,12 +1935,10 @@
               }
             },
             "scroll_start": {
-              "label": "Scroll Start",
               "info": "Scroll position where the highlight animation begins",
               "default": "top 90%"
             },
             "scroll_end": {
-              "label": "Scroll End",
               "info": "Scroll position where the highlight animation ends",
               "default": "center 40%"
             },
@@ -2347,7 +1989,6 @@
       "name": "Horizontal scroll",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Gallery"
         },
         "title": {
@@ -2362,7 +2003,6 @@
           "name": "Image",
           "settings": {
             "label": {
-              "label": "Label",
               "default": "Category"
             },
             "title": {
@@ -2406,7 +2046,6 @@
       "name": "Hotspots",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Discover"
         },
         "title": {
@@ -2428,35 +2067,14 @@
             "header__position": {
               "content": "Position"
             },
-            "position_x": {
-              "label": "Position X"
-            },
-            "position_y": {
-              "label": "Position Y"
-            },
-            "position_x_mobile": {
-              "label": "Position X Mobile"
-            },
-            "position_y_mobile": {
-              "label": "Position Y Mobile"
-            },
             "title": {
               "default": "Feature Title"
-            },
-            "link_text": {
-              "label": "Link text"
             },
             "link_url": {
               "label": "Link URL"
             },
             "header__dot_appearance": {
               "content": "Dot Appearance"
-            },
-            "dot_color": {
-              "label": "Dot Color"
-            },
-            "icon_color": {
-              "label": "Icon color"
             },
             "header__popover_appearance": {
               "content": "Popover Appearance"
@@ -2567,12 +2185,10 @@
           "info": "Scroll distance to play through all frames (in vh)"
         },
         "scroll_start": {
-          "label": "Scroll Start",
           "info": "Scroll position where the animation begins",
           "default": "top top"
         },
         "scroll_end": {
-          "label": "Scroll End",
           "info": "Scroll position where the animation ends",
           "default": "bottom top"
         },
@@ -2646,23 +2262,7 @@
     "image_with_text": {
       "name": "Image with text",
       "settings": {
-        "image_ratio": {
-          "options__0": {
-            "label": "Square (1:1)"
-          },
-          "options__1": {
-            "label": "4/5"
-          },
-          "options__2": {
-            "label": "3/4"
-          },
-          "options__3": {
-            "label": "Widescreen (16:9)"
-          },
-          "label": "Image ratio"
-        },
         "label": {
-          "label": "Label",
           "default": "Our Story"
         },
         "title": {
@@ -2676,7 +2276,6 @@
           "default": "Learn More"
         },
         "button_type": {
-          "label": "Button type",
           "options__0": {
             "label": "Link"
           },
@@ -2693,8 +2292,7 @@
           },
           "options__1": {
             "label": "Image right"
-          },
-          "label": "Layout"
+          }
         }
       },
       "blocks": {
@@ -2702,11 +2300,9 @@
           "name": "Stat",
           "settings": {
             "number": {
-              "label": "Number",
               "default": "100+"
             },
             "label": {
-              "label": "Label",
               "default": "Products"
             }
           }
@@ -2743,36 +2339,6 @@
         "image_alignment": {
           "label": "Image Alignment"
         },
-        "aspect_ratio": {
-          "label": "Aspect ratio",
-          "options__0": {
-            "label": "Auto"
-          },
-          "options__1": {
-            "label": "Square (1:1)"
-          },
-          "options__2": {
-            "label": "Standard (4:3)"
-          },
-          "options__3": {
-            "label": "3/2"
-          },
-          "options__4": {
-            "label": "Widescreen (16:9)"
-          },
-          "options__5": {
-            "label": "Ultrawide (21:9)"
-          },
-          "options__6": {
-            "label": "3/4"
-          },
-          "options__7": {
-            "label": "2/3"
-          }
-        },
-        "border_radius": {
-          "label": "Border radius"
-        },
         "reveal_effect": {
           "label": "Reveal Effect",
           "options__0": {
@@ -2797,9 +2363,6 @@
             "label": "Clip Down"
           }
         },
-        "enable_parallax": {
-          "label": "Enable Parallax"
-        },
         "parallax_intensity": {
           "label": "Parallax Intensity"
         }
@@ -2815,11 +2378,7 @@
       "name": "Logo marquee",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "As Featured In"
-        },
-        "label_alignment": {
-          "label": "Label Alignment"
         },
         "direction": {
           "options__0": {
@@ -2827,26 +2386,19 @@
           },
           "options__1": {
             "label": "Right"
-          },
-          "label": "Direction"
+          }
         },
         "speed": {
-          "label": "Speed",
           "info": "Lower values = faster animation"
         },
         "scroll_aware": {
-          "label": "Scroll aware",
           "info": "Reverses direction based on scroll direction and adds scroll acceleration effect"
         },
         "scroll_speed": {
-          "label": "Scroll speed",
           "info": "Controls the scroll acceleration intensity (1 = subtle, 5 = dramatic)"
         },
         "header__logo_styling": {
           "content": "Logo Styling"
-        },
-        "logo_height": {
-          "label": "Logo Height"
         },
         "logo_max_width": {
           "label": "Logo Max Width"
@@ -2855,11 +2407,9 @@
           "label": "Logo Opacity"
         },
         "grayscale": {
-          "label": "Grayscale",
           "info": "Displays logos in grayscale"
         },
         "invert": {
-          "label": "Invert",
           "info": "Inverts logo colors (useful for dark backgrounds)"
         }
       },
@@ -2868,7 +2418,6 @@
           "name": "Logo",
           "settings": {
             "logo": {
-              "label": "Logo",
               "info": "Upload a logo image"
             }
           }
@@ -2885,20 +2434,7 @@
       "name": "Logo wall cycle",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Trusted By"
-        },
-        "label_alignment": {
-          "label": "Label Alignment"
-        },
-        "columns_desktop": {
-          "label": "Columns Desktop"
-        },
-        "columns_tablet": {
-          "label": "Columns Tablet"
-        },
-        "columns_mobile": {
-          "label": "Columns Mobile"
         },
         "visible_desktop": {
           "label": "Visible Desktop",
@@ -2917,9 +2453,6 @@
           "label": "Loop Delay",
           "info": "Time in seconds between logo transitions"
         },
-        "animation_duration": {
-          "label": "Animation duration"
-        },
         "shuffle": {
           "label": "Shuffle",
           "info": "Randomizes the order of logos"
@@ -2927,14 +2460,7 @@
         "header__logo_styling": {
           "content": "Logo Styling"
         },
-        "logo_height": {
-          "label": "Logo Height"
-        },
-        "grayscale": {
-          "label": "Grayscale"
-        },
         "invert": {
-          "label": "Invert",
           "info": "Inverts logo colors (useful for dark backgrounds)"
         }
       },
@@ -2943,7 +2469,6 @@
           "name": "Logo",
           "settings": {
             "logo": {
-              "label": "Logo",
               "info": "Upload a logo image"
             }
           }
@@ -2960,7 +2485,6 @@
       "name": "Map",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Visit Us"
         },
         "title": {
@@ -2975,7 +2499,6 @@
           "default": "Our Store"
         },
         "address": {
-          "label": "Address",
           "info": "Full address displayed below the map",
           "default": "123 Main Street\nNew York, NY 10001"
         },
@@ -3006,7 +2529,6 @@
           "label": "Marker color"
         },
         "grayscale": {
-          "label": "Grayscale",
           "info": "Displays the map in grayscale"
         }
       },
@@ -3018,7 +2540,6 @@
               "default": "Address"
             },
             "address": {
-              "label": "Address",
               "default": "123 Main Street\nNew York, NY 10001"
             }
           }
@@ -3050,12 +2571,7 @@
           }
         },
         "custom": {
-          "name": "Custom",
-          "settings": {
-            "content": {
-              "label": "Content"
-            }
-          }
+          "name": "Custom"
         }
       },
       "presets": {
@@ -3093,11 +2609,7 @@
           "label": "Text",
           "default": "Radial Text Marquee"
         },
-        "outline": {
-          "label": "Outline"
-        },
         "speed": {
-          "label": "Speed",
           "info": "Lower values = faster animation"
         },
         "radius": {
@@ -3118,12 +2630,6 @@
         "spacer_padding": {
           "label": "Spacer Padding",
           "info": "Space between text and spacer characters"
-        },
-        "padding_top": {
-          "label": "Padding Top"
-        },
-        "padding_bottom": {
-          "label": "Padding Bottom"
         }
       },
       "presets": {
@@ -3145,23 +2651,16 @@
           },
           "options__1": {
             "label": "Right"
-          },
-          "label": "Direction"
+          }
         },
         "speed": {
-          "label": "Speed",
           "info": "Lower values = faster animation"
         },
         "scroll_aware": {
-          "label": "Scroll aware",
           "info": "Reverses direction based on scroll direction and adds scroll acceleration effect"
         },
         "scroll_speed": {
-          "label": "Scroll speed",
           "info": "Controls the scroll acceleration intensity (1 = subtle, 5 = dramatic)"
-        },
-        "pause_on_hover": {
-          "label": "Pause on hover"
         },
         "padding": {
           "label": "Padding"
@@ -3174,9 +2673,6 @@
             "text": {
               "label": "Text",
               "default": "Free Shipping"
-            },
-            "outline": {
-              "label": "Outline"
             }
           }
         },
@@ -3189,55 +2685,6 @@
               },
               "options__1": {
                 "label": "Icon"
-              },
-              "label": "Style"
-            },
-            "icon": {
-              "label": "Icon",
-              "options__0": {
-                "label": "Four-point star"
-              },
-              "options__1": {
-                "label": "Star"
-              },
-              "options__2": {
-                "label": "Sparkle"
-              },
-              "options__3": {
-                "label": "Diamond"
-              },
-              "options__4": {
-                "label": "Heart"
-              },
-              "options__5": {
-                "label": "Lightning"
-              },
-              "options__6": {
-                "label": "Fire"
-              },
-              "options__7": {
-                "label": "Circle"
-              },
-              "options__8": {
-                "label": "Flower"
-              },
-              "options__9": {
-                "label": "Crown"
-              },
-              "options__10": {
-                "label": "Leaf"
-              },
-              "options__11": {
-                "label": "Bell"
-              },
-              "options__12": {
-                "label": "Arrow"
-              },
-              "options__13": {
-                "label": "Caret"
-              },
-              "options__14": {
-                "label": "Dash"
               }
             }
           }
@@ -3278,7 +2725,6 @@
       "name": "Newsletter",
       "settings": {
         "design": {
-          "label": "Design",
           "options__0": {
             "label": "Side by side"
           },
@@ -3363,7 +2809,6 @@
           "content": "Social"
         },
         "show_social": {
-          "label": "Show social links",
           "info": "Configure social links in theme settings"
         }
       }
@@ -3377,9 +2822,6 @@
         "slide": {
           "name": "Slide",
           "settings": {
-            "label": {
-              "label": "Label"
-            },
             "title": {
               "default": "Discover Our Story"
             },
@@ -3426,7 +2868,6 @@
       "name": "Product",
       "settings": {
         "image_fit": {
-          "label": "Image fit",
           "options__0": {
             "label": "Cover"
           },
@@ -3511,7 +2952,6 @@
               "info": "Show when inventory is at or below this number"
             },
             "style": {
-              "label": "Style",
               "options__0": {
                 "label": "Bar"
               },
@@ -3556,7 +2996,6 @@
               }
             },
             "swatch_shape": {
-              "label": "Swatch shape",
               "info": "Only applies to color and image swatches",
               "options__0": {
                 "label": "Circle"
@@ -3574,7 +3013,6 @@
           "name": "Quantity selector",
           "settings": {
             "label": {
-              "label": "Label",
               "default": "Quantity"
             }
           }
@@ -3621,7 +3059,6 @@
               "default": "Shipping & Returns"
             },
             "content": {
-              "label": "Content",
               "default": "<p>Add content for this collapsible tab.</p>"
             }
           }
@@ -3630,7 +3067,6 @@
           "name": "Size chart",
           "settings": {
             "link_text": {
-              "label": "Link text",
               "info": "Leave blank to use default"
             },
             "drawer_heading": {
@@ -3642,7 +3078,6 @@
               "info": "Select a page with size chart content"
             },
             "content": {
-              "label": "Content",
               "info": "Used if no page is selected"
             },
             "show_always": {
@@ -3664,7 +3099,6 @@
               "info": "Leave blank to hide the heading"
             },
             "show_add_all": {
-              "label": "Show add all button",
               "info": "Shows a button to add all complementary products at once"
             }
           }
@@ -3676,7 +3110,6 @@
               "content": "Requires wishlist to be enabled in theme settings."
             },
             "style": {
-              "label": "Style",
               "options__0": {
                 "label": "Icon only"
               },
@@ -3696,7 +3129,6 @@
               "content": "Requires compare to be enabled in theme settings."
             },
             "style": {
-              "label": "Style",
               "options__0": {
                 "label": "Icon only"
               },
@@ -3734,9 +3166,6 @@
           "settings": {
             "paragraph__description": {
               "content": "Shows share buttons for the current product."
-            },
-            "show_share": {
-              "label": "Show share button"
             }
           }
         }
@@ -3752,20 +3181,10 @@
           "content": "Products shown here are based on the visitor's browsing history stored in their browser."
         },
         "label": {
-          "label": "Label",
           "default": "Recently browsed"
         },
         "title": {
           "default": "Recently Viewed"
-        },
-        "slides_mobile": {
-          "label": "Slides per view (mobile)"
-        },
-        "slides_tablet": {
-          "label": "Slides per view (tablet)"
-        },
-        "slides_desktop": {
-          "label": "Slides per view (desktop)"
         }
       },
       "presets": {
@@ -3782,20 +3201,10 @@
           "content": "Products are automatically selected based on Shopify's product recommendation algorithm."
         },
         "label": {
-          "label": "Label",
           "default": "You may also like"
         },
         "title": {
           "default": "Related Products"
-        },
-        "slides_mobile": {
-          "label": "Slides per view (mobile)"
-        },
-        "slides_tablet": {
-          "label": "Slides per view (tablet)"
-        },
-        "slides_desktop": {
-          "label": "Slides per view (desktop)"
         }
       },
       "presets": {
@@ -3808,18 +3217,13 @@
     "rolling_numbers": {
       "name": "Rolling numbers",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "By the Numbers"
         },
         "show_dividers": {
-          "label": "Show dividers",
           "info": "Shows separator lines between number blocks"
         },
         "animation_duration": {
-          "label": "Animation duration",
           "info": "Duration of the rolling animation in milliseconds"
         }
       },
@@ -3828,7 +3232,6 @@
           "name": "Stat",
           "settings": {
             "number": {
-              "label": "Number",
               "info": "The target number to animate to",
               "default": "100"
             },
@@ -3841,7 +3244,6 @@
               "info": "Text displayed after the number (e.g., +, %, K)"
             },
             "label": {
-              "label": "Label",
               "default": "Happy Customers"
             },
             "text": {
@@ -3956,7 +3358,6 @@
       "name": "Shop the look",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Style Guide"
         },
         "title": {
@@ -3966,7 +3367,6 @@
           "info": "Main image for the shop the look section"
         },
         "layout": {
-          "label": "Layout",
           "options__0": {
             "label": "Image left"
           },
@@ -3976,9 +3376,6 @@
         },
         "header__product_display": {
           "content": "Product display"
-        },
-        "show_add_all": {
-          "label": "Show add all button"
         },
         "add_all_title": {
           "label": "Add All Title",
@@ -3991,9 +3388,6 @@
         "header__hotspot_style": {
           "content": "Hotspot Style"
         },
-        "dot_color": {
-          "label": "Dot Color"
-        },
         "dot_text_color": {
           "label": "Dot Text Color"
         }
@@ -4002,23 +3396,8 @@
         "product": {
           "name": "Product",
           "settings": {
-            "product": {
-              "label": "Product"
-            },
             "header__hotspot_position": {
               "content": "Hotspot Position"
-            },
-            "position_x": {
-              "label": "Position X"
-            },
-            "position_y": {
-              "label": "Position Y"
-            },
-            "position_x_mobile": {
-              "label": "Position X Mobile"
-            },
-            "position_y_mobile": {
-              "label": "Position Y Mobile"
             }
           }
         }
@@ -4034,7 +3413,6 @@
       "name": "Shoppable videos",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Shop the look"
         },
         "title": {
@@ -4067,36 +3445,11 @@
             "label": "Large"
           }
         },
-        "video_aspect_ratio": {
-          "label": "Video Aspect Ratio",
-          "options__0": {
-            "label": "Portrait (9:16)"
-          },
-          "options__1": {
-            "label": "3/4"
-          },
-          "options__2": {
-            "label": "Square (1:1)"
-          },
-          "options__3": {
-            "label": "Standard (4:3)"
-          },
-          "options__4": {
-            "label": "Widescreen (16:9)"
-          }
-        },
         "show_product_info": {
           "label": "Show Product Info"
         },
-        "autoplay": {
-          "label": "Autoplay"
-        },
         "autoplay_speed": {
-          "label": "Autoplay speed",
           "info": "Time in seconds between video rotations"
-        },
-        "pause_on_hover": {
-          "label": "Pause on hover"
         }
       },
       "blocks": {
@@ -4106,9 +3459,6 @@
             "video_hosted": {
               "label": "Video Hosted",
               "info": "Upload a video file"
-            },
-            "product": {
-              "label": "Product"
             }
           }
         }
@@ -4123,9 +3473,6 @@
     "slideshow": {
       "name": "Slideshow",
       "settings": {
-        "section_height": {
-          "label": "Section height"
-        },
         "header__transition": {
           "content": "Transition"
         },
@@ -4147,15 +3494,6 @@
             "label": "Swipe"
           }
         },
-        "autoplay": {
-          "label": "Autoplay"
-        },
-        "pause_on_hover": {
-          "label": "Pause on hover"
-        },
-        "autoplay_speed": {
-          "label": "Autoplay speed"
-        },
         "progress_type": {
           "label": "Progress type",
           "options__0": {
@@ -4171,9 +3509,6 @@
         },
         "header__navigation": {
           "content": "Navigation"
-        },
-        "show_arrows": {
-          "label": "Show arrows"
         },
         "show_dots": {
           "label": "Show dots"
@@ -4191,9 +3526,6 @@
           "settings": {
             "video": {
               "info": "Upload a video file"
-            },
-            "label": {
-              "label": "Label"
             },
             "title": {
               "default": "Slide heading"
@@ -4228,9 +3560,6 @@
                 "label": "Bottom Right"
               }
             },
-            "text_alignment": {
-              "label": "Text alignment"
-            },
             "full_width_content": {
               "label": "Full Width Content",
               "info": "Extends content to the full width of the slide"
@@ -4261,7 +3590,6 @@
       "name": "Stacking cards",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Features"
         },
         "title": {
@@ -4270,11 +3598,7 @@
         "header__background": {
           "content": "Background"
         },
-        "background_image": {
-          "label": "Background image"
-        },
         "background_image_position": {
-          "label": "Background image position",
           "options__0": {
             "label": "Top left"
           },
@@ -4303,9 +3627,6 @@
             "label": "Bottom right"
           }
         },
-        "background_image_blur": {
-          "label": "Background image blur"
-        },
         "background_overlay_color": {
           "label": "Background overlay color"
         },
@@ -4328,7 +3649,6 @@
               "default": "Describe this feature and how it benefits your customers. Keep it concise and compelling."
             },
             "link_text": {
-              "label": "Link text",
               "default": "Learn More"
             }
           }
@@ -4361,7 +3681,6 @@
       "name": "Team",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Our Team"
         },
         "title": {
@@ -4434,7 +3753,6 @@
       "name": "Testimonials",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Testimonials"
         },
         "title": {
@@ -4442,15 +3760,6 @@
         },
         "show_rating": {
           "label": "Show rating"
-        },
-        "slides_mobile": {
-          "label": "Slides per view (mobile)"
-        },
-        "slides_tablet": {
-          "label": "Slides per view (tablet)"
-        },
-        "slides_desktop": {
-          "label": "Slides per view (desktop)"
         },
         "header__text": {
           "content": "Text"
@@ -4538,7 +3847,6 @@
       "name": "Text reveal",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Our Mission"
         },
         "text": {
@@ -4554,7 +3862,6 @@
           "default": "Learn More"
         },
         "button_type": {
-          "label": "Button type",
           "options__0": {
             "label": "Link"
           },
@@ -4586,9 +3893,6 @@
     "text_section": {
       "name": "Text section",
       "settings": {
-        "label": {
-          "label": "Label"
-        },
         "title": {
           "default": "Your headline here"
         },
@@ -4678,7 +3982,6 @@
       "name": "Timeline",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Our Journey"
         },
         "title": {
@@ -4732,205 +4035,10 @@
     },
     "trust_badges": {
       "name": "Trust badges",
-      "settings": {
-        "icon_color": {
-          "label": "Icon color"
-        }
-      },
       "blocks": {
         "badge": {
           "name": "Badge",
           "settings": {
-            "icon": {
-              "label": "Icon",
-              "options__0": {
-                "label": "None"
-              },
-              "options__1": {
-                "label": "Shield"
-              },
-              "options__2": {
-                "label": "Lock"
-              },
-              "options__3": {
-                "label": "Certificate"
-              },
-              "options__4": {
-                "label": "Medal"
-              },
-              "options__5": {
-                "label": "Crown"
-              },
-              "options__6": {
-                "label": "Truck"
-              },
-              "options__7": {
-                "label": "Package"
-              },
-              "options__8": {
-                "label": "Storefront"
-              },
-              "options__9": {
-                "label": "Shopping cart"
-              },
-              "options__10": {
-                "label": "Bag"
-              },
-              "options__11": {
-                "label": "Credit card"
-              },
-              "options__12": {
-                "label": "Wallet"
-              },
-              "options__13": {
-                "label": "Receipt"
-              },
-              "options__14": {
-                "label": "Tag"
-              },
-              "options__15": {
-                "label": "Barcode"
-              },
-              "options__16": {
-                "label": "Headset"
-              },
-              "options__17": {
-                "label": "Chat"
-              },
-              "options__18": {
-                "label": "Phone"
-              },
-              "options__19": {
-                "label": "Envelope"
-              },
-              "options__20": {
-                "label": "Returns"
-              },
-              "options__21": {
-                "label": "Exchange"
-              },
-              "options__22": {
-                "label": "Heart"
-              },
-              "options__23": {
-                "label": "Handmade"
-              },
-              "options__24": {
-                "label": "Star"
-              },
-              "options__25": {
-                "label": "Sparkle"
-              },
-              "options__26": {
-                "label": "Leaf"
-              },
-              "options__27": {
-                "label": "Recycle"
-              },
-              "options__28": {
-                "label": "Globe"
-              },
-              "options__29": {
-                "label": "Clock"
-              },
-              "options__30": {
-                "label": "Hourglass"
-              },
-              "options__31": {
-                "label": "Calendar"
-              },
-              "options__32": {
-                "label": "Gift"
-              },
-              "options__33": {
-                "label": "Percent"
-              },
-              "options__34": {
-                "label": "Lightning"
-              },
-              "options__35": {
-                "label": "Fire"
-              },
-              "options__36": {
-                "label": "Bell"
-              },
-              "options__37": {
-                "label": "Growth"
-              },
-              "options__38": {
-                "label": "Target"
-              },
-              "options__39": {
-                "label": "Rocket"
-              },
-              "options__40": {
-                "label": "Users"
-              },
-              "options__41": {
-                "label": "Compass"
-              },
-              "options__42": {
-                "label": "Flag"
-              },
-              "options__43": {
-                "label": "Code"
-              },
-              "options__44": {
-                "label": "Paint brush"
-              },
-              "options__45": {
-                "label": "Wrench"
-              },
-              "options__46": {
-                "label": "Gear"
-              },
-              "options__47": {
-                "label": "Pencil"
-              },
-              "options__48": {
-                "label": "Ruler"
-              },
-              "options__49": {
-                "label": "Flask"
-              },
-              "options__50": {
-                "label": "Camera"
-              },
-              "options__51": {
-                "label": "Image"
-              },
-              "options__52": {
-                "label": "Play"
-              },
-              "options__53": {
-                "label": "Music"
-              },
-              "options__54": {
-                "label": "Microphone"
-              },
-              "options__55": {
-                "label": "Article"
-              },
-              "options__56": {
-                "label": "Bookmark"
-              },
-              "options__57": {
-                "label": "Map pin"
-              },
-              "options__58": {
-                "label": "Mountains"
-              },
-              "options__59": {
-                "label": "Key"
-              },
-              "options__60": {
-                "label": "Diamond"
-              }
-            },
-            "custom_icon": {
-              "label": "Custom icon",
-              "info": "Overrides the selected icon above"
-            },
             "title": {
               "default": "Free Shipping"
             },
@@ -4976,33 +4084,6 @@
         "loop": {
           "label": "Loop"
         },
-        "show_controls": {
-          "label": "Show controls"
-        },
-        "aspect_ratio": {
-          "options__0": {
-            "label": "Widescreen (16:9)"
-          },
-          "options__1": {
-            "label": "Ultrawide (21:9)"
-          },
-          "options__2": {
-            "label": "Standard (4:3)"
-          },
-          "options__3": {
-            "label": "Square (1:1)"
-          },
-          "options__4": {
-            "label": "Portrait (9:16)"
-          },
-          "label": "Aspect ratio"
-        },
-        "border_radius": {
-          "label": "Border radius"
-        },
-        "label": {
-          "label": "Label"
-        },
         "content_position": {
           "options__0": {
             "label": "Top"
@@ -5027,7 +4108,6 @@
       "name": "Wishlist",
       "settings": {
         "label": {
-          "label": "Label",
           "default": "Saved"
         },
         "title": {
