@@ -215,19 +215,19 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Features",
+      "default": "t:sections.stacking_cards.settings.label.default",
       "label": "t:sections.stacking_cards.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "Why Choose Us",
+      "default": "t:sections.stacking_cards.settings.title.default",
       "label": "t:sections.stacking_cards.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
-      "default": "Discover what makes our products stand out from the rest.",
+      "default": "t:sections.stacking_cards.settings.description.default",
       "label": "t:sections.stacking_cards.settings.description.label"
     },
     {
@@ -260,15 +260,42 @@
       "id": "background_image_position",
       "label": "t:sections.stacking_cards.settings.background_image_position.label",
       "options": [
-        { "value": "top left", "label": "t:sections.stacking_cards.settings.background_image_position.options__0.label" },
-        { "value": "top center", "label": "t:sections.stacking_cards.settings.background_image_position.options__1.label" },
-        { "value": "top right", "label": "t:sections.stacking_cards.settings.background_image_position.options__2.label" },
-        { "value": "center left", "label": "t:sections.stacking_cards.settings.background_image_position.options__3.label" },
-        { "value": "center center", "label": "t:sections.stacking_cards.settings.background_image_position.options__4.label" },
-        { "value": "center right", "label": "t:sections.stacking_cards.settings.background_image_position.options__5.label" },
-        { "value": "bottom left", "label": "t:sections.stacking_cards.settings.background_image_position.options__6.label" },
-        { "value": "bottom center", "label": "t:sections.stacking_cards.settings.background_image_position.options__7.label" },
-        { "value": "bottom right", "label": "t:sections.stacking_cards.settings.background_image_position.options__8.label" }
+        {
+          "value": "top left",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__0.label"
+        },
+        {
+          "value": "top center",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__1.label"
+        },
+        {
+          "value": "top right",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__2.label"
+        },
+        {
+          "value": "center left",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__3.label"
+        },
+        {
+          "value": "center center",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__4.label"
+        },
+        {
+          "value": "center right",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__5.label"
+        },
+        {
+          "value": "bottom left",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__6.label"
+        },
+        {
+          "value": "bottom center",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__7.label"
+        },
+        {
+          "value": "bottom right",
+          "label": "t:sections.stacking_cards.settings.background_image_position.options__8.label"
+        }
       ],
       "default": "center center"
     },
@@ -321,19 +348,19 @@
         {
           "type": "text",
           "id": "title",
-          "default": "Feature Title",
+          "default": "t:sections.stacking_cards.blocks.card.settings.title.default",
           "label": "t:sections.stacking_cards.blocks.card.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
-          "default": "Describe this feature and how it benefits your customers. Keep it concise and compelling.",
+          "default": "t:sections.stacking_cards.blocks.card.settings.text.default",
           "label": "t:sections.stacking_cards.blocks.card.settings.text.label"
         },
         {
           "type": "text",
           "id": "link_text",
-          "default": "Learn More",
+          "default": "t:sections.stacking_cards.blocks.card.settings.link_text.default",
           "label": "t:sections.stacking_cards.blocks.card.settings.link_text.label"
         },
         {
@@ -349,14 +376,35 @@
       "name": "t:sections.stacking_cards.presets.stacking_cards.name",
       "category": "t:sections.stacking_cards.presets.stacking_cards.category",
       "blocks": [
-        { "type": "card", "settings": { "title": "Premium Quality", "text": "We source only the finest materials and work with skilled artisans to create products that last." } },
-        { "type": "card", "settings": { "title": "Sustainable Practices", "text": "Every step of our process is designed with the environment in mind, from sourcing to shipping." } },
-        { "type": "card", "settings": { "title": "Customer First", "text": "Your satisfaction is our priority. We offer hassle-free returns and dedicated support." } }
+        {
+          "type": "card",
+          "settings": {
+            "title": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.0.title",
+            "text": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.0.text"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.1.title",
+            "text": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.1.text"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.2.title",
+            "text": "t:sections.stacking_cards.presets.stacking_cards.blocks.card.2.text"
+          }
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

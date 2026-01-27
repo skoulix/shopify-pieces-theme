@@ -513,13 +513,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.recently_viewed.settings.label.label",
-      "default": "Recently browsed"
+      "default": "t:sections.recently_viewed.settings.label.default"
     },
     {
       "type": "text",
       "id": "title",
       "label": "t:sections.recently_viewed.settings.title.label",
-      "default": "Recently Viewed"
+      "default": "t:sections.recently_viewed.settings.title.default"
     },
     {
       "type": "textarea",
@@ -557,8 +557,14 @@
       "default": "1",
       "label": "t:sections.recently_viewed.settings.slides_mobile.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
       ]
     },
     {
@@ -567,9 +573,18 @@
       "default": "2",
       "label": "t:sections.recently_viewed.settings.slides_tablet.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" }
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
       ]
     },
     {
@@ -578,10 +593,22 @@
       "default": "4",
       "label": "t:sections.recently_viewed.settings.slides_desktop.label",
       "options": [
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" },
-        { "value": "4", "label": "4" },
-        { "value": "5", "label": "5" }
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
       ]
     },
     {
@@ -597,10 +624,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -621,7 +660,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

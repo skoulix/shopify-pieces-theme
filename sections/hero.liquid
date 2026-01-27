@@ -174,13 +174,13 @@
     {
       "type": "text",
       "id": "title",
-      "default": "Elevate Your Style",
+      "default": "t:sections.hero.settings.title.default",
       "label": "t:sections.hero.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
-      "default": "Discover our curated collection of premium products designed for the modern lifestyle.",
+      "default": "t:sections.hero.settings.description.default",
       "label": "t:sections.hero.settings.description.label"
     },
     {
@@ -192,7 +192,7 @@
     {
       "type": "text",
       "id": "button_text",
-      "default": "Shop Now",
+      "default": "t:sections.hero.settings.button_text.default",
       "label": "t:sections.hero.settings.button_text.label"
     },
     {
@@ -206,8 +206,14 @@
       "label": "t:sections.hero.settings.button_style.label",
       "default": "outline",
       "options": [
-        { "value": "solid", "label": "t:sections.hero.settings.button_style.options__0.label" },
-        { "value": "outline", "label": "t:sections.hero.settings.button_style.options__1.label" }
+        {
+          "value": "solid",
+          "label": "t:sections.hero.settings.button_style.options__0.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.hero.settings.button_style.options__1.label"
+        }
       ]
     },
     {
@@ -216,8 +222,14 @@
       "label": "t:sections.hero.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "t:sections.hero.settings.button_color.options__0.label" },
-        { "value": "secondary", "label": "t:sections.hero.settings.button_color.options__1.label" }
+        {
+          "value": "primary",
+          "label": "t:sections.hero.settings.button_color.options__0.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.hero.settings.button_color.options__1.label"
+        }
       ]
     },
     {
@@ -225,9 +237,18 @@
       "id": "button_size",
       "label": "t:sections.hero.settings.button_size.label",
       "options": [
-        { "value": "small", "label": "t:sections.hero.settings.button_size.options__0.label" },
-        { "value": "default", "label": "t:sections.hero.settings.button_size.options__1.label" },
-        { "value": "large", "label": "t:sections.hero.settings.button_size.options__2.label" }
+        {
+          "value": "small",
+          "label": "t:sections.hero.settings.button_size.options__0.label"
+        },
+        {
+          "value": "default",
+          "label": "t:sections.hero.settings.button_size.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.hero.settings.button_size.options__2.label"
+        }
       ],
       "default": "large"
     },
@@ -267,7 +288,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

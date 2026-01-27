@@ -138,10 +138,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -181,7 +193,7 @@
     {
       "type": "text",
       "id": "view_all_text",
-      "default": "View All",
+      "default": "t:sections.featured_collection.settings.view_all_text.default",
       "label": "t:sections.featured_collection.settings.view_all_text.label"
     },
     {
@@ -202,7 +214,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

@@ -107,10 +107,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "small",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -141,26 +153,86 @@
           "label": "t:sections.trust_badges.blocks.badge.settings.icon.label",
           "default": "shield-check",
           "options": [
-            { "value": "none", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__0.label" },
-            { "value": "shield-check", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__1.label" },
-            { "value": "lock-simple", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__2.label" },
-            { "value": "truck", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__3.label" },
-            { "value": "package", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__4.label" },
-            { "value": "arrow-counter-clockwise", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__5.label" },
-            { "value": "credit-card", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__6.label" },
-            { "value": "headset", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__7.label" },
-            { "value": "chat-circle", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__8.label" },
-            { "value": "star", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__9.label" },
-            { "value": "medal", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__10.label" },
-            { "value": "certificate", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__11.label" },
-            { "value": "heart", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__12.label" },
-            { "value": "leaf", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__13.label" },
-            { "value": "recycle", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__14.label" },
-            { "value": "hand-heart", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__15.label" },
-            { "value": "clock", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__16.label" },
-            { "value": "gift", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__17.label" },
-            { "value": "percent", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__18.label" },
-            { "value": "globe", "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__19.label" }
+            {
+              "value": "none",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__0.label"
+            },
+            {
+              "value": "shield-check",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__1.label"
+            },
+            {
+              "value": "lock-simple",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__2.label"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__3.label"
+            },
+            {
+              "value": "package",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__4.label"
+            },
+            {
+              "value": "arrow-counter-clockwise",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__5.label"
+            },
+            {
+              "value": "credit-card",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__6.label"
+            },
+            {
+              "value": "headset",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__7.label"
+            },
+            {
+              "value": "chat-circle",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__8.label"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__9.label"
+            },
+            {
+              "value": "medal",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__10.label"
+            },
+            {
+              "value": "certificate",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__11.label"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__12.label"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__13.label"
+            },
+            {
+              "value": "recycle",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__14.label"
+            },
+            {
+              "value": "hand-heart",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__15.label"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__16.label"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__17.label"
+            },
+            {
+              "value": "percent",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__18.label"
+            },
+            {
+              "value": "globe",
+              "label": "t:sections.trust_badges.blocks.badge.settings.icon.options__19.label"
+            }
           ]
         },
         {
@@ -173,13 +245,13 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.trust_badges.blocks.badge.settings.title.label",
-          "default": "Free Shipping"
+          "default": "t:sections.trust_badges.blocks.badge.settings.title.default"
         },
         {
           "type": "text",
           "id": "description",
           "label": "t:sections.trust_badges.blocks.badge.settings.description.label",
-          "default": "On orders over $50"
+          "default": "t:sections.trust_badges.blocks.badge.settings.description.default"
         }
       ]
     }
@@ -193,39 +265,42 @@
           "type": "badge",
           "settings": {
             "icon": "truck",
-            "title": "Free Shipping",
-            "description": "On orders over $50"
+            "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.0.title",
+            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.0.description"
           }
         },
         {
           "type": "badge",
           "settings": {
             "icon": "shield-check",
-            "title": "Secure Checkout",
-            "description": "SSL encrypted payment"
+            "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.1.title",
+            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.1.description"
           }
         },
         {
           "type": "badge",
           "settings": {
             "icon": "arrow-counter-clockwise",
-            "title": "Easy Returns",
-            "description": "30-day return policy"
+            "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.2.title",
+            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.2.description"
           }
         },
         {
           "type": "badge",
           "settings": {
             "icon": "headset",
-            "title": "24/7 Support",
-            "description": "Dedicated support team"
+            "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.3.title",
+            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.3.description"
           }
         }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

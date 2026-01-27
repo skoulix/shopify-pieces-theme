@@ -360,7 +360,7 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Trusted By",
+      "default": "t:sections.logo_wall_cycle.settings.label.default",
       "label": "t:sections.logo_wall_cycle.settings.label.label"
     },
     {
@@ -377,9 +377,18 @@
       "type": "select",
       "id": "label_alignment",
       "options": [
-        { "value": "left", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__0.label" },
-        { "value": "center", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__1.label" },
-        { "value": "right", "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__2.label" }
+        {
+          "value": "left",
+          "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__0.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.logo_wall_cycle.settings.label_alignment.options__2.label"
+        }
       ],
       "default": "center",
       "label": "t:sections.logo_wall_cycle.settings.label_alignment.label"
@@ -391,10 +400,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -551,23 +572,50 @@
       "name": "t:sections.logo_wall_cycle.presets.logo_wall_cycle.name",
       "category": "t:sections.logo_wall_cycle.presets.logo_wall_cycle.category",
       "blocks": [
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" },
-        { "type": "logo" }
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        },
+        {
+          "type": "logo"
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

@@ -453,7 +453,7 @@
       "type": "text",
       "id": "title",
       "label": "t:sections.collections_carousel.settings.title.label",
-      "default": "Shop by Collection"
+      "default": "t:sections.collections_carousel.settings.title.default"
     },
     {
       "type": "textarea",
@@ -482,8 +482,14 @@
       "default": "1",
       "label": "t:sections.collections_carousel.settings.slides_mobile.label",
       "options": [
-        { "value": "1", "label": "t:sections.collections_carousel.settings.slides_mobile.options__0.label" },
-        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_mobile.options__1.label" }
+        {
+          "value": "1",
+          "label": "t:sections.collections_carousel.settings.slides_mobile.options__0.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.collections_carousel.settings.slides_mobile.options__1.label"
+        }
       ]
     },
     {
@@ -492,9 +498,18 @@
       "default": "2",
       "label": "t:sections.collections_carousel.settings.slides_tablet.label",
       "options": [
-        { "value": "1", "label": "t:sections.collections_carousel.settings.slides_tablet.options__0.label" },
-        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_tablet.options__1.label" },
-        { "value": "3", "label": "t:sections.collections_carousel.settings.slides_tablet.options__2.label" }
+        {
+          "value": "1",
+          "label": "t:sections.collections_carousel.settings.slides_tablet.options__0.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.collections_carousel.settings.slides_tablet.options__1.label"
+        },
+        {
+          "value": "3",
+          "label": "t:sections.collections_carousel.settings.slides_tablet.options__2.label"
+        }
       ]
     },
     {
@@ -503,10 +518,22 @@
       "default": "4",
       "label": "t:sections.collections_carousel.settings.slides_desktop.label",
       "options": [
-        { "value": "2", "label": "t:sections.collections_carousel.settings.slides_desktop.options__0.label" },
-        { "value": "3", "label": "t:sections.collections_carousel.settings.slides_desktop.options__1.label" },
-        { "value": "4", "label": "t:sections.collections_carousel.settings.slides_desktop.options__2.label" },
-        { "value": "5", "label": "t:sections.collections_carousel.settings.slides_desktop.options__3.label" }
+        {
+          "value": "2",
+          "label": "t:sections.collections_carousel.settings.slides_desktop.options__0.label"
+        },
+        {
+          "value": "3",
+          "label": "t:sections.collections_carousel.settings.slides_desktop.options__1.label"
+        },
+        {
+          "value": "4",
+          "label": "t:sections.collections_carousel.settings.slides_desktop.options__2.label"
+        },
+        {
+          "value": "5",
+          "label": "t:sections.collections_carousel.settings.slides_desktop.options__3.label"
+        }
       ]
     },
     {
@@ -522,10 +549,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -582,14 +621,23 @@
       "name": "t:sections.collections_carousel.presets.collections_carousel.name",
       "category": "t:sections.collections_carousel.presets.collections_carousel.category",
       "blocks": [
-        { "type": "collection" },
-        { "type": "collection" },
-        { "type": "collection" }
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

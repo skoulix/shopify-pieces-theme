@@ -488,7 +488,7 @@
       "type": "text",
       "id": "title",
       "label": "t:sections.collections.settings.title.label",
-      "default": "Collections"
+      "default": "t:sections.collections.settings.title.default"
     },
     {
       "type": "textarea",
@@ -557,8 +557,14 @@
       "id": "columns_mobile",
       "label": "t:sections.collections.settings.columns_mobile.label",
       "options": [
-        { "value": "1", "label": "t:sections.collections.settings.columns_mobile.options__0.label" },
-        { "value": "2", "label": "t:sections.collections.settings.columns_mobile.options__1.label" }
+        {
+          "value": "1",
+          "label": "t:sections.collections.settings.columns_mobile.options__0.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.collections.settings.columns_mobile.options__1.label"
+        }
       ],
       "default": "1"
     },
@@ -569,10 +575,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -592,7 +610,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

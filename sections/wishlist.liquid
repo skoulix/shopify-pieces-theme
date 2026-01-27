@@ -291,13 +291,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.wishlist.settings.label.label",
-      "default": "Saved"
+      "default": "t:sections.wishlist.settings.label.default"
     },
     {
       "type": "text",
       "id": "title",
       "label": "t:sections.wishlist.settings.title.label",
-      "default": "Wishlist"
+      "default": "t:sections.wishlist.settings.title.default"
     },
     {
       "type": "textarea",
@@ -327,10 +327,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -351,7 +363,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

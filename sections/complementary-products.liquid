@@ -302,7 +302,7 @@
       "type": "text",
       "id": "title",
       "label": "t:sections.complementary_products.settings.title.label",
-      "default": "Pairs well with"
+      "default": "t:sections.complementary_products.settings.title.default"
     },
     {
       "type": "textarea",
@@ -325,9 +325,18 @@
       "label": "t:sections.complementary_products.settings.alignment.label",
       "default": "left",
       "options": [
-        { "value": "left", "label": "t:sections.complementary_products.settings.alignment.options__0.label" },
-        { "value": "center", "label": "t:sections.complementary_products.settings.alignment.options__1.label" },
-        { "value": "right", "label": "t:sections.complementary_products.settings.alignment.options__2.label" }
+        {
+          "value": "left",
+          "label": "t:sections.complementary_products.settings.alignment.options__0.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.complementary_products.settings.alignment.options__1.label"
+        },
+        {
+          "value": "right",
+          "label": "t:sections.complementary_products.settings.alignment.options__2.label"
+        }
       ]
     },
     {
@@ -362,10 +371,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -386,7 +407,9 @@
     }
   ],
   "enabled_on": {
-    "templates": ["product"]
+    "templates": [
+      "product"
+    ]
   }
 }
 {% endschema %}

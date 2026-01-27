@@ -222,9 +222,18 @@
       "id": "footer_design",
       "label": "t:sections.footer.settings.footer_design.label",
       "options": [
-        { "value": "minimal", "label": "t:sections.footer.settings.footer_design.options__0.label" },
-        { "value": "modern", "label": "t:sections.footer.settings.footer_design.options__1.label" },
-        { "value": "classic", "label": "t:sections.footer.settings.footer_design.options__2.label" }
+        {
+          "value": "minimal",
+          "label": "t:sections.footer.settings.footer_design.options__0.label"
+        },
+        {
+          "value": "modern",
+          "label": "t:sections.footer.settings.footer_design.options__1.label"
+        },
+        {
+          "value": "classic",
+          "label": "t:sections.footer.settings.footer_design.options__2.label"
+        }
       ],
       "default": "minimal",
       "info": "t:sections.footer.settings.footer_design.info"
@@ -249,10 +258,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -282,7 +303,7 @@
           "type": "textarea",
           "id": "description",
           "label": "t:sections.footer.blocks.brand.settings.description.label",
-          "default": "Your brand tagline or brief description goes here."
+          "default": "t:sections.footer.blocks.brand.settings.description.default"
         },
         {
           "type": "checkbox",
@@ -300,7 +321,7 @@
           "type": "link_list",
           "id": "menu",
           "label": "t:sections.footer.blocks.navigation.settings.menu.label",
-          "default": "footer"
+          "default": "t:sections.footer.blocks.navigation.settings.menu.default"
         },
         {
           "type": "checkbox",
@@ -318,13 +339,13 @@
           "type": "text",
           "id": "heading",
           "label": "t:sections.footer.blocks.menu_column.settings.heading.label",
-          "default": "Quick links"
+          "default": "t:sections.footer.blocks.menu_column.settings.heading.default"
         },
         {
           "type": "link_list",
           "id": "menu",
           "label": "t:sections.footer.blocks.menu_column.settings.menu.label",
-          "default": "footer"
+          "default": "t:sections.footer.blocks.menu_column.settings.menu.default"
         }
       ]
     },
@@ -337,13 +358,13 @@
           "type": "text",
           "id": "heading",
           "label": "t:sections.footer.blocks.newsletter.settings.heading.label",
-          "default": "Subscribe to our newsletter"
+          "default": "t:sections.footer.blocks.newsletter.settings.heading.default"
         },
         {
           "type": "text",
           "id": "description",
           "label": "t:sections.footer.blocks.newsletter.settings.description.label",
-          "default": "Get the latest updates and offers."
+          "default": "t:sections.footer.blocks.newsletter.settings.description.default"
         }
       ]
     },
@@ -392,7 +413,7 @@
           "type": "richtext",
           "id": "text",
           "label": "t:sections.footer.blocks.text.settings.text.label",
-          "default": "<p>Custom footer text</p>"
+          "default": "t:sections.footer.blocks.text.settings.text.default"
         }
       ]
     },

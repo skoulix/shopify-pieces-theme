@@ -303,13 +303,13 @@
       "type": "text",
       "id": "title",
       "label": "t:sections.contact_form.settings.title.label",
-      "default": "Contact"
+      "default": "t:sections.contact_form.settings.title.default"
     },
     {
       "type": "textarea",
       "id": "description",
       "label": "t:sections.contact_form.settings.description.label",
-      "default": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible."
+      "default": "t:sections.contact_form.settings.description.default"
     },
     {
       "type": "checkbox",
@@ -341,10 +341,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -357,8 +369,14 @@
       "label": "t:sections.contact_form.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "t:sections.contact_form.settings.button_style.options__0.label" },
-        { "value": "outline", "label": "t:sections.contact_form.settings.button_style.options__1.label" }
+        {
+          "value": "solid",
+          "label": "t:sections.contact_form.settings.button_style.options__0.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.contact_form.settings.button_style.options__1.label"
+        }
       ]
     },
     {
@@ -367,8 +385,14 @@
       "label": "t:sections.contact_form.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "t:sections.contact_form.settings.button_color.options__0.label" },
-        { "value": "secondary", "label": "t:sections.contact_form.settings.button_color.options__1.label" }
+        {
+          "value": "primary",
+          "label": "t:sections.contact_form.settings.button_color.options__0.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.contact_form.settings.button_color.options__1.label"
+        }
       ]
     },
     {
@@ -377,9 +401,18 @@
       "label": "t:sections.contact_form.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "t:sections.contact_form.settings.button_size.options__0.label" },
-        { "value": "default", "label": "t:sections.contact_form.settings.button_size.options__1.label" },
-        { "value": "large", "label": "t:sections.contact_form.settings.button_size.options__2.label" }
+        {
+          "value": "small",
+          "label": "t:sections.contact_form.settings.button_size.options__0.label"
+        },
+        {
+          "value": "default",
+          "label": "t:sections.contact_form.settings.button_size.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.contact_form.settings.button_size.options__2.label"
+        }
       ]
     },
     {
@@ -397,7 +430,7 @@
       "type": "text",
       "id": "social_heading",
       "label": "t:sections.contact_form.settings.social_heading.label",
-      "default": "Follow us"
+      "default": "t:sections.contact_form.settings.social_heading.default"
     },
     {
       "type": "header",
@@ -417,7 +450,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

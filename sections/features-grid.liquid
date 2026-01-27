@@ -97,19 +97,19 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Why Choose Us",
+      "default": "t:sections.features_grid.settings.label.default",
       "label": "t:sections.features_grid.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "Features That Set Us Apart",
+      "default": "t:sections.features_grid.settings.title.default",
       "label": "t:sections.features_grid.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
-      "default": "Everything you need to create an amazing shopping experience.",
+      "default": "t:sections.features_grid.settings.description.default",
       "label": "t:sections.features_grid.settings.description.label"
     },
     {
@@ -132,8 +132,14 @@
       "type": "select",
       "id": "layout",
       "options": [
-        { "value": "standard", "label": "t:sections.features_grid.settings.layout.options__0.label" },
-        { "value": "bento", "label": "t:sections.features_grid.settings.layout.options__1.label" }
+        {
+          "value": "standard",
+          "label": "t:sections.features_grid.settings.layout.options__0.label"
+        },
+        {
+          "value": "bento",
+          "label": "t:sections.features_grid.settings.layout.options__1.label"
+        }
       ],
       "default": "standard",
       "label": "t:sections.features_grid.settings.layout.label"
@@ -154,10 +160,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -182,36 +200,126 @@
           "label": "t:sections.features_grid.blocks.feature.settings.icon.label",
           "default": "star",
           "options": [
-            { "value": "none", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__0.label" },
-            { "value": "star", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__1.label" },
-            { "value": "shield-check", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__2.label" },
-            { "value": "lock-simple", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__3.label" },
-            { "value": "truck", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__4.label" },
-            { "value": "package", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__5.label" },
-            { "value": "arrow-counter-clockwise", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__6.label" },
-            { "value": "credit-card", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__7.label" },
-            { "value": "headset", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__8.label" },
-            { "value": "chat-circle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__9.label" },
-            { "value": "medal", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__10.label" },
-            { "value": "certificate", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__11.label" },
-            { "value": "heart", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__12.label" },
-            { "value": "leaf", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__13.label" },
-            { "value": "recycle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__14.label" },
-            { "value": "hand-heart", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__15.label" },
-            { "value": "clock", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__16.label" },
-            { "value": "gift", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__17.label" },
-            { "value": "percent", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__18.label" },
-            { "value": "globe", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__19.label" },
-            { "value": "lightning", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__20.label" },
-            { "value": "sparkle", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__21.label" },
-            { "value": "users", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__22.label" },
-            { "value": "chart-line-up", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__23.label" },
-            { "value": "target", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__24.label" },
-            { "value": "rocket", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__25.label" },
-            { "value": "code", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__26.label" },
-            { "value": "paint-brush", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__27.label" },
-            { "value": "wrench", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__28.label" },
-            { "value": "gear", "label": "t:sections.features_grid.blocks.feature.settings.icon.options__29.label" }
+            {
+              "value": "none",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__0.label"
+            },
+            {
+              "value": "star",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__1.label"
+            },
+            {
+              "value": "shield-check",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__2.label"
+            },
+            {
+              "value": "lock-simple",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__3.label"
+            },
+            {
+              "value": "truck",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__4.label"
+            },
+            {
+              "value": "package",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__5.label"
+            },
+            {
+              "value": "arrow-counter-clockwise",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__6.label"
+            },
+            {
+              "value": "credit-card",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__7.label"
+            },
+            {
+              "value": "headset",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__8.label"
+            },
+            {
+              "value": "chat-circle",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__9.label"
+            },
+            {
+              "value": "medal",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__10.label"
+            },
+            {
+              "value": "certificate",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__11.label"
+            },
+            {
+              "value": "heart",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__12.label"
+            },
+            {
+              "value": "leaf",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__13.label"
+            },
+            {
+              "value": "recycle",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__14.label"
+            },
+            {
+              "value": "hand-heart",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__15.label"
+            },
+            {
+              "value": "clock",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__16.label"
+            },
+            {
+              "value": "gift",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__17.label"
+            },
+            {
+              "value": "percent",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__18.label"
+            },
+            {
+              "value": "globe",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__19.label"
+            },
+            {
+              "value": "lightning",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__20.label"
+            },
+            {
+              "value": "sparkle",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__21.label"
+            },
+            {
+              "value": "users",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__22.label"
+            },
+            {
+              "value": "chart-line-up",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__23.label"
+            },
+            {
+              "value": "target",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__24.label"
+            },
+            {
+              "value": "rocket",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__25.label"
+            },
+            {
+              "value": "code",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__26.label"
+            },
+            {
+              "value": "paint-brush",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__27.label"
+            },
+            {
+              "value": "wrench",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__28.label"
+            },
+            {
+              "value": "gear",
+              "label": "t:sections.features_grid.blocks.feature.settings.icon.options__29.label"
+            }
           ]
         },
         {
@@ -223,19 +331,19 @@
         {
           "type": "text",
           "id": "title",
-          "default": "Feature Title",
+          "default": "t:sections.features_grid.blocks.feature.settings.title.default",
           "label": "t:sections.features_grid.blocks.feature.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
-          "default": "Describe this feature and how it benefits your customers.",
+          "default": "t:sections.features_grid.blocks.feature.settings.text.default",
           "label": "t:sections.features_grid.blocks.feature.settings.text.label"
         },
         {
           "type": "text",
           "id": "link_text",
-          "default": "Learn More",
+          "default": "t:sections.features_grid.blocks.feature.settings.link_text.default",
           "label": "t:sections.features_grid.blocks.feature.settings.link_text.label"
         },
         {
@@ -251,14 +359,38 @@
       "name": "t:sections.features_grid.presets.features_grid.name",
       "category": "t:sections.features_grid.presets.features_grid.category",
       "blocks": [
-        { "type": "feature", "settings": { "icon": "truck", "title": "Free Shipping", "text": "Enjoy free shipping on all orders over $50. Fast and reliable delivery to your doorstep." } },
-        { "type": "feature", "settings": { "icon": "shield-check", "title": "Secure Payment", "text": "Your payment information is protected with industry-leading encryption." } },
-        { "type": "feature", "settings": { "icon": "arrow-counter-clockwise", "title": "Easy Returns", "text": "Not satisfied? Return within 30 days for a full refund, no questions asked." } }
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "t:sections.features_grid.presets.features_grid.blocks.feature.0.title",
+            "text": "t:sections.features_grid.presets.features_grid.blocks.feature.0.text"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "shield-check",
+            "title": "t:sections.features_grid.presets.features_grid.blocks.feature.1.title",
+            "text": "t:sections.features_grid.presets.features_grid.blocks.feature.1.text"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "arrow-counter-clockwise",
+            "title": "t:sections.features_grid.presets.features_grid.blocks.feature.2.title",
+            "text": "t:sections.features_grid.presets.features_grid.blocks.feature.2.text"
+          }
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

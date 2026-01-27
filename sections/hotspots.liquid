@@ -414,13 +414,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.hotspots.settings.label.label",
-      "default": "Discover"
+      "default": "t:sections.hotspots.settings.label.default"
     },
     {
       "type": "text",
       "id": "title",
       "label": "t:sections.hotspots.settings.title.label",
-      "default": "Product Features"
+      "default": "t:sections.hotspots.settings.title.default"
     },
     {
       "type": "textarea",
@@ -466,10 +466,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -540,13 +552,13 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.hotspots.blocks.hotspot.settings.title.label",
-          "default": "Feature Title"
+          "default": "t:sections.hotspots.blocks.hotspot.settings.title.default"
         },
         {
           "type": "textarea",
           "id": "description",
           "label": "t:sections.hotspots.blocks.hotspot.settings.description.label",
-          "default": "Describe this feature or specification in detail."
+          "default": "t:sections.hotspots.blocks.hotspot.settings.description.default"
         },
         {
           "type": "text",
@@ -584,10 +596,22 @@
           "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.label",
           "default": "right",
           "options": [
-            { "value": "top", "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__0.label" },
-            { "value": "right", "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__1.label" },
-            { "value": "bottom", "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__2.label" },
-            { "value": "left", "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__3.label" }
+            {
+              "value": "top",
+              "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__0.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__1.label"
+            },
+            {
+              "value": "bottom",
+              "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__2.label"
+            },
+            {
+              "value": "left",
+              "label": "t:sections.hotspots.blocks.hotspot.settings.popover_position.options__3.label"
+            }
           ]
         },
         {
@@ -621,8 +645,8 @@
           "settings": {
             "position_x": 25,
             "position_y": 30,
-            "title": "Premium Materials",
-            "description": "Crafted with high-quality materials for durability and comfort."
+            "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.0.title",
+            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.0.description"
           }
         },
         {
@@ -630,8 +654,8 @@
           "settings": {
             "position_x": 75,
             "position_y": 40,
-            "title": "Advanced Technology",
-            "description": "Features cutting-edge technology for optimal performance."
+            "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.1.title",
+            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.1.description"
           }
         },
         {
@@ -639,15 +663,18 @@
           "settings": {
             "position_x": 50,
             "position_y": 70,
-            "title": "Ergonomic Design",
-            "description": "Designed with comfort and usability in mind."
+            "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.2.title",
+            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.2.description"
           }
         }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

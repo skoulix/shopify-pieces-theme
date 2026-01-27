@@ -377,126 +377,129 @@
 </script>
 
 {% schema %}
-  {
-    "name": "t:sections.marquee_radial.name",
-    "tag": "section",
-    "class": "marquee-radial-section",
-    "settings": [
-      {
-        "type": "header",
-        "content": "t:shared.headers.content"
-      },
-      {
-        "type": "text",
-        "id": "text",
-        "label": "t:sections.marquee_radial.settings.text.label",
-        "default": "Radial Text Marquee"
-      },
-      {
-        "type": "checkbox",
-        "id": "outline",
-        "label": "t:sections.marquee_radial.settings.outline.label",
-        "default": false
-      },
-      {
-        "type": "header",
-        "content": "t:sections.marquee_radial.settings.header__animation.content"
-      },
-      {
-        "type": "range",
-        "id": "speed",
-        "label": "t:sections.marquee_radial.settings.speed.label",
-        "min": 1,
-        "max": 10,
-        "step": 1,
-        "default": 2,
-        "info": "t:sections.marquee_radial.settings.speed.info"
-      },
-      {
-        "type": "range",
-        "id": "radius",
-        "label": "t:sections.marquee_radial.settings.radius.label",
-        "min": 0,
-        "max": 10,
-        "step": 1,
-        "default": 8,
-        "info": "t:sections.marquee_radial.settings.radius.info"
-      },
-      {
-        "type": "header",
-        "content": "t:sections.marquee_radial.settings.header__spacer.content"
-      },
-      {
-        "type": "text",
-        "id": "spacer",
-        "label": "t:sections.marquee_radial.settings.spacer.label",
-        "default": "-",
-        "info": "t:sections.marquee_radial.settings.spacer.info"
-      },
-      {
-        "type": "color",
-        "id": "spacer_color",
-        "label": "t:sections.marquee_radial.settings.spacer_color.label"
-      },
-      {
-        "type": "range",
-        "id": "spacer_padding",
-        "label": "t:sections.marquee_radial.settings.spacer_padding.label",
-        "min": 0,
-        "max": 10,
-        "step": 1,
-        "default": 1,
-        "info": "t:sections.marquee_radial.settings.spacer_padding.info"
-      },
-      {
-        "type": "header",
-        "content": "t:shared.headers.layout"
-      },
-      {
-        "type": "range",
-        "id": "padding_top",
-        "label": "t:sections.marquee_radial.settings.padding_top.label",
-        "min": 0,
-        "max": 200,
-        "step": 10,
-        "default": 40,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "padding_bottom",
-        "label": "t:sections.marquee_radial.settings.padding_bottom.label",
-        "min": 0,
-        "max": 200,
-        "step": 10,
-        "default": 40,
-        "unit": "px"
-      },
-      {
-        "type": "header",
-        "content": "t:shared.headers.colors"
-      },
-      {
-        "type": "color_scheme",
-        "id": "color_scheme",
-        "label": "t:shared.settings.color_scheme.label",
-        "default": "scheme-1"
-      }
-    ],
-    "presets": [
-      {
-        "name": "t:sections.marquee_radial.presets.marquee_radial.name",
-        "category": "t:sections.marquee_radial.presets.marquee_radial.category",
-        "settings": {
-          "text": "Radial Text Marquee",
-          "speed": 2,
-          "radius": 8,
-          "spacer": "-"
-        }
-      }
-    ],
-    "disabled_on": {
-      "groups": ["header", "footer"]
+{
+  "name": "t:sections.marquee_radial.name",
+  "tag": "section",
+  "class": "marquee-radial-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:shared.headers.content"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "t:sections.marquee_radial.settings.text.label",
+      "default": "t:sections.marquee_radial.settings.text.default"
+    },
+    {
+      "type": "checkbox",
+      "id": "outline",
+      "label": "t:sections.marquee_radial.settings.outline.label",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:sections.marquee_radial.settings.header__animation.content"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "t:sections.marquee_radial.settings.speed.label",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 2,
+      "info": "t:sections.marquee_radial.settings.speed.info"
+    },
+    {
+      "type": "range",
+      "id": "radius",
+      "label": "t:sections.marquee_radial.settings.radius.label",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 8,
+      "info": "t:sections.marquee_radial.settings.radius.info"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.marquee_radial.settings.header__spacer.content"
+    },
+    {
+      "type": "text",
+      "id": "spacer",
+      "label": "t:sections.marquee_radial.settings.spacer.label",
+      "default": "-",
+      "info": "t:sections.marquee_radial.settings.spacer.info"
+    },
+    {
+      "type": "color",
+      "id": "spacer_color",
+      "label": "t:sections.marquee_radial.settings.spacer_color.label"
+    },
+    {
+      "type": "range",
+      "id": "spacer_padding",
+      "label": "t:sections.marquee_radial.settings.spacer_padding.label",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 1,
+      "info": "t:sections.marquee_radial.settings.spacer_padding.info"
+    },
+    {
+      "type": "header",
+      "content": "t:shared.headers.layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.marquee_radial.settings.padding_top.label",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.marquee_radial.settings.padding_bottom.label",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:shared.headers.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:shared.settings.color_scheme.label",
+      "default": "scheme-1"
     }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.marquee_radial.presets.marquee_radial.name",
+      "category": "t:sections.marquee_radial.presets.marquee_radial.category",
+      "settings": {
+        "text": "t:sections.marquee_radial.presets.marquee_radial.settings.text",
+        "speed": 2,
+        "radius": 8,
+        "spacer": "-"
+      }
     }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
 {% endschema %}

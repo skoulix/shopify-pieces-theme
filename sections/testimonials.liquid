@@ -276,13 +276,13 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Testimonials",
+      "default": "t:sections.testimonials.settings.label.default",
       "label": "t:sections.testimonials.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "What Our Customers Say",
+      "default": "t:sections.testimonials.settings.title.default",
       "label": "t:sections.testimonials.settings.title.label"
     },
     {
@@ -313,8 +313,14 @@
       "default": "1",
       "label": "t:sections.testimonials.settings.slides_mobile.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
       ]
     },
     {
@@ -323,9 +329,18 @@
       "default": "2",
       "label": "t:sections.testimonials.settings.slides_tablet.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" }
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
       ]
     },
     {
@@ -334,10 +349,22 @@
       "default": "2",
       "label": "t:sections.testimonials.settings.slides_desktop.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" },
-        { "value": "4", "label": "4" }
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
       ]
     },
     {
@@ -353,10 +380,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -369,9 +408,18 @@
       "default": "medium",
       "label": "t:sections.testimonials.settings.text_size.label",
       "options": [
-        { "value": "small", "label": "t:sections.testimonials.settings.text_size.options__0.label" },
-        { "value": "medium", "label": "t:sections.testimonials.settings.text_size.options__1.label" },
-        { "value": "large", "label": "t:sections.testimonials.settings.text_size.options__2.label" }
+        {
+          "value": "small",
+          "label": "t:sections.testimonials.settings.text_size.options__0.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.testimonials.settings.text_size.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.testimonials.settings.text_size.options__2.label"
+        }
       ]
     },
     {
@@ -393,7 +441,7 @@
         {
           "type": "textarea",
           "id": "quote",
-          "default": "This product exceeded all my expectations. The quality is outstanding and the customer service was exceptional.",
+          "default": "t:sections.testimonials.blocks.testimonial.settings.quote.default",
           "label": "t:sections.testimonials.blocks.testimonial.settings.quote.label"
         },
         {
@@ -413,13 +461,13 @@
         {
           "type": "text",
           "id": "author",
-          "default": "Sarah Johnson",
+          "default": "t:sections.testimonials.blocks.testimonial.settings.author.default",
           "label": "t:sections.testimonials.blocks.testimonial.settings.author.label"
         },
         {
           "type": "text",
           "id": "author_title",
-          "default": "Verified Buyer",
+          "default": "t:sections.testimonials.blocks.testimonial.settings.author_title.default",
           "label": "t:sections.testimonials.blocks.testimonial.settings.author_title.label"
         }
       ]
@@ -430,17 +478,68 @@
       "name": "t:sections.testimonials.presets.testimonials.name",
       "category": "t:sections.testimonials.presets.testimonials.category",
       "blocks": [
-        { "type": "testimonial", "settings": { "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.", "author": "Sarah Johnson", "author_title": "Verified Buyer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.", "author": "Michael Chen", "author_title": "Loyal Customer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.", "author": "Emily Davis", "author_title": "Repeat Customer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.", "author": "David Wilson", "author_title": "Verified Buyer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.", "author": "Rachel Thompson", "author_title": "First-time Buyer", "rating": 5 } },
-        { "type": "testimonial", "settings": { "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.", "author": "James Martinez", "author_title": "Repeat Customer", "rating": 5 } }
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.0.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.0.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.0.author_title",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.1.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.1.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.1.author_title",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.2.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.2.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.2.author_title",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.3.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.3.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.3.author_title",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.4.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.4.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.4.author_title",
+            "rating": 5
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "t:sections.testimonials.presets.testimonials.blocks.testimonial.5.quote",
+            "author": "t:sections.testimonials.presets.testimonials.blocks.testimonial.5.author",
+            "author_title": "t:sections.testimonials.presets.testimonials.blocks.testimonial.5.author_title",
+            "rating": 5
+          }
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

@@ -455,91 +455,106 @@
 </script>
 
 {% schema %}
-  {
-    "name": "t:sections.cart.name",
+{
+  "name": "t:sections.cart.name",
   "tag": "section",
-    "settings": [
-      {
-        "type": "header",
-        "content": "t:shared.headers.layout"
-      },
-      {
-        "type": "checkbox",
-        "id": "full_width",
-        "label": "t:shared.settings.full_width.label",
-        "default": false
-      },
-      {
-        "type": "text_alignment",
-        "id": "header_alignment",
-        "default": "left",
-        "label": "t:sections.cart.settings.header_alignment.label"
-      },
-      {
-        "type": "select",
-        "id": "padding",
-        "label": "t:shared.settings.padding.label",
-        "info": "t:shared.settings.padding.info",
-        "default": "default",
-        "options": [
-          { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-          { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-          { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-          { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
-        ]
-      },
-      {
-        "type": "header",
-        "content": "t:sections.cart.settings.header__trust_badges.content"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_trust_badges",
-        "label": "t:sections.cart.settings.show_trust_badges.label",
-        "default": true
-      },
-      {
-        "type": "text",
-        "id": "badge_1_icon",
-        "label": "t:sections.cart.settings.badge_1_icon.label",
-        "default": "shield-check",
-        "info": "t:sections.cart.settings.badge_1_icon.info"
-      },
-      {
-        "type": "text",
-        "id": "badge_1_text",
-        "label": "t:sections.cart.settings.badge_1_text.label",
-        "default": "Secure"
-      },
-      {
-        "type": "text",
-        "id": "badge_2_icon",
-        "label": "t:sections.cart.settings.badge_2_icon.label",
-        "default": "truck",
-        "info": "t:sections.cart.settings.badge_2_icon.info"
-      },
-      {
-        "type": "text",
-        "id": "badge_2_text",
-        "label": "t:sections.cart.settings.badge_2_text.label",
-        "default": "Fast Shipping"
-      },
-      {
-        "type": "text",
-        "id": "badge_3_icon",
-        "label": "t:sections.cart.settings.badge_3_icon.label",
-        "default": "arrows-counter-clockwise",
-        "info": "t:sections.cart.settings.badge_3_icon.info"
-      },
-      {
-        "type": "text",
-        "id": "badge_3_text",
-        "label": "t:sections.cart.settings.badge_3_text.label",
-        "default": "Easy Returns"
-      }
-    ],
-    "disabled_on": {
-      "groups": ["header", "footer"]
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:shared.headers.layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "t:shared.settings.full_width.label",
+      "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "header_alignment",
+      "default": "left",
+      "label": "t:sections.cart.settings.header_alignment.label"
+    },
+    {
+      "type": "select",
+      "id": "padding",
+      "label": "t:shared.settings.padding.label",
+      "info": "t:shared.settings.padding.info",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "t:sections.cart.settings.header__trust_badges.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_badges",
+      "label": "t:sections.cart.settings.show_trust_badges.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_1_icon",
+      "label": "t:sections.cart.settings.badge_1_icon.label",
+      "default": "t:sections.cart.settings.badge_1_icon.default",
+      "info": "t:sections.cart.settings.badge_1_icon.info"
+    },
+    {
+      "type": "text",
+      "id": "badge_1_text",
+      "label": "t:sections.cart.settings.badge_1_text.label",
+      "default": "t:sections.cart.settings.badge_1_text.default"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_icon",
+      "label": "t:sections.cart.settings.badge_2_icon.label",
+      "default": "t:sections.cart.settings.badge_2_icon.default",
+      "info": "t:sections.cart.settings.badge_2_icon.info"
+    },
+    {
+      "type": "text",
+      "id": "badge_2_text",
+      "label": "t:sections.cart.settings.badge_2_text.label",
+      "default": "t:sections.cart.settings.badge_2_text.default"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_icon",
+      "label": "t:sections.cart.settings.badge_3_icon.label",
+      "default": "t:sections.cart.settings.badge_3_icon.default",
+      "info": "t:sections.cart.settings.badge_3_icon.info"
+    },
+    {
+      "type": "text",
+      "id": "badge_3_text",
+      "label": "t:sections.cart.settings.badge_3_text.label",
+      "default": "t:sections.cart.settings.badge_3_text.default"
     }
-    }
+  ],
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  }
+}
 {% endschema %}

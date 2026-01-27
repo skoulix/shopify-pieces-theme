@@ -172,13 +172,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.floating_images.settings.label.label",
-      "default": "Discover"
+      "default": "t:sections.floating_images.settings.label.default"
     },
     {
       "type": "textarea",
       "id": "title",
       "label": "t:sections.floating_images.settings.title.label",
-      "default": "Outstanding products with exceptional brands"
+      "default": "t:sections.floating_images.settings.title.default"
     },
     {
       "type": "textarea",
@@ -193,7 +193,7 @@
       "type": "text",
       "id": "button_text",
       "label": "t:sections.floating_images.settings.button_text.label",
-      "default": "View More"
+      "default": "t:sections.floating_images.settings.button_text.default"
     },
     {
       "type": "url",
@@ -206,8 +206,14 @@
       "label": "t:sections.floating_images.settings.button_style.label",
       "default": "outline",
       "options": [
-        { "value": "solid", "label": "t:sections.floating_images.settings.button_style.options__0.label" },
-        { "value": "outline", "label": "t:sections.floating_images.settings.button_style.options__1.label" }
+        {
+          "value": "solid",
+          "label": "t:sections.floating_images.settings.button_style.options__0.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.floating_images.settings.button_style.options__1.label"
+        }
       ]
     },
     {
@@ -216,8 +222,14 @@
       "label": "t:sections.floating_images.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "t:sections.floating_images.settings.button_color.options__0.label" },
-        { "value": "secondary", "label": "t:sections.floating_images.settings.button_color.options__1.label" }
+        {
+          "value": "primary",
+          "label": "t:sections.floating_images.settings.button_color.options__0.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.floating_images.settings.button_color.options__1.label"
+        }
       ]
     },
     {
@@ -226,9 +238,18 @@
       "label": "t:sections.floating_images.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "t:sections.floating_images.settings.button_size.options__0.label" },
-        { "value": "default", "label": "t:sections.floating_images.settings.button_size.options__1.label" },
-        { "value": "large", "label": "t:sections.floating_images.settings.button_size.options__2.label" }
+        {
+          "value": "small",
+          "label": "t:sections.floating_images.settings.button_size.options__0.label"
+        },
+        {
+          "value": "default",
+          "label": "t:sections.floating_images.settings.button_size.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.floating_images.settings.button_size.options__2.label"
+        }
       ]
     },
     {
@@ -308,19 +329,38 @@
       "name": "t:sections.floating_images.presets.floating_images.name",
       "category": "t:sections.floating_images.presets.floating_images.category",
       "blocks": [
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" },
-        { "type": "image" }
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        },
+        {
+          "type": "image"
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

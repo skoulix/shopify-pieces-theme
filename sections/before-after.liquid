@@ -205,19 +205,19 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Compare",
+      "default": "t:sections.before_after.settings.label.default",
       "label": "t:sections.before_after.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "See the Difference",
+      "default": "t:sections.before_after.settings.title.default",
       "label": "t:sections.before_after.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
-      "default": "Drag the slider to compare before and after.",
+      "default": "t:sections.before_after.settings.description.default",
       "label": "t:sections.before_after.settings.description.label"
     },
     {
@@ -238,10 +238,22 @@
       "type": "select",
       "id": "aspect_ratio",
       "options": [
-        { "value": "16/9", "label": "t:sections.before_after.settings.aspect_ratio.options__0.label" },
-        { "value": "4/3", "label": "t:sections.before_after.settings.aspect_ratio.options__1.label" },
-        { "value": "1/1", "label": "t:sections.before_after.settings.aspect_ratio.options__2.label" },
-        { "value": "3/4", "label": "t:sections.before_after.settings.aspect_ratio.options__3.label" }
+        {
+          "value": "16/9",
+          "label": "t:sections.before_after.settings.aspect_ratio.options__0.label"
+        },
+        {
+          "value": "4/3",
+          "label": "t:sections.before_after.settings.aspect_ratio.options__1.label"
+        },
+        {
+          "value": "1/1",
+          "label": "t:sections.before_after.settings.aspect_ratio.options__2.label"
+        },
+        {
+          "value": "3/4",
+          "label": "t:sections.before_after.settings.aspect_ratio.options__3.label"
+        }
       ],
       "default": "16/9",
       "label": "t:sections.before_after.settings.aspect_ratio.label"
@@ -259,13 +271,13 @@
     {
       "type": "text",
       "id": "before_label",
-      "default": "Before",
+      "default": "t:sections.before_after.settings.before_label.default",
       "label": "t:sections.before_after.settings.before_label.label"
     },
     {
       "type": "text",
       "id": "after_label",
-      "default": "After",
+      "default": "t:sections.before_after.settings.after_label.default",
       "label": "t:sections.before_after.settings.after_label.label"
     },
     {
@@ -291,10 +303,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -315,7 +339,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

@@ -496,13 +496,13 @@
         {
           "type": "text",
           "id": "title",
-          "default": "Panel Title",
+          "default": "t:sections.scroll_panels.blocks.panel.settings.title.default",
           "label": "t:sections.scroll_panels.blocks.panel.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
-          "default": "Add compelling copy that tells your brand story.",
+          "default": "t:sections.scroll_panels.blocks.panel.settings.text.default",
           "label": "t:sections.scroll_panels.blocks.panel.settings.text.label"
         },
         {
@@ -521,8 +521,14 @@
           "label": "t:sections.scroll_panels.blocks.panel.settings.button_style.label",
           "default": "outline",
           "options": [
-            { "value": "solid", "label": "t:sections.scroll_panels.blocks.panel.settings.button_style.options__0.label" },
-            { "value": "outline", "label": "t:sections.scroll_panels.blocks.panel.settings.button_style.options__1.label" }
+            {
+              "value": "solid",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_style.options__0.label"
+            },
+            {
+              "value": "outline",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_style.options__1.label"
+            }
           ]
         },
         {
@@ -531,8 +537,14 @@
           "label": "t:sections.scroll_panels.blocks.panel.settings.button_color.label",
           "default": "primary",
           "options": [
-            { "value": "primary", "label": "t:sections.scroll_panels.blocks.panel.settings.button_color.options__0.label" },
-            { "value": "secondary", "label": "t:sections.scroll_panels.blocks.panel.settings.button_color.options__1.label" }
+            {
+              "value": "primary",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_color.options__0.label"
+            },
+            {
+              "value": "secondary",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_color.options__1.label"
+            }
           ]
         },
         {
@@ -541,9 +553,18 @@
           "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.label",
           "default": "default",
           "options": [
-            { "value": "small", "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__0.label" },
-            { "value": "default", "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__1.label" },
-            { "value": "large", "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__2.label" }
+            {
+              "value": "small",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__0.label"
+            },
+            {
+              "value": "default",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__1.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.scroll_panels.blocks.panel.settings.button_size.options__2.label"
+            }
           ]
         }
       ]
@@ -557,32 +578,35 @@
         {
           "type": "panel",
           "settings": {
-            "title": "Discover Our Story",
-            "text": "Every great brand has a story. This is where yours begins.",
-            "button_text": "Learn More"
+            "title": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.0.title",
+            "text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.0.text",
+            "button_text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.0.button_text"
           }
         },
         {
           "type": "panel",
           "settings": {
-            "title": "Crafted With Care",
-            "text": "We believe in quality over quantity. Each product is made to last.",
-            "button_text": "Our Process"
+            "title": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.1.title",
+            "text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.1.text",
+            "button_text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.1.button_text"
           }
         },
         {
           "type": "panel",
           "settings": {
-            "title": "Join the Movement",
-            "text": "Be part of something bigger. Shop consciously, live intentionally.",
-            "button_text": "Shop Now"
+            "title": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.2.title",
+            "text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.2.text",
+            "button_text": "t:sections.scroll_panels.presets.scroll_panels.blocks.panel.2.button_text"
           }
         }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

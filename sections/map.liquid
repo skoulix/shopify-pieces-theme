@@ -323,13 +323,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.map.settings.label.label",
-      "default": "Visit Us"
+      "default": "t:sections.map.settings.label.default"
     },
     {
       "type": "text",
       "id": "title",
       "label": "t:sections.map.settings.title.label",
-      "default": "Our Location"
+      "default": "t:sections.map.settings.title.default"
     },
     {
       "type": "header",
@@ -339,14 +339,14 @@
       "type": "text",
       "id": "location_name",
       "label": "t:sections.map.settings.location_name.label",
-      "default": "Our Store",
+      "default": "t:sections.map.settings.location_name.default",
       "info": "t:sections.map.settings.location_name.info"
     },
     {
       "type": "textarea",
       "id": "address",
       "label": "t:sections.map.settings.address.label",
-      "default": "123 Main Street\nNew York, NY 10001",
+      "default": "t:sections.map.settings.address.default",
       "info": "t:sections.map.settings.address.info"
     },
     {
@@ -429,10 +429,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -455,13 +467,13 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.map.blocks.address.settings.title.label",
-          "default": "Address"
+          "default": "t:sections.map.blocks.address.settings.title.default"
         },
         {
           "type": "textarea",
           "id": "address",
           "label": "t:sections.map.blocks.address.settings.address.label",
-          "default": "123 Main Street\nNew York, NY 10001"
+          "default": "t:sections.map.blocks.address.settings.address.default"
         }
       ]
     },
@@ -473,13 +485,13 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.map.blocks.hours.settings.title.label",
-          "default": "Hours"
+          "default": "t:sections.map.blocks.hours.settings.title.default"
         },
         {
           "type": "textarea",
           "id": "hours",
           "label": "t:sections.map.blocks.hours.settings.hours.label",
-          "default": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+          "default": "t:sections.map.blocks.hours.settings.hours.default"
         }
       ]
     },
@@ -491,7 +503,7 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.map.blocks.contact.settings.title.label",
-          "default": "Contact"
+          "default": "t:sections.map.blocks.contact.settings.title.default"
         },
         {
           "type": "text",
@@ -530,30 +542,33 @@
         {
           "type": "address",
           "settings": {
-            "title": "Address",
-            "address": "123 Main Street\nNew York, NY 10001"
+            "title": "t:sections.map.presets.map.blocks.address.0.title",
+            "address": "t:sections.map.presets.map.blocks.address.0.address"
           }
         },
         {
           "type": "hours",
           "settings": {
-            "title": "Hours",
-            "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
+            "title": "t:sections.map.presets.map.blocks.hours.1.title",
+            "hours": "t:sections.map.presets.map.blocks.hours.1.hours"
           }
         },
         {
           "type": "contact",
           "settings": {
-            "title": "Contact",
-            "phone": "(555) 123-4567",
-            "email": "hello@example.com"
+            "title": "t:sections.map.presets.map.blocks.contact.2.title",
+            "phone": "t:sections.map.presets.map.blocks.contact.2.phone",
+            "email": "t:sections.map.presets.map.blocks.contact.2.email"
           }
         }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

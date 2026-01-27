@@ -152,13 +152,13 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Our Journey",
+      "default": "t:sections.timeline.settings.label.default",
       "label": "t:sections.timeline.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "How We Got Here",
+      "default": "t:sections.timeline.settings.title.default",
       "label": "t:sections.timeline.settings.title.label"
     },
     {
@@ -184,10 +184,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -215,13 +227,13 @@
         {
           "type": "text",
           "id": "title",
-          "default": "Milestone Title",
+          "default": "t:sections.timeline.blocks.milestone.settings.title.default",
           "label": "t:sections.timeline.blocks.milestone.settings.title.label"
         },
         {
           "type": "textarea",
           "id": "text",
-          "default": "Describe this milestone and what it meant for your brand's journey.",
+          "default": "t:sections.timeline.blocks.milestone.settings.text.default",
           "label": "t:sections.timeline.blocks.milestone.settings.text.label"
         },
         {
@@ -237,15 +249,46 @@
       "name": "t:sections.timeline.presets.timeline.name",
       "category": "t:sections.timeline.presets.timeline.category",
       "blocks": [
-        { "type": "milestone", "settings": { "year": "2018", "title": "The Beginning", "text": "Started with a simple idea and a passion for quality products." } },
-        { "type": "milestone", "settings": { "year": "2019", "title": "First Collection", "text": "Launched our inaugural product line to overwhelming response." } },
-        { "type": "milestone", "settings": { "year": "2021", "title": "Going Global", "text": "Expanded to international markets and grew our community." } },
-        { "type": "milestone", "settings": { "year": "2024", "title": "Today", "text": "Continuing to innovate and create products you love." } }
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2018",
+            "title": "t:sections.timeline.presets.timeline.blocks.milestone.0.title",
+            "text": "t:sections.timeline.presets.timeline.blocks.milestone.0.text"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2019",
+            "title": "t:sections.timeline.presets.timeline.blocks.milestone.1.title",
+            "text": "t:sections.timeline.presets.timeline.blocks.milestone.1.text"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2021",
+            "title": "t:sections.timeline.presets.timeline.blocks.milestone.2.title",
+            "text": "t:sections.timeline.presets.timeline.blocks.milestone.2.text"
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "year": "2024",
+            "title": "t:sections.timeline.presets.timeline.blocks.milestone.3.title",
+            "text": "t:sections.timeline.presets.timeline.blocks.milestone.3.text"
+          }
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

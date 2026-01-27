@@ -117,19 +117,19 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Our Team",
+      "default": "t:sections.team.settings.label.default",
       "label": "t:sections.team.settings.label.label"
     },
     {
       "type": "text",
       "id": "title",
-      "default": "Meet the People Behind the Brand",
+      "default": "t:sections.team.settings.title.default",
       "label": "t:sections.team.settings.title.label"
     },
     {
       "type": "textarea",
       "id": "description",
-      "default": "We're a passionate team dedicated to creating products you'll love.",
+      "default": "t:sections.team.settings.description.default",
       "label": "t:sections.team.settings.description.label"
     },
     {
@@ -164,10 +164,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -194,19 +206,19 @@
         {
           "type": "text",
           "id": "name",
-          "default": "Team Member",
+          "default": "t:sections.team.blocks.member.settings.name.default",
           "label": "t:sections.team.blocks.member.settings.name.label"
         },
         {
           "type": "text",
           "id": "role",
-          "default": "Position",
+          "default": "t:sections.team.blocks.member.settings.role.default",
           "label": "t:sections.team.blocks.member.settings.role.label"
         },
         {
           "type": "textarea",
           "id": "bio",
-          "default": "A short bio about this team member.",
+          "default": "t:sections.team.blocks.member.settings.bio.default",
           "label": "t:sections.team.blocks.member.settings.bio.label"
         },
         {
@@ -236,15 +248,46 @@
       "name": "t:sections.team.presets.team.name",
       "category": "t:sections.team.presets.team.category",
       "blocks": [
-        { "type": "member", "settings": { "name": "Alex Thompson", "role": "Founder & CEO", "bio": "Passionate about creating exceptional products." } },
-        { "type": "member", "settings": { "name": "Sarah Chen", "role": "Creative Director", "bio": "Bringing creative visions to life." } },
-        { "type": "member", "settings": { "name": "Michael Brown", "role": "Head of Product", "bio": "Obsessed with user experience." } },
-        { "type": "member", "settings": { "name": "Emily Davis", "role": "Customer Success", "bio": "Making sure customers are happy." } }
+        {
+          "type": "member",
+          "settings": {
+            "name": "t:sections.team.presets.team.blocks.member.0.name",
+            "role": "t:sections.team.presets.team.blocks.member.0.role",
+            "bio": "t:sections.team.presets.team.blocks.member.0.bio"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "t:sections.team.presets.team.blocks.member.1.name",
+            "role": "t:sections.team.presets.team.blocks.member.1.role",
+            "bio": "t:sections.team.presets.team.blocks.member.1.bio"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "t:sections.team.presets.team.blocks.member.2.name",
+            "role": "t:sections.team.presets.team.blocks.member.2.role",
+            "bio": "t:sections.team.presets.team.blocks.member.2.bio"
+          }
+        },
+        {
+          "type": "member",
+          "settings": {
+            "name": "t:sections.team.presets.team.blocks.member.3.name",
+            "role": "t:sections.team.presets.team.blocks.member.3.role",
+            "bio": "t:sections.team.presets.team.blocks.member.3.bio"
+          }
+        }
       ]
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

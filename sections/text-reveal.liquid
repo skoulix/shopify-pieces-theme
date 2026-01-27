@@ -217,26 +217,26 @@
     {
       "type": "text",
       "id": "label",
-      "default": "Our Mission",
+      "default": "t:sections.text_reveal.settings.label.default",
       "label": "t:sections.text_reveal.settings.label.label"
     },
     {
       "type": "textarea",
       "id": "text",
-      "default": "Crafted with *care*,\ndesigned to *inspire*.",
+      "default": "t:sections.text_reveal.settings.text.default",
       "label": "t:sections.text_reveal.settings.text.label",
       "info": "t:sections.text_reveal.settings.text.info"
     },
     {
       "type": "textarea",
       "id": "subtext",
-      "default": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter.",
+      "default": "t:sections.text_reveal.settings.subtext.default",
       "label": "t:sections.text_reveal.settings.subtext.label"
     },
     {
       "type": "text",
       "id": "button_text",
-      "default": "Learn More",
+      "default": "t:sections.text_reveal.settings.button_text.default",
       "label": "t:sections.text_reveal.settings.button_text.label"
     },
     {
@@ -250,8 +250,14 @@
       "label": "t:sections.text_reveal.settings.button_type.label",
       "default": "link",
       "options": [
-        { "value": "link", "label": "t:sections.text_reveal.settings.button_type.options__0.label" },
-        { "value": "button", "label": "t:sections.text_reveal.settings.button_type.options__1.label" }
+        {
+          "value": "link",
+          "label": "t:sections.text_reveal.settings.button_type.options__0.label"
+        },
+        {
+          "value": "button",
+          "label": "t:sections.text_reveal.settings.button_type.options__1.label"
+        }
       ]
     },
     {
@@ -260,8 +266,14 @@
       "label": "t:sections.text_reveal.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "t:sections.text_reveal.settings.button_style.options__0.label" },
-        { "value": "outline", "label": "t:sections.text_reveal.settings.button_style.options__1.label" }
+        {
+          "value": "solid",
+          "label": "t:sections.text_reveal.settings.button_style.options__0.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.text_reveal.settings.button_style.options__1.label"
+        }
       ],
       "info": "t:sections.text_reveal.settings.button_style.info"
     },
@@ -271,8 +283,14 @@
       "label": "t:sections.text_reveal.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "t:sections.text_reveal.settings.button_color.options__0.label" },
-        { "value": "secondary", "label": "t:sections.text_reveal.settings.button_color.options__1.label" }
+        {
+          "value": "primary",
+          "label": "t:sections.text_reveal.settings.button_color.options__0.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.text_reveal.settings.button_color.options__1.label"
+        }
       ]
     },
     {
@@ -281,9 +299,18 @@
       "label": "t:sections.text_reveal.settings.button_size.label",
       "default": "default",
       "options": [
-        { "value": "small", "label": "t:sections.text_reveal.settings.button_size.options__0.label" },
-        { "value": "default", "label": "t:sections.text_reveal.settings.button_size.options__1.label" },
-        { "value": "large", "label": "t:sections.text_reveal.settings.button_size.options__2.label" }
+        {
+          "value": "small",
+          "label": "t:sections.text_reveal.settings.button_size.options__0.label"
+        },
+        {
+          "value": "default",
+          "label": "t:sections.text_reveal.settings.button_size.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.text_reveal.settings.button_size.options__2.label"
+        }
       ]
     },
     {
@@ -325,10 +352,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "large",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -349,7 +388,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

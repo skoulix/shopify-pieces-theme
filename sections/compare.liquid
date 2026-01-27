@@ -530,13 +530,13 @@
       "type": "text",
       "id": "label",
       "label": "t:sections.compare.settings.label.label",
-      "default": "Compare"
+      "default": "t:sections.compare.settings.label.default"
     },
     {
       "type": "text",
       "id": "title",
       "label": "t:sections.compare.settings.title.label",
-      "default": "Compare Products"
+      "default": "t:sections.compare.settings.title.default"
     },
     {
       "type": "textarea",
@@ -566,10 +566,22 @@
       "info": "t:shared.settings.padding.info",
       "default": "default",
       "options": [
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" },
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" }
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        },
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        }
       ]
     },
     {
@@ -590,7 +602,10 @@
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}

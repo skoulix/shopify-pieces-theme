@@ -65,9 +65,18 @@
       "label": "t:sections.newsletter.settings.design.label",
       "default": "side-by-side",
       "options": [
-        { "value": "side-by-side", "label": "t:sections.newsletter.settings.design.options__0.label" },
-        { "value": "stacked", "label": "t:sections.newsletter.settings.design.options__1.label" },
-        { "value": "card", "label": "t:sections.newsletter.settings.design.options__2.label" }
+        {
+          "value": "side-by-side",
+          "label": "t:sections.newsletter.settings.design.options__0.label"
+        },
+        {
+          "value": "stacked",
+          "label": "t:sections.newsletter.settings.design.options__1.label"
+        },
+        {
+          "value": "card",
+          "label": "t:sections.newsletter.settings.design.options__2.label"
+        }
       ]
     },
     {
@@ -78,20 +87,20 @@
       "type": "text",
       "id": "title",
       "label": "t:sections.newsletter.settings.title.label",
-      "default": "Want product news and updates?"
+      "default": "t:sections.newsletter.settings.title.default"
     },
     {
       "type": "textarea",
       "id": "text",
       "label": "t:sections.newsletter.settings.text.label",
-      "default": "Subscribe to our newsletter for exclusive updates and special offers.",
+      "default": "t:sections.newsletter.settings.text.default",
       "info": "t:sections.newsletter.settings.text.info"
     },
     {
       "type": "text",
       "id": "button_text",
       "label": "t:sections.newsletter.settings.button_text.label",
-      "default": "Subscribe"
+      "default": "t:sections.newsletter.settings.button_text.default"
     },
     {
       "type": "select",
@@ -99,8 +108,14 @@
       "label": "t:sections.newsletter.settings.button_style.label",
       "default": "solid",
       "options": [
-        { "value": "solid", "label": "t:sections.newsletter.settings.button_style.options__0.label" },
-        { "value": "outline", "label": "t:sections.newsletter.settings.button_style.options__1.label" }
+        {
+          "value": "solid",
+          "label": "t:sections.newsletter.settings.button_style.options__0.label"
+        },
+        {
+          "value": "outline",
+          "label": "t:sections.newsletter.settings.button_style.options__1.label"
+        }
       ]
     },
     {
@@ -109,8 +124,14 @@
       "label": "t:sections.newsletter.settings.button_color.label",
       "default": "primary",
       "options": [
-        { "value": "primary", "label": "t:sections.newsletter.settings.button_color.options__0.label" },
-        { "value": "secondary", "label": "t:sections.newsletter.settings.button_color.options__1.label" }
+        {
+          "value": "primary",
+          "label": "t:sections.newsletter.settings.button_color.options__0.label"
+        },
+        {
+          "value": "secondary",
+          "label": "t:sections.newsletter.settings.button_color.options__1.label"
+        }
       ]
     },
     {
@@ -121,7 +142,7 @@
       "type": "text",
       "id": "privacy_text",
       "label": "t:sections.newsletter.settings.privacy_text.label",
-      "default": "We care about your data. Read our",
+      "default": "t:sections.newsletter.settings.privacy_text.default",
       "info": "t:sections.newsletter.settings.privacy_text.info"
     },
     {
@@ -133,7 +154,7 @@
       "type": "text",
       "id": "privacy_link_text",
       "label": "t:sections.newsletter.settings.privacy_link_text.label",
-      "default": "privacy policy"
+      "default": "t:sections.newsletter.settings.privacy_link_text.default"
     },
     {
       "type": "header",
@@ -156,10 +177,22 @@
       "default": "default",
       "info": "t:shared.settings.padding.info",
       "options": [
-        { "value": "none", "label": "t:shared.settings.padding.options__0.label" },
-        { "value": "small", "label": "t:shared.settings.padding.options__1.label" },
-        { "value": "default", "label": "t:shared.settings.padding.options__2.label" },
-        { "value": "large", "label": "t:shared.settings.padding.options__3.label" }
+        {
+          "value": "none",
+          "label": "t:shared.settings.padding.options__0.label"
+        },
+        {
+          "value": "small",
+          "label": "t:shared.settings.padding.options__1.label"
+        },
+        {
+          "value": "default",
+          "label": "t:shared.settings.padding.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:shared.settings.padding.options__3.label"
+        }
       ]
     },
     {
@@ -178,12 +211,15 @@
       "name": "t:sections.newsletter.presets.newsletter.name",
       "category": "t:sections.newsletter.presets.newsletter.category",
       "settings": {
-        "design": "side-by-side"
+        "design": "t:sections.newsletter.presets.newsletter.settings.design"
       }
     }
   ],
   "disabled_on": {
-    "groups": ["header", "footer"]
+    "groups": [
+      "header",
+      "footer"
+    ]
   }
-  }
+}
 {% endschema %}
