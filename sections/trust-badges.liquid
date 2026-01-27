@@ -63,8 +63,8 @@
               <p class="trust-badge__title">{{ block.settings.title }}</p>
             {%- endif -%}
 
-            {%- if block.settings.description != blank -%}
-              <p class="trust-badge__description">{{ block.settings.description }}</p>
+            {%- if block.settings.text != blank -%}
+              <p class="trust-badge__description">{{ block.settings.text }}</p>
             {%- endif -%}
           </div>
         {%- endfor -%}
@@ -249,9 +249,9 @@
         },
         {
           "type": "text",
-          "id": "description",
-          "label": "t:shared.settings.description.label",
-          "default": "t:sections.trust_badges.blocks.badge.settings.description.default"
+          "id": "text",
+          "label": "t:shared.settings.text.label",
+          "default": "t:sections.trust_badges.blocks.badge.settings.text.default"
         }
       ]
     }
@@ -266,7 +266,7 @@
           "settings": {
             "icon": "truck",
             "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.0.title",
-            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.0.description"
+            "text": "t:sections.trust_badges.presets.trust_badges.blocks.badge.0.description"
           }
         },
         {
@@ -274,7 +274,7 @@
           "settings": {
             "icon": "shield-check",
             "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.1.title",
-            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.1.description"
+            "text": "t:sections.trust_badges.presets.trust_badges.blocks.badge.1.description"
           }
         },
         {
@@ -282,7 +282,7 @@
           "settings": {
             "icon": "arrow-counter-clockwise",
             "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.2.title",
-            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.2.description"
+            "text": "t:sections.trust_badges.presets.trust_badges.blocks.badge.2.description"
           }
         },
         {
@@ -290,7 +290,7 @@
           "settings": {
             "icon": "headset",
             "title": "t:sections.trust_badges.presets.trust_badges.blocks.badge.3.title",
-            "description": "t:sections.trust_badges.presets.trust_badges.blocks.badge.3.description"
+            "text": "t:sections.trust_badges.presets.trust_badges.blocks.badge.3.description"
           }
         }
       ]

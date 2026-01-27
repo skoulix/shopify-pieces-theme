@@ -42,9 +42,9 @@
         </h2>
       {% endif %}
 
-      {% if section.settings.description != blank %}
+      {% if section.settings.text != blank %}
         <p class="section-description" data-tween data-tween-type="fade-up">
-          {{ section.settings.description }}
+          {{ section.settings.text }}
         </p>
       {% endif %}
 
@@ -99,9 +99,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label",
-      "default": "t:sections.text_section.settings.description.default"
+      "id": "text",
+      "label": "t:shared.settings.text.label",
+      "default": "t:sections.text_section.settings.text.default"
     },
     {
       "type": "header",

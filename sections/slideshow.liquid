@@ -255,9 +255,9 @@
               </h2>
             {% endif %}
 
-            {% if block.settings.description != blank %}
+            {% if block.settings.text != blank %}
               <p class="slideshow__description text-lg opacity-90 mb-8 text-balance">
-                {{ block.settings.description }}
+                {{ block.settings.text }}
               </p>
             {% endif %}
 
@@ -1017,8 +1017,8 @@
         },
         {
           "type": "textarea",
-          "id": "description",
-          "label": "t:shared.settings.description.label"
+          "id": "text",
+          "label": "t:shared.settings.text.label"
         },
         {
           "type": "text",
@@ -1161,14 +1161,14 @@
           "type": "slide",
           "settings": {
             "title": "t:sections.slideshow.presets.slideshow.blocks.slide.0.title",
-            "description": "t:sections.slideshow.presets.slideshow.blocks.slide.0.description"
+            "text": "t:sections.slideshow.presets.slideshow.blocks.slide.0.description"
           }
         },
         {
           "type": "slide",
           "settings": {
             "title": "t:sections.slideshow.presets.slideshow.blocks.slide.1.title",
-            "description": "t:sections.slideshow.presets.slideshow.blocks.slide.1.description"
+            "text": "t:sections.slideshow.presets.slideshow.blocks.slide.1.description"
           }
         }
       ]

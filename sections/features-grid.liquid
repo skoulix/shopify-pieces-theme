@@ -24,7 +24,7 @@
         {% render 'section-header',
           label: section.settings.label,
           title: section.settings.title,
-          description: section.settings.description,
+          description: section.settings.text,
           alignment: section.settings.header_alignment,
           group_id: 'features-grid-header-' | append: section.id
         %}
@@ -108,9 +108,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "default": "t:sections.features_grid.settings.description.default",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "default": "t:sections.features_grid.settings.text.default",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",

@@ -127,9 +127,9 @@
                     {{- block.settings.title -}}
                   </h2>
                 {%- endif -%}
-                {%- if block.settings.description != blank -%}
+                {%- if block.settings.text != blank -%}
                   <p class="slide-description text-base leading-relaxed mb-7 opacity-80" data-tween data-tween-type="fade-up">
-                    {{- block.settings.description -}}
+                    {{- block.settings.text -}}
                   </p>
                 {%- endif -%}
                 {%- if block.settings.button_text != blank -%}
@@ -173,9 +173,9 @@
                     {{- block.settings.title -}}
                   </h2>
                 {%- endif -%}
-                {%- if block.settings.description != blank -%}
+                {%- if block.settings.text != blank -%}
                   <p class="slide-description text-base lg:text-lg leading-relaxed mb-7 opacity-80" data-tween data-tween-type="fade-up">
-                    {{- block.settings.description -}}
+                    {{- block.settings.text -}}
                   </p>
                 {%- endif -%}
                 {%- if block.settings.button_text != blank -%}
@@ -465,9 +465,9 @@
         },
         {
           "type": "textarea",
-          "id": "description",
-          "label": "t:shared.settings.description.label",
-          "default": "t:sections.pinned_image_reveal.blocks.slide.settings.description.default"
+          "id": "text",
+          "label": "t:shared.settings.text.label",
+          "default": "t:sections.pinned_image_reveal.blocks.slide.settings.text.default"
         },
         {
           "type": "header",
@@ -559,8 +559,8 @@
           "settings": {
             "background_color": "#EDF9FF",
             "title": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.0.title",
-            "description": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.0.description",
-            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.0.button_text"
+            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.0.button_text",
+            "text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.0.description"
           }
         },
         {
@@ -568,8 +568,8 @@
           "settings": {
             "background_color": "#FFECF2",
             "title": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.1.title",
-            "description": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.1.description",
-            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.1.button_text"
+            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.1.button_text",
+            "text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.1.description"
           }
         },
         {
@@ -577,8 +577,8 @@
           "settings": {
             "background_color": "#FFE8DB",
             "title": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.2.title",
-            "description": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.2.description",
-            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.2.button_text"
+            "button_text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.2.button_text",
+            "text": "t:sections.pinned_image_reveal.presets.pinned_image_reveal.blocks.slide.2.description"
           }
         }
       ]

@@ -19,8 +19,8 @@
             <span class="footer-brand block mb-4">{{ shop.name }}</span>
           {%- endif -%}
 
-          {%- if block.settings.description != blank -%}
-            <p class="footer-classic__description">{{ block.settings.description }}</p>
+          {%- if block.settings.text != blank -%}
+            <p class="footer-classic__description">{{ block.settings.text }}</p>
           {%- endif -%}
 
           {%- if block.settings.show_social -%}
@@ -58,8 +58,8 @@
       {%- when 'newsletter' -%}
         <div class="footer-classic__newsletter-col" {{ block.shopify_attributes }}>
           <h3 class="footer-classic__column-heading text-label">{{ block.settings.heading | default: 'Newsletter' }}</h3>
-          {%- if block.settings.description != blank -%}
-            <p class="footer-classic__newsletter-text">{{ block.settings.description }}</p>
+          {%- if block.settings.text != blank -%}
+            <p class="footer-classic__newsletter-text">{{ block.settings.text }}</p>
           {%- endif -%}
           {%- form 'customer', id: 'FooterNewsletterClassic' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">

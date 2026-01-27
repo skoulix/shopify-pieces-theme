@@ -28,7 +28,7 @@
         {% render 'section-header',
           label: section.settings.label,
           title: section.settings.title,
-          description: section.settings.description,
+          description: section.settings.text,
           alignment: section.settings.header_alignment,
           nowrap: true
         %}
@@ -216,9 +216,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "default": "t:sections.before_after.settings.description.default",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "default": "t:sections.before_after.settings.text.default",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",

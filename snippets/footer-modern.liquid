@@ -24,8 +24,8 @@
       <span class="footer-brand">{{ shop.name }}</span>
     {%- endif -%}
 
-    {%- if brand_block.settings.description != blank -%}
-      <p class="footer-modern__description">{{ brand_block.settings.description }}</p>
+    {%- if brand_block.settings.text != blank -%}
+      <p class="footer-modern__description">{{ brand_block.settings.text }}</p>
     {%- endif -%}
 
     {%- for block in section.blocks -%}

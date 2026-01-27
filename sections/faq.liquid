@@ -16,7 +16,7 @@
       {% render 'section-header',
         label: section.settings.label,
         title: section.settings.title,
-        description: section.settings.description,
+        description: section.settings.text,
         alignment: section.settings.header_alignment,
         description_max_width: 'max-w-2xl',
         group_id: section.id
@@ -180,9 +180,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label",
-      "default": "t:sections.faq.settings.description.default"
+      "id": "text",
+      "label": "t:shared.settings.text.label",
+      "default": "t:sections.faq.settings.text.default"
     },
     {
       "type": "header",

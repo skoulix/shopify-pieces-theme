@@ -87,9 +87,6 @@
       "title": {
         "label": "Title"
       },
-      "description": {
-        "label": "Description"
-      },
       "image": {
         "label": "Image"
       },
@@ -122,6 +119,9 @@
       },
       "show_view_all": {
         "label": "Show view all"
+      },
+      "text": {
+        "label": "Text"
       }
     }
   },
@@ -405,9 +405,6 @@
         "title": {
           "default": "See the Difference"
         },
-        "description": {
-          "default": "Drag the slider to compare before and after."
-        },
         "image_before": {
           "label": "Image Before"
         },
@@ -439,6 +436,9 @@
         "after_label": {
           "label": "After Label",
           "default": "After"
+        },
+        "text": {
+          "default": "Drag the slider to compare before and after."
         }
       },
       "presets": {
@@ -662,9 +662,6 @@
         "title": {
           "default": "Collections"
         },
-        "description": {
-          "info": "Displayed below the title"
-        },
         "enable_description_shuffle": {
           "label": "Enable Description Shuffle",
           "info": "Shuffles the description sentence order on each page load"
@@ -694,6 +691,9 @@
           "options__1": {
             "label": "2"
           }
+        },
+        "text": {
+          "info": "Displayed below the title"
         }
       },
       "presets": {
@@ -759,9 +759,6 @@
         "title": {
           "default": "Contact"
         },
-        "description": {
-          "default": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible."
-        },
         "enable_description_shuffle": {
           "label": "Enable Description Shuffle",
           "info": "Shuffles the description sentence order on each page load"
@@ -773,6 +770,9 @@
         "social_heading": {
           "label": "Social Heading",
           "default": "Follow us"
+        },
+        "text": {
+          "default": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible."
         }
       },
       "presets": {
@@ -790,10 +790,6 @@
         },
         "title": {
           "default": "Coming Soon"
-        },
-        "description": {
-          "info": "Displayed below the title",
-          "default": "Something exciting is on the way. Stay tuned!"
         },
         "header__countdown": {
           "content": "Countdown"
@@ -866,6 +862,10 @@
           "label": "Form Placeholder",
           "info": "Placeholder text for the email input",
           "default": "Enter your email"
+        },
+        "text": {
+          "info": "Displayed below the title",
+          "default": "Something exciting is on the way. Stay tuned!"
         }
       },
       "presets": {
@@ -909,7 +909,7 @@
         "title": {
           "default": "Frequently Asked Questions"
         },
-        "description": {
+        "text": {
           "default": "Find answers to common questions about our products and services."
         }
       },
@@ -1106,9 +1106,6 @@
         "title": {
           "default": "Features That Set Us Apart"
         },
-        "description": {
-          "default": "Everything you need to create an amazing shopping experience."
-        },
         "layout": {
           "options__0": {
             "label": "Standard"
@@ -1117,6 +1114,9 @@
             "label": "Bento"
           },
           "label": "Layout"
+        },
+        "text": {
+          "default": "Everything you need to create an amazing shopping experience."
         }
       },
       "blocks": {
@@ -1332,11 +1332,11 @@
               "label": "Logo",
               "info": "Logo displayed in the footer brand column"
             },
-            "description": {
-              "default": "Your brand tagline or brief description goes here."
-            },
             "show_social": {
               "label": "Show social links"
+            },
+            "text": {
+              "default": "Your brand tagline or brief description goes here."
             }
           }
         },
@@ -1370,7 +1370,7 @@
             "heading": {
               "default": "Subscribe to our newsletter"
             },
-            "description": {
+            "text": {
               "default": "Get the latest updates and offers."
             }
           }
@@ -1791,9 +1791,6 @@
         "title": {
           "default": "Elevate Your Style"
         },
-        "description": {
-          "default": "Discover our curated collection of premium products designed for the modern lifestyle."
-        },
         "button_text": {
           "default": "Shop Now"
         },
@@ -1805,6 +1802,9 @@
         },
         "show_scroll_indicator": {
           "label": "Show Scroll Indicator"
+        },
+        "text": {
+          "default": "Discover our curated collection of premium products designed for the modern lifestyle."
         }
       },
       "presets": {
@@ -1933,7 +1933,7 @@
         "title": {
           "default": "Explore Our Collection"
         },
-        "description": {
+        "text": {
           "default": "Scroll to discover our carefully curated selection of products and experiences."
         }
       },
@@ -2023,9 +2023,6 @@
             "title": {
               "default": "Feature Title"
             },
-            "description": {
-              "default": "Describe this feature or specification in detail."
-            },
             "link_text": {
               "label": "Link text"
             },
@@ -2067,6 +2064,9 @@
             },
             "link_color": {
               "label": "Link Color"
+            },
+            "text": {
+              "default": "Describe this feature or specification in detail."
             }
           }
         }
@@ -2920,15 +2920,15 @@
             "title": {
               "default": "Discover Our Story"
             },
-            "description": {
-              "default": "Scroll to reveal beautiful imagery and learn more about what makes us unique."
-            },
             "button_text": {
               "default": "Learn More"
             },
             "background_color": {
               "label": "Background color",
               "info": "Transition between panels"
+            },
+            "text": {
+              "default": "Scroll to reveal beautiful imagery and learn more about what makes us unique."
             }
           }
         }
@@ -3381,7 +3381,7 @@
               "label": "Label",
               "default": "Happy Customers"
             },
-            "description": {
+            "text": {
               "info": "Short description displayed below"
             }
           }
@@ -3804,9 +3804,6 @@
         "title": {
           "default": "Why Choose Us"
         },
-        "description": {
-          "default": "Discover what makes our products stand out from the rest."
-        },
         "header__background": {
           "content": "Background"
         },
@@ -3851,6 +3848,9 @@
         },
         "background_overlay_opacity": {
           "label": "Background overlay opacity"
+        },
+        "text": {
+          "default": "Discover what makes our products stand out from the rest."
         }
       },
       "blocks": {
@@ -3904,7 +3904,7 @@
         "title": {
           "default": "Meet the People Behind the Brand"
         },
-        "description": {
+        "text": {
           "default": "We're a passionate team dedicated to creating products you'll love."
         }
       },
@@ -4129,11 +4129,11 @@
         "title": {
           "default": "Your headline here"
         },
-        "description": {
-          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis purus quis lorem convallis, vitae consequat diam consequat. Quisque consequat sem lorem, ac volutpat tortor cursus in."
-        },
         "content_width": {
           "label": "Content width"
+        },
+        "text": {
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis purus quis lorem convallis, vitae consequat diam consequat. Quisque consequat sem lorem, ac volutpat tortor cursus in."
         }
       },
       "blocks": {
@@ -4348,7 +4348,7 @@
             "title": {
               "default": "Free Shipping"
             },
-            "description": {
+            "text": {
               "default": "On orders over $50"
             }
           }

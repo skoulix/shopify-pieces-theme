@@ -39,7 +39,7 @@
 >
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
-    {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank or section.settings.show_add_all %}
+    {% if section.settings.label != blank or section.settings.title != blank or section.settings.text != blank or section.settings.show_add_all %}
       <header class="mb-6 flex flex-col gap-4 {% if section.settings.alignment == 'center' %}items-center text-center{% elsif section.settings.alignment == 'right' %}items-end text-right{% else %}md:flex-row md:justify-between md:items-end{% endif %}" data-tween data-tween-type="fade-up">
         <div>
           {% if section.settings.label != blank %}
@@ -50,8 +50,8 @@
               {{ section.settings.title }}
             </h2>
           {% endif %}
-          {% if section.settings.description != blank %}
-            <p class="text-sm opacity-70 mt-2 max-w-2xl">{{ section.settings.description }}</p>
+          {% if section.settings.text != blank %}
+            <p class="text-sm opacity-70 mt-2 max-w-2xl">{{ section.settings.text }}</p>
           {% endif %}
         </div>
 
@@ -306,8 +306,8 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",

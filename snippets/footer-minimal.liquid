@@ -21,8 +21,8 @@
           {%- else -%}
             <span class="footer-brand block mb-4">{{ shop.name }}</span>
           {%- endif -%}
-          {%- if block.settings.description != blank -%}
-            <p class="text-sm max-w-md mx-auto">{{ block.settings.description }}</p>
+          {%- if block.settings.text != blank -%}
+            <p class="text-sm max-w-md mx-auto">{{ block.settings.text }}</p>
           {%- endif -%}
           {%- if block.settings.show_social -%}
             <div class="flex justify-center gap-x-5 mt-4">
@@ -57,8 +57,8 @@
       {% when 'newsletter' %}
         <div class="footer-block text-center max-w-md mx-auto" {{ block.shopify_attributes }}>
           <h3 class="text-label mb-4 opacity-60">{{ block.settings.heading | default: 'Newsletter' }}</h3>
-          {%- if block.settings.description != blank -%}
-            <p class="text-sm mb-4">{{ block.settings.description }}</p>
+          {%- if block.settings.text != blank -%}
+            <p class="text-sm mb-4">{{ block.settings.text }}</p>
           {%- endif -%}
           {%- form 'customer', id: 'FooterNewsletterMinimal' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">

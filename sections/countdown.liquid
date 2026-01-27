@@ -56,7 +56,7 @@
         {% render 'section-header',
           label: section.settings.label,
           title: section.settings.title,
-          description: section.settings.description,
+          description: section.settings.text,
           alignment: section.settings.content_alignment,
           group_id: section.id,
           animate: true
@@ -129,7 +129,7 @@
 >
   <div class="{{ container_class }}">
     <div class="countdown-inner" data-tween-group="countdown-compact-{{ section.id }}">
-      {% if section.settings.label != blank or section.settings.title != blank or section.settings.description != blank %}
+      {% if section.settings.label != blank or section.settings.title != blank or section.settings.text != blank %}
         <div class="countdown-header">
           {% if section.settings.label != blank %}
             <span class="section-label" data-tween data-tween-type="fade-up">{{ section.settings.label }}</span>
@@ -137,8 +137,8 @@
           {% if section.settings.title != blank %}
             <h2 class="countdown-title font-heading" data-tween data-tween-type="fade-up">{{ section.settings.title }}</h2>
           {% endif %}
-          {% if section.settings.description != blank %}
-            <p class="countdown-description" data-tween data-tween-type="fade-up">{{ section.settings.description }}</p>
+          {% if section.settings.text != blank %}
+            <p class="countdown-description" data-tween data-tween-type="fade-up">{{ section.settings.text }}</p>
           {% endif %}
         </div>
       {% endif %}
@@ -412,10 +412,10 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label",
-      "default": "t:sections.countdown.settings.description.default",
-      "info": "t:sections.countdown.settings.description.info"
+      "id": "text",
+      "label": "t:shared.settings.text.label",
+      "default": "t:sections.countdown.settings.text.default",
+      "info": "t:sections.countdown.settings.text.info"
     },
     {
       "type": "header",
@@ -642,11 +642,11 @@
         "design": "t:sections.countdown.presets.countdown.settings.design",
         "target_date": "2026-12-31",
         "title": "t:sections.countdown.presets.countdown.settings.title",
-        "description": "t:sections.countdown.presets.countdown.settings.description",
         "cta_type": "t:sections.countdown.presets.countdown.settings.cta_type",
         "button_text": "t:sections.countdown.presets.countdown.settings.button_text",
         "form_placeholder": "t:sections.countdown.presets.countdown.settings.form_placeholder",
-        "color_scheme": "t:sections.countdown.presets.countdown.settings.color_scheme"
+        "color_scheme": "t:sections.countdown.presets.countdown.settings.color_scheme",
+        "text": "t:sections.countdown.presets.countdown.settings.description"
       }
     }
   ],

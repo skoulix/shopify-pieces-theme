@@ -61,7 +61,7 @@
         <div class="video-overlay" style="background: {{ section.settings.overlay_color }}; opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"></div>
       {% endif %}
 
-      {% if section.settings.title != blank or section.settings.description != blank or section.settings.button_text != blank %}
+      {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_text != blank %}
         <div class="video-content {{ content_align_class }}" style="justify-content: {{ section.settings.content_position }};" data-tween-group="video-content-{{ section.id }}">
           {% if section.settings.label != blank %}
             <span class="section-label" data-tween data-tween-type="fade-up">
@@ -75,9 +75,9 @@
             </h2>
           {% endif %}
 
-          {% if section.settings.description != blank %}
+          {% if section.settings.text != blank %}
             <p class="section-description" data-tween data-tween-type="fade-up">
-              {{ section.settings.description }}
+              {{ section.settings.text }}
             </p>
           {% endif %}
 
@@ -202,8 +202,8 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "text",

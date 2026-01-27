@@ -66,9 +66,9 @@
       </h1>
     {% endif %}
 
-    {% if section.settings.description != blank %}
+    {% if section.settings.text != blank %}
       <p class="hero-description section-description max-w-[480px] {{ description_align }}" data-tween data-tween-type="fade-up">
-        {{ section.settings.description }}
+        {{ section.settings.text }}
       </p>
     {% endif %}
 
@@ -179,9 +179,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "default": "t:sections.hero.settings.description.default",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "default": "t:sections.hero.settings.text.default",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "text_alignment",

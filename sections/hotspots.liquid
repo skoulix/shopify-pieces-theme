@@ -55,7 +55,7 @@
       {% render 'section-header',
         label: section.settings.label,
         title: section.settings.title,
-        description: section.settings.description,
+        description: section.settings.text,
         alignment: section.settings.header_alignment,
         group_id: section.id
       %}
@@ -188,9 +188,9 @@
                   </h3>
                 {% endif %}
 
-                {% if block.settings.description != blank %}
+                {% if block.settings.text != blank %}
                   <p class="text-sm leading-relaxed {% if block.settings.link_text != blank %}mb-4{% endif %}" style="color: {{ description_color }};">
-                    {{ block.settings.description }}
+                    {{ block.settings.text }}
                   </p>
                 {% endif %}
 
@@ -424,8 +424,8 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",
@@ -556,9 +556,9 @@
         },
         {
           "type": "textarea",
-          "id": "description",
-          "label": "t:shared.settings.description.label",
-          "default": "t:sections.hotspots.blocks.hotspot.settings.description.default"
+          "id": "text",
+          "label": "t:shared.settings.text.label",
+          "default": "t:sections.hotspots.blocks.hotspot.settings.text.default"
         },
         {
           "type": "text",
@@ -646,7 +646,7 @@
             "position_x": 25,
             "position_y": 30,
             "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.0.title",
-            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.0.description"
+            "text": "t:sections.hotspots.presets.hotspots.blocks.hotspot.0.description"
           }
         },
         {
@@ -655,7 +655,7 @@
             "position_x": 75,
             "position_y": 40,
             "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.1.title",
-            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.1.description"
+            "text": "t:sections.hotspots.presets.hotspots.blocks.hotspot.1.description"
           }
         },
         {
@@ -664,7 +664,7 @@
             "position_x": 50,
             "position_y": 70,
             "title": "t:sections.hotspots.presets.hotspots.blocks.hotspot.2.title",
-            "description": "t:sections.hotspots.presets.hotspots.blocks.hotspot.2.description"
+            "text": "t:sections.hotspots.presets.hotspots.blocks.hotspot.2.description"
           }
         }
       ]

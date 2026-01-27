@@ -29,7 +29,7 @@
       label: section.settings.label,
       title: section.settings.title,
       title_fallback: blog.title | default: 'Latest Posts',
-      description: section.settings.description,
+      description: section.settings.text,
       alignment: section.settings.header_alignment,
       group_id: section.id,
       link_url: blog.url | default: routes.blogs_url,
@@ -209,8 +209,8 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",

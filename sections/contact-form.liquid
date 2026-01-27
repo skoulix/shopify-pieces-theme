@@ -38,9 +38,9 @@
       </h1>
     {% endif %}
 
-    {% if section.settings.description != blank %}
-      <p class="mt-8 max-w-105 text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider leading-relaxed text-(--color-text-secondary) {{ desc_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.description | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
-        {{ section.settings.description }}
+    {% if section.settings.text != blank %}
+      <p class="mt-8 max-w-105 text-sm{% if settings.headings_uppercase %} uppercase{% endif %} tracking-wider leading-relaxed text-(--color-text-secondary) {{ desc_align }}" data-contact-description{% if section.settings.enable_description_shuffle %} data-shuffle-text data-original-text="{{ section.settings.text | escape }}"{% else %} data-tween data-tween-type="fade-up"{% endif %}>
+        {{ section.settings.text }}
       </p>
     {% endif %}
   </header>
@@ -307,9 +307,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "label": "t:shared.settings.description.label",
-      "default": "t:sections.contact_form.settings.description.default"
+      "id": "text",
+      "label": "t:shared.settings.text.label",
+      "default": "t:sections.contact_form.settings.text.default"
     },
     {
       "type": "checkbox",

@@ -41,7 +41,7 @@
           {% render 'section-header',
             label: section.settings.label,
             title: section.settings.title,
-            description: section.settings.description,
+            description: section.settings.text,
             group_id: section.id
           %}
         </div>
@@ -247,9 +247,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "default": "t:sections.horizontal_scroll.settings.description.default",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "default": "t:sections.horizontal_scroll.settings.text.default",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",

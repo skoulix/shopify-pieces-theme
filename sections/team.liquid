@@ -24,7 +24,7 @@
         {% render 'section-header',
           label: section.settings.label,
           title: section.settings.title,
-          description: section.settings.description,
+          description: section.settings.text,
           alignment: section.settings.header_alignment,
           group_id: 'team-header-' | append: section.id
         %}
@@ -128,9 +128,9 @@
     },
     {
       "type": "textarea",
-      "id": "description",
-      "default": "t:sections.team.settings.description.default",
-      "label": "t:shared.settings.description.label"
+      "id": "text",
+      "default": "t:sections.team.settings.text.default",
+      "label": "t:shared.settings.text.label"
     },
     {
       "type": "header",
