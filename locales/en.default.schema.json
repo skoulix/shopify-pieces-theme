@@ -2774,8 +2774,18 @@
             },
             "icon": {
               "label": "Icon",
-              "info": "Phosphor icon name (e.g., star-four, heart, sparkle)",
-              "default": "star-four"
+              "options__0": { "label": "Four-point star" },
+              "options__1": { "label": "Star" },
+              "options__2": { "label": "Sparkle" },
+              "options__3": { "label": "Diamond" },
+              "options__4": { "label": "Heart" },
+              "options__5": { "label": "Lightning" },
+              "options__6": { "label": "Fire" },
+              "options__7": { "label": "Circle" },
+              "options__8": { "label": "Flower" },
+              "options__9": { "label": "Arrow" },
+              "options__10": { "label": "Caret" },
+              "options__11": { "label": "Dash" }
             }
           }
         }
