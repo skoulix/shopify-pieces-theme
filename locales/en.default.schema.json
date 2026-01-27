@@ -520,9 +520,6 @@
       "swatch_shape": {
         "label": "Swatch shape"
       },
-      "image_ratio": {
-        "label": "Image ratio"
-      },
       "button_type": {
         "label": "Button type"
       },
