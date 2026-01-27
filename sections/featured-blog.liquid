@@ -78,12 +78,6 @@
             </a>
 
             <div class="p-5 lg:p-6 flex flex-col flex-1{% if is_featured %} lg:py-8 lg:px-8 lg:justify-center{% endif %}" data-tween-group="fb-card-{{ section.id }}-{{ forloop.index0 }}">
-              {% if section.settings.show_tags and article.tags.size > 0 %}
-                <p class="blog-category" data-tween data-tween-type="fade-up">
-                  {{ article.tags.first }}
-                </p>
-              {% endif %}
-
               <h3 class="blog-card-title{% if is_featured %} blog-card-title--featured{% endif %}">
                 <a href="{{ article.url }}" class="block hover:text-(--color-primary) transition-colors">
                   <span data-tween data-tween-type="split-text">{{ article.title }}</span>
@@ -105,6 +99,14 @@
                       {{ article.author }}
                     </span>
                   {% endif %}
+                </div>
+              {% endif %}
+
+              {% if section.settings.show_tags and article.tags.size > 0 %}
+                <div class="flex flex-wrap gap-1.5 mt-3" data-tween data-tween-type="fade-up">
+                  {% for tag in article.tags %}
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tag-pill">{{ tag }}</a>
+                  {% endfor %}
                 </div>
               {% endif %}
 
@@ -137,11 +139,6 @@
               {{ 'lifestyle-' | append: placeholder_index | placeholder_svg_tag: 'w-full h-full object-cover' }}
             </div>
             <div class="p-5 lg:p-6 flex flex-col flex-1{% if is_featured %} lg:py-8 lg:px-8 lg:justify-center{% endif %}" data-tween-group="fb-placeholder-{{ section.id }}-{{ forloop.index0 }}">
-              {% if section.settings.show_tags %}
-                <p class="blog-category" data-tween data-tween-type="fade-up">
-                  Category
-                </p>
-              {% endif %}
               <h3 class="blog-card-title{% if is_featured %} blog-card-title--featured{% endif %}" data-tween data-tween-type="fade-up">
                 {{ 'sections.featured_blog.placeholder_title' | t }} {{ forloop.index }}
               </h3>
@@ -158,6 +155,11 @@
                       Author
                     </span>
                   {% endif %}
+                </div>
+              {% endif %}
+              {% if section.settings.show_tags %}
+                <div class="flex flex-wrap gap-1.5 mt-3" data-tween data-tween-type="fade-up">
+                  <span class="tag-pill">Category</span>
                 </div>
               {% endif %}
               {% if section.settings.show_excerpt %}
@@ -221,8 +223,6 @@
       "label": "Full width"
     },
     {
-    },
-    {
       "type": "text_alignment",
       "id": "header_alignment",
       "label": "Header alignment",
@@ -261,7 +261,7 @@
       "type": "checkbox",
       "id": "show_tags",
       "default": true,
-      "label": "Show category tag"
+      "label": "Show tags"
     },
     {
       "type": "checkbox",

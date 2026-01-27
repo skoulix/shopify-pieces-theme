@@ -313,7 +313,7 @@ h6,
   color: inherit;
 }
 
-a:hover:not(.header-icon) {
+a:hover:not(.header-icon):not(.tag-pill):not(.btn) {
   color: var(--color-primary);
 }
 
@@ -392,8 +392,8 @@ letter-spacing: 0.2em;
 {% endif %}
 }
 
-/* Blog category - uppercase depends on settings */
-.blog-category {
+/* Tag pill - uppercase depends on settings */
+.tag-pill {
   {% if settings.buttons_uppercase %}text-transform: uppercase;
 {% endif %}
 }

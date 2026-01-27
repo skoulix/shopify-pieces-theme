@@ -113,12 +113,15 @@
   }
 
   /* ==========================================================================
-     Blog Category - Category label for blog cards/items
+     Tag Pill - Clickable tag badges for blog cards and article pages
      ========================================================================== */
 
-  .blog-category {
-    @apply text-xs font-semibold tracking-wider text-(--color-text-secondary);
-    margin-bottom: 0.5rem !important;
+  .tag-pill {
+    @apply text-[0.6875rem] font-semibold uppercase tracking-widest py-1.5 px-3 border border-(--color-text-secondary) text-(--color-text-secondary) transition-all duration-300;
+  }
+
+  a.tag-pill:hover {
+    @apply bg-(--color-primary) text-(--color-primary-contrast) border-(--color-primary);
   }
 
   /* ==========================================================================

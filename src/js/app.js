@@ -97,8 +97,8 @@ function initArticleProgressBar() {
     return;
   }
 
-  // If no article on page, hide progress bar and exit
-  if (!wrapper) {
+  // If no article on page or progress bar disabled, hide and exit
+  if (!wrapper || wrapper.hasAttribute('data-hide-progress')) {
     progressContainer.style.display = 'none';
     progressBar.style.width = '0%';
     return;

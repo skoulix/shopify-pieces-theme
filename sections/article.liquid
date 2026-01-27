@@ -11,12 +11,11 @@
   @media (min-width: 1536px) { .article-title { font-size: calc(clamp(3rem, 3.5vw, 4rem) * var(--heading-font-scale, 1)); } }
   .tween-split-line:nth-child(2) { margin-left: clamp(1rem, 6vw, 4rem); }
   .tween-split-line:nth-child(3) { margin-left: clamp(2rem, 10vw, 6rem); }
-  .article-hero-category::before { content: ''; display: inline-block; width: 2rem; height: 1px; background: var(--color-text-secondary); }
   .article-hero-date::before, .article-hero-reading-time::before { content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--color-text-secondary); }
   /* article-image animation handled by TweenManager */
 </style>
 
-<article class="article-wrapper section-padding" data-article-wrapper>
+<article class="article-wrapper section-padding" data-article-wrapper{% unless section.settings.show_progress_bar %} data-hide-progress{% endunless %}>
   <header class="section-header-spacing" data-tween-group="article-header-{{ section.id }}">
     <div class="{{ container_class }}">
       {% if section.settings.show_breadcrumbs %}
@@ -30,30 +29,32 @@
         </a>
       </div>
 
-      {% if article.tags.size > 0 %}
-        <p class="article-hero-category section-label text-(--color-text-secondary) flex items-center gap-4" data-tween data-tween-type="fade-up">
-          {{ article.tags.first }}
-        </p>
-      {% endif %}
-
       <h1 class="article-title" data-tween data-tween-type="split-text">
         {{ article.title }}
       </h1>
 
-      <div class="flex flex-wrap items-center gap-6 mt-6 text-[0.8125rem] text-(--color-text-secondary)" data-tween data-tween-type="fade-up">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-(--color-background-secondary) flex items-center justify-center font-semibold text-sm text-(--color-text)">
-            {{ article.author | slice: 0 | upcase }}
-          </div>
-          <p class="font-semibold text-(--color-text)">{{ article.author }}</p>
+      {% if section.settings.show_author or section.settings.show_date or section.settings.show_reading_time %}
+        <div class="flex flex-wrap items-center gap-6 mt-6 text-[0.8125rem] text-(--color-text-secondary)" data-tween data-tween-type="fade-up">
+          {% if section.settings.show_author %}
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-(--color-background-secondary) flex items-center justify-center font-semibold text-sm text-(--color-text)">
+                {{ article.author | slice: 0 | upcase }}
+              </div>
+              <p class="font-semibold text-(--color-text)">{{ article.author }}</p>
+            </div>
+          {% endif %}
+          {% if section.settings.show_date %}
+            <time class="article-hero-date flex items-center gap-2" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+              {{ article.published_at | date: '%B %d, %Y' }}
+            </time>
+          {% endif %}
+          {% if section.settings.show_reading_time %}
+            {% assign words = article.content | strip_html | split: ' ' | size %}
+            {% assign reading_time = words | divided_by: 200 | plus: 1 %}
+            <span class="article-hero-reading-time flex items-center gap-2">{{ 'blog.min_read' | t: minutes: reading_time }}</span>
+          {% endif %}
         </div>
-        <time class="article-hero-date flex items-center gap-2" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-          {{ article.published_at | date: '%B %d, %Y' }}
-        </time>
-        {% assign words = article.content | strip_html | split: ' ' | size %}
-        {% assign reading_time = words | divided_by: 200 | plus: 1 %}
-        <span class="article-hero-reading-time flex items-center gap-2">{{ 'blog.min_read' | t: minutes: reading_time }}</span>
-      </div>
+      {% endif %}
     </div>
   </header>
 
@@ -76,10 +77,10 @@
         {{ article.content }}
       </div>
 
-      {% if article.tags.size > 0 %}
+      {% if section.settings.show_tags and article.tags.size > 0 %}
         <div class="flex flex-wrap gap-2 mt-16 pt-8 border-t border-(--color-border)">
           {% for tag in article.tags %}
-            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="text-[0.6875rem] font-semibold uppercase tracking-widest py-2 px-4 bg-(--color-background-secondary) text-(--color-text-secondary) hover:bg-(--color-primary) hover:text-(--color-primary-contrast) transition-all duration-300">{{ tag }}</a>
+            <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="tag-pill">{{ tag }}</a>
           {% endfor %}
         </div>
       {% endif %}
@@ -104,7 +105,7 @@
         </div>
       {% endif %}
 
-      {% if blog.previous_article or blog.next_article %}
+      {% if section.settings.show_prev_next and blog.previous_article or section.settings.show_prev_next and blog.next_article %}
         <nav class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mt-16 pt-16 border-t border-(--color-border)">
           {% if blog.previous_article %}
             <a href="{{ blog.previous_article.url }}" class="flex flex-col gap-2 no-underline group">
@@ -131,7 +132,7 @@
       {% endif %}
 
       {% if blog.comments_enabled? %}
-        <section class="mt-24 pt-16 border-t border-(--color-border)">
+        <div class="mt-24 pt-16 border-t border-(--color-border)">
           <h2 class="section-title">
             {{ 'blog.article_comments' | t }}{% if article.comments_count > 0 %} ({{ article.comments_count }}){% endif %}
           </h2>
@@ -189,7 +190,7 @@
               </div>
             </div>
           {% endform %}
-        </section>
+        </div>
       {% endif %}
     </div>
   </div>
@@ -249,10 +250,50 @@
       "label": "Full width"
     },
     {
+      "type": "header",
+      "content": "Article details"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "default": true,
+      "label": "Show date"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "default": true,
+      "label": "Show author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reading_time",
+      "default": true,
+      "label": "Show reading time"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "default": true,
+      "label": "Show tags"
+    },
+    {
       "type": "checkbox",
       "id": "show_share",
       "default": true,
       "label": "Show share buttons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_prev_next",
+      "default": true,
+      "label": "Show previous/next navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "default": true,
+      "label": "Show reading progress bar"
     }
   ],
   "disabled_on": {
