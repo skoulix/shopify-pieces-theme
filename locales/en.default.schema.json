@@ -271,7 +271,7 @@
         },
         "overlay_text": {
           "label": "Overlay Text",
-          "info": ""
+          "info": "Text displayed over the zoomed image"
         },
         "header__after_section": {
           "content": "After Section"
@@ -291,7 +291,7 @@
         },
         "content_bg_color": {
           "label": "Content Bg Color",
-          "info": ""
+          "info": "Background color for the content area"
         },
         "overlay_text_color": {
           "label": "Overlay Text Color"
@@ -310,11 +310,11 @@
             },
             "accent_text": {
               "label": "Accent Text",
-              "info": ""
+              "info": "Part of the heading that will be styled differently"
             },
             "add_margin_top": {
               "label": "Add Margin Top",
-              "info": ""
+              "info": "Adds spacing above the heading"
             }
           }
         },
@@ -571,7 +571,7 @@
         },
         "badge_1_icon": {
           "label": "Badge 1 Icon",
-          "info": "",
+          "info": "Phosphor icon name for the first badge",
           "default": "shield-check"
         },
         "badge_1_text": {
@@ -580,7 +580,7 @@
         },
         "badge_2_icon": {
           "label": "Badge 2 Icon",
-          "info": "",
+          "info": "Phosphor icon name for the second badge",
           "default": "truck"
         },
         "badge_2_text": {
@@ -589,7 +589,7 @@
         },
         "badge_3_icon": {
           "label": "Badge 3 Icon",
-          "info": "",
+          "info": "Phosphor icon name for the third badge",
           "default": "arrows-counter-clockwise"
         },
         "badge_3_text": {
@@ -612,18 +612,18 @@
         },
         "enable_description_shuffle": {
           "label": "Enable Description Shuffle",
-          "info": ""
+          "info": "Shuffles the description sentence order on each page load"
         },
         "header_alignment": {
           "label": "Header alignment"
         },
         "enable_bento_pattern": {
           "label": "Enable Bento Pattern",
-          "info": ""
+          "info": "Applies a bento grid layout to the product grid"
         },
         "columns_desktop": {
           "label": "Columns Desktop",
-          "info": ""
+          "info": "Number of columns on desktop screens"
         },
         "columns_tablet": {
           "label": "Columns Tablet"
@@ -657,15 +657,15 @@
         },
         "enable_filtering": {
           "label": "Enable Filtering",
-          "info": ""
+          "info": "Enable product filtering in the sidebar"
         },
         "enable_sorting": {
           "label": "Enable Sorting",
-          "info": ""
+          "info": "Enable product sorting options"
         },
         "enable_layout_toggle": {
           "label": "Enable Layout Toggle",
-          "info": ""
+          "info": "Allow customers to switch between grid and list views"
         }
       }
     },
@@ -743,7 +743,7 @@
             },
             "tab_label": {
               "label": "Tab Label",
-              "info": ""
+              "info": "Custom label for the tab. Leave blank to use collection title"
             }
           }
         }
@@ -767,28 +767,28 @@
         },
         "description": {
           "label": "Description",
-          "info": ""
+          "info": "Displayed below the title"
         },
         "enable_description_shuffle": {
           "label": "Enable Description Shuffle",
-          "info": ""
+          "info": "Shuffles the description sentence order on each page load"
         },
         "show_collection_count": {
           "label": "Show Collection Count"
         },
         "full_width": {
-          "info": ""
+          "info": "Extends the section to the full width of the page"
         },
         "header_alignment": {
           "label": "Header alignment"
         },
         "enable_bento_pattern": {
           "label": "Enable Bento Pattern",
-          "info": ""
+          "info": "Applies a bento grid layout to the collection cards"
         },
         "columns_desktop": {
           "label": "Columns Desktop",
-          "info": ""
+          "info": "Number of columns on desktop screens"
         },
         "columns_tablet": {
           "label": "Columns Tablet"
@@ -854,16 +854,7 @@
           "label": "Description"
         },
         "alignment": {
-          "label": "Alignment",
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          }
+          "label": "Alignment"
         },
         "products_to_show": {
           "label": "Products to show"
@@ -899,7 +890,7 @@
         },
         "enable_description_shuffle": {
           "label": "Enable Description Shuffle",
-          "info": ""
+          "info": "Shuffles the description sentence order on each page load"
         },
         "header_alignment": {
           "label": "Header alignment"
@@ -942,7 +933,7 @@
         },
         "show_social_links": {
           "label": "Show Social Links",
-          "info": ""
+          "info": "Shows social media links configured in theme settings"
         },
         "social_heading": {
           "label": "Social Heading",
@@ -968,7 +959,7 @@
         },
         "description": {
           "label": "Description",
-          "info": "",
+          "info": "Displayed below the title",
           "default": "Something exciting is on the way. Stay tuned!"
         },
         "header__countdown": {
@@ -976,7 +967,7 @@
         },
         "target_date": {
           "label": "Target Date",
-          "info": "",
+          "info": "Format: YYYY-MM-DD HH:MM",
           "default": "2026-12-31"
         },
         "design": {
@@ -990,24 +981,24 @@
           "options__2": {
             "label": "Minimal"
           },
-          "info": ""
+          "info": "Controls the visual layout of the countdown"
         },
         "full_width": {
-          "info": ""
+          "info": "Extends the section to the full width of the page"
         },
         "content_alignment": {
           "label": "Content alignment"
         },
         "show_dividers": {
           "label": "Show dividers",
-          "info": ""
+          "info": "Shows separator lines between time units"
         },
         "header__labels": {
           "content": "Labels"
         },
         "days_label": {
           "label": "Days Label",
-          "info": "",
+          "info": "Text shown below the days counter",
           "default": "Days"
         },
         "hours_label": {
@@ -1036,7 +1027,7 @@
           "options__2": {
             "label": "Email Form"
           },
-          "info": ""
+          "info": "Choose between a button link or an email signup form"
         },
         "button_text": {
           "label": "Button text",
@@ -1044,11 +1035,11 @@
         },
         "button_link": {
           "label": "Button link",
-          "info": ""
+          "info": "URL for the call-to-action button"
         },
         "form_placeholder": {
           "label": "Form Placeholder",
-          "info": "",
+          "info": "Placeholder text for the email input",
           "default": "Enter your email"
         },
         "button_style": {
@@ -1103,7 +1094,7 @@
       "settings": {
         "liquid": {
           "label": "Liquid",
-          "info": ""
+          "info": "Add custom Liquid code. Learn more about Liquid at shopify.dev"
         }
       },
       "presets": {
@@ -1181,7 +1172,7 @@
         },
         "title": {
           "label": "Title",
-          "info": ""
+          "info": "Leave blank to use the blog title"
         },
         "description": {
           "label": "Description"
@@ -1200,7 +1191,7 @@
         },
         "feature_first": {
           "label": "Feature First",
-          "info": ""
+          "info": "Makes the first post larger and more prominent"
         },
         "show_tags": {
           "label": "Show Tags"
@@ -1243,7 +1234,7 @@
         },
         "title": {
           "label": "Title",
-          "info": ""
+          "info": "Leave blank to use the collection title"
         },
         "description": {
           "label": "Description"
@@ -1582,7 +1573,7 @@
         },
         "section_height": {
           "label": "Section height",
-          "info": ""
+          "info": "Height in viewport units (vh)"
         },
         "section_height_mobile": {
           "label": "Section Height Mobile"
@@ -1592,11 +1583,11 @@
         },
         "image_opacity": {
           "label": "Image Opacity",
-          "info": ""
+          "info": "Opacity of the floating images"
         },
         "enable_parallax": {
           "label": "Enable Parallax",
-          "info": ""
+          "info": "Images move at different speeds when scrolling"
         }
       },
       "blocks": {
@@ -1631,11 +1622,11 @@
           "options__2": {
             "label": "Classic"
           },
-          "info": ""
+          "info": "Controls the overall layout of the footer"
         },
         "enable_reveal_effect": {
           "label": "Enable Reveal Effect",
-          "info": ""
+          "info": "Footer reveals from behind the page content on scroll"
         }
       },
       "blocks": {
@@ -1644,7 +1635,7 @@
           "settings": {
             "logo": {
               "label": "Logo",
-              "info": ""
+              "info": "Logo displayed in the footer brand column"
             },
             "description": {
               "label": "Description",
@@ -1706,7 +1697,7 @@
           "settings": {
             "grayscale": {
               "label": "Grayscale",
-              "info": ""
+              "info": "Displays payment icons in grayscale"
             }
           }
         },
@@ -1738,11 +1729,11 @@
           "settings": {
             "show_country": {
               "label": "Show Country",
-              "info": ""
+              "info": "Shows the country/region selector"
             },
             "show_language": {
               "label": "Show Language",
-              "info": ""
+              "info": "Shows the language selector"
             }
           }
         },
@@ -1770,7 +1761,7 @@
           "options__1": {
             "label": "Logo Center"
           },
-          "info": ""
+          "info": "Controls the position of the logo and navigation"
         },
         "nav_position": {
           "label": "Nav Position",
@@ -1783,7 +1774,7 @@
           "options__2": {
             "label": "Right"
           },
-          "info": ""
+          "info": "Position of the main navigation links"
         },
         "nav_uppercase": {
           "label": "Nav Uppercase"
@@ -1802,7 +1793,7 @@
           "options__1": {
             "label": "Page"
           },
-          "info": ""
+          "info": "Choose between a drawer or full-page search"
         },
         "show_wishlist": {
           "label": "Show Wishlist"
@@ -1815,11 +1806,11 @@
         },
         "enable_country_selector": {
           "label": "Enable Country Selector",
-          "info": ""
+          "info": "Shows the country/region selector in the header"
         },
         "enable_language_selector": {
           "label": "Enable Language Selector",
-          "info": ""
+          "info": "Shows the language selector in the header"
         },
         "header__mobile_menu": {
           "content": "Mobile Menu"
@@ -1832,29 +1823,29 @@
           "options__1": {
             "label": "Slide"
           },
-          "info": ""
+          "info": "Style of the mobile navigation menu"
         },
         "header__sticky_behavior": {
           "content": "Sticky Behavior"
         },
         "sticky_header": {
           "label": "Sticky Header",
-          "info": ""
+          "info": "Header stays fixed at the top when scrolling"
         },
         "hide_on_scroll": {
           "label": "Hide On Scroll",
-          "info": ""
+          "info": "Header hides when scrolling down and shows when scrolling up"
         },
         "header__transparent_header": {
           "content": "Transparent Header"
         },
         "transparent_home": {
           "label": "Transparent Home",
-          "info": ""
+          "info": "Header background is transparent on the home page"
         },
         "transparent_text_color": {
           "label": "Transparent Text Color",
-          "info": ""
+          "info": "Text color when the header is transparent"
         },
         "header__announcement_bar": {
           "content": "Announcement Bar"
@@ -1867,14 +1858,14 @@
         },
         "announcement_rotation": {
           "label": "Announcement Rotation",
-          "info": ""
+          "info": "Time in seconds between announcement message rotations"
         },
         "announcement_arrows": {
           "label": "Announcement Arrows"
         },
         "announcement_dismissible": {
           "label": "Announcement Dismissible",
-          "info": ""
+          "info": "Allow visitors to dismiss the announcement bar"
         }
       },
       "blocks": {
@@ -1883,7 +1874,7 @@
           "settings": {
             "menu_item": {
               "label": "Menu Item",
-              "info": ""
+              "info": "Enter the exact menu item title to apply the mega menu to"
             },
             "animation": {
               "label": "Animation",
@@ -2058,7 +2049,7 @@
           "options__2": {
             "label": "Spiral"
           },
-          "info": ""
+          "info": "Controls how the orbital images animate"
         },
         "enable_rotation": {
           "label": "Enable Rotation"
@@ -2111,7 +2102,7 @@
         },
         "overlay_opacity": {
           "label": "Overlay opacity",
-          "info": ""
+          "info": "Opacity of the overlay on the background image"
         },
         "header__cards": {
           "content": "Cards"
@@ -2127,11 +2118,11 @@
           "options__1": {
             "label": "Contain"
           },
-          "info": ""
+          "info": "How the orbital images fit within their frames"
         },
         "card_tilt": {
           "label": "Card Tilt",
-          "info": ""
+          "info": "Adds a 3D tilt effect on hover"
         }
       },
       "blocks": {
@@ -2219,10 +2210,10 @@
           }
         },
         "color_scheme": {
-          "info": ""
+          "info": "Applied to the section when no background image is set"
         },
         "full_width": {
-          "info": ""
+          "info": "Extends the section to the full width of the page"
         },
         "show_scroll_indicator": {
           "label": "Show Scroll Indicator"
@@ -2239,16 +2230,7 @@
       "name": "Highlight text",
       "settings": {
         "text_alignment": {
-          "label": "Text alignment",
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          }
+          "label": "Text alignment"
         },
         "padding_top": {
           "label": "Padding Top"
@@ -2306,21 +2288,21 @@
             },
             "scroll_start": {
               "label": "Scroll Start",
-              "info": "",
+              "info": "Scroll position where the highlight animation begins",
               "default": "top 90%"
             },
             "scroll_end": {
               "label": "Scroll End",
-              "info": "",
+              "info": "Scroll position where the highlight animation ends",
               "default": "center 40%"
             },
             "fade_opacity": {
               "label": "Fade Opacity",
-              "info": ""
+              "info": "Opacity of unhighlighted text"
             },
             "stagger": {
               "label": "Stagger",
-              "info": ""
+              "info": "Delay between highlighting each word"
             }
           }
         },
@@ -2478,11 +2460,11 @@
         },
         "desktop_image": {
           "label": "Desktop image",
-          "info": ""
+          "info": "Recommended: 1920x1080px or similar aspect ratio"
         },
         "mobile_image": {
           "label": "Mobile image",
-          "info": ""
+          "info": "Optional: Different image for mobile devices"
         },
         "header_alignment": {
           "label": "Header alignment"
@@ -2591,27 +2573,27 @@
         },
         "desktop_source": {
           "label": "Desktop Source",
-          "info": ""
+          "info": "URL pattern for desktop frame images (use {frame} as placeholder)"
         },
         "mobile_source": {
           "label": "Mobile Source",
-          "info": ""
+          "info": "URL pattern for mobile frame images (use {frame} as placeholder)"
         },
         "static_image": {
           "label": "Static Image",
-          "info": ""
+          "info": "Fallback image shown before the sequence loads"
         },
         "frames": {
           "label": "Frames",
-          "info": ""
+          "info": "Total number of frames in the sequence"
         },
         "digits": {
           "label": "Digits",
-          "info": ""
+          "info": "Number of digits for zero-padding frame numbers"
         },
         "index_start": {
           "label": "Index Start",
-          "info": ""
+          "info": "Starting frame number (usually 0 or 1)"
         },
         "filetype": {
           "label": "Filetype",
@@ -2633,16 +2615,16 @@
         },
         "scroll_height": {
           "label": "Scroll Height",
-          "info": ""
+          "info": "Scroll distance to play through all frames (in vh)"
         },
         "scroll_start": {
           "label": "Scroll Start",
-          "info": "",
+          "info": "Scroll position where the animation begins",
           "default": "top top"
         },
         "scroll_end": {
           "label": "Scroll End",
-          "info": "",
+          "info": "Scroll position where the animation ends",
           "default": "bottom top"
         },
         "header__overlay_and_content": {
@@ -2652,16 +2634,7 @@
           "label": "Overlay opacity"
         },
         "content_alignment": {
-          "label": "Content alignment",
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          }
+          "label": "Content alignment"
         }
       },
       "blocks": {
@@ -2817,7 +2790,7 @@
           "options__1": {
             "label": "Outline"
           },
-          "info": ""
+          "info": "Controls the visual style of the button"
         },
         "button_color": {
           "label": "Button color",
@@ -2903,16 +2876,7 @@
           "label": "Image Width"
         },
         "image_alignment": {
-          "label": "Image Alignment",
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          }
+          "label": "Image Alignment"
         },
         "aspect_ratio": {
           "label": "Aspect ratio",
@@ -2993,15 +2957,6 @@
           "default": "As Featured In"
         },
         "label_alignment": {
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          },
           "label": "Label Alignment"
         },
         "header__animation": {
@@ -3042,11 +2997,11 @@
         },
         "grayscale": {
           "label": "Grayscale",
-          "info": ""
+          "info": "Displays logos in grayscale"
         },
         "invert": {
           "label": "Invert",
-          "info": ""
+          "info": "Inverts logo colors (useful for dark backgrounds)"
         }
       },
       "blocks": {
@@ -3055,7 +3010,7 @@
           "settings": {
             "logo": {
               "label": "Logo",
-              "info": ""
+              "info": "Upload a logo image"
             },
             "link": {
               "label": "Link"
@@ -3078,15 +3033,6 @@
           "default": "Trusted By"
         },
         "label_alignment": {
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          },
           "label": "Label Alignment"
         },
         "columns_desktop": {
@@ -3100,7 +3046,7 @@
         },
         "visible_desktop": {
           "label": "Visible Desktop",
-          "info": ""
+          "info": "Number of logos visible at once on desktop"
         },
         "visible_tablet": {
           "label": "Visible Tablet"
@@ -3116,14 +3062,14 @@
         },
         "loop_delay": {
           "label": "Loop Delay",
-          "info": ""
+          "info": "Time in seconds between logo transitions"
         },
         "animation_duration": {
           "label": "Animation duration"
         },
         "shuffle": {
           "label": "Shuffle",
-          "info": ""
+          "info": "Randomizes the order of logos"
         },
         "header__logo_styling": {
           "content": "Logo Styling"
@@ -3136,7 +3082,7 @@
         },
         "invert": {
           "label": "Invert",
-          "info": ""
+          "info": "Inverts logo colors (useful for dark backgrounds)"
         }
       },
       "blocks": {
@@ -3145,7 +3091,7 @@
           "settings": {
             "logo": {
               "label": "Logo",
-              "info": ""
+              "info": "Upload a logo image"
             }
           }
         }
@@ -3173,27 +3119,27 @@
         },
         "location_name": {
           "label": "Location Name",
-          "info": "",
+          "info": "Displayed as the marker title",
           "default": "Our Store"
         },
         "address": {
           "label": "Address",
-          "info": "",
+          "info": "Full address displayed below the map",
           "default": "123 Main Street\nNew York, NY 10001"
         },
         "latitude": {
           "label": "Latitude",
-          "info": "",
+          "info": "Latitude coordinate for the map center",
           "default": "40.7128"
         },
         "longitude": {
           "label": "Longitude",
-          "info": "",
+          "info": "Longitude coordinate for the map center",
           "default": "-74.0060"
         },
         "zoom": {
           "label": "Zoom",
-          "info": ""
+          "info": "Map zoom level"
         },
         "show_popup": {
           "label": "Show Popup"
@@ -3209,7 +3155,7 @@
         },
         "grayscale": {
           "label": "Grayscale",
-          "info": ""
+          "info": "Displays the map in grayscale"
         },
         "header_alignment": {
           "label": "Header alignment"
@@ -3316,14 +3262,14 @@
         },
         "radius": {
           "label": "Radius",
-          "info": ""
+          "info": "Radius of the circular path"
         },
         "header__spacer": {
           "content": "Spacer"
         },
         "spacer": {
           "label": "Spacer",
-          "info": "",
+          "info": "Adds a spacer between text items",
           "default": "-"
         },
         "spacer_color": {
@@ -3331,7 +3277,7 @@
         },
         "spacer_padding": {
           "label": "Spacer Padding",
-          "info": ""
+          "info": "Space between text and spacer characters"
         },
         "padding_top": {
           "label": "Padding Top"
@@ -3411,7 +3357,7 @@
             },
             "icon": {
               "label": "Icon",
-              "info": "",
+              "info": "Phosphor icon name (e.g., star-four, heart, sparkle)",
               "default": "star-four"
             }
           }
@@ -3908,7 +3854,7 @@
           "name": "Complementary products",
           "settings": {
             "paragraph__description": {
-              "content": "Description"
+              "content": "Add complementary products using the Shopify Search & Discovery app."
             },
             "title": {
               "label": "Title",
@@ -3927,7 +3873,7 @@
           "name": "Wishlist button",
           "settings": {
             "paragraph__description": {
-              "content": "Description"
+              "content": "Requires wishlist to be enabled in theme settings."
             },
             "style": {
               "label": "Style",
@@ -3947,7 +3893,7 @@
           "name": "Compare button",
           "settings": {
             "paragraph__description": {
-              "content": "Description"
+              "content": "Requires compare to be enabled in theme settings."
             },
             "style": {
               "label": "Style",
@@ -3967,7 +3913,7 @@
           "name": "Wishlist & Compare buttons",
           "settings": {
             "paragraph__description": {
-              "content": "Description"
+              "content": "Requires wishlist and/or compare to be enabled in theme settings."
             },
             "display_style": {
               "label": "Display style",
@@ -3987,7 +3933,7 @@
           "name": "Social actions",
           "settings": {
             "paragraph__description": {
-              "content": "Description"
+              "content": "Shows share buttons for the current product."
             },
             "show_share": {
               "label": "Show share button"
@@ -4102,27 +4048,18 @@
           "label": "Header alignment"
         },
         "content_alignment": {
-          "label": "Content alignment",
-          "options__0": {
-            "label": "Left"
-          },
-          "options__1": {
-            "label": "Center"
-          },
-          "options__2": {
-            "label": "Right"
-          }
+          "label": "Content alignment"
         },
         "show_dividers": {
           "label": "Show dividers",
-          "info": ""
+          "info": "Shows separator lines between number blocks"
         },
         "header__animation": {
           "content": "Animation"
         },
         "animation_duration": {
           "label": "Animation duration",
-          "info": ""
+          "info": "Duration of the rolling animation in milliseconds"
         }
       },
       "blocks": {
@@ -4131,16 +4068,16 @@
           "settings": {
             "number": {
               "label": "Number",
-              "info": "",
+              "info": "The target number to animate to",
               "default": "100"
             },
             "prefix": {
               "label": "Prefix",
-              "info": ""
+              "info": "Text displayed before the number (e.g., $)"
             },
             "suffix": {
               "label": "Suffix",
-              "info": ""
+              "info": "Text displayed after the number (e.g., +, %, K)"
             },
             "label": {
               "label": "Label",
@@ -4148,7 +4085,7 @@
             },
             "description": {
               "label": "Description",
-              "info": ""
+              "info": "Short description displayed below"
             }
           }
         }
@@ -4329,7 +4266,7 @@
         },
         "image": {
           "label": "Image",
-          "info": "Displayed on the right side of the login form"
+          "info": "Main image for the shop the look section"
         },
         "header_alignment": {
           "label": "Header alignment"
@@ -4475,7 +4412,7 @@
         },
         "autoplay_speed": {
           "label": "Autoplay speed",
-          "info": ""
+          "info": "Time in seconds between video rotations"
         },
         "pause_on_hover": {
           "label": "Pause on hover"
@@ -4487,7 +4424,7 @@
           "settings": {
             "video_hosted": {
               "label": "Video Hosted",
-              "info": ""
+              "info": "Upload a video file"
             },
             "product": {
               "label": "Product"
@@ -4671,7 +4608,7 @@
             },
             "full_width_content": {
               "label": "Full Width Content",
-              "info": ""
+              "info": "Extends content to the full width of the slide"
             }
           }
         }
@@ -5045,7 +4982,7 @@
           "options__1": {
             "label": "Outline"
           },
-          "info": ""
+          "info": "Controls the visual style of the button"
         },
         "button_color": {
           "label": "Button color",
