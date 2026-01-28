@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /* All @imports must come first per CSS spec */
-@import "tailwindcss" source(none);
+@import 'tailwindcss' source(none);
 @import './partials/base.css';
 @import './partials/typography.css';
 @import './partials/forms.css';
@@ -14,6 +14,11 @@
 @import './partials/animations.css';
 @import './partials/utilities.css';
 @import './partials/glightbox.css';
+
+/* Templates */
+@import './partials/product.css';
+@import './partials/collection.css';
+@import './partials/collections.css';
 
 /* Sections */
 @import './partials/sections/hero.css';
@@ -50,11 +55,6 @@
 @import './partials/sections/background-zoom.css';
 @import './partials/sections/hero-orbit.css';
 
-/* Templates */
-@import './partials/product.css';
-@import './partials/collection.css';
-@import './partials/collections.css';
-
 /* Snippets */
 @import './partials/snippets/cart-drawer.css';
 @import './partials/snippets/predictive-search.css';
@@ -73,6 +73,7 @@
 @import './partials/snippets/back-in-stock-form.css';
 @import './partials/snippets/delivery-estimator.css';
 
+/* Tailwind plugin */
 @plugin "@tailwindcss/typography";
 
 /* Theme configuration - replaces tailwind.config.js */

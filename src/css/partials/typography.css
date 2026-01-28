@@ -9,87 +9,121 @@
      ========================================================================== */
 
   .page-title {
-    @apply font-heading leading-tight text-balance lg:text-[calc(clamp(2.5rem,4vw,3.5rem)*var(--heading-font-scale,1))] 2xl:text-[calc(clamp(3rem,3.5vw,4rem)*var(--heading-font-scale,1))];
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(1.75rem, 5vw, 2.75rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 1024px) {
+    .page-title {
+      font-size: calc(clamp(2.5rem, 4vw, 3.5rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .page-title {
+      font-size: calc(clamp(3rem, 3.5vw, 4rem) * var(--heading-font-scale, 1));
+    }
   }
 
   /* ==========================================================================
      Section Title - Large responsive heading with font scale support
-     Used in: hero, countdown, collections, shoppable-videos, hotspots,
-     floating-images, stacking-cards, rolling-numbers, FAQ, testimonials, etc.
      ========================================================================== */
 
   .section-title {
-    @apply font-heading text-balance lg:text-[calc(clamp(2rem,3vw,2.75rem)*var(--heading-font-scale,1))] 2xl:text-[calc(clamp(2.25rem,2.5vw,3rem)*var(--heading-font-scale,1))];
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(1.5rem, 4vw, 2.25rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     line-height: 1.15;
+    text-wrap: balance;
   }
 
-  /* Hero title - primary hero headline (larger than page-title) */
+  @media (min-width: 1024px) {
+    .section-title {
+      font-size: calc(clamp(2rem, 3vw, 2.75rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .section-title {
+      font-size: calc(clamp(2.25rem, 2.5vw, 3rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  /* Hero title - primary hero headline */
   .hero-title {
-    @apply font-heading leading-none text-balance lg:text-[calc(clamp(3rem,6vw,5rem)*var(--heading-font-scale,1))] 2xl:text-[calc(clamp(4rem,5vw,6rem)*var(--heading-font-scale,1))];
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(2rem, 8vw, 3.5rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.03em + var(--heading-letter-spacing, 0em));
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-title {
+      font-size: calc(clamp(3rem, 6vw, 5rem) * var(--heading-font-scale, 1));
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .hero-title {
+      font-size: calc(clamp(4rem, 5vw, 6rem) * var(--heading-font-scale, 1));
+    }
   }
 
   /* Newsletter title (h3) */
   .newsletter-title {
-    @apply font-heading leading-snug text-balance lg:text-[calc(clamp(1.25rem,2vw,1.75rem)*var(--heading-font-scale,1))];
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(1.125rem, 2.5vw, 1.5rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 1024px) {
+    .newsletter-title {
+      font-size: calc(clamp(1.25rem, 2vw, 1.75rem) * var(--heading-font-scale, 1));
+    }
   }
 
   /* Blog card title */
   .blog-card-title {
-    @apply font-heading leading-snug;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.015em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(0.9375rem, 1.5vw, 1.125rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.015em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
   }
 
   /* Featured blog card - larger title */
   .blog-card-title--featured {
-    @apply font-heading leading-snug;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
-    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
     font-size: calc(clamp(1.25rem, 2.5vw, 1.75rem) * var(--heading-font-scale, 1));
+    letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
   }
 
   /* Title line offsets for SplitText animations */
-  .section-title-line:nth-child(2) {
-    margin-left: clamp(0.5rem, 4vw, 2rem);
-  }
-
-  .section-title-line:nth-child(3) {
-    margin-left: clamp(1rem, 8vw, 4rem);
-  }
+  .section-title-line:nth-child(2) { margin-left: clamp(0.5rem, 4vw, 2rem); }
+  .section-title-line:nth-child(3) { margin-left: clamp(1rem, 8vw, 4rem); }
 
   /* ==========================================================================
-     Section Header Spacing - Consistent vertical rhythm
-     Usage: Wrap label, title, description, cta in a container with these classes
-
-     Example:
-     <div class="section-header">
-       <span class="section-label">Label</span>
-       <h2 class="section-title">Title</h2>
-       <p class="section-description">Description</p>
-       <a class="section-cta btn btn--primary">Button</a>
-     </div>
+     Section Header Spacing
      ========================================================================== */
 
   .section-header {
     margin-bottom: clamp(2rem, 5vh, 4rem) !important;
   }
 
-  /* Reset spacing for elements inside .section-header since base classes now include spacing */
   .section-header .section-title {
-    @apply mb-0;
+    margin-bottom: 0;
   }
 
   .section-header .section-cta,
@@ -99,53 +133,62 @@
 
   /* ==========================================================================
      Section Label - Small uppercase eyebrow text
-     Spacing: Tight gap to title (label introduces the heading)
      ========================================================================== */
 
   .section-label {
-    @apply inline-block text-sm font-semibold tracking-widest text-(--color-text-secondary);
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
     margin-bottom: clamp(0.5rem, 1vw, 0.75rem) !important;
   }
 
-  /* No spacing variant */
-  .section-label--inline {
-    margin-bottom: 0 !important;
-  }
+  .section-label--inline { margin-bottom: 0 !important; }
 
   /* ==========================================================================
-     Tag Pill - Clickable tag badges for blog cards and article pages
+     Tag Pill - Clickable tag badges
      ========================================================================== */
 
   .tag-pill {
-    @apply text-[0.6875rem] font-semibold uppercase tracking-widest py-1.5 px-3 border border-(--color-text-secondary) text-(--color-text-secondary) transition-all duration-300;
+    font-size: 0.6875rem;
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--color-text-secondary);
+    color: var(--color-text-secondary);
+    transition: all 0.3s;
   }
 
   a.tag-pill:hover {
-    @apply bg-(--color-primary) text-(--color-primary-contrast) border-(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-color: var(--color-primary);
   }
 
   /* ==========================================================================
      Section Description - Paragraph text below title
-     Spacing: Moderate gap from title (description belongs to heading)
-     Typography principle: heading should be closer to its content than to preceding elements
      ========================================================================== */
 
   .section-description {
-    @apply font-body leading-loose max-w-prose;
+    font-family: var(--font-body);
     font-size: calc(clamp(0.875rem, 1.5vw, 1.125rem) * var(--body-font-scale, 1));
     letter-spacing: var(--body-letter-spacing, 0);
+    line-height: 2;
+    max-width: 65ch;
     opacity: var(--opacity-muted);
     margin-top: clamp(0.75rem, 1.5vw, 1rem) !important;
   }
 
-  /* Centered variant */
   .section-description--centered {
-    @apply mx-auto text-center;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
   }
 
   /* ==========================================================================
      Section CTA - Button/link after description
-     Includes default spacing (margin-top) for consistent rhythm
      ========================================================================== */
 
   .section-cta {
@@ -153,55 +196,53 @@
   }
 
   /* ==========================================================================
-     Page Header Subtitle - Reusable pattern for collection/blog headers
-     Usage: <p class="page-header-subtitle">
-              <span class="page-header-subtitle-line" data-subtitle-line></span>
-              <span class="overflow-hidden"><span class="inline-block" data-subtitle-text>Text</span></span>
-            </p>
+     Page Header Subtitle
      ========================================================================== */
 
   .page-header-subtitle {
-    @apply flex items-center gap-4 text-xs font-semibold tracking-widest;
-    margin-top: 1.5rem !important;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.1em;
     color: var(--color-text-secondary);
+    margin-top: 1.5rem !important;
   }
 
-  /* Alignment variants for flex subtitle */
-  .text-center .page-header-subtitle {
-    @apply justify-center;
-  }
-
-  .text-right .page-header-subtitle {
-    @apply justify-end;
-  }
+  .text-center .page-header-subtitle { justify-content: center; }
+  .text-right .page-header-subtitle { justify-content: flex-end; }
 
   .page-header-subtitle-line {
-    @apply w-12 h-px bg-current opacity-60;
-    /* Initial scaleX(0) handled by TweenManager for animated pages */
-    /* For non-animated contexts, line shows by default */
+    width: 3rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
   }
 
   /* ==========================================================================
      Stat Number - Large display numbers for counters
-     Used in: countdown, rolling-numbers
      ========================================================================== */
 
   .stat-number {
-    @apply font-heading leading-none;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
     font-size: calc(clamp(3rem, 8vw, 5rem) * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+    line-height: 1;
   }
 
   /* ==========================================================================
      Form Label - Input/field labels
-     Used in: contact-form, product variant pickers, filters
      ========================================================================== */
 
   .form-label {
-    @apply block text-sm font-semibold tracking-widest;
-    margin-bottom: 0.75rem !important;
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.1em;
     color: var(--color-text-secondary);
+    margin-bottom: 0.75rem !important;
   }
 
   /* ==========================================================================
@@ -209,10 +250,18 @@
      ========================================================================== */
 
   .card-title {
-    @apply font-heading font-semibold leading-snug md:text-[calc(1.0625rem*var(--heading-font-scale,1))];
-    letter-spacing: calc(0.01em + var(--heading-letter-spacing, 0em));
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
     font-size: calc(0.9375rem * var(--heading-font-scale, 1));
+    letter-spacing: calc(0.01em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
     color: var(--color-text);
+  }
+
+  @media (min-width: 768px) {
+    .card-title {
+      font-size: calc(1.0625rem * var(--heading-font-scale, 1));
+    }
   }
 
   /* ==========================================================================
@@ -220,7 +269,9 @@
      ========================================================================== */
 
   .card-meta {
-    @apply text-xs font-medium tracking-wider;
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.05em;
     color: var(--color-text-secondary);
   }
 
@@ -229,17 +280,18 @@
      ========================================================================== */
 
   .card-price {
-    @apply font-body text-sm font-medium;
-    margin-top: 0.5rem !important;
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    font-weight: 500;
     color: var(--color-text-secondary);
+    margin-top: 0.5rem !important;
   }
 
-  .card-price--sale {
-    color: var(--color-sale);
-  }
+  .card-price--sale { color: var(--color-sale); }
 
   .card-price--compare {
-    @apply line-through mr-2;
+    text-decoration: line-through;
+    margin-right: 0.5rem;
     opacity: var(--opacity-secondary);
   }
 
@@ -248,9 +300,11 @@
      ========================================================================== */
 
   .quote-text {
-    @apply font-body leading-relaxed italic;
+    font-family: var(--font-body);
     font-size: calc(clamp(1.125rem, 2vw, 1.5rem) * var(--body-font-scale, 1));
     letter-spacing: var(--body-letter-spacing, 0);
+    line-height: 1.625;
+    font-style: italic;
   }
 
   /* ==========================================================================
@@ -258,44 +312,47 @@
      ========================================================================== */
 
   .faq-question {
-    @apply font-heading font-medium leading-snug;
+    font-family: var(--font-heading);
+    font-weight: 500;
     font-size: calc(clamp(1rem, 2vw, 1.25rem) * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
   }
 
   /* ==========================================================================
      Drawer Title - Slide-out drawer headings
-     Used in: cart-drawer, search-drawer, facets drawer
      ========================================================================== */
 
   .drawer-title {
-    @apply font-heading leading-snug;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
     font-size: calc(1.125rem * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
   }
 
   /* ==========================================================================
      Popup Title - Modal/popup headings
-     Used in: newsletter-popup, quick-view, age-gate
      ========================================================================== */
 
   .popup-title {
-    @apply font-heading leading-snug;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
     font-size: calc(1.5rem * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
+    line-height: 1.375;
   }
 
   /* ==========================================================================
-     Footer Brand - Shop name in footer when no logo
+     Footer Brand - Shop name in footer
      ========================================================================== */
 
   .footer-brand {
-    @apply font-heading leading-tight;
+    font-family: var(--font-heading);
     font-weight: var(--font-heading-weight, 700);
     font-size: calc(1.25rem * var(--heading-font-scale, 1));
     letter-spacing: calc(-0.01em + var(--heading-letter-spacing, 0em));
+    line-height: 1.25;
   }
 
   /* ==========================================================================
@@ -303,13 +360,17 @@
      ========================================================================== */
 
   .badge {
-    @apply inline-block py-1 px-2 text-xs font-semibold tracking-wider;
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.05em;
     border-radius: var(--badge-radius, 0.25rem);
   }
 
   .badge--sale {
-    @apply text-white;
     background-color: var(--color-sale);
+    color: white;
   }
 
   .badge--soldout {
@@ -318,54 +379,40 @@
   }
 
   .badge--new {
-    @apply text-white;
     background-color: var(--color-primary);
+    color: white;
   }
 
   /* ==========================================================================
-     Text Utilities
+     Spacing Utilities
      ========================================================================== */
 
-  /* Note: Typography utility classes (.text-label, .text-label-sm, .text-meta,
-     .text-link-sm, .text-counter) are defined in css-variables.liquid to respect
-     the theme's buttons_uppercase setting */
-
-  /* Note: text-balance and text-pretty are native in Tailwind v3.4+ */
-
-  /* ==========================================================================
-     Spacing Utilities - Override utilities for special cases
-     NOTE: .section-label, .section-description, .section-cta now have
-     built-in spacing. Use these only when you need to override defaults.
-     ========================================================================== */
-
-  /* Remove default spacing when needed */
-  .spacing-none {
-    @apply my-0;
-  }
-
-  /* Spacing for section content below header */
-  .spacing-content {
-    margin-top: clamp(2rem, 5vh, 4rem) !important;
-  }
-
-  /* ==========================================================================
-     Section Header Container Spacing
-     Standardizes the gap between header (label/title/description) and content
-     Used in: featured-collection, testimonials, featured-blog, collections, etc.
-     ========================================================================== */
+  .spacing-none { margin-top: 0; margin-bottom: 0; }
+  .spacing-content { margin-top: clamp(2rem, 5vh, 4rem) !important; }
 
   .section-header-spacing {
-    @apply lg:mb-[clamp(2.5rem,4vw,4rem)];
     margin-bottom: clamp(2rem, 4vw, 3rem) !important;
   }
 
+  @media (min-width: 1024px) {
+    .section-header-spacing {
+      margin-bottom: clamp(2.5rem, 4vw, 4rem) !important;
+    }
+  }
+
   /* ==========================================================================
-     Icon Button - Circular icon buttons with hover states
-     Used in: navigation arrows, close buttons, toggle buttons
+     Icon Button - Circular icon buttons
      ========================================================================== */
 
   .icon-btn {
-    @apply flex items-center justify-center size-10 rounded-full bg-transparent cursor-pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    background: transparent;
+    cursor: pointer;
     border: 1px solid var(--color-border);
     color: var(--color-text);
     transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
@@ -378,37 +425,29 @@
   }
 
   .icon-btn:focus-visible {
-    @apply outline-2 outline-offset-2 outline-(--color-primary);
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   .icon-btn:disabled {
-    @apply cursor-not-allowed;
+    cursor: not-allowed;
     opacity: var(--opacity-subtle);
   }
 
   .icon-btn:disabled:hover {
-    @apply bg-transparent;
+    background: transparent;
     color: var(--color-text);
     border-color: var(--color-border);
   }
 
-  /* Size variants */
-  .icon-btn--sm {
-    @apply size-8;
-  }
-
-  .icon-btn--lg {
-    @apply size-12;
-  }
+  .icon-btn--sm { width: 2rem; height: 2rem; }
+  .icon-btn--lg { width: 3rem; height: 3rem; }
 
   /* ==========================================================================
      Image Hover Effects
-     Common hover states for media elements
      ========================================================================== */
 
-  .image-zoom-hover {
-    @apply overflow-hidden;
-  }
+  .image-zoom-hover { overflow: hidden; }
 
   .image-zoom-hover img,
   .image-zoom-hover video {
@@ -417,22 +456,20 @@
 
   .image-zoom-hover:hover img,
   .image-zoom-hover:hover video {
-    @apply scale-105;
+    transform: scale(1.05);
   }
 
   /* ==========================================================================
      Overlay Hover - Show content on hover
-     Used for: product quick actions, card overlays
      ========================================================================== */
 
   .overlay-on-hover {
-    @apply opacity-0;
+    opacity: 0;
     transition: opacity var(--transition-base);
   }
 
   .group:hover .overlay-on-hover,
   .overlay-on-hover:hover {
-    @apply opacity-100;
+    opacity: 1;
   }
-
 }

@@ -10,7 +10,7 @@
   }
 
   .countdown-section.is-expired {
-    @apply hidden;
+    display: none;
   }
 
   /* Wrapper for constraining content width */
@@ -20,34 +20,54 @@
 
   /* Center wrapper when text-center */
   .countdown--hero.text-center .countdown-wrapper {
-    @apply mx-auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   /* Right align wrapper when text-right */
   .countdown--hero.text-right .countdown-wrapper {
-    @apply ml-auto;
+    margin-left: auto;
   }
 
   /* ============================================
      HERO DESIGN - Large dramatic countdown
      ============================================ */
   .countdown--hero .countdown-grid {
-    @apply grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8 lg:gap-16;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .countdown--hero .countdown-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .countdown--hero .countdown-grid {
+      gap: 4rem;
+    }
   }
 
   .countdown--hero .countdown-item {
-    @apply text-center opacity-0;
+    text-align: center;
+    opacity: 0;
     transform: translateY(30px);
   }
 
   .countdown--hero .countdown-item.is-visible {
-    @apply opacity-100;
+    opacity: 1;
     transform: translateY(0);
     transition: opacity 0.8s ease, transform 0.8s ease;
   }
 
   .countdown--hero .countdown-value {
-    @apply flex items-baseline justify-center font-heading;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    font-family: var(--font-heading);
     font-size: calc(clamp(3rem, 12vw, 7rem) * var(--heading-font-scale, 1));
     font-weight: var(--font-heading-weight, 700);
     line-height: 1;
@@ -56,13 +76,14 @@
   }
 
   .countdown--hero .countdown-label {
-    @apply mt-3 opacity-50;
+    margin-top: 0.75rem;
+    opacity: 0.5;
     font-size: clamp(0.75rem, 1.5vw, 0.75rem);
     letter-spacing: 0.2em;
   }
 
   .countdown--hero .countdown-header {
-    @apply mb-16;
+    margin-bottom: 4rem;
   }
 
   .countdown--hero .countdown-header .section-description {
@@ -70,37 +91,51 @@
   }
 
   .countdown--hero .countdown-cta {
-    @apply mt-12;
+    margin-top: 3rem;
   }
 
   .countdown--hero.text-center .countdown-cta {
-    @apply flex justify-center;
+    display: flex;
+    justify-content: center;
   }
 
   .countdown--hero.text-right .countdown-cta {
-    @apply flex justify-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   /* Hero form */
   .countdown--hero .countdown-form {
-    @apply mt-12;
+    margin-top: 3rem;
   }
 
   .countdown--hero.text-center .countdown-form {
-    @apply flex justify-center;
+    display: flex;
+    justify-content: center;
   }
 
   .countdown--hero.text-right .countdown-form {
-    @apply flex justify-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .countdown--hero .countdown-form-inner {
-    @apply flex flex-col gap-3 w-full sm:flex-row sm:gap-2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
     max-width: 400px;
   }
 
+  @media (min-width: 640px) {
+    .countdown--hero .countdown-form-inner {
+      flex-direction: row;
+      gap: 0.5rem;
+    }
+  }
+
   .countdown--hero .countdown-form input[type="email"] {
-    @apply flex-1;
+    flex: 1 1 0%;
     min-width: 0;
     padding: 0.875rem 1rem;
     font-size: 0.875rem;
@@ -118,23 +153,23 @@
   }
 
   .countdown--hero .countdown-form input[type="email"]:focus {
-    @apply outline-none;
+    outline: none;
     border-color: var(--color-text);
   }
 
   .countdown--hero .countdown-form .btn {
-    @apply h-auto;
+    height: auto;
     padding: 0.875rem 1.5rem;
     font-size: 0.875rem;
   }
 
   .countdown--hero .countdown-form-message {
-    @apply mt-3;
+    margin-top: 0.75rem;
     font-size: 0.875rem;
   }
 
   .countdown--hero.text-center .countdown-form-message {
-    @apply text-center;
+    text-align: center;
   }
 
   .countdown-form-message.success {
@@ -147,11 +182,13 @@
 
   /* Hero dividers */
   .countdown--hero.show-dividers .countdown-item {
-    @apply relative;
+    position: relative;
   }
 
   .countdown--hero.show-dividers .countdown-item:not(:last-child)::after {
-    @apply absolute font-heading hidden sm:block sm:-right-4 lg:-right-8;
+    position: absolute;
+    font-family: var(--font-heading);
+    display: none;
     content: ':';
     right: -0.75rem;
     top: 0;
@@ -160,10 +197,30 @@
     opacity: 0.3;
   }
 
+  @media (min-width: 640px) {
+    .countdown--hero.show-dividers .countdown-item:not(:last-child)::after {
+      display: block;
+      right: -1rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .countdown--hero.show-dividers .countdown-item:not(:last-child)::after {
+      right: -2rem;
+    }
+  }
+
   /* Show divider after 1st and 3rd on mobile (2-col grid) */
   .countdown--hero.show-dividers .countdown-item:nth-child(1)::after,
   .countdown--hero.show-dividers .countdown-item:nth-child(3)::after {
-    @apply block sm:block;
+    display: block;
+  }
+
+  @media (min-width: 640px) {
+    .countdown--hero.show-dividers .countdown-item:nth-child(1)::after,
+    .countdown--hero.show-dividers .countdown-item:nth-child(3)::after {
+      display: block;
+    }
   }
 
   /* ============================================
@@ -174,38 +231,75 @@
   }
 
   .countdown--compact .countdown-inner {
-    @apply flex flex-col items-center gap-6 md:flex-row md:items-center md:gap-12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .countdown--compact .countdown-inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+    }
   }
 
   /* Left alignment - default horizontal layout */
   .countdown--compact.text-left .countdown-inner {
-    @apply justify-start;
+    justify-content: flex-start;
   }
 
   /* Center alignment - stack vertically */
   .countdown--compact.text-center .countdown-inner {
-    @apply flex-col justify-center md:flex-col md:gap-6;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .countdown--compact.text-center .countdown-inner {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
   }
 
   /* Right alignment - horizontal layout, aligned right */
   .countdown--compact.text-right .countdown-inner {
-    @apply justify-end;
+    justify-content: flex-end;
   }
 
   .countdown--compact .countdown-header {
-    @apply text-center md:text-left;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .countdown--compact .countdown-header {
+      text-align: left;
+    }
   }
 
   .countdown--compact.text-center .countdown-header {
-    @apply md:text-center;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .countdown--compact.text-center .countdown-header {
+      text-align: center;
+    }
   }
 
   .countdown--compact.text-right .countdown-header {
-    @apply md:text-right;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .countdown--compact.text-right .countdown-header {
+      text-align: right;
+    }
   }
 
   .countdown--compact .countdown-title {
-    @apply font-heading;
+    font-family: var(--font-heading);
     font-size: calc(clamp(1.25rem, 3vw, 1.75rem) * var(--heading-font-scale, 1));
     font-weight: var(--font-heading-weight, 700);
     letter-spacing: calc(-0.02em + var(--heading-letter-spacing, 0em));
@@ -213,31 +307,46 @@
   }
 
   .countdown--compact .countdown-description {
-    @apply mt-2 opacity-70;
+    margin-top: 0.5rem;
+    opacity: 0.7;
     font-size: clamp(0.75rem, 1.2vw, 0.875rem);
   }
 
   .countdown--compact .countdown-grid {
-    @apply flex items-center gap-2 shrink-0 sm:gap-3;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 640px) {
+    .countdown--compact .countdown-grid {
+      gap: 0.75rem;
+    }
   }
 
   .countdown--compact .countdown-item {
-    @apply inline-flex items-center gap-2 opacity-0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
     transform: translateY(20px);
   }
 
   .countdown--compact .countdown-item-inner {
-    @apply flex flex-col items-center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .countdown--compact .countdown-item.is-visible {
-    @apply opacity-100;
+    opacity: 1;
     transform: translateY(0);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   .countdown--compact .countdown-value {
-    @apply font-heading;
+    font-family: var(--font-heading);
     font-size: calc(clamp(1.25rem, 3.5vw, 1.75rem) * var(--heading-font-scale, 1));
     font-weight: var(--font-heading-weight, 700);
     line-height: 1;
@@ -246,14 +355,14 @@
   }
 
   .countdown--compact .countdown-label {
-    @apply opacity-50;
+    opacity: 0.5;
     margin-top: 0.2rem;
     font-size: 0.625rem;
     letter-spacing: 0.15em;
   }
 
   .countdown--compact .countdown-divider {
-    @apply font-heading;
+    font-family: var(--font-heading);
     font-size: calc(clamp(1rem, 2.5vw, 1.25rem) * var(--heading-font-scale, 1));
     font-weight: 600;
     opacity: 0.3;
@@ -264,11 +373,12 @@
 
   /* Compact form */
   .countdown--compact .countdown-form {
-    @apply shrink-0;
+    flex-shrink: 0;
   }
 
   .countdown--compact .countdown-form-inner {
-    @apply flex gap-2;
+    display: flex;
+    gap: 0.5rem;
   }
 
   .countdown--compact .countdown-form input[type="email"] {
@@ -289,18 +399,18 @@
   }
 
   .countdown--compact .countdown-form input[type="email"]:focus {
-    @apply outline-none;
+    outline: none;
     border-color: var(--color-text);
   }
 
   .countdown--compact .countdown-form .btn {
-    @apply h-auto;
+    height: auto;
     padding: 0.625rem 1rem;
     font-size: 0.8125rem;
   }
 
   .countdown--compact .countdown-form-message {
-    @apply absolute;
+    position: absolute;
     margin-top: 0.5rem;
     font-size: 0.8125rem;
   }
@@ -313,7 +423,10 @@
   }
 
   .countdown--minimal .countdown-inner {
-    @apply flex flex-wrap items-center justify-center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem 1rem;
   }
 
@@ -324,7 +437,9 @@
   }
 
   .countdown--minimal .countdown-grid {
-    @apply flex items-center font-heading;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-heading);
     gap: 0.25rem;
     font-weight: 600;
     font-size: clamp(0.75rem, 1.2vw, 0.875rem);
@@ -332,7 +447,8 @@
   }
 
   .countdown--minimal .countdown-item {
-    @apply flex items-center;
+    display: flex;
+    align-items: center;
     gap: 0.15rem;
   }
 
@@ -343,12 +459,12 @@
   }
 
   .countdown--minimal .countdown-label {
-    @apply opacity-70;
+    opacity: 0.7;
     font-size: 0.65em;
   }
 
   .countdown--minimal .countdown-separator {
-    @apply opacity-40;
+    opacity: 0.4;
     margin: 0 0.15rem;
   }
 
@@ -365,12 +481,13 @@
   }
 
   .countdown--minimal .countdown-cta .btn:hover {
-    @apply opacity-100;
+    opacity: 1;
   }
 
   /* Minimal form */
   .countdown--minimal .countdown-form-inner {
-    @apply flex gap-2;
+    display: flex;
+    gap: 0.5rem;
   }
 
   .countdown--minimal .countdown-form input[type="email"] {
@@ -390,7 +507,7 @@
   }
 
   .countdown--minimal .countdown-form .btn {
-    @apply h-auto;
+    height: auto;
     padding: 0.5rem 0.75rem;
     font-size: 0.8125rem;
   }
@@ -398,7 +515,7 @@
   /* Reduced motion fallback - keep as @media since it's a user preference query */
   @media (prefers-reduced-motion: reduce) {
     .countdown-item {
-      @apply opacity-100;
+      opacity: 1;
       transform: none;
     }
   }
