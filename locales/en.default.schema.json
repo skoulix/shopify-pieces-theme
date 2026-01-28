@@ -602,9 +602,13 @@
       "rotation_speed": "Time in seconds between message rotations",
       "dismissible": "Allow visitors to dismiss the announcement bar",
       "columns_desktop": "Number of columns on desktop screens",
-      "show_add_all": "Shows a button to add all complementary products at once"
+      "show_add_all": "Shows a button to add all complementary products at once",
+      "login_form_image": "Displayed on the right side of the login form"
     },
     "options": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
       "none": "None",
       "left": "Left",
       "right": "Right",
@@ -920,14 +924,6 @@
         "enable_bento_pattern": {
           "info": "Applies a bento grid layout to the product grid"
         },
-        "columns_mobile": {
-          "options__0": {
-            "label": "1"
-          },
-          "options__1": {
-            "label": "2"
-          }
-        },
         "header__pagination": {
           "content": "Pagination"
         },
@@ -966,32 +962,7 @@
         "title": {
           "default": "Shop by Collection"
         },
-        "slides_mobile": {
-          "options__0": {
-            "label": "1"
-          },
-          "options__1": {
-            "label": "2"
-          }
-        },
-        "slides_tablet": {
-          "options__0": {
-            "label": "1"
-          },
-          "options__1": {
-            "label": "2"
-          },
-          "options__2": {
-            "label": "3"
-          }
-        },
         "slides_desktop": {
-          "options__0": {
-            "label": "2"
-          },
-          "options__1": {
-            "label": "3"
-          },
           "options__2": {
             "label": "4"
           },
@@ -1029,14 +1000,6 @@
         },
         "enable_bento_pattern": {
           "info": "Applies a bento grid layout to the collection cards"
-        },
-        "columns_mobile": {
-          "options__0": {
-            "label": "1"
-          },
-          "options__1": {
-            "label": "2"
-          }
         }
       },
       "presets": {
@@ -1403,15 +1366,6 @@
         },
         "enable_parallax": {
           "info": "Images move at different speeds when scrolling"
-        }
-      },
-      "blocks": {
-        "image": {
-          "settings": {
-            "image": {
-              "info": "Displayed on the right side of the login form"
-            }
-          }
         }
       },
       "presets": {
@@ -2413,11 +2367,6 @@
     },
     "marquee": {
       "name": "Marquee",
-      "settings": {
-        "padding": {
-          "label": "Padding"
-        }
-      },
       "blocks": {
         "text": {
           "settings": {
@@ -2508,9 +2457,6 @@
         "privacy_link_text": {
           "label": "Privacy link text",
           "default": "privacy policy"
-        },
-        "padding": {
-          "label": "Padding"
         }
       },
       "presets": {
@@ -2535,9 +2481,6 @@
         "subheading": {
           "label": "Subheading",
           "default": "We're working on something special. Enter the password to get early access."
-        },
-        "image": {
-          "info": "Displayed on the right side of the login form"
         },
         "header__newsletter": {
           "content": "Newsletter"
@@ -3074,10 +3017,7 @@
           "label": "Videos Tablet"
         },
         "videos_mobile": {
-          "label": "Videos Mobile",
-          "options__0": {
-            "label": "1"
-          }
+          "label": "Videos Mobile"
         },
         "video_spacing": {
           "label": "Video Spacing"
