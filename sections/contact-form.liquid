@@ -144,65 +144,65 @@
 
           <div class="flex flex-row flex-wrap gap-3 lg:flex-col lg:gap-4">
             {%- if settings.social_twitter_link != blank -%}
-              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="X (Twitter)">
+              <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.twitter' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-x-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">X / Twitter</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.twitter' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_facebook_link != blank -%}
-              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Facebook">
+              <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.facebook' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-facebook-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">Facebook</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.facebook' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_instagram_link != blank -%}
-              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Instagram">
+              <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.instagram' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-instagram-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">Instagram</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.instagram' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_tiktok_link != blank -%}
-              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="TikTok">
+              <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.tiktok' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-tiktok-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">TikTok</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.tiktok' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_youtube_link != blank -%}
-              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="YouTube">
+              <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.youtube' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-youtube-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">YouTube</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.youtube' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_pinterest_link != blank -%}
-              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="Pinterest">
+              <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.pinterest' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-pinterest-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">Pinterest</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.pinterest' | t }}</span>
               </a>
             {%- endif -%}
 
             {%- if settings.social_linkedin_link != blank -%}
-              <a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="LinkedIn">
+              <a href="{{ settings.social_linkedin_link }}" target="_blank" rel="noopener" class="group flex items-center gap-3 text-(--color-text) no-underline transition-colors hover:text-(--color-primary)" aria-label="{{ 'social.linkedin' | t }}">
                 <span class="flex items-center justify-center w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-primary) group-hover:bg-(--color-primary) group-hover:text-(--color-primary-contrast) transition-all">
                   <i class="ph ph-linkedin-logo text-lg"></i>
                 </span>
-                <span class="hidden lg:inline text-sm font-medium">LinkedIn</span>
+                <span class="hidden lg:inline text-sm font-medium">{{ 'social.linkedin' | t }}</span>
               </a>
             {%- endif -%}
           </div>

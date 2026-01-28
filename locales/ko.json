@@ -180,7 +180,11 @@
     "back_to_blog": "{{ blog }}(으)로 돌아가기",
     "min_read": "{{ minutes }}분 읽기",
     "comments_count": "댓글 {{ count }}개",
-    "read_article": "기사 읽기"
+    "read_article": "기사 읽기",
+    "category_placeholder": "카테고리"
+  },
+  "countdown": {
+    "expired": "만료됨"
   },
   "cart": {
     "checkout": "결제하기",

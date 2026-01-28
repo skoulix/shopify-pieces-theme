@@ -180,7 +180,11 @@
     "back_to_blog": "Обратно към {{ blog }}",
     "min_read": "{{ minutes }} мин. четене",
     "comments_count": "{{ count }} коментара",
-    "read_article": "Прочети статията"
+    "read_article": "Прочети статията",
+    "category_placeholder": "Категория"
+  },
+  "countdown": {
+    "expired": "Изтекъл"
   },
   "cart": {
     "checkout": "Поръчай",

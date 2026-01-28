@@ -180,7 +180,11 @@
     "back_to_blog": "Terug naar {{ blog }}",
     "min_read": "{{ minutes }} min leestijd",
     "comments_count": "{{ count }} Reacties",
-    "read_article": "Artikel lezen"
+    "read_article": "Artikel lezen",
+    "category_placeholder": "Categorie"
+  },
+  "countdown": {
+    "expired": "Verlopen"
   },
   "cart": {
     "checkout": "Afrekenen",

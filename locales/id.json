@@ -180,7 +180,11 @@
     "back_to_blog": "Kembali ke {{ blog }}",
     "min_read": "{{ minutes }} menit baca",
     "comments_count": "{{ count }} Komentar",
-    "read_article": "Baca Artikel"
+    "read_article": "Baca Artikel",
+    "category_placeholder": "Kategori"
+  },
+  "countdown": {
+    "expired": "Kedaluwarsa"
   },
   "cart": {
     "checkout": "Checkout",

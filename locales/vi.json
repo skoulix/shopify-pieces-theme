@@ -180,7 +180,11 @@
     "back_to_blog": "Quay lại {{ blog }}",
     "min_read": "{{ minutes }} phút đọc",
     "comments_count": "{{ count }} Bình luận",
-    "read_article": "Đọc bài viết"
+    "read_article": "Đọc bài viết",
+    "category_placeholder": "Danh mục"
+  },
+  "countdown": {
+    "expired": "Đã hết hạn"
   },
   "cart": {
     "checkout": "Thanh toán",

@@ -180,7 +180,11 @@
     "back_to_blog": "{{ blog }}に戻る",
     "min_read": "{{ minutes }}分で読める",
     "comments_count": "{{ count }}件のコメント",
-    "read_article": "記事を読む"
+    "read_article": "記事を読む",
+    "category_placeholder": "カテゴリー"
+  },
+  "countdown": {
+    "expired": "期限切れ"
   },
   "cart": {
     "checkout": "購入手続きへ",

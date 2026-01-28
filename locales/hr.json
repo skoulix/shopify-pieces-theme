@@ -180,7 +180,11 @@
     "back_to_blog": "Povratak na {{ blog }}",
     "min_read": "{{ minutes }} min čitanja",
     "comments_count": "{{ count }} komentara",
-    "read_article": "Pročitaj članak"
+    "read_article": "Pročitaj članak",
+    "category_placeholder": "Kategorija"
+  },
+  "countdown": {
+    "expired": "Isteklo"
   },
   "cart": {
     "checkout": "Naplata",

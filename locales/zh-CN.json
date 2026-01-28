@@ -180,7 +180,11 @@
     "back_to_blog": "返回 {{ blog }}",
     "min_read": "{{ minutes }} 分钟阅读",
     "comments_count": "{{ count }} 条评论",
-    "read_article": "阅读文章"
+    "read_article": "阅读文章",
+    "category_placeholder": "分类"
+  },
+  "countdown": {
+    "expired": "已过期"
   },
   "cart": {
     "checkout": "结账",

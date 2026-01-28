@@ -180,7 +180,11 @@
     "back_to_blog": "Vissza: {{ blog }}",
     "min_read": "{{ minutes }} perc olvasás",
     "comments_count": "{{ count }} hozzászólás",
-    "read_article": "Cikk olvasása"
+    "read_article": "Cikk olvasása",
+    "category_placeholder": "Kategória"
+  },
+  "countdown": {
+    "expired": "Lejárt"
   },
   "cart": {
     "checkout": "Pénztár",

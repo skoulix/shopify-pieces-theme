@@ -180,7 +180,11 @@
     "back_to_blog": "Tilbake til {{ blog }}",
     "min_read": "{{ minutes }} min lesetid",
     "comments_count": "{{ count }} kommentarer",
-    "read_article": "Les artikkel"
+    "read_article": "Les artikkel",
+    "category_placeholder": "Kategori"
+  },
+  "countdown": {
+    "expired": "Utløpt"
   },
   "cart": {
     "checkout": "Til kassen",

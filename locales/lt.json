@@ -180,7 +180,11 @@
     "back_to_blog": "Grįžti į {{ blog }}",
     "min_read": "{{ minutes }} min. skaitymo",
     "comments_count": "Komentarų: {{ count }}",
-    "read_article": "Skaityti straipsnį"
+    "read_article": "Skaityti straipsnį",
+    "category_placeholder": "Kategorija"
+  },
+  "countdown": {
+    "expired": "Pasibaigė"
   },
   "cart": {
     "checkout": "Apmokėti",

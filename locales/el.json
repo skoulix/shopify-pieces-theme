@@ -180,7 +180,11 @@
     "back_to_blog": "Επιστροφή στο {{ blog }}",
     "min_read": "{{ minutes }} λεπτά ανάγνωση",
     "comments_count": "{{ count }} Σχόλια",
-    "read_article": "Διαβάστε το Άρθρο"
+    "read_article": "Διαβάστε το Άρθρο",
+    "category_placeholder": "Κατηγορία"
+  },
+  "countdown": {
+    "expired": "Έληξε"
   },
   "cart": {
     "checkout": "Ολοκλήρωση",

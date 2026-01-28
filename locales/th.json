@@ -180,7 +180,11 @@
     "back_to_blog": "กลับไปยัง {{ blog }}",
     "min_read": "อ่าน {{ minutes }} นาที",
     "comments_count": "{{ count }} ความคิดเห็น",
-    "read_article": "อ่านบทความ"
+    "read_article": "อ่านบทความ",
+    "category_placeholder": "หมวดหมู่"
+  },
+  "countdown": {
+    "expired": "หมดอายุ"
   },
   "cart": {
     "checkout": "ชำระเงิน",

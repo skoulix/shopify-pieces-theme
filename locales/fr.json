@@ -180,7 +180,11 @@
     "back_to_blog": "Retour à {{ blog }}",
     "min_read": "{{ minutes }} min de lecture",
     "comments_count": "{{ count }} Commentaires",
-    "read_article": "Lire l'article"
+    "read_article": "Lire l'article",
+    "category_placeholder": "Catégorie"
+  },
+  "countdown": {
+    "expired": "Expiré"
   },
   "cart": {
     "checkout": "Passer à la caisse",

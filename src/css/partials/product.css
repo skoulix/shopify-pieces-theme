@@ -445,6 +445,11 @@
     border-color: var(--color-text);
   }
 
+  .product-form-select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
   /* ==========================================================================
      Quantity Input
      ========================================================================== */
@@ -729,6 +734,11 @@
   .variant-picker__select:focus {
     outline: none;
     border-color: var(--color-text);
+  }
+
+  .variant-picker__select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   .variant-picker__select option {

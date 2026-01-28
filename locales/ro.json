@@ -180,7 +180,11 @@
     "back_to_blog": "Inapoi la {{ blog }}",
     "min_read": "{{ minutes }} min de citit",
     "comments_count": "{{ count }} comentarii",
-    "read_article": "Citeste articolul"
+    "read_article": "Citeste articolul",
+    "category_placeholder": "Categorie"
+  },
+  "countdown": {
+    "expired": "Expirat"
   },
   "cart": {
     "checkout": "Finalizeaza comanda",

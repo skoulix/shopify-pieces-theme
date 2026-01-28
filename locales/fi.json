@@ -180,7 +180,11 @@
     "back_to_blog": "Takaisin blogiin {{ blog }}",
     "min_read": "{{ minutes }} min lukukaika",
     "comments_count": "{{ count }} kommenttia",
-    "read_article": "Lue artikkeli"
+    "read_article": "Lue artikkeli",
+    "category_placeholder": "Kategoria"
+  },
+  "countdown": {
+    "expired": "Vanhentunut"
   },
   "cart": {
     "checkout": "Kassalle",

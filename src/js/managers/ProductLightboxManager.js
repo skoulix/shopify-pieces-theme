@@ -37,7 +37,6 @@ class ProductLightboxManager {
       GLightbox = module.default;
       this.glightboxLoaded = true;
     } catch (error) {
-      console.error('[ProductLightboxManager] Failed to load GLightbox:', error);
       throw error;
     }
   }

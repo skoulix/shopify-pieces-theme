@@ -180,7 +180,11 @@
     "back_to_blog": "Zpět na {{ blog }}",
     "min_read": "{{ minutes }} min čtení",
     "comments_count": "{{ count }} komentářů",
-    "read_article": "Číst článek"
+    "read_article": "Číst článek",
+    "category_placeholder": "Kategorie"
+  },
+  "countdown": {
+    "expired": "Vypršelo"
   },
   "cart": {
     "checkout": "Přejít k pokladně",

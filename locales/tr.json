@@ -180,7 +180,11 @@
     "back_to_blog": "{{ blog }} bloguna dön",
     "min_read": "{{ minutes }} dk okuma",
     "comments_count": "{{ count }} Yorum",
-    "read_article": "Makaleyi Oku"
+    "read_article": "Makaleyi Oku",
+    "category_placeholder": "Kategori"
+  },
+  "countdown": {
+    "expired": "Süresi doldu"
   },
   "cart": {
     "checkout": "Ödeme",

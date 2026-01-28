@@ -83,7 +83,6 @@ class SwupManager {
     ];
 
     // Initialize Swup with plugins
-    console.log('[SwupManager] Initializing Swup with FragmentPlugin');
     this.swup = new Swup({
       containers: ['#swup-container'],
       cache: true,

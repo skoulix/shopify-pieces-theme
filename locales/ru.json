@@ -180,7 +180,11 @@
     "back_to_blog": "Назад к {{ blog }}",
     "min_read": "{{ minutes }} мин. чтения",
     "comments_count": "Комментариев: {{ count }}",
-    "read_article": "Читать статью"
+    "read_article": "Читать статью",
+    "category_placeholder": "Категория"
+  },
+  "countdown": {
+    "expired": "Истек"
   },
   "cart": {
     "checkout": "Оформить заказ",
