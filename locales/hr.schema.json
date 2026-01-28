@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Obrazac za kontakt",
-          "category": "Prilagodeno"
+          "category": "Obrasci"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Prilagodeni Liquid",
-          "category": "Prilagodeno"
+          "category": "Tekst"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Karta",
-          "category": "Prilagodeno"
+          "category": "Slike i mediji"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Bilten",
-          "category": "Promotivno"
+          "category": "Obrasci"
         }
       }
     },

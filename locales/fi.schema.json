@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Yhteydenottolomake",
-          "category": "Mukautettu"
+          "category": "Lomakkeet"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Mukautettu Liquid",
-          "category": "Mukautettu"
+          "category": "Teksti"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Kartta",
-          "category": "Mukautettu",
+          "category": "Kuva ja media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Uutiskirje",
-          "category": "Kampanja",
+          "category": "Lomakkeet",
           "settings": {
             "design": "side-by-side"
           }

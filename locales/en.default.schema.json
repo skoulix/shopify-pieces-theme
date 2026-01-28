@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Contact form",
-          "category": "Custom"
+          "category": "Forms"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Custom Liquid",
-          "category": "Custom"
+          "category": "Text"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Map",
-          "category": "Custom",
+          "category": "Image & media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Newsletter",
-          "category": "Promotional",
+          "category": "Forms",
           "settings": {
             "design": "side-by-side"
           }

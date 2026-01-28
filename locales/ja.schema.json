@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "お問い合わせフォーム",
-          "category": "カスタム"
+          "category": "フォーム"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "カスタムLiquid",
-          "category": "カスタム"
+          "category": "テキスト"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "マップ",
-          "category": "カスタム",
+          "category": "画像＆メディア",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "ニュースレター",
-          "category": "プロモーション",
+          "category": "フォーム",
           "settings": {
             "design": "side-by-side"
           }

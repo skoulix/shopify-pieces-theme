@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktu forma",
-          "category": "Pasirinktinis"
+          "category": "Formos"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Pasirinktinis Liquid",
-          "category": "Pasirinktinis"
+          "category": "Tekstas"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Zhemelapis",
-          "category": "Pasirinktinis"
+          "category": "Vaizdai ir medija"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Naujienlaishshkis",
-          "category": "Reklaminiai"
+          "category": "Formos"
         }
       }
     },

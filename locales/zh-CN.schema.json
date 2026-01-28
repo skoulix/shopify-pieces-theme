@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "联系表单",
-          "category": "自定义"
+          "category": "表单"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "自定义 Liquid",
-          "category": "自定义"
+          "category": "文本"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "地图",
-          "category": "自定义",
+          "category": "图片与媒体",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "新闻订阅",
-          "category": "促销",
+          "category": "表单",
           "settings": {
             "design": "side-by-side"
           }

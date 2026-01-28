@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Formularz kontaktowy",
-          "category": "Niestandardowe"
+          "category": "Formularze"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Własny Liquid",
-          "category": "Niestandardowe"
+          "category": "Tekst"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Mapa",
-          "category": "Niestandardowe",
+          "category": "Obraz i media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Newsletter",
-          "category": "Promocyjne",
+          "category": "Formularze",
           "settings": {
             "design": "side-by-side"
           }

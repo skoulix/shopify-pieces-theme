@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Φόρμα επικοινωνίας",
-          "category": "Προσαρμοσμένο"
+          "category": "Φόρμες"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Προσαρμοσμένο Liquid",
-          "category": "Προσαρμοσμένο"
+          "category": "Κείμενο"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Χάρτης",
-          "category": "Προσαρμοσμένο",
+          "category": "Εικόνα & πολυμέσα",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Ενημερωτικό δελτίο",
-          "category": "Προωθητικό",
+          "category": "Φόρμες",
           "settings": {
             "design": "side-by-side"
           }

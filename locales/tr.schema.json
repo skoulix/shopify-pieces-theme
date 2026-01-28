@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "İletişim formu",
-          "category": "Özel"
+          "category": "Formlar"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Özel Liquid",
-          "category": "Özel"
+          "category": "Metin"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Harita",
-          "category": "Özel",
+          "category": "Görsel ve medya",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Bülten",
-          "category": "Promosyon",
+          "category": "Formlar",
           "settings": {
             "design": "side-by-side"
           }

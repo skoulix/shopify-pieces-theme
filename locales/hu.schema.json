@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kapcsolatfelvételi űrlap",
-          "category": "Egyéni"
+          "category": "Űrlapok"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Egyéni Liquid",
-          "category": "Egyéni"
+          "category": "Szöveg"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Térkép",
-          "category": "Egyéni"
+          "category": "Kép és média"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Hírlevél",
-          "category": "Promóciós"
+          "category": "Űrlapok"
         }
       }
     },

@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "문의 양식",
-          "category": "사용자 정의"
+          "category": "양식"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "사용자 정의 Liquid",
-          "category": "사용자 정의"
+          "category": "텍스트"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "지도",
-          "category": "사용자 정의",
+          "category": "이미지 및 미디어",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "뉴스레터",
-          "category": "프로모션",
+          "category": "양식",
           "settings": {
             "design": "side-by-side"
           }

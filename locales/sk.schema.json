@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktny formular",
-          "category": "Vlastne"
+          "category": "Formuláre"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Vlastny Liquid",
-          "category": "Vlastne"
+          "category": "Text"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Mapa",
-          "category": "Vlastne"
+          "category": "Obrazky a media"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Newsletter",
-          "category": "Propagacne"
+          "category": "Formuláre"
         }
       }
     },

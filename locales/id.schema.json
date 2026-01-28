@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Formulir kontak",
-          "category": "Kustom"
+          "category": "Formulir"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Liquid kustom",
-          "category": "Kustom"
+          "category": "Teks"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Peta",
-          "category": "Kustom"
+          "category": "Gambar & media"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Buletin",
-          "category": "Promosi"
+          "category": "Formulir"
         }
       }
     },

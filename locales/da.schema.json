@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktformular",
-          "category": "Brugerdefineret"
+          "category": "Formularer"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Brugerdefineret Liquid",
-          "category": "Brugerdefineret"
+          "category": "Tekst"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Kort",
-          "category": "Brugerdefineret",
+          "category": "Billede og medier",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Nyhedsbrev",
-          "category": "Kampagne",
+          "category": "Formularer",
           "settings": {
             "design": "side-by-side"
           }

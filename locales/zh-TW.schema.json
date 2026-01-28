@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "聯絡表單",
-          "category": "自訂"
+          "category": "表單"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "自訂 Liquid",
-          "category": "自訂"
+          "category": "文字"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "地圖",
-          "category": "自訂",
+          "category": "圖片與媒體",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "電子報",
-          "category": "促銷",
+          "category": "表單",
           "settings": {
             "design": "side-by-side"
           }

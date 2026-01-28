@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Форма обратной связи",
-          "category": "Пользовательские"
+          "category": "Формы"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Пользовательский Liquid",
-          "category": "Пользовательские"
+          "category": "Текст"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Карта",
-          "category": "Пользовательские"
+          "category": "Изображения и медиа"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Рассылка",
-          "category": "Промо"
+          "category": "Формы"
         }
       }
     },

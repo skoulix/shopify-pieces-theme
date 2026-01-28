@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Biểu mẫu liên hệ",
-          "category": "Tùy chỉnh"
+          "category": "Biểu mẫu"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Liquid tùy chỉnh",
-          "category": "Tùy chỉnh"
+          "category": "Văn bản"
         }
       }
     },
@@ -1974,7 +1974,7 @@
       "presets": {
         "map": {
           "name": "Bản đồ",
-          "category": "Tùy chỉnh"
+          "category": "Hình ảnh & phương tiện"
         }
       }
     },
@@ -2036,7 +2036,7 @@
       "presets": {
         "newsletter": {
           "name": "Bản tin",
-          "category": "Quảng cáo"
+          "category": "Biểu mẫu"
         }
       }
     },

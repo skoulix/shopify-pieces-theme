@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktskjema",
-          "category": "Egendefinert"
+          "category": "Skjemaer"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Egendefinert Liquid",
-          "category": "Egendefinert"
+          "category": "Tekst"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Kart",
-          "category": "Egendefinert",
+          "category": "Bilde og media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Nyhetsbrev",
-          "category": "Kampanje",
+          "category": "Skjemaer",
           "settings": {
             "design": "side-by-side"
           }

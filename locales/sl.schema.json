@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktni obrazec",
-          "category": "Po meri"
+          "category": "Obrazci"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Liquid po meri",
-          "category": "Po meri"
+          "category": "Besedilo"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Zemljevid",
-          "category": "Po meri",
+          "category": "Slika in mediji",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "E-novice",
-          "category": "Promocijsko",
+          "category": "Obrazci",
           "settings": {
             "design": "side-by-side"
           }

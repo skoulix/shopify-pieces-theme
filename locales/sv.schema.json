@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Kontaktformulär",
-          "category": "Anpassad"
+          "category": "Formulär"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Anpassad Liquid",
-          "category": "Anpassad"
+          "category": "Text"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Karta",
-          "category": "Anpassad",
+          "category": "Bild och media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Nyhetsbrev",
-          "category": "Kampanj",
+          "category": "Formulär",
           "settings": {
             "design": "side-by-side"
           }

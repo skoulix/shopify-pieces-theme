@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "แบบฟอร์มติดต่อ",
-          "category": "กำหนดเอง"
+          "category": "แบบฟอร์ม"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Liquid แบบกำหนดเอง",
-          "category": "กำหนดเอง"
+          "category": "ข้อความ"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "แผนที่",
-          "category": "กำหนดเอง",
+          "category": "รูปภาพและสื่อ",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "จดหมายข่าว",
-          "category": "โปรโมชัน",
+          "category": "แบบฟอร์ม",
           "settings": {
             "design": "side-by-side"
           }

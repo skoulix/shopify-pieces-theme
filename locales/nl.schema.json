@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Contactformulier",
-          "category": "Aangepast"
+          "category": "Formulieren"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Aangepaste Liquid",
-          "category": "Aangepast"
+          "category": "Tekst"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Kaart",
-          "category": "Aangepast",
+          "category": "Afbeelding & media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Nieuwsbrief",
-          "category": "Promotie",
+          "category": "Formulieren",
           "settings": {
             "design": "side-by-side"
           }

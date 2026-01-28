@@ -1069,7 +1069,7 @@
       "presets": {
         "contact_form": {
           "name": "Modulo di contatto",
-          "category": "Personalizzato"
+          "category": "Moduli"
         }
       }
     },
@@ -1167,7 +1167,7 @@
       "presets": {
         "custom_liquid": {
           "name": "Liquid personalizzato",
-          "category": "Personalizzato"
+          "category": "Testo"
         }
       }
     },
@@ -2304,7 +2304,7 @@
       "presets": {
         "map": {
           "name": "Mappa",
-          "category": "Personalizzato",
+          "category": "Immagine e media",
           "blocks": {
             "address": {
               "0": {
@@ -2462,7 +2462,7 @@
       "presets": {
         "newsletter": {
           "name": "Newsletter",
-          "category": "Promozionale",
+          "category": "Moduli",
           "settings": {
             "design": "side-by-side"
           }
