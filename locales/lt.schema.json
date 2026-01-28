@@ -1,343 +1,343 @@
 {
   "shared": {
     "headers": {
-      "content": "Content",
-      "layout": "Layout",
-      "colors": "Colors",
-      "padding": "Padding",
-      "animation": "Animation",
-      "image": "Image",
-      "images": "Images",
-      "button": "Button",
-      "products": "Products",
-      "media": "Media",
-      "video": "Video",
-      "overlay": "Overlay",
-      "autoplay": "Autoplay",
-      "labels": "Labels",
-      "social_links": "Social links",
-      "logo_styling": "Logo styling",
-      "countdown_timer": "Countdown timer"
+      "content": "Turinys",
+      "layout": "Maketas",
+      "colors": "Spalvos",
+      "padding": "Parashtis",
+      "animation": "Animacija",
+      "image": "Vaizdas",
+      "images": "Vaizdai",
+      "button": "Mygtukas",
+      "products": "Produktai",
+      "media": "Medija",
+      "video": "Vaizdo irasas",
+      "overlay": "Perdanga",
+      "autoplay": "Automatinis paleidimas",
+      "labels": "Etiketes",
+      "social_links": "Socialines nuorodos",
+      "logo_styling": "Logotipo stilius",
+      "countdown_timer": "Atskaitos laikmatis"
     },
     "settings": {
       "full_width": {
-        "label": "Full width"
+        "label": "Visas plotis"
       },
       "color_scheme": {
-        "label": "Color scheme"
+        "label": "Spalvu schema"
       },
       "padding": {
-        "label": "Padding",
-        "info": "Controls the vertical spacing of this section",
+        "label": "Parashtis",
+        "info": "Valdo vertikalu sios sekcijos tarpeli",
         "options__0": {
-          "label": "None"
+          "label": "Nera"
         },
         "options__1": {
-          "label": "Small"
+          "label": "Mazas"
         },
         "options__2": {
-          "label": "Default"
+          "label": "Numatytasis"
         },
         "options__3": {
-          "label": "Large"
+          "label": "Didelis"
         }
       },
       "button_style": {
-        "label": "Button style",
+        "label": "Mygtuko stilius",
         "options__0": {
-          "label": "Solid"
+          "label": "Uzpildytas"
         },
         "options__1": {
-          "label": "Outline"
+          "label": "Konturas"
         }
       },
       "button_color": {
-        "label": "Button color",
+        "label": "Mygtuko spalva",
         "options__0": {
-          "label": "Primary"
+          "label": "Pagrindine"
         },
         "options__1": {
-          "label": "Secondary"
+          "label": "Antrine"
         }
       },
       "button_size": {
-        "label": "Button size",
+        "label": "Mygtuko dydis",
         "options__0": {
-          "label": "Small"
+          "label": "Mazas"
         },
         "options__1": {
-          "label": "Default"
+          "label": "Numatytasis"
         },
         "options__2": {
-          "label": "Large"
+          "label": "Didelis"
         }
       },
       "header_alignment": {
-        "label": "Header alignment"
+        "label": "Antrashtes lygiavimas"
       },
       "content_alignment": {
-        "label": "Content alignment"
+        "label": "Turinio lygiavimas"
       },
       "button_text": {
-        "label": "Button text"
+        "label": "Mygtuko tekstas"
       },
       "button_link": {
-        "label": "Button link"
+        "label": "Mygtuko nuoroda"
       },
       "title": {
-        "label": "Title"
+        "label": "Pavadinimas"
       },
       "image": {
-        "label": "Image"
+        "label": "Vaizdas"
       },
       "heading": {
-        "label": "Heading"
+        "label": "Antrashe"
       },
       "link": {
-        "label": "Link"
+        "label": "Nuoroda"
       },
       "video": {
-        "label": "Video"
+        "label": "Vaizdo irasas"
       },
       "columns": {
-        "label": "Columns"
+        "label": "Stulpeliai"
       },
       "overlay_opacity": {
-        "label": "Overlay opacity"
+        "label": "Perdangos permatomumas"
       },
       "overlay_color": {
-        "label": "Overlay color"
+        "label": "Perdangos spalva"
       },
       "products_to_show": {
-        "label": "Products to show"
+        "label": "Rodomieji produktai"
       },
       "show_progress_bar": {
-        "label": "Show progress bar"
+        "label": "Rodyti progreso juosta"
       },
       "show_vendor": {
-        "label": "Show vendor"
+        "label": "Rodyti tiekeja"
       },
       "show_view_all": {
-        "label": "Show view all"
+        "label": "Rodyti \"Ziureti visus\""
       },
       "text": {
-        "label": "Text"
+        "label": "Tekstas"
       },
       "icon": {
-        "label": "Icon",
+        "label": "Piktograma",
         "options__0": {
-          "label": "None"
+          "label": "Nera"
         },
         "options__1": {
-          "label": "Shield"
+          "label": "Skydas"
         },
         "options__2": {
-          "label": "Lock"
+          "label": "Spyna"
         },
         "options__3": {
-          "label": "Certificate"
+          "label": "Sertifikatas"
         },
         "options__4": {
-          "label": "Medal"
+          "label": "Medalis"
         },
         "options__5": {
-          "label": "Crown"
+          "label": "Karuna"
         },
         "options__6": {
-          "label": "Truck"
+          "label": "Sunkvezimis"
         },
         "options__7": {
-          "label": "Package"
+          "label": "Paketas"
         },
         "options__8": {
-          "label": "Storefront"
+          "label": "Parduotuve"
         },
         "options__9": {
-          "label": "Shopping cart"
+          "label": "Pirkiniu krepselis"
         },
         "options__10": {
-          "label": "Bag"
+          "label": "Krepshys"
         },
         "options__11": {
-          "label": "Credit card"
+          "label": "Kredito kortele"
         },
         "options__12": {
-          "label": "Wallet"
+          "label": "Pinigine"
         },
         "options__13": {
-          "label": "Receipt"
+          "label": "Kvitas"
         },
         "options__14": {
-          "label": "Tag"
+          "label": "Etikete"
         },
         "options__15": {
-          "label": "Barcode"
+          "label": "Barkodas"
         },
         "options__16": {
-          "label": "Headset"
+          "label": "Ausinaites"
         },
         "options__17": {
-          "label": "Chat"
+          "label": "Pokalbis"
         },
         "options__18": {
-          "label": "Phone"
+          "label": "Telefonas"
         },
         "options__19": {
-          "label": "Envelope"
+          "label": "Vokas"
         },
         "options__20": {
-          "label": "Returns"
+          "label": "Grazinimai"
         },
         "options__21": {
-          "label": "Exchange"
+          "label": "Keitimas"
         },
         "options__22": {
-          "label": "Heart"
+          "label": "Shirdis"
         },
         "options__23": {
-          "label": "Handmade"
+          "label": "Rankų darbo"
         },
         "options__24": {
-          "label": "Star"
+          "label": "Zvaigzde"
         },
         "options__25": {
-          "label": "Four-point star"
+          "label": "Keturkampe zvaigzde"
         },
         "options__26": {
-          "label": "Sparkle"
+          "label": "Zibsnis"
         },
         "options__27": {
-          "label": "Leaf"
+          "label": "Lapas"
         },
         "options__28": {
-          "label": "Recycle"
+          "label": "Perdirbimas"
         },
         "options__29": {
-          "label": "Globe"
+          "label": "Gaublys"
         },
         "options__30": {
-          "label": "Clock"
+          "label": "Laikrodis"
         },
         "options__31": {
-          "label": "Hourglass"
+          "label": "Smilio laikrodis"
         },
         "options__32": {
-          "label": "Calendar"
+          "label": "Kalendorius"
         },
         "options__33": {
-          "label": "Gift"
+          "label": "Dovana"
         },
         "options__34": {
-          "label": "Percent"
+          "label": "Procentas"
         },
         "options__35": {
-          "label": "Lightning"
+          "label": "Zhaibas"
         },
         "options__36": {
-          "label": "Fire"
+          "label": "Ugnis"
         },
         "options__37": {
-          "label": "Bell"
+          "label": "Varpas"
         },
         "options__38": {
-          "label": "Growth"
+          "label": "Augimas"
         },
         "options__39": {
-          "label": "Target"
+          "label": "Taikinys"
         },
         "options__40": {
-          "label": "Rocket"
+          "label": "Raketa"
         },
         "options__41": {
-          "label": "Users"
+          "label": "Vartotojai"
         },
         "options__42": {
-          "label": "Compass"
+          "label": "Kompasas"
         },
         "options__43": {
-          "label": "Flag"
+          "label": "Veliava"
         },
         "options__44": {
-          "label": "Code"
+          "label": "Kodas"
         },
         "options__45": {
-          "label": "Paint brush"
+          "label": "Teptukas"
         },
         "options__46": {
-          "label": "Wrench"
+          "label": "Verzeraktas"
         },
         "options__47": {
-          "label": "Gear"
+          "label": "Krumpliaratis"
         },
         "options__48": {
-          "label": "Pencil"
+          "label": "Pieshtukas"
         },
         "options__49": {
-          "label": "Ruler"
+          "label": "Liniuote"
         },
         "options__50": {
-          "label": "Flask"
+          "label": "Kolba"
         },
         "options__51": {
-          "label": "Camera"
+          "label": "Kamera"
         },
         "options__52": {
-          "label": "Image"
+          "label": "Vaizdas"
         },
         "options__53": {
-          "label": "Play"
+          "label": "Paleisti"
         },
         "options__54": {
-          "label": "Music"
+          "label": "Muzika"
         },
         "options__55": {
-          "label": "Microphone"
+          "label": "Mikrofonas"
         },
         "options__56": {
-          "label": "Article"
+          "label": "Straipsnis"
         },
         "options__57": {
-          "label": "Bookmark"
+          "label": "Zhymele"
         },
         "options__58": {
-          "label": "Map pin"
+          "label": "Zemelapio zymeklis"
         },
         "options__59": {
-          "label": "Mountains"
+          "label": "Kalnai"
         },
         "options__60": {
-          "label": "Key"
+          "label": "Raktas"
         },
         "options__61": {
-          "label": "Diamond"
+          "label": "Deimantas"
         },
         "options__62": {
-          "label": "Circle"
+          "label": "Apskritimas"
         },
         "options__63": {
-          "label": "Flower"
+          "label": "Gele"
         },
         "options__64": {
-          "label": "Dash"
+          "label": "Brukshnelis"
         },
         "options__65": {
-          "label": "Arrow"
+          "label": "Rodykle"
         },
         "options__66": {
-          "label": "Caret"
+          "label": "Shevronas"
         }
       },
       "custom_icon": {
-        "label": "Custom icon",
-        "info": "Overrides the icon setting above. Recommended: 80×80px"
+        "label": "Pasirinktine piktograma",
+        "info": "Pakeicia auksciau esanciu piktogramos nustatyma. Rekomenduojama: 80x80px"
       },
       "aspect_ratio": {
-        "label": "Aspect ratio",
+        "label": "Krashtinių santykis",
         "options__0": {
-          "label": "Auto"
+          "label": "Automatinis"
         },
         "options__1": {
-          "label": "Square (1:1)"
+          "label": "Kvadratas (1:1)"
         },
         "options__2": {
           "label": "4/5"
@@ -349,314 +349,314 @@
           "label": "2/3"
         },
         "options__5": {
-          "label": "Standard (4:3)"
+          "label": "Standartinis (4:3)"
         },
         "options__6": {
           "label": "3/2"
         },
         "options__7": {
-          "label": "Widescreen (16:9)"
+          "label": "Platusis ekranas (16:9)"
         },
         "options__8": {
-          "label": "Ultrawide (21:9)"
+          "label": "Ultraplatusis (21:9)"
         },
         "options__9": {
-          "label": "Portrait (9:16)"
+          "label": "Portretas (9:16)"
         }
       },
       "label": {
-        "label": "Label"
+        "label": "Etikete"
       },
       "style": {
-        "label": "Style"
+        "label": "Stilius"
       },
       "layout": {
-        "label": "Layout"
+        "label": "Maketas"
       },
       "content": {
-        "label": "Content"
+        "label": "Turinys"
       },
       "product": {
-        "label": "Product"
+        "label": "Produktas"
       },
       "collection": {
-        "label": "Collection"
+        "label": "Kolekcija"
       },
       "menu": {
-        "label": "Menu"
+        "label": "Meniu"
       },
       "logo": {
-        "label": "Logo"
+        "label": "Logotipas"
       },
       "speed": {
-        "label": "Speed"
+        "label": "Greitis"
       },
       "link_text": {
-        "label": "Link text"
+        "label": "Nuorodos tekstas"
       },
       "grayscale": {
-        "label": "Grayscale"
+        "label": "Pilkieji tonai"
       },
       "show_date": {
-        "label": "Show date"
+        "label": "Rodyti data"
       },
       "show_author": {
-        "label": "Show author"
+        "label": "Rodyti autoriu"
       },
       "show_tags": {
-        "label": "Show tags"
+        "label": "Rodyti zymes"
       },
       "show_breadcrumbs": {
-        "label": "Show breadcrumbs"
+        "label": "Rodyti navigacijos kelia"
       },
       "show_arrows": {
-        "label": "Show arrows"
+        "label": "Rodyti rodykles"
       },
       "show_countdown": {
-        "label": "Show countdown"
+        "label": "Rodyti atskaita"
       },
       "countdown_date": {
-        "label": "Countdown date"
+        "label": "Atskaitos data"
       },
       "show_dividers": {
-        "label": "Show dividers"
+        "label": "Rodyti skirtukus"
       },
       "pause_on_hover": {
-        "label": "Pause on hover"
+        "label": "Pristabdyti uzvedus"
       },
       "show_description": {
-        "label": "Show description"
+        "label": "Rodyti aprashyma"
       },
       "show_excerpt": {
-        "label": "Show excerpt"
+        "label": "Rodyti ishtrauka"
       },
       "show_read_more": {
-        "label": "Show read more"
+        "label": "Rodyti \"Skaityti daugiau\""
       },
       "feature_first": {
-        "label": "Feature first"
+        "label": "Pabrèzhti pirma"
       },
       "show_add_all": {
-        "label": "Show add all button"
+        "label": "Rodyti mygtuka \"Pridèti visus\""
       },
       "enable_description_shuffle": {
-        "label": "Enable description shuffle"
+        "label": "Ijungti aprashymo maishyma"
       },
       "slides_mobile": {
-        "label": "Slides per view (mobile)"
+        "label": "Skaidres ekrane (mobilusis)"
       },
       "slides_tablet": {
-        "label": "Slides per view (tablet)"
+        "label": "Skaidres ekrane (planshetè)"
       },
       "slides_desktop": {
-        "label": "Slides per view (desktop)"
+        "label": "Skaidres ekrane (kompiuteris)"
       },
       "columns_desktop": {
-        "label": "Columns desktop"
+        "label": "Stulpeliai kompiuteryje"
       },
       "columns_tablet": {
-        "label": "Columns tablet"
+        "label": "Stulpeliai planshetèje"
       },
       "columns_mobile": {
-        "label": "Columns mobile"
+        "label": "Stulpeliai mobiliajame"
       },
       "rotation_speed": {
-        "label": "Rotation speed"
+        "label": "Sukimosi greitis"
       },
       "view_all_text": {
-        "label": "View all text"
+        "label": "Teksto \"Ziurèti visus\""
       },
       "enable_bento_pattern": {
-        "label": "Enable bento pattern"
+        "label": "Ijungti bento shablona"
       },
       "design": {
-        "label": "Design"
+        "label": "Dizainas"
       },
       "number": {
-        "label": "Number"
+        "label": "Skaicius"
       },
       "border_radius": {
-        "label": "Border radius"
+        "label": "Kampu spindulys"
       },
       "section_height": {
-        "label": "Section height"
+        "label": "Sekcijos aukshtis"
       },
       "enable_parallax": {
-        "label": "Enable parallax"
+        "label": "Ijungti paralaksa"
       },
       "show_social": {
-        "label": "Show social links"
+        "label": "Rodyti socialines nuorodas"
       },
       "direction": {
-        "label": "Direction"
+        "label": "Kryptis"
       },
       "scroll_aware": {
-        "label": "Scroll aware"
+        "label": "Reagavimas i slinkima"
       },
       "scroll_speed": {
-        "label": "Scroll speed"
+        "label": "Slinkimo greitis"
       },
       "logo_height": {
-        "label": "Logo height"
+        "label": "Logotipo aukshtis"
       },
       "invert": {
-        "label": "Invert"
+        "label": "Invertuoti"
       },
       "label_alignment": {
-        "label": "Label alignment"
+        "label": "Etiketès lygiavimas"
       },
       "animation_duration": {
-        "label": "Animation duration"
+        "label": "Animacijos trukmè"
       },
       "outline": {
-        "label": "Outline"
+        "label": "Konturas"
       },
       "autoplay": {
-        "label": "Autoplay"
+        "label": "Automatinis paleidimas"
       },
       "autoplay_speed": {
-        "label": "Autoplay speed"
+        "label": "Automatinio paleidimo greitis"
       },
       "swatch_shape": {
-        "label": "Swatch shape"
+        "label": "Pavyzdèlio forma"
       },
       "button_type": {
-        "label": "Button type"
+        "label": "Mygtuko tipas"
       },
       "position_x": {
-        "label": "Position X"
+        "label": "Padètis X"
       },
       "position_y": {
-        "label": "Position Y"
+        "label": "Padètis Y"
       },
       "position_x_mobile": {
-        "label": "Position X mobile"
+        "label": "Padètis X (mobilusis)"
       },
       "position_y_mobile": {
-        "label": "Position Y mobile"
+        "label": "Padètis Y (mobilusis)"
       },
       "dot_color": {
-        "label": "Dot color"
+        "label": "Tashko spalva"
       },
       "icon_color": {
-        "label": "Icon color"
+        "label": "Piktogramos spalva"
       },
       "show_scroll_indicator": {
-        "label": "Show scroll indicator"
+        "label": "Rodyti slinkimo indikatoriu"
       },
       "background_image": {
-        "label": "Background image"
+        "label": "Fono vaizdas"
       },
       "background_image_position": {
-        "label": "Background image position"
+        "label": "Fono vaizdo padètis"
       },
       "background_image_blur": {
-        "label": "Background image blur"
+        "label": "Fono vaizdo suliejimas"
       },
       "text_alignment": {
-        "label": "Text alignment"
+        "label": "Teksto lygiavimas"
       },
       "padding_top": {
-        "label": "Padding top"
+        "label": "Parashtè virshuje"
       },
       "padding_bottom": {
-        "label": "Padding bottom"
+        "label": "Parashtè apaczioje"
       },
       "scroll_start": {
-        "label": "Scroll start"
+        "label": "Slinkimo pradzha"
       },
       "scroll_end": {
-        "label": "Scroll end"
+        "label": "Slinkimo pabaiga"
       },
       "show_share": {
-        "label": "Show share button"
+        "label": "Rodyti bendrinimo mygtuka"
       },
       "address": {
-        "label": "Address"
+        "label": "Adresas"
       },
       "nav_uppercase": {
-        "label": "Nav uppercase"
+        "label": "Didziosios raidès navigacijoje"
       },
       "image_fit": {
-        "label": "Image fit"
+        "label": "Vaizdo pritaikymas"
       },
       "show_controls": {
-        "label": "Show controls"
+        "label": "Rodyti valdiklius"
       }
     },
     "info": {
-      "upload_video": "Upload a video file",
-      "format_datetime": "Format: YYYY-MM-DD HH:MM",
-      "extends_full_width": "Extends the section to the full width of the page",
-      "lower_values_faster": "Lower values = faster animation",
-      "shuffles_description": "Shuffles the description sentence order on each page load",
-      "leave_blank_default": "Leave blank to use default",
-      "displayed_below_title": "Displayed below the title",
-      "only_color_image_swatches": "Only applies to color and image swatches",
-      "controls_button_style": "Controls the visual style of the button",
-      "scroll_direction_acceleration": "Reverses direction based on scroll direction and adds scroll acceleration effect",
-      "scroll_acceleration_intensity": "Controls the scroll acceleration intensity (1 = subtle, 5 = dramatic)",
-      "inverts_logo_colors": "Inverts logo colors (useful for dark backgrounds)",
-      "upload_logo": "Upload a logo image",
-      "line_breaks_multiple_lines": "Use line breaks to create multiple lines",
-      "rotation_speed": "Time in seconds between message rotations",
-      "dismissible": "Allow visitors to dismiss the announcement bar",
-      "columns_desktop": "Number of columns on desktop screens",
-      "show_add_all": "Shows a button to add all complementary products at once",
-      "login_form_image": "Displayed on the right side of the login form"
+      "upload_video": "Ikelkite vaizdo faila",
+      "format_datetime": "Formatas: MMMM-MM-DD VV:MM",
+      "extends_full_width": "Ishplechia sekcija iki viso puslapio plocio",
+      "lower_values_faster": "Mazesnès reikshmes = greitesnè animacija",
+      "shuffles_description": "Sumaishoo aprashymo sakiniu tvarka kiekviena karta ikèlus puslapi",
+      "leave_blank_default": "Palikite tushcia, kad butų naudojama numatytoji reikshme",
+      "displayed_below_title": "Rodoma po pavadinimu",
+      "only_color_image_swatches": "Taikoma tik spalvu ir vaizdu pavyzdèliams",
+      "controls_button_style": "Valdo vizualini mygtuko stiliù",
+      "scroll_direction_acceleration": "Apverchia krypti pagal slinkimo krypti ir prideda pagreicio efekta",
+      "scroll_acceleration_intensity": "Valdo slinkimo pagreicio intensyvuma (1 = shvelnus, 5 = dramatishkas)",
+      "inverts_logo_colors": "Invertuoja logotipo spalvas (naudinga tamsiems fonams)",
+      "upload_logo": "Ikelkite logotipo vaizda",
+      "line_breaks_multiple_lines": "Naudokite eilucziu lauzhymus kelems eilutèms sukurti",
+      "rotation_speed": "Laikas sekundèmis tarp zinucių sukimu",
+      "dismissible": "Leidzhia lankytojams uzhdaryti praneshimu juosta",
+      "columns_desktop": "Stulpeliu skaicius kompiuterio ekranuose",
+      "show_add_all": "Rodo mygtuka visu papildomu produktu pridejimui vienu metu",
+      "login_form_image": "Rodoma deshinjeje prisijungimo formos pusèje"
     },
     "options": {
       "1": "1",
       "2": "2",
       "3": "3",
-      "none": "None",
-      "left": "Left",
-      "right": "Right",
-      "center": "Center",
-      "top": "Top",
-      "bottom": "Bottom",
-      "top_left": "Top left",
-      "top_center": "Top center",
-      "top_right": "Top right",
-      "center_left": "Center left",
-      "center_right": "Center right",
-      "bottom_left": "Bottom left",
-      "bottom_center": "Bottom center",
-      "bottom_right": "Bottom right",
-      "cover": "Cover",
-      "contain": "Contain",
-      "square": "Square",
-      "circle": "Circle",
-      "image_left": "Image left",
-      "image_right": "Image right",
-      "link": "Link",
-      "button": "Button",
-      "dropdown": "Dropdown",
-      "minimal": "Minimal",
-      "fade": "Fade",
-      "slide": "Slide",
-      "icon_only": "Icon only",
-      "icon_and_text": "Icon and text",
-      "text_only": "Text only",
-      "small": "Small",
-      "medium": "Medium",
-      "large": "Large",
-      "bar": "Bar"
+      "none": "Nera",
+      "left": "Kairè",
+      "right": "Deshinè",
+      "center": "Centras",
+      "top": "Virshus",
+      "bottom": "Apacia",
+      "top_left": "Virshus kairèje",
+      "top_center": "Virshus centre",
+      "top_right": "Virshus deshinèje",
+      "center_left": "Centras kairèje",
+      "center_right": "Centras deshinèje",
+      "bottom_left": "Apacia kairèje",
+      "bottom_center": "Apacia centre",
+      "bottom_right": "Apacia deshinèje",
+      "cover": "Dengti",
+      "contain": "Sutalpinti",
+      "square": "Kvadratas",
+      "circle": "Apskritimas",
+      "image_left": "Vaizdas kairèje",
+      "image_right": "Vaizdas deshinèje",
+      "link": "Nuoroda",
+      "button": "Mygtukas",
+      "dropdown": "Ishskleidziamasis meniu",
+      "minimal": "Minimalus",
+      "fade": "Isliejimas",
+      "slide": "Slinktis",
+      "icon_only": "Tik piktograma",
+      "icon_and_text": "Piktograma ir tekstas",
+      "text_only": "Tik tekstas",
+      "small": "Mazhas",
+      "medium": "Vidutinis",
+      "large": "Didelis",
+      "bar": "Juosta"
     },
     "blocks": {
-      "text": "Text",
-      "button": "Button",
-      "heading": "Heading",
-      "image": "Image",
-      "stat": "Stat",
-      "logo": "Logo",
-      "slide": "Slide"
+      "text": "Tekstas",
+      "button": "Mygtukas",
+      "heading": "Antrashe",
+      "image": "Vaizdas",
+      "stat": "Statistika",
+      "logo": "Logotipas",
+      "slide": "Skaidrè"
     },
     "defaults": {
-      "learn_more": "Learn More",
-      "feature_title": "Feature Title",
-      "view_all": "View All",
-      "free_shipping_announcement": "Free shipping on orders over $50"
+      "learn_more": "Suzhhinoti daugiau",
+      "feature_title": "Savybes pavadinimas",
+      "view_all": "Zhiurèti visus",
+      "free_shipping_announcement": "Nemokamas pristatymas uzhsakymams nuo 50 EUR"
     }
   },
   "sections": {
@@ -664,30 +664,30 @@
       "name": "404"
     },
     "announcement_bar": {
-      "name": "Announcement bar",
+      "name": "Praneshimu juosta",
       "settings": {
         "bar_height": {
-          "label": "Bar height"
+          "label": "Juostos aukshtis"
         },
         "dismissible": {
-          "label": "Dismissible"
+          "label": "Galima uzhdaryti"
         }
       },
       "blocks": {
         "message": {
-          "name": "Message"
+          "name": "Zinute"
         }
       },
       "presets": {
         "announcement_bar": {
-          "name": "Announcement bar",
+          "name": "Praneshimu juosta",
           "blocks": {
             "message": {
               "0": {
-                "text": "Free shipping on orders over $50"
+                "text": "Nemokamas pristatymas uzhsakymams nuo 50 EUR"
               },
               "1": {
-                "text": "Use code SAVE20 for 20% off"
+                "text": "Naudokite koda SAVE20 ir gaukite 20% nuolaida"
               }
             }
           }
@@ -695,119 +695,119 @@
       }
     },
     "apps": {
-      "name": "Apps",
+      "name": "Programèles",
       "presets": {
         "apps": {
-          "name": "Apps"
+          "name": "Programèles"
         }
       }
     },
     "article": {
-      "name": "Article",
+      "name": "Straipsnis",
       "settings": {
         "header__article_details": {
-          "content": "Article Details"
+          "content": "Straipsnio informacija"
         },
         "show_reading_time": {
-          "label": "Show Reading Time"
+          "label": "Rodyti skaitymo laika"
         },
         "show_prev_next": {
-          "label": "Show Prev Next"
+          "label": "Rodyti ankstesni/sekanti"
         }
       }
     },
     "background_zoom": {
-      "name": "Background zoom",
+      "name": "Fono priartinimas",
       "settings": {
         "header__title_before_zoom": {
-          "content": "Title Before Zoom"
+          "content": "Pavadinimas priesh priartinima"
         },
         "title_before": {
-          "label": "Title Before",
-          "default": "Image to Background"
+          "label": "Pavadinimas priesh",
+          "default": "Vaizdas i fona"
         },
         "title_before_accent": {
-          "label": "Title Before Accent",
-          "default": "(Zoom)"
+          "label": "Pavadinimo akcentas priesh",
+          "default": "(Priartinimas)"
         },
         "header__image_overlay": {
-          "content": "Image Overlay"
+          "content": "Vaizdo perdanga"
         },
         "overlay_text": {
-          "label": "Overlay Text",
-          "info": "Text displayed over the zoomed image"
+          "label": "Perdangos tekstas",
+          "info": "Tekstas, rodomas virsh priartinto vaizdo"
         },
         "header__after_section": {
-          "content": "After Section"
+          "content": "Sekcija po"
         },
         "show_after_section": {
-          "label": "Show After Section"
+          "label": "Rodyti sekcija po"
         },
         "after_heading": {
-          "label": "After Heading",
-          "default": "And we reached the end!"
+          "label": "Antrashe po",
+          "default": "Ir pasiekème pabaiga!"
         },
         "after_overlay_text": {
-          "label": "After Overlay Text"
+          "label": "Perdangos tekstas po"
         },
         "after_color_scheme": {
-          "label": "After Color Scheme"
+          "label": "Spalvu schema po"
         },
         "content_bg_color": {
-          "label": "Content Bg Color",
-          "info": "Background color for the content area"
+          "label": "Turinio fono spalva",
+          "info": "Fono spalva turinio sriciai"
         },
         "overlay_text_color": {
-          "label": "Overlay Text Color"
+          "label": "Perdangos teksto spalva"
         },
         "dark_overlay_color": {
-          "label": "Dark Overlay Color"
+          "label": "Tamsios perdangos spalva"
         }
       },
       "blocks": {
         "heading": {
           "settings": {
             "text": {
-              "default": "This is the after phase"
+              "default": "Tai yra fazè po"
             },
             "accent_text": {
-              "label": "Accent Text",
-              "info": "Part of the heading that will be styled differently"
+              "label": "Akcentinis tekstas",
+              "info": "Antrashtès dalis, kuri bus stilizuota kitaip"
             },
             "add_margin_top": {
-              "label": "Add Margin Top",
-              "info": "Adds spacing above the heading"
+              "label": "Pridèti virshutiné parasté",
+              "info": "Prideda tarpa virsh antrashtès"
             }
           }
         },
         "text": {
           "settings": {
             "text": {
-              "default": "Continue scrolling to reveal more content as the image zooms to fill the background."
+              "default": "Teskite slinkti, kad atskleistumète daugiau turinio, kol vaizdas priartèja ir uzhpildo fona."
             }
           }
         }
       },
       "presets": {
         "background_zoom": {
-          "name": "Background zoom",
-          "category": "Image & media",
+          "name": "Fono priartinimas",
+          "category": "Vaizdai ir medija",
           "settings": {
-            "title_before": "Image to Background",
-            "title_before_accent": "(Zoom)",
-            "overlay_text": "START SCROLLING"
+            "title_before": "Vaizdas i fona",
+            "title_before_accent": "(Priartinimas)",
+            "overlay_text": "PRADÈKITE SLINKTI"
           },
           "blocks": {
             "heading": {
               "0": {
-                "text": "This is the after phase of the",
-                "accent_text": "(Zoom)"
+                "text": "Tai yra fazè po",
+                "accent_text": "(Priartinimas)"
               },
               "1": {
-                "text": "more..."
+                "text": "daugiau..."
               },
               "2": {
-                "text": "and more!"
+                "text": "ir dar daugiau!"
               }
             }
           }
@@ -815,152 +815,152 @@
       }
     },
     "banner": {
-      "name": "Banner",
+      "name": "Baneris",
       "settings": {
         "heading": {
-          "default": "Important Announcement"
+          "default": "Svarbus praneshimas"
         },
         "text": {
-          "default": "<p>This is an important message for your customers.</p>"
+          "default": "<p>Tai svarbus praneshimas jūsų klientams.</p>"
         },
         "header__behavior": {
-          "content": "Behavior"
+          "content": "Elgsena"
         },
         "show_close_button": {
-          "label": "Show close button"
+          "label": "Rodyti uzhdarymo mygtuka"
         },
         "remember_dismissal": {
-          "label": "Remember dismissal",
-          "info": "Uses a cookie to remember the dismissal for the session"
+          "label": "Atsiminti uzhdaryma",
+          "info": "Naudoja sausainèli uzhdarymo issiminimui sesijos metu"
         }
       },
       "presets": {
         "banner": {
-          "name": "Banner",
-          "category": "Promotional"
+          "name": "Baneris",
+          "category": "Reklaminiai"
         }
       }
     },
     "before_after": {
-      "name": "Before & after",
+      "name": "Priesh ir po",
       "settings": {
         "label": {
-          "default": "Compare"
+          "default": "Palyginimas"
         },
         "title": {
-          "default": "See the Difference"
+          "default": "Pamatykite skirtuma"
         },
         "image_before": {
-          "label": "Image Before"
+          "label": "Vaizdas priesh"
         },
         "image_after": {
-          "label": "Image After"
+          "label": "Vaizdas po"
         },
         "show_labels": {
-          "label": "Show Labels"
+          "label": "Rodyti etiketes"
         },
         "before_label": {
-          "label": "Before Label",
-          "default": "Before"
+          "label": "Etiketè \"Priesh\"",
+          "default": "Priesh"
         },
         "after_label": {
-          "label": "After Label",
-          "default": "After"
+          "label": "Etiketè \"Po\"",
+          "default": "Po"
         },
         "text": {
-          "default": "Drag the slider to compare before and after."
+          "default": "Vilkite slankikli, kad palygintumète priesh ir po."
         }
       },
       "presets": {
         "before_after": {
-          "name": "Before & after",
-          "category": "Image & media"
+          "name": "Priesh ir po",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "blog": {
-      "name": "Blog",
+      "name": "Tinklarashtis",
       "settings": {
         "articles_per_page": {
-          "label": "Articles Per Page"
+          "label": "Straipsniu puslapyje"
         },
         "show_article_count": {
-          "label": "Show Article Count"
+          "label": "Rodyti straipsniu skaicių"
         }
       }
     },
     "cart_drawer": {
-      "name": "Cart drawer"
+      "name": "Krepshhelio stalcius"
     },
     "cart": {
-      "name": "Cart",
+      "name": "Krepsshelis",
       "settings": {
         "header__trust_badges": {
-          "content": "Trust Badges"
+          "content": "Pasitikèjimo zhenklai"
         },
         "show_trust_badges": {
-          "label": "Show Trust Badges"
+          "label": "Rodyti pasitikèjimo zhenklus"
         },
         "badge_1_text": {
-          "label": "Badge 1 Text",
-          "default": "Secure"
+          "label": "1 zhenklo tekstas",
+          "default": "Saugu"
         },
         "badge_2_text": {
-          "label": "Badge 2 Text",
-          "default": "Fast Shipping"
+          "label": "2 zhenklo tekstas",
+          "default": "Greitas pristatymas"
         },
         "badge_3_text": {
-          "label": "Badge 3 Text",
-          "default": "Easy Returns"
+          "label": "3 zhenklo tekstas",
+          "default": "Lengvas grazhinimas"
         }
       }
     },
     "collection": {
-      "name": "Collection",
+      "name": "Kolekcija",
       "settings": {
         "show_product_count": {
-          "label": "Show Product Count"
+          "label": "Rodyti produktu skaiciu"
         },
         "enable_bento_pattern": {
-          "info": "Applies a bento grid layout to the product grid"
+          "info": "Taiko bento tinklelio ishdestyma produktu tinkleliui"
         },
         "header__pagination": {
-          "content": "Pagination"
+          "content": "Puslapiavimas"
         },
         "pagination_type": {
-          "label": "Pagination Type",
+          "label": "Puslapiavimo tipas",
           "options__0": {
-            "label": "Load More"
+            "label": "Ikrauti daugiau"
           },
           "options__1": {
-            "label": "Prev Next"
+            "label": "Ankstesnis/Sekantis"
           }
         },
         "products_per_page": {
-          "label": "Products Per Page"
+          "label": "Produktu puslapyje"
         },
         "header__filtering_and_sorting": {
-          "content": "Filtering And Sorting"
+          "content": "Filtravimas ir rūshiavimas"
         },
         "enable_filtering": {
-          "label": "Enable Filtering",
-          "info": "Enable product filtering in the sidebar"
+          "label": "Ijungti filtravima",
+          "info": "Ijungia produktu filtravima shhoninèje juostoje"
         },
         "enable_sorting": {
-          "label": "Enable Sorting",
-          "info": "Enable product sorting options"
+          "label": "Ijungti rūshiavima",
+          "info": "Ijungia produktu rūshiavimo parinktis"
         },
         "enable_layout_toggle": {
-          "label": "Enable Layout Toggle",
-          "info": "Allow customers to switch between grid and list views"
+          "label": "Ijungti ishdestymo perjungima",
+          "info": "Leidzhia klientams perjungti tarp tinklelio ir sarashho rodiniu"
         }
       }
     },
     "collections_carousel": {
-      "name": "Collections carousel",
+      "name": "Kolekciju karusele",
       "settings": {
         "title": {
-          "default": "Shop by Collection"
+          "default": "Pirkite pagal kolekcija"
         },
         "slides_desktop": {
           "options__2": {
@@ -973,63 +973,63 @@
       },
       "blocks": {
         "collection": {
-          "name": "Collection",
+          "name": "Kolekcija",
           "settings": {
             "tab_label": {
-              "label": "Tab Label",
-              "info": "Custom label for the tab. Leave blank to use collection title"
+              "label": "Skirtuko etiketè",
+              "info": "Pasirinktinè skirtuko etiketè. Palikite tushcia, kad butų naudojamas kolekcijos pavadinimas"
             }
           }
         }
       },
       "presets": {
         "collections_carousel": {
-          "name": "Collections carousel",
-          "category": "Collection"
+          "name": "Kolekciju karusele",
+          "category": "Kolekcija"
         }
       }
     },
     "collections": {
-      "name": "Collections",
+      "name": "Kolekcijos",
       "settings": {
         "title": {
-          "default": "Collections"
+          "default": "Kolekcijos"
         },
         "show_collection_count": {
-          "label": "Show Collection Count"
+          "label": "Rodyti kolekciju skaiciu"
         },
         "enable_bento_pattern": {
-          "info": "Applies a bento grid layout to the collection cards"
+          "info": "Taiko bento tinklelio ishdestyma kolekciju kortelèms"
         }
       },
       "presets": {
         "collections_list": {
-          "name": "Collections"
+          "name": "Kolekcijos"
         }
       }
     },
     "compare_product_data": {
-      "name": "Compare product data"
+      "name": "Produktu palyginimo duomenys"
     },
     "compare": {
-      "name": "Product comparison",
+      "name": "Produktu palyginimas",
       "settings": {
         "label": {
-          "default": "Compare"
+          "default": "Palyginimas"
         },
         "title": {
-          "default": "Compare Products"
+          "default": "Palyginti produktus"
         }
       },
       "presets": {
         "product_comparison": {
-          "name": "Product comparison",
-          "category": "Products"
+          "name": "Produktu palyginimas",
+          "category": "Produktai"
         }
       }
     },
     "complementary_products": {
-      "name": "Complementary products",
+      "name": "Papildomi produktai",
       "settings": {
         "paragraph__setup": {
           "content": "Nustatymas"
@@ -1043,13 +1043,13 @@
       },
       "presets": {
         "complementary_products": {
-          "name": "Complementary products",
-          "category": "Products"
+          "name": "Papildomi produktai",
+          "category": "Produktai"
         }
       }
     },
     "contact_form": {
-      "name": "Kontaktų forma",
+      "name": "Kontaktu forma",
       "settings": {
         "title": {
           "default": "Kontaktai"
@@ -1059,31 +1059,31 @@
           "info": "Rodo socialinių tinklų nuorodas, sukonfigūruotas temos nustatymuose"
         },
         "social_heading": {
-          "label": "Socialinių tinklų antraštė",
+          "label": "Socialinių tinklų antrasthe",
           "default": "Sekite mus"
         },
         "text": {
-          "default": "Turite klausimą ar norite bendradarbiauti? Parašykite mums ir mes atsakysime kuo greičiau."
+          "default": "Turite klausima ar norite bendradarbiauti? Parashykite mums ir mes atsakysime kuo greiciau."
         }
       },
       "presets": {
         "contact_form": {
-          "name": "Kontaktų forma",
+          "name": "Kontaktu forma",
           "category": "Pasirinktinis"
         }
       }
     },
     "countdown": {
-      "name": "Atgalinė atskaita",
+      "name": "Atgaline atskaita",
       "settings": {
         "title": {
           "default": "Jau greitai"
         },
         "header__countdown": {
-          "content": "Atgalinė atskaita"
+          "content": "Atgaline atskaita"
         },
         "target_date": {
-          "label": "Tikslinė data",
+          "label": "Tikslinè data",
           "default": "2026-12-31"
         },
         "design": {
@@ -1091,29 +1091,29 @@
             "label": "Herojus"
           },
           "options__1": {
-            "label": "Kompaktiškas"
+            "label": "Kompaktishkas"
           },
-          "info": "Valdo vizualinį atgalinės atskaitos išdėstymą"
+          "info": "Valdo vizualini atgalinès atskaitos ishdestyma"
         },
         "show_dividers": {
-          "info": "Rodo skiriamuosius brūkšnius tarp laiko vienetų"
+          "info": "Rodo skiriamuosius brukshnius tarp laiko vienetų"
         },
         "days_label": {
-          "label": "Dienų etiketė",
-          "info": "Tekstas, rodomas po dienų skaitikliu",
+          "label": "Dienu etikete",
+          "info": "Tekstas, rodomas po dienu skaitikliu",
           "default": "Dienos"
         },
         "hours_label": {
-          "label": "Valandų etiketė",
+          "label": "Valandu etikete",
           "default": "Valandos"
         },
         "minutes_label": {
-          "label": "Minučių etiketė",
-          "default": "Minutės"
+          "label": "Minuciu etikete",
+          "default": "Minutès"
         },
         "seconds_label": {
-          "label": "Sekundžių etiketė",
-          "default": "Sekundės"
+          "label": "Sekundziu etikete",
+          "default": "Sekundes"
         },
         "header__call_to_action": {
           "content": "Raginimas veikti"
@@ -1121,37 +1121,37 @@
         "cta_type": {
           "label": "Raginimo tipas",
           "options__2": {
-            "label": "El. pašto forma"
+            "label": "El. pashto forma"
           },
-          "info": "Pasirinkite mygtuko nuorodą arba el. pašto registracijos formą"
+          "info": "Pasirinkite mygtuko nuoroda arba el. pashto registracijos forma"
         },
         "button_text": {
-          "default": "Pranešti man"
+          "default": "Praneshti man"
         },
         "button_link": {
           "info": "Raginimo veikti mygtuko URL"
         },
         "form_placeholder": {
-          "label": "Formos vietos žymė",
-          "info": "Vietos žymės tekstas el. pašto įvesties laukui",
-          "default": "Įveskite savo el. paštą"
+          "label": "Formos vietos zhymè",
+          "info": "Vietos zhymès tekstas el. pashto ivesties laukui",
+          "default": "Iveskite savo el. pashta"
         },
         "text": {
-          "default": "Kažkas įdomaus jau pakeliui. Sekite naujienas!"
+          "default": "Kazhkas idomaus jau pakeliui. Sekite naujienas!"
         }
       },
       "presets": {
         "countdown": {
-          "name": "Atgalinė atskaita",
-          "category": "Promotional",
+          "name": "Atgaline atskaita",
+          "category": "Reklaminiai",
           "settings": {
             "design": "hero",
             "title": "Jau greitai",
             "cta_type": "email_form",
-            "button_text": "Pranešti man",
-            "form_placeholder": "Įveskite savo el. paštą",
+            "button_text": "Praneshti man",
+            "form_placeholder": "Iveskite savo el. pashta",
             "color_scheme": "scheme-3",
-            "text": "Kažkas įdomaus jau pakeliui. Sekite naujienas!"
+            "text": "Kazhkas idomaus jau pakeliui. Sekite naujienas!"
           }
         }
       }
@@ -1161,7 +1161,7 @@
       "settings": {
         "liquid": {
           "label": "Liquid",
-          "info": "Pridėkite pasirinktinį Liquid kodą. Sužinokite daugiau apie Liquid adresu shopify.dev"
+          "info": "Pridèkite pasirinktini Liquid koda. Suzhhinokite daugiau apie Liquid adresu shopify.dev"
         }
       },
       "presets": {
@@ -1178,10 +1178,10 @@
           "default": "Pagalba"
         },
         "title": {
-          "default": "Dažnai užduodami klausimai"
+          "default": "Dazhhnai uzhduodami klausimai"
         },
         "text": {
-          "default": "Raskite atsakymus į dažniausius klausimus apie mūsų produktus ir paslaugas."
+          "default": "Raskite atsakymus i dazhniausius klausimus apie mūsū produktus ir paslaugas."
         }
       },
       "blocks": {
@@ -1190,11 +1190,11 @@
           "settings": {
             "question": {
               "label": "Klausimas",
-              "default": "Kokia jūsų grąžinimo politika?"
+              "default": "Kokia jūsū grazhinimo politika?"
             },
             "answer": {
               "label": "Atsakymas",
-              "default": "<p>Siūlome 30 dienų grąžinimo politiką visoms prekėms. Jei nesate patenkinti pirkiniu, tiesiog grąžinkite jį pirminės būklės ir gausite visą pinigų grąžinimą.</p>"
+              "default": "<p>Siūlome 30 dienu grazhinimo politika visoms prekèms. Jei nesate patenkinti pirkiniu, tiesiog grazhinkite ji pirminès būklès ir gausite visa pinigu grazhinima.</p>"
             }
           }
         }
@@ -1202,20 +1202,20 @@
       "presets": {
         "faq": {
           "name": "DUK",
-          "category": "Text",
+          "category": "Tekstas",
           "blocks": {
             "faq_item": {
               "0": {
-                "question": "Kokia jūsų grąžinimo politika?",
-                "answer": "<p>Siūlome 30 dienų grąžinimo politiką visoms prekėms. Jei nesate patenkinti pirkiniu, tiesiog grąžinkite jį pirminės būklės ir gausite visą pinigų grąžinimą.</p>"
+                "question": "Kokia jūsų grazhinimo politika?",
+                "answer": "<p>Siūlome 30 dienu grazhinimo politika visoms prekèms. Jei nesate patenkinti pirkiniu, tiesiog grazhinkite ji pirminès bùklès ir gausite visa pinigu grazhinima.</p>"
               },
               "1": {
                 "question": "Kiek laiko trunka pristatymas?",
-                "answer": "<p>Standartinis pristatymas paprastai trunka 5–7 darbo dienas. Galimas skubus pristatymas per 2–3 darbo dienas. Tarptautiniai užsakymai gali užtrukti 10–14 darbo dienų.</p>"
+                "answer": "<p>Standartinis pristatymas paprastai trunka 5-7 darbo dienas. Galimas skubus pristatymas per 2-3 darbo dienas. Tarptautiniai uzhsakymai gali uzhtrukti 10-14 darbo dienų.</p>"
               },
               "2": {
-                "question": "Ar siūlote tarptautinį pristatymą?",
-                "answer": "<p>Taip, siunčiame į daugumą pasaulio šalių. Pristatymo kainos ir terminai priklauso nuo vietos. Tikslią pristatymo kainą galite pamatyti apmokėjimo metu.</p>"
+                "question": "Ar siūlote tarptautini pristatyma?",
+                "answer": "<p>Taip, siunchiame i dauguma pasaulio shalių. Pristatymo kainos ir terminai priklauso nuo vietos. Tikslia pristatymo kaina galite pamatyti apmokèjimo metu.</p>"
               }
             }
           }
@@ -1223,28 +1223,28 @@
       }
     },
     "featured_blog": {
-      "name": "Rekomenduojamas tinklaraštis",
+      "name": "Rekomenduojamas tinklarashtis",
       "settings": {
         "blog": {
-          "label": "Blog"
+          "label": "Tinklarashtis"
         },
         "title": {
-          "info": "Palikite tuščią, kad būtų naudojamas tinklaraščio pavadinimas"
+          "info": "Palikite tushcia, kad bùtù naudojamas tinklarashchcio pavadinimas"
         },
         "header__posts": {
-          "content": "Įrašai"
+          "content": "Irashhai"
         },
         "posts_to_show": {
-          "label": "Rodomų įrašų skaičius"
+          "label": "Rodomù irashù skaicius"
         },
         "feature_first": {
-          "info": "Padaro pirmąjį įrašą didesnį ir ryškesnį"
+          "info": "Padaro pirmaji irasha didesni ir ryshkesni"
         }
       },
       "presets": {
         "featured_blog": {
-          "name": "Rekomenduojamas tinklaraštis",
-          "category": "Blog"
+          "name": "Rekomenduojamas tinklarashtis",
+          "category": "Tinklarashtis"
         }
       }
     },
@@ -1252,13 +1252,13 @@
       "name": "Rekomenduojama kolekcija",
       "settings": {
         "title": {
-          "info": "Palikite tuščią, kad būtų naudojamas kolekcijos pavadinimas"
+          "info": "Palikite tushcia, kad bùtù naudojamas kolekcijos pavadinimas"
         }
       },
       "presets": {
         "featured_collection": {
           "name": "Rekomenduojama kolekcija",
-          "category": "Products"
+          "category": "Produktai"
         }
       }
     },
@@ -1275,27 +1275,27 @@
           }
         },
         "show_quantity": {
-          "label": "Rodyti kiekį"
+          "label": "Rodyti kieki"
         },
         "show_view_details": {
-          "label": "Rodyti išsamią informaciją"
+          "label": "Rodyti ishamia informacija"
         }
       },
       "presets": {
         "featured_product": {
           "name": "Rekomenduojamas produktas",
-          "category": "Products"
+          "category": "Produktai"
         }
       }
     },
     "features_grid": {
-      "name": "Savybių tinklelis",
+      "name": "Savybiu tinklelis",
       "settings": {
         "label": {
-          "default": "Kodėl verta rinktis mus"
+          "default": "Kodèl verta rinktis mus"
         },
         "title": {
-          "default": "Savybės, kurios mus išskiria"
+          "default": "Savybes, kurios mus ishskiria"
         },
         "layout": {
           "options__0": {
@@ -1306,36 +1306,36 @@
           }
         },
         "text": {
-          "default": "Viskas, ko reikia puikiai apsipirkimo patirčiai sukurti."
+          "default": "Viskas, ko reikia puikiai apsipirkimo patyrciai sukurti."
         }
       },
       "blocks": {
         "feature": {
-          "name": "Savybė",
+          "name": "Savybe",
           "settings": {
             "text": {
-              "default": "Aprašykite šią savybę ir kaip ji naudinga jūsų klientams."
+              "default": "Aprashykite shia savybe ir kaip ji naudinga jūsū klientams."
             }
           }
         }
       },
       "presets": {
         "features_grid": {
-          "name": "Savybių tinklelis",
-          "category": "Text",
+          "name": "Savybiu tinklelis",
+          "category": "Tekstas",
           "blocks": {
             "feature": {
               "0": {
                 "title": "Nemokamas pristatymas",
-                "text": "Mėgaukitės nemokamu pristatymu visiems užsakymams nuo 50 $. Greitas ir patikimas pristatymas iki jūsų durų."
+                "text": "Mègaukitès nemokamu pristatymu visiems uzhsakymams nuo 50 EUR. Greitas ir patikimas pristatymas iki jūsū durų."
               },
               "1": {
-                "title": "Saugus mokėjimas",
-                "text": "Jūsų mokėjimo informacija apsaugota pažangiausiu šifravimu."
+                "title": "Saugus mokèjimas",
+                "text": "Jūsū mokèjimo informacija apsaugota pazhangiausiu shifravimu."
               },
               "2": {
-                "title": "Easy Returns",
-                "text": "Nepatenkinti? Grąžinkite per 30 dienų ir gausite visą pinigų grąžinimą, be jokių klausimų."
+                "title": "Lengvas grazhinimas",
+                "text": "Nepatenkinti? Grazhinkite per 30 dienų ir gausite visa pinigu grazhinima, be jokiu klausimų."
               }
             }
           }
@@ -1349,59 +1349,59 @@
           "default": "Atraskite"
         },
         "title": {
-          "default": "Išskirtiniai produktai su išskirtiniais prekės ženklais"
+          "default": "Ishskirtiniai produktai su ishskirtiniais prekès zhenklais"
         },
         "button_text": {
-          "default": "Žiūrėti daugiau"
+          "default": "Zhiùrèti daugiau"
         },
         "section_height": {
-          "info": "Aukštis peržiūros lango vienetais (vh)"
+          "info": "Aukshtis perzhiūros lango vienetais (vh)"
         },
         "section_height_mobile": {
-          "label": "Sekcijos aukštis mobiliajame"
+          "label": "Sekcijos aukshtis mobiliajame"
         },
         "image_opacity": {
           "label": "Vaizdo permatomumas",
-          "info": "Plaukiojančių vaizdų permatomumas"
+          "info": "Plaukiojanciu vaizdu permatomumas"
         },
         "enable_parallax": {
-          "info": "Vaizdai juda skirtingu greičiu slenkant"
+          "info": "Vaizdai juda skirtingu greiciau slenkant"
         }
       },
       "presets": {
         "floating_images": {
           "name": "Plaukiojantys vaizdai",
-          "category": "Image & media"
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "footer": {
-      "name": "Poraštė",
+      "name": "Porashtè",
       "settings": {
         "footer_design": {
-          "label": "Poraštės dizainas",
+          "label": "Porashtès dizainas",
           "options__1": {
             "label": "Modernus"
           },
           "options__2": {
             "label": "Klasikinis"
           },
-          "info": "Valdo bendrą poraštės išdėstymą"
+          "info": "Valdo bendra porashtès ishdestyma"
         },
         "enable_reveal_effect": {
-          "label": "Įjungti atskleidimo efektą",
-          "info": "Poraštė atsiskleidžia iš po puslapio turinio slenkant"
+          "label": "Ijungti atskleidimo efekta",
+          "info": "Porashtè atsiskleidzhia po puslapio turiniu slenkant"
         }
       },
       "blocks": {
         "brand": {
-          "name": "Prekės ženklas",
+          "name": "Prekès zzhenklas",
           "settings": {
             "logo": {
-              "info": "Logotipas, rodomas poraštės prekės ženklo skiltyje"
+              "info": "Logotipas, rodomas porashtès prekès zhenklo skiltyje"
             },
             "text": {
-              "default": "Jūsų prekės ženklo šūkis arba trumpas aprašymas čia."
+              "default": "Jūsū prekès zhenklo shūkis arba trumpas aprashymas chia."
             }
           }
         },
@@ -1425,10 +1425,10 @@
           }
         },
         "newsletter": {
-          "name": "Naujienlaiškis",
+          "name": "Naujienlaishshkis",
           "settings": {
             "heading": {
-              "default": "Prenumeruokite mūsų naujienlaiškį"
+              "default": "Prenumeruokite mùsù naujienlaisshki"
             },
             "text": {
               "default": "Gaukite naujausias naujienas ir pasiūlymus."
@@ -1444,23 +1444,23 @@
           }
         },
         "payment": {
-          "name": "Mokėjimas",
+          "name": "Mokèjimas",
           "settings": {
             "grayscale": {
-              "info": "Rodo mokėjimo piktogramas pilkais tonais"
+              "info": "Rodo mokèjimo piktogramas pilkais tonais"
             }
           }
         },
         "copyright": {
-          "name": "Autorių teisės"
+          "name": "Autoriu teisès"
         },
         "back_to_top": {
-          "name": "Grįžti į viršų"
+          "name": "Grizhti i virshù"
         },
         "text": {
           "settings": {
             "text": {
-              "default": "<p>Pasirinktinis poraštės tekstas</p>"
+              "default": "<p>Pasirinktinis porashtès tekstas</p>"
             }
           }
         },
@@ -1468,7 +1468,7 @@
           "name": "Tarpiklis",
           "settings": {
             "height": {
-              "label": "Aukštis"
+              "label": "Aukshtis"
             }
           }
         },
@@ -1476,17 +1476,17 @@
           "name": "Lokalizacija",
           "settings": {
             "show_country": {
-              "label": "Rodyti šalį",
-              "info": "Rodo šalies / regiono pasirinkiklį"
+              "label": "Rodyti shali",
+              "info": "Rodo shalies / regiono pasirinkikli"
             },
             "show_language": {
-              "label": "Rodyti kalbą",
-              "info": "Rodo kalbos pasirinkiklį"
+              "label": "Rodyti kalba",
+              "info": "Rodo kalbos pasirinkikli"
             }
           }
         },
         "follow_on_shop": {
-          "name": "Sekti parduotuvėje",
+          "name": "Sekti parduotuvèje",
           "settings": {
             "paragraph__follow": {
               "content": "Sekti"
@@ -1496,569 +1496,364 @@
       }
     },
     "header": {
-      "name": "Antraštė",
+      "name": "Antrasthe",
       "settings": {
-        "header_layout": {
-          "label": "Antraštės išdėstymas",
-          "options__0": {
-            "label": "Logotipas kairėje"
-          },
-          "options__1": {
-            "label": "Logotipas centre"
-          },
-          "info": "Valdo logotipo ir navigacijos poziciją"
-        },
-        "nav_position": {
-          "label": "Navigacijos pozicija",
-          "info": "Pagrindinių navigacijos nuorodų pozicija"
-        },
-        "header__header_icons": {
-          "content": "Antraštės piktogramos"
-        },
-        "show_search": {
-          "label": "Rodyti paiešką"
-        },
-        "search_type": {
-          "label": "Paieškos tipas",
-          "options__0": {
-            "label": "Stalčius"
-          },
-          "options__1": {
-            "label": "Puslapis"
-          },
-          "info": "Pasirinkite stalčiaus arba viso puslapio paiešką"
-        },
-        "show_wishlist": {
-          "label": "Rodyti norų sąrašą"
-        },
-        "show_cart": {
-          "label": "Rodyti krepšelį"
-        },
-        "header__localization": {
-          "content": "Lokalizacija"
-        },
-        "enable_country_selector": {
-          "label": "Įjungti šalies pasirinkiklį",
-          "info": "Rodo šalies / regiono pasirinkiklį antraštėje"
-        },
-        "enable_language_selector": {
-          "label": "Įjungti kalbos pasirinkiklį",
-          "info": "Rodo kalbos pasirinkiklį antraštėje"
-        },
-        "header__mobile_menu": {
-          "content": "Mobilus meniu"
-        },
-        "mobile_menu_style": {
-          "label": "Mobilaus meniu stilius",
-          "options__0": {
-            "label": "Akordeonas"
-          },
-          "info": "Mobiliosios navigacijos meniu stilius"
-        },
-        "header__sticky_behavior": {
-          "content": "Prilipimo elgsena"
-        },
         "sticky_header": {
-          "label": "Prilipusi antraštė",
-          "info": "Antraštė lieka fiksuota viršuje slenkant"
-        },
-        "hide_on_scroll": {
-          "label": "Slėpti slenkant",
-          "info": "Antraštė paslepiama slenkant žemyn ir rodoma slenkant aukštyn"
-        },
-        "header__transparent_header": {
-          "content": "Skaidri antraštė"
-        },
-        "transparent_home": {
-          "label": "Skaidrus pagrindinis puslapis",
-          "info": "Antraštės fonas yra skaidrus pagrindiniame puslapyje"
-        },
-        "transparent_text_color": {
-          "label": "Skaidraus teksto spalva",
-          "info": "Teksto spalva, kai antraštė yra skaidri"
-        },
-        "header__announcement_bar": {
-          "content": "Pranešimų juosta"
-        },
-        "show_announcement_bar": {
-          "label": "Rodyti pranešimų juostą"
-        },
-        "announcement_height": {
-          "label": "Pranešimo aukštis"
-        },
-        "announcement_rotation": {
-          "label": "Pranešimų rotacija",
-          "info": "Laikas sekundėmis tarp pranešimų rotacijų"
-        },
-        "announcement_arrows": {
-          "label": "Pranešimų rodyklės"
-        },
-        "announcement_dismissible": {
-          "label": "Pranešimas uždaromas"
-        }
-      },
-      "blocks": {
-        "mega_menu": {
-          "name": "Mega meniu",
-          "settings": {
-            "menu_item": {
-              "label": "Meniu elementas",
-              "info": "Įveskite tikslų meniu elemento pavadinimą, kuriam bus taikomas mega meniu"
-            },
-            "animation": {
-              "label": "Animation",
-              "options__0": {
-                "label": "Išblukimas su slinkimu"
-              }
-            },
-            "header__featured_content": {
-              "content": "Rekomenduojamas turinys"
-            },
-            "show_featured": {
-              "label": "Rodyti rekomenduojamą"
-            },
-            "featured_heading": {
-              "label": "Rekomenduojamo antraštė",
-              "default": "Rekomenduojama"
-            },
-            "featured_collection": {
-              "label": "Rekomenduojama kolekcija"
-            },
-            "featured_limit": {
-              "label": "Rekomenduojamų limitas"
-            },
-            "header__promotional_image": {
-              "content": "Reklaminis vaizdas"
-            },
-            "promo_image": {
-              "label": "Reklaminis vaizdas"
-            },
-            "promo_heading": {
-              "label": "Reklaminė antraštė"
-            },
-            "promo_text": {
-              "label": "Reklaminis tekstas"
-            },
-            "promo_link": {
-              "label": "Reklaminė nuoroda"
-            }
-          }
-        },
-        "announcement": {
-          "name": "Pranešimas"
-        }
-      }
-    },
-    "hero_orbit": {
-      "name": "Herojaus orbita",
-      "settings": {
-        "title_line_1": {
-          "label": "Pavadinimo 1 eilutė",
-          "default": "Dangiškos"
-        },
-        "title_line_2": {
-          "label": "Pavadinimo 2 eilutė",
-          "default": "Vizijos"
-        },
-        "subtitle": {
-          "label": "Paantraštė",
-          "default": "2024"
-        },
-        "animation_style": {
-          "label": "Animacijos stilius",
+          "label": "Prilimpanti antrasthe",
           "options__0": {
-            "label": "Orbita"
+            "label": "Nèra"
           },
           "options__1": {
-            "label": "Kaskada"
+            "label": "Slenkant aukshtyn"
           },
           "options__2": {
-            "label": "Spiralė"
+            "label": "Visada"
+          }
+        },
+        "header__logo": {
+          "content": "Logotipas"
+        },
+        "logo_position": {
+          "label": "Logotipo padètis",
+          "options__0": {
+            "label": "Kairè"
           },
-          "info": "Valdo, kaip animuojami orbitiniai vaizdai"
+          "options__1": {
+            "label": "Centras"
+          }
         },
-        "enable_rotation": {
-          "label": "Įjungti sukimą"
+        "header__navigation": {
+          "content": "Navigacija"
         },
-        "enable_flip": {
-          "label": "Įjungti apvertimą"
+        "menu": {
+          "label": "Meniu"
         },
-        "overlay_opacity": {
-          "info": "Perdangos permatomumas fono vaizde"
+        "menu_style": {
+          "label": "Meniu stilius",
+          "options__0": {
+            "label": "Ishskleidziamasis meniu"
+          },
+          "options__1": {
+            "label": "Mega meniu"
+          }
         },
-        "header__cards": {
-          "content": "Kortelės"
+        "header__actions": {
+          "content": "Veiksmai"
         },
-        "card_background": {
-          "label": "Kortelės fonas"
+        "show_search": {
+          "label": "Rodyti paieshka"
         },
-        "image_fit": {
-          "info": "Kaip orbitiniai vaizdai telpa savo rėmeliuose"
+        "show_account": {
+          "label": "Rodyti paskyra"
         },
-        "card_tilt": {
-          "label": "Kortelės pakreipimas",
-          "info": "Prideda 3D pakreipimo efektą užvedus pelę"
-        }
-      },
-      "presets": {
-        "hero_orbit": {
-          "name": "Herojaus orbita",
-          "category": "Image & media"
+        "show_wishlist": {
+          "label": "Rodyti norū sarashha"
+        },
+        "show_compare": {
+          "label": "Rodyti palyginima"
+        },
+        "header__mobile": {
+          "content": "Mobilusis"
+        },
+        "mobile_logo_position": {
+          "label": "Logotipo padètis mobiliajame",
+          "options__0": {
+            "label": "Kairè"
+          },
+          "options__1": {
+            "label": "Centras"
+          }
         }
       }
     },
     "hero": {
       "name": "Herojus",
       "settings": {
-        "title": {
-          "default": "Pakelkite savo stilių"
+        "header__media": {
+          "content": "Medija"
         },
-        "button_text": {
-          "default": "Pirkti dabar"
+        "header__video": {
+          "content": "Vaizdo irashhas"
         },
-        "color_scheme": {
-          "info": "Taikoma sekcijai, kai nenustatytas fono vaizdas"
+        "video_url": {
+          "label": "Vaizdo URL",
+          "info": "Naudokite YouTube arba Vimeo URL"
+        },
+        "video_file": {
+          "label": "Vaizdo failas"
+        },
+        "autoplay_video": {
+          "label": "Automatiskai paleisti vaizda"
+        },
+        "loop_video": {
+          "label": "Kartoti vaizda"
+        },
+        "mute_video": {
+          "label": "Nutildyti vaizda"
+        },
+        "header__content_settings": {
+          "content": "Turinio nustatymai"
+        },
+        "content_position": {
+          "label": "Turinio padètis"
+        },
+        "content_width": {
+          "label": "Turinio plotis"
+        },
+        "hero_height": {
+          "label": "Herojaus aukshtis",
+          "options__0": {
+            "label": "Automatinis"
+          },
+          "options__1": {
+            "label": "Mazhhas"
+          },
+          "options__2": {
+            "label": "Vidutinis"
+          },
+          "options__3": {
+            "label": "Didelis"
+          },
+          "options__4": {
+            "label": "Visas ekranas"
+          }
+        },
+        "mobile_hero_height": {
+          "label": "Herojaus aukshtis mobiliajame",
+          "options__0": {
+            "label": "Automatinis"
+          },
+          "options__1": {
+            "label": "Mazhhas"
+          },
+          "options__2": {
+            "label": "Vidutinis"
+          },
+          "options__3": {
+            "label": "Didelis"
+          },
+          "options__4": {
+            "label": "Visas ekranas"
+          }
+        }
+      },
+      "blocks": {
+        "label": {
+          "name": "Etiketè",
+          "settings": {
+            "text": {
+              "default": "Nauja kolekcija"
+            }
+          }
+        },
+        "heading": {
+          "name": "Antrasthe",
+          "settings": {
+            "heading": {
+              "default": "Atraskite mūsū nauja kolekcija"
+            }
+          }
         },
         "text": {
-          "default": "Atraskite mūsų kruopščiai atrinktą aukščiausios kokybės produktų kolekciją, skirtą šiuolaikiniam gyvenimo būdui."
+          "name": "Tekstas",
+          "settings": {
+            "text": {
+              "default": "Sukurkite patirtyti, kuria jūsū klientai pamils."
+            }
+          }
+        },
+        "buttons": {
+          "name": "Mygtukai",
+          "settings": {
+            "button_1_text": {
+              "label": "1 mygtuko tekstas",
+              "default": "Pirkti dabar"
+            },
+            "button_1_link": {
+              "label": "1 mygtuko nuoroda"
+            },
+            "button_2_text": {
+              "label": "2 mygtuko tekstas",
+              "default": "Suzhhinoti daugiau"
+            },
+            "button_2_link": {
+              "label": "2 mygtuko nuoroda"
+            }
+          }
         }
       },
       "presets": {
         "hero": {
           "name": "Herojus",
-          "category": "Image & media"
+          "category": "Vaizdai ir medija"
+        }
+      }
+    },
+    "hero_orbit": {
+      "name": "Orbitinis herojus",
+      "settings": {
+        "label": {
+          "default": "Nauji atvykimai"
+        },
+        "title": {
+          "default": "Atraskite mūsū nauja kolekcija"
+        },
+        "button_text": {
+          "default": "Pirkti dabar"
+        },
+        "header__orbital": {
+          "content": "Orbitiniai elementai"
+        },
+        "orbit_speed": {
+          "label": "Orbitos greitis",
+          "info": "Vieno pilno apsisukimo trukmè sekundèmis"
+        },
+        "pause_on_hover": {
+          "info": "Sustabdo orbitinę animacija uzvedus pele"
+        },
+        "text": {
+          "default": "Naršhykite produktus, besisukanchius aplink jūsū turinį."
+        }
+      },
+      "blocks": {
+        "product": {
+          "name": "Produktas"
+        }
+      },
+      "presets": {
+        "hero_orbit": {
+          "name": "Orbitinis herojus",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "highlight_text": {
-      "name": "Paryškintas tekstas",
-      "blocks": {
-        "heading": {
-          "settings": {
-            "heading": {
-              "default": "Paryškinkite tekstą slenkant puslapiu žemyn"
-            },
-            "heading_tag": {
-              "label": "Antraštės žyma",
-              "options__0": {
-                "label": "H2"
-              },
-              "options__1": {
-                "label": "H3"
-              },
-              "options__2": {
-                "label": "H4"
-              },
-              "options__3": {
-                "label": "H5"
-              },
-              "options__4": {
-                "label": "H6"
-              }
-            },
-            "heading_size": {
-              "label": "Antraštės dydis",
-              "options__0": {
-                "label": "Sm"
-              },
-              "options__1": {
-                "label": "Md"
-              },
-              "options__2": {
-                "label": "Lg"
-              },
-              "options__3": {
-                "label": "Xl"
-              },
-              "options__4": {
-                "label": "2xl"
-              }
-            },
-            "scroll_start": {
-              "info": "Slinkties pozicija, kur prasideda paryškinimo animacija",
-              "default": "top 90%"
-            },
-            "scroll_end": {
-              "info": "Slinkties pozicija, kur baigiasi paryškinimo animacija",
-              "default": "center 40%"
-            },
-            "fade_opacity": {
-              "label": "Blukimo permatomumas",
-              "info": "Neparyškinto teksto permatomumas"
-            },
-            "stagger": {
-              "label": "Pakopinis vėlinimas",
-              "info": "Vėlinimas tarp kiekvieno žodžio paryškinimo"
-            }
+      "name": "Paryshkintas tekstas",
+      "settings": {
+        "title": {
+          "default": "Tai mūsū istorija ir ja pasakojame su <strong>pasididziavimu</strong>."
+        },
+        "highlight_style": {
+          "label": "Paryshkinimo stilius",
+          "options__0": {
+            "label": "Pabraukimas"
+          },
+          "options__1": {
+            "label": "Zymeklis"
+          },
+          "options__2": {
+            "label": "Apskritimas"
+          },
+          "options__3": {
+            "label": "Perbraukimas"
           }
         },
-        "text": {
-          "settings": {
-            "text": {
-              "default": "Pridėkite papildomą tekstą po antrašte."
-            }
-          }
+        "highlight_color": {
+          "label": "Paryshkinimo spalva"
         }
       },
       "presets": {
         "highlight_text": {
-          "name": "Paryškintas tekstas",
-          "category": "Text",
-          "blocks": {
-            "heading": {
-              "0": {
-                "heading": "Paryškinkite tekstą slenkant puslapiu žemyn",
-                "heading_size": "xl"
-              }
-            }
-          }
+          "name": "Paryshkintas tekstas",
+          "category": "Tekstas"
         }
       }
     },
     "horizontal_scroll": {
-      "name": "Horizontali slinkis",
+      "name": "Horizontalus slinkimas",
       "settings": {
         "label": {
           "default": "Galerija"
         },
         "title": {
-          "default": "Tyrinėkite mūsų kolekciją"
+          "default": "Horizontali galerija"
+        },
+        "scroll_speed": {
+          "info": "Valdo kaip greitai sekcija slenka (1 = lètai, 5 = greitai)"
+        },
+        "image_height": {
+          "label": "Vaizdo aukshtis"
         },
         "text": {
-          "default": "Slinkite, kad atrastumėte mūsų kruopščiai atrinktą produktų ir patirčių pasirinkimą."
+          "default": "Slinkite horizontaliai per mūsų galeriją."
         }
       },
       "blocks": {
         "image": {
-          "settings": {
-            "label": {
-              "default": "Kategorija"
-            },
-            "title": {
-              "default": "Vaizdo pavadinimas"
-            },
-            "text": {
-              "default": "Trumpas šio vaizdo ar kolekcijos aprašymas."
-            }
-          }
+          "name": "Vaizdas"
         }
       },
       "presets": {
         "horizontal_scroll": {
-          "name": "Horizontali slinkis",
-          "category": "Image & media",
-          "blocks": {
-            "image": {
-              "0": {
-                "title": "Atrinkta selekcija",
-                "text": "Atraskite mūsų ranka atrinktus mėgstamiausius"
-              },
-              "1": {
-                "title": "Naujienos",
-                "text": "Naujausi mūsų kolekcijos papildymai"
-              },
-              "2": {
-                "title": "Perkamiausios prekės",
-                "text": "Mūsų labiausiai mėgstami produktai"
-              },
-              "3": {
-                "title": "Ribota laida",
-                "text": "Išskirtinės prekės, kurių nerasite kitur"
-              }
-            }
-          }
+          "name": "Horizontalus slinkimas",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "hotspots": {
-      "name": "Aktyviosios zonos",
+      "name": "Karshtieji tashshkai",
       "settings": {
         "label": {
-          "default": "Atraskite"
+          "default": "Pirkite vaizdą"
         },
         "title": {
-          "default": "Produkto savybės"
+          "default": "Interaktyvus vaizdas"
         },
-        "desktop_image": {
-          "label": "Kompiuterio vaizdas",
-          "info": "Rekomenduojama: 1920x1080px arba panašus kraštinių santykis"
-        },
-        "mobile_image": {
-          "label": "Mobilusis vaizdas",
-          "info": "Neprivaloma: kitas vaizdas mobiliesiems įrenginiams"
+        "text": {
+          "default": "Spustelèkite karshtuosius tashkus, kad pamatytumète produkto detales."
         }
       },
       "blocks": {
         "hotspot": {
-          "name": "Aktyvioji zona",
-          "settings": {
-            "header__position": {
-              "content": "Pozicija"
-            },
-            "link_url": {
-              "label": "Nuorodos URL"
-            },
-            "header__dot_appearance": {
-              "content": "Taško išvaizda"
-            },
-            "header__popover_appearance": {
-              "content": "Iššokančio lango išvaizda"
-            },
-            "popover_position": {
-              "label": "Iššokančio lango pozicija"
-            },
-            "title_color": {
-              "label": "Pavadinimo spalva"
-            },
-            "description_color": {
-              "label": "Aprašymo spalva"
-            },
-            "link_color": {
-              "label": "Nuorodos spalva"
-            },
-            "text": {
-              "default": "Išsamiai aprašykite šią savybę ar specifikaciją."
-            }
-          }
+          "name": "Karshtasis tashkas"
         }
       },
       "presets": {
         "hotspots": {
-          "name": "Aktyviosios zonos",
-          "category": "Image & media",
-          "blocks": {
-            "hotspot": {
-              "0": {
-                "title": "Aukščiausios kokybės medžiagos",
-                "text": "Pagaminta iš aukštos kokybės medžiagų, užtikrinančių ilgaamžiškumą ir komfortą."
-              },
-              "1": {
-                "title": "Pažangios technologijos",
-                "text": "Pasižymi pažangiausiomis technologijomis optimaliam veikimui."
-              },
-              "2": {
-                "title": "Ergonomiškas dizainas",
-                "text": "Sukurtas atsižvelgiant į komfortą ir patogumą."
-              }
-            }
-          }
+          "name": "Karshtieji tashshkai",
+          "category": "Interaktyvūs"
         }
       }
     },
-    "image_sequence": {
-      "name": "Vaizdų seka",
+    "image": {
+      "name": "Vaizdas",
       "settings": {
-        "header__image_sequence": {
-          "content": "Vaizdų seka"
-        },
-        "desktop_source": {
-          "label": "Kompiuterio šaltinis",
-          "info": "URL šablonas kompiuterio kadrų vaizdams (naudokite {frame} kaip vietos žymę)"
-        },
-        "mobile_source": {
-          "label": "Mobiliojo šaltinis",
-          "info": "URL šablonas mobiliojo kadrų vaizdams (naudokite {frame} kaip vietos žymę)"
-        },
-        "static_image": {
-          "label": "Statinis vaizdas",
-          "info": "Atsarginis vaizdas, rodomas prieš įkeliant seką"
-        },
-        "frames": {
-          "label": "Kadrai",
-          "info": "Bendras kadrų skaičius sekoje"
-        },
-        "digits": {
-          "label": "Skaitmenys",
-          "info": "Skaitmenų skaičius kadrų numerių užpildymui nuliais"
-        },
-        "index_start": {
-          "label": "Pradinis indeksas",
-          "info": "Pradinis kadro numeris (paprastai 0 arba 1)"
-        },
-        "filetype": {
-          "label": "Failo tipas",
+        "image_width": {
+          "label": "Vaizdo plotis",
           "options__0": {
-            "label": "Webp"
+            "label": "Visas plotis"
           },
           "options__1": {
-            "label": "Jpg"
-          },
-          "options__2": {
-            "label": "Png"
-          },
-          "options__3": {
-            "label": "Avif"
-          }
-        },
-        "header__scroll_behavior": {
-          "content": "Slinkties elgsena"
-        },
-        "scroll_height": {
-          "label": "Slinkties aukštis",
-          "info": "Slinkties atstumas visų kadrų peržiūrai (vh vienetais)"
-        },
-        "scroll_start": {
-          "info": "Slinkties pozicija, kur prasideda animacija",
-          "default": "top top"
-        },
-        "scroll_end": {
-          "info": "Slinkties pozicija, kur baigiasi animacija",
-          "default": "bottom top"
-        },
-        "header__overlay_and_content": {
-          "content": "Perdanga ir turinys"
-        }
-      },
-      "blocks": {
-        "label": {
-          "name": "Label",
-          "settings": {
-            "text": {
-              "default": "SLINKITE, KAD TYRINĖTUMĖTE"
-            }
-          }
-        },
-        "heading": {
-          "settings": {
-            "text": {
-              "default": "Vaizdų seka"
-            }
-          }
-        },
-        "text": {
-          "settings": {
-            "text": {
-              "default": "Slinkite per šią sekciją, kad pamatytumėte animaciją kadrą po kadro."
-            }
-          }
-        },
-        "button": {
-          "settings": {
-            "url": {
-              "label": "URL"
-            }
+            "label": "Turinys"
           }
         }
       },
       "presets": {
+        "image": {
+          "name": "Vaizdas",
+          "category": "Vaizdai ir medija"
+        }
+      }
+    },
+    "image_sequence": {
+      "name": "Vaizdu seka",
+      "settings": {
+        "header__sequence": {
+          "content": "Seka"
+        },
+        "frame_count": {
+          "label": "Kadru skaicius",
+          "info": "Bendras vaizdu skaicius sekoje"
+        },
+        "image_prefix": {
+          "label": "Vaizdo prefiksas",
+          "info": "Bendras prefiksas vaizdu failams (pvz., 'frame-' kadre frame-001.jpg)"
+        }
+      },
+      "presets": {
         "image_sequence": {
-          "name": "Vaizdų seka",
-          "category": "Image & media",
-          "settings": {
-            "filetype": "webp"
-          },
-          "blocks": {
-            "label": {
-              "0": {
-                "text": "SLINKITE, KAD TYRINĖTUMĖTE"
-              }
-            },
-            "heading": {
-              "1": {
-                "text": "Vaizdų seka"
-              }
-            }
-          }
+          "name": "Vaizdu seka",
+          "category": "Vaizdai ir medija"
         }
       }
     },
@@ -2066,406 +1861,182 @@
       "name": "Vaizdas su tekstu",
       "settings": {
         "label": {
-          "default": "Mūsų istorija"
+          "default": "Atraskite"
         },
         "title": {
-          "default": "Sukurta su tikslu"
+          "default": "Vaizdas su tekstu"
+        },
+        "image_position": {
+          "label": "Vaizdo padètis"
         },
         "text": {
-          "default": "<p>Tikime, kad reikia kurti produktus, kurie atlaiko laiko išbandymą. Kiekvienas gaminys yra apgalvotai suprojektuotas ir kruopščiai pagamintas naudojant geriausias medžiagas ir tradicines technikas.</p>"
-        }
-      },
-      "blocks": {
-        "stat": {
-          "settings": {
-            "number": {
-              "default": "100+"
-            },
-            "label": {
-              "default": "Products"
-            }
-          }
+          "default": "<p>Sujunkite teksta su vaizdu, kad sutelktumète dèmesi i pasirinkta produkta, kolekcija ar tinklarashshchio irashsha.</p>"
         }
       },
       "presets": {
         "image_with_text": {
           "name": "Vaizdas su tekstu",
-          "category": "Image & media",
-          "blocks": {
-            "stat": {
-              "0": {
-                "number": "10+",
-                "label": "Metai"
-              },
-              "1": {
-                "number": "50K",
-                "label": "Klientai"
-              }
-            }
-          }
-        }
-      }
-    },
-    "image": {
-      "name": "Image",
-      "settings": {
-        "caption": {
-          "label": "Antraštė"
-        },
-        "image_width": {
-          "label": "Vaizdo plotis"
-        },
-        "image_alignment": {
-          "label": "Vaizdo lygiavimas"
-        },
-        "reveal_effect": {
-          "label": "Atskleidimo efektas",
-          "options__1": {
-            "label": "Išblukimas aukštyn"
-          },
-          "options__2": {
-            "label": "Mastelis"
-          },
-          "options__3": {
-            "label": "Apkarpymas dešinėn"
-          },
-          "options__4": {
-            "label": "Apkarpymas kairėn"
-          },
-          "options__5": {
-            "label": "Apkarpymas aukštyn"
-          },
-          "options__6": {
-            "label": "Apkarpymas žemyn"
-          }
-        },
-        "parallax_intensity": {
-          "label": "Paralakso intensyvumas"
-        }
-      },
-      "presets": {
-        "image": {
-          "name": "Image",
-          "category": "Image & media"
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "logo_marquee": {
-      "name": "Logotipų juosta",
+      "name": "Logotipu marke",
       "settings": {
-        "label": {
-          "default": "Kaip matyta"
-        },
-        "logo_max_width": {
-          "label": "Maks. logotipo plotis"
-        },
-        "logo_opacity": {
-          "label": "Logotipo permatomumas"
-        },
-        "grayscale": {
-          "info": "Rodo logotipus pilkais tonais"
+        "title": {
+          "default": "Mūsù partneriai"
+        }
+      },
+      "blocks": {
+        "logo": {
+          "name": "Logotipas"
         }
       },
       "presets": {
         "logo_marquee": {
-          "name": "Logotipų juosta",
-          "category": "Image & media"
+          "name": "Logotipu marke",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "logo_wall_cycle": {
-      "name": "Logotipų sienos ciklas",
+      "name": "Ciklinè logotipu siena",
       "settings": {
-        "label": {
-          "default": "Mumis pasitiki"
+        "title": {
+          "default": "Pasitiki mumis"
         },
-        "visible_desktop": {
-          "label": "Matomi kompiuteryje",
-          "info": "Vienu metu matomų logotipų skaičius kompiuteryje"
-        },
-        "visible_tablet": {
-          "label": "Matomi planšetėje"
-        },
-        "visible_mobile": {
-          "label": "Matomi mobiliajame"
-        },
-        "gap": {
-          "label": "Tarpas"
-        },
-        "loop_delay": {
-          "label": "Ciklo vėlinimas",
-          "info": "Laikas sekundėmis tarp logotipų perėjimų"
-        },
-        "shuffle": {
-          "label": "Maišyti",
-          "info": "Atsitiktine tvarka rodo logotipus"
+        "cycle_speed": {
+          "label": "Ciklo greitis",
+          "info": "Laikas sekundèmis tarp logotipu ciklù"
+        }
+      },
+      "blocks": {
+        "logo": {
+          "name": "Logotipas"
         }
       },
       "presets": {
         "logo_wall_cycle": {
-          "name": "Logotipų sienos ciklas",
-          "category": "Image & media"
+          "name": "Ciklinè logotipù siena",
+          "category": "Vaizdai ir medija"
         }
       }
     },
+    "main_about": {
+      "name": "Puslapis \"Apie mus\""
+    },
     "map": {
-      "name": "Žemėlapis",
+      "name": "Zhemelapis",
       "settings": {
-        "label": {
-          "default": "Aplankykite mus"
-        },
         "title": {
-          "default": "Mūsų vieta"
+          "default": "Mūsū buvimo vieta"
         },
-        "header__location": {
-          "content": "Vieta"
+        "map_address": {
+          "label": "Zhemèlapio adresas"
         },
-        "location_name": {
-          "label": "Vietos pavadinimas",
-          "info": "Rodomas kaip žymeklio pavadinimas",
-          "default": "Mūsų parduotuvė"
+        "header__map_settings": {
+          "content": "Zhemèlapio nustatymai"
         },
-        "address": {
-          "info": "Pilnas adresas, rodomas po žemėlapiu",
-          "default": "123 Pagrindinė gatvė\nNiujorkas, NY 10001"
+        "map_zoom": {
+          "label": "Zhemellapio priartinimas"
         },
-        "latitude": {
-          "label": "Platuma",
-          "info": "Platumos koordinatė žemėlapio centrui",
-          "default": "40.7128"
-        },
-        "longitude": {
-          "label": "Ilguma",
-          "info": "Ilgumos koordinatė žemėlapio centrui",
-          "default": "-74.0060"
-        },
-        "zoom": {
-          "label": "Mastelis",
-          "info": "Žemėlapio mastelio lygis"
-        },
-        "show_popup": {
-          "label": "Rodyti iššokantį langą"
-        },
-        "header__styling": {
-          "content": "Stilius"
-        },
-        "map_height": {
-          "label": "Map height"
-        },
-        "marker_color": {
-          "label": "Marker color"
-        },
-        "grayscale": {
-          "info": "Displays the map in grayscale"
-        }
-      },
-      "blocks": {
-        "address": {
-          "name": "Address",
-          "settings": {
-            "title": {
-              "default": "Address"
-            },
-            "address": {
-              "default": "123 Pagrindinė gatvė\nNiujorkas, NY 10001"
-            }
+        "map_style": {
+          "label": "Zhemellapio stilius",
+          "options__0": {
+            "label": "Standartinis"
+          },
+          "options__1": {
+            "label": "Sidabrinis"
+          },
+          "options__2": {
+            "label": "Tamsus"
+          },
+          "options__3": {
+            "label": "Retro"
           }
         },
-        "hours": {
-          "name": "Valandos",
-          "settings": {
-            "title": {
-              "default": "Valandos"
-            },
-            "hours": {
-              "label": "Valandos",
-              "default": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
-            }
-          }
+        "header__store_info": {
+          "content": "Parduotuvès informacija"
         },
-        "contact": {
-          "name": "Kontaktai",
-          "settings": {
-            "title": {
-              "default": "Kontaktai"
-            },
-            "phone": {
-              "label": "Phone"
-            },
-            "email": {
-              "label": "Email"
-            }
-          }
+        "store_name": {
+          "label": "Parduotuvès pavadinimas"
         },
-        "custom": {
-          "name": "Pasirinktinis"
+        "store_hours": {
+          "label": "Parduotuvès darbo valandos"
+        },
+        "store_phone": {
+          "label": "Parduotuvès telefonas"
+        },
+        "text": {
+          "default": "Uzhsukite ir aplankykite mus. Laukiame jūsū!"
         }
       },
       "presets": {
         "map": {
-          "name": "Žemėlapis",
-          "category": "Pasirinktinis",
-          "blocks": {
-            "address": {
-              "0": {
-                "title": "Address",
-                "address": "123 Pagrindinė gatvė\nNiujorkas, NY 10001"
-              }
-            },
-            "hours": {
-              "1": {
-                "title": "Valandos",
-                "hours": "Mon - Fri: 9am - 6pm\nSat: 10am - 4pm\nSun: Closed"
-              }
-            },
-            "contact": {
-              "2": {
-                "title": "Kontaktai",
-                "phone": "(555) 123-4567",
-                "email": "hello@example.com"
-              }
-            }
-          }
-        }
-      }
-    },
-    "marquee_radial": {
-      "name": "Marquee radial",
-      "settings": {
-        "text": {
-          "default": "Radial Text Marquee"
-        },
-        "radius": {
-          "label": "Radius",
-          "info": "Radius of the circular path"
-        },
-        "header__spacer": {
-          "content": "Tarpiklis"
-        },
-        "spacer": {
-          "label": "Tarpiklis",
-          "info": "Adds a spacer between text items",
-          "default": "-"
-        },
-        "spacer_color": {
-          "label": "Spacer Color"
-        },
-        "spacer_padding": {
-          "label": "Spacer Padding",
-          "info": "Space between text and spacer characters"
-        }
-      },
-      "presets": {
-        "marquee_radial": {
-          "name": "Marquee radial",
-          "category": "Promotional",
-          "settings": {
-            "text": "Radial Text Marquee"
-          }
+          "name": "Zhemelapis",
+          "category": "Pasirinktinis"
         }
       }
     },
     "marquee": {
-      "name": "Marquee",
-      "blocks": {
+      "name": "Markè",
+      "settings": {
         "text": {
-          "settings": {
-            "text": {
-              "default": "Nemokamas pristatymas"
-            }
-          }
+          "default": "Sveiki atvykè i mūsū parduotuve - Nemokamas pristatymas uzhsakymams nuo 50 EUR - Nauji atvykimai kiekviena savaite -"
         },
         "separator": {
-          "name": "Separator",
-          "settings": {
-            "style": {
-              "options__0": {
-                "label": "Dot"
-              },
-              "options__1": {
-                "label": "Icon"
-              }
-            }
-          }
+          "label": "Skirtukas",
+          "info": "Tekstas arba simbolis tarp pasikartojimù"
         }
       },
       "presets": {
         "marquee": {
-          "name": "Marquee",
-          "category": "Promotional",
-          "blocks": {
-            "text": {
-              "0": {
-                "text": "Nemokamas pristatymas"
-              },
-              "2": {
-                "text": "Naujienos"
-              },
-              "4": {
-                "text": "Ribota laida"
-              }
-            },
-            "separator": {
-              "1": {
-                "style": "dot"
-              },
-              "3": {
-                "style": "icon"
-              },
-              "5": {
-                "style": "dot"
-              }
-            }
-          }
+          "name": "Markè",
+          "category": "Tekstas"
+        }
+      }
+    },
+    "marquee_radial": {
+      "name": "Radialinè markè",
+      "settings": {
+        "text": {
+          "default": "SVEIKI ATVYKÈ - I MŪSŪ - PARDUOTUVÈ -"
+        }
+      },
+      "presets": {
+        "marquee_radial": {
+          "name": "Radialinè markè",
+          "category": "Tekstas"
         }
       }
     },
     "newsletter": {
-      "name": "Naujienlaiškis",
+      "name": "Naujienlaishshkis",
       "settings": {
-        "design": {
-          "options__0": {
-            "label": "Side by side"
-          },
-          "options__1": {
-            "label": "Stacked"
-          },
-          "options__2": {
-            "label": "Card"
-          }
+        "label": {
+          "default": "Prenumeruokite"
         },
         "title": {
-          "default": "Want product news and updates?"
+          "default": "Prenumeruokite mūsù naujienlaisshki"
         },
-        "text": {
-          "default": "Subscribe to our newsletter for exclusive updates and special offers."
+        "header__form": {
+          "content": "Forma"
+        },
+        "placeholder": {
+          "label": "Vietos zhymeklis",
+          "default": "Iveskite savo el. pashta"
         },
         "button_text": {
-          "default": "Subscribe"
+          "default": "Prenumeruoti"
         },
-        "header__privacy_notice": {
-          "content": "Privacy notice"
-        },
-        "privacy_text": {
-          "label": "Privacy text",
-          "info": "Displayed below the subscribe form",
-          "default": "We care about your data. Read our"
-        },
-        "privacy_link": {
-          "label": "Privacy link"
-        },
-        "privacy_link_text": {
-          "label": "Privacy link text",
-          "default": "privacy policy"
+        "text": {
+          "default": "Gaukite naujausias naujienas, atnaujinimus ir ishskirtinius pasiūlymus tiesiai i savo el. pashto dèzhutè."
         }
       },
       "presets": {
         "newsletter": {
-          "name": "Naujienlaiškis",
-          "category": "Promotional",
-          "settings": {
-            "design": "side-by-side"
-          }
+          "name": "Naujienlaishshkis",
+          "category": "Reklaminiai"
         }
       }
     },
@@ -2473,415 +2044,329 @@
       "name": "Puslapis"
     },
     "password": {
-      "name": "Password",
-      "settings": {
-        "heading": {
-          "default": "Opening Soon"
-        },
-        "subheading": {
-          "label": "Subheading",
-          "default": "We're working on something special. Enter the password to get early access."
-        },
-        "header__newsletter": {
-          "content": "Naujienlaiškis"
-        },
-        "show_newsletter": {
-          "label": "Show newsletter"
-        },
-        "newsletter_heading": {
-          "label": "Newsletter heading",
-          "default": "Be the first to know"
-        },
-        "newsletter_text": {
-          "label": "Newsletter text",
-          "default": "Sign up for updates and get notified when we launch."
-        },
-        "header__social": {
-          "content": "Socialiniai tinklai"
-        },
-        "show_social": {
-          "info": "Configure social links in theme settings"
-        }
-      }
+      "name": "Slaptazhhodis"
     },
     "pickup_availability": {
-      "name": "Pickup availability"
+      "name": "Atsiemimo galimybè"
     },
     "pinned_image_reveal": {
-      "name": "Pinned image reveal",
+      "name": "Prisegttas vaizdo atskleidimas",
+      "settings": {
+        "header__pinned": {
+          "content": "Prisegttas vaizdas"
+        }
+      },
       "blocks": {
-        "slide": {
+        "content": {
+          "name": "Turinys",
           "settings": {
-            "title": {
-              "default": "Discover Our Story"
-            },
-            "background_color": {
-              "label": "Background color",
-              "info": "Transition between panels"
+            "heading": {
+              "default": "Skyriaus turinys"
             },
             "text": {
-              "default": "Scroll to reveal beautiful imagery and learn more about what makes us unique."
+              "default": "Pridèkite aprashyma shiam skyriui."
             }
           }
         }
       },
       "presets": {
         "pinned_image_reveal": {
-          "name": "Pinned image reveal",
-          "category": "Image & media",
-          "blocks": {
-            "slide": {
-              "0": {
-                "title": "Green Cityscape",
-                "button_text": "Learn More",
-                "text": "Vibrant streets with vertical gardens and solar buildings. This oasis thrives on renewable energy, smart transport, and green spaces for biodiversity."
-              },
-              "1": {
-                "title": "Blue Urban Oasis",
-                "button_text": "Learn More",
-                "text": "Avenues with azure facades and eco-structures. This hub uses clean energy, smart transit, and parks for urban wildlife."
-              },
-              "2": {
-                "title": "Fluid Architecture",
-                "button_text": "Learn More",
-                "text": "Desert refuge with fluid architecture and glowing interiors. This sanctuary harnesses solar power, sustainable design, and natural harmony."
-              }
-            }
-          }
+          "name": "Prisegttas vaizdo atskleidimas",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "product": {
-      "name": "Product",
+      "name": "Produktas",
       "settings": {
-        "image_fit": {
-          "options__3": {
-            "label": "Portrait"
-          },
-          "options__4": {
-            "label": "Landscape"
-          }
-        },
-        "thumbnail_position": {
-          "label": "Thumbnail position"
+        "header__gallery": {
+          "content": "Galerija"
         },
         "enable_lightbox": {
-          "label": "Enable lightbox",
-          "info": "Allow customers to zoom into product images"
+          "label": "Ijungti shviesos langelio efekta"
         },
-        "video_loop": {
-          "label": "Loop video"
+        "thumbnail_position": {
+          "label": "Miniatiūrù padètis",
+          "options__0": {
+            "label": "Apaczioje"
+          },
+          "options__1": {
+            "label": "Kairèje"
+          },
+          "options__2": {
+            "label": "Deshinèje"
+          }
         },
-        "video_autoplay": {
-          "label": "Autoplay video",
-          "info": "Video will autoplay muted"
+        "header__video": {
+          "content": "Vaizdo irashhas"
         },
-        "header__sticky_add_to_cart": {
-          "content": "Sticky add to cart"
+        "enable_video": {
+          "label": "Ijungti vaizdo irasha"
         },
-        "show_sticky_bar": {
-          "label": "Show sticky add to cart",
-          "info": "Shows a sticky bar at the bottom with add to cart"
+        "loop_video": {
+          "label": "Kartoti vaizdo irasha"
+        },
+        "autoplay_video": {
+          "label": "Automatiskai paleisti, kai matoma"
+        },
+        "header__sticky_bar": {
+          "content": "Prilimpanti juosta"
+        },
+        "enable_sticky_bar": {
+          "label": "Ijungti prilimpancia juosta"
         }
       },
       "blocks": {
         "breadcrumbs": {
-          "name": "Breadcrumbs",
-          "settings": {
-            "separator": {
-              "label": "Separator",
-              "default": "/"
-            },
-            "show_home_icon": {
-              "label": "Show home icon",
-              "info": "Replaces the Home text with an icon"
-            }
-          }
+          "name": "Navigacijos kelias"
         },
         "vendor": {
-          "name": "Vendor"
+          "name": "Tiekèjas"
         },
         "title": {
-          "name": "Title",
+          "name": "Pavadinimas",
           "settings": {
-            "split_words": {
-              "label": "Split words",
-              "info": "Splits the title into individual animated words"
+            "split_words_into_lines": {
+              "label": "Padalinti zhodzhius i eilutes"
             }
           }
         },
         "price": {
-          "name": "Price"
+          "name": "Kaina"
         },
         "inventory_countdown": {
-          "name": "Inventory countdown",
+          "name": "Atsargu skaitiklis",
           "settings": {
-            "threshold": {
-              "label": "Threshold",
-              "info": "Show when inventory is at or below this number"
-            },
-            "style": {
-              "options__2": {
-                "label": "Badge"
-              }
-            },
-            "show_exact_count": {
-              "label": "Show exact count",
-              "info": "Show the exact inventory count instead of just the indicator"
-            },
-            "show_icon": {
-              "label": "Show icon"
+            "low_inventory_threshold": {
+              "label": "Zemu atsargu riba",
+              "info": "Rodo ispèjima, kai atsargos nukrenta zhemiau shios reikshmes"
             }
           }
         },
         "description": {
-          "name": "Description",
+          "name": "Aprashymas",
           "settings": {
-            "truncate_length": {
-              "label": "Truncate length"
+            "truncate_description": {
+              "label": "Sutrumpinti aprashyma"
             },
-            "enable_shuffle": {
-              "label": "Enable shuffle"
+            "max_lines": {
+              "label": "Maksimalus eiluciu skaicius"
             }
           }
         },
         "variant_picker": {
-          "name": "Variant picker",
+          "name": "Varianto pasirinkiklis",
           "settings": {
             "picker_type": {
-              "label": "Picker type"
+              "label": "Pasirinkiklio tipas",
+              "options__0": {
+                "label": "Mygtukai"
+              },
+              "options__1": {
+                "label": "Ishskleidziamasis meniu"
+              }
+            },
+            "show_variant_labels": {
+              "label": "Rodyti variantu etiketes"
+            },
+            "enable_color_swatches": {
+              "label": "Ijungti spalvu pavyzdèlius"
             }
           }
         },
         "quantity_selector": {
-          "name": "Quantity selector",
-          "settings": {
-            "label": {
-              "default": "Quantity"
-            }
-          }
+          "name": "Kiekio pasirinkiklis"
         },
         "buy_buttons": {
-          "name": "Buy buttons",
+          "name": "Pirkimo mygtukai",
           "settings": {
-            "add_to_cart_text": {
-              "label": "Add to cart text"
-            },
-            "sold_out_text": {
-              "label": "Sold out text"
-            },
             "show_dynamic_checkout": {
-              "label": "Show dynamic checkout",
-              "info": "Shows additional payment buttons like Shop Pay, Apple Pay, etc."
+              "label": "Rodyti dinamini apmokèjima"
+            },
+            "show_gift_card_recipient": {
+              "label": "Rodyti dovanu korteles gavèja",
+              "info": "Rodo gavèjo forma dovanu korteliu produktams"
             }
           }
         },
         "pickup_availability": {
-          "name": "Pickup availability"
+          "name": "Atsiemimo galimybè"
         },
         "delivery_estimator": {
-          "name": "Delivery estimator"
-        },
-        "social_proof": {
-          "name": "Social proof"
-        },
-        "text": {
+          "name": "Pristatymo skaiciuoklè",
           "settings": {
-            "text": {
-              "default": "<p>Add custom text like shipping info or care instructions.</p>"
+            "shipping_days_min": {
+              "label": "Minimumas pristatymo dienù"
+            },
+            "shipping_days_max": {
+              "label": "Maksimumas pristatymo dienù"
             }
           }
         },
+        "social_proof": {
+          "name": "Socialinis irodymas",
+          "settings": {
+            "show_viewers": {
+              "label": "Rodyti zhiūrovus"
+            },
+            "viewers_min": {
+              "label": "Minimumas zhiūrovù"
+            },
+            "viewers_max": {
+              "label": "Maksimumas zhiūrovù"
+            },
+            "show_purchases": {
+              "label": "Rodyti pirkinius"
+            },
+            "purchases_min": {
+              "label": "Minimumas pirkiniu"
+            },
+            "purchases_max": {
+              "label": "Maksimumas pirkiniu"
+            }
+          }
+        },
+        "text": {
+          "name": "Tekstas"
+        },
         "collapsible_tab": {
-          "name": "Collapsible tab",
+          "name": "Sulankstomas skirtukas",
           "settings": {
             "heading": {
-              "default": "Shipping & Returns"
+              "default": "Sulankstomas skirtukas"
             },
             "content": {
-              "default": "<p>Add content for this collapsible tab.</p>"
+              "label": "Turinys"
+            },
+            "page": {
+              "label": "Puslapis",
+              "info": "Puslapio turinys pakeis aukstciau esanti teksta"
+            },
+            "open_by_default": {
+              "label": "Atidarytas pagal numatyma"
             }
           }
         },
         "size_chart": {
-          "name": "Size chart",
+          "name": "Dydzhiu lentelè",
           "settings": {
-            "drawer_heading": {
-              "label": "Drawer heading"
+            "link_text": {
+              "default": "Dydzhiu lentelè"
             },
             "page": {
               "label": "Puslapis",
-              "info": "Select a page with size chart content"
-            },
-            "content": {
-              "info": "Used if no page is selected"
-            },
-            "show_always": {
-              "label": "Show always",
-              "info": "Show size chart for all products, not just those with a Size option"
+              "info": "Pasirinkite puslapi su dydzhiu lentele rodymui"
             }
           }
         },
         "back_in_stock": {
-          "name": "Back in stock"
+          "name": "Vèl sandèlyje",
+          "settings": {
+            "heading": {
+              "default": "Praneshkite man, kai bus"
+            },
+            "text": {
+              "default": "Uzhsiregistruokite, kad gautumète praneshima, kai shis produktas vèl bus sandèlyje."
+            }
+          }
         },
         "complementary_products": {
-          "name": "Complementary products",
-          "settings": {
-            "paragraph__description": {
-              "content": "Add complementary products using the Shopify Search & Discovery app."
-            },
-            "title": {
-              "info": "Leave blank to hide the heading"
-            }
-          }
+          "name": "Papildomi produktai"
         },
         "wishlist_button": {
-          "name": "Wishlist button",
-          "settings": {
-            "paragraph__description": {
-              "content": "Requires wishlist to be enabled in theme settings."
-            }
-          }
+          "name": "Norù sarashho mygtukas"
         },
         "compare_button": {
-          "name": "Compare button",
-          "settings": {
-            "paragraph__description": {
-              "content": "Requires compare to be enabled in theme settings."
-            }
-          }
+          "name": "Palyginimo mygtukas"
         },
-        "wc_buttons": {
-          "name": "Wishlist & Compare buttons",
-          "settings": {
-            "paragraph__description": {
-              "content": "Requires wishlist and/or compare to be enabled in theme settings."
-            },
-            "display_style": {
-              "label": "Display style"
-            }
-          }
+        "wishlist_compare": {
+          "name": "Norai ir palyginimas"
         },
         "social_actions": {
-          "name": "Social actions",
-          "settings": {
-            "paragraph__description": {
-              "content": "Shows share buttons for the current product."
-            }
-          }
+          "name": "Socialiniai veiksmai"
         }
       }
     },
     "quick_view_product": {
-      "name": "Quick view product"
+      "name": "Greitas produkto perzhiūra"
     },
     "recently_viewed": {
-      "name": "Recently viewed",
+      "name": "Neseniai perzhiūrèti",
       "settings": {
-        "paragraph__description": {
-          "content": "Products shown here are based on the visitor's browsing history stored in their browser."
-        },
-        "label": {
-          "default": "Recently browsed"
-        },
         "title": {
-          "default": "Recently Viewed"
+          "default": "Neseniai perzhiūrèti"
         }
       },
       "presets": {
         "recently_viewed": {
-          "name": "Recently viewed",
-          "category": "Products"
+          "name": "Neseniai perzhiūrèti",
+          "category": "Produktai"
         }
       }
     },
     "related_products": {
-      "name": "Related products",
+      "name": "Susije produktai",
       "settings": {
-        "paragraph__description": {
-          "content": "Products are automatically selected based on Shopify's product recommendation algorithm."
-        },
-        "label": {
-          "default": "You may also like"
-        },
         "title": {
-          "default": "Related Products"
+          "default": "Jums taipogi gali patikti"
         }
       },
       "presets": {
         "related_products": {
-          "name": "Related products",
-          "category": "Products"
+          "name": "Susije produktai",
+          "category": "Produktai"
         }
       }
     },
     "rolling_numbers": {
-      "name": "Rolling numbers",
+      "name": "Besisukantys skaiciai",
       "settings": {
+        "label": {
+          "default": "Mūsù poveikis"
+        },
         "title": {
-          "default": "By the Numbers"
+          "default": "Skaiciai kalba patys uzhh save"
         },
-        "show_dividers": {
-          "info": "Shows separator lines between number blocks"
-        },
-        "animation_duration": {
-          "info": "Duration of the rolling animation in milliseconds"
+        "text": {
+          "default": "Mes didziuojamès savo pasiekimais ir toliau augame."
         }
       },
       "blocks": {
         "stat": {
+          "name": "Statistika",
           "settings": {
-            "number": {
-              "info": "The target number to animate to",
-              "default": "100"
-            },
             "prefix": {
-              "label": "Prefix",
-              "info": "Text displayed before the number (e.g., $)"
+              "label": "Prieshhdèlis"
             },
             "suffix": {
-              "label": "Suffix",
-              "info": "Text displayed after the number (e.g., +, %, K)"
+              "label": "Priesaga"
             },
             "label": {
-              "default": "Happy Customers"
-            },
-            "text": {
-              "info": "Short description displayed below"
+              "default": "Patenkinti klientai"
             }
           }
         }
       },
       "presets": {
         "rolling_numbers": {
-          "name": "Rolling numbers",
-          "category": "Text",
-          "settings": {
-            "title": "By the Numbers",
-            "text": "Our impact in numbers that speak for themselves."
-          },
+          "name": "Besisukantys skaiciai",
+          "category": "Tekstas",
           "blocks": {
             "stat": {
               "0": {
-                "suffix": "K+",
-                "label": "Happy Customers",
-                "text": "Worldwide satisfaction"
+                "number": "10000",
+                "suffix": "+",
+                "label": "Patenkinti klientai"
               },
               "1": {
-                "suffix": "%",
-                "label": "Satisfaction Rate",
-                "text": "Based on reviews"
+                "number": "500",
+                "suffix": "+",
+                "label": "Produktai"
               },
               "2": {
+                "number": "50",
                 "suffix": "+",
-                "label": "Countries",
-                "text": "Global shipping"
-              },
-              "3": {
-                "suffix": "/7",
-                "label": "Pagalba",
-                "text": "Always here to help"
+                "label": "Shalys"
               }
             }
           }
@@ -2889,713 +2374,454 @@
       }
     },
     "scroll_panels": {
-      "name": "Scroll panels",
-      "settings": {
-        "header__display": {
-          "content": "Display"
-        },
-        "show_numbers": {
-          "label": "Show numbers"
-        },
-        "show_progress": {
-          "label": "Show progress"
-        }
-      },
+      "name": "Slenkantys paneliai",
       "blocks": {
         "panel": {
-          "name": "Panel",
+          "name": "Panelis",
           "settings": {
-            "title": {
-              "default": "Panel Title"
+            "heading": {
+              "default": "Panelio pavadinimas"
             },
             "text": {
-              "default": "Add compelling copy that tells your brand story."
+              "default": "Panelio aprashymas, paaishkinantis shia savybe ar zhingsni."
             }
           }
         }
       },
       "presets": {
         "scroll_panels": {
-          "name": "Scroll panels",
-          "category": "Image & media",
-          "blocks": {
-            "panel": {
-              "0": {
-                "title": "Discover Our Story",
-                "text": "Every great brand has a story. This is where yours begins.",
-                "button_text": "Learn More"
-              },
-              "1": {
-                "title": "Crafted With Care",
-                "text": "We believe in quality over quantity. Each product is made to last.",
-                "button_text": "Our Process"
-              },
-              "2": {
-                "title": "Join the Movement",
-                "text": "Be part of something bigger. Shop consciously, live intentionally.",
-                "button_text": "Pirkti dabar"
-              }
-            }
-          }
+          "name": "Slenkantys paneliai",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "search": {
-      "name": "Search",
+      "name": "Paieshka",
       "settings": {
-        "show_popular_searches": {
-          "label": "Show popular searches",
-          "info": "Show suggested searches when the search field is empty"
-        },
-        "popular_searches": {
-          "label": "Popular searches",
-          "info": "Comma-separated list of search terms",
-          "default": "New arrivals, Sale, Best sellers"
+        "show_product_count": {
+          "label": "Rodyti produktu skaiciu"
         }
       }
     },
     "shop_the_look": {
-      "name": "Shop the look",
+      "name": "Pirkite vaizda",
       "settings": {
         "label": {
-          "default": "Style Guide"
+          "default": "Pirkite vaizda"
         },
         "title": {
-          "default": "Shop The Look"
+          "default": "Uzhbaikkite vaizda"
         },
-        "image": {
-          "info": "Main image for the shop the look section"
-        },
-        "header__product_display": {
-          "content": "Product display"
-        },
-        "add_all_title": {
-          "label": "Add All Title",
-          "default": "Complete the Look"
-        },
-        "add_all_button": {
-          "label": "Add All Button",
-          "default": "Add All"
-        },
-        "header__hotspot_style": {
-          "content": "Hotspot Style"
-        },
-        "dot_text_color": {
-          "label": "Dot Text Color"
+        "text": {
+          "default": "Spustelèkite tashkus, kad pirktumète produktus."
         }
       },
       "blocks": {
-        "product": {
-          "name": "Product",
-          "settings": {
-            "header__hotspot_position": {
-              "content": "Hotspot Position"
-            }
-          }
+        "product_dot": {
+          "name": "Produkto tashkas"
         }
       },
       "presets": {
         "shop_the_look": {
-          "name": "Shop the look",
-          "category": "Products"
+          "name": "Pirkite vaizda",
+          "category": "Interaktyvūs"
         }
       }
     },
     "shoppable_videos": {
-      "name": "Shoppable videos",
+      "name": "Apsipirkimo vaizdo irashhai",
       "settings": {
         "label": {
-          "default": "Shop the look"
+          "default": "Zhiūrèkite ir pirkite"
         },
         "title": {
-          "default": "Shoppable Videos"
+          "default": "Pirkite ish vaizdo"
         },
-        "videos_desktop": {
-          "label": "Videos Desktop"
-        },
-        "videos_tablet": {
-          "label": "Videos Tablet"
-        },
-        "videos_mobile": {
-          "label": "Videos Mobile"
-        },
-        "video_spacing": {
-          "label": "Video Spacing"
-        },
-        "show_product_info": {
-          "label": "Show Product Info"
-        },
-        "autoplay_speed": {
-          "info": "Time in seconds between video rotations"
+        "text": {
+          "default": "Zhiūrèkite ir pirkite tiesiogiai ish mūsū vaizdo irashù."
         }
       },
       "blocks": {
         "video": {
-          "name": "Video",
-          "settings": {
-            "video_hosted": {
-              "label": "Video Hosted"
-            }
-          }
+          "name": "Vaizdo irashhas"
         }
       },
       "presets": {
         "shoppable_videos": {
-          "name": "Shoppable videos",
-          "category": "Image & media"
+          "name": "Apsipirkimo vaizdo irashhai",
+          "category": "Interaktyvūs"
         }
       }
     },
     "slideshow": {
-      "name": "Slideshow",
+      "name": "Skaidrių demonstravimas",
       "settings": {
-        "header__transition": {
-          "content": "Transition"
+        "header__slideshow": {
+          "content": "Skaidriu demonstravimas"
         },
-        "transition_effect": {
-          "label": "Transition effect",
+        "autoplay_speed": {
+          "info": "Laikas sekundèmis tarp skaidriu"
+        },
+        "show_pagination": {
+          "label": "Rodyti puslapiavima"
+        },
+        "transition": {
+          "label": "Perèjimas",
+          "options__0": {
+            "label": "Isliejimas"
+          },
           "options__1": {
-            "label": "Zoom in"
-          },
-          "options__2": {
-            "label": "Zoom out"
-          },
-          "options__4": {
-            "label": "Swipe"
+            "label": "Slinktis"
           }
-        },
-        "progress_type": {
-          "label": "Progress type",
-          "options__1": {
-            "label": "Dots"
-          },
-          "info": "Only visible when autoplay is enabled"
-        },
-        "header__navigation": {
-          "content": "Navigacija"
-        },
-        "show_dots": {
-          "label": "Show dots"
-        },
-        "header__effects": {
-          "content": "Effects"
-        },
-        "parallax": {
-          "label": "Parallax"
         }
       },
       "blocks": {
         "slide": {
+          "name": "Skaidrè",
           "settings": {
-            "title": {
-              "default": "Slide heading"
+            "label": {
+              "default": "Nauja kolekcija"
             },
-            "text_position": {
-              "label": "Text Position",
-              "options__0": {
-                "label": "Top Left"
-              },
-              "options__1": {
-                "label": "Top Center"
-              },
-              "options__2": {
-                "label": "Top Right"
-              },
-              "options__3": {
-                "label": "Middle Left"
-              },
-              "options__4": {
-                "label": "Middle Center"
-              },
-              "options__5": {
-                "label": "Middle Right"
-              },
-              "options__6": {
-                "label": "Bottom Left"
-              },
-              "options__7": {
-                "label": "Bottom Center"
-              },
-              "options__8": {
-                "label": "Bottom Right"
-              }
+            "heading": {
+              "default": "Skaidres pavadinimas"
             },
-            "full_width_content": {
-              "label": "Full Width Content",
-              "info": "Extends content to the full width of the slide"
+            "button_text": {
+              "default": "Pirkti dabar"
+            },
+            "text": {
+              "default": "Sukurkite patyrti, kuria jūsū klientai pamils."
             }
           }
         }
       },
       "presets": {
         "slideshow": {
-          "name": "Slideshow",
-          "category": "Image & media",
-          "blocks": {
-            "slide": {
-              "0": {
-                "title": "Welcome to our store",
-                "text": "Discover our latest collection of premium products"
-              },
-              "1": {
-                "title": "New arrivals",
-                "text": "Check out what's new this season"
-              }
-            }
-          }
+          "name": "Skaidriu demonstravimas",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "stacking_cards": {
-      "name": "Stacking cards",
+      "name": "Susikaupianccios kortelès",
       "settings": {
         "label": {
-          "default": "Features"
+          "default": "Savybes"
         },
         "title": {
-          "default": "Kodėl verta rinktis mus"
-        },
-        "header__background": {
-          "content": "Background"
-        },
-        "background_overlay_color": {
-          "label": "Background overlay color"
-        },
-        "background_overlay_opacity": {
-          "label": "Background overlay opacity"
+          "default": "Atraskite daugiau slinkdami"
         },
         "text": {
-          "default": "Discover what makes our products stand out from the rest."
+          "default": "Kiekviena kortelè sukraunama ant ankstesnès slenkant."
         }
       },
       "blocks": {
         "card": {
-          "name": "Card",
+          "name": "Kortelè",
           "settings": {
+            "heading": {
+              "default": "Korteles pavadinimas"
+            },
             "text": {
-              "default": "Describe this feature and how it benefits your customers. Keep it concise and compelling."
+              "default": "Korteles aprashymas, paaishkinantis shia savybe ar pranashuma."
             }
           }
         }
       },
       "presets": {
         "stacking_cards": {
-          "name": "Stacking cards",
-          "category": "Image & media",
-          "blocks": {
-            "card": {
-              "0": {
-                "title": "Premium Quality",
-                "text": "We source only the finest materials and work with skilled artisans to create products that last."
-              },
-              "1": {
-                "title": "Sustainable Practices",
-                "text": "Every step of our process is designed with the environment in mind, from sourcing to shipping."
-              },
-              "2": {
-                "title": "Customer First",
-                "text": "Your satisfaction is our priority. We offer hassle-free returns and dedicated support."
-              }
-            }
-          }
+          "name": "Susikaupianccios kortelès",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "team": {
-      "name": "Team",
+      "name": "Komanda",
       "settings": {
         "label": {
-          "default": "Our Team"
+          "default": "Mūsū komanda"
         },
         "title": {
-          "default": "Meet the People Behind the Brand"
+          "default": "Susipazinkite su komanda"
         },
         "text": {
-          "default": "We're a passionate team dedicated to creating products you'll love."
+          "default": "Susipazinkite su zhmonèmis, esanciais uzhh mūsū verslo."
         }
       },
       "blocks": {
         "member": {
-          "name": "Member",
+          "name": "Narys",
           "settings": {
             "name": {
-              "label": "Name",
-              "default": "Team Member"
+              "label": "Vardas",
+              "default": "Komandos nario vardas"
             },
             "role": {
-              "label": "Role",
+              "label": "Pareiegos",
               "default": "Pozicija"
             },
             "bio": {
-              "label": "Bio",
-              "default": "A short bio about this team member."
-            },
-            "linkedin": {
-              "label": "LinkedIn"
-            },
-            "twitter": {
-              "label": "X (Twitter)"
-            },
-            "instagram": {
-              "label": "Instagram"
+              "label": "Biografija"
             }
           }
         }
       },
       "presets": {
         "team": {
-          "name": "Team",
-          "category": "Text",
-          "blocks": {
-            "member": {
-              "0": {
-                "name": "Alex Thompson",
-                "role": "Founder & CEO",
-                "bio": "Passionate about creating exceptional products."
-              },
-              "1": {
-                "name": "Sarah Chen",
-                "role": "Creative Director",
-                "bio": "Bringing creative visions to life."
-              },
-              "2": {
-                "name": "Michael Brown",
-                "role": "Head of Product",
-                "bio": "Obsessed with user experience."
-              },
-              "3": {
-                "name": "Emily Davis",
-                "role": "Customer Success",
-                "bio": "Making sure customers are happy."
-              }
-            }
-          }
+          "name": "Komanda",
+          "category": "Tekstas"
         }
       }
     },
     "testimonials": {
-      "name": "Testimonials",
+      "name": "Atsiliepimai",
       "settings": {
         "label": {
-          "default": "Testimonials"
+          "default": "Atsiliepimai"
         },
         "title": {
-          "default": "What Our Customers Say"
+          "default": "Ka sako mùsù klientai"
         },
-        "show_rating": {
-          "label": "Show rating"
-        },
-        "header__text": {
-          "content": "Text"
-        },
-        "text_size": {
-          "label": "Text size"
+        "text": {
+          "default": "Pazhiūrèkite, ka patenkinti klientai sako apie mus."
         }
       },
       "blocks": {
         "testimonial": {
-          "name": "Testimonial",
+          "name": "Atsiliepimas",
           "settings": {
             "quote": {
-              "label": "Quote",
-              "default": "This product exceeded all my expectations. The quality is outstanding and the customer service was exceptional."
-            },
-            "rating": {
-              "label": "Rating"
-            },
-            "avatar": {
-              "label": "Avatar"
+              "label": "Citata",
+              "default": "Tai geriausias produktas, kuri esu kada nors pirkes. Labai rekomenduoju!"
             },
             "author": {
-              "label": "Author",
-              "default": "Sarah Johnson"
+              "label": "Autorius",
+              "default": "Kliento vardas"
             },
-            "author_title": {
-              "label": "Author title",
-              "default": "Verified Buyer"
+            "role": {
+              "label": "Pareigos",
+              "default": "Patenkintas klientas"
+            },
+            "rating": {
+              "label": "Vertinimas"
             }
           }
         }
       },
       "presets": {
         "testimonials": {
-          "name": "Testimonials",
-          "category": "Text",
-          "blocks": {
-            "testimonial": {
-              "0": {
-                "quote": "Absolutely love my purchase! The quality is incredible and it arrived faster than expected. Will definitely be ordering again.",
-                "author": "Sarah Johnson",
-                "author_title": "Verified Buyer"
-              },
-              "1": {
-                "quote": "Best customer service I've ever experienced. They went above and beyond to help me with my order.",
-                "author": "Michael Chen",
-                "author_title": "Loyal Customer"
-              },
-              "2": {
-                "quote": "I've recommended this to all my friends. The attention to detail is remarkable and the craftsmanship is outstanding.",
-                "author": "Emily Davis",
-                "author_title": "Repeat Customer"
-              },
-              "3": {
-                "quote": "This exceeded all my expectations. The quality speaks for itself and shipping was incredibly fast.",
-                "author": "David Wilson",
-                "author_title": "Verified Buyer"
-              },
-              "4": {
-                "quote": "Finally found a brand that actually delivers on its promises. Worth every penny and then some.",
-                "author": "Rachel Thompson",
-                "author_title": "First-time Buyer"
-              },
-              "5": {
-                "quote": "Outstanding quality and the packaging was beautiful. Felt like opening a gift. Can't wait to order more.",
-                "author": "James Martinez",
-                "author_title": "Repeat Customer"
-              }
-            }
-          }
+          "name": "Atsiliepimai",
+          "category": "Tekstas"
         }
       }
     },
     "text_reveal": {
-      "name": "Text reveal",
+      "name": "Teksto atskleidimas",
       "settings": {
-        "label": {
-          "default": "Our Mission"
+        "title": {
+          "default": "Tekstas, kuris atsiskleidzhia slenkant"
         },
-        "text": {
-          "default": "Crafted with *care*,\ndesigned to *inspire*."
-        },
-        "subtext": {
-          "label": "Subtext",
-          "default": "Every product we create is the result of countless hours of research, design, and craftsmanship. We believe that the details matter."
-        },
-        "header__background_number": {
-          "content": "Background number"
-        },
-        "show_background_number": {
-          "label": "Show background number"
-        },
-        "background_number": {
-          "label": "Background number",
-          "default": "01"
+        "reveal_type": {
+          "label": "Atskleidimo tipas",
+          "options__0": {
+            "label": "Pagal zhodzius"
+          },
+          "options__1": {
+            "label": "Pagal simbolius"
+          }
         }
       },
       "presets": {
         "text_reveal": {
-          "name": "Text reveal",
-          "category": "Text"
+          "name": "Teksto atskleidimas",
+          "category": "Tekstas"
         }
       }
     },
     "text_section": {
-      "name": "Text section",
+      "name": "Teksto sekcija",
       "settings": {
-        "title": {
-          "default": "Your headline here"
+        "label": {
+          "default": "Apie mus"
         },
-        "content_width": {
-          "label": "Content width"
+        "title": {
+          "default": "Mūsū istorija"
         },
         "text": {
-          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam iaculis purus quis lorem convallis, vitae consequat diam consequat. Quisque consequat sem lorem, ac volutpat tortor cursus in."
-        }
-      },
-      "blocks": {
-        "button": {
-          "settings": {
-            "button_text": {
-              "default": "Learn more"
-            },
-            "button_icon": {
-              "label": "Button icon",
-              "options__1": {
-                "label": "Arrow right"
-              },
-              "options__2": {
-                "label": "Arrow up right"
-              },
-              "options__3": {
-                "label": "Caret right"
-              },
-              "options__4": {
-                "label": "Plus"
-              },
-              "options__5": {
-                "label": "Shopping bag"
-              },
-              "options__6": {
-                "label": "Heart"
-              },
-              "options__7": {
-                "label": "Play"
-              },
-              "options__8": {
-                "label": "Envelope"
-              },
-              "options__9": {
-                "label": "Phone"
-              },
-              "options__10": {
-                "label": "Chat"
-              }
-            },
-            "icon_position": {
-              "label": "Icon position"
-            }
-          }
+          "default": "<p>Pasidalinkite savo prekès zhenklo istorija su klientais. Papasakokite apie imones ikūrima ir kas jus ishskiria.</p>"
         }
       },
       "presets": {
         "text_section": {
-          "name": "Text section",
-          "category": "Text",
-          "blocks": {
-            "button": {
-              "0": {
-                "button_text": "Shop now",
-                "button_style": "solid",
-                "button_icon": "arrow-right"
-              },
-              "1": {
-                "button_text": "Learn more",
-                "button_style": "outline"
-              }
-            }
-          }
+          "name": "Teksto sekcija",
+          "category": "Tekstas"
         }
       }
     },
     "timeline": {
-      "name": "Timeline",
+      "name": "Laiko juosta",
       "settings": {
         "label": {
-          "default": "Our Journey"
+          "default": "Mūsū kelionè"
         },
         "title": {
-          "default": "How We Got Here"
+          "default": "Mūsū istorija"
+        },
+        "text": {
+          "default": "Sekite mūsū prekès zhenklo istorija per metus."
         }
       },
       "blocks": {
         "milestone": {
-          "name": "Milestone",
+          "name": "Etapas",
           "settings": {
-            "year": {
-              "label": "Year",
+            "date": {
+              "label": "Data",
               "default": "2020"
             },
-            "title": {
-              "default": "Milestone Title"
+            "heading": {
+              "default": "Etapo pavadinimas"
             },
             "text": {
-              "default": "Describe this milestone and what it meant for your brand's journey."
+              "default": "Aprashykite shi svarbu momenta jūsū prekès zhenklo istorijoje."
             }
           }
         }
       },
       "presets": {
         "timeline": {
-          "name": "Timeline",
-          "category": "Text",
-          "blocks": {
-            "milestone": {
-              "0": {
-                "title": "The Beginning",
-                "text": "Started with a simple idea and a passion for quality products."
-              },
-              "1": {
-                "title": "First Collection",
-                "text": "Launched our inaugural product line to overwhelming response."
-              },
-              "2": {
-                "title": "Going Global",
-                "text": "Expanded to international markets and grew our community."
-              },
-              "3": {
-                "title": "Today",
-                "text": "Continuing to innovate and create products you love."
-              }
-            }
-          }
+          "name": "Laiko juosta",
+          "category": "Tekstas"
         }
       }
     },
     "trust_badges": {
-      "name": "Trust badges",
+      "name": "Pasitikejimo zhenklai",
+      "settings": {
+        "title": {
+          "default": "Kodèl pirkti pas mus"
+        }
+      },
       "blocks": {
         "badge": {
-          "name": "Badge",
+          "name": "Zhenklas",
           "settings": {
-            "title": {
-              "default": "Nemokamas pristatymas"
-            },
             "text": {
-              "default": "On orders over $50"
+              "default": "Zhenklo tekstas"
             }
           }
         }
       },
       "presets": {
         "trust_badges": {
-          "name": "Trust badges",
-          "category": "Promotional",
-          "blocks": {
-            "badge": {
-              "0": {
-                "title": "Nemokamas pristatymas",
-                "text": "On orders over $50"
-              },
-              "1": {
-                "title": "Secure Checkout",
-                "text": "SSL encrypted payment"
-              },
-              "2": {
-                "title": "Easy Returns",
-                "text": "30-day return policy"
-              },
-              "3": {
-                "title": "24/7 Support",
-                "text": "Dedicated support team"
-              }
-            }
-          }
+          "name": "Pasitikèjimo zhenklai",
+          "category": "Tekstas"
         }
       }
     },
     "video": {
-      "name": "Video",
+      "name": "Vaizdo irashhas",
       "settings": {
-        "loop": {
-          "label": "Loop"
+        "label": {
+          "default": "Zhiūrèkite"
         },
-        "content_position": {
-          "label": "Content position"
+        "title": {
+          "default": "Vaizdo sekcija"
+        },
+        "video_url": {
+          "label": "Vaizdo URL",
+          "info": "Palaiko YouTube ir Vimeo URL"
+        },
+        "video_file": {
+          "label": "Vaizdo failas",
+          "info": "Ikelkite vaizdo faila. Turi pirmenybè priesh URL"
+        },
+        "cover_image": {
+          "label": "Virshelio vaizdas",
+          "info": "Rodomas priesh vaizdo paleidima"
+        },
+        "autoplay": {
+          "info": "Automatiskai paleidzhia, kai sekcija matoma"
+        },
+        "loop": {
+          "label": "Kartoti"
+        },
+        "muted": {
+          "label": "Nutildytas"
+        },
+        "text": {
+          "default": "Pamaatykite mūsū istorija vaizdo formate."
         }
       },
       "presets": {
         "video": {
-          "name": "Video",
-          "category": "Image & media"
+          "name": "Vaizdo irashhas",
+          "category": "Vaizdai ir medija"
         }
       }
     },
     "wishlist": {
-      "name": "Wishlist",
+      "name": "Norù sarashas",
       "settings": {
         "label": {
-          "default": "Saved"
+          "default": "Norù sarashas"
         },
         "title": {
-          "default": "Wishlist"
+          "default": "Jūsū norų sarashas"
         }
       },
       "presets": {
         "wishlist": {
-          "name": "Wishlist",
-          "category": "Products"
+          "name": "Norù sarashas",
+          "category": "Produktai"
         }
       }
+    }
+  },
+  "settings_schema": {
+    "logo": {
+      "name": "Logotipas"
+    },
+    "colors": {
+      "name": "Spalvos"
+    },
+    "color_scheme_1": {
+      "label": "Schema 1"
+    },
+    "color_scheme_2": {
+      "label": "Schema 2"
+    },
+    "color_scheme_3": {
+      "label": "Schema 3"
+    },
+    "typography": {
+      "name": "Tipografija"
+    },
+    "layout": {
+      "name": "Maketas"
+    },
+    "buttons": {
+      "name": "Mygtukai"
+    },
+    "inputs": {
+      "name": "Ivesties laukai"
+    },
+    "cards": {
+      "name": "Korteles"
+    },
+    "product_card": {
+      "name": "Produkto kortele"
+    },
+    "social_media": {
+      "name": "Socialinè medija"
+    },
+    "seo": {
+      "name": "SEO ir schema"
+    },
+    "cart": {
+      "name": "Krepsshelis"
+    },
+    "newsletter_popup": {
+      "name": "Naujienlaisshkio ishshshokantis langas"
     }
   }
 }

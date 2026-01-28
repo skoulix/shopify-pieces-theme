@@ -1,343 +1,343 @@
 {
   "shared": {
     "headers": {
-      "content": "Content",
-      "layout": "Layout",
-      "colors": "Colors",
-      "padding": "Padding",
-      "animation": "Animation",
-      "image": "Image",
-      "images": "Images",
-      "button": "Button",
-      "products": "Products",
-      "media": "Media",
-      "video": "Video",
-      "overlay": "Overlay",
-      "autoplay": "Autoplay",
-      "labels": "Labels",
-      "social_links": "Social links",
-      "logo_styling": "Logo styling",
-      "countdown_timer": "Countdown timer"
+      "content": "Съдържание",
+      "layout": "Оформление",
+      "colors": "Цветове",
+      "padding": "Отстъп",
+      "animation": "Анимация",
+      "image": "Изображение",
+      "images": "Изображения",
+      "button": "Бутон",
+      "products": "Продукти",
+      "media": "Медия",
+      "video": "Видео",
+      "overlay": "Наслагване",
+      "autoplay": "Автоматично възпроизвеждане",
+      "labels": "Етикети",
+      "social_links": "Социални връзки",
+      "logo_styling": "Стил на логото",
+      "countdown_timer": "Таймер за обратно броене"
     },
     "settings": {
       "full_width": {
-        "label": "Full width"
+        "label": "Пълна ширина"
       },
       "color_scheme": {
-        "label": "Color scheme"
+        "label": "Цветова схема"
       },
       "padding": {
-        "label": "Padding",
+        "label": "Отстъп",
         "info": "Controls the vertical spacing of this section",
         "options__0": {
-          "label": "None"
+          "label": "Няма"
         },
         "options__1": {
-          "label": "Small"
+          "label": "Малък"
         },
         "options__2": {
-          "label": "Default"
+          "label": "По подразбиране"
         },
         "options__3": {
-          "label": "Large"
+          "label": "Голям"
         }
       },
       "button_style": {
-        "label": "Button style",
+        "label": "Стил на бутона",
         "options__0": {
-          "label": "Solid"
+          "label": "Плътен"
         },
         "options__1": {
-          "label": "Outline"
+          "label": "Контур"
         }
       },
       "button_color": {
-        "label": "Button color",
+        "label": "Цвят на бутона",
         "options__0": {
-          "label": "Primary"
+          "label": "Основен"
         },
         "options__1": {
-          "label": "Secondary"
+          "label": "Вторичен"
         }
       },
       "button_size": {
-        "label": "Button size",
+        "label": "Размер на бутона",
         "options__0": {
-          "label": "Small"
+          "label": "Малък"
         },
         "options__1": {
-          "label": "Default"
+          "label": "По подразбиране"
         },
         "options__2": {
-          "label": "Large"
+          "label": "Голям"
         }
       },
       "header_alignment": {
-        "label": "Header alignment"
+        "label": "Подравняване на заглавката"
       },
       "content_alignment": {
-        "label": "Content alignment"
+        "label": "Подравняване на съдържанието"
       },
       "button_text": {
-        "label": "Button text"
+        "label": "Текст на бутона"
       },
       "button_link": {
-        "label": "Button link"
+        "label": "Връзка на бутона"
       },
       "title": {
-        "label": "Title"
+        "label": "Заглавие"
       },
       "image": {
-        "label": "Image"
+        "label": "Изображение"
       },
       "heading": {
-        "label": "Heading"
+        "label": "Заглавие"
       },
       "link": {
-        "label": "Link"
+        "label": "Връзка"
       },
       "video": {
-        "label": "Video"
+        "label": "Видео"
       },
       "columns": {
-        "label": "Columns"
+        "label": "Колони"
       },
       "overlay_opacity": {
-        "label": "Overlay opacity"
+        "label": "Прозрачност на наслагването"
       },
       "overlay_color": {
-        "label": "Overlay color"
+        "label": "Цвят на наслагването"
       },
       "products_to_show": {
-        "label": "Products to show"
+        "label": "Продукти за показване"
       },
       "show_progress_bar": {
-        "label": "Show progress bar"
+        "label": "Показване на лента за напредък"
       },
       "show_vendor": {
-        "label": "Show vendor"
+        "label": "Показване на доставчик"
       },
       "show_view_all": {
-        "label": "Show view all"
+        "label": "Показване на Виж всички"
       },
       "text": {
-        "label": "Text"
+        "label": "Текст"
       },
       "icon": {
-        "label": "Icon",
+        "label": "Икона",
         "options__0": {
-          "label": "None"
+          "label": "Няма"
         },
         "options__1": {
-          "label": "Shield"
+          "label": "Щит"
         },
         "options__2": {
-          "label": "Lock"
+          "label": "Катинар"
         },
         "options__3": {
-          "label": "Certificate"
+          "label": "Сертификат"
         },
         "options__4": {
-          "label": "Medal"
+          "label": "Медал"
         },
         "options__5": {
-          "label": "Crown"
+          "label": "Корона"
         },
         "options__6": {
-          "label": "Truck"
+          "label": "Камион"
         },
         "options__7": {
-          "label": "Package"
+          "label": "Пакет"
         },
         "options__8": {
-          "label": "Storefront"
+          "label": "Витрина"
         },
         "options__9": {
-          "label": "Shopping cart"
+          "label": "Количка за пазаруване"
         },
         "options__10": {
-          "label": "Bag"
+          "label": "Чанта"
         },
         "options__11": {
-          "label": "Credit card"
+          "label": "Кредитна карта"
         },
         "options__12": {
-          "label": "Wallet"
+          "label": "Портфейл"
         },
         "options__13": {
-          "label": "Receipt"
+          "label": "Разписка"
         },
         "options__14": {
-          "label": "Tag"
+          "label": "Етикет"
         },
         "options__15": {
-          "label": "Barcode"
+          "label": "Баркод"
         },
         "options__16": {
-          "label": "Headset"
+          "label": "Слушалки"
         },
         "options__17": {
-          "label": "Chat"
+          "label": "Чат"
         },
         "options__18": {
-          "label": "Phone"
+          "label": "Телефон"
         },
         "options__19": {
-          "label": "Envelope"
+          "label": "Плик"
         },
         "options__20": {
-          "label": "Returns"
+          "label": "Връщания"
         },
         "options__21": {
-          "label": "Exchange"
+          "label": "Размяна"
         },
         "options__22": {
-          "label": "Heart"
+          "label": "Сърце"
         },
         "options__23": {
-          "label": "Handmade"
+          "label": "Ръчна изработка"
         },
         "options__24": {
-          "label": "Star"
+          "label": "Звезда"
         },
         "options__25": {
-          "label": "Four-point star"
+          "label": "Четирилъчна звезда"
         },
         "options__26": {
-          "label": "Sparkle"
+          "label": "Искра"
         },
         "options__27": {
-          "label": "Leaf"
+          "label": "Листо"
         },
         "options__28": {
-          "label": "Recycle"
+          "label": "Рециклиране"
         },
         "options__29": {
-          "label": "Globe"
+          "label": "Глобус"
         },
         "options__30": {
-          "label": "Clock"
+          "label": "Часовник"
         },
         "options__31": {
-          "label": "Hourglass"
+          "label": "Пясъчен часовник"
         },
         "options__32": {
-          "label": "Calendar"
+          "label": "Календар"
         },
         "options__33": {
-          "label": "Gift"
+          "label": "Подарък"
         },
         "options__34": {
-          "label": "Percent"
+          "label": "Процент"
         },
         "options__35": {
-          "label": "Lightning"
+          "label": "Мълния"
         },
         "options__36": {
-          "label": "Fire"
+          "label": "Огън"
         },
         "options__37": {
-          "label": "Bell"
+          "label": "Звънец"
         },
         "options__38": {
-          "label": "Growth"
+          "label": "Растеж"
         },
         "options__39": {
-          "label": "Target"
+          "label": "Цел"
         },
         "options__40": {
-          "label": "Rocket"
+          "label": "Ракета"
         },
         "options__41": {
-          "label": "Users"
+          "label": "Потребители"
         },
         "options__42": {
-          "label": "Compass"
+          "label": "Компас"
         },
         "options__43": {
-          "label": "Flag"
+          "label": "Знаме"
         },
         "options__44": {
-          "label": "Code"
+          "label": "Код"
         },
         "options__45": {
-          "label": "Paint brush"
+          "label": "Четка за рисуване"
         },
         "options__46": {
-          "label": "Wrench"
+          "label": "Гаечен ключ"
         },
         "options__47": {
-          "label": "Gear"
+          "label": "Зъбно колело"
         },
         "options__48": {
-          "label": "Pencil"
+          "label": "Молив"
         },
         "options__49": {
-          "label": "Ruler"
+          "label": "Линийка"
         },
         "options__50": {
-          "label": "Flask"
+          "label": "Колба"
         },
         "options__51": {
-          "label": "Camera"
+          "label": "Камера"
         },
         "options__52": {
-          "label": "Image"
+          "label": "Изображение"
         },
         "options__53": {
-          "label": "Play"
+          "label": "Възпроизвеждане"
         },
         "options__54": {
-          "label": "Music"
+          "label": "Музика"
         },
         "options__55": {
-          "label": "Microphone"
+          "label": "Микрофон"
         },
         "options__56": {
-          "label": "Article"
+          "label": "Статия"
         },
         "options__57": {
-          "label": "Bookmark"
+          "label": "Отметка"
         },
         "options__58": {
-          "label": "Map pin"
+          "label": "Карта с пин"
         },
         "options__59": {
-          "label": "Mountains"
+          "label": "Планини"
         },
         "options__60": {
-          "label": "Key"
+          "label": "Ключ"
         },
         "options__61": {
-          "label": "Diamond"
+          "label": "Диамант"
         },
         "options__62": {
-          "label": "Circle"
+          "label": "Кръг"
         },
         "options__63": {
-          "label": "Flower"
+          "label": "Цвете"
         },
         "options__64": {
-          "label": "Dash"
+          "label": "Тире"
         },
         "options__65": {
-          "label": "Arrow"
+          "label": "Стрелка"
         },
         "options__66": {
-          "label": "Caret"
+          "label": "Карета"
         }
       },
       "custom_icon": {
-        "label": "Custom icon",
+        "label": "Персонализирана икона",
         "info": "Overrides the icon setting above. Recommended: 80×80px"
       },
       "aspect_ratio": {
-        "label": "Aspect ratio",
+        "label": "Съотношение на страните",
         "options__0": {
-          "label": "Auto"
+          "label": "Автоматично"
         },
         "options__1": {
-          "label": "Square (1:1)"
+          "label": "Квадрат (1:1)"
         },
         "options__2": {
           "label": "4/5"
@@ -349,239 +349,239 @@
           "label": "2/3"
         },
         "options__5": {
-          "label": "Standard (4:3)"
+          "label": "Стандарт (4:3)"
         },
         "options__6": {
           "label": "3/2"
         },
         "options__7": {
-          "label": "Widescreen (16:9)"
+          "label": "Широкоекранен (16:9)"
         },
         "options__8": {
-          "label": "Ultrawide (21:9)"
+          "label": "Ултраширок (21:9)"
         },
         "options__9": {
-          "label": "Portrait (9:16)"
+          "label": "Портрет (9:16)"
         }
       },
       "label": {
-        "label": "Label"
+        "label": "Етикет"
       },
       "style": {
-        "label": "Style"
+        "label": "Стил"
       },
       "layout": {
-        "label": "Layout"
+        "label": "Оформление"
       },
       "content": {
-        "label": "Content"
+        "label": "Съдържание"
       },
       "product": {
-        "label": "Product"
+        "label": "Продукт"
       },
       "collection": {
-        "label": "Collection"
+        "label": "Колекция"
       },
       "menu": {
-        "label": "Menu"
+        "label": "Меню"
       },
       "logo": {
-        "label": "Logo"
+        "label": "Лого"
       },
       "speed": {
-        "label": "Speed"
+        "label": "Скорост"
       },
       "link_text": {
-        "label": "Link text"
+        "label": "Текст на връзката"
       },
       "grayscale": {
-        "label": "Grayscale"
+        "label": "Сиви тонове"
       },
       "show_date": {
-        "label": "Show date"
+        "label": "Показване на дата"
       },
       "show_author": {
-        "label": "Show author"
+        "label": "Показване на автор"
       },
       "show_tags": {
-        "label": "Show tags"
+        "label": "Показване на тагове"
       },
       "show_breadcrumbs": {
-        "label": "Show breadcrumbs"
+        "label": "Показване на навигационна пътека"
       },
       "show_arrows": {
-        "label": "Show arrows"
+        "label": "Показване на стрелки"
       },
       "show_countdown": {
-        "label": "Show countdown"
+        "label": "Показване на обратно броене"
       },
       "countdown_date": {
-        "label": "Countdown date"
+        "label": "Дата на обратно броене"
       },
       "show_dividers": {
-        "label": "Show dividers"
+        "label": "Показване на разделители"
       },
       "pause_on_hover": {
-        "label": "Pause on hover"
+        "label": "Пауза при задържане"
       },
       "show_description": {
-        "label": "Show description"
+        "label": "Показване на описание"
       },
       "show_excerpt": {
-        "label": "Show excerpt"
+        "label": "Показване на откъс"
       },
       "show_read_more": {
-        "label": "Show read more"
+        "label": "Показване на Прочети повече"
       },
       "feature_first": {
-        "label": "Feature first"
+        "label": "Открояване на първия"
       },
       "show_add_all": {
-        "label": "Show add all button"
+        "label": "Показване на бутон Добави всички"
       },
       "enable_description_shuffle": {
-        "label": "Enable description shuffle"
+        "label": "Разбъркване на описанието"
       },
       "slides_mobile": {
-        "label": "Slides per view (mobile)"
+        "label": "Слайдове на екран (мобилен)"
       },
       "slides_tablet": {
-        "label": "Slides per view (tablet)"
+        "label": "Слайдове на екран (таблет)"
       },
       "slides_desktop": {
-        "label": "Slides per view (desktop)"
+        "label": "Слайдове на екран (десктоп)"
       },
       "columns_desktop": {
-        "label": "Columns desktop"
+        "label": "Колони на десктоп"
       },
       "columns_tablet": {
-        "label": "Columns tablet"
+        "label": "Колони на таблет"
       },
       "columns_mobile": {
-        "label": "Columns mobile"
+        "label": "Колони на мобилен"
       },
       "rotation_speed": {
-        "label": "Rotation speed"
+        "label": "Скорост на въртене"
       },
       "view_all_text": {
-        "label": "View all text"
+        "label": "Текст Виж всички"
       },
       "enable_bento_pattern": {
-        "label": "Enable bento pattern"
+        "label": "Активиране на бенто модел"
       },
       "design": {
-        "label": "Design"
+        "label": "Дизайн"
       },
       "number": {
-        "label": "Number"
+        "label": "Число"
       },
       "border_radius": {
-        "label": "Border radius"
+        "label": "Радиус на ъглите"
       },
       "section_height": {
-        "label": "Section height"
+        "label": "Височина на секцията"
       },
       "enable_parallax": {
-        "label": "Enable parallax"
+        "label": "Активиране на паралакс"
       },
       "show_social": {
-        "label": "Show social links"
+        "label": "Показване на социални връзки"
       },
       "direction": {
-        "label": "Direction"
+        "label": "Посока"
       },
       "scroll_aware": {
-        "label": "Scroll aware"
+        "label": "Реагиране на скролване"
       },
       "scroll_speed": {
-        "label": "Scroll speed"
+        "label": "Скорост на скролване"
       },
       "logo_height": {
-        "label": "Logo height"
+        "label": "Височина на логото"
       },
       "invert": {
-        "label": "Invert"
+        "label": "Инвертиране"
       },
       "label_alignment": {
-        "label": "Label alignment"
+        "label": "Подравняване на етикета"
       },
       "animation_duration": {
-        "label": "Animation duration"
+        "label": "Продължителност на анимацията"
       },
       "outline": {
-        "label": "Outline"
+        "label": "Контур"
       },
       "autoplay": {
-        "label": "Autoplay"
+        "label": "Автоматично възпроизвеждане"
       },
       "autoplay_speed": {
-        "label": "Autoplay speed"
+        "label": "Скорост на автоматично възпроизвеждане"
       },
       "swatch_shape": {
-        "label": "Swatch shape"
+        "label": "Форма на мострата"
       },
       "button_type": {
-        "label": "Button type"
+        "label": "Тип бутон"
       },
       "position_x": {
-        "label": "Position X"
+        "label": "Позиция X"
       },
       "position_y": {
-        "label": "Position Y"
+        "label": "Позиция Y"
       },
       "position_x_mobile": {
-        "label": "Position X mobile"
+        "label": "Позиция X (мобилен)"
       },
       "position_y_mobile": {
-        "label": "Position Y mobile"
+        "label": "Позиция Y (мобилен)"
       },
       "dot_color": {
-        "label": "Dot color"
+        "label": "Цвят на точката"
       },
       "icon_color": {
-        "label": "Icon color"
+        "label": "Цвят на иконата"
       },
       "show_scroll_indicator": {
-        "label": "Show scroll indicator"
+        "label": "Показване на индикатор за скролване"
       },
       "background_image": {
-        "label": "Background image"
+        "label": "Фоново изображение"
       },
       "background_image_position": {
-        "label": "Background image position"
+        "label": "Позиция на фоновото изображение"
       },
       "background_image_blur": {
-        "label": "Background image blur"
+        "label": "Размазване на фоновото изображение"
       },
       "text_alignment": {
-        "label": "Text alignment"
+        "label": "Подравняване на текста"
       },
       "padding_top": {
-        "label": "Padding top"
+        "label": "Отстъп отгоре"
       },
       "padding_bottom": {
-        "label": "Padding bottom"
+        "label": "Отстъп отдолу"
       },
       "scroll_start": {
-        "label": "Scroll start"
+        "label": "Начало на скролване"
       },
       "scroll_end": {
-        "label": "Scroll end"
+        "label": "Край на скролване"
       },
       "show_share": {
-        "label": "Show share button"
+        "label": "Показване на бутон за споделяне"
       },
       "address": {
-        "label": "Address"
+        "label": "Адрес"
       },
       "nav_uppercase": {
-        "label": "Nav uppercase"
+        "label": "Главни букви в навигацията"
       },
       "image_fit": {
-        "label": "Image fit"
+        "label": "Напасване на изображението"
       },
       "show_controls": {
-        "label": "Show controls"
+        "label": "Показване на контроли"
       }
     },
     "info": {
@@ -609,54 +609,54 @@
       "1": "1",
       "2": "2",
       "3": "3",
-      "none": "None",
-      "left": "Left",
-      "right": "Right",
-      "center": "Center",
-      "top": "Top",
-      "bottom": "Bottom",
-      "top_left": "Top left",
-      "top_center": "Top center",
-      "top_right": "Top right",
-      "center_left": "Center left",
-      "center_right": "Center right",
-      "bottom_left": "Bottom left",
-      "bottom_center": "Bottom center",
-      "bottom_right": "Bottom right",
-      "cover": "Cover",
-      "contain": "Contain",
-      "square": "Square",
-      "circle": "Circle",
-      "image_left": "Image left",
-      "image_right": "Image right",
-      "link": "Link",
-      "button": "Button",
-      "dropdown": "Dropdown",
-      "minimal": "Minimal",
-      "fade": "Fade",
-      "slide": "Slide",
-      "icon_only": "Icon only",
-      "icon_and_text": "Icon and text",
-      "text_only": "Text only",
-      "small": "Small",
-      "medium": "Medium",
-      "large": "Large",
-      "bar": "Bar"
+      "none": "Няма",
+      "left": "Ляво",
+      "right": "Дясно",
+      "center": "Център",
+      "top": "Горе",
+      "bottom": "Долу",
+      "top_left": "Горе вляво",
+      "top_center": "Горе в центъра",
+      "top_right": "Горе вдясно",
+      "center_left": "Център вляво",
+      "center_right": "Център вдясно",
+      "bottom_left": "Долу вляво",
+      "bottom_center": "Долу в центъра",
+      "bottom_right": "Долу вдясно",
+      "cover": "Покриване",
+      "contain": "Побиране",
+      "square": "Квадрат",
+      "circle": "Кръг",
+      "image_left": "Изображение вляво",
+      "image_right": "Изображение вдясно",
+      "link": "Връзка",
+      "button": "Бутон",
+      "dropdown": "Падащо меню",
+      "minimal": "Минимален",
+      "fade": "Избледняване",
+      "slide": "Плъзгане",
+      "icon_only": "Само икона",
+      "icon_and_text": "Икона и текст",
+      "text_only": "Само текст",
+      "small": "Малък",
+      "medium": "Среден",
+      "large": "Голям",
+      "bar": "Лента"
     },
     "blocks": {
-      "text": "Text",
-      "button": "Button",
-      "heading": "Heading",
-      "image": "Image",
-      "stat": "Stat",
-      "logo": "Logo",
-      "slide": "Slide"
+      "text": "Текст",
+      "button": "Бутон",
+      "heading": "Заглавие",
+      "image": "Изображение",
+      "stat": "Статистика",
+      "logo": "Лого",
+      "slide": "Плъзгане"
     },
     "defaults": {
-      "learn_more": "Learn More",
-      "feature_title": "Feature Title",
-      "view_all": "View All",
-      "free_shipping_announcement": "Free shipping on orders over $50"
+      "learn_more": "Научете повече",
+      "feature_title": "Заглавие на функция",
+      "view_all": "Виж всички",
+      "free_shipping_announcement": "Безплатна доставка за поръчки над 100 лв."
     }
   },
   "sections": {
@@ -664,27 +664,27 @@
       "name": "404"
     },
     "announcement_bar": {
-      "name": "Announcement bar",
+      "name": "Лента за съобщения",
       "settings": {
         "bar_height": {
-          "label": "Bar height"
+          "label": "Височина на лентата"
         },
         "dismissible": {
-          "label": "Dismissible"
+          "label": "Може да се затвори"
         }
       },
       "blocks": {
         "message": {
-          "name": "Message"
+          "name": "Съобщение"
         }
       },
       "presets": {
         "announcement_bar": {
-          "name": "Announcement bar",
+          "name": "Лента за съобщения",
           "blocks": {
             "message": {
               "0": {
-                "text": "Free shipping on orders over $50"
+                "text": "Безплатна доставка за поръчки над 100 лв."
               },
               "1": {
                 "text": "Use code SAVE20 for 20% off"
@@ -695,29 +695,29 @@
       }
     },
     "apps": {
-      "name": "Apps",
+      "name": "Приложения",
       "presets": {
         "apps": {
-          "name": "Apps"
+          "name": "Приложения"
         }
       }
     },
     "article": {
-      "name": "Article",
+      "name": "Статия",
       "settings": {
         "header__article_details": {
-          "content": "Article Details"
+          "content": "Детайли на статията"
         },
         "show_reading_time": {
-          "label": "Show Reading Time"
+          "label": "Показване на време за четене"
         },
         "show_prev_next": {
-          "label": "Show Prev Next"
+          "label": "Показване на предишна/следваща"
         }
       }
     },
     "background_zoom": {
-      "name": "Background zoom",
+      "name": "Увеличаване на фона",
       "settings": {
         "header__title_before_zoom": {
           "content": "Title Before Zoom"
@@ -790,7 +790,7 @@
       },
       "presets": {
         "background_zoom": {
-          "name": "Background zoom",
+          "name": "Увеличаване на фона",
           "category": "Image & media",
           "settings": {
             "title_before": "Image to Background",
@@ -815,7 +815,7 @@
       }
     },
     "banner": {
-      "name": "Banner",
+      "name": "Банер",
       "settings": {
         "heading": {
           "default": "Important Announcement"
@@ -836,13 +836,13 @@
       },
       "presets": {
         "banner": {
-          "name": "Banner",
+          "name": "Банер",
           "category": "Promotional"
         }
       }
     },
     "before_after": {
-      "name": "Before & after",
+      "name": "Преди и след",
       "settings": {
         "label": {
           "default": "Compare"
@@ -873,13 +873,13 @@
       },
       "presets": {
         "before_after": {
-          "name": "Before & after",
+          "name": "Преди и след",
           "category": "Image & media"
         }
       }
     },
     "blog": {
-      "name": "Blog",
+      "name": "Блог",
       "settings": {
         "articles_per_page": {
           "label": "Articles Per Page"
@@ -890,10 +890,10 @@
       }
     },
     "cart_drawer": {
-      "name": "Cart drawer"
+      "name": "Чекмедже за количка"
     },
     "cart": {
-      "name": "Cart",
+      "name": "Количка",
       "settings": {
         "header__trust_badges": {
           "content": "Trust Badges"
@@ -916,7 +916,7 @@
       }
     },
     "collection": {
-      "name": "Collection",
+      "name": "Колекция",
       "settings": {
         "show_product_count": {
           "label": "Show Product Count"
@@ -973,7 +973,7 @@
       },
       "blocks": {
         "collection": {
-          "name": "Collection",
+          "name": "Колекция",
           "settings": {
             "tab_label": {
               "label": "Tab Label",
@@ -985,7 +985,7 @@
       "presets": {
         "collections_carousel": {
           "name": "Collections carousel",
-          "category": "Collection"
+          "category": "Колекция"
         }
       }
     },
@@ -1024,7 +1024,7 @@
       "presets": {
         "product_comparison": {
           "name": "Product comparison",
-          "category": "Products"
+          "category": "Продукти"
         }
       }
     },
@@ -1044,7 +1044,7 @@
       "presets": {
         "complementary_products": {
           "name": "Complementary products",
-          "category": "Products"
+          "category": "Продукти"
         }
       }
     },
@@ -1088,7 +1088,7 @@
         },
         "design": {
           "options__0": {
-            "label": "Hero"
+            "label": "Герой"
           },
           "options__1": {
             "label": "Compact"
@@ -1172,7 +1172,7 @@
       }
     },
     "faq": {
-      "name": "FAQ",
+      "name": "ЧЗВ",
       "settings": {
         "label": {
           "default": "Support"
@@ -1201,8 +1201,8 @@
       },
       "presets": {
         "faq": {
-          "name": "FAQ",
-          "category": "Text",
+          "name": "ЧЗВ",
+          "category": "Текст",
           "blocks": {
             "faq_item": {
               "0": {
@@ -1223,10 +1223,10 @@
       }
     },
     "featured_blog": {
-      "name": "Featured blog",
+      "name": "Представен блог",
       "settings": {
         "blog": {
-          "label": "Blog"
+          "label": "Блог"
         },
         "title": {
           "info": "Leave blank to use the blog title"
@@ -1243,13 +1243,13 @@
       },
       "presets": {
         "featured_blog": {
-          "name": "Featured blog",
-          "category": "Blog"
+          "name": "Представен блог",
+          "category": "Блог"
         }
       }
     },
     "featured_collection": {
-      "name": "Featured collection",
+      "name": "Представена колекция",
       "settings": {
         "title": {
           "info": "Leave blank to use the collection title"
@@ -1257,13 +1257,13 @@
       },
       "presets": {
         "featured_collection": {
-          "name": "Featured collection",
-          "category": "Products"
+          "name": "Представена колекция",
+          "category": "Продукти"
         }
       }
     },
     "featured_product": {
-      "name": "Featured product",
+      "name": "Представен продукт",
       "settings": {
         "show_thumbnails": {
           "label": "Show Thumbnails"
@@ -1271,7 +1271,7 @@
         "variant_picker_type": {
           "label": "Variant Picker Type",
           "options__0": {
-            "label": "Buttons"
+            "label": "Бутони"
           }
         },
         "show_quantity": {
@@ -1283,13 +1283,13 @@
       },
       "presets": {
         "featured_product": {
-          "name": "Featured product",
-          "category": "Products"
+          "name": "Представен продукт",
+          "category": "Продукти"
         }
       }
     },
     "features_grid": {
-      "name": "Features grid",
+      "name": "Мрежа с функции",
       "settings": {
         "label": {
           "default": "Why Choose Us"
@@ -1321,8 +1321,8 @@
       },
       "presets": {
         "features_grid": {
-          "name": "Features grid",
-          "category": "Text",
+          "name": "Мрежа с функции",
+          "category": "Текст",
           "blocks": {
             "feature": {
               "0": {
@@ -1343,7 +1343,7 @@
       }
     },
     "floating_images": {
-      "name": "Floating images",
+      "name": "Плаващи изображения",
       "settings": {
         "label": {
           "default": "Discover"
@@ -1370,13 +1370,13 @@
       },
       "presets": {
         "floating_images": {
-          "name": "Floating images",
+          "name": "Плаващи изображения",
           "category": "Image & media"
         }
       }
     },
     "footer": {
-      "name": "Footer",
+      "name": "Футър",
       "settings": {
         "footer_design": {
           "label": "Footer Design",
@@ -1425,7 +1425,7 @@
           }
         },
         "newsletter": {
-          "name": "Newsletter",
+          "name": "Бюлетин",
           "settings": {
             "heading": {
               "default": "Subscribe to our newsletter"
@@ -1496,7 +1496,7 @@
       }
     },
     "header": {
-      "name": "Header",
+      "name": "Хедър",
       "settings": {
         "header_layout": {
           "label": "Header Layout",
@@ -1524,7 +1524,7 @@
             "label": "Drawer"
           },
           "options__1": {
-            "label": "Page"
+            "label": "Страница"
           },
           "info": "Choose between a drawer or full-page search"
         },
@@ -1606,7 +1606,7 @@
               "info": "Enter the exact menu item title to apply the mega menu to"
             },
             "animation": {
-              "label": "Animation",
+              "label": "Анимация",
               "options__0": {
                 "label": "Fade Slide"
               }
@@ -1687,7 +1687,7 @@
           "info": "Opacity of the overlay on the background image"
         },
         "header__cards": {
-          "content": "Cards"
+          "content": "Карти"
         },
         "card_background": {
           "label": "Card Background"
@@ -1708,7 +1708,7 @@
       }
     },
     "hero": {
-      "name": "Hero",
+      "name": "Герой",
       "settings": {
         "title": {
           "default": "Elevate Your Style"
@@ -1725,7 +1725,7 @@
       },
       "presets": {
         "hero": {
-          "name": "Hero",
+          "name": "Герой",
           "category": "Image & media"
         }
       }
@@ -1803,7 +1803,7 @@
       "presets": {
         "highlight_text": {
           "name": "Highlight text",
-          "category": "Text",
+          "category": "Текст",
           "blocks": {
             "heading": {
               "0": {
@@ -2011,7 +2011,7 @@
       },
       "blocks": {
         "label": {
-          "name": "Label",
+          "name": "Етикет",
           "settings": {
             "text": {
               "default": "SCROLL TO EXPLORE"
@@ -2082,7 +2082,7 @@
               "default": "100+"
             },
             "label": {
-              "default": "Products"
+              "default": "Продукти"
             }
           }
         }
@@ -2107,7 +2107,7 @@
       }
     },
     "image": {
-      "name": "Image",
+      "name": "Изображение",
       "settings": {
         "caption": {
           "label": "Caption"
@@ -2145,7 +2145,7 @@
       },
       "presets": {
         "image": {
-          "name": "Image",
+          "name": "Изображение",
           "category": "Image & media"
         }
       }
@@ -2261,10 +2261,10 @@
       },
       "blocks": {
         "address": {
-          "name": "Address",
+          "name": "Адрес",
           "settings": {
             "title": {
-              "default": "Address"
+              "default": "Адрес"
             },
             "address": {
               "default": "123 Main Street\nNew York, NY 10001"
@@ -2290,7 +2290,7 @@
               "default": "Contact"
             },
             "phone": {
-              "label": "Phone"
+              "label": "Телефон"
             },
             "email": {
               "label": "Email"
@@ -2308,7 +2308,7 @@
           "blocks": {
             "address": {
               "0": {
-                "title": "Address",
+                "title": "Адрес",
                 "address": "123 Main Street\nNew York, NY 10001"
               }
             },
@@ -2383,7 +2383,7 @@
                 "label": "Dot"
               },
               "options__1": {
-                "label": "Icon"
+                "label": "Икона"
               }
             }
           }
@@ -2421,7 +2421,7 @@
       }
     },
     "newsletter": {
-      "name": "Newsletter",
+      "name": "Бюлетин",
       "settings": {
         "design": {
           "options__0": {
@@ -2461,7 +2461,7 @@
       },
       "presets": {
         "newsletter": {
-          "name": "Newsletter",
+          "name": "Бюлетин",
           "category": "Promotional",
           "settings": {
             "design": "side-by-side"
@@ -2470,10 +2470,10 @@
       }
     },
     "page": {
-      "name": "Page"
+      "name": "Страница"
     },
     "password": {
-      "name": "Password",
+      "name": "Парола",
       "settings": {
         "heading": {
           "default": "Opening Soon"
@@ -2483,7 +2483,7 @@
           "default": "We're working on something special. Enter the password to get early access."
         },
         "header__newsletter": {
-          "content": "Newsletter"
+          "content": "Бюлетин"
         },
         "show_newsletter": {
           "label": "Show newsletter"
@@ -2533,17 +2533,17 @@
             "slide": {
               "0": {
                 "title": "Green Cityscape",
-                "button_text": "Learn More",
+                "button_text": "Научете повече",
                 "text": "Vibrant streets with vertical gardens and solar buildings. This oasis thrives on renewable energy, smart transport, and green spaces for biodiversity."
               },
               "1": {
                 "title": "Blue Urban Oasis",
-                "button_text": "Learn More",
+                "button_text": "Научете повече",
                 "text": "Avenues with azure facades and eco-structures. This hub uses clean energy, smart transit, and parks for urban wildlife."
               },
               "2": {
                 "title": "Fluid Architecture",
-                "button_text": "Learn More",
+                "button_text": "Научете повече",
                 "text": "Desert refuge with fluid architecture and glowing interiors. This sanctuary harnesses solar power, sustainable design, and natural harmony."
               }
             }
@@ -2552,7 +2552,7 @@
       }
     },
     "product": {
-      "name": "Product",
+      "name": "Продукт",
       "settings": {
         "image_fit": {
           "options__3": {
@@ -2602,7 +2602,7 @@
           "name": "Vendor"
         },
         "title": {
-          "name": "Title",
+          "name": "Заглавие",
           "settings": {
             "split_words": {
               "label": "Split words",
@@ -2710,7 +2710,7 @@
               "label": "Drawer heading"
             },
             "page": {
-              "label": "Page",
+              "label": "Страница",
               "info": "Select a page with size chart content"
             },
             "content": {
@@ -2792,7 +2792,7 @@
       "presets": {
         "recently_viewed": {
           "name": "Recently viewed",
-          "category": "Products"
+          "category": "Продукти"
         }
       }
     },
@@ -2812,7 +2812,7 @@
       "presets": {
         "related_products": {
           "name": "Related products",
-          "category": "Products"
+          "category": "Продукти"
         }
       }
     },
@@ -2856,7 +2856,7 @@
       "presets": {
         "rolling_numbers": {
           "name": "Rolling numbers",
-          "category": "Text",
+          "category": "Текст",
           "settings": {
             "title": "By the Numbers",
             "text": "Our impact in numbers that speak for themselves."
@@ -2923,7 +2923,7 @@
               "0": {
                 "title": "Discover Our Story",
                 "text": "Every great brand has a story. This is where yours begins.",
-                "button_text": "Learn More"
+                "button_text": "Научете повече"
               },
               "1": {
                 "title": "Crafted With Care",
@@ -2941,7 +2941,7 @@
       }
     },
     "search": {
-      "name": "Search",
+      "name": "Търсене",
       "settings": {
         "show_popular_searches": {
           "label": "Show popular searches",
@@ -2986,7 +2986,7 @@
       },
       "blocks": {
         "product": {
-          "name": "Product",
+          "name": "Продукт",
           "settings": {
             "header__hotspot_position": {
               "content": "Hotspot Position"
@@ -2997,7 +2997,7 @@
       "presets": {
         "shop_the_look": {
           "name": "Shop the look",
-          "category": "Products"
+          "category": "Продукти"
         }
       }
     },
@@ -3031,7 +3031,7 @@
       },
       "blocks": {
         "video": {
-          "name": "Video",
+          "name": "Видео",
           "settings": {
             "video_hosted": {
               "label": "Video Hosted"
@@ -3047,7 +3047,7 @@
       }
     },
     "slideshow": {
-      "name": "Slideshow",
+      "name": "Слайдшоу",
       "settings": {
         "header__transition": {
           "content": "Transition"
@@ -3129,7 +3129,7 @@
       },
       "presets": {
         "slideshow": {
-          "name": "Slideshow",
+          "name": "Слайдшоу",
           "category": "Image & media",
           "blocks": {
             "slide": {
@@ -3202,7 +3202,7 @@
       }
     },
     "team": {
-      "name": "Team",
+      "name": "Екип",
       "settings": {
         "label": {
           "default": "Our Team"
@@ -3244,8 +3244,8 @@
       },
       "presets": {
         "team": {
-          "name": "Team",
-          "category": "Text",
+          "name": "Екип",
+          "category": "Текст",
           "blocks": {
             "member": {
               "0": {
@@ -3274,10 +3274,10 @@
       }
     },
     "testimonials": {
-      "name": "Testimonials",
+      "name": "Отзиви",
       "settings": {
         "label": {
-          "default": "Testimonials"
+          "default": "Отзиви"
         },
         "title": {
           "default": "What Our Customers Say"
@@ -3286,7 +3286,7 @@
           "label": "Show rating"
         },
         "header__text": {
-          "content": "Text"
+          "content": "Текст"
         },
         "text_size": {
           "label": "Text size"
@@ -3319,8 +3319,8 @@
       },
       "presets": {
         "testimonials": {
-          "name": "Testimonials",
-          "category": "Text",
+          "name": "Отзиви",
+          "category": "Текст",
           "blocks": {
             "testimonial": {
               "0": {
@@ -3385,7 +3385,7 @@
       "presets": {
         "text_reveal": {
           "name": "Text reveal",
-          "category": "Text"
+          "category": "Текст"
         }
       }
     },
@@ -3426,19 +3426,19 @@
                 "label": "Shopping bag"
               },
               "options__6": {
-                "label": "Heart"
+                "label": "Сърце"
               },
               "options__7": {
-                "label": "Play"
+                "label": "Възпроизвеждане"
               },
               "options__8": {
-                "label": "Envelope"
+                "label": "Плик"
               },
               "options__9": {
-                "label": "Phone"
+                "label": "Телефон"
               },
               "options__10": {
-                "label": "Chat"
+                "label": "Чат"
               }
             },
             "icon_position": {
@@ -3450,7 +3450,7 @@
       "presets": {
         "text_section": {
           "name": "Text section",
-          "category": "Text",
+          "category": "Текст",
           "blocks": {
             "button": {
               "0": {
@@ -3468,7 +3468,7 @@
       }
     },
     "timeline": {
-      "name": "Timeline",
+      "name": "Хронология",
       "settings": {
         "label": {
           "default": "Our Journey"
@@ -3496,8 +3496,8 @@
       },
       "presets": {
         "timeline": {
-          "name": "Timeline",
-          "category": "Text",
+          "name": "Хронология",
+          "category": "Текст",
           "blocks": {
             "milestone": {
               "0": {
@@ -3564,7 +3564,7 @@
       }
     },
     "video": {
-      "name": "Video",
+      "name": "Видео",
       "settings": {
         "loop": {
           "label": "Loop"
@@ -3575,25 +3575,25 @@
       },
       "presets": {
         "video": {
-          "name": "Video",
+          "name": "Видео",
           "category": "Image & media"
         }
       }
     },
     "wishlist": {
-      "name": "Wishlist",
+      "name": "Списък с желания",
       "settings": {
         "label": {
           "default": "Saved"
         },
         "title": {
-          "default": "Wishlist"
+          "default": "Списък с желания"
         }
       },
       "presets": {
         "wishlist": {
-          "name": "Wishlist",
-          "category": "Products"
+          "name": "Списък с желания",
+          "category": "Продукти"
         }
       }
     }
