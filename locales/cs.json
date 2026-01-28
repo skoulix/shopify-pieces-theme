@@ -1,0 +1,566 @@
+{
+  "404": {
+    "title": "Stránka nenalezena",
+    "not_found": "Stránka nenalezena",
+    "description": "Omlouváme se, stránku, kterou hledáte, se nepodařilo najít. Mohla být přesunuta nebo smazána.",
+    "back_home": "Zpět na úvodní stránku",
+    "browse_products": "Procházet produkty",
+    "suggestions_title": "Možná hledáte",
+    "search_prompt": "Nebo zkuste vyhledat, co potřebujete",
+    "back_to_shopping": "Zpět k nákupu"
+  },
+  "localization": {
+    "country_label": "Země/region",
+    "language_label": "Jazyk",
+    "search_country": "Hledat země..."
+  },
+  "newsletter": {
+    "label": "E-mail",
+    "button_label": "Odebírat",
+    "success": "Děkujeme za odebírání"
+  },
+  "accessibility": {
+    "skip_to_text": "Přeskočit na obsah",
+    "skip_to_product_info": "Přeskočit na informace o produktu",
+    "close": "Zavřít",
+    "close_modal": "Zavřít dialogové okno",
+    "modal": "Dialogové okno",
+    "close_cart": "Zavřít košík",
+    "unit_price_separator": "za",
+    "vendor": "Výrobce:",
+    "error": "Chyba",
+    "refresh_page": "Výběr možnosti způsobí obnovení celé stránky.",
+    "link_messages": {
+      "new_window": "Otevře se v novém okně.",
+      "external": "Otevře externí webovou stránku."
+    },
+    "of": "z",
+    "slideshow": "Prezentace",
+    "next_slide": "Další snímek",
+    "previous_slide": "Předchozí snímek",
+    "go_to_slide": "Přejít na snímek {{ index }}",
+    "current_slide": "Snímek {{ index }}, aktuální snímek",
+    "slide_x_of_y": "Snímek {{ current }} z {{ total }}",
+    "loading": "Načítání...",
+    "total_reviews": "celkový počet recenzí",
+    "star_reviews_info": "{{ rating_value }} z {{ rating_max }} hvězdiček",
+    "view_image": "Zobrazit obrázek {{ index }} z {{ total }}",
+    "previous": "Předchozí",
+    "next": "Další",
+    "previous_page": "Předchozí stránka",
+    "next_page": "Další stránka",
+    "go_to_page": "Přejít na stránku {{ page }}",
+    "current_page": "Stránka {{ page }}, aktuální stránka",
+    "previous_testimonial": "Předchozí reference",
+    "next_testimonial": "Další reference",
+    "go_to_testimonial": "Přejít na referenci {{ index }}",
+    "testimonial_x_of_y": "Reference {{ current }} z {{ total }}",
+    "testimonials": "Reference",
+    "previous_products": "Předchozí produkty",
+    "next_products": "Další produkty",
+    "previous_video": "Předchozí video",
+    "next_video": "Další video",
+    "play_video": "Přehrát video",
+    "pause_video": "Pozastavit video",
+    "mute_video": "Ztlumit video",
+    "unmute_video": "Zapnout zvuk videa",
+    "grid_view": "Mřížkové zobrazení",
+    "list_view": "Seznamové zobrazení",
+    "close_filters": "Zavřít filtry",
+    "open_filters": "Otevřít filtry",
+    "open_menu": "Otevřít menu",
+    "close_menu": "Zavřít menu",
+    "submenu_open": "Otevřít podmenu pro {{ title }}",
+    "submenu_close": "Zavřít podmenu pro {{ title }}",
+    "search": "Hledat",
+    "clear_search": "Vymazat hledání",
+    "account": "Účet",
+    "cart": "Košík",
+    "scroll_down": "Posunout",
+    "explore": "Prozkoumat",
+    "secure_checkout": "Zabezpečeno",
+    "drag_to_compare": "Přetáhněte pro porovnání obrázků",
+    "go_to_panel": "Přejít na panel {{ index }}",
+    "decrease_quantity": "Snížit množství pro {{ title }}",
+    "increase_quantity": "Zvýšit množství pro {{ title }}",
+    "remove_item": "Odebrat {{ title }} z košíku",
+    "quantity": "Množství",
+    "copy_link": "Kopírovat odkaz",
+    "link_copied": "Odkaz zkopírován do schránky",
+    "share_on_twitter": "Sdílet na Twitter",
+    "share_on_facebook": "Sdílet na Facebook",
+    "share_on_linkedin": "Sdílet na LinkedIn",
+    "share_on_pinterest": "Sdílet na Pinterest",
+    "share_via_email": "Sdílet e-mailem",
+    "view_product": "Zobrazit produkt {{ index }}",
+    "expand_faq": "Rozbalit odpověď",
+    "collapse_faq": "Sbalit odpověď",
+    "image_gallery": "Galerie obrázků produktu",
+    "thumbnail": "Náhled produktu {{ index }}",
+    "pagination": "Stránkování",
+    "discount": "Slevy",
+    "view_media": "Zobrazit médium {{ index }} z {{ total }}",
+    "quick_view": "Rychlý náhled",
+    "quick_view_product": "Rychlý náhled {{ title }}",
+    "wishlist": "Seznam přání",
+    "compare": "Porovnat produkty",
+    "close_wishlist": "Zavřít seznam přání",
+    "close_compare": "Zavřít porovnání",
+    "added_to_wishlist": "Přidáno do seznamu přání",
+    "removed_from_wishlist": "Odebráno ze seznamu přání",
+    "added_to_compare": "Přidáno k porovnání",
+    "removed_from_compare": "Odebráno z porovnání",
+    "cart_updated": "Košík aktualizován",
+    "items_in_cart": "{{ count }} položek v košíku",
+    "no_image": "Žádný obrázek není k dispozici"
+  },
+  "errors": {
+    "network": "Chyba sítě. Zkontrolujte připojení a zkuste to znovu.",
+    "server": "Něco se pokazilo. Zkuste to prosím později.",
+    "form_submit": "Formulář se nepodařilo odeslat. Zkuste to prosím znovu.",
+    "validation": "Zkontrolujte prosím své údaje a zkuste to znovu.",
+    "unauthorized": "Pro pokračování se prosím přihlašte.",
+    "not_found": "Požadovaná položka nebyla nalezena.",
+    "generic": "Došlo k chybě. Zkuste to prosím znovu.",
+    "timeout": "Časový limit požadavku vypršel. Zkuste to prosím znovu.",
+    "rate_limit": "Příliš mnoho požadavků. Počkejte prosím chvíli a zkuste to znovu."
+  },
+  "social": {
+    "instagram": "Instagram",
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "pinterest": "Pinterest",
+    "linkedin": "LinkedIn",
+    "youtube": "YouTube",
+    "tiktok": "TikTok"
+  },
+  "general": {
+    "breadcrumbs": {
+      "home": "Úvodní stránka",
+      "collections": "Kolekce",
+      "search": "Hledání",
+      "cart": "Košík"
+    },
+    "newsletter": {
+      "label": "Zůstaňte v obraze",
+      "submit": "Odebírat",
+      "confirmation": "Přihlaste se k odběru novinek a získejte exkluzivní aktualizace a speciální nabídky.",
+      "success": "Děkujeme za odebírání!",
+      "no_thanks": "Ne, děkuji",
+      "copy_code": "Klikněte pro zkopírování",
+      "email_placeholder": "Zadejte svůj e-mail"
+    },
+    "copyright": "Všechna práva vyhrazena.",
+    "back_to_top": "Nahoru",
+    "view_all": "Zobrazit vše",
+    "previous": "Předchozí",
+    "next": "Další",
+    "page_of": "Stránka {{ current }} z {{ total }}",
+    "load_more": "Načíst další",
+    "showing_products": "Zobrazeno {{ from }}–{{ to }} z {{ total }} produktů",
+    "share": "Sdílet",
+    "apply": "Použít",
+    "clear_all": "Vymazat vše",
+    "filter": "Filtr",
+    "filter_and_sort": "Filtr a řazení",
+    "sort_by": "Seřadit podle",
+    "min_price": "Minimální cena",
+    "max_price": "Maximální cena",
+    "to": "až",
+    "shop_now": "Nakupovat"
+  },
+  "blog": {
+    "article_comments": "Komentáře",
+    "article_metadata_html": "{{ date }} od {{ author }}",
+    "comment_form_body": "Komentář",
+    "comment_form_email": "E-mail",
+    "comment_form_name": "Jméno",
+    "comment_form_submit": "Přidat komentář",
+    "comment_form_title": "Zanechte komentář",
+    "back_to_blog": "Zpět na {{ blog }}",
+    "min_read": "{{ minutes }} min čtení",
+    "comments_count": "{{ count }} komentářů",
+    "read_article": "Číst článek"
+  },
+  "cart": {
+    "checkout": "Přejít k pokladně",
+    "title": "Košík",
+    "update": "Aktualizovat",
+    "remove": "Odebrat",
+    "remove_item": "Odebrat {{ title }}",
+    "subtotal": "Mezisoučet",
+    "total": "Celkem",
+    "taxes_shipping_note": "Daně a doprava budou vypočítány při pokladně",
+    "add_note": "Přidat poznámku",
+    "note_placeholder": "Speciální pokyny...",
+    "continue_shopping": "Pokračovat v nákupu",
+    "empty": "Váš košík je prázdný",
+    "empty_description": "Vypadá to, že jste ještě nic nepřidali.",
+    "start_shopping": "Začít nakupovat",
+    "summary": "Souhrn objednávky",
+    "view_cart": "Zobrazit košík",
+    "added_to_cart": "Přidáno do košíku",
+    "close": "Zavřít košík",
+    "copied": "Zkopírováno!",
+    "adding": "Přidávání...",
+    "added": "Přidáno!",
+    "error": "Chyba",
+    "free_shipping": {
+      "qualified": "Získali jste dopravu zdarma!",
+      "remaining_html": "Přidejte zboží za €{{ remaining }} pro dopravu zdarma",
+      "progress_label": "Průběh dopravy zdarma"
+    },
+    "errors": {
+      "add": "Položku se nepodařilo přidat do košíku. Zkuste to prosím znovu.",
+      "update": "Košík se nepodařilo aktualizovat. Zkuste to prosím znovu.",
+      "remove": "Položku se nepodařilo odebrat. Zkuste to prosím znovu.",
+      "out_of_stock": "Tato položka je momentálně vyprodána.",
+      "quantity_error_html": "Do košíku můžete přidat pouze [quantity] kusů této položky."
+    }
+  },
+  "sections": {
+    "featured_collection": {
+      "placeholder_product": "Produkt"
+    },
+    "featured_blog": {
+      "placeholder_title": "Blogový příspěvek",
+      "placeholder_excerpt": "Toto je ukázkový výňatek z blogového příspěvku, který dává čtenářům náhled na obsah článku."
+    },
+    "before_after": {
+      "comparison_label": "Posuvník porovnání obrázků: {{ before }} vs {{ after }}"
+    },
+    "shop_the_look": {
+      "items_in_look": {
+        "one": "{{ count }} položka v tomto vzhledu",
+        "other": "{{ count }} položek v tomto vzhledu"
+      },
+      "total": "Celkem",
+      "select_product": "Vyberte produkt pro bod {{ index }}",
+      "add_hotspots": "Přidejte produktové body pro zobrazení produktů",
+      "view_product": "Zobrazit produkt {{ index }}",
+      "complete_the_look": "Doplňte svůj vzhled",
+      "add_all": "Přidat vše"
+    },
+    "hotspots": {
+      "view_details": "Zobrazit podrobnosti"
+    },
+    "floating_images": {
+      "image_alt": "Dekorativní obrázek na pozadí"
+    },
+    "pinned_image_reveal": {
+      "image_alt": "Obrázek snímku"
+    },
+    "shoppable_videos": {
+      "video_thumbnail": "Náhled videa"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Přidat do košíku",
+      "sold_out": "Vyprodáno",
+      "in_stock": "Skladem",
+      "on_sale": "Sleva",
+      "unavailable": "Nedostupné",
+      "quantity": "Množství",
+      "decrease_quantity": "Snížit množství",
+      "increase_quantity": "Zvýšit množství",
+      "quick_view": "Rychlý náhled",
+      "quick_add": "Rychlé přidání",
+      "select_options": "Vybrat možnosti",
+      "options": "Možnosti",
+      "view_product": "Zobrazit produkt",
+      "view_full_details": "Zobrazit všechny podrobnosti",
+      "share": "Sdílet",
+      "zoom": "Přiblížit obrázek",
+      "media": {
+        "reset_3d_model": "Resetovat zobrazení 3D modelu",
+        "view_in_ar": "Zobrazit ve vašem prostoru",
+        "load_image": "Načíst obrázek {{ index }}"
+      }
+    },
+    "inventory": {
+      "low_stock": "Poslední kusy",
+      "only_x_left": "Zbývá pouze {{ count }}",
+      "almost_gone": "Téměř vyprodáno!",
+      "selling_fast": "Rychle se prodává",
+      "stock_level": "Úroveň skladů",
+      "remaining": "zbývá",
+      "x_items_left": "Zbývá {{ count }} kusů",
+      "hurry_almost_gone": "Pospěšte si, téměř vyprodáno!",
+      "order_soon": "Objednejte brzy – rychle se prodává!",
+      "low_stock_warning": "Poslední kusy – objednejte brzy"
+    },
+    "delivery": {
+      "estimated_delivery": "Odhadované doručení",
+      "order_within": "Objednejte do {{ hours }} h pro odeslání ve stejný den",
+      "ships_today": "Odesíláme dnes",
+      "ships_tomorrow": "Odesíláme zítra"
+    },
+    "social_proof": {
+      "people_viewing": "lidí si právě prohlíží",
+      "sold_recently": "prodejů za posledních 24 hodin"
+    },
+    "size_chart": {
+      "title": "Průvodce velikostmi",
+      "size": "Velikost",
+      "chest": "Hrudník",
+      "waist": "Pas",
+      "hips": "Boky",
+      "how_to_measure": "Jak měřit",
+      "measure_instructions": "Pro co nejpřesnější výsledky měřte přes spodní prádlo. Použijte měkký krejkovský metr a přiložte ho těsně, ale nestažujte.",
+      "fit_note": "Všechny míry jsou v palcích. Pokud jste mezi velikostmi, doporučujeme zvolit větší velikost pro volnější střih."
+    },
+    "back_in_stock": {
+      "title": "Upozorněte mě na dostupnost",
+      "description": "Zadejte svůj e-mail a my vás informujeme, až bude tato položka opět skladem.",
+      "email_label": "E-mailová adresa",
+      "email_placeholder": "Zadejte svůj e-mail",
+      "submit": "Upozornit mě",
+      "submitting": "Přihlašování...",
+      "success_title": "Budeme vás informovat",
+      "success_message": "Budete první, kdo se dozví, až bude zboží opět dostupné.",
+      "error_title": "Něco se pokazilo",
+      "error_message": "Zkuste to prosím později nebo nás kontaktujte pro pomoc."
+    },
+    "pickup_availability": {
+      "pickup_available": "Osobní odběr dostupný",
+      "pickup_options": "Možnosti osobního odběru",
+      "pick_up_available": "Osobní odběr dostupný",
+      "pick_up_unavailable": "Osobní odběr není dostupný",
+      "view_store_info": "Zobrazit informace o prodejně",
+      "unavailable": "Žádná odběrná místa nejsou k dispozici"
+    },
+    "complementary": {
+      "title": "Skvěle se hodí k",
+      "add_all": "Přidat vše do košíku",
+      "adding": "Přidávání...",
+      "added": "Přidáno!",
+      "error": "Chyba při přidávání položek"
+    },
+    "compare": {
+      "compare": "Porovnat",
+      "compare_products": "Porovnat produkty",
+      "add_to_compare": "Přidat k porovnání",
+      "remove": "Odebrat",
+      "clear_all": "Vymazat vše",
+      "view_compare": "Zobrazit porovnání",
+      "view_comparison": "Zobrazit porovnání",
+      "add_product": "Přidat produkt",
+      "products": "produkty",
+      "product": "Produkt",
+      "vendor": "Výrobce",
+      "type": "Typ",
+      "sku": "SKU",
+      "availability": "Dostupnost",
+      "weight": "Hmotnost",
+      "material": "Materiál",
+      "fabric": "Látka",
+      "care": "Pokyny k údržbě",
+      "subtitle": "Podtitulek",
+      "rating": "Hodnocení",
+      "loading": "Načítání dat pro porovnání...",
+      "empty_title": "Žádné produkty k porovnání",
+      "empty_text": "Přidejte produkty k porovnání kliknutím na ikonu porovnání na kartě produktu.",
+      "browse_products": "Procházet produkty",
+      "continue_shopping": "Pokračovat v nákupu",
+      "open_drawer": "Otevřít panel porovnání",
+      "price": "Cena",
+      "items_count": "položek"
+    },
+    "wishlist": {
+      "title": "Seznam přání",
+      "add_to_wishlist": "Přidat do seznamu přání",
+      "remove": "Odebrat",
+      "remove_from_wishlist": "Odebrat ze seznamu přání",
+      "view_all": "Zobrazit všechny uložené položky",
+      "view": "Zobrazit",
+      "empty_title": "Váš seznam přání je prázdný",
+      "empty_text": "Uložte si oblíbené produkty kliknutím na ikonu srdíčka na kartě produktu.",
+      "browse_products": "Procházet produkty",
+      "continue_shopping": "Pokračovat v nákupu",
+      "clear_all": "Vymazat vše",
+      "products": "uložené položky",
+      "items_count": "položek"
+    }
+  },
+  "customers": {
+    "account": {
+      "title": "Můj účet",
+      "welcome": "Vítejte zpět, {{ name }}",
+      "details": "Údaje účtu",
+      "log_out": "Odhlásit se",
+      "return": "Zpět na účet",
+      "start_shopping": "Začít nakupovat"
+    },
+    "login": {
+      "title": "Přihlášení",
+      "subtitle": "Zadejte své přihlašovací údaje pro přístup k účtu",
+      "email": "E-mail",
+      "password": "Heslo",
+      "sign_in": "Přihlásit se",
+      "forgot_password": "Zapomněli jste heslo?",
+      "new_customer": "Nemáte účet?",
+      "create_account": "Vytvořit účet",
+      "guest_title": "Nákup bez registrace",
+      "guest_continue": "Pokračovat jako host"
+    },
+    "register": {
+      "title": "Vytvořit účet",
+      "subtitle": "Přidejte se k nám pro exkluzivní nabídky a rychlejší nákup",
+      "first_name": "Jméno",
+      "last_name": "Příjmení",
+      "email": "E-mail",
+      "password": "Heslo",
+      "submit": "Vytvořit účet",
+      "have_account": "Už máte účet?"
+    },
+    "recover_password": {
+      "title": "Obnova hesla",
+      "subtext": "Zašleme vám e-mail s odkazem pro obnovu hesla",
+      "submit": "Odeslat",
+      "success": "Poslali jsme vám e-mail s odkazem pro změnu hesla.",
+      "cancel": "Zpět na přihlášení"
+    },
+    "reset_password": {
+      "title": "Obnova hesla",
+      "subtext": "Zadejte níže své nové heslo",
+      "password": "Nové heslo",
+      "password_confirm": "Potvrďte nové heslo",
+      "submit": "Obnovit heslo"
+    },
+    "activate_account": {
+      "title": "Aktivace účtu",
+      "subtext": "Vytvořte si heslo pro aktivaci svého účtu",
+      "password": "Heslo",
+      "password_confirm": "Potvrzení hesla",
+      "submit": "Aktivovat účet",
+      "cancel": "Odmítnout pozvánku"
+    },
+    "orders": {
+      "title": "Historie objednávek",
+      "order_number": "Objednávka {{ number }}",
+      "view_order": "Zobrazit detail objednávky",
+      "none": "Zatím jste neprovedli žádnou objednávku."
+    },
+    "order": {
+      "title": "Objednávka {{ name }}",
+      "date_html": "Vytvořeno {{ date }}",
+      "order_summary": "Souhrn objednávky",
+      "product": "Produkt",
+      "quantity": "Ks",
+      "total": "Celkem",
+      "subtotal": "Mezisoučet",
+      "shipping": "Doprava",
+      "tax": "Daň",
+      "discount": "Sleva",
+      "shipping_address": "Doručovací adresa",
+      "billing_address": "Fakturační adresa",
+      "fulfilled_at_html": "Vyřízeno {{ date }}",
+      "track_shipment": "Sledovat zásilku",
+      "cancelled_on": "Stornováno {{ date }}"
+    },
+    "addresses": {
+      "title": "Uložené adresy",
+      "add_new": "Přidat adresu",
+      "edit": "Upravit",
+      "delete": "Smazat",
+      "delete_confirm": "Opravdu chcete smazat tuto adresu?",
+      "default": "Výchozí",
+      "first_name": "Jméno",
+      "last_name": "Příjmení",
+      "company": "Společnost",
+      "address1": "Adresa",
+      "address2": "Byt, patro apod.",
+      "city": "Město",
+      "country": "Země/Region",
+      "province": "Kraj/Stát",
+      "zip": "PSČ",
+      "phone": "Telefon",
+      "set_default": "Nastavit jako výchozí adresu",
+      "add": "Přidat adresu",
+      "update": "Aktualizovat adresu",
+      "cancel": "Zrušit",
+      "no_addresses": "Zatím nemáte uloženy žádné adresy."
+    }
+  },
+  "collections": {
+    "title": "Kolekce",
+    "product_count": {
+      "one": "{{ count }} produkt",
+      "other": "{{ count }} produktů"
+    }
+  },
+  "contact": {
+    "form": {
+      "title": "Kontakt",
+      "name": "Jméno",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "message": "Zpráva",
+      "submit": "Odeslat zprávu",
+      "success": "Děkujeme za vaši zprávu! Brzy se vám ozveme."
+    }
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Přidat do Apple Wallet",
+    "card": "Dárková karta",
+    "balance": "Zůstatek",
+    "expired": "Vypršela",
+    "expires_on_html": "Platnost do {{ expires_on }}",
+    "use_at_checkout": "Použijte tento kód při pokladně k uplatnění dárkové karty",
+    "copy_code": "Zkopírovat kód",
+    "copied": "Zkopírováno!",
+    "print_hint": "Vytiskněte tuto stránku nebo si uložte snímek obrazovky pro své záznamy",
+    "recipient": {
+      "checkbox_label": "Poslat jako dárek",
+      "description": "Příjemce obdrží e-mail s kódem dárkové karty a vaší zprávou.",
+      "email_label": "E-mail příjemce",
+      "email_placeholder": "Zadejte e-mail příjemce",
+      "name_label": "Jméno příjemce (volitelné)",
+      "name_placeholder": "Zadejte jméno příjemce",
+      "message_label": "Zpráva (volitelná)",
+      "message_placeholder": "Napište osobní zprávu...",
+      "max_characters": "Maximálně {{ max }} znaků",
+      "send_on_label": "Odeslat dne (volitelné)",
+      "send_on_info": "Ponechte prázdné pro okamžité odeslání"
+    }
+  },
+  "password": {
+    "title": "Brzy otevřeme",
+    "subtitle": "Pracujeme na něčem speciálním. Zadejte heslo pro předběžný přístup.",
+    "password": "Heslo",
+    "placeholder": "Zadejte heslo obchodu",
+    "enter": "Vstoupit",
+    "admin_link_html": "Jste majitel obchodu?",
+    "login": "Přihlaste se zde",
+    "newsletter_heading": "Buďte první, kdo se dozví",
+    "newsletter_text": "Přihlaste se k odběru novinek a budete informováni o spuštění."
+  },
+  "search": {
+    "title": "Hledání",
+    "placeholder": "Hledat...",
+    "submit": "Hledat",
+    "clear": "Vymazat",
+    "loading": "Načítání...",
+    "view_all": "Zobrazit všechny výsledky pro",
+    "no_results": "Nebyly nalezeny žádné výsledky",
+    "no_results_html": "Žádné výsledky pro „{{ terms }}“",
+    "results_for_html": "{{ count }} výsledků pro „{{ terms }}“",
+    "no_results_description": "Zkontrolujte pravopis nebo použijte jiná klíčová slova",
+    "initial_prompt": "Zadejte hledaný výraz pro vyhledání produktů, článků a stránek.",
+    "popular_searches": "Populární vyhledávání",
+    "filter_all": "Vše",
+    "filter_products": "Produkty",
+    "filter_articles": "Články",
+    "filter_pages": "Stránky",
+    "type_product": "Produkt",
+    "type_article": "Článek",
+    "type_page": "Stránka",
+    "trending": "Trendy"
+  },
+  "onboarding": {
+    "product_title": "Ukázkový název produktu",
+    "product_vendor": "Název výrobce",
+    "product_description": "Toto je ukázkový popis produktu. Přidejte produkt do této sekce pro zobrazení skutečných informací o produktu."
+  }
+}
