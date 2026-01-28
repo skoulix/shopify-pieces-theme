@@ -1,6 +1,6 @@
 /* ==========================================================================
    Button System
-   Variants: primary | secondary | outline | tertiary (ghost)
+   Variants: primary | secondary | outline | solid-secondary | tertiary (ghost)
    Sizes:    sm | md (default) | lg | icon
    ========================================================================== */
 
@@ -19,58 +19,31 @@
     @apply shadow-(--button-shadow-hover);
   }
 
-  .btn span,
-  .btn i,
-  .btn svg,
-  .btn > * {
+  .btn :is(span, i, svg) {
     @apply relative z-10;
   }
 
   /* ==========================================================================
-     Hover Style: Simple
-     Clean color transition, no animation effects
+     Button Variants - Base Styles
      ========================================================================== */
 
-  /* Primary - Simple */
+  /* Primary */
   .btn--primary {
     @apply bg-(--color-primary) border border-(--color-primary);
-    color: var(--color-primary-contrast) !important;
+    color: var(--color-primary-contrast);
   }
 
-  .btn--primary span,
-  .btn--primary i,
-  .btn--primary svg,
-  .btn--primary > * {
+  .btn--primary :is(span, i, svg) {
     @apply transition-colors duration-200;
-    color: var(--color-primary-contrast) !important;
+    color: var(--color-primary-contrast);
   }
 
-  .btn--hover-simple .btn--primary:hover,
-  .btn--hover-simple.btn--primary:hover {
-    background-color: var(--color-primary-contrast) !important;
-    color: var(--color-primary) !important;
-  }
-
-  .btn--hover-simple .btn--primary:hover span,
-  .btn--hover-simple .btn--primary:hover i,
-  .btn--hover-simple .btn--primary:hover svg,
-  .btn--hover-simple .btn--primary:hover > *,
-  .btn--hover-simple.btn--primary:hover span,
-  .btn--hover-simple.btn--primary:hover i,
-  .btn--hover-simple.btn--primary:hover svg,
-  .btn--hover-simple.btn--primary:hover > * {
-    color: var(--color-primary) !important;
-  }
-
-  /* Secondary - Simple */
+  /* Secondary */
   .btn--secondary {
     @apply text-(--color-text) bg-transparent border border-(--color-text);
   }
 
-  .btn--secondary span,
-  .btn--secondary i,
-  .btn--secondary svg,
-  .btn--secondary > * {
+  .btn--secondary :is(span, i, svg) {
     @apply text-(--color-text) transition-colors duration-200;
   }
 
@@ -90,531 +63,207 @@
     @apply text-(--color-background);
   }
 
-  .btn--hover-simple .btn--secondary:hover,
-  .btn--hover-simple.btn--secondary:hover {
-    @apply bg-(--color-text) text-(--color-background);
-  }
-
-  .btn--hover-simple .btn--secondary:hover span,
-  .btn--hover-simple .btn--secondary:hover i,
-  .btn--hover-simple .btn--secondary:hover svg,
-  .btn--hover-simple .btn--secondary:hover > *,
-  .btn--hover-simple.btn--secondary:hover span,
-  .btn--hover-simple.btn--secondary:hover i,
-  .btn--hover-simple.btn--secondary:hover svg,
-  .btn--hover-simple.btn--secondary:hover > * {
-    @apply text-(--color-background);
-  }
-
-  /* Outline - Simple */
+  /* Outline */
   .btn--outline {
     @apply text-(--color-primary) bg-transparent border border-(--color-primary);
   }
 
-  .btn--outline span,
-  .btn--outline i,
-  .btn--outline svg,
-  .btn--outline > * {
+  .btn--outline :is(span, i, svg) {
     @apply transition-colors duration-200;
   }
 
-  .btn--hover-simple .btn--outline:hover,
-  .btn--hover-simple.btn--outline:hover {
-    @apply bg-(--color-primary) text-(--color-primary-contrast);
-  }
-
-  .btn--hover-simple .btn--outline:hover span,
-  .btn--hover-simple .btn--outline:hover i,
-  .btn--hover-simple .btn--outline:hover svg,
-  .btn--hover-simple .btn--outline:hover > *,
-  .btn--hover-simple.btn--outline:hover span,
-  .btn--hover-simple.btn--outline:hover i,
-  .btn--hover-simple.btn--outline:hover svg,
-  .btn--hover-simple.btn--outline:hover > * {
-    @apply text-(--color-primary-contrast);
-  }
-
-  /* Solid Secondary - Simple */
+  /* Solid Secondary */
   .btn--solid-secondary {
     @apply text-(--color-background) bg-(--color-text) border border-(--color-text);
   }
 
-  .btn--solid-secondary span,
-  .btn--solid-secondary i,
-  .btn--solid-secondary svg,
-  .btn--solid-secondary > * {
+  .btn--solid-secondary :is(span, i, svg) {
     @apply transition-colors duration-200;
   }
 
-  .btn--hover-simple .btn--solid-secondary:hover,
-  .btn--hover-simple.btn--solid-secondary:hover {
-    @apply bg-(--color-background) text-(--color-text);
-  }
-
-  .btn--hover-simple .btn--solid-secondary:hover span,
-  .btn--hover-simple .btn--solid-secondary:hover i,
-  .btn--hover-simple .btn--solid-secondary:hover svg,
-  .btn--hover-simple .btn--solid-secondary:hover > *,
-  .btn--hover-simple.btn--solid-secondary:hover span,
-  .btn--hover-simple.btn--solid-secondary:hover i,
-  .btn--hover-simple.btn--solid-secondary:hover svg,
-  .btn--hover-simple.btn--solid-secondary:hover > * {
-    @apply text-(--color-text);
-  }
-
-  /* Tertiary (Ghost) - Simple */
+  /* Tertiary (Ghost) */
   .btn--tertiary {
     @apply text-(--color-text) bg-transparent border border-transparent shadow-none;
   }
 
-  .btn--hover-simple .btn--tertiary:hover,
-  .btn--hover-simple.btn--tertiary:hover {
+  /* ==========================================================================
+     Hover Style: Simple
+     Clean color transition, no animation effects
+     ========================================================================== */
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--primary):hover {
+    background-color: var(--color-primary-contrast);
+    color: var(--color-primary);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--primary):hover :is(span, i, svg) {
+    color: var(--color-primary);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--secondary):hover {
+    @apply bg-(--color-text) text-(--color-background);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--secondary):hover :is(span, i, svg) {
+    @apply text-(--color-background);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--outline):hover {
+    @apply bg-(--color-primary) text-(--color-primary-contrast);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--outline):hover :is(span, i, svg) {
+    @apply text-(--color-primary-contrast);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--solid-secondary):hover {
+    @apply bg-(--color-background) text-(--color-text);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--solid-secondary):hover :is(span, i, svg) {
+    @apply text-(--color-text);
+  }
+
+  :is(.btn--hover-simple, .btn--hover-simple .btn):is(.btn--tertiary):hover {
     background-color: color-mix(in srgb, var(--color-text) 5%, transparent);
   }
 
   /* ==========================================================================
-     Hover Style: Swipe Horizontal
-     Horizontal fill animation from right to left
+     Hover Style: Swipe (Horizontal & Vertical)
+     Fill animation using scale transform
      ========================================================================== */
 
-  .btn--hover-swipe.btn::before,
-  .btn--hover-swipe .btn::before,
-  .btn--hover-swipe-horizontal.btn::before,
-  .btn--hover-swipe-horizontal .btn::before {
+  /* Swipe base - horizontal */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal):is(.btn, :has(.btn))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal) .btn::before {
     @apply absolute z-0 inset-0 scale-x-0 origin-right
            transition-transform duration-300 content-[''];
   }
 
-  .btn--hover-swipe.btn:hover::before,
-  .btn--hover-swipe .btn:hover::before,
-  .btn--hover-swipe-horizontal.btn:hover::before,
-  .btn--hover-swipe-horizontal .btn:hover::before {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal):is(.btn, :has(.btn)):hover::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal) .btn:hover::before {
     @apply scale-x-100 origin-left;
   }
 
-  /* ==========================================================================
-     Hover Style: Swipe Vertical
-     Vertical fill animation from bottom to top
-     ========================================================================== */
-
-  .btn--hover-swipe-vertical.btn::before,
+  /* Swipe base - vertical */
+  :is(.btn--hover-swipe-vertical):is(.btn, :has(.btn))::before,
   .btn--hover-swipe-vertical .btn::before {
     @apply absolute z-0 inset-0 scale-y-0 origin-bottom
            transition-transform duration-300 content-[''];
   }
 
-  .btn--hover-swipe-vertical.btn:hover::before,
+  :is(.btn--hover-swipe-vertical):is(.btn, :has(.btn)):hover::before,
   .btn--hover-swipe-vertical .btn:hover::before {
     @apply scale-y-100 origin-top;
   }
 
-  /* Primary - Swipe (Horizontal & Vertical) */
-  .btn--hover-swipe.btn--primary::before,
-  .btn--hover-swipe .btn--primary::before,
-  .btn--hover-swipe-horizontal.btn--primary::before,
-  .btn--hover-swipe-horizontal .btn--primary::before,
-  .btn--hover-swipe-vertical.btn--primary::before,
-  .btn--hover-swipe-vertical .btn--primary::before {
+  /* Primary - Swipe */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--primary, :has(.btn--primary))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--primary::before {
     @apply bg-(--color-primary-contrast);
   }
 
-  .btn--hover-swipe .btn--primary span,
-  .btn--hover-swipe .btn--primary i,
-  .btn--hover-swipe .btn--primary svg,
-  .btn--hover-swipe .btn--primary > *,
-  .btn--hover-swipe.btn--primary span,
-  .btn--hover-swipe.btn--primary i,
-  .btn--hover-swipe.btn--primary svg,
-  .btn--hover-swipe.btn--primary > *,
-  .btn--hover-swipe-horizontal .btn--primary span,
-  .btn--hover-swipe-horizontal .btn--primary i,
-  .btn--hover-swipe-horizontal .btn--primary svg,
-  .btn--hover-swipe-horizontal .btn--primary > *,
-  .btn--hover-swipe-horizontal.btn--primary span,
-  .btn--hover-swipe-horizontal.btn--primary i,
-  .btn--hover-swipe-horizontal.btn--primary svg,
-  .btn--hover-swipe-horizontal.btn--primary > *,
-  .btn--hover-swipe-vertical .btn--primary span,
-  .btn--hover-swipe-vertical .btn--primary i,
-  .btn--hover-swipe-vertical .btn--primary svg,
-  .btn--hover-swipe-vertical .btn--primary > *,
-  .btn--hover-swipe-vertical.btn--primary span,
-  .btn--hover-swipe-vertical.btn--primary i,
-  .btn--hover-swipe-vertical.btn--primary svg,
-  .btn--hover-swipe-vertical.btn--primary > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--primary, :has(.btn--primary)) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--primary :is(span, i, svg) {
     @apply transition-colors duration-200 delay-100;
   }
 
-  .btn--hover-swipe .btn--primary:hover,
-  .btn--hover-swipe.btn--primary:hover,
-  .btn--hover-swipe-horizontal .btn--primary:hover,
-  .btn--hover-swipe-horizontal.btn--primary:hover,
-  .btn--hover-swipe-vertical .btn--primary:hover,
-  .btn--hover-swipe-vertical.btn--primary:hover {
-    color: var(--color-primary) !important;
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--primary):hover,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--primary:hover {
+    color: var(--color-primary);
   }
 
-  .btn--hover-swipe .btn--primary:hover span,
-  .btn--hover-swipe .btn--primary:hover i,
-  .btn--hover-swipe .btn--primary:hover svg,
-  .btn--hover-swipe .btn--primary:hover > *,
-  .btn--hover-swipe.btn--primary:hover span,
-  .btn--hover-swipe.btn--primary:hover i,
-  .btn--hover-swipe.btn--primary:hover svg,
-  .btn--hover-swipe.btn--primary:hover > *,
-  .btn--hover-swipe-horizontal .btn--primary:hover span,
-  .btn--hover-swipe-horizontal .btn--primary:hover i,
-  .btn--hover-swipe-horizontal .btn--primary:hover svg,
-  .btn--hover-swipe-horizontal .btn--primary:hover > *,
-  .btn--hover-swipe-horizontal.btn--primary:hover span,
-  .btn--hover-swipe-horizontal.btn--primary:hover i,
-  .btn--hover-swipe-horizontal.btn--primary:hover svg,
-  .btn--hover-swipe-horizontal.btn--primary:hover > *,
-  .btn--hover-swipe-vertical .btn--primary:hover span,
-  .btn--hover-swipe-vertical .btn--primary:hover i,
-  .btn--hover-swipe-vertical .btn--primary:hover svg,
-  .btn--hover-swipe-vertical .btn--primary:hover > *,
-  .btn--hover-swipe-vertical.btn--primary:hover span,
-  .btn--hover-swipe-vertical.btn--primary:hover i,
-  .btn--hover-swipe-vertical.btn--primary:hover svg,
-  .btn--hover-swipe-vertical.btn--primary:hover > * {
-    color: var(--color-primary) !important;
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--primary):hover :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--primary:hover :is(span, i, svg) {
+    color: var(--color-primary);
   }
 
-  .btn--hover-swipe .btn--primary:not(:hover) span,
-  .btn--hover-swipe .btn--primary:not(:hover) i,
-  .btn--hover-swipe .btn--primary:not(:hover) svg,
-  .btn--hover-swipe .btn--primary:not(:hover) > *,
-  .btn--hover-swipe.btn--primary:not(:hover) span,
-  .btn--hover-swipe.btn--primary:not(:hover) i,
-  .btn--hover-swipe.btn--primary:not(:hover) svg,
-  .btn--hover-swipe.btn--primary:not(:hover) > *,
-  .btn--hover-swipe-horizontal .btn--primary:not(:hover) span,
-  .btn--hover-swipe-horizontal .btn--primary:not(:hover) i,
-  .btn--hover-swipe-horizontal .btn--primary:not(:hover) svg,
-  .btn--hover-swipe-horizontal .btn--primary:not(:hover) > *,
-  .btn--hover-swipe-horizontal.btn--primary:not(:hover) span,
-  .btn--hover-swipe-horizontal.btn--primary:not(:hover) i,
-  .btn--hover-swipe-horizontal.btn--primary:not(:hover) svg,
-  .btn--hover-swipe-horizontal.btn--primary:not(:hover) > *,
-  .btn--hover-swipe-vertical .btn--primary:not(:hover) span,
-  .btn--hover-swipe-vertical .btn--primary:not(:hover) i,
-  .btn--hover-swipe-vertical .btn--primary:not(:hover) svg,
-  .btn--hover-swipe-vertical .btn--primary:not(:hover) > *,
-  .btn--hover-swipe-vertical.btn--primary:not(:hover) span,
-  .btn--hover-swipe-vertical.btn--primary:not(:hover) i,
-  .btn--hover-swipe-vertical.btn--primary:not(:hover) svg,
-  .btn--hover-swipe-vertical.btn--primary:not(:hover) > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--primary):not(:hover) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--primary:not(:hover) :is(span, i, svg) {
     @apply delay-0;
   }
 
-  /* Secondary - Swipe (Horizontal & Vertical) */
-  .btn--hover-swipe.btn--secondary::before,
-  .btn--hover-swipe .btn--secondary::before,
-  .btn--hover-swipe-horizontal.btn--secondary::before,
-  .btn--hover-swipe-horizontal .btn--secondary::before,
-  .btn--hover-swipe-vertical.btn--secondary::before,
-  .btn--hover-swipe-vertical .btn--secondary::before {
+  /* Secondary - Swipe */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--secondary, :has(.btn--secondary))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--secondary::before {
     @apply bg-(--color-text);
   }
 
-  .btn--hover-swipe .btn--secondary span,
-  .btn--hover-swipe .btn--secondary i,
-  .btn--hover-swipe .btn--secondary svg,
-  .btn--hover-swipe .btn--secondary > *,
-  .btn--hover-swipe.btn--secondary span,
-  .btn--hover-swipe.btn--secondary i,
-  .btn--hover-swipe.btn--secondary svg,
-  .btn--hover-swipe.btn--secondary > *,
-  .btn--hover-swipe-horizontal .btn--secondary span,
-  .btn--hover-swipe-horizontal .btn--secondary i,
-  .btn--hover-swipe-horizontal .btn--secondary svg,
-  .btn--hover-swipe-horizontal .btn--secondary > *,
-  .btn--hover-swipe-horizontal.btn--secondary span,
-  .btn--hover-swipe-horizontal.btn--secondary i,
-  .btn--hover-swipe-horizontal.btn--secondary svg,
-  .btn--hover-swipe-horizontal.btn--secondary > *,
-  .btn--hover-swipe-vertical .btn--secondary span,
-  .btn--hover-swipe-vertical .btn--secondary i,
-  .btn--hover-swipe-vertical .btn--secondary svg,
-  .btn--hover-swipe-vertical .btn--secondary > *,
-  .btn--hover-swipe-vertical.btn--secondary span,
-  .btn--hover-swipe-vertical.btn--secondary i,
-  .btn--hover-swipe-vertical.btn--secondary svg,
-  .btn--hover-swipe-vertical.btn--secondary > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--secondary, :has(.btn--secondary)) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--secondary :is(span, i, svg) {
     @apply transition-colors duration-200 delay-100;
   }
 
-  .btn--hover-swipe .btn--secondary:hover,
-  .btn--hover-swipe.btn--secondary:hover,
-  .btn--hover-swipe-horizontal .btn--secondary:hover,
-  .btn--hover-swipe-horizontal.btn--secondary:hover,
-  .btn--hover-swipe-vertical .btn--secondary:hover,
-  .btn--hover-swipe-vertical.btn--secondary:hover {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--secondary):hover,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--secondary:hover {
     @apply text-(--color-background) border-(--color-text);
   }
 
-  .btn--hover-swipe .btn--secondary:hover span,
-  .btn--hover-swipe .btn--secondary:hover i,
-  .btn--hover-swipe .btn--secondary:hover svg,
-  .btn--hover-swipe .btn--secondary:hover > *,
-  .btn--hover-swipe.btn--secondary:hover span,
-  .btn--hover-swipe.btn--secondary:hover i,
-  .btn--hover-swipe.btn--secondary:hover svg,
-  .btn--hover-swipe.btn--secondary:hover > *,
-  .btn--hover-swipe-horizontal .btn--secondary:hover span,
-  .btn--hover-swipe-horizontal .btn--secondary:hover i,
-  .btn--hover-swipe-horizontal .btn--secondary:hover svg,
-  .btn--hover-swipe-horizontal .btn--secondary:hover > *,
-  .btn--hover-swipe-horizontal.btn--secondary:hover span,
-  .btn--hover-swipe-horizontal.btn--secondary:hover i,
-  .btn--hover-swipe-horizontal.btn--secondary:hover svg,
-  .btn--hover-swipe-horizontal.btn--secondary:hover > *,
-  .btn--hover-swipe-vertical .btn--secondary:hover span,
-  .btn--hover-swipe-vertical .btn--secondary:hover i,
-  .btn--hover-swipe-vertical .btn--secondary:hover svg,
-  .btn--hover-swipe-vertical .btn--secondary:hover > *,
-  .btn--hover-swipe-vertical.btn--secondary:hover span,
-  .btn--hover-swipe-vertical.btn--secondary:hover i,
-  .btn--hover-swipe-vertical.btn--secondary:hover svg,
-  .btn--hover-swipe-vertical.btn--secondary:hover > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--secondary):hover :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--secondary:hover :is(span, i, svg) {
     @apply text-(--color-background);
   }
 
-  .btn--hover-swipe .btn--secondary:not(:hover) span,
-  .btn--hover-swipe .btn--secondary:not(:hover) i,
-  .btn--hover-swipe .btn--secondary:not(:hover) svg,
-  .btn--hover-swipe .btn--secondary:not(:hover) > *,
-  .btn--hover-swipe.btn--secondary:not(:hover) span,
-  .btn--hover-swipe.btn--secondary:not(:hover) i,
-  .btn--hover-swipe.btn--secondary:not(:hover) svg,
-  .btn--hover-swipe.btn--secondary:not(:hover) > *,
-  .btn--hover-swipe-horizontal .btn--secondary:not(:hover) span,
-  .btn--hover-swipe-horizontal .btn--secondary:not(:hover) i,
-  .btn--hover-swipe-horizontal .btn--secondary:not(:hover) svg,
-  .btn--hover-swipe-horizontal .btn--secondary:not(:hover) > *,
-  .btn--hover-swipe-horizontal.btn--secondary:not(:hover) span,
-  .btn--hover-swipe-horizontal.btn--secondary:not(:hover) i,
-  .btn--hover-swipe-horizontal.btn--secondary:not(:hover) svg,
-  .btn--hover-swipe-horizontal.btn--secondary:not(:hover) > *,
-  .btn--hover-swipe-vertical .btn--secondary:not(:hover) span,
-  .btn--hover-swipe-vertical .btn--secondary:not(:hover) i,
-  .btn--hover-swipe-vertical .btn--secondary:not(:hover) svg,
-  .btn--hover-swipe-vertical .btn--secondary:not(:hover) > *,
-  .btn--hover-swipe-vertical.btn--secondary:not(:hover) span,
-  .btn--hover-swipe-vertical.btn--secondary:not(:hover) i,
-  .btn--hover-swipe-vertical.btn--secondary:not(:hover) svg,
-  .btn--hover-swipe-vertical.btn--secondary:not(:hover) > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--secondary):not(:hover) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--secondary:not(:hover) :is(span, i, svg) {
     @apply delay-0;
   }
 
-  /* Outline - Swipe (Horizontal & Vertical) */
-  .btn--hover-swipe.btn--outline::before,
-  .btn--hover-swipe .btn--outline::before,
-  .btn--hover-swipe-horizontal.btn--outline::before,
-  .btn--hover-swipe-horizontal .btn--outline::before,
-  .btn--hover-swipe-vertical.btn--outline::before,
-  .btn--hover-swipe-vertical .btn--outline::before {
+  /* Outline - Swipe */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--outline, :has(.btn--outline))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--outline::before {
     @apply bg-(--color-primary);
   }
 
-  .btn--hover-swipe .btn--outline span,
-  .btn--hover-swipe .btn--outline i,
-  .btn--hover-swipe .btn--outline svg,
-  .btn--hover-swipe .btn--outline > *,
-  .btn--hover-swipe.btn--outline span,
-  .btn--hover-swipe.btn--outline i,
-  .btn--hover-swipe.btn--outline svg,
-  .btn--hover-swipe.btn--outline > *,
-  .btn--hover-swipe-horizontal .btn--outline span,
-  .btn--hover-swipe-horizontal .btn--outline i,
-  .btn--hover-swipe-horizontal .btn--outline svg,
-  .btn--hover-swipe-horizontal .btn--outline > *,
-  .btn--hover-swipe-horizontal.btn--outline span,
-  .btn--hover-swipe-horizontal.btn--outline i,
-  .btn--hover-swipe-horizontal.btn--outline svg,
-  .btn--hover-swipe-horizontal.btn--outline > *,
-  .btn--hover-swipe-vertical .btn--outline span,
-  .btn--hover-swipe-vertical .btn--outline i,
-  .btn--hover-swipe-vertical .btn--outline svg,
-  .btn--hover-swipe-vertical .btn--outline > *,
-  .btn--hover-swipe-vertical.btn--outline span,
-  .btn--hover-swipe-vertical.btn--outline i,
-  .btn--hover-swipe-vertical.btn--outline svg,
-  .btn--hover-swipe-vertical.btn--outline > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--outline, :has(.btn--outline)) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--outline :is(span, i, svg) {
     @apply transition-colors duration-200 delay-100;
   }
 
-  .btn--hover-swipe .btn--outline:hover,
-  .btn--hover-swipe.btn--outline:hover,
-  .btn--hover-swipe-horizontal .btn--outline:hover,
-  .btn--hover-swipe-horizontal.btn--outline:hover,
-  .btn--hover-swipe-vertical .btn--outline:hover,
-  .btn--hover-swipe-vertical.btn--outline:hover {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--outline):hover,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--outline:hover {
     @apply text-(--color-primary-contrast);
   }
 
-  .btn--hover-swipe .btn--outline:hover span,
-  .btn--hover-swipe .btn--outline:hover i,
-  .btn--hover-swipe .btn--outline:hover svg,
-  .btn--hover-swipe .btn--outline:hover > *,
-  .btn--hover-swipe.btn--outline:hover span,
-  .btn--hover-swipe.btn--outline:hover i,
-  .btn--hover-swipe.btn--outline:hover svg,
-  .btn--hover-swipe.btn--outline:hover > *,
-  .btn--hover-swipe-horizontal .btn--outline:hover span,
-  .btn--hover-swipe-horizontal .btn--outline:hover i,
-  .btn--hover-swipe-horizontal .btn--outline:hover svg,
-  .btn--hover-swipe-horizontal .btn--outline:hover > *,
-  .btn--hover-swipe-horizontal.btn--outline:hover span,
-  .btn--hover-swipe-horizontal.btn--outline:hover i,
-  .btn--hover-swipe-horizontal.btn--outline:hover svg,
-  .btn--hover-swipe-horizontal.btn--outline:hover > *,
-  .btn--hover-swipe-vertical .btn--outline:hover span,
-  .btn--hover-swipe-vertical .btn--outline:hover i,
-  .btn--hover-swipe-vertical .btn--outline:hover svg,
-  .btn--hover-swipe-vertical .btn--outline:hover > *,
-  .btn--hover-swipe-vertical.btn--outline:hover span,
-  .btn--hover-swipe-vertical.btn--outline:hover i,
-  .btn--hover-swipe-vertical.btn--outline:hover svg,
-  .btn--hover-swipe-vertical.btn--outline:hover > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--outline):hover :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--outline:hover :is(span, i, svg) {
     @apply text-(--color-primary-contrast);
   }
 
-  .btn--hover-swipe .btn--outline:not(:hover) span,
-  .btn--hover-swipe .btn--outline:not(:hover) i,
-  .btn--hover-swipe .btn--outline:not(:hover) svg,
-  .btn--hover-swipe .btn--outline:not(:hover) > *,
-  .btn--hover-swipe.btn--outline:not(:hover) span,
-  .btn--hover-swipe.btn--outline:not(:hover) i,
-  .btn--hover-swipe.btn--outline:not(:hover) svg,
-  .btn--hover-swipe.btn--outline:not(:hover) > *,
-  .btn--hover-swipe-horizontal .btn--outline:not(:hover) span,
-  .btn--hover-swipe-horizontal .btn--outline:not(:hover) i,
-  .btn--hover-swipe-horizontal .btn--outline:not(:hover) svg,
-  .btn--hover-swipe-horizontal .btn--outline:not(:hover) > *,
-  .btn--hover-swipe-horizontal.btn--outline:not(:hover) span,
-  .btn--hover-swipe-horizontal.btn--outline:not(:hover) i,
-  .btn--hover-swipe-horizontal.btn--outline:not(:hover) svg,
-  .btn--hover-swipe-horizontal.btn--outline:not(:hover) > *,
-  .btn--hover-swipe-vertical .btn--outline:not(:hover) span,
-  .btn--hover-swipe-vertical .btn--outline:not(:hover) i,
-  .btn--hover-swipe-vertical .btn--outline:not(:hover) svg,
-  .btn--hover-swipe-vertical .btn--outline:not(:hover) > *,
-  .btn--hover-swipe-vertical.btn--outline:not(:hover) span,
-  .btn--hover-swipe-vertical.btn--outline:not(:hover) i,
-  .btn--hover-swipe-vertical.btn--outline:not(:hover) svg,
-  .btn--hover-swipe-vertical.btn--outline:not(:hover) > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--outline):not(:hover) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--outline:not(:hover) :is(span, i, svg) {
     @apply delay-0;
   }
 
-  /* Solid Secondary - Swipe (Horizontal & Vertical) */
-  .btn--hover-swipe.btn--solid-secondary::before,
-  .btn--hover-swipe .btn--solid-secondary::before,
-  .btn--hover-swipe-horizontal.btn--solid-secondary::before,
-  .btn--hover-swipe-horizontal .btn--solid-secondary::before,
-  .btn--hover-swipe-vertical.btn--solid-secondary::before,
-  .btn--hover-swipe-vertical .btn--solid-secondary::before {
+  /* Solid Secondary - Swipe */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--solid-secondary, :has(.btn--solid-secondary))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--solid-secondary::before {
     @apply bg-(--color-background);
   }
 
-  .btn--hover-swipe .btn--solid-secondary span,
-  .btn--hover-swipe .btn--solid-secondary i,
-  .btn--hover-swipe .btn--solid-secondary svg,
-  .btn--hover-swipe .btn--solid-secondary > *,
-  .btn--hover-swipe.btn--solid-secondary span,
-  .btn--hover-swipe.btn--solid-secondary i,
-  .btn--hover-swipe.btn--solid-secondary svg,
-  .btn--hover-swipe.btn--solid-secondary > *,
-  .btn--hover-swipe-horizontal .btn--solid-secondary span,
-  .btn--hover-swipe-horizontal .btn--solid-secondary i,
-  .btn--hover-swipe-horizontal .btn--solid-secondary svg,
-  .btn--hover-swipe-horizontal .btn--solid-secondary > *,
-  .btn--hover-swipe-horizontal.btn--solid-secondary span,
-  .btn--hover-swipe-horizontal.btn--solid-secondary i,
-  .btn--hover-swipe-horizontal.btn--solid-secondary svg,
-  .btn--hover-swipe-horizontal.btn--solid-secondary > *,
-  .btn--hover-swipe-vertical .btn--solid-secondary span,
-  .btn--hover-swipe-vertical .btn--solid-secondary i,
-  .btn--hover-swipe-vertical .btn--solid-secondary svg,
-  .btn--hover-swipe-vertical .btn--solid-secondary > *,
-  .btn--hover-swipe-vertical.btn--solid-secondary span,
-  .btn--hover-swipe-vertical.btn--solid-secondary i,
-  .btn--hover-swipe-vertical.btn--solid-secondary svg,
-  .btn--hover-swipe-vertical.btn--solid-secondary > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--solid-secondary, :has(.btn--solid-secondary)) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--solid-secondary :is(span, i, svg) {
     @apply transition-colors duration-200 delay-100;
   }
 
-  .btn--hover-swipe .btn--solid-secondary:hover,
-  .btn--hover-swipe.btn--solid-secondary:hover,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:hover,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:hover,
-  .btn--hover-swipe-vertical .btn--solid-secondary:hover,
-  .btn--hover-swipe-vertical.btn--solid-secondary:hover {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--solid-secondary):hover,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--solid-secondary:hover {
     @apply text-(--color-text);
   }
 
-  .btn--hover-swipe .btn--solid-secondary:hover span,
-  .btn--hover-swipe .btn--solid-secondary:hover i,
-  .btn--hover-swipe .btn--solid-secondary:hover svg,
-  .btn--hover-swipe .btn--solid-secondary:hover > *,
-  .btn--hover-swipe.btn--solid-secondary:hover span,
-  .btn--hover-swipe.btn--solid-secondary:hover i,
-  .btn--hover-swipe.btn--solid-secondary:hover svg,
-  .btn--hover-swipe.btn--solid-secondary:hover > *,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:hover span,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:hover i,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:hover svg,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:hover > *,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:hover span,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:hover i,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:hover svg,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:hover > *,
-  .btn--hover-swipe-vertical .btn--solid-secondary:hover span,
-  .btn--hover-swipe-vertical .btn--solid-secondary:hover i,
-  .btn--hover-swipe-vertical .btn--solid-secondary:hover svg,
-  .btn--hover-swipe-vertical .btn--solid-secondary:hover > *,
-  .btn--hover-swipe-vertical.btn--solid-secondary:hover span,
-  .btn--hover-swipe-vertical.btn--solid-secondary:hover i,
-  .btn--hover-swipe-vertical.btn--solid-secondary:hover svg,
-  .btn--hover-swipe-vertical.btn--solid-secondary:hover > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--solid-secondary):hover :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--solid-secondary:hover :is(span, i, svg) {
     @apply text-(--color-text);
   }
 
-  .btn--hover-swipe .btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe .btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe .btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe .btn--solid-secondary:not(:hover) > *,
-  .btn--hover-swipe.btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe.btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe.btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe.btn--solid-secondary:not(:hover) > *,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe-horizontal .btn--solid-secondary:not(:hover) > *,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe-horizontal.btn--solid-secondary:not(:hover) > *,
-  .btn--hover-swipe-vertical .btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe-vertical .btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe-vertical .btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe-vertical .btn--solid-secondary:not(:hover) > *,
-  .btn--hover-swipe-vertical.btn--solid-secondary:not(:hover) span,
-  .btn--hover-swipe-vertical.btn--solid-secondary:not(:hover) i,
-  .btn--hover-swipe-vertical.btn--solid-secondary:not(:hover) svg,
-  .btn--hover-swipe-vertical.btn--solid-secondary:not(:hover) > * {
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--solid-secondary):not(:hover) :is(span, i, svg),
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--solid-secondary:not(:hover) :is(span, i, svg) {
     @apply delay-0;
   }
 
-  /* Tertiary - Swipe (Horizontal & Vertical) */
-  .btn--hover-swipe.btn--tertiary::before,
-  .btn--hover-swipe .btn--tertiary::before,
-  .btn--hover-swipe-horizontal.btn--tertiary::before,
-  .btn--hover-swipe-horizontal .btn--tertiary::before,
-  .btn--hover-swipe-vertical.btn--tertiary::before,
-  .btn--hover-swipe-vertical .btn--tertiary::before {
+  /* Tertiary - Swipe */
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical):is(.btn--tertiary, :has(.btn--tertiary))::before,
+  :is(.btn--hover-swipe, .btn--hover-swipe-horizontal, .btn--hover-swipe-vertical) .btn--tertiary::before {
     @apply bg-(--color-text) opacity-5;
   }
 
@@ -623,7 +272,7 @@
      Diagonal light sweep effect (award-winning modern style)
      ========================================================================== */
 
-  .btn--hover-shine.btn::before,
+  :is(.btn--hover-shine):is(.btn, :has(.btn))::before,
   .btn--hover-shine .btn::before {
     @apply absolute z-0 inset-0 content-[''];
     background: linear-gradient(
@@ -638,128 +287,80 @@
     transition: transform 0.6s ease;
   }
 
-  .btn--hover-shine.btn:hover::before,
+  :is(.btn--hover-shine):is(.btn, :has(.btn)):hover::before,
   .btn--hover-shine .btn:hover::before {
     transform: translateX(100%);
   }
 
-  /* Primary - Shine (inverts on hover) */
-  .btn--hover-shine .btn--primary span,
-  .btn--hover-shine .btn--primary i,
-  .btn--hover-shine .btn--primary svg,
-  .btn--hover-shine .btn--primary > *,
-  .btn--hover-shine.btn--primary span,
-  .btn--hover-shine.btn--primary i,
-  .btn--hover-shine.btn--primary svg,
-  .btn--hover-shine.btn--primary > * {
+  /* Primary - Shine */
+  :is(.btn--hover-shine):is(.btn--primary, :has(.btn--primary)) :is(span, i, svg),
+  .btn--hover-shine .btn--primary :is(span, i, svg) {
     @apply transition-colors duration-300;
   }
 
-  .btn--hover-shine .btn--primary:hover,
-  .btn--hover-shine.btn--primary:hover {
-    background-color: var(--color-primary-contrast) !important;
-    border-color: var(--color-primary) !important;
-    color: var(--color-primary) !important;
+  :is(.btn--hover-shine):is(.btn--primary):hover,
+  .btn--hover-shine .btn--primary:hover {
+    background-color: var(--color-primary-contrast);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
-  .btn--hover-shine .btn--primary:hover span,
-  .btn--hover-shine .btn--primary:hover i,
-  .btn--hover-shine .btn--primary:hover svg,
-  .btn--hover-shine .btn--primary:hover > *,
-  .btn--hover-shine.btn--primary:hover span,
-  .btn--hover-shine.btn--primary:hover i,
-  .btn--hover-shine.btn--primary:hover svg,
-  .btn--hover-shine.btn--primary:hover > * {
-    color: var(--color-primary) !important;
+  :is(.btn--hover-shine):is(.btn--primary):hover :is(span, i, svg),
+  .btn--hover-shine .btn--primary:hover :is(span, i, svg) {
+    color: var(--color-primary);
   }
 
   /* Secondary - Shine */
-  .btn--hover-shine .btn--secondary span,
-  .btn--hover-shine .btn--secondary i,
-  .btn--hover-shine .btn--secondary svg,
-  .btn--hover-shine .btn--secondary > *,
-  .btn--hover-shine.btn--secondary span,
-  .btn--hover-shine.btn--secondary i,
-  .btn--hover-shine.btn--secondary svg,
-  .btn--hover-shine.btn--secondary > * {
+  :is(.btn--hover-shine):is(.btn--secondary, :has(.btn--secondary)) :is(span, i, svg),
+  .btn--hover-shine .btn--secondary :is(span, i, svg) {
     @apply transition-colors duration-300;
   }
 
-  .btn--hover-shine .btn--secondary:hover,
-  .btn--hover-shine.btn--secondary:hover {
+  :is(.btn--hover-shine):is(.btn--secondary):hover,
+  .btn--hover-shine .btn--secondary:hover {
     @apply bg-(--color-text) text-(--color-background);
   }
 
-  .btn--hover-shine .btn--secondary:hover span,
-  .btn--hover-shine .btn--secondary:hover i,
-  .btn--hover-shine .btn--secondary:hover svg,
-  .btn--hover-shine .btn--secondary:hover > *,
-  .btn--hover-shine.btn--secondary:hover span,
-  .btn--hover-shine.btn--secondary:hover i,
-  .btn--hover-shine.btn--secondary:hover svg,
-  .btn--hover-shine.btn--secondary:hover > * {
+  :is(.btn--hover-shine):is(.btn--secondary):hover :is(span, i, svg),
+  .btn--hover-shine .btn--secondary:hover :is(span, i, svg) {
     @apply text-(--color-background);
   }
 
   /* Outline - Shine */
-  .btn--hover-shine .btn--outline span,
-  .btn--hover-shine .btn--outline i,
-  .btn--hover-shine .btn--outline svg,
-  .btn--hover-shine .btn--outline > *,
-  .btn--hover-shine.btn--outline span,
-  .btn--hover-shine.btn--outline i,
-  .btn--hover-shine.btn--outline svg,
-  .btn--hover-shine.btn--outline > * {
+  :is(.btn--hover-shine):is(.btn--outline, :has(.btn--outline)) :is(span, i, svg),
+  .btn--hover-shine .btn--outline :is(span, i, svg) {
     @apply transition-colors duration-300;
   }
 
-  .btn--hover-shine .btn--outline:hover,
-  .btn--hover-shine.btn--outline:hover {
+  :is(.btn--hover-shine):is(.btn--outline):hover,
+  .btn--hover-shine .btn--outline:hover {
     @apply bg-(--color-primary) text-(--color-primary-contrast);
   }
 
-  .btn--hover-shine .btn--outline:hover span,
-  .btn--hover-shine .btn--outline:hover i,
-  .btn--hover-shine .btn--outline:hover svg,
-  .btn--hover-shine .btn--outline:hover > *,
-  .btn--hover-shine.btn--outline:hover span,
-  .btn--hover-shine.btn--outline:hover i,
-  .btn--hover-shine.btn--outline:hover svg,
-  .btn--hover-shine.btn--outline:hover > * {
+  :is(.btn--hover-shine):is(.btn--outline):hover :is(span, i, svg),
+  .btn--hover-shine .btn--outline:hover :is(span, i, svg) {
     @apply text-(--color-primary-contrast);
   }
 
   /* Solid Secondary - Shine */
-  .btn--hover-shine .btn--solid-secondary span,
-  .btn--hover-shine .btn--solid-secondary i,
-  .btn--hover-shine .btn--solid-secondary svg,
-  .btn--hover-shine .btn--solid-secondary > *,
-  .btn--hover-shine.btn--solid-secondary span,
-  .btn--hover-shine.btn--solid-secondary i,
-  .btn--hover-shine.btn--solid-secondary svg,
-  .btn--hover-shine.btn--solid-secondary > * {
+  :is(.btn--hover-shine):is(.btn--solid-secondary, :has(.btn--solid-secondary)) :is(span, i, svg),
+  .btn--hover-shine .btn--solid-secondary :is(span, i, svg) {
     @apply transition-colors duration-300;
   }
 
-  .btn--hover-shine .btn--solid-secondary:hover,
-  .btn--hover-shine.btn--solid-secondary:hover {
+  :is(.btn--hover-shine):is(.btn--solid-secondary):hover,
+  .btn--hover-shine .btn--solid-secondary:hover {
     @apply bg-(--color-background) text-(--color-text);
   }
 
-  .btn--hover-shine .btn--solid-secondary:hover span,
-  .btn--hover-shine .btn--solid-secondary:hover i,
-  .btn--hover-shine .btn--solid-secondary:hover svg,
-  .btn--hover-shine .btn--solid-secondary:hover > *,
-  .btn--hover-shine.btn--solid-secondary:hover span,
-  .btn--hover-shine.btn--solid-secondary:hover i,
-  .btn--hover-shine.btn--solid-secondary:hover svg,
-  .btn--hover-shine.btn--solid-secondary:hover > * {
+  :is(.btn--hover-shine):is(.btn--solid-secondary):hover :is(span, i, svg),
+  .btn--hover-shine .btn--solid-secondary:hover :is(span, i, svg) {
     @apply text-(--color-text);
   }
 
   /* Tertiary - Shine */
-  .btn--hover-shine .btn--tertiary:hover,
-  .btn--hover-shine.btn--tertiary:hover {
+  :is(.btn--hover-shine):is(.btn--tertiary):hover,
+  .btn--hover-shine .btn--tertiary:hover {
     background-color: color-mix(in srgb, var(--color-text) 5%, transparent);
   }
 
@@ -770,32 +371,26 @@
      Enabled via body class: .btn-text-slide
      ========================================================================== */
 
-  /* Base slide text setup - independent of hover effect */
-  .btn-text-slide .btn span[data-hover],
-  .btn-text-slide.btn span[data-hover] {
+  :is(.btn-text-slide, .btn-text-slide .btn) span[data-hover] {
     @apply inline-block relative overflow-hidden;
   }
 
-  .btn-text-slide .btn span[data-hover]::after,
-  .btn-text-slide.btn span[data-hover]::after {
+  :is(.btn-text-slide, .btn-text-slide .btn) span[data-hover]::after {
     @apply absolute left-0 top-full whitespace-nowrap;
     content: attr(data-hover);
     transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
-  .btn-text-slide .btn span[data-hover] > span,
-  .btn-text-slide.btn span[data-hover] > span {
+  :is(.btn-text-slide, .btn-text-slide .btn) span[data-hover] > span {
     @apply inline-block;
     transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
   }
 
-  .btn-text-slide .btn:hover span[data-hover]::after,
-  .btn-text-slide.btn:hover span[data-hover]::after {
+  :is(.btn-text-slide, .btn-text-slide .btn):hover span[data-hover]::after {
     transform: translateY(-100%);
   }
 
-  .btn-text-slide .btn:hover span[data-hover] > span,
-  .btn-text-slide.btn:hover span[data-hover] > span {
+  :is(.btn-text-slide, .btn-text-slide .btn):hover span[data-hover] > span {
     transform: translateY(-100%);
   }
 
@@ -875,8 +470,7 @@
     @apply border-(--color-primary-contrast) border-r-transparent;
   }
 
-  .btn--secondary.is-loading::after,
-  .btn--tertiary.is-loading::after {
+  :is(.btn--secondary, .btn--tertiary).is-loading::after {
     @apply border-(--color-text) border-r-transparent;
   }
 
@@ -899,10 +493,7 @@
     border-color: var(--section-text, var(--color-text));
   }
 
-  .btn--section:hover span,
-  .btn--section:hover i,
-  .btn--section:hover svg,
-  .btn--section:hover > * {
+  .btn--section:hover :is(span, i, svg) {
     color: var(--section-bg, var(--color-background));
   }
 
@@ -952,8 +543,7 @@
     @apply absolute left-0 top-full content-[attr(data-hover)];
   }
 
-  .arrow-link:hover span[data-hover],
-  .group:hover .arrow-link span[data-hover] {
+  :is(.arrow-link:hover, .group:hover .arrow-link) span[data-hover] {
     @apply -translate-y-full;
   }
 
@@ -1073,8 +663,7 @@
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Ccircle cx='28' cy='28' r='28' fill='white'/%3E%3Cline x1='20' y1='20' x2='36' y2='36' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3Cline x1='36' y1='20' x2='20' y2='36' stroke='black' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") 28 28, pointer;
   }
 
-  .group.is-open .drawer-backdrop,
-  .group[class*='is-open'] .drawer-backdrop {
+  :is(.group.is-open, .group[class*='is-open']) .drawer-backdrop {
     @apply opacity-100;
   }
 
@@ -1111,9 +700,9 @@
   }
 
   .slider-nav-btn {
-    @apply w-11 h-11 shrink-0 rounded-full bg-transparent flex items-center justify-center cursor-pointer;
-    @apply border border-solid border-(--color-text) text-(--color-text);
-    @apply transition-all duration-300;
+    @apply w-11 h-11 shrink-0 rounded-full bg-transparent flex items-center justify-center cursor-pointer
+           border border-solid border-(--color-text) text-(--color-text)
+           transition-all duration-300;
   }
 
   .slider-nav-btn:hover:not(:disabled) {
