@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "页面未找到",
+    "not_found": "页面未找到",
+    "description": "抱歉，我们找不到您要找的页面。它可能已被移动或删除。",
+    "back_home": "返回首页",
+    "browse_products": "浏览产品",
+    "suggestions_title": "您可能在找",
+    "search_prompt": "或尝试搜索您需要的内容",
+    "back_to_shopping": "返回购物"
+  },
   "localization": {
     "country_label": "国家/地区",
     "language_label": "语言",
@@ -102,7 +112,8 @@
     "removed_from_compare": "已从比较移除",
     "cart_updated": "购物车已更新",
     "items_in_cart": "购物车中有 {{ count }} 件商品",
-    "no_image": "暂无图片"
+    "no_image": "暂无图片",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "网络错误。请检查您的连接并重试。",
@@ -158,16 +169,6 @@
     "max_price": "最高价格",
     "to": "至",
     "shop_now": "立即选购"
-  },
-  "404": {
-    "title": "页面未找到",
-    "not_found": "页面未找到",
-    "description": "抱歉，我们找不到您要找的页面。它可能已被移动或删除。",
-    "back_home": "返回首页",
-    "browse_products": "浏览产品",
-    "suggestions_title": "您可能在找",
-    "search_prompt": "或尝试搜索您需要的内容",
-    "back_to_shopping": "返回购物"
   },
   "blog": {
     "article_comments": "评论",

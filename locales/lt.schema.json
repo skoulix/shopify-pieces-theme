@@ -668,6 +668,25 @@
       "forms": "Formos"
     }
   },
+  "settings": {
+    "popup": {
+      "text": {
+        "default": "Subscribe for exclusive offers, new arrivals, and insider-only discounts."
+      },
+      "placeholder": {
+        "default": "Enter your email"
+      },
+      "button_text": {
+        "default": "Subscribe"
+      },
+      "success_message": {
+        "default": "Thanks for subscribing!"
+      },
+      "discount_message": {
+        "default": "Use code {code} for 10% off your first order!"
+      }
+    }
+  },
   "sections": {
     "404": {
       "name": "404"

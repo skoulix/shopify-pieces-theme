@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Page non trouvée",
+    "not_found": "Page non trouvée",
+    "description": "Désolé, nous n'avons pas trouvé la page que vous cherchez. Elle a peut-être été déplacée ou supprimée.",
+    "back_home": "Retour à l'accueil",
+    "browse_products": "Parcourir les produits",
+    "suggestions_title": "Vous cherchez peut-être",
+    "search_prompt": "Ou essayez de rechercher ce dont vous avez besoin",
+    "back_to_shopping": "Retour aux achats"
+  },
   "localization": {
     "country_label": "Pays/région",
     "language_label": "Langue",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Retiré du comparateur",
     "cart_updated": "Panier mis à jour",
     "items_in_cart": "{{ count }} articles dans le panier",
-    "no_image": "Aucune image disponible"
+    "no_image": "Aucune image disponible",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
@@ -158,16 +169,6 @@
     "max_price": "Prix maximum",
     "to": "à",
     "shop_now": "Acheter maintenant"
-  },
-  "404": {
-    "title": "Page non trouvée",
-    "not_found": "Page non trouvée",
-    "description": "Désolé, nous n'avons pas trouvé la page que vous cherchez. Elle a peut-être été déplacée ou supprimée.",
-    "back_home": "Retour à l'accueil",
-    "browse_products": "Parcourir les produits",
-    "suggestions_title": "Vous cherchez peut-être",
-    "search_prompt": "Ou essayez de rechercher ce dont vous avez besoin",
-    "back_to_shopping": "Retour aux achats"
   },
   "blog": {
     "article_comments": "Commentaires",

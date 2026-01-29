@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Sayfa bulunamadı",
+    "not_found": "Sayfa bulunamadı",
+    "description": "Üzgünüz, aradığınız sayfayı bulamadık. Taşınmış veya silinmiş olabilir.",
+    "back_home": "Ana Sayfaya Dön",
+    "browse_products": "Ürünlere Göz At",
+    "suggestions_title": "Bunları arıyor olabilirsiniz",
+    "search_prompt": "Veya ihtiyacınız olanı aramayı deneyin",
+    "back_to_shopping": "Alışverişe dön"
+  },
   "localization": {
     "country_label": "Ülke/bölge",
     "language_label": "Dil",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Karşılaştırmadan kaldırıldı",
     "cart_updated": "Sepet güncellendi",
     "items_in_cart": "Sepette {{ count }} ürün",
-    "no_image": "Görsel mevcut değil"
+    "no_image": "Görsel mevcut değil",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
@@ -158,16 +169,6 @@
     "max_price": "Maks fiyat",
     "to": "-",
     "shop_now": "Şimdi Alışveriş Yap"
-  },
-  "404": {
-    "title": "Sayfa bulunamadı",
-    "not_found": "Sayfa bulunamadı",
-    "description": "Üzgünüz, aradığınız sayfayı bulamadık. Taşınmış veya silinmiş olabilir.",
-    "back_home": "Ana Sayfaya Dön",
-    "browse_products": "Ürünlere Göz At",
-    "suggestions_title": "Bunları arıyor olabilirsiniz",
-    "search_prompt": "Veya ihtiyacınız olanı aramayı deneyin",
-    "back_to_shopping": "Alışverişe dön"
   },
   "blog": {
     "article_comments": "Yorumlar",

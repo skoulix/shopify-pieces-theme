@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Siden blev ikke fundet",
+    "not_found": "Siden blev ikke fundet",
+    "description": "Beklager, vi kunne ikke finde den side, du leder efter. Den er måske blevet flyttet eller slettet.",
+    "back_home": "Tilbage til forsiden",
+    "browse_products": "Gennemse produkter",
+    "suggestions_title": "Du leder måske efter",
+    "search_prompt": "Eller prøv at søge efter det, du har brug for",
+    "back_to_shopping": "Tilbage til shopping"
+  },
   "localization": {
     "country_label": "Land/region",
     "language_label": "Sprog",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Fjernet fra sammenligning",
     "cart_updated": "Kurv opdateret",
     "items_in_cart": "{{ count }} varer i kurven",
-    "no_image": "Intet billede tilgængeligt"
+    "no_image": "Intet billede tilgængeligt",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Netværksfejl. Tjek din forbindelse og prøv igen.",
@@ -158,16 +169,6 @@
     "max_price": "Maks. pris",
     "to": "til",
     "shop_now": "Shop nu"
-  },
-  "404": {
-    "title": "Siden blev ikke fundet",
-    "not_found": "Siden blev ikke fundet",
-    "description": "Beklager, vi kunne ikke finde den side, du leder efter. Den er måske blevet flyttet eller slettet.",
-    "back_home": "Tilbage til forsiden",
-    "browse_products": "Gennemse produkter",
-    "suggestions_title": "Du leder måske efter",
-    "search_prompt": "Eller prøv at søge efter det, du har brug for",
-    "back_to_shopping": "Tilbage til shopping"
   },
   "blog": {
     "article_comments": "Kommentarer",

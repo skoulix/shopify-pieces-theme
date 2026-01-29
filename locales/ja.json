@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "ページが見つかりません",
+    "not_found": "ページが見つかりません",
+    "description": "申し訳ございません。お探しのページが見つかりませんでした。移動または削除された可能性があります。",
+    "back_home": "ホームに戻る",
+    "browse_products": "商品を見る",
+    "suggestions_title": "こちらをお探しですか",
+    "search_prompt": "または検索してみてください",
+    "back_to_shopping": "ショッピングに戻る"
+  },
   "localization": {
     "country_label": "国/地域",
     "language_label": "言語",
@@ -102,7 +112,8 @@
     "removed_from_compare": "比較から削除しました",
     "cart_updated": "カートを更新しました",
     "items_in_cart": "カートに{{ count }}点",
-    "no_image": "画像がありません"
+    "no_image": "画像がありません",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "ネットワークエラー。接続を確認してもう一度お試しください。",
@@ -158,16 +169,6 @@
     "max_price": "最高価格",
     "to": "〜",
     "shop_now": "今すぐ購入"
-  },
-  "404": {
-    "title": "ページが見つかりません",
-    "not_found": "ページが見つかりません",
-    "description": "申し訳ございません。お探しのページが見つかりませんでした。移動または削除された可能性があります。",
-    "back_home": "ホームに戻る",
-    "browse_products": "商品を見る",
-    "suggestions_title": "こちらをお探しですか",
-    "search_prompt": "または検索してみてください",
-    "back_to_shopping": "ショッピングに戻る"
   },
   "blog": {
     "article_comments": "コメント",

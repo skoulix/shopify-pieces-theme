@@ -903,25 +903,25 @@
         "type": "textarea",
         "id": "popup_text",
         "label": "Description",
-        "default": "Subscribe for exclusive offers, new arrivals, and insider-only discounts."
+        "default": "t:settings.popup.text.default"
       },
       {
         "type": "text",
         "id": "popup_placeholder",
         "label": "Email placeholder",
-        "default": "Enter your email"
+        "default": "t:settings.popup.placeholder.default"
       },
       {
         "type": "text",
         "id": "popup_button_text",
         "label": "Button text",
-        "default": "Subscribe"
+        "default": "t:settings.popup.button_text.default"
       },
       {
         "type": "text",
         "id": "popup_success_msg",
         "label": "Success message",
-        "default": "Thanks for subscribing!"
+        "default": "t:settings.popup.success_message.default"
       },
       {
         "type": "header",
@@ -945,7 +945,7 @@
         "type": "text",
         "id": "popup_discount_msg",
         "label": "Discount message",
-        "default": "Use code {code} for 10% off your first order!"
+        "default": "t:settings.popup.discount_message.default"
       },
       {
         "type": "header",

@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Pagina niet gevonden",
+    "not_found": "Pagina niet gevonden",
+    "description": "Sorry, we konden de pagina die je zoekt niet vinden. Mogelijk is deze verplaatst of verwijderd.",
+    "back_home": "Terug naar home",
+    "browse_products": "Producten bekijken",
+    "suggestions_title": "Misschien zoek je naar",
+    "search_prompt": "Of probeer te zoeken naar wat je nodig hebt",
+    "back_to_shopping": "Terug naar winkelen"
+  },
   "localization": {
     "country_label": "Land/regio",
     "language_label": "Taal",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Verwijderd uit vergelijking",
     "cart_updated": "Winkelwagen bijgewerkt",
     "items_in_cart": "{{ count }} artikelen in winkelwagen",
-    "no_image": "Geen afbeelding beschikbaar"
+    "no_image": "Geen afbeelding beschikbaar",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
@@ -158,16 +169,6 @@
     "max_price": "Maximumprijs",
     "to": "tot",
     "shop_now": "Nu winkelen"
-  },
-  "404": {
-    "title": "Pagina niet gevonden",
-    "not_found": "Pagina niet gevonden",
-    "description": "Sorry, we konden de pagina die je zoekt niet vinden. Mogelijk is deze verplaatst of verwijderd.",
-    "back_home": "Terug naar home",
-    "browse_products": "Producten bekijken",
-    "suggestions_title": "Misschien zoek je naar",
-    "search_prompt": "Of probeer te zoeken naar wat je nodig hebt",
-    "back_to_shopping": "Terug naar winkelen"
   },
   "blog": {
     "article_comments": "Reacties",

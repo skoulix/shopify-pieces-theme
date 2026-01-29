@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "找不到頁面",
+    "not_found": "找不到頁面",
+    "description": "抱歉，我們找不到您要找的頁面。它可能已被移動或刪除。",
+    "back_home": "返回首頁",
+    "browse_products": "瀏覽產品",
+    "suggestions_title": "您可能在找",
+    "search_prompt": "或嘗試搜尋您需要的內容",
+    "back_to_shopping": "返回購物"
+  },
   "localization": {
     "country_label": "國家/地區",
     "language_label": "語言",
@@ -102,7 +112,8 @@
     "removed_from_compare": "已從比較移除",
     "cart_updated": "購物車已更新",
     "items_in_cart": "購物車中有 {{ count }} 件商品",
-    "no_image": "暫無圖片"
+    "no_image": "暫無圖片",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "網路錯誤。請檢查您的連線並重試。",
@@ -158,16 +169,6 @@
     "max_price": "最高價格",
     "to": "至",
     "shop_now": "立即選購"
-  },
-  "404": {
-    "title": "找不到頁面",
-    "not_found": "找不到頁面",
-    "description": "抱歉，我們找不到您要找的頁面。它可能已被移動或刪除。",
-    "back_home": "返回首頁",
-    "browse_products": "瀏覽產品",
-    "suggestions_title": "您可能在找",
-    "search_prompt": "或嘗試搜尋您需要的內容",
-    "back_to_shopping": "返回購物"
   },
   "blog": {
     "article_comments": "留言",

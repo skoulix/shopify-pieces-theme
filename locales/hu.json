@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Az oldal nem található",
+    "not_found": "Az oldal nem található",
+    "description": "Sajnáljuk, a keresett oldal nem található. Lehet, hogy áthelyezték vagy törölték.",
+    "back_home": "Vissza a kezdőlapra",
+    "browse_products": "Termékek böngészése",
+    "suggestions_title": "Talán ezt keresi",
+    "search_prompt": "Vagy próbálja meg keresni, amire szüksége van",
+    "back_to_shopping": "Vissza a vásárláshoz"
+  },
   "localization": {
     "country_label": "Ország/régió",
     "language_label": "Nyelv",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Eltávolítva az összehasonlításból",
     "cart_updated": "Kosár frissítve",
     "items_in_cart": "{{ count }} termék a kosárban",
-    "no_image": "Nincs elérhető kép"
+    "no_image": "Nincs elérhető kép",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Hálózati hiba. Kérjük, ellenőrizze a kapcsolatot, és próbálja újra.",
@@ -158,16 +169,6 @@
     "max_price": "Maximális ár",
     "to": "–",
     "shop_now": "Vásárlás most"
-  },
-  "404": {
-    "title": "Az oldal nem található",
-    "not_found": "Az oldal nem található",
-    "description": "Sajnáljuk, a keresett oldal nem található. Lehet, hogy áthelyezték vagy törölték.",
-    "back_home": "Vissza a kezdőlapra",
-    "browse_products": "Termékek böngészése",
-    "suggestions_title": "Talán ezt keresi",
-    "search_prompt": "Vagy próbálja meg keresni, amire szüksége van",
-    "back_to_shopping": "Vissza a vásárláshoz"
   },
   "blog": {
     "article_comments": "Hozzászólások",

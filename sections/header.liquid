@@ -279,7 +279,7 @@
 <div class="header-wrapper{% if section.settings.sticky_header %} is-sticky{% endif %}{% if is_transparent %} is-transparent{% endif %}" data-header-wrapper{% if section.settings.hide_on_scroll %} data-hide-on-scroll{% endif %}{% if is_transparent %} data-transparent-header{% endif %}>
   {%- comment -%} Announcement Bar Row {%- endcomment -%}
   {% if show_announcement and announcement_blocks.size > 0 %}
-    <div class="header-announcement color-{{ section.settings.announcement_color_scheme }} relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="Announcement" data-announcement-bar>
+    <div class="header-announcement color-{{ section.settings.announcement_color_scheme }} relative flex items-center justify-center px-10 py-2 text-center text-sm" role="region" aria-label="{{ 'accessibility.announcement' | t | default: 'Announcement' }}" data-announcement-bar>
       {%- comment -%} Navigation Arrows {%- endcomment -%}
       {% if section.settings.announcement_arrows and announcement_blocks.size > 1 %}
         <button type="button" class="header-announcement__arrow header-announcement__arrow--prev" data-announcement-prev aria-label="{{ 'accessibility.previous' | t }}">

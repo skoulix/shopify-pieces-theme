@@ -10,6 +10,7 @@
     "success": "Thanks for subscribing"
   },
   "accessibility": {
+    "announcement": "Announcement",
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
     "close": "Close",

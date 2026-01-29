@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Seite nicht gefunden",
+    "not_found": "Seite nicht gefunden",
+    "description": "Entschuldigung, wir konnten die gesuchte Seite nicht finden. Sie wurde möglicherweise verschoben oder gelöscht.",
+    "back_home": "Zurück zur Startseite",
+    "browse_products": "Produkte durchstöbern",
+    "suggestions_title": "Sie suchen vielleicht nach",
+    "search_prompt": "Oder versuchen Sie, nach dem zu suchen, was Sie brauchen",
+    "back_to_shopping": "Zurück zum Shop"
+  },
   "localization": {
     "country_label": "Land/Region",
     "language_label": "Sprache",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Vom Vergleich entfernt",
     "cart_updated": "Warenkorb aktualisiert",
     "items_in_cart": "{{ count }} Artikel im Warenkorb",
-    "no_image": "Kein Bild verfügbar"
+    "no_image": "Kein Bild verfügbar",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
@@ -158,16 +169,6 @@
     "max_price": "Höchstpreis",
     "to": "bis",
     "shop_now": "Jetzt shoppen"
-  },
-  "404": {
-    "title": "Seite nicht gefunden",
-    "not_found": "Seite nicht gefunden",
-    "description": "Entschuldigung, wir konnten die gesuchte Seite nicht finden. Sie wurde möglicherweise verschoben oder gelöscht.",
-    "back_home": "Zurück zur Startseite",
-    "browse_products": "Produkte durchstöbern",
-    "suggestions_title": "Sie suchen vielleicht nach",
-    "search_prompt": "Oder versuchen Sie, nach dem zu suchen, was Sie brauchen",
-    "back_to_shopping": "Zurück zum Shop"
   },
   "blog": {
     "article_comments": "Kommentare",

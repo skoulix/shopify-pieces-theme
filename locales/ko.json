@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "페이지를 찾을 수 없습니다",
+    "not_found": "페이지를 찾을 수 없습니다",
+    "description": "죄송합니다. 찾으시는 페이지를 찾을 수 없습니다. 이동되었거나 삭제되었을 수 있습니다.",
+    "back_home": "홈으로 돌아가기",
+    "browse_products": "제품 둘러보기",
+    "suggestions_title": "이런 걸 찾고 계신가요?",
+    "search_prompt": "또는 필요한 것을 검색해 보세요",
+    "back_to_shopping": "쇼핑으로 돌아가기"
+  },
   "localization": {
     "country_label": "국가/지역",
     "language_label": "언어",
@@ -102,7 +112,8 @@
     "removed_from_compare": "비교에서 제거됨",
     "cart_updated": "장바구니 업데이트됨",
     "items_in_cart": "장바구니에 {{ count }}개",
-    "no_image": "이미지 없음"
+    "no_image": "이미지 없음",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "네트워크 오류. 연결을 확인하고 다시 시도해 주세요.",
@@ -158,16 +169,6 @@
     "max_price": "최대 가격",
     "to": "~",
     "shop_now": "지금 쇼핑하기"
-  },
-  "404": {
-    "title": "페이지를 찾을 수 없습니다",
-    "not_found": "페이지를 찾을 수 없습니다",
-    "description": "죄송합니다. 찾으시는 페이지를 찾을 수 없습니다. 이동되었거나 삭제되었을 수 있습니다.",
-    "back_home": "홈으로 돌아가기",
-    "browse_products": "제품 둘러보기",
-    "suggestions_title": "이런 걸 찾고 계신가요?",
-    "search_prompt": "또는 필요한 것을 검색해 보세요",
-    "back_to_shopping": "쇼핑으로 돌아가기"
   },
   "blog": {
     "article_comments": "댓글",

@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Stránka sa nenašla",
+    "not_found": "Stránka sa nenašla",
+    "description": "Prepáčte, stránku, ktorú hľadáte, sme nenašli. Možno bola presunutá alebo odstránená.",
+    "back_home": "Späť na úvod",
+    "browse_products": "Prehliadať produkty",
+    "suggestions_title": "Možno hľadáte",
+    "search_prompt": "Alebo skúste vyhľadať to, čo potrebujete",
+    "back_to_shopping": "Späť k nákupom"
+  },
   "localization": {
     "country_label": "Krajina/oblasť",
     "language_label": "Jazyk",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Odstránené z porovnania",
     "cart_updated": "Košík bol aktualizovaný",
     "items_in_cart": "{{ count }} položiek v košíku",
-    "no_image": "Obrázok nie je k dispozícii"
+    "no_image": "Obrázok nie je k dispozícii",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Chyba siete. Skontrolujte svoje pripojenie a skúste to znova.",
@@ -158,16 +169,6 @@
     "max_price": "Maximálna cena",
     "to": "do",
     "shop_now": "Nakupovať"
-  },
-  "404": {
-    "title": "Stránka sa nenašla",
-    "not_found": "Stránka sa nenašla",
-    "description": "Prepáčte, stránku, ktorú hľadáte, sme nenašli. Možno bola presunutá alebo odstránená.",
-    "back_home": "Späť na úvod",
-    "browse_products": "Prehliadať produkty",
-    "suggestions_title": "Možno hľadáte",
-    "search_prompt": "Alebo skúste vyhľadať to, čo potrebujete",
-    "back_to_shopping": "Späť k nákupom"
   },
   "blog": {
     "article_comments": "Komentáre",

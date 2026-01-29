@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Stran ni najdena",
+    "not_found": "Stran ni najdena",
+    "description": "Oprostite, strani, ki jo iščete, nismo mogli najti. Morda je bila premaknjena ali izbrisana.",
+    "back_home": "Nazaj na začetno stran",
+    "browse_products": "Brskaj po izdelkih",
+    "suggestions_title": "Morda iščete",
+    "search_prompt": "Ali pa poskusite poiskati, kar potrebujete",
+    "back_to_shopping": "Nazaj na nakupovanje"
+  },
   "localization": {
     "country_label": "Država/regija",
     "language_label": "Jezik",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Odstranjeno iz primerjave",
     "cart_updated": "Košarica posodobljena",
     "items_in_cart": "{{ count }} artiklov v košarici",
-    "no_image": "Slika ni na voljo"
+    "no_image": "Slika ni na voljo",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Napaka v omrežju. Preverite povezavo in poskusite znova.",
@@ -158,16 +169,6 @@
     "max_price": "Najvišja cena",
     "to": "do",
     "shop_now": "Kupuj zdaj"
-  },
-  "404": {
-    "title": "Stran ni najdena",
-    "not_found": "Stran ni najdena",
-    "description": "Oprostite, strani, ki jo iščete, nismo mogli najti. Morda je bila premaknjena ali izbrisana.",
-    "back_home": "Nazaj na začetno stran",
-    "browse_products": "Brskaj po izdelkih",
-    "suggestions_title": "Morda iščete",
-    "search_prompt": "Ali pa poskusite poiskati, kar potrebujete",
-    "back_to_shopping": "Nazaj na nakupovanje"
   },
   "blog": {
     "article_comments": "Komentarji",

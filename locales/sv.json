@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Sidan hittades inte",
+    "not_found": "Sidan hittades inte",
+    "description": "Tyvärr kunde vi inte hitta sidan du letade efter. Den kan ha flyttats eller tagits bort.",
+    "back_home": "Tillbaka till startsidan",
+    "browse_products": "Bläddra bland produkter",
+    "suggestions_title": "Du kanske letar efter",
+    "search_prompt": "Eller försök söka efter det du behöver",
+    "back_to_shopping": "Tillbaka till shopping"
+  },
   "localization": {
     "country_label": "Land/region",
     "language_label": "Språk",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Borttagen från jämförelse",
     "cart_updated": "Varukorg uppdaterad",
     "items_in_cart": "{{ count }} artiklar i varukorgen",
-    "no_image": "Ingen bild tillgänglig"
+    "no_image": "Ingen bild tillgänglig",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Nätverksfel. Kontrollera din anslutning och försök igen.",
@@ -158,16 +169,6 @@
     "max_price": "Maxpris",
     "to": "till",
     "shop_now": "Handla nu"
-  },
-  "404": {
-    "title": "Sidan hittades inte",
-    "not_found": "Sidan hittades inte",
-    "description": "Tyvärr kunde vi inte hitta sidan du letade efter. Den kan ha flyttats eller tagits bort.",
-    "back_home": "Tillbaka till startsidan",
-    "browse_products": "Bläddra bland produkter",
-    "suggestions_title": "Du kanske letar efter",
-    "search_prompt": "Eller försök söka efter det du behöver",
-    "back_to_shopping": "Tillbaka till shopping"
   },
   "blog": {
     "article_comments": "Kommentarer",

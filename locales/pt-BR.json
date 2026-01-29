@@ -1,4 +1,14 @@
 {
+  "404": {
+    "title": "Página não encontrada",
+    "not_found": "Página não encontrada",
+    "description": "Desculpe, não conseguimos encontrar a página que você está procurando. Ela pode ter sido movida ou excluída.",
+    "back_home": "Voltar para o início",
+    "browse_products": "Explorar produtos",
+    "suggestions_title": "Você pode estar procurando",
+    "search_prompt": "Ou tente pesquisar o que você precisa",
+    "back_to_shopping": "Voltar às compras"
+  },
   "localization": {
     "country_label": "País/região",
     "language_label": "Idioma",
@@ -102,7 +112,8 @@
     "removed_from_compare": "Removido da comparação",
     "cart_updated": "Carrinho atualizado",
     "items_in_cart": "{{ count }} itens no carrinho",
-    "no_image": "Nenhuma imagem disponível"
+    "no_image": "Nenhuma imagem disponível",
+    "announcement": "Announcement"
   },
   "errors": {
     "network": "Erro de rede. Verifique sua conexão e tente novamente.",
@@ -158,16 +169,6 @@
     "max_price": "Preço máximo",
     "to": "até",
     "shop_now": "Comprar agora"
-  },
-  "404": {
-    "title": "Página não encontrada",
-    "not_found": "Página não encontrada",
-    "description": "Desculpe, não conseguimos encontrar a página que você está procurando. Ela pode ter sido movida ou excluída.",
-    "back_home": "Voltar para o início",
-    "browse_products": "Explorar produtos",
-    "suggestions_title": "Você pode estar procurando",
-    "search_prompt": "Ou tente pesquisar o que você precisa",
-    "back_to_shopping": "Voltar às compras"
   },
   "blog": {
     "article_comments": "Comentários",
