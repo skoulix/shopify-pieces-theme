@@ -258,10 +258,11 @@
                         {%- comment -%} Remove {%- endcomment -%}
                         <button
                           type="button"
-                          class="text-sm uppercase tracking-wider font-medium text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
+                          class="link-cta text-(--color-text-secondary) hover:text-(--color-text) transition-colors"
                           data-remove-item
                           data-line="{{ forloop.index }}">
-                          {{ 'cart.remove' | t }}
+                          <i class="ph ph-trash text-base"></i>
+                          <span class="link-cta-text"><span data-hover="{{ 'cart.remove' | t }}">{{ 'cart.remove' | t }}</span></span>
                         </button>
                       </div>
                     </div>

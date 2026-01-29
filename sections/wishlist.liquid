@@ -10,6 +10,17 @@
   endcapture
 -%}
 
+<style>
+  @keyframes wishlist-fade-in-delayed {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .animate-fade-in-delayed {
+    opacity: 0;
+    animation: wishlist-fade-in-delayed 0.3s ease-out 0.4s forwards;
+  }
+</style>
+
 <div class="wishlist-section section-padding{% unless section.settings.padding == 'default' %}-{{ section.settings.padding }}{% endunless %} color-{{ section.settings.color_scheme }}" data-wishlist-section data-header-alignment="{{ section.settings.header_alignment }}" id="wishlist-section-{{ section.id }}">
   <div class="{{ container_class }}">
     {%- comment -%} Header {%- endcomment -%}
@@ -143,14 +154,14 @@
           <article class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full border-solid border-(--color-border)" style="box-shadow: var(--card-shadow); border-width: var(--card-border-width);">
             <button
               type="button"
-              class="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-(--color-sale) text-white shadow-md transition-all duration-300 hover:scale-110"
+              class="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-full bg-(--color-sale) text-white shadow-md transition-all duration-300 hover:scale-110 animate-fade-in-delayed"
               data-remove-wishlist-page="${product.id}"
               aria-label="{{ 'products.wishlist.remove' | t | default: 'Remove' }}"
             >
               <i class="ph-fill ph-heart text-base" aria-hidden="true"></i>
             </button>
             <a href="${escapeHtml(product.url)}" class="flex flex-col flex-1 cursor-pointer">
-              <div class="product-card-image relative overflow-hidden aspect-[3/4]">
+              <div class="product-card-image relative overflow-hidden aspect-[3/4]" data-tween data-tween-type="clip-right">
                 ${product.image ? `
                   <img
                     src="${escapeHtml(product.image)}"
