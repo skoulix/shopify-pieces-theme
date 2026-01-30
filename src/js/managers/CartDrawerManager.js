@@ -315,11 +315,6 @@ class CartDrawerManager {
 
     // Open drawer immediately with cached data for instant feedback
     // Render the cart content before opening (uses cached cart data)
-    // Store current cart token to prevent duplicate render when fetch completes with same data
-    const currentCart = cartState.get();
-    if (currentCart?.token) {
-      this.lastCartToken = currentCart.token;
-    }
     this.render();
 
     // Update state - use inert instead of aria-hidden to properly handle focus

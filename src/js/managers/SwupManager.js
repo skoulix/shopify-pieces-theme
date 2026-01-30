@@ -243,6 +243,12 @@ class SwupManager {
       // since we skip full reinitialization for fragment visits
       const tweenElements = container.querySelectorAll('[data-tween]');
 
+      // Kill any existing tweens on these elements to prevent memory leaks
+      if (tweenElements.length > 0) {
+        gsap.killTweensOf(tweenElements);
+      }
+      gsap.killTweensOf(container);
+
       if (tweenElements.length > 0) {
         // Animate each tween element based on its type
         tweenElements.forEach((el, index) => {

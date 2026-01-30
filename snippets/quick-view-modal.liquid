@@ -74,17 +74,25 @@
   `;
 
   function lockScroll() {
-    scrollPosition = window.scrollY;
-    document.body.style.top = `-${scrollPosition}px`;
-    document.documentElement.classList.add('scroll-locked');
-    if (window.lenis) window.lenis.stop();
+    // Use Lenis for scroll locking when available (preferred)
+    // Fall back to body style manipulation for non-Lenis environments
+    if (window.lenis) {
+      window.lenis.stop();
+    } else {
+      scrollPosition = window.scrollY;
+      document.body.style.top = `-${scrollPosition}px`;
+      document.documentElement.classList.add('scroll-locked');
+    }
   }
 
   function unlockScroll() {
-    document.documentElement.classList.remove('scroll-locked');
-    document.body.style.top = '';
-    window.scrollTo(0, scrollPosition);
-    if (window.lenis) window.lenis.start();
+    if (window.lenis) {
+      window.lenis.start();
+    } else {
+      document.documentElement.classList.remove('scroll-locked');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollPosition);
+    }
   }
 
   function openModal(productHandle) {
@@ -101,6 +109,7 @@
 
     // Clear previous content immediately to prevent flash of old product
     body.innerHTML = skeletonHTML;
+    body.setAttribute('aria-busy', 'true');
     currentHandle = productHandle;
     modal.classList.add('is-open');
     modal.removeAttribute('inert');
@@ -112,11 +121,13 @@
       .then(res => res.text())
       .then(html => {
         body.innerHTML = html;
+        body.setAttribute('aria-busy', 'false');
         initQuickViewForm();
         setupFocusTrap();
       })
       .catch(err => {
         body.innerHTML = '<div class="p-8 text-center text-red-500">Error loading product. Please try again.</div>';
+        body.setAttribute('aria-busy', 'false');
         setupFocusTrap();
       });
   }

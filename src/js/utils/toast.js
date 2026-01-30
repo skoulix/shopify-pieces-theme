@@ -10,6 +10,7 @@ class ToastManager {
     this.container = null;
     this.queue = [];
     this.current = null;
+    this.maxToasts = 3; // Limit visible toasts to prevent UI overflow
   }
 
   /**
@@ -64,6 +65,12 @@ class ToastManager {
 
     // Close button handler
     closeBtn.addEventListener('click', () => this.dismiss(toast), { once: true });
+
+    // Limit visible toasts - remove oldest if at max
+    const existingToasts = this.container.querySelectorAll('.toast');
+    if (existingToasts.length >= this.maxToasts) {
+      this.dismiss(existingToasts[0]);
+    }
 
     // Add to container
     this.container.appendChild(toast);

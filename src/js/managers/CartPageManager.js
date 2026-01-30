@@ -1,5 +1,6 @@
 import { cartState } from './CartState.js';
 import { DEBOUNCE } from '../utils/constants.js';
+import { toast } from '../utils/toast.js';
 
 /**
  * CartPageManager - Handles cart page functionality
@@ -78,7 +79,12 @@ class CartPageManager {
         if (plus) quantity++;
         if (remove) quantity = 0;
 
-        await cartState.updateLine(line, quantity);
+        try {
+          await cartState.updateLine(line, quantity);
+        } catch (error) {
+          const errorMessage = window.themeStrings?.error || 'Could not update cart. Please try again.';
+          toast.error(errorMessage);
+        }
       }
     });
 
@@ -87,7 +93,12 @@ class CartPageManager {
       if (e.target.matches('[data-quantity-input]')) {
         const line = parseInt(e.target.dataset.line);
         const quantity = parseInt(e.target.value) || 0;
-        await cartState.updateLine(line, quantity);
+        try {
+          await cartState.updateLine(line, quantity);
+        } catch (error) {
+          const errorMessage = window.themeStrings?.error || 'Could not update cart. Please try again.';
+          toast.error(errorMessage);
+        }
       }
     });
 
