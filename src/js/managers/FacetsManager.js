@@ -46,11 +46,6 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   bindEvents() {
-    // Form input changes
-    if (this.form) {
-      this.form.addEventListener('input', this.boundHandlers.onFormChange);
-    }
-
     // Open drawer button
     const openBtn = this.querySelector('[data-facets-open]');
     if (openBtn) {
@@ -60,8 +55,13 @@ class FacetFiltersForm extends HTMLElement {
     // Close drawer buttons, apply button, and clear all (use event delegation on drawer)
     if (this.drawer) {
       this.drawer.addEventListener('click', (e) => {
-        // Close button or apply button - just close drawer
-        if (e.target.closest('[data-facets-close]') || e.target.closest('[data-facets-apply]')) {
+        // Close button - just close drawer without applying
+        if (e.target.closest('[data-facets-close]')) {
+          this.closeDrawer();
+        }
+        // Apply button - apply filters and close drawer
+        if (e.target.closest('[data-facets-apply]')) {
+          this.applyFilters();
           this.closeDrawer();
         }
         // Clear all button in drawer footer - clear filters and close drawer
@@ -313,6 +313,25 @@ class FacetFiltersForm extends HTMLElement {
     }
   }
 
+  /**
+   * Apply filters from the drawer form (called when Apply button is clicked)
+   */
+  applyFilters() {
+    const formData = new FormData(this.form);
+
+    // Explicitly add sort_by from desktop select (it's outside the form in DOM due to drawer move)
+    const sortSelect = document.querySelector('#SortBy');
+    if (sortSelect && sortSelect.value) {
+      formData.set('sort_by', sortSelect.value);
+    }
+
+    const searchParams = new URLSearchParams(formData).toString();
+    this.renderPage(searchParams);
+  }
+
+  /**
+   * Handle sort change (applies immediately without needing Apply button)
+   */
   onFormChange(event) {
     const formData = new FormData(this.form);
 

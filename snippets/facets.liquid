@@ -15,6 +15,11 @@
 
   for filter in results.filters
     assign total_active_values = total_active_values | plus: filter.active_values.size
+    if filter.type == 'price_range'
+      if filter.min_value.value != nil or filter.max_value.value != nil
+        assign total_active_values = total_active_values | plus: 1
+      endif
+    endif
   endfor
 -%}
 
@@ -99,17 +104,15 @@
 
         {%- if filter.type == "price_range" -%}
           {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            {%- assign price_min_display = filter.min_value.value | default: 0 | divided_by: 100 | round -%}
+            {%- assign price_max_display = filter.max_value.value | default: filter.range_max | divided_by: 100 | round -%}
             <a
               href="{{ filter.url_to_remove }}"
               class="active-facets__pill inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-(--color-border) rounded-full hover:border-(--color-text) transition-colors"
               data-facet-remove
             >
               <span class="text-(--color-text-secondary)">{{ filter.label }}:</span>
-              <span>
-                {%- if filter.min_value.value -%}{{ filter.min_value.value | money_without_trailing_zeros }}{%- else -%}{{ 0 | money_without_trailing_zeros }}{%- endif -%}
-                -
-                {%- if filter.max_value.value -%}{{ filter.max_value.value | money_without_trailing_zeros }}{%- else -%}{{ filter.range_max | money_without_trailing_zeros }}{%- endif -%}
-              </span>
+              <span>{{ cart.currency.symbol }}{{ price_min_display }} - {{ cart.currency.symbol }}{{ price_max_display }}</span>
               <i class="ph ph-x text-[10px]"></i>
             </a>
           {%- endif -%}
