@@ -59,7 +59,7 @@
     assign img_classes = 'w-full h-full object-cover'
   endif
   if reveal
-    assign img_classes = img_classes | append: ' opacity-0 transition-opacity duration-500'
+    assign img_classes = img_classes | append: ' image-reveal transition-opacity duration-500'
   endif
   if image_class != ''
     assign img_classes = img_classes | append: ' ' | append: image_class
@@ -88,8 +88,7 @@
         fetchpriority: fetchpriority,
         sizes: sizes,
         widths: widths,
-        alt: alt,
-        onload: "this.style.opacity='1'"
+        alt: alt
       }}
     {%- else -%}
       {{ image | image_url: width: width, height: height, crop: crop | image_tag:

@@ -188,7 +188,7 @@ class PredictiveSearch extends HTMLElement {
       this.cachedResults[searchTerm] = data;
       this.renderResults(data);
     } catch (error) {
-      console.error('Predictive search error:', error);
+      if (window.Shopify?.designMode) console.error('Predictive search error:', error);
       this.close();
     }
   }
@@ -231,7 +231,7 @@ class PredictiveSearch extends HTMLElement {
         this.close();
       }
     } catch (error) {
-      console.error('Recommendations error:', error);
+      if (window.Shopify?.designMode) console.error('Recommendations error:', error);
       this.close();
     }
   }

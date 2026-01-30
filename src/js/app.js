@@ -76,6 +76,22 @@ function initAnimations() {
 }
 
 /**
+ * Initialize image reveal animations
+ * Adds 'is-loaded' class to .image-reveal images when they finish loading
+ * Works with lazy-loaded images via the 'load' event
+ */
+function initImageReveal() {
+  // Handle images that are already loaded
+  document.querySelectorAll('.image-reveal').forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      img.classList.add('is-loaded');
+    } else {
+      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+    }
+  });
+}
+
+/**
  * Initialize article progress bar
  * Handles scroll progress indicator on article pages
  * Progress bar lives in theme.liquid (outside swup) and is shown/hidden based on article presence
@@ -230,6 +246,7 @@ function handleContentReplaced() {
       }
       cartDrawerManager.reinit();
       cartPageManager.reinit();
+      initImageReveal();
     });
   };
 
@@ -319,6 +336,9 @@ function init() {
   requestAnimationFrame(() => {
     initArticleProgressBar();
   });
+
+  // Initialize image reveal animations (handles lazy-loaded images)
+  initImageReveal();
 
   // Handle menu events
   handleMenuEvents();

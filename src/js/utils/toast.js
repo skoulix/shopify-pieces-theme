@@ -39,18 +39,30 @@ class ToastManager {
 
     const toast = document.createElement('div');
     toast.className = `toast toast--${type}`;
-    toast.innerHTML = `
-      <span class="toast__icon">
-        <i class="ph ${this.getIcon(type)}"></i>
-      </span>
-      <span class="toast__message">${message}</span>
-      <button class="toast__close" aria-label="Dismiss">
-        <i class="ph ph-x"></i>
-      </button>
-    `;
+
+    // Build toast structure safely without innerHTML for user content
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'toast__icon';
+    const iconI = document.createElement('i');
+    iconI.className = `ph ${this.getIcon(type)}`;
+    iconSpan.appendChild(iconI);
+
+    const messageSpan = document.createElement('span');
+    messageSpan.className = 'toast__message';
+    messageSpan.textContent = message; // Safe: uses textContent instead of innerHTML
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast__close';
+    closeBtn.setAttribute('aria-label', 'Dismiss');
+    const closeIcon = document.createElement('i');
+    closeIcon.className = 'ph ph-x';
+    closeBtn.appendChild(closeIcon);
+
+    toast.appendChild(iconSpan);
+    toast.appendChild(messageSpan);
+    toast.appendChild(closeBtn);
 
     // Close button handler
-    const closeBtn = toast.querySelector('.toast__close');
     closeBtn.addEventListener('click', () => this.dismiss(toast), { once: true });
 
     // Add to container

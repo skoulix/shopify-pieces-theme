@@ -50,7 +50,14 @@
     {% if product.featured_image %}
       {%- assign focal_point = product.featured_image.presentation.focal_point | default: '50% 50%' -%}
       {%- assign focal_point_style = 'object-position: ' | append: focal_point -%}
-      {{ product.featured_image | image_url: width: 400 | image_tag: class: 'w-full h-full object-cover', style: focal_point_style, loading: 'lazy', decoding: 'async', sizes: '100px', widths: '100, 200, 400', alt: product.title
+      {{ product.featured_image | image_url: width: 200 | image_tag:
+        class: 'w-full h-full object-cover',
+        style: focal_point_style,
+        loading: 'lazy',
+        decoding: 'async',
+        sizes: '(min-width: 768px) 96px, (min-width: 640px) 80px, 64px',
+        widths: '64, 80, 96, 128, 160, 192',
+        alt: product.title
       }}
     {% else %}
       {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover' }}

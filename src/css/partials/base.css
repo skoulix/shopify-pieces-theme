@@ -97,4 +97,13 @@
     background-image: none;
     padding-right: 0;
   }
+
+  /* Image reveal animation - starts hidden, fades in when loaded */
+  .image-reveal {
+    opacity: 0;
+  }
+
+  .image-reveal.is-loaded {
+    opacity: 1;
+  }
 }
