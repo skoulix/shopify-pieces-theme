@@ -543,7 +543,7 @@
           if (listContainer) listContainer.setAttribute('aria-busy', 'false');
         }
       } catch (error) {
-        console.error('Error loading more products:', error);
+        if (window.Shopify?.designMode) console.error('Error loading more products:', error);
         // Reset button state on error
         textSpan.classList.remove('hidden');
         loadingSpan.classList.add('hidden');

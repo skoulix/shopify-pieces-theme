@@ -214,7 +214,7 @@
             }, 2000);
           }
         } catch (err) {
-          console.error('Failed to copy:', err);
+          if (window.Shopify?.designMode) console.error('Failed to copy:', err);
         }
       });
     });

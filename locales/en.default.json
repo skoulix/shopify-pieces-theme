@@ -88,6 +88,7 @@
     "collapse_faq": "Collapse answer",
     "image_gallery": "Product image gallery",
     "thumbnail": "Product thumbnail {{ index }}",
+    "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Pagination",
     "discount": "Discounts",
     "view_media": "View media {{ index }} of {{ total }}",

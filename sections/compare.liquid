@@ -134,7 +134,7 @@
       productDetailsCache.set(handle, productData);
       return productData;
     } catch (err) {
-      console.warn('Compare: Failed to fetch product details for', handle, err);
+      if (window.Shopify?.designMode) console.warn('Compare: Failed to fetch product details for', handle, err);
       return null;
     }
   }

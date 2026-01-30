@@ -43,10 +43,11 @@ class CartState {
    * @param {string} defaultMessage - Fallback error message
    */
   async handleErrorResponse(response, defaultMessage) {
+    const strings = window.themeStrings || {};
     if (response.status === 429) {
-      toast.error('Too many requests. Please wait a moment and try again.');
+      toast.error(strings.errorRateLimit || 'Too many requests. Please wait a moment and try again.');
     } else if (response.status >= 500) {
-      toast.error('Server error. Please try again later.');
+      toast.error(strings.errorServer || 'Server error. Please try again later.');
     } else {
       const errorData = await response.json().catch(() => ({}));
       toast.error(errorData.description || defaultMessage);
