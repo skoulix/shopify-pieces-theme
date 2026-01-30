@@ -20,6 +20,21 @@ class CompareManager {
     this.storageKey = 'pieces_compare_products';
     this.maxProducts = 4; // Maximum products to compare
     this.listeners = new Set();
+
+    // Listen for cross-tab storage changes
+    this.handleStorageChange = this.handleStorageChange.bind(this);
+    window.addEventListener('storage', this.handleStorageChange);
+  }
+
+  /**
+   * Handle storage changes from other tabs
+   * @param {StorageEvent} e - Storage event
+   */
+  handleStorageChange(e) {
+    if (e.key === this.storageKey) {
+      // Notify listeners when compare list changes in another tab
+      this.notify();
+    }
   }
 
   /**

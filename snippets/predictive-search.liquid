@@ -385,29 +385,54 @@ class PredictiveSearch extends HTMLElement {
   }
 
   onKeydown(e) {
-    const focusableElements = this.results.querySelectorAll('a, button');
+    const focusableElements = this.results.querySelectorAll('a[role="option"], button');
+    if (!focusableElements.length) return;
+
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       if (document.activeElement === this.input) {
-        firstElement?.focus();
+        this.setActiveOption(firstElement, focusableElements);
       } else {
         const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
-        focusableElements[currentIndex + 1]?.focus();
+        const nextElement = focusableElements[currentIndex + 1];
+        if (nextElement) {
+          this.setActiveOption(nextElement, focusableElements);
+        }
       }
     }
 
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (document.activeElement === firstElement) {
+        this.clearActiveOptions(focusableElements);
         this.input.focus();
       } else {
         const currentIndex = Array.from(focusableElements).indexOf(document.activeElement);
-        focusableElements[currentIndex - 1]?.focus();
+        const prevElement = focusableElements[currentIndex - 1];
+        if (prevElement) {
+          this.setActiveOption(prevElement, focusableElements);
+        }
       }
     }
+  }
+
+  setActiveOption(element, allElements) {
+    // Clear previous selection
+    this.clearActiveOptions(allElements);
+    // Set new selection
+    element.setAttribute('aria-selected', 'true');
+    element.classList.add('is-keyboard-focused');
+    element.focus();
+  }
+
+  clearActiveOptions(elements) {
+    elements.forEach(el => {
+      el.removeAttribute('aria-selected');
+      el.classList.remove('is-keyboard-focused');
+    });
   }
 
   clear() {

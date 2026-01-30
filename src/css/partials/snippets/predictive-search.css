@@ -106,8 +106,15 @@
       transition: background-color 0.2s ease;
     }
 
-    .predictive-search__product-card:hover {
+    .predictive-search__product-card:hover,
+    .predictive-search__product-card.is-keyboard-focused {
       background-color: var(--color-background-secondary);
+    }
+
+    /* Keyboard focus indicator */
+    .predictive-search__product-card.is-keyboard-focused {
+      outline: 2px solid var(--color-primary);
+      outline-offset: -2px;
     }
 
     .predictive-search__product-image {

@@ -28,6 +28,12 @@
 {% form 'customer', id: form_id, class: class %}
   <input type="hidden" name="contact[tags]" value="newsletter">
 
+  {%- comment -%} Honeypot field for spam protection - hidden from users, bots will fill it {%- endcomment -%}
+  <div aria-hidden="true" style="position: absolute; left: -9999px; top: -9999px;">
+    <label for="{{ form_id }}-honeypot">Leave this field empty</label>
+    <input type="text" id="{{ form_id }}-honeypot" name="contact[honeypot]" tabindex="-1" autocomplete="off">
+  </div>
+
   {%- case layout -%}
     {%- when 'inline' -%}
       <div class="newsletter-form newsletter-form--inline input-group flex-col sm:flex-row">

@@ -41,6 +41,13 @@ class ToastManager {
     const toast = document.createElement('div');
     toast.className = `toast toast--${type}`;
 
+    // Use role="alert" for errors to assertively announce to screen readers
+    // Success and info use role="status" (polite) via the container
+    if (type === 'error') {
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+    }
+
     // Build toast structure safely without innerHTML for user content
     const iconSpan = document.createElement('span');
     iconSpan.className = 'toast__icon';

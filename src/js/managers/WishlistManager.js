@@ -20,6 +20,21 @@ class WishlistManager {
     this.storageKey = 'pieces_wishlist';
     this.maxProducts = 100; // Allow many items in wishlist
     this.listeners = new Set();
+
+    // Listen for cross-tab storage changes
+    this.handleStorageChange = this.handleStorageChange.bind(this);
+    window.addEventListener('storage', this.handleStorageChange);
+  }
+
+  /**
+   * Handle storage changes from other tabs
+   * @param {StorageEvent} e - Storage event
+   */
+  handleStorageChange(e) {
+    if (e.key === this.storageKey) {
+      // Notify listeners when wishlist changes in another tab
+      this.notify();
+    }
   }
 
   /**

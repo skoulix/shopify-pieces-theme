@@ -133,21 +133,66 @@
   }
 
   function setupFocusTrap() {
-    // Create focus trap using global a11y utility
-    if (window.a11y?.createFocusTrap) {
-      focusTrap = window.a11y.createFocusTrap(modal);
-      focusTrap.activate();
+    // Create focus trap using pieces utility from dom.js
+    if (window.pieces?.createFocusTrap) {
+      focusTrap = window.pieces.createFocusTrap(modal);
     } else {
-      // Fallback: focus close button
-      const closeBtn = modal.querySelector('[data-quick-view-close]');
-      if (closeBtn) closeBtn.focus();
+      // Fallback: manual focus trap implementation
+      focusTrap = createManualFocusTrap(modal);
     }
+  }
+
+  function createManualFocusTrap(element) {
+    const focusableSelectors = [
+      'button:not([disabled]):not([tabindex="-1"])',
+      '[href]:not([tabindex="-1"])',
+      'input:not([disabled]):not([tabindex="-1"])',
+      'select:not([disabled]):not([tabindex="-1"])',
+      'textarea:not([disabled]):not([tabindex="-1"])',
+      '[tabindex]:not([tabindex="-1"])'
+    ].join(', ');
+
+    function handleKeydown(e) {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = [...element.querySelectorAll(focusableSelectors)];
+      if (!focusableElements.length) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    }
+
+    element.addEventListener('keydown', handleKeydown);
+
+    // Initial focus
+    requestAnimationFrame(() => {
+      const focusableElements = [...element.querySelectorAll(focusableSelectors)];
+      if (focusableElements.length) focusableElements[0].focus();
+    });
+
+    return {
+      destroy() {
+        element.removeEventListener('keydown', handleKeydown);
+      }
+    };
   }
 
   function closeModal() {
     // Deactivate focus trap
     if (focusTrap) {
-      focusTrap.deactivate(false);
+      focusTrap.destroy();
       focusTrap = null;
     }
 
