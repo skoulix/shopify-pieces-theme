@@ -216,6 +216,7 @@
       "remaining_html": "Přidejte zboží za €{{ remaining }} pro dopravu zdarma",
       "progress_label": "Průběh dopravy zdarma"
     },
+    "error_message": "Nepodařilo se přidat do košíku. Zkuste to prosím znovu.",
     "errors": {
       "add": "Položku se nepodařilo přidat do košíku. Zkuste to prosím znovu.",
       "update": "Košík se nepodařilo aktualizovat. Zkuste to prosím znovu.",

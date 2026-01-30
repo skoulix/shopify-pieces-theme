@@ -216,6 +216,7 @@
       "remaining_html": "Lägg till {{ remaining }} mer för fri frakt",
       "progress_label": "Framsteg för fri frakt"
     },
+    "error_message": "Kunde inte lägga till i varukorgen. Försök igen.",
     "errors": {
       "add": "Kunde inte lägga till i varukorgen. Försök igen.",
       "update": "Kunde inte uppdatera varukorgen. Försök igen.",

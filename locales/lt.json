@@ -216,6 +216,7 @@
       "remaining_html": "Pridėkite dar už {{ remaining }} € ir gaukite nemokamą pristatymą",
       "progress_label": "Nemokamo pristatymo progresas"
     },
+    "error_message": "Nepavyko įdėti į krepšelį. Bandykite dar kartą.",
     "errors": {
       "add": "Nepavyko pridėti prekės į krepšelį. Bandykite dar kartą.",
       "update": "Nepavyko atnaujinti krepšelio. Bandykite dar kartą.",

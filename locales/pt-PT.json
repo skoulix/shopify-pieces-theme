@@ -216,6 +216,7 @@
       "remaining_html": "Adicione mais €{{ remaining }} para envio gratuito",
       "progress_label": "Progresso do envio gratuito"
     },
+    "error_message": "Não foi possível adicionar ao carrinho. Por favor, tente novamente.",
     "errors": {
       "add": "Não foi possível adicionar o artigo ao carrinho. Tente novamente.",
       "update": "Não foi possível atualizar o carrinho. Tente novamente.",

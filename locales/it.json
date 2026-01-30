@@ -216,6 +216,7 @@
       "remaining_html": "Aggiungi {{ remaining }} per la spedizione gratuita",
       "progress_label": "Progresso spedizione gratuita"
     },
+    "error_message": "Impossibile aggiungere al carrello. Per favore riprova.",
     "errors": {
       "add": "Impossibile aggiungere l'articolo. Riprova.",
       "update": "Impossibile aggiornare il carrello. Riprova.",

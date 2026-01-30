@@ -216,6 +216,7 @@
       "remaining_html": "再加 {{ remaining }} 即可免費配送",
       "progress_label": "免費配送進度"
     },
+    "error_message": "無法加入購物車。請重試。",
     "errors": {
       "add": "無法加入購物車，請重試。",
       "update": "無法更新購物車，請重試。",

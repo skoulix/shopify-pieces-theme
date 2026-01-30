@@ -216,6 +216,7 @@
       "remaining_html": "Add €{{ remaining }} more for free shipping",
       "progress_label": "Free shipping progress"
     },
+    "error_message": "Could not add to cart. Please try again.",
     "errors": {
       "add": "Could not add item to cart. Please try again.",
       "update": "Could not update cart. Please try again.",

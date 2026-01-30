@@ -216,6 +216,7 @@
       "remaining_html": "Tambahkan lagi sebesar €{{ remaining }} untuk gratis ongkir",
       "progress_label": "Progres gratis ongkir"
     },
+    "error_message": "Tidak dapat menambahkan ke keranjang. Silakan coba lagi.",
     "errors": {
       "add": "Tidak dapat menambahkan item ke keranjang. Silakan coba lagi.",
       "update": "Tidak dapat memperbarui keranjang. Silakan coba lagi.",

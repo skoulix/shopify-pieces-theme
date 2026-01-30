@@ -216,6 +216,7 @@
       "remaining_html": "Fügen Sie {{ remaining }} mehr hinzu für kostenlosen Versand",
       "progress_label": "Fortschritt für kostenlosen Versand"
     },
+    "error_message": "Konnte nicht zum Warenkorb hinzugefügt werden. Bitte versuchen Sie es erneut.",
     "errors": {
       "add": "Artikel konnte nicht hinzugefügt werden. Bitte erneut versuchen.",
       "update": "Warenkorb konnte nicht aktualisiert werden. Bitte erneut versuchen.",

@@ -216,6 +216,7 @@
       "remaining_html": "Dodajte još €{{ remaining }} za besplatnu dostavu",
       "progress_label": "Napredak do besplatne dostave"
     },
+    "error_message": "Nije moguće dodati u košaricu. Molimo pokušajte ponovo.",
     "errors": {
       "add": "Nije moguće dodati artikl u košaricu. Pokušajte ponovo.",
       "update": "Nije moguće ažurirati košaricu. Pokušajte ponovo.",

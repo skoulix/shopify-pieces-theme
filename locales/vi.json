@@ -216,6 +216,7 @@
       "remaining_html": "Mua thêm €{{ remaining }} để được miễn phí vận chuyển",
       "progress_label": "Tiến trình miễn phí vận chuyển"
     },
+    "error_message": "Không thể thêm vào giỏ hàng. Vui lòng thử lại.",
     "errors": {
       "add": "Không thể thêm sản phẩm vào giỏ hàng. Vui lòng thử lại.",
       "update": "Không thể cập nhật giỏ hàng. Vui lòng thử lại.",

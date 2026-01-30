@@ -216,6 +216,7 @@
       "remaining_html": "Ajoutez {{ remaining }} de plus pour la livraison gratuite",
       "progress_label": "Progression vers la livraison gratuite"
     },
+    "error_message": "Impossible d'ajouter au panier. Veuillez réessayer.",
     "errors": {
       "add": "Impossible d'ajouter l'article. Veuillez réessayer.",
       "update": "Impossible de mettre à jour le panier. Veuillez réessayer.",

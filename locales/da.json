@@ -216,6 +216,7 @@
       "remaining_html": "Tilføj {{ remaining }} mere for gratis fragt",
       "progress_label": "Fremskridt for gratis fragt"
     },
+    "error_message": "Kunne ikke tilføje til kurven. Prøv venligst igen.",
     "errors": {
       "add": "Kunne ikke tilføje vare til kurven. Prøv igen.",
       "update": "Kunne ikke opdatere kurven. Prøv igen.",

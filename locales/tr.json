@@ -216,6 +216,7 @@
       "remaining_html": "Ücretsiz kargo için {{ remaining }} daha ekleyin",
       "progress_label": "Ücretsiz kargo ilerlemesi"
     },
+    "error_message": "Sepete eklenemedi. Lütfen tekrar deneyin.",
     "errors": {
       "add": "Sepete eklenemedi. Lütfen tekrar deneyin.",
       "update": "Sepet güncellenemedi. Lütfen tekrar deneyin.",

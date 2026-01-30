@@ -216,6 +216,7 @@
       "remaining_html": "Még €{{ remaining }} a ingyenes szállításhoz",
       "progress_label": "Ingyenes szállítás állapota"
     },
+    "error_message": "Nem sikerült hozzáadni a kosárhoz. Kérjük, próbálja újra.",
     "errors": {
       "add": "Nem sikerült a terméket a kosárba tenni. Kérjük, próbálja újra.",
       "update": "Nem sikerült a kosár frissítése. Kérjük, próbálja újra.",

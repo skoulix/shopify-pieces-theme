@@ -216,6 +216,7 @@
       "remaining_html": "Adicione {{ remaining }} mais para frete grátis",
       "progress_label": "Progresso do frete grátis"
     },
+    "error_message": "Não foi possível adicionar ao carrinho. Por favor, tente novamente.",
     "errors": {
       "add": "Não foi possível adicionar ao carrinho. Tente novamente.",
       "update": "Não foi possível atualizar o carrinho. Tente novamente.",

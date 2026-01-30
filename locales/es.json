@@ -216,6 +216,7 @@
       "remaining_html": "Añade {{ remaining }} más para envío gratis",
       "progress_label": "Progreso del envío gratis"
     },
+    "error_message": "No se pudo agregar al carrito. Por favor, inténtalo de nuevo.",
     "errors": {
       "add": "No se pudo añadir al carrito. Inténtalo de nuevo.",
       "update": "No se pudo actualizar el carrito. Inténtalo de nuevo.",

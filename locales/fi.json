@@ -216,6 +216,7 @@
       "remaining_html": "Lisaa {{ remaining }} eurolla saadaksesi ilmaisen toimituksen",
       "progress_label": "Ilmaisen toimituksen edistyminen"
     },
+    "error_message": "Tuotetta ei voitu lisätä ostoskoriin. Yritä uudelleen.",
     "errors": {
       "add": "Tuotetta ei voitu lisata ostoskoriin. Yrita uudelleen.",
       "update": "Ostoskoria ei voitu paivittaa. Yrita uudelleen.",

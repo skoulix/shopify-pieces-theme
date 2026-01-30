@@ -216,6 +216,7 @@
       "remaining_html": "Mai adauga {{ remaining }}€ pentru livrare gratuita",
       "progress_label": "Progres livrare gratuita"
     },
+    "error_message": "Nu s-a putut adăuga în coș. Vă rugăm să încercați din nou.",
     "errors": {
       "add": "Nu s-a putut adauga articolul in cos. Te rugam sa incerci din nou.",
       "update": "Nu s-a putut actualiza cosul. Te rugam sa incerci din nou.",

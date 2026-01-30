@@ -216,6 +216,7 @@
       "remaining_html": "Legg til for €{{ remaining }} til for gratis frakt",
       "progress_label": "Fremdrift for gratis frakt"
     },
+    "error_message": "Kunne ikke legge til i handlekurven. Vennligst prøv igjen.",
     "errors": {
       "add": "Kunne ikke legge til varen i handlekurven. Vennligst prøv igjen.",
       "update": "Kunne ikke oppdatere handlekurven. Vennligst prøv igjen.",

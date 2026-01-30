@@ -216,6 +216,7 @@
       "remaining_html": "Dodaj {{ remaining }} więcej dla darmowej dostawy",
       "progress_label": "Postęp darmowej dostawy"
     },
+    "error_message": "Nie udało się dodać do koszyka. Spróbuj ponownie.",
     "errors": {
       "add": "Nie udało się dodać do koszyka. Spróbuj ponownie.",
       "update": "Nie udało się zaktualizować koszyka. Spróbuj ponownie.",

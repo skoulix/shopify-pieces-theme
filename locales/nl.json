@@ -216,6 +216,7 @@
       "remaining_html": "Voeg {{ remaining }} toe voor gratis verzending",
       "progress_label": "Voortgang gratis verzending"
     },
+    "error_message": "Kon niet aan winkelwagen toevoegen. Probeer het opnieuw.",
     "errors": {
       "add": "Kon artikel niet toevoegen. Probeer het opnieuw.",
       "update": "Kon winkelwagen niet bijwerken. Probeer het opnieuw.",
