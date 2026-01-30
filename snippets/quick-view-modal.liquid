@@ -113,10 +113,15 @@
     }
 
     // Clear previous content immediately to prevent flash of old product
+    // Do this BEFORE opening modal to ensure skeleton is visible during animation
     body.innerHTML = skeletonHTML;
     body.setAttribute('aria-busy', 'true');
     currentHandle = productHandle;
     isLoading = true;
+
+    // Force a reflow to ensure the skeleton is rendered before modal opens
+    body.offsetHeight;
+
     modal.classList.add('is-open', 'is-loading');
     modal.removeAttribute('inert');
     lockScroll();
@@ -223,15 +228,9 @@
     modal.setAttribute('inert', '');
     unlockScroll();
 
-    // Clear product handle immediately so next open always fetches fresh data
+    // Clear product handle and content immediately so next open always shows skeleton
     currentHandle = null;
-
-    // Clear content after transition completes
-    setTimeout(() => {
-      if (!modal.classList.contains('is-open')) {
-        body.innerHTML = skeletonHTML;
-      }
-    }, 300);
+    body.innerHTML = skeletonHTML;
 
     // Restore focus to trigger element
     if (previouslyFocused && previouslyFocused.focus) {
