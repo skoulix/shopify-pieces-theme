@@ -3,6 +3,37 @@
  */
 
 /**
+ * Escape HTML entities to prevent XSS when interpolating into HTML templates
+ * @param {string} str - String to escape
+ * @returns {string} - Escaped string safe for HTML interpolation
+ */
+export function escapeHTML(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Escape string for use in HTML attributes (stricter escaping)
+ * @param {string} str - String to escape
+ * @returns {string} - Escaped string safe for attribute interpolation
+ */
+export function escapeAttr(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/`/g, '&#96;');
+}
+
+/**
  * Safely set HTML content from a trusted source (like server-rendered HTML)
  * Uses a DocumentFragment for better performance
  * @param {HTMLElement} element - Target element
@@ -83,4 +114,4 @@ export function createFocusTrap(element) {
   };
 }
 
-export default { setTrustedHTML, replaceChildrenFrom, createFocusTrap };
+export default { escapeHTML, escapeAttr, setTrustedHTML, replaceChildrenFrom, createFocusTrap };

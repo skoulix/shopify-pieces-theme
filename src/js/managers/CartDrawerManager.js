@@ -1,6 +1,6 @@
 import { lenisManager } from './LenisManager.js';
 import { cartState } from './CartState.js';
-import { createFocusTrap } from '../utils/dom.js';
+import { createFocusTrap, escapeHTML, escapeAttr } from '../utils/dom.js';
 import { DURATION, DEBOUNCE, TIMEOUT } from '../utils/constants.js';
 
 /**
@@ -511,14 +511,20 @@ class CartDrawerManager {
     const hasDiscount = item.original_line_price !== item.final_line_price;
     const comparePrice = item.original_line_price;
 
+    // Escape user-controllable data for XSS prevention
+    const safeTitle = escapeHTML(item.product_title);
+    const safeVariant = escapeHTML(item.variant_title);
+    const safeAltText = escapeAttr(item.title);
+    const safeUrl = escapeAttr(item.url);
+
     return `
       <li class="cart-drawer__item" data-cart-item data-line-index="${lineIndex}">
         <div class="cart-drawer__item-image">
           ${item.image ? `
-            <a href="${item.url}">
+            <a href="${safeUrl}">
               <img
                 src="${cartState.getSizedImageUrl(item.image, '200x')}"
-                alt="${item.title}"
+                alt="${safeAltText}"
                 class="w-full h-full object-cover"
                 loading="lazy"
               >
@@ -527,10 +533,10 @@ class CartDrawerManager {
         </div>
 
         <div class="cart-drawer__item-details">
-          <a href="${item.url}" class="cart-drawer__item-title">
-            ${item.product_title}
+          <a href="${safeUrl}" class="cart-drawer__item-title">
+            ${safeTitle}
           </a>
-          ${hasVariant ? `<p class="cart-drawer__item-variant">${item.variant_title}</p>` : ''}
+          ${hasVariant ? `<p class="cart-drawer__item-variant">${safeVariant}</p>` : ''}
 
           <div class="cart-drawer__item-price">
             ${hasDiscount ? `<span class="cart-drawer__item-price--compare">${cartState.formatMoney(comparePrice)}</span>` : ''}
@@ -544,7 +550,7 @@ class CartDrawerManager {
                 class="cart-drawer__quantity-btn"
                 data-quantity-minus
                 data-line="${lineIndex}"
-                aria-label="${window.themeStrings?.decreaseQuantity || 'Decrease quantity'}"
+                aria-label="${escapeAttr(window.themeStrings?.decreaseQuantity || 'Decrease quantity')}"
               >
                 <i class="ph ph-minus"></i>
               </button>
@@ -556,7 +562,7 @@ class CartDrawerManager {
                   min="0"
                   data-quantity-input
                   data-line="${lineIndex}"
-                  aria-label="${window.themeStrings?.quantity || 'Quantity'}"
+                  aria-label="${escapeAttr(window.themeStrings?.quantity || 'Quantity')}"
                   style="border: none !important; box-shadow: none !important; outline: none !important; background: transparent !important;"
                 >
               </div>
@@ -565,7 +571,7 @@ class CartDrawerManager {
                 class="cart-drawer__quantity-btn"
                 data-quantity-plus
                 data-line="${lineIndex}"
-                aria-label="${window.themeStrings?.increaseQuantity || 'Increase quantity'}"
+                aria-label="${escapeAttr(window.themeStrings?.increaseQuantity || 'Increase quantity')}"
               >
                 <i class="ph ph-plus"></i>
               </button>
@@ -575,7 +581,7 @@ class CartDrawerManager {
               class="cart-drawer__remove"
               data-remove-item
               data-line="${lineIndex}"
-              aria-label="${(window.themeStrings?.removeItem || 'Remove {{ title }}').replace('{{ title }}', item.product_title)}"
+              aria-label="${escapeAttr((window.themeStrings?.removeItem || 'Remove {{ title }}').replace('{{ title }}', item.product_title))}"
             >
               <i class="ph ph-trash"></i>
             </button>

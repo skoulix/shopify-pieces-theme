@@ -1,6 +1,7 @@
 import { cartState } from './CartState.js';
 import { DEBOUNCE } from '../utils/constants.js';
 import { toast } from '../utils/toast.js';
+import { escapeHTML, escapeAttr } from '../utils/dom.js';
 
 /**
  * CartPageManager - Handles cart page functionality
@@ -200,17 +201,24 @@ class CartPageManager {
     const hasVariant = item.variant_title && item.variant_title !== 'Default Title';
     const hasDiscount = item.original_line_price !== item.final_line_price;
     const hasSellingPlan = item.selling_plan_allocation;
-    const removeText = window.themeStrings?.cartRemove || 'Remove';
+    const removeText = escapeHTML(window.themeStrings?.cartRemove || 'Remove');
+
+    // Escape user-controllable data for XSS prevention
+    const safeTitle = escapeHTML(item.product_title);
+    const safeVariant = escapeHTML(item.variant_title);
+    const safeAltText = escapeAttr(item.title);
+    const safeUrl = escapeAttr(item.url);
+    const safeSellingPlan = hasSellingPlan ? escapeHTML(item.selling_plan_allocation.selling_plan.name) : '';
 
     return `
       <li class="py-8 first:pt-0" data-cart-item data-line="${lineIndex}">
         <div class="flex gap-6">
           <div class="w-28 h-36 flex-shrink-0 overflow-hidden bg-[--color-background-secondary]">
             ${item.image ? `
-              <a href="${item.url}">
+              <a href="${safeUrl}">
                 <img
                   src="${cartState.getSizedImageUrl(item.image, '300x')}"
-                  alt="${item.title}"
+                  alt="${safeAltText}"
                   class="w-full h-full object-cover"
                   loading="lazy"
                   fetchpriority="low"
@@ -225,12 +233,12 @@ class CartPageManager {
               <div class="flex justify-between">
                 <div>
                   <h3 class="text-base font-medium text-[--color-text]">
-                    <a href="${item.url}" class="hover:text-[--color-primary] transition-colors">
-                      ${item.product_title}
+                    <a href="${safeUrl}" class="hover:text-[--color-primary] transition-colors">
+                      ${safeTitle}
                     </a>
                   </h3>
-                  ${hasVariant ? `<p class="mt-1 text-sm text-[--color-text-secondary]">${item.variant_title}</p>` : ''}
-                  ${hasSellingPlan ? `<p class="mt-1 text-xs text-[--color-text-secondary]">${item.selling_plan_allocation.selling_plan.name}</p>` : ''}
+                  ${hasVariant ? `<p class="mt-1 text-sm text-[--color-text-secondary]">${safeVariant}</p>` : ''}
+                  ${hasSellingPlan ? `<p class="mt-1 text-xs text-[--color-text-secondary]">${safeSellingPlan}</p>` : ''}
                 </div>
                 <div class="text-right">
                   <p class="text-base font-medium text-[--color-text]">${cartState.formatMoney(item.final_line_price)}</p>
@@ -241,7 +249,7 @@ class CartPageManager {
 
             <div class="flex items-center justify-between mt-4">
               <div class="cart-quantity" data-quantity-wrapper>
-                <button type="button" class="cart-quantity-btn" data-quantity-minus aria-label="${window.themeStrings?.decreaseQuantity || 'Decrease quantity'}">
+                <button type="button" class="cart-quantity-btn" data-quantity-minus aria-label="${escapeAttr(window.themeStrings?.decreaseQuantity || 'Decrease quantity')}">
                   <i class="ph ph-minus"></i>
                 </button>
                 <div class="cart-quantity-value">
@@ -253,10 +261,10 @@ class CartPageManager {
                     class="cart-quantity-input"
                     data-quantity-input
                     data-line="${lineIndex}"
-                    aria-label="${window.themeStrings?.quantity || 'Quantity'}"
+                    aria-label="${escapeAttr(window.themeStrings?.quantity || 'Quantity')}"
                   >
                 </div>
-                <button type="button" class="cart-quantity-btn" data-quantity-plus aria-label="${window.themeStrings?.increaseQuantity || 'Increase quantity'}">
+                <button type="button" class="cart-quantity-btn" data-quantity-plus aria-label="${escapeAttr(window.themeStrings?.increaseQuantity || 'Increase quantity')}">
                   <i class="ph ph-plus"></i>
                 </button>
               </div>

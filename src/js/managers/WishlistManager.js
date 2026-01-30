@@ -23,13 +23,34 @@ class WishlistManager {
   }
 
   /**
+   * Validate product object has expected structure
+   * @param {*} item - Item to validate
+   * @returns {boolean} True if valid product object
+   */
+  isValidProduct(item) {
+    return (
+      item &&
+      typeof item === 'object' &&
+      typeof item.id === 'string' &&
+      typeof item.handle === 'string' &&
+      typeof item.title === 'string'
+    );
+  }
+
+  /**
    * Get products in wishlist
    * @returns {Array} Array of product objects
    */
   getProducts() {
     try {
       const stored = localStorage.getItem(this.storageKey);
-      return stored ? JSON.parse(stored) : [];
+      if (!stored) return [];
+
+      const parsed = JSON.parse(stored);
+
+      // Validate array structure and filter invalid items
+      if (!Array.isArray(parsed)) return [];
+      return parsed.filter(item => this.isValidProduct(item));
     } catch {
       return [];
     }
