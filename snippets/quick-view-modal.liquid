@@ -56,6 +56,7 @@
   let scrollPosition = 0;
   let focusTrap = null;
   let previouslyFocused = null;
+  let isLoading = false;
 
   // Skeleton HTML for loading state
   const skeletonHTML = `
@@ -111,7 +112,8 @@
     body.innerHTML = skeletonHTML;
     body.setAttribute('aria-busy', 'true');
     currentHandle = productHandle;
-    modal.classList.add('is-open');
+    isLoading = true;
+    modal.classList.add('is-open', 'is-loading');
     modal.removeAttribute('inert');
     lockScroll();
 
@@ -122,12 +124,16 @@
       .then(html => {
         body.innerHTML = html;
         body.setAttribute('aria-busy', 'false');
+        isLoading = false;
+        modal.classList.remove('is-loading');
         initQuickViewForm();
         setupFocusTrap();
       })
       .catch(err => {
         body.innerHTML = '<div class="p-8 text-center text-red-500">Error loading product. Please try again.</div>';
         body.setAttribute('aria-busy', 'false');
+        isLoading = false;
+        modal.classList.remove('is-loading');
         setupFocusTrap();
       });
   }
@@ -189,14 +195,18 @@
     };
   }
 
-  function closeModal() {
+  function closeModal(force = false) {
+    // Prevent closing during loading unless forced
+    if (isLoading && !force) return;
+
     // Deactivate focus trap
     if (focusTrap) {
       focusTrap.destroy();
       focusTrap = null;
     }
 
-    modal.classList.remove('is-open');
+    isLoading = false;
+    modal.classList.remove('is-open', 'is-loading');
     modal.setAttribute('inert', '');
     unlockScroll();
 
@@ -350,15 +360,36 @@
     const qtyPlus = body.querySelector('[data-qty-plus]');
 
     if (qtyInput && qtyMinus && qtyPlus) {
+      const updateMinusState = () => {
+        const val = parseInt(qtyInput.value) || 1;
+        if (val <= 1) {
+          qtyMinus.classList.add('opacity-40', 'cursor-not-allowed');
+          qtyMinus.classList.remove('hover:bg-(--color-primary)', 'hover:text-(--color-primary-contrast)');
+        } else {
+          qtyMinus.classList.remove('opacity-40', 'cursor-not-allowed');
+          qtyMinus.classList.add('hover:bg-(--color-primary)', 'hover:text-(--color-primary-contrast)');
+        }
+      };
+
+      // Initial state
+      updateMinusState();
+
       qtyMinus.addEventListener('click', () => {
         const val = parseInt(qtyInput.value) || 1;
-        if (val > 1) qtyInput.value = val - 1;
+        if (val > 1) {
+          qtyInput.value = val - 1;
+          updateMinusState();
+        }
       });
 
       qtyPlus.addEventListener('click', () => {
         const val = parseInt(qtyInput.value) || 1;
         qtyInput.value = val + 1;
+        updateMinusState();
       });
+
+      // Update state when input changes directly
+      qtyInput.addEventListener('change', updateMinusState);
     }
 
     // Image gallery - thumbnail clicks

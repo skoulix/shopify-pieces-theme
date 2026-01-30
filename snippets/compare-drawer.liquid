@@ -621,7 +621,7 @@
       // Dispatch the toggle event
       document.dispatchEvent(new CustomEvent('compare:toggle', { detail: { product } }));
     } catch (err) {
-      console.error('Compare: Failed to parse product data', err);
+      if (window.Shopify?.designMode) console.error('Compare: Failed to parse product data', err);
     }
   });
 

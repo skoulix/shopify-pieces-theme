@@ -143,7 +143,7 @@
         success.classList.remove('hidden');
 
       } catch (err) {
-        console.error('Back in stock subscription error:', err);
+        if (window.Shopify?.designMode) console.error('Back in stock subscription error:', err);
 
         // Show error state
         content.classList.add('hidden');

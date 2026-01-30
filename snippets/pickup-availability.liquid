@@ -92,7 +92,7 @@ if (!customElements.get('pickup-availability')) {
           content.innerHTML = `<p class="text-sm text-(--color-text-secondary)">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
         }
       } catch (error) {
-        console.error('Error fetching pickup availability:', error);
+        if (window.Shopify?.designMode) console.error('Error fetching pickup availability:', error);
         content.innerHTML = `<p class="text-sm text-(--color-text-secondary)">{{ 'products.pickup_availability.unavailable' | t }}</p>`;
       }
 

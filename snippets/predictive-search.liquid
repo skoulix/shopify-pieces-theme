@@ -8,6 +8,7 @@
   class="predictive-search relative z-999"
   data-loading-text="{{ 'search.loading' | t }}"
   data-no-results-text="{{ 'search.no_results' | t }}"
+  data-error-text="{{ 'search.error' | t | default: 'Search temporarily unavailable' }}"
   data-products-heading="{{ 'search.filter_products' | t }}"
   data-articles-heading="{{ 'search.filter_articles' | t }}"
   data-pages-heading="{{ 'search.filter_pages' | t }}"
@@ -115,24 +116,47 @@ class PredictiveSearch extends HTMLElement {
   }
 
   setupEventListeners() {
-    this.input.addEventListener('input', this.debounce(() => this.onChange(), 300));
-    this.input.addEventListener('focus', () => this.onFocus());
-    this.clearBtn?.addEventListener('click', () => this.clear());
-
-    // Close when clicking outside this specific instance
-    document.addEventListener('click', (e) => {
+    // Store bound handlers for cleanup
+    this.boundOnChange = this.debounce(() => this.onChange(), 300);
+    this.boundOnFocus = () => this.onFocus();
+    this.boundOnClear = () => this.clear();
+    this.boundOnDocumentClick = (e) => {
       if (!this.contains(e.target)) this.close();
-    });
-
-    // Close on escape only if this instance's results are visible
-    document.addEventListener('keydown', (e) => {
+    };
+    this.boundOnDocumentKeydown = (e) => {
       if (e.key === 'Escape' && this.results && !this.results.classList.contains('hidden')) {
         this.close();
         this.input?.blur();
       }
-    });
+    };
+    this.boundOnResultsKeydown = (e) => this.onKeydown(e);
 
-    this.results.addEventListener('keydown', (e) => this.onKeydown(e));
+    this.input.addEventListener('input', this.boundOnChange);
+    this.input.addEventListener('focus', this.boundOnFocus);
+    this.clearBtn?.addEventListener('click', this.boundOnClear);
+
+    // Close when clicking outside this specific instance
+    document.addEventListener('click', this.boundOnDocumentClick);
+
+    // Close on escape only if this instance's results are visible
+    document.addEventListener('keydown', this.boundOnDocumentKeydown);
+
+    this.results.addEventListener('keydown', this.boundOnResultsKeydown);
+  }
+
+  disconnectedCallback() {
+    // Clean up event listeners to prevent memory leaks
+    if (this.input) {
+      this.input.removeEventListener('input', this.boundOnChange);
+      this.input.removeEventListener('focus', this.boundOnFocus);
+    }
+    this.clearBtn?.removeEventListener('click', this.boundOnClear);
+    document.removeEventListener('click', this.boundOnDocumentClick);
+    document.removeEventListener('keydown', this.boundOnDocumentKeydown);
+    if (this.results) {
+      this.results.removeEventListener('keydown', this.boundOnResultsKeydown);
+    }
+    clearTimeout(this.debounceTimer);
   }
 
   debounce(fn, wait) {
@@ -177,10 +201,18 @@ class PredictiveSearch extends HTMLElement {
 
     this.showLoading();
 
+    // Abort any previous pending search request
+    if (this.searchController) this.searchController.abort();
+    this.searchController = new AbortController();
+    const timeoutId = setTimeout(() => this.searchController.abort(), 8000);
+
     try {
       const response = await fetch(
-        `${window.Shopify.routes.root}search/suggest.json?q=${encodeURIComponent(searchTerm)}&resources[type]=product,article,page&resources[limit]=4&resources[options][unavailable_products]=last`
+        `${window.Shopify.routes.root}search/suggest.json?q=${encodeURIComponent(searchTerm)}&resources[type]=product,article,page&resources[limit]=4&resources[options][unavailable_products]=last`,
+        { signal: this.searchController.signal }
       );
+
+      clearTimeout(timeoutId);
 
       if (!response.ok) throw new Error('Search failed');
 
@@ -188,9 +220,23 @@ class PredictiveSearch extends HTMLElement {
       this.cachedResults[searchTerm] = data;
       this.renderResults(data);
     } catch (error) {
+      clearTimeout(timeoutId);
+      // Ignore abort errors (user typed new query)
+      if (error.name === 'AbortError') return;
       if (window.Shopify?.designMode) console.error('Predictive search error:', error);
-      this.close();
+      this.showError();
     }
+  }
+
+  showError() {
+    this.content.innerHTML = `
+      <div class="p-6 text-center text-(--color-text-secondary)">
+        <p class="text-sm">${this.dataset.errorText}</p>
+      </div>
+    `;
+    this.loading.classList.add('hidden');
+    this.content.classList.remove('hidden');
+    this.results.classList.remove('hidden');
   }
 
   async getRecommendations() {
@@ -202,15 +248,22 @@ class PredictiveSearch extends HTMLElement {
 
     this.showLoading();
 
+    // Abort any previous pending recommendation request
+    if (this.recsController) this.recsController.abort();
+    this.recsController = new AbortController();
+    const timeoutId = setTimeout(() => this.recsController.abort(), 8000);
+
     try {
       // Fetch trending/popular products using product recommendations API
       const response = await fetch(
-        `${window.Shopify.routes.root}recommendations/products.json?limit=6&intent=related`
+        `${window.Shopify.routes.root}recommendations/products.json?limit=6&intent=related`,
+        { signal: this.recsController.signal }
       );
 
       if (response.ok) {
         const data = await response.json();
         if (data.products && data.products.length > 0) {
+          clearTimeout(timeoutId);
           this.cachedRecommendations = data.products;
           this.renderRecommendations(data.products);
           return;
@@ -219,8 +272,11 @@ class PredictiveSearch extends HTMLElement {
 
       // Fallback: fetch from a collection or search for popular terms
       const fallbackResponse = await fetch(
-        `${window.Shopify.routes.root}search/suggest.json?q=*&resources[type]=product&resources[limit]=6&resources[options][unavailable_products]=last`
+        `${window.Shopify.routes.root}search/suggest.json?q=*&resources[type]=product&resources[limit]=6&resources[options][unavailable_products]=last`,
+        { signal: this.recsController.signal }
       );
+
+      clearTimeout(timeoutId);
 
       if (fallbackResponse.ok) {
         const fallbackData = await fallbackResponse.json();
@@ -231,7 +287,11 @@ class PredictiveSearch extends HTMLElement {
         this.close();
       }
     } catch (error) {
+      clearTimeout(timeoutId);
+      // Ignore abort errors
+      if (error.name === 'AbortError') return;
       if (window.Shopify?.designMode) console.error('Recommendations error:', error);
+      // For recommendations, just close silently - not critical
       this.close();
     }
   }

@@ -141,19 +141,31 @@
     }
   }
 
-  // Close button
-  notification.querySelector('[data-notification-close]')?.addEventListener('click', hideCartNotification);
-
-  // Pause auto-hide on hover
-  notification.addEventListener('mouseenter', () => {
+  // Store bound handlers for potential cleanup
+  const handleClose = () => hideCartNotification();
+  const handleMouseEnter = () => {
     if (hideTimeout) clearTimeout(hideTimeout);
-  });
-
-  notification.addEventListener('mouseleave', () => {
+  };
+  const handleMouseLeave = () => {
     if (isVisible) {
       hideTimeout = setTimeout(hideCartNotification, 3000);
     }
-  });
+  };
+  const handleCartNotification = (e) => {
+    showCartNotification(e.detail?.product);
+    // Update cart count
+    if (e.detail?.cart) {
+      updateCartCount(e.detail.cart.item_count);
+    }
+  };
+
+  // Close button
+  const closeBtn = notification.querySelector('[data-notification-close]');
+  closeBtn?.addEventListener('click', handleClose);
+
+  // Pause auto-hide on hover
+  notification.addEventListener('mouseenter', handleMouseEnter);
+  notification.addEventListener('mouseleave', handleMouseLeave);
 
   /**
    * Update cart count
@@ -165,18 +177,22 @@
     });
   }
 
-  // Listen for cart:notification event (only once per page load)
-  document.addEventListener('cart:notification', (e) => {
-    showCartNotification(e.detail?.product);
+  // Listen for cart:notification event
+  document.addEventListener('cart:notification', handleCartNotification);
 
-    // Update cart count
-    if (e.detail?.cart) {
-      updateCartCount(e.detail.cart.item_count);
-    }
-  });
+  // Cleanup function for SPA transitions
+  function cleanup() {
+    if (hideTimeout) clearTimeout(hideTimeout);
+    if (currentAnimation) currentAnimation.kill();
+    closeBtn?.removeEventListener('click', handleClose);
+    notification.removeEventListener('mouseenter', handleMouseEnter);
+    notification.removeEventListener('mouseleave', handleMouseLeave);
+    document.removeEventListener('cart:notification', handleCartNotification);
+  }
 
-  // Make function globally available
+  // Make functions globally available
   window.showCartNotification = showCartNotification;
   window.hideCartNotification = hideCartNotification;
+  window.cleanupCartNotification = cleanup;
 })();
 </script>

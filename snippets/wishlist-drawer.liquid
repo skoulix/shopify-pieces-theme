@@ -256,7 +256,7 @@
         document.dispatchEvent(new CustomEvent('wishlist:added', { detail: { product } }));
       }
     } catch (err) {
-      console.error('Wishlist: Failed to parse product data', err);
+      if (window.Shopify?.designMode) console.error('Wishlist: Failed to parse product data', err);
     }
   });
 

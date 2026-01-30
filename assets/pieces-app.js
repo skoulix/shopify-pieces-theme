@@ -95,6 +95,7 @@ import{g as m,S,a as k,F as B}from"./pieces-gsap.js";import{L as V}from"./pieces
               name="note"
               class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-y focus:outline-2 focus:outline-[--color-primary] focus:-outline-offset-2"
               placeholder="${i}"
+              maxlength="5000"
               data-cart-note
             >${t.note||""}</textarea>
           </div>

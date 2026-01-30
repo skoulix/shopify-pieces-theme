@@ -619,6 +619,7 @@ class CartDrawerManager {
               name="note"
               class="w-full min-h-[80px] p-3 text-sm bg-transparent border border-[--color-border] text-[--color-text] resize-y focus:outline-2 focus:outline-[--color-primary] focus:-outline-offset-2"
               placeholder="${notePlaceholder}"
+              maxlength="5000"
               data-cart-note
             >${cart.note || ''}</textarea>
           </div>
