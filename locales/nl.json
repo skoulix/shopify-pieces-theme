@@ -114,7 +114,8 @@
     "cart_updated": "Winkelwagen bijgewerkt",
     "items_in_cart": "{{ count }} artikelen in winkelwagen",
     "no_image": "Geen afbeelding beschikbaar",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
@@ -169,7 +170,9 @@
     "min_price": "Minimumprijs",
     "max_price": "Maximumprijs",
     "to": "tot",
-    "shop_now": "Nu winkelen"
+    "shop_now": "Nu winkelen",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Reacties",
@@ -567,7 +570,8 @@
     "type_product": "Product",
     "type_article": "Artikel",
     "type_page": "Pagina",
-    "trending": "Trending"
+    "trending": "Trending",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Voorbeeld producttitel",

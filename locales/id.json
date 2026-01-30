@@ -114,7 +114,8 @@
     "cart_updated": "Keranjang diperbarui",
     "items_in_cart": "{{ count }} item di keranjang",
     "no_image": "Tidak ada gambar tersedia",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Kesalahan jaringan. Silakan periksa koneksi Anda dan coba lagi.",
@@ -169,7 +170,9 @@
     "min_price": "Harga minimum",
     "max_price": "Harga maksimum",
     "to": "hingga",
-    "shop_now": "Belanja Sekarang"
+    "shop_now": "Belanja Sekarang",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Komentar",
@@ -567,7 +570,8 @@
     "type_product": "Produk",
     "type_article": "Artikel",
     "type_page": "Halaman",
-    "trending": "Tren"
+    "trending": "Tren",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Contoh Judul Produk",

@@ -114,7 +114,8 @@
     "cart_updated": "Кошницата е обновена",
     "items_in_cart": "{{ count }} артикула в кошницата",
     "no_image": "Няма налично изображение",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Мрежова грешка. Моля, проверете връзката си и опитайте отново.",
@@ -169,7 +170,9 @@
     "min_price": "Минимална цена",
     "max_price": "Максимална цена",
     "to": "до",
-    "shop_now": "Пазарувай сега"
+    "shop_now": "Пазарувай сега",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Коментари",
@@ -567,7 +570,8 @@
     "type_product": "Продукт",
     "type_article": "Статия",
     "type_page": "Страница",
-    "trending": "Тенденции"
+    "trending": "Тенденции",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Примерно заглавие на продукт",

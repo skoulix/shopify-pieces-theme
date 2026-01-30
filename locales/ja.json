@@ -114,7 +114,8 @@
     "cart_updated": "カートを更新しました",
     "items_in_cart": "カートに{{ count }}点",
     "no_image": "画像がありません",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "ネットワークエラー。接続を確認してもう一度お試しください。",
@@ -169,7 +170,9 @@
     "min_price": "最低価格",
     "max_price": "最高価格",
     "to": "〜",
-    "shop_now": "今すぐ購入"
+    "shop_now": "今すぐ購入",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "コメント",
@@ -567,7 +570,8 @@
     "type_product": "商品",
     "type_article": "記事",
     "type_page": "ページ",
-    "trending": "トレンド"
+    "trending": "トレンド",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "商品タイトルの例",

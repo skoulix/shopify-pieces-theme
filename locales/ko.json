@@ -114,7 +114,8 @@
     "cart_updated": "장바구니 업데이트됨",
     "items_in_cart": "장바구니에 {{ count }}개",
     "no_image": "이미지 없음",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "네트워크 오류. 연결을 확인하고 다시 시도해 주세요.",
@@ -169,7 +170,9 @@
     "min_price": "최소 가격",
     "max_price": "최대 가격",
     "to": "~",
-    "shop_now": "지금 쇼핑하기"
+    "shop_now": "지금 쇼핑하기",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "댓글",
@@ -567,7 +570,8 @@
     "type_product": "제품",
     "type_article": "기사",
     "type_page": "페이지",
-    "trending": "인기"
+    "trending": "인기",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "예시 제품 제목",

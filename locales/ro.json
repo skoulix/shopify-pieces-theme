@@ -114,7 +114,8 @@
     "cart_updated": "Cosul a fost actualizat",
     "items_in_cart": "{{ count }} articole in cos",
     "no_image": "Nicio imagine disponibila",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Eroare de retea. Verifica conexiunea si incearca din nou.",
@@ -169,7 +170,9 @@
     "min_price": "Pret minim",
     "max_price": "Pret maxim",
     "to": "pana la",
-    "shop_now": "Cumpara acum"
+    "shop_now": "Cumpara acum",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Comentarii",
@@ -567,7 +570,8 @@
     "type_product": "Produs",
     "type_article": "Articol",
     "type_page": "Pagina",
-    "trending": "In tendinte"
+    "trending": "In tendinte",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Exemplu de titlu produs",

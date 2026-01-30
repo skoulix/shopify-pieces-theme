@@ -114,7 +114,8 @@
     "cart_updated": "Varukorg uppdaterad",
     "items_in_cart": "{{ count }} artiklar i varukorgen",
     "no_image": "Ingen bild tillgänglig",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Nätverksfel. Kontrollera din anslutning och försök igen.",
@@ -169,7 +170,9 @@
     "min_price": "Minpris",
     "max_price": "Maxpris",
     "to": "till",
-    "shop_now": "Handla nu"
+    "shop_now": "Handla nu",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Kommentarer",
@@ -567,7 +570,8 @@
     "type_product": "Produkt",
     "type_article": "Artikel",
     "type_page": "Sida",
-    "trending": "Trendande"
+    "trending": "Trendande",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Exempel på produkttitel",

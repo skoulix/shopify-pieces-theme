@@ -114,7 +114,8 @@
     "cart_updated": "Kosár frissítve",
     "items_in_cart": "{{ count }} termék a kosárban",
     "no_image": "Nincs elérhető kép",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Hálózati hiba. Kérjük, ellenőrizze a kapcsolatot, és próbálja újra.",
@@ -169,7 +170,9 @@
     "min_price": "Minimális ár",
     "max_price": "Maximális ár",
     "to": "–",
-    "shop_now": "Vásárlás most"
+    "shop_now": "Vásárlás most",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Hozzászólások",
@@ -567,7 +570,8 @@
     "type_product": "Termék",
     "type_article": "Cikk",
     "type_page": "Oldal",
-    "trending": "Felkapott"
+    "trending": "Felkapott",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Példa terméknév",

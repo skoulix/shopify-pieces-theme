@@ -114,7 +114,8 @@
     "cart_updated": "Корзина обновлена",
     "items_in_cart": "{{ count }} товаров в корзине",
     "no_image": "Изображение отсутствует",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Ошибка сети. Проверьте подключение и попробуйте снова.",
@@ -169,7 +170,9 @@
     "min_price": "Мин. цена",
     "max_price": "Макс. цена",
     "to": "до",
-    "shop_now": "Купить сейчас"
+    "shop_now": "Купить сейчас",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Комментарии",
@@ -567,7 +570,8 @@
     "type_product": "Товар",
     "type_article": "Статья",
     "type_page": "Страница",
-    "trending": "В тренде"
+    "trending": "В тренде",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Пример названия товара",

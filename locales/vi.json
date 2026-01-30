@@ -114,7 +114,8 @@
     "cart_updated": "Đã cập nhật giỏ hàng",
     "items_in_cart": "{{ count }} sản phẩm trong giỏ hàng",
     "no_image": "Không có hình ảnh",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Lỗi mạng. Vui lòng kiểm tra kết nối và thử lại.",
@@ -169,7 +170,9 @@
     "min_price": "Giá tối thiểu",
     "max_price": "Giá tối đa",
     "to": "đến",
-    "shop_now": "Mua ngay"
+    "shop_now": "Mua ngay",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Bình luận",
@@ -567,7 +570,8 @@
     "type_product": "Sản phẩm",
     "type_article": "Bài viết",
     "type_page": "Trang",
-    "trending": "Xu hướng"
+    "trending": "Xu hướng",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Tên sản phẩm mẫu",

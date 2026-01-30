@@ -114,7 +114,8 @@
     "cart_updated": "Košarica posodobljena",
     "items_in_cart": "{{ count }} artiklov v košarici",
     "no_image": "Slika ni na voljo",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Napaka v omrežju. Preverite povezavo in poskusite znova.",
@@ -169,7 +170,9 @@
     "min_price": "Najnižja cena",
     "max_price": "Najvišja cena",
     "to": "do",
-    "shop_now": "Kupuj zdaj"
+    "shop_now": "Kupuj zdaj",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Komentarji",
@@ -567,7 +570,8 @@
     "type_product": "Izdelek",
     "type_article": "Članek",
     "type_page": "Stran",
-    "trending": "V trendu"
+    "trending": "V trendu",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Primer naslova izdelka",

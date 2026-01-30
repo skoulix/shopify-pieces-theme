@@ -114,7 +114,8 @@
     "cart_updated": "Ostoskori paivitetty",
     "items_in_cart": "{{ count }} tuotetta ostoskorissa",
     "no_image": "Kuvaa ei saatavilla",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Verkkovirhe. Tarkista yhteys ja yrita uudelleen.",
@@ -169,7 +170,9 @@
     "min_price": "Vahimmäishinta",
     "max_price": "Enimmäishinta",
     "to": "–",
-    "shop_now": "Osta nyt"
+    "shop_now": "Osta nyt",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Kommentit",
@@ -567,7 +570,8 @@
     "type_product": "Tuote",
     "type_article": "Artikkeli",
     "type_page": "Sivu",
-    "trending": "Suositut"
+    "trending": "Suositut",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Esimerkkituotteen nimi",

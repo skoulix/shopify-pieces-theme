@@ -114,7 +114,8 @@
     "cart_updated": "Panier mis à jour",
     "items_in_cart": "{{ count }} articles dans le panier",
     "no_image": "Aucune image disponible",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Erreur réseau. Veuillez vérifier votre connexion et réessayer.",
@@ -169,7 +170,9 @@
     "min_price": "Prix minimum",
     "max_price": "Prix maximum",
     "to": "à",
-    "shop_now": "Acheter maintenant"
+    "shop_now": "Acheter maintenant",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Commentaires",
@@ -567,7 +570,8 @@
     "type_product": "Produit",
     "type_article": "Article",
     "type_page": "Page",
-    "trending": "Tendances"
+    "trending": "Tendances",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Exemple de titre de produit",

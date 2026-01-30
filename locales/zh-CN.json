@@ -114,7 +114,8 @@
     "cart_updated": "购物车已更新",
     "items_in_cart": "购物车中有 {{ count }} 件商品",
     "no_image": "暂无图片",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "网络错误。请检查您的连接并重试。",
@@ -169,7 +170,9 @@
     "min_price": "最低价格",
     "max_price": "最高价格",
     "to": "至",
-    "shop_now": "立即选购"
+    "shop_now": "立即选购",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "评论",
@@ -567,7 +570,8 @@
     "type_product": "产品",
     "type_article": "文章",
     "type_page": "页面",
-    "trending": "热门"
+    "trending": "热门",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "示例产品标题",

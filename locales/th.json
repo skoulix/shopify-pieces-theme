@@ -114,7 +114,8 @@
     "cart_updated": "อัปเดตตะกร้าสินค้าแล้ว",
     "items_in_cart": "{{ count }} รายการในตะกร้า",
     "no_image": "ไม่มีรูปภาพ",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "เครือข่ายขัดข้อง กรุณาตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง",
@@ -169,7 +170,9 @@
     "min_price": "ราคาต่ำสุด",
     "max_price": "ราคาสูงสุด",
     "to": "ถึง",
-    "shop_now": "ช้อปเลย"
+    "shop_now": "ช้อปเลย",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "ความคิดเห็น",
@@ -567,7 +570,8 @@
     "type_product": "สินค้า",
     "type_article": "บทความ",
     "type_page": "หน้าเว็บ",
-    "trending": "กำลังเป็นที่นิยม"
+    "trending": "กำลังเป็นที่นิยม",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "ตัวอย่างชื่อสินค้า",

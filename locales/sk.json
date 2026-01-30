@@ -114,7 +114,8 @@
     "cart_updated": "Košík bol aktualizovaný",
     "items_in_cart": "{{ count }} položiek v košíku",
     "no_image": "Obrázok nie je k dispozícii",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Chyba siete. Skontrolujte svoje pripojenie a skúste to znova.",
@@ -169,7 +170,9 @@
     "min_price": "Minimálna cena",
     "max_price": "Maximálna cena",
     "to": "do",
-    "shop_now": "Nakupovať"
+    "shop_now": "Nakupovať",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Komentáre",
@@ -567,7 +570,8 @@
     "type_product": "Produkt",
     "type_article": "Článok",
     "type_page": "Stránka",
-    "trending": "Trendy"
+    "trending": "Trendy",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Ukážkový názov produktu",

@@ -114,7 +114,8 @@
     "cart_updated": "購物車已更新",
     "items_in_cart": "購物車中有 {{ count }} 件商品",
     "no_image": "暫無圖片",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "網路錯誤。請檢查您的連線並重試。",
@@ -169,7 +170,9 @@
     "min_price": "最低價格",
     "max_price": "最高價格",
     "to": "至",
-    "shop_now": "立即選購"
+    "shop_now": "立即選購",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "留言",
@@ -567,7 +570,8 @@
     "type_product": "產品",
     "type_article": "文章",
     "type_page": "頁面",
-    "trending": "熱門"
+    "trending": "熱門",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "示例產品標題",

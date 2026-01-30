@@ -114,7 +114,8 @@
     "cart_updated": "Sepet güncellendi",
     "items_in_cart": "Sepette {{ count }} ürün",
     "no_image": "Görsel mevcut değil",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
@@ -169,7 +170,9 @@
     "min_price": "Min fiyat",
     "max_price": "Maks fiyat",
     "to": "-",
-    "shop_now": "Şimdi Alışveriş Yap"
+    "shop_now": "Şimdi Alışveriş Yap",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Yorumlar",
@@ -567,7 +570,8 @@
     "type_product": "Ürün",
     "type_article": "Makale",
     "type_page": "Sayfa",
-    "trending": "Trend"
+    "trending": "Trend",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Örnek Ürün Başlığı",

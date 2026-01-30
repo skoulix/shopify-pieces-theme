@@ -114,7 +114,8 @@
     "cart_updated": "Krepšelis atnaujintas",
     "items_in_cart": "Prekių krepšelyje: {{ count }}",
     "no_image": "Nuotrauka nepasiekiama",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Tinklo klaida. Patikrinkite ryšį ir bandykite dar kartą.",
@@ -169,7 +170,9 @@
     "min_price": "Mažiausia kaina",
     "max_price": "Didžiausia kaina",
     "to": "iki",
-    "shop_now": "Pirkti dabar"
+    "shop_now": "Pirkti dabar",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Komentarai",
@@ -567,7 +570,8 @@
     "type_product": "Produktas",
     "type_article": "Straipsnis",
     "type_page": "Puslapis",
-    "trending": "Populiaru"
+    "trending": "Populiaru",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Produkto pavadinimo pavyzdys",

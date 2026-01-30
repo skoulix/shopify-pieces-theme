@@ -114,7 +114,8 @@
     "cart_updated": "Kurv opdateret",
     "items_in_cart": "{{ count }} varer i kurven",
     "no_image": "Intet billede tilgængeligt",
-    "announcement": "Announcement"
+    "announcement": "Announcement",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page."
   },
   "errors": {
     "network": "Netværksfejl. Tjek din forbindelse og prøv igen.",
@@ -169,7 +170,9 @@
     "min_price": "Min. pris",
     "max_price": "Maks. pris",
     "to": "til",
-    "shop_now": "Shop nu"
+    "shop_now": "Shop nu",
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again."
   },
   "blog": {
     "article_comments": "Kommentarer",
@@ -567,7 +570,8 @@
     "type_product": "Produkt",
     "type_article": "Artikel",
     "type_page": "Side",
-    "trending": "Trending"
+    "trending": "Trending",
+    "error": "Search temporarily unavailable"
   },
   "onboarding": {
     "product_title": "Eksempel på produkttitel",
