@@ -69,7 +69,7 @@
   {% render 'error-handling' %}
 
     {%- comment -%} Non-critical CSS {%- endcomment -%}
-    {{ 'phosphor-icons.css' | asset_url | stylesheet_tag }}
+    {% render 'phosphor-icons-css' %}
     {{ 'pieces-app.css' | asset_url | stylesheet_tag }}
 
     {%- comment -%} Pieces App - Swup, Lenis, GSAP (defer prevents render blocking) {%- endcomment -%}

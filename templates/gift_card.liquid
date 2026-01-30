@@ -19,7 +19,7 @@
     {{ content_for_header }}
 
     {%- comment -%} Phosphor Icons {%- endcomment -%}
-    {{ 'phosphor-icons.css' | asset_url | stylesheet_tag: preload: true }}
+    {% render 'phosphor-icons-css' %}
 
     {%- comment -%} Tailwind CSS {%- endcomment -%}
     {{ 'pieces-app.css' | asset_url | stylesheet_tag: preload: true }}

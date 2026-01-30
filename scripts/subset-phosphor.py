@@ -198,6 +198,7 @@ USED_FILL_ICONS = [
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)
 ASSETS_DIR = os.path.join(PROJECT_DIR, "assets")
+SNIPPETS_DIR = os.path.join(PROJECT_DIR, "snippets")
 # Regular font paths
 CSS_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/regular/style.css")
 TTF_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/regular/Phosphor.ttf")
@@ -210,7 +211,7 @@ FILL_TTF_FILE = os.path.join(PROJECT_DIR, "node_modules/@phosphor-icons/web/src/
 OUTPUT_FILL_TTF = os.path.join(ASSETS_DIR, "pieces-Phosphor-Fill.ttf")
 OUTPUT_FILL_WOFF2 = os.path.join(ASSETS_DIR, "pieces-Phosphor-Fill.woff2")
 
-OUTPUT_CSS = os.path.join(ASSETS_DIR, "phosphor-icons.css.liquid")
+OUTPUT_CSS = os.path.join(SNIPPETS_DIR, "phosphor-icons-css.liquid")
 
 def extract_unicode_map(css_file, is_fill=False):
     """Extract icon name to unicode mapping from CSS file."""
@@ -407,7 +408,9 @@ def generate_subset_css(unicode_map, fill_unicode_map=None):
                 css_content += f'.ph-fill.ph-{icon}:before {{\n  content: "\\{fill_unicode_map[icon]}";\n}}\n'
 
     with open(OUTPUT_CSS, 'w') as f:
+        f.write('<style>\n')
         f.write(css_content)
+        f.write('</style>\n')
 
 if __name__ == "__main__":
     main()
