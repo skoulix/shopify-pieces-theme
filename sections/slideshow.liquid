@@ -658,7 +658,7 @@
         // Announce slide change to screen readers
         const statusEl = section.querySelector('[data-slideshow-status]');
         if (statusEl) {
-          statusEl.textContent = '{{ "accessibility.slide_x_of_y" | t }}'.replace('{{ current }}', index + 1).replace('{{ total }}', totalSlides);
+          statusEl.textContent = '{{ "accessibility.slide_x_of_y" | t }}'.replace('{% raw %}{{ current }}{% endraw %}', index + 1).replace('{% raw %}{{ total }}{% endraw %}', totalSlides);
         }
 
         // Reset progress bar

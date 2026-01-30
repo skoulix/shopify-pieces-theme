@@ -94,6 +94,7 @@
     "view_media": "View media {{ index }} of {{ total }}",
     "quick_view": "Quick view",
     "quick_view_product": "Quick view {{ title }}",
+    "quick_view_description": "Quick view product details. Add to cart without leaving the page.",
     "wishlist": "Wishlist",
     "compare": "Compare products",
     "close_wishlist": "Close wishlist",
@@ -127,6 +128,8 @@
     "tiktok": "TikTok"
   },
   "general": {
+    "error": "Error loading product. Please try again.",
+    "timeout_error": "Request timed out. Please try again.",
     "breadcrumbs": {
       "home": "Home",
       "collections": "Collections",
@@ -553,6 +556,7 @@
     "submit": "Search",
     "clear": "Clear",
     "loading": "Loading...",
+    "error": "Search temporarily unavailable",
     "view_all": "View all results for",
     "no_results": "No results found",
     "no_results_html": "No results found for \"{{ terms }}\"",

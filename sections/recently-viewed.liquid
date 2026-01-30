@@ -244,7 +244,7 @@
       }
       cents = cents || 0;
 
-      const moneyFormat = window.themeSettings?.moneyFormat || '${{amount}}';
+      const moneyFormat = window.themeSettings?.moneyFormat || '${% raw %}{{amount}}{% endraw %}';
       const value = cents / 100;
       const amount = value.toFixed(2);
       const amountNoDecimals = Math.floor(value);
