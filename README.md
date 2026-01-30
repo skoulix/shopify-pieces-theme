@@ -624,9 +624,24 @@ Generated from theme settings in `snippets/css-variables.liquid`:
 
 ### Container Classes
 
+Layout container classes for consistent page structure:
+
+| Class | Description |
+| ----- | ----------- |
+| `.page-container` | Centered container with max-width and side padding. Uses `--page-max-width` and `--page-padding` CSS variables. |
+| `.page-full` | Full-width container (no max-width constraint) |
+| `.container-fluid` | Full-width with side padding only |
+| `.page-width` | Legacy container class (prefer `.page-container`) |
+
 ```html
-<div class="page-container">Centered with max-width</div>
-<div class="page-full">Full width with padding</div>
+<!-- Standard centered content -->
+<div class="page-container">Content with max-width and centered</div>
+
+<!-- Full-width section with padding -->
+<div class="container-fluid">Full width but with page padding</div>
+
+<!-- True full-width (edge to edge) -->
+<div class="page-full">No constraints</div>
 ```
 
 ### Typography Classes
