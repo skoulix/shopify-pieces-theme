@@ -118,20 +118,23 @@
   // Initialize all dialogs
   document.querySelectorAll('dialog.modal-dialog').forEach(initDialog);
 
-  // Handle dynamically added dialogs
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        if (node.nodeType === 1) {
-          if (node.matches && node.matches('dialog.modal-dialog')) {
-            initDialog(node);
+  // Handle dynamically added dialogs - only create observer once globally
+  if (!window.__modalDialogObserver) {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) {
+            if (node.matches && node.matches('dialog.modal-dialog')) {
+              initDialog(node);
+            }
+            node.querySelectorAll?.('dialog.modal-dialog').forEach(initDialog);
           }
-          node.querySelectorAll?.('dialog.modal-dialog').forEach(initDialog);
-        }
+        });
       });
     });
-  });
 
-  observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true });
+    window.__modalDialogObserver = observer;
+  }
 })();
 </script>

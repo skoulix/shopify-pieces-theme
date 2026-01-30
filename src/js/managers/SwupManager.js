@@ -60,6 +60,7 @@ class SwupManager {
     // that try to reassign read-only properties (like 'protect')
     window.addEventListener('error', (event) => {
       if (event.message && event.message.includes("Cannot assign to read only property 'protect'")) {
+        if (window.Shopify?.designMode) console.warn('Swup: Suppressed Shopify protection script error (expected)');
         event.preventDefault();
         return true;
       }

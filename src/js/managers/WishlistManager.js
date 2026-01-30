@@ -177,7 +177,9 @@ class WishlistManager {
       localStorage.removeItem(this.storageKey);
       this.notify();
       document.dispatchEvent(new CustomEvent('wishlist:cleared'));
-    } catch {}
+    } catch (error) {
+      if (window.Shopify?.designMode) console.error('Wishlist clear error:', error);
+    }
   }
 
   /**
@@ -198,7 +200,9 @@ class WishlistManager {
     this.listeners.forEach(callback => {
       try {
         callback(products);
-      } catch {}
+      } catch (error) {
+        if (window.Shopify?.designMode) console.error('Wishlist listener error:', error);
+      }
     });
   }
 

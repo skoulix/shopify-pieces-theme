@@ -513,15 +513,20 @@ class FacetFiltersForm extends HTMLElement {
         if (details) details.open = true;
       });
 
-      // Re-bind disclosure animations
-      currentFilters.querySelectorAll('.facets-disclosure').forEach((details) => {
-        details.addEventListener('toggle', () => {
-          const icon = details.querySelector('.ph-caret-down');
+      // Re-bind disclosure animations using event delegation to avoid listener accumulation
+      // Remove existing delegated handler first, then add fresh one
+      if (this._disclosureHandler) {
+        currentFilters.removeEventListener('toggle', this._disclosureHandler, true);
+      }
+      this._disclosureHandler = (e) => {
+        if (e.target.matches('.facets-disclosure')) {
+          const icon = e.target.querySelector('.ph-caret-down');
           if (icon) {
-            icon.style.transform = details.open ? 'rotate(180deg)' : '';
+            icon.style.transform = e.target.open ? 'rotate(180deg)' : '';
           }
-        });
-      });
+        }
+      };
+      currentFilters.addEventListener('toggle', this._disclosureHandler, true);
     }
   }
 

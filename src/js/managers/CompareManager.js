@@ -202,8 +202,8 @@ class CompareManager {
       localStorage.removeItem(this.storageKey);
       this.notify();
       document.dispatchEvent(new CustomEvent('compare:cleared'));
-    } catch {
-      // Handle error silently
+    } catch (error) {
+      if (window.Shopify?.designMode) console.error('Compare clear error:', error);
     }
   }
 
@@ -225,8 +225,8 @@ class CompareManager {
     this.listeners.forEach(callback => {
       try {
         callback(products);
-      } catch {
-        // Listener error - continue notifying others
+      } catch (error) {
+        if (window.Shopify?.designMode) console.error('Compare listener error:', error);
       }
     });
   }

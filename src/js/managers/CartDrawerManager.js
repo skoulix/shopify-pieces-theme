@@ -73,9 +73,11 @@ class CartDrawerManager {
     if (isUpdating) {
       this.drawer.classList.add('is-loading');
       this.drawer.setAttribute('aria-busy', 'true');
+      this.drawer.setAttribute('aria-label', window.themeStrings?.cartUpdating || 'Updating cart');
     } else {
       this.drawer.classList.remove('is-loading');
       this.drawer.setAttribute('aria-busy', 'false');
+      this.drawer.setAttribute('aria-label', window.themeStrings?.cartDrawer || 'Shopping cart');
     }
   }
 

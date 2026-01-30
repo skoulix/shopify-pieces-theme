@@ -15,7 +15,7 @@
         "label": "Contact",
         "title": "Get in Touch",
         "description": "Have a question or want to work together? Drop us a message and we'll get back to you as soon as possible.",
-        "enable_description_shuffle": true,
+        "enable_description_shuffle": false,
         "header_alignment": "left",
         "full_width": false,
         "show_social_links": true,
@@ -49,11 +49,7 @@
           }
         }
       },
-      "block_order": [
-        "address",
-        "hours",
-        "contact"
-      ],
+      "block_order": ["address", "hours", "contact"],
       "settings": {
         "label": "Visit Us",
         "title": "Our Location",
@@ -103,12 +99,7 @@
           }
         }
       },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
-      ],
+      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4"],
       "settings": {
         "full_width": false,
         "label": "Support",
@@ -134,10 +125,5 @@
       }
     }
   },
-  "order": [
-    "contact_form",
-    "map",
-    "faq",
-    "newsletter"
-  ]
+  "order": ["contact_form", "map", "faq", "newsletter"]
 }

@@ -37,6 +37,9 @@ class ProductLightboxManager {
       GLightbox = module.default;
       this.glightboxLoaded = true;
     } catch (error) {
+      if (window.Shopify?.designMode) console.error('Failed to load GLightbox:', error);
+      // Mark as failed to prevent repeated attempts
+      this.loadFailed = true;
       throw error;
     }
   }
@@ -49,8 +52,16 @@ class ProductLightboxManager {
   async init(gallery, options = {}) {
     if (!gallery) return;
 
+    // Skip if previous load failed
+    if (this.loadFailed) return;
+
     // Dynamically load GLightbox if not already loaded
-    await this.loadGLightbox();
+    try {
+      await this.loadGLightbox();
+    } catch {
+      // Lightbox unavailable - images will just not zoom
+      return;
+    }
 
     const defaults = {
       touchNavigation: true,

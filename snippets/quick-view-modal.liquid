@@ -10,8 +10,12 @@
   role="dialog"
   aria-modal="true"
   aria-labelledby="quick-view-title"
+  aria-describedby="quick-view-description"
   inert
 >
+  {%- comment -%} Hidden description for screen readers {%- endcomment -%}
+  <span id="quick-view-description" class="sr-only">{{ 'accessibility.quick_view_description' | t | default: 'Quick view product details. Add to cart without leaving the page.' }}</span>
+
   {%- comment -%} Backdrop {%- endcomment -%}
   <div class="drawer-backdrop group-[.is-open]:opacity-100" data-quick-view-close></div>
 
@@ -119,9 +123,13 @@
 
     // Fetch product data - use Shopify.routes.root to respect current locale
     const rootUrl = window.Shopify?.routes?.root || '/';
-    fetch(`${rootUrl}products/${productHandle}?section_id=quick-view-product`)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+    fetch(`${rootUrl}products/${productHandle}?section_id=quick-view-product`, { signal: controller.signal })
       .then(res => res.text())
       .then(html => {
+        clearTimeout(timeoutId);
         body.innerHTML = html;
         body.setAttribute('aria-busy', 'false');
         isLoading = false;
@@ -130,7 +138,12 @@
         setupFocusTrap();
       })
       .catch(err => {
-        body.innerHTML = '<div class="p-8 text-center text-red-500">Error loading product. Please try again.</div>';
+        clearTimeout(timeoutId);
+        if (window.Shopify?.designMode) console.error('Quick view fetch error:', err);
+        const errorMsg = err.name === 'AbortError'
+          ? '{{ 'general.timeout_error' | t | default: 'Request timed out. Please try again.' }}'
+          : '{{ 'general.error' | t | default: 'Error loading product. Please try again.' }}';
+        body.innerHTML = `<div class="p-8 text-center text-(--color-text-secondary)">${errorMsg}</div>`;
         body.setAttribute('aria-busy', 'false');
         isLoading = false;
         modal.classList.remove('is-loading');
