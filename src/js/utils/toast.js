@@ -68,7 +68,7 @@ class ToastManager {
 
     // Limit visible toasts - remove oldest if at max
     const existingToasts = this.container.querySelectorAll('.toast');
-    if (existingToasts.length >= this.maxToasts) {
+    if (existingToasts.length >= this.maxToasts && existingToasts.length > 0) {
       this.dismiss(existingToasts[0]);
     }
 

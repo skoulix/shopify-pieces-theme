@@ -47,6 +47,8 @@ USED_ICONS = [
     "copy",
     "eye",
     "funnel",
+    "funnel-simple",
+    "funnel-simple-x",
     "list",
     "magnifying-glass",
     "magnifying-glass-plus",

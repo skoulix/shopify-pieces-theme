@@ -75,8 +75,8 @@ export function createFocusTrap(element) {
 
   function updateFocusableElements() {
     focusableElements = [...element.querySelectorAll(focusableSelectors)];
-    firstElement = focusableElements[0];
-    lastElement = focusableElements[focusableElements.length - 1];
+    firstElement = focusableElements.length > 0 ? focusableElements[0] : null;
+    lastElement = focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
   }
 
   function handleKeydown(e) {
@@ -86,12 +86,12 @@ export function createFocusTrap(element) {
     if (!focusableElements.length) return;
 
     if (e.shiftKey) {
-      if (document.activeElement === firstElement) {
+      if (document.activeElement === firstElement && lastElement) {
         e.preventDefault();
         lastElement.focus();
       }
     } else {
-      if (document.activeElement === lastElement) {
+      if (document.activeElement === lastElement && firstElement) {
         e.preventDefault();
         firstElement.focus();
       }

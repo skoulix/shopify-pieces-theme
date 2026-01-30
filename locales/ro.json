@@ -494,7 +494,11 @@
     "product_count": {
       "one": "{{ count }} produs",
       "other": "{{ count }} produse"
-    }
+    },
+    "no_products_title": "No products found",
+    "no_products_description": "Try adjusting your filters or browse our collection.",
+    "clear_filters": "Clear filters",
+    "browse_all": "Browse all products"
   },
   "contact": {
     "form": {

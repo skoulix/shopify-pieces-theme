@@ -186,7 +186,10 @@ class CartDrawerManager {
 
     if (minusBtn || plusBtn || removeBtn) {
       e.preventDefault();
-      const line = parseInt(minusBtn?.dataset.line || plusBtn?.dataset.line || removeBtn?.dataset.line);
+      const lineStr = minusBtn?.dataset.line || plusBtn?.dataset.line || removeBtn?.dataset.line;
+      const line = parseInt(lineStr);
+      // Guard against invalid line numbers
+      if (!lineStr || isNaN(line)) return;
       const input = this.drawer.querySelector(`[data-quantity-input][data-line="${line}"]`);
       const itemEl = this.drawer.querySelector(`[data-line-index="${line}"]`);
       const itemTitle = itemEl?.querySelector('a')?.textContent?.trim() || 'Item';
@@ -527,6 +530,7 @@ class CartDrawerManager {
                 alt="${safeAltText}"
                 class="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               >
             </a>
           ` : ''}

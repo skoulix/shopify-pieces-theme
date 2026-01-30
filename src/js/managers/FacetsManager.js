@@ -11,6 +11,7 @@ class FacetFiltersForm extends HTMLElement {
   constructor() {
     super();
     this.boundHandlers = {};
+    this.isRendering = false;
   }
 
   connectedCallback() {
@@ -353,6 +354,10 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   async renderPage(searchParams, updateURL = true) {
+    // Guard against overlapping render requests (race condition)
+    if (this.isRendering) return;
+    this.isRendering = true;
+
     FacetFiltersForm.searchParamsPrev = searchParams;
 
     // Show loading state
@@ -399,6 +404,7 @@ class FacetFiltersForm extends HTMLElement {
     } catch {
       // Silently handle filter errors - UI will remain in previous state
     } finally {
+      this.isRendering = false;
       this.hideLoading();
     }
   }

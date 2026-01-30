@@ -35,6 +35,19 @@ class PriceRange extends HTMLElement {
     this.onPointerUp = this.onPointerUp.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
 
+    // Set up ARIA attributes for accessibility
+    this.thumbMin.setAttribute('role', 'slider');
+    this.thumbMin.setAttribute('aria-label', 'Minimum price');
+    this.thumbMin.setAttribute('aria-valuemin', this.min);
+    this.thumbMin.setAttribute('aria-valuemax', this.max);
+    this.thumbMin.setAttribute('tabindex', '0');
+
+    this.thumbMax.setAttribute('role', 'slider');
+    this.thumbMax.setAttribute('aria-label', 'Maximum price');
+    this.thumbMax.setAttribute('aria-valuemin', this.min);
+    this.thumbMax.setAttribute('aria-valuemax', this.max);
+    this.thumbMax.setAttribute('tabindex', '0');
+
     // Attach events to thumbs
     this.thumbMin.addEventListener('pointerdown', this.onPointerDown);
     this.thumbMax.addEventListener('pointerdown', this.onPointerDown);
@@ -73,6 +86,8 @@ class PriceRange extends HTMLElement {
     if (!this.isDragging || !this.activeThumb) return;
 
     const rect = this.track.getBoundingClientRect();
+    // Guard against division by zero if track has no width
+    if (!rect.width) return;
     const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
     const value = this.min + percent * (this.max - this.min);
 
@@ -134,20 +149,36 @@ class PriceRange extends HTMLElement {
   }
 
   updateUI() {
-    const percentMin = ((this.valueMin - this.min) / (this.max - this.min)) * 100;
-    const percentMax = ((this.valueMax - this.min) / (this.max - this.min)) * 100;
+    // Guard against division by zero if min equals max
+    const range = this.max - this.min;
+    if (!range) return;
+
+    const percentMin = ((this.valueMin - this.min) / range) * 100;
+    const percentMax = ((this.valueMax - this.min) / range) * 100;
 
     // Position thumbs
     this.thumbMin.style.left = `${percentMin}%`;
     this.thumbMax.style.left = `${percentMax}%`;
 
     // Update range fill
-    this.range.style.left = `${percentMin}%`;
-    this.range.style.right = `${100 - percentMax}%`;
+    if (this.range) {
+      this.range.style.left = `${percentMin}%`;
+      this.range.style.right = `${100 - percentMax}%`;
+    }
 
-    // Update display values
-    this.displayMin.textContent = `${this.currency}${this.formatPrice(this.valueMin / 100)}`;
-    this.displayMax.textContent = `${this.currency}${this.formatPrice(this.valueMax / 100)}`;
+    // Update display values (may not exist in all templates)
+    if (this.displayMin) {
+      this.displayMin.textContent = `${this.currency}${this.formatPrice(this.valueMin / 100)}`;
+    }
+    if (this.displayMax) {
+      this.displayMax.textContent = `${this.currency}${this.formatPrice(this.valueMax / 100)}`;
+    }
+
+    // Update ARIA values for screen readers
+    this.thumbMin.setAttribute('aria-valuenow', Math.round(this.valueMin / 100));
+    this.thumbMin.setAttribute('aria-valuetext', `${this.currency}${this.formatPrice(this.valueMin / 100)}`);
+    this.thumbMax.setAttribute('aria-valuenow', Math.round(this.valueMax / 100));
+    this.thumbMax.setAttribute('aria-valuetext', `${this.currency}${this.formatPrice(this.valueMax / 100)}`);
   }
 
   formatPrice(val) {
