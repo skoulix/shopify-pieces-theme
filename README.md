@@ -631,7 +631,6 @@ Layout container classes for consistent page structure:
 | `.page-container` | Centered container with max-width and side padding. Uses `--page-max-width` and `--page-padding` CSS variables. |
 | `.page-full` | Full-width container (no max-width constraint) |
 | `.container-fluid` | Full-width with side padding only |
-| `.page-width` | Legacy container class (prefer `.page-container`) |
 
 ```html
 <!-- Standard centered content -->
