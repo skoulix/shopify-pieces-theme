@@ -96,7 +96,7 @@
     "expand_faq": "Разгъни отговора",
     "collapse_faq": "Свий отговора",
     "image_gallery": "Галерия с изображения на продукта",
-    ""thumbnail": "Миниатюра на продукт {{ index }}",
+    "thumbnail": "Миниатюра на продукт {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Страниране",
     "discount": "Отстъпки",

@@ -96,7 +96,7 @@
     "expand_faq": "Mở rộng câu trả lời",
     "collapse_faq": "Thu gọn câu trả lời",
     "image_gallery": "Thư viện hình ảnh sản phẩm",
-    ""thumbnail": "Hình thu nhỏ sản phẩm {{ index }}",
+    "thumbnail": "Hình thu nhỏ sản phẩm {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Phân trang",
     "discount": "Giảm giá",

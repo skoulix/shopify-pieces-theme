@@ -96,7 +96,7 @@
     "expand_faq": "Cevabı genişlet",
     "collapse_faq": "Cevabı daralt",
     "image_gallery": "Ürün görsel galerisi",
-    ""thumbnail": "{{ index }}. ürün küçük resmi",
+    "thumbnail": "{{ index }}. ürün küçük resmi",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Sayfalama",
     "discount": "İndirimler",

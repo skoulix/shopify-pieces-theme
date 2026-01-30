@@ -96,7 +96,7 @@
     "expand_faq": "Rozbalit odpověď",
     "collapse_faq": "Sbalit odpověď",
     "image_gallery": "Galerie obrázků produktu",
-    ""thumbnail": "Náhled produktu {{ index }}",
+    "thumbnail": "Náhled produktu {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Stránkování",
     "discount": "Slevy",

@@ -96,7 +96,7 @@
     "expand_faq": "展开答案",
     "collapse_faq": "收起答案",
     "image_gallery": "产品图片库",
-    ""thumbnail": "产品缩略图 {{ index }}",
+    "thumbnail": "产品缩略图 {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "分页",
     "discount": "折扣",

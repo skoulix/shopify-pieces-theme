@@ -96,7 +96,7 @@
     "expand_faq": "Expandera svar",
     "collapse_faq": "Minimera svar",
     "image_gallery": "Produktbildsgalleri",
-    ""thumbnail": "Produktminiatyr {{ index }}",
+    "thumbnail": "Produktminiatyr {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Paginering",
     "discount": "Rabatter",

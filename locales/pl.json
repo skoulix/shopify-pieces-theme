@@ -96,7 +96,7 @@
     "expand_faq": "Rozwiń odpowiedź",
     "collapse_faq": "Zwiń odpowiedź",
     "image_gallery": "Galeria zdjęć produktu",
-    ""thumbnail": "Miniatura produktu {{ index }}",
+    "thumbnail": "Miniatura produktu {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Paginacja",
     "discount": "Rabaty",

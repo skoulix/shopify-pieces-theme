@@ -96,7 +96,7 @@
     "expand_faq": "ขยายคำตอบ",
     "collapse_faq": "ย่อคำตอบ",
     "image_gallery": "แกลเลอรีรูปสินค้า",
-    ""thumbnail": "รูปย่อสินค้า {{ index }}",
+    "thumbnail": "รูปย่อสินค้า {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "การแบ่งหน้า",
     "discount": "ส่วนลด",

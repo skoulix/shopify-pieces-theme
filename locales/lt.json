@@ -96,7 +96,7 @@
     "expand_faq": "Išskleisti atsakymą",
     "collapse_faq": "Suskleisti atsakymą",
     "image_gallery": "Produkto nuotraukų galerija",
-    ""thumbnail": "Produkto miniatiūra {{ index }}",
+    "thumbnail": "Produkto miniatiūra {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Puslapiavimas",
     "discount": "Nuolaidos",

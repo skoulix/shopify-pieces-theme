@@ -96,7 +96,7 @@
     "expand_faq": "Buka jawaban",
     "collapse_faq": "Tutup jawaban",
     "image_gallery": "Galeri gambar produk",
-    ""thumbnail": "Gambar mini produk {{ index }}",
+    "thumbnail": "Gambar mini produk {{ index }}",
     "product_image_alternate": "{{ title }} - alternate view",
     "pagination": "Paginasi",
     "discount": "Diskon",
