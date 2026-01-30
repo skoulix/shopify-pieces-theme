@@ -26,7 +26,7 @@
   data-section-id="{{ section.id }}"
   data-alignment="{{ section.settings.text_alignment }}">
 
-  <div class="highlight-text__container page-width">
+  <div class="highlight-text__container page-container">
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'heading' %}

@@ -46,7 +46,7 @@
       {%- comment -%} Content overlay {%- endcomment -%}
       {% if section.blocks.size > 0 %}
         <div class="image-sequence__content">
-          <div class="image-sequence__content-inner page-width">
+          <div class="image-sequence__content-inner page-container">
             {% for block in section.blocks %}
               {% case block.type %}
                 {% when 'label' %}
