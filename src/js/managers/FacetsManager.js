@@ -4,7 +4,7 @@
  */
 
 import { safeLocalStorage } from '../utils/storage.js';
-import { DURATION, DEBOUNCE } from '../utils/constants.js';
+import { DURATION, DEBOUNCE, TIMEOUT } from '../utils/constants.js';
 import { debounce } from '../utils/debounce.js';
 
 class FacetFiltersForm extends HTMLElement {
@@ -359,9 +359,13 @@ class FacetFiltersForm extends HTMLElement {
     this.showLoading();
 
     try {
-      // Fetch filtered content
+      // Fetch filtered content with timeout
       const url = `${window.location.pathname}?section_id=${this.sectionId}&${searchParams}`;
-      const response = await fetch(url);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), TIMEOUT.sectionFetch);
+
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
       const html = await response.text();
 
       // Parse response

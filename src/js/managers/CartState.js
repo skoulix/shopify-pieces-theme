@@ -198,7 +198,7 @@ class CartState {
    */
   async updateNote(note) {
     try {
-      await fetch('/cart/update.js', {
+      await this.fetchWithTimeout('/cart/update.js', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ note })
@@ -208,7 +208,7 @@ class CartState {
         this.cart.note = note;
       }
     } catch {
-      // Note update failed
+      // Note update failed silently - not critical for UX
     }
   }
 

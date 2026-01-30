@@ -34,6 +34,7 @@ export const DEBOUNCE = {
 export const TIMEOUT = {
   announcement: 1000,
   cartFetch: 8000,
+  sectionFetch: 10000,
   toast: 3000,
   formSuccess: 3000,
 };
