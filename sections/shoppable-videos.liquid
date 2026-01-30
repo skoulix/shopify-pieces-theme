@@ -652,7 +652,11 @@
               setTimeout(() => { button.innerHTML = originalText; button.disabled = false; }, 2000);
             }
           })
-          .catch(() => {
+          .catch((err) => {
+            if (window.Shopify?.designMode) console.error('Shoppable video add to cart error:', err);
+            if (window.toast) {
+              window.toast.error('{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}');
+            }
             button.innerHTML = '<span>{{ "cart.error" | t }}</span>';
             setTimeout(() => { button.innerHTML = originalText; button.disabled = false; }, 2000);
           });

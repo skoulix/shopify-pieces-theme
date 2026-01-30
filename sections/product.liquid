@@ -1788,11 +1788,14 @@
           body: formData
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error('Failed to add to cart');
+          // Shopify returns error description in the response body
+          throw new Error(data.description || 'Failed to add to cart');
         }
 
-        const item = await response.json();
+        const item = data;
 
         // Get updated cart for count
         const cartResponse = await fetch('/cart.js');
@@ -1846,9 +1849,17 @@
         }, 2000);
 
       } catch (error) {
-        console.error('Add to cart error:', error);
+        if (window.Shopify?.designMode) console.error('Add to cart error:', error);
 
-        // Error state
+        // Get error message from response if available
+        const errorMessage = error.message || window.themeStrings?.cartError || '{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}';
+
+        // Show toast notification
+        if (window.toast) {
+          window.toast.error(errorMessage);
+        }
+
+        // Error state on button
         addButton.innerHTML = '<span class="product-add-btn-text"><i class="ph ph-x"></i><span>{{ 'cart.error' | t }}</span></span>';
 
         setTimeout(() => {

@@ -563,7 +563,10 @@
         }, 1500);
       })
       .catch(function(error) {
-        console.error('Error adding to cart:', error);
+        if (window.Shopify?.designMode) console.error('Shop the look add to cart error:', error);
+        if (window.toast) {
+          window.toast.error('{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}');
+        }
         button.innerHTML = originalHtml;
         button.disabled = false;
       });
@@ -644,7 +647,10 @@
         }, 2000);
       })
       .catch(function(error) {
-        console.error('Error adding all to cart:', error);
+        if (window.Shopify?.designMode) console.error('Shop the look add all to cart error:', error);
+        if (window.toast) {
+          window.toast.error('{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}');
+        }
         addAllButton.innerHTML = '<span>{{ 'cart.error' | t }}</span>';
         setTimeout(function() {
           addAllButton.innerHTML = originalHtml;

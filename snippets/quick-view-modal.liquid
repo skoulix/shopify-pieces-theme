@@ -232,9 +232,14 @@
           body: formData
         });
 
-        if (!res.ok) throw new Error('Failed to add to cart');
+        const data = await res.json();
 
-        const item = await res.json();
+        if (!res.ok) {
+          // Shopify returns error description in the response body
+          throw new Error(data.description || 'Failed to add to cart');
+        }
+
+        const item = data;
 
         // Update cart count
         const cartCount = document.querySelectorAll('[data-cart-count]');
@@ -284,7 +289,13 @@
         submitBtn.disabled = false;
         if (btnAdding) btnAdding.classList.add('hidden');
         if (btnText) btnText.classList.remove('hidden');
-        console.error('Error adding to cart:', err);
+        if (window.Shopify?.designMode) console.error('Quick view add to cart error:', err);
+
+        // Show toast notification with error
+        const errorMessage = err.message || '{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}';
+        if (window.toast) {
+          window.toast.error(errorMessage);
+        }
       }
     });
 

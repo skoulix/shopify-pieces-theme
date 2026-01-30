@@ -217,9 +217,14 @@
           })
         });
 
-        if (!response.ok) throw new Error('Failed to add');
+        const data = await response.json();
 
-        const item = await response.json();
+        if (!response.ok) {
+          // Shopify returns error description in the response body
+          throw new Error(data.description || 'Failed to add to cart');
+        }
+
+        const item = data;
 
         // Get updated cart
         const cartResponse = await fetch('/cart.js');
@@ -277,7 +282,15 @@
         }, 1500);
 
       } catch (error) {
-        console.error('Sticky bar add to cart error:', error);
+        if (window.Shopify?.designMode) console.error('Sticky bar add to cart error:', error);
+
+        // Get error message and show toast
+        const errorMessage = error.message || '{{ 'cart.error_message' | t | default: 'Could not add to cart. Please try again.' }}';
+        if (window.toast) {
+          window.toast.error(errorMessage);
+        }
+
+        // Error state on button
         if (btnIcon) {
           btnIcon.className = 'ph ph-x';
         }
