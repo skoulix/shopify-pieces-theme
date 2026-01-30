@@ -1732,7 +1732,14 @@
     const storageKey = 'announcement_dismissed_' + sectionId;
 
     // Check if dismissed
-    if (localStorage.getItem(storageKey)) {
+    let isDismissed = false;
+    try {
+      isDismissed = localStorage.getItem(storageKey) !== null;
+    } catch {
+      // localStorage unavailable (private browsing)
+    }
+
+    if (isDismissed) {
       announcementBar.classList.add('is-dismissed');
       // Update spacer height after dismissing
       if (spacer && headerWrapper) {
@@ -1778,7 +1785,11 @@
       if (closeBtn) {
         closeBtn.addEventListener('click', () => {
           announcementBar.classList.add('is-dismissed');
-          localStorage.setItem(storageKey, 'true');
+          try {
+            localStorage.setItem(storageKey, 'true');
+          } catch {
+            // localStorage unavailable
+          }
           // Dispatch event so spacer can recalculate height
           window.dispatchEvent(new CustomEvent('announcement:dismissed'));
         });

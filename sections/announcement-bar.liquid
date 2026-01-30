@@ -103,9 +103,13 @@
       const storageKey = 'announcement_dismissed_{{ section.id }}';
 
       // Check if dismissed
-      if (localStorage.getItem(storageKey)) {
-        bar.classList.add('is-dismissed');
-        return;
+      try {
+        if (localStorage.getItem(storageKey)) {
+          bar.classList.add('is-dismissed');
+          return;
+        }
+      } catch {
+        // localStorage unavailable (private browsing)
       }
 
       // Slide functions
@@ -145,7 +149,11 @@
       if (closeBtn) {
         closeBtn.addEventListener('click', () => {
           bar.classList.add('is-dismissed');
-          localStorage.setItem(storageKey, 'true');
+          try {
+            localStorage.setItem(storageKey, 'true');
+          } catch {
+            // localStorage unavailable
+          }
           // Dispatch event so header spacer can recalculate height
           window.dispatchEvent(new CustomEvent('announcement:dismissed'));
         });

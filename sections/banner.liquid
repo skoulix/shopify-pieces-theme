@@ -79,9 +79,13 @@
   const storageKey = 'banner_dismissed_' + sectionId;
 
   // Check if banner was previously dismissed
-  if (rememberDismissal && localStorage.getItem(storageKey) === 'true') {
-    section.classList.add('banner-hidden');
-    return;
+  try {
+    if (rememberDismissal && localStorage.getItem(storageKey) === 'true') {
+      section.classList.add('banner-hidden');
+      return;
+    }
+  } catch {
+    // localStorage unavailable (private browsing)
   }
 
   // Dismiss banner function
@@ -89,7 +93,11 @@
     section.classList.add('banner-hidden');
 
     if (rememberDismissal) {
-      localStorage.setItem(storageKey, 'true');
+      try {
+        localStorage.setItem(storageKey, 'true');
+      } catch {
+        // localStorage unavailable
+      }
     }
   }
 

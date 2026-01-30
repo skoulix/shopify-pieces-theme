@@ -210,22 +210,26 @@
         if (Shopify.designMode) return false;
         // Always show if just subscribed (to display success/discount)
         if (justSubscribed) return true;
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (!stored) return true;
         try {
+          const stored = localStorage.getItem(STORAGE_KEY);
+          if (!stored) return true;
           const data = JSON.parse(stored);
           return Date.now() > (data.hideUntil || 0);
-        } catch (e) {
+        } catch {
           return true;
         }
       }
 
       function saveState(type) {
-        const days = type === 'subscribed' ? DAYS_HIDDEN_AFTER_SIGNUP : DAYS_HIDDEN;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-          type: type,
-          hideUntil: Date.now() + (days * 24 * 60 * 60 * 1000)
-        }));
+        try {
+          const days = type === 'subscribed' ? DAYS_HIDDEN_AFTER_SIGNUP : DAYS_HIDDEN;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            type: type,
+            hideUntil: Date.now() + (days * 24 * 60 * 60 * 1000)
+          }));
+        } catch {
+          // localStorage unavailable
+        }
       }
 
       let hasShown = false;

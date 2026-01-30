@@ -26,6 +26,9 @@
 
     <link rel="canonical" href="{{ canonical_url }}">
 
+    {%- comment -%} Pagination SEO - rel="next" and rel="prev" for paginated pages {%- endcomment -%}
+    {% render 'pagination-seo' %}
+
     {% if settings.favicon != blank %}
       <link
         rel="icon"

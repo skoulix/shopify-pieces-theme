@@ -1,0 +1,47 @@
+{%- comment -%}
+  Pagination SEO - rel="next" and rel="prev" link tags
+  Include in theme.liquid head: {% render 'pagination-seo' %}
+
+  These tags help search engines understand paginated content
+  and properly index multi-page collections, blogs, and search results.
+{%- endcomment -%}
+
+{%- comment -%}
+  Since we can't access paginate object outside of paginate blocks,
+  we need to detect pagination from URL parameters and page count
+{%- endcomment -%}
+
+{%- liquid
+  assign current_page = current_page | default: 1
+  assign is_paginated = false
+
+  # Check if we're on a paginated template
+  if template.name == 'collection' and collection.products_count > 24
+    assign is_paginated = true
+    assign total_pages = collection.products_count | divided_by: 24.0 | ceil
+  elsif template.name == 'blog' and blog.articles_count > 12
+    assign is_paginated = true
+    assign total_pages = blog.articles_count | divided_by: 12.0 | ceil
+  elsif template.name == 'search' and search.results_count > 24
+    assign is_paginated = true
+    assign total_pages = search.results_count | divided_by: 24.0 | ceil
+  endif
+-%}
+
+{%- if is_paginated -%}
+  {%- comment -%} Previous page link {%- endcomment -%}
+  {%- if current_page > 1 -%}
+    {%- assign prev_page = current_page | minus: 1 -%}
+    {%- if prev_page == 1 -%}
+      <link rel="prev" href="{{ canonical_url | split: '?' | first }}">
+    {%- else -%}
+      <link rel="prev" href="{{ canonical_url | split: '?' | first }}?page={{ prev_page }}">
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- comment -%} Next page link {%- endcomment -%}
+  {%- if current_page < total_pages -%}
+    {%- assign next_page = current_page | plus: 1 -%}
+    <link rel="next" href="{{ canonical_url | split: '?' | first }}?page={{ next_page }}">
+  {%- endif -%}
+{%- endif -%}

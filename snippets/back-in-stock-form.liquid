@@ -111,18 +111,22 @@
 
         // For now, we'll use localStorage to simulate subscription
         // In production, replace this with your actual back-in-stock service
-        const subscriptions = JSON.parse(localStorage.getItem('backInStock') || '{}');
-        if (!subscriptions[productId]) {
-          subscriptions[productId] = [];
-        }
+        try {
+          const subscriptions = JSON.parse(localStorage.getItem('backInStock') || '{}');
+          if (!subscriptions[productId]) {
+            subscriptions[productId] = [];
+          }
 
-        if (!subscriptions[productId].some(sub => sub.email === email && sub.variantId === variantId)) {
-          subscriptions[productId].push({
-            email: email,
-            variantId: variantId,
-            timestamp: Date.now()
-          });
-          localStorage.setItem('backInStock', JSON.stringify(subscriptions));
+          if (!subscriptions[productId].some(sub => sub.email === email && sub.variantId === variantId)) {
+            subscriptions[productId].push({
+              email: email,
+              variantId: variantId,
+              timestamp: Date.now()
+            });
+            localStorage.setItem('backInStock', JSON.stringify(subscriptions));
+          }
+        } catch {
+          // localStorage unavailable (private browsing)
         }
 
         // Dispatch event for external integrations
