@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Slika naslovnice",
+          "info": "Prikazuje se prije reprodukcije videa. Preporučuje se kada je automatska reprodukcija isključena."
+        },
+        "autoplay": {
+          "label": "Automatska reprodukcija"
+        },
         "loop": {
           "label": "Ponavljanje"
         },

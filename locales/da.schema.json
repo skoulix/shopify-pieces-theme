@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Forvisningsbillede",
+          "info": "Vises før videoen afspilles. Anbefales når automatisk afspilning er deaktiveret."
+        },
+        "autoplay": {
+          "label": "Automatisk afspilning"
+        },
         "loop": {
           "label": "Loop"
         },

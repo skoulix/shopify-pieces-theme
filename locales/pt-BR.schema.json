@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Vídeo",
       "settings": {
+        "poster_image": {
+          "label": "Imagem de capa",
+          "info": "Exibida antes da reprodução do vídeo. Recomendado quando a reprodução automática está desativada."
+        },
+        "autoplay": {
+          "label": "Reprodução automática"
+        },
         "loop": {
           "label": "Repetir"
         },

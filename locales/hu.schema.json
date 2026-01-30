@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Videó",
       "settings": {
+        "poster_image": {
+          "label": "Előnézeti kép",
+          "info": "A videó lejátszása előtt jelenik meg. Ajánlott, ha az automatikus lejátszás ki van kapcsolva."
+        },
+        "autoplay": {
+          "label": "Automatikus lejátszás"
+        },
         "loop": {
           "label": "Ismétlés"
         },

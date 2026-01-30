@@ -3550,6 +3550,13 @@
     "video": {
       "name": "動画",
       "settings": {
+        "poster_image": {
+          "label": "サムネイル画像",
+          "info": "動画再生前に表示されます。自動再生が無効の場合に推奨されます。"
+        },
+        "autoplay": {
+          "label": "自動再生"
+        },
         "loop": {
           "label": "ループ"
         },

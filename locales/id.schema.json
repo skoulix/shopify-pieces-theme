@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Gambar poster",
+          "info": "Ditampilkan sebelum video diputar. Disarankan saat putar otomatis dinonaktifkan."
+        },
+        "autoplay": {
+          "label": "Putar otomatis"
+        },
         "loop": {
           "label": "Putar ulang"
         },

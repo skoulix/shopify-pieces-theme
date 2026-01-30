@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Imagen de portada",
+          "info": "Se muestra antes de que se reproduzca el video. Recomendado cuando la reproducción automática está desactivada."
+        },
+        "autoplay": {
+          "label": "Reproducción automática"
+        },
         "loop": {
           "label": "Repetir"
         },

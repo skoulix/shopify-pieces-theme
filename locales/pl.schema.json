@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Wideo",
       "settings": {
+        "poster_image": {
+          "label": "Obraz podglądu",
+          "info": "Wyświetlany przed odtworzeniem wideo. Zalecany gdy automatyczne odtwarzanie jest wyłączone."
+        },
+        "autoplay": {
+          "label": "Automatyczne odtwarzanie"
+        },
         "loop": {
           "label": "Zapętl"
         },

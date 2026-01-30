@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Ảnh bìa",
+          "info": "Hiển thị trước khi phát video. Khuyến nghị khi tắt tự động phát."
+        },
+        "autoplay": {
+          "label": "Tự động phát"
+        },
         "loop": {
           "label": "Lặp"
         },

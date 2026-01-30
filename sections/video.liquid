@@ -5,7 +5,7 @@
 
 {%- liquid
   capture container_class
-    render 'container-class', full_width: section.settings.full_width
+    render 'container-class', full_width: section.settings.full_width, full_class: 'container-fluid'
   endcapture
 
   # Content alignment classes (includes flex items alignment for video overlay)
@@ -17,24 +17,42 @@
     else
       assign content_align_class = 'items-center text-center'
   endcase
+
+  # When full width, video is full bleed (no container wrapper)
+  assign is_full_width = section.settings.full_width
 -%}
 
 <div
   class="video-section section-padding{% unless section.settings.padding == 'default' %}-{{ section.settings.padding }}{% endunless %} color-{{ section.settings.color_scheme }}"
   data-video-section="{{ section.id }}"
-  style="--video-aspect-ratio: {{ section.settings.aspect_ratio }}; --video-border-radius: {{ section.settings.border_radius }}px;"
+  style="--video-aspect-ratio: {{ section.settings.aspect_ratio }}; --video-border-radius: {% if is_full_width %}0{% else %}{{ section.settings.border_radius }}{% endif %}px;"
 >
-  <div class="{{ container_class }}">
-    <div class="video-container{% if section.settings.show_controls %} show-controls{% endif %}">
+  {% unless is_full_width %}<div class="{{ container_class }}">{% endunless %}
+    <div class="video-container{% if section.settings.show_controls %} show-controls{% endif %}{% unless section.settings.autoplay %} video-paused{% endunless %}" data-video-container>
       {% if section.settings.video != blank %}
         {{ section.settings.video | video_tag:
-          autoplay: true,
-          muted: true,
+          autoplay: section.settings.autoplay,
+          muted: section.settings.autoplay,
           playsinline: true,
           preload: 'auto',
           loop: section.settings.loop,
           controls: section.settings.show_controls
         }}
+
+        {%- comment -%} Custom poster image with play button (shown when autoplay is disabled) {%- endcomment -%}
+        {% if section.settings.poster_image != blank and section.settings.autoplay == false %}
+          <div class="video-poster" data-video-poster>
+            {{ section.settings.poster_image | image_url: width: 1920 | image_tag:
+              class: 'video-poster-image',
+              loading: 'lazy',
+              sizes: '100vw',
+              widths: '600, 800, 1200, 1600, 1920'
+            }}
+            <button type="button" class="video-play-button" data-video-play aria-label="{{ 'accessibility.play_video' | t | default: 'Play video' }}">
+              <i class="ph-fill ph-play"></i>
+            </button>
+          </div>
+        {% endif %}
       {% else %}
         <div class="video-placeholder">
           <div class="video-placeholder-pattern"></div>
@@ -63,7 +81,7 @@
       {% endif %}
 
       {% if section.settings.title != blank or section.settings.text != blank or section.settings.button_text != blank %}
-        <div class="video-content {{ content_align_class }}" style="justify-content: {{ section.settings.content_position }};" data-tween-group="video-content-{{ section.id }}">
+        <div class="video-content {{ content_align_class }}{% if is_full_width %} container{% endif %}" style="justify-content: {{ section.settings.content_position }};" data-tween-group="video-content-{{ section.id }}">
           {% if section.settings.label != blank %}
             <span class="section-label" data-tween data-tween-type="fade-up">
               {{ section.settings.label }}
@@ -96,10 +114,35 @@
         </div>
       {% endif %}
     </div>
-  </div>
+  {% unless is_full_width %}</div>{% endunless %}
 </div>
 
 {%- comment -%} Animations handled by global TweenManager via data-tween attributes {%- endcomment -%}
+
+{%- comment -%} Video poster play functionality {%- endcomment -%}
+{% if section.settings.poster_image != blank and section.settings.autoplay == false %}
+<script data-swup-reload-script>
+(function() {
+  const section = document.querySelector('[data-video-section="{{ section.id }}"]');
+  if (!section) return;
+
+  const poster = section.querySelector('[data-video-poster]');
+  const playBtn = section.querySelector('[data-video-play]');
+  const video = section.querySelector('video');
+
+  if (!poster || !playBtn || !video) return;
+
+  function playVideo() {
+    poster.classList.add('is-hidden');
+    video.muted = false;
+    video.play();
+  }
+
+  playBtn.addEventListener('click', playVideo);
+  poster.addEventListener('click', playVideo);
+})();
+</script>
+{% endif %}
 
 {% schema %}
 {
@@ -116,6 +159,18 @@
       "id": "video",
       "label": "t:shared.settings.video.label",
       "info": "t:shared.info.upload_video"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "t:sections.video.settings.poster_image.label",
+      "info": "t:sections.video.settings.poster_image.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "default": true,
+      "label": "t:sections.video.settings.autoplay.label"
     },
     {
       "type": "checkbox",

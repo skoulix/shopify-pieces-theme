@@ -3550,6 +3550,13 @@
     "video": {
       "name": "影片",
       "settings": {
+        "poster_image": {
+          "label": "封面圖片",
+          "info": "在影片播放前顯示。建議在停用自動播放時使用。"
+        },
+        "autoplay": {
+          "label": "自動播放"
+        },
         "loop": {
           "label": "循環播放"
         },

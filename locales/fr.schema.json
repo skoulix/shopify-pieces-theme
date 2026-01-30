@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Vidéo",
       "settings": {
+        "poster_image": {
+          "label": "Image d'aperçu",
+          "info": "Affichée avant la lecture de la vidéo. Recommandé lorsque la lecture automatique est désactivée."
+        },
+        "autoplay": {
+          "label": "Lecture automatique"
+        },
         "loop": {
           "label": "Boucle"
         },

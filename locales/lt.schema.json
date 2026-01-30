@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Vaizdo irashhas",
       "settings": {
+        "poster_image": {
+          "label": "Plakato vaizdas",
+          "info": "Rodomas prieš paleidžiant vaizdo įrašą. Rekomenduojama, kai automatinis paleidimas išjungtas."
+        },
+        "autoplay": {
+          "label": "Automatinis paleidimas"
+        },
         "loop": {
           "label": "Kartoti"
         },

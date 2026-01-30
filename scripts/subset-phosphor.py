@@ -188,6 +188,7 @@ USED_ICONS = [
 # Fill icons (use ph-fill class)
 USED_FILL_ICONS = [
     "heart",
+    "play",
     "star",
 ]
 

@@ -3550,6 +3550,13 @@
     "video": {
       "name": "동영상",
       "settings": {
+        "poster_image": {
+          "label": "포스터 이미지",
+          "info": "동영상 재생 전에 표시됩니다. 자동 재생이 비활성화된 경우 권장됩니다."
+        },
+        "autoplay": {
+          "label": "자동 재생"
+        },
         "loop": {
           "label": "반복 재생"
         },

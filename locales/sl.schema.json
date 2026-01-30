@@ -3550,6 +3550,13 @@
     "video": {
       "name": "Video",
       "settings": {
+        "poster_image": {
+          "label": "Naslovna slika",
+          "info": "Prikazana pred predvajanjem videa. Priporočeno ko je samodejno predvajanje onemogočeno."
+        },
+        "autoplay": {
+          "label": "Samodejno predvajanje"
+        },
         "loop": {
           "label": "Zanka"
         },
