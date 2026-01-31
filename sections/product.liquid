@@ -88,14 +88,14 @@
                     {%- if media.host == 'youtube' -%}
                       <iframe
                         src="https://www.youtube.com/embed/{{ media.external_id }}?enablejsapi=1&autoplay=1"
-                        title="{{ media.alt | default: product.title }} - {{ 'products.product.video' | t | default: 'Product video' }}"
+                        title="{{ media.alt | default: product.title }} - {{ 'products.product.media.video' | t | default: 'Product video' }}"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
                         loading="lazy"></iframe>
                     {%- elsif media.host == 'vimeo' -%}
                       <iframe
                         src="https://player.vimeo.com/video/{{ media.external_id }}?autoplay=1"
-                        title="{{ media.alt | default: product.title }} - {{ 'products.product.video' | t | default: 'Product video' }}"
+                        title="{{ media.alt | default: product.title }} - {{ 'products.product.media.video' | t | default: 'Product video' }}"
                         allow="autoplay; fullscreen; picture-in-picture"
                         allowfullscreen
                         loading="lazy"></iframe>
