@@ -189,9 +189,38 @@ USED_ICONS = [
 
 # Fill icons (use ph-fill class)
 USED_FILL_ICONS = [
+    # Base fill icons
     "heart",
     "play",
     "star",
+    # Announcement bar icons (all filled versions)
+    "arrow-counter-clockwise",
+    "bell",
+    "calendar",
+    "certificate",
+    "chat-circle",
+    "clock",
+    "credit-card",
+    "crown",
+    "envelope",
+    "fire",
+    "gift",
+    "globe",
+    "hourglass",
+    "leaf",
+    "lightning",
+    "lock-simple",
+    "map-pin",
+    "medal",
+    "package",
+    "percent",
+    "phone",
+    "rocket",
+    "shield-check",
+    "sparkle",
+    "storefront",
+    "tag",
+    "truck",
 ]
 
 # Get directory paths
