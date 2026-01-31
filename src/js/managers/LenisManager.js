@@ -40,8 +40,10 @@ class LenisManager {
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
+      smoothTouch: false, // Disable smooth scroll on touch devices for better native performance
+      syncTouch: false, // Don't sync touch scroll (unstable on iOS<16)
+      touchMultiplier: 0, // Disable touch scroll handling
       wheelMultiplier: 1,
-      touchMultiplier: 2,
       infinite: false,
       prevent: (node) => {
         // Prevent Lenis from intercepting scroll on these elements
