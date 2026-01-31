@@ -1615,12 +1615,12 @@
           "name": "Μέγα μενού",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Προσθέστε πολλαπλά μπλοκ mega menu για να ενεργοποιήσετε εμπλουτισμένα αναπτυσσόμενα μενού για διαφορετικά στοιχεία μενού. Κάθε μπλοκ στοχεύει ένα στοιχείο μενού ανώτατου επιπέδου με βάση το όνομα."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Όνομα στοιχείου μενού",
+              "info": "Εισαγάγετε το ακριβές όνομα του στοιχείου μενού ανώτατου επιπέδου (π.χ. 'Κατάστημα', 'Συλλογές'). Πρέπει να ταιριάζει ακριβώς με τον τίτλο του στοιχείου μενού. Προσθέστε πολλαπλά μπλοκ για πολλαπλά mega menu.",
+              "placeholder": "Κατάστημα"
             },
             "animation": {
               "label": "Κινούμενα σχέδια",

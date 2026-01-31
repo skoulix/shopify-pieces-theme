@@ -1615,12 +1615,12 @@
           "name": "Mega meniu",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Adăugați mai multe blocuri de mega meniu pentru a activa meniuri derulante îmbogățite pentru diferite elemente de meniu. Fiecare bloc vizează un element de meniu de nivel superior după nume."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Numele elementului de meniu",
+              "info": "Introduceți numele exact al elementului de meniu de nivel superior (de ex. 'Magazin', 'Colecții'). Trebuie să se potrivească exact cu titlul elementului de meniu. Adăugați mai multe blocuri pentru mai multe mega meniuri.",
+              "placeholder": "Magazin"
             },
             "animation": {
               "label": "Animație",

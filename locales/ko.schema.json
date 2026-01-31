@@ -1615,12 +1615,12 @@
           "name": "메가 메뉴",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "여러 메가 메뉴 블록을 추가하여 다양한 메뉴 항목에 대한 풍부한 드롭다운을 활성화합니다. 각 블록은 이름으로 최상위 메뉴 항목을 대상으로 합니다."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "메뉴 항목 이름",
+              "info": "최상위 메뉴 항목의 정확한 이름을 입력하세요(예: '쇼핑', '컬렉션'). 메뉴 항목 제목과 정확히 일치해야 합니다. 여러 메가 메뉴에 대해 여러 블록을 추가하세요.",
+              "placeholder": "쇼핑"
             },
             "animation": {
               "label": "애니메이션",

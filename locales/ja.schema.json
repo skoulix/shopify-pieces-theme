@@ -1615,12 +1615,12 @@
           "name": "メガメニュー",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "複数のメガメニューブロックを追加して、さまざまなメニュー項目のリッチドロップダウンを有効にします。各ブロックは、名前でトップレベルのメニュー項目をターゲットにします。"
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "メニュー項目名",
+              "info": "トップレベルのメニュー項目の正確な名前を入力してください（例：「ショップ」、「コレクション」）。メニュー項目のタイトルと正確に一致する必要があります。複数のメガメニューには複数のブロックを追加してください。",
+              "placeholder": "ショップ"
             },
             "animation": {
               "label": "アニメーション",

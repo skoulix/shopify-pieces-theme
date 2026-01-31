@@ -1615,12 +1615,12 @@
           "name": "เมกะเมนู",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "เพิ่มบล็อกเมกะเมนูหลายรายการเพื่อเปิดใช้งานเมนูแบบเลื่อนลงที่มีเนื้อหาสมบูรณ์สำหรับรายการเมนูต่างๆ แต่ละบล็อกกำหนดเป้าหมายรายการเมนูระดับบนสุดตามชื่อ"
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "ชื่อรายการเมนู",
+              "info": "ป้อนชื่อที่แน่นอนของรายการเมนูระดับบนสุด (เช่น 'ร้านค้า', 'คอลเลกชัน') ต้องตรงกับชื่อรายการเมนูทุกประการ เพิ่มบล็อกหลายรายการสำหรับเมกะเมนูหลายรายการ",
+              "placeholder": "ร้านค้า"
             },
             "animation": {
               "label": "แอนิเมชัน",

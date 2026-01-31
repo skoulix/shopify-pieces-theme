@@ -1615,12 +1615,12 @@
           "name": "Mega Menu",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Dodajte više blokova mega menija kako biste omogućili obogaćene padajuće izbornike za različite stavke izbornika. Svaki blok cilja stavku izbornika najviše razine po imenu."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Naziv stavke izbornika",
+              "info": "Unesite točan naziv stavke izbornika najviše razine (npr. 'Trgovina', 'Kolekcije'). Mora točno odgovarati naslovu stavke izbornika. Dodajte više blokova za više mega izbornika.",
+              "placeholder": "Trgovina"
             },
             "animation": {
               "label": "Animation",

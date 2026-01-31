@@ -1615,12 +1615,12 @@
           "name": "Megameny",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Legg til flere megameny-blokker for å aktivere berikede rullegardinmenyer for forskjellige menyelementer. Hver blokk retter seg mot et menyelement på toppnivå etter navn."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Menyelementets navn",
+              "info": "Skriv inn det nøyaktige navnet på menyelementet på toppnivå (f.eks. 'Butikk', 'Samlinger'). Må matche menyelementets tittel nøyaktig. Legg til flere blokker for flere megamenyer.",
+              "placeholder": "Butikk"
             },
             "animation": {
               "label": "Animasjon",

@@ -1615,12 +1615,12 @@
           "name": "Mega Menu",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Добавете множество блокове за мега меню, за да активирате обогатени падащи менюта за различни елементи от менюто. Всеки блок е насочен към елемент от менюто от най-високо ниво по име."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Име на елемент от менюто",
+              "info": "Въведете точното име на елемента от менюто от най-високо ниво (напр. 'Магазин', 'Колекции'). Трябва да съответства точно на заглавието на елемента от менюто. Добавете множество блокове за множество мега менюта.",
+              "placeholder": "Магазин"
             },
             "animation": {
               "label": "Анимация",

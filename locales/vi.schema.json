@@ -1615,12 +1615,12 @@
           "name": "Mega Menu",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Thêm nhiều khối mega menu để kích hoạt menu thả xuống phong phú cho các mục menu khác nhau. Mỗi khối nhắm mục tiêu một mục menu cấp cao nhất theo tên."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Tên mục menu",
+              "info": "Nhập tên chính xác của mục menu cấp cao nhất (ví dụ: 'Cửa hàng', 'Bộ sưu tập'). Phải khớp chính xác với tiêu đề mục menu. Thêm nhiều khối cho nhiều mega menu.",
+              "placeholder": "Cửa hàng"
             },
             "animation": {
               "label": "Animation",

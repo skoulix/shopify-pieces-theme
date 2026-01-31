@@ -1615,12 +1615,12 @@
           "name": "Megavalikko",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Lisää useita megavalikkolohkoja ottaaksesi käyttöön rikastetut pudotusvalikot eri valikkokohdille. Jokainen lohko kohdistuu ylätason valikkokohteeseen nimen mukaan."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Valikkokohteen nimi",
+              "info": "Syötä ylätason valikkokohteen tarkka nimi (esim. 'Kauppa', 'Kokoelmat'). On vastattava täsmälleen valikkokohteen otsikkoa. Lisää useita lohkoja useille megavalikoille.",
+              "placeholder": "Kauppa"
             },
             "animation": {
               "label": "Animaatio",

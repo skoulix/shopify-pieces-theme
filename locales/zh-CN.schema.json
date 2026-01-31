@@ -1615,12 +1615,12 @@
           "name": "大型菜单",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "添加多个大型菜单块以为不同的菜单项启用丰富的下拉菜单。每个块按名称定位一个顶级菜单项。"
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "菜单项名称",
+              "info": "输入顶级菜单项的确切名称（例如，「商店」、「收藏」）。必须与菜单项标题完全匹配。为多个大型菜单添加多个块。",
+              "placeholder": "商店"
             },
             "animation": {
               "label": "动画",

@@ -1615,12 +1615,12 @@
           "name": "Megamenu",
           "settings": {
             "paragraph_intro": {
-              "content": "Add multiple mega menu blocks to enable rich dropdowns for different menu items. Each block targets one top-level menu item by name."
+              "content": "Voeg meerdere mega menu-blokken toe om verrijkte dropdownmenu's voor verschillende menu-items in te schakelen. Elk blok richt zich op een menu-item op het hoogste niveau op naam."
             },
             "menu_item": {
-              "label": "Menu item name",
-              "info": "Enter the exact name of the top-level menu item (e.g., 'Shop', 'Collections'). Must match the menu item title exactly. Add multiple blocks for multiple mega menus.",
-              "placeholder": "Shop"
+              "label": "Naam van menu-item",
+              "info": "Voer de exacte naam in van het menu-item op het hoogste niveau (bijv. 'Winkel', 'Collecties'). Moet exact overeenkomen met de titel van het menu-item. Voeg meerdere blokken toe voor meerdere mega menu's.",
+              "placeholder": "Winkel"
             },
             "animation": {
               "label": "Animatie",
