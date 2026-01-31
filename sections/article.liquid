@@ -86,22 +86,11 @@
       {% endif %}
 
       {% if section.settings.show_share %}
-        <div class="flex items-center gap-4 mt-8">
-          <span class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary)">{{ 'general.share' | t }}</span>
-          <div class="flex gap-3">
-            <a href="https://twitter.com/intent/tweet?url={{ shop.url }}{{ article.url }}&text={{ article.title | url_encode }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_twitter' | t }}">
-              <i class="ph ph-x-logo"></i>
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ shop.url }}{{ article.url }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_facebook' | t }}">
-              <i class="ph ph-facebook-logo"></i>
-            </a>
-            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ shop.url }}{{ article.url }}&title={{ article.title | url_encode }}" target="_blank" rel="noopener" class="share-btn" aria-label="{{ 'accessibility.share_on_linkedin' | t }}">
-              <i class="ph ph-linkedin-logo"></i>
-            </a>
-            <button type="button" class="share-btn" aria-label="{{ 'accessibility.copy_link' | t }}" data-copy-link="{{ shop.url }}{{ article.url }}">
-              <i class="ph ph-link"></i>
-            </button>
-          </div>
+        <div class="mt-8">
+          {% render 'share-popup',
+            share_url: article.url,
+            share_title: article.title
+          %}
         </div>
       {% endif %}
 

@@ -795,82 +795,11 @@
                   </button>
                 {%- endif -%}
                 {%- if block.settings.show_share -%}
-                  {%- liquid
-                    assign share_url = shop.url | append: product.url
-                    assign share_title = product.title | url_encode
-                    assign share_image = product.featured_image | image_url: width: 1200
-                  -%}
-                  <div class="relative" data-share-wrapper>
-                    <button
-                      type="button"
-                      class="product-share-btn inline-flex items-center justify-center w-10 h-10 border border-(--color-border) rounded-full text-sm transition-all duration-300 hover:border-(--color-text) hover:bg-(--color-text) hover:text-(--color-background)"
-                      data-share-trigger
-                      data-share-url="{{ share_url }}"
-                      data-share-title="{{ product.title | escape }}"
-                      aria-label="{{ 'products.product.share' | t | default: 'Share' }}"
-                      aria-expanded="false"
-                      aria-haspopup="true">
-                      <i class="ph ph-share-network text-lg" aria-hidden="true"></i>
-                    </button>
-                  </div>
-                  {%- comment -%} Share popup rendered outside section via portal {%- endcomment -%}
-                  <template data-share-popup-template>
-                    <div
-                      class="share-popup fixed bg-(--color-background) border border-(--color-border) shadow-xl p-4 opacity-0 invisible translate-y-2 transition-all duration-200 z-9999 min-w-[200px]"
-                      data-share-popup
-                      role="menu">
-                      <p class="text-sm font-semibold uppercase tracking-widest text-(--color-text-secondary) mb-3">{{ 'general.share' | t }}</p>
-                      <div class="flex flex-col gap-2">
-                        <a
-                          href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}"
-                          target="_blank"
-                          rel="noopener"
-                          class="flex items-center gap-3 py-2 px-3 text-sm text-(--color-text) hover:bg-(--color-background-secondary) transition-colors duration-200"
-                          role="menuitem"
-                          aria-label="{{ 'accessibility.share_on_facebook' | t }}">
-                          <i class="ph ph-facebook-logo text-lg"></i>
-                          <span>Facebook</span>
-                        </a>
-                        <a
-                          href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}"
-                          target="_blank"
-                          rel="noopener"
-                          class="flex items-center gap-3 py-2 px-3 text-sm text-(--color-text) hover:bg-(--color-background-secondary) transition-colors duration-200"
-                          role="menuitem"
-                          aria-label="{{ 'accessibility.share_on_twitter' | t }}">
-                          <i class="ph ph-x-logo text-lg"></i>
-                          <span>X (Twitter)</span>
-                        </a>
-                        <a
-                          href="https://pinterest.com/pin/create/button/?url={{ share_url }}&media={{ share_image }}&description={{ share_title }}"
-                          target="_blank"
-                          rel="noopener"
-                          class="flex items-center gap-3 py-2 px-3 text-sm text-(--color-text) hover:bg-(--color-background-secondary) transition-colors duration-200"
-                          role="menuitem"
-                          aria-label="{{ 'accessibility.share_on_pinterest' | t }}">
-                          <i class="ph ph-pinterest-logo text-lg"></i>
-                          <span>Pinterest</span>
-                        </a>
-                        <a
-                          href="mailto:?subject={{ share_title }}&body={{ share_url }}"
-                          class="flex items-center gap-3 py-2 px-3 text-sm text-(--color-text) hover:bg-(--color-background-secondary) transition-colors duration-200"
-                          role="menuitem"
-                          aria-label="{{ 'accessibility.share_via_email' | t }}">
-                          <i class="ph ph-envelope text-lg"></i>
-                          <span>Email</span>
-                        </a>
-                        <button
-                          type="button"
-                          class="flex items-center gap-3 py-2 px-3 text-sm text-(--color-text) hover:bg-(--color-background-secondary) transition-colors duration-200 w-full text-left"
-                          data-copy-link="{{ share_url }}"
-                          role="menuitem"
-                          aria-label="{{ 'accessibility.copy_link' | t }}">
-                          <i class="ph ph-link text-lg"></i>
-                          <span data-copy-text>{{ 'accessibility.copy_link' | t }}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </template>
+                  {% render 'share-popup',
+                    share_url: product.url,
+                    share_title: product.title,
+                    share_image: product.featured_image
+                  %}
                 {%- endif -%}
               </div>
 
