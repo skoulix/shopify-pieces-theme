@@ -12,6 +12,7 @@
     - show_vendor: Show vendor name (optional, default: false)
     - show_quick_add: Show quick add button (optional, default: true)
     - animate_image: Add clip-path reveal animation to image (optional, default: false)
+    - class: Additional CSS classes (optional)
 {%- endcomment -%}
 
 {%- liquid
@@ -66,7 +67,7 @@
 {%- assign product_json = product_json_data | strip_newlines | replace: "'", "&#39;" -%}
 
 <div
-  class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full border-solid border-(--color-border)"
+  class="product-card group relative flex flex-col no-underline text-inherit rounded-(--card-radius) overflow-hidden h-full border-solid border-(--color-border){% if class %} {{ class }}{% endif %}"
   style="box-shadow: var(--card-shadow); border-width: var(--card-border-width);"
   data-product-card="{{ index }}"
   data-product-id="{{ product.id }}"
