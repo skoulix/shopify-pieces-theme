@@ -16,7 +16,7 @@
 <div
   class="team-section-wrapper section-padding{% unless section.settings.padding == 'default' %}-{{ section.settings.padding }}{% endunless %} color-{{ section.settings.color_scheme }}"
   data-team-section="{{ section.id }}"
-  style="--team-columns: {{ section.settings.columns }}"
+  style="--team-columns-mobile: {{ section.settings.columns_mobile }}; --team-columns-tablet: {{ section.settings.columns_tablet }}; --team-columns-desktop: {{ section.settings.columns_desktop }};"
 >
   {%- comment -%} Header - always contained {%- endcomment -%}
   {% if section.settings.label != blank or section.settings.title != blank %}
@@ -35,7 +35,7 @@
 
   <div class="{{ container_class }}">
     {%- comment -%} Team Grid {%- endcomment -%}
-    <div class="team-grid lg:grid-cols-[repeat(var(--team-columns),1fr)]">
+    <div class="team-grid grid-cols-[repeat(var(--team-columns-mobile),1fr)] md:grid-cols-[repeat(var(--team-columns-tablet),1fr)] lg:grid-cols-[repeat(var(--team-columns-desktop),1fr)]">
       {% for block in section.blocks %}
         <div class="team-member" data-tween data-tween-type="fade-up" {{ block.shopify_attributes }}>
           <div class="team-member-image">
@@ -150,13 +150,68 @@
       "default": "left"
     },
     {
-      "type": "range",
-      "id": "columns",
-      "min": 2,
-      "max": 5,
-      "step": 1,
-      "default": 4,
-      "label": "t:shared.settings.columns.label"
+      "type": "select",
+      "id": "columns_mobile",
+      "default": "1",
+      "label": "t:shared.settings.columns_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "default": "2",
+      "label": "t:shared.settings.columns_tablet.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "default": "4",
+      "label": "t:shared.settings.columns_desktop.label",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
     },
     {
       "type": "select",
