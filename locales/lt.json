@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Atkurti 3D modelio vaizdą",
         "view_in_ar": "Peržiūrėti savo erdvėje",
-        "load_image": "Įkelti nuotrauką {{ index }}"
+        "load_image": "Įkelti nuotrauką {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Reseteaza vizualizarea modelului 3D",
         "view_in_ar": "Vizualizeaza in spatiul tau",
-        "load_image": "Incarca imaginea {{ index }}"
+        "load_image": "Incarca imaginea {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

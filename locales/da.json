@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Nulstil 3D-modelvisning",
         "view_in_ar": "Se i dit rum",
-        "load_image": "Indlæs billede {{ index }}"
+        "load_image": "Indlæs billede {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

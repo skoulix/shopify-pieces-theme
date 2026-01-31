@@ -560,7 +560,33 @@ class FacetFiltersForm extends HTMLElement {
 
     if (newSubtitle && currentSubtitle) {
       currentSubtitle.textContent = newSubtitle.textContent;
+
+      // Announce product count to screen readers
+      this.announceToScreenReader(newSubtitle.textContent);
     }
+  }
+
+  /**
+   * Announce message to screen readers via live region
+   */
+  announceToScreenReader(message) {
+    // Create or get existing live region
+    let liveRegion = document.getElementById('facets-live-region');
+    if (!liveRegion) {
+      liveRegion = document.createElement('div');
+      liveRegion.id = 'facets-live-region';
+      liveRegion.className = 'sr-only';
+      liveRegion.setAttribute('role', 'status');
+      liveRegion.setAttribute('aria-live', 'polite');
+      liveRegion.setAttribute('aria-atomic', 'true');
+      document.body.appendChild(liveRegion);
+    }
+
+    // Clear and set new message
+    liveRegion.textContent = '';
+    setTimeout(() => {
+      liveRegion.textContent = message;
+    }, 100);
   }
 
   updatePagination(doc) {
@@ -606,6 +632,10 @@ class FacetFiltersForm extends HTMLElement {
       this.loading.style.opacity = '1';
       this.loading.style.pointerEvents = 'auto';
     }
+    // Update aria-busy on collection content areas
+    document.querySelectorAll('[data-collection-content], [data-collection-list-content]').forEach(el => {
+      el.setAttribute('aria-busy', 'true');
+    });
   }
 
   hideLoading() {
@@ -613,6 +643,10 @@ class FacetFiltersForm extends HTMLElement {
       this.loading.style.opacity = '0';
       this.loading.style.pointerEvents = 'none';
     }
+    // Update aria-busy on collection content areas
+    document.querySelectorAll('[data-collection-content], [data-collection-list-content]').forEach(el => {
+      el.setAttribute('aria-busy', 'false');
+    });
   }
 }
 

@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Tilbakestill 3D-modellvisning",
         "view_in_ar": "Vis i ditt rom",
-        "load_image": "Last inn bilde {{ index }}"
+        "load_image": "Last inn bilde {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

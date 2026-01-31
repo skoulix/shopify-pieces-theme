@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Нулиране на 3D изгледа на модела",
         "view_in_ar": "Виж в своето пространство",
-        "load_image": "Зареди изображение {{ index }}"
+        "load_image": "Зареди изображение {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

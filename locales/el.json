@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Επαναφορά προβολής 3D μοντέλου",
         "view_in_ar": "Προβολή στον χώρο σας",
-        "load_image": "Φόρτωση εικόνας {{ index }}"
+        "load_image": "Φόρτωση εικόνας {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

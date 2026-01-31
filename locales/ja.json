@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "3Dモデル表示をリセット",
         "view_in_ar": "ARで見る",
-        "load_image": "画像{{ index }}を読み込む"
+        "load_image": "画像{{ index }}を読み込む",
+        "video": "Product video"
       }
     },
     "inventory": {

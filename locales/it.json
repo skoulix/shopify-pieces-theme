@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Reimposta vista modello 3D",
         "view_in_ar": "Visualizza nel tuo spazio",
-        "load_image": "Carica immagine {{ index }}"
+        "load_image": "Carica immagine {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

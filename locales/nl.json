@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "3D-modelweergave resetten",
         "view_in_ar": "In je ruimte bekijken",
-        "load_image": "Afbeelding {{ index }} laden"
+        "load_image": "Afbeelding {{ index }} laden",
+        "video": "Product video"
       }
     },
     "inventory": {

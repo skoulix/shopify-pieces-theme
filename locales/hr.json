@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Resetiraj prikaz 3D modela",
         "view_in_ar": "Pogledaj u svom prostoru",
-        "load_image": "Učitaj sliku {{ index }}"
+        "load_image": "Učitaj sliku {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

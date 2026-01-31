@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "3D model görünümünü sıfırla",
         "view_in_ar": "Alanınızda görüntüleyin",
-        "load_image": "Görseli yükle {{ index }}"
+        "load_image": "Görseli yükle {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

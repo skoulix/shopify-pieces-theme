@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "3D modell nézet visszaállítása",
         "view_in_ar": "Megtekintés a saját terében",
-        "load_image": "{{ index }}. kép betöltése"
+        "load_image": "{{ index }}. kép betöltése",
+        "video": "Product video"
       }
     },
     "inventory": {

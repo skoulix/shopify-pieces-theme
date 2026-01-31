@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Återställ 3D-modellvy",
         "view_in_ar": "Visa i ditt utrymme",
-        "load_image": "Ladda bild {{ index }}"
+        "load_image": "Ladda bild {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

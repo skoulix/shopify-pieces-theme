@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "3D 모델 보기 초기화",
         "view_in_ar": "내 공간에서 보기",
-        "load_image": "이미지 {{ index }} 로드"
+        "load_image": "이미지 {{ index }} 로드",
+        "video": "Product video"
       }
     },
     "inventory": {

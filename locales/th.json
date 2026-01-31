@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "รีเซ็ตมุมมองโมเดล 3 มิติ",
         "view_in_ar": "ดูในพื้นที่ของคุณ",
-        "load_image": "โหลดรูปภาพ {{ index }}"
+        "load_image": "โหลดรูปภาพ {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

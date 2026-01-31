@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Palauta 3D-mallinakyma",
         "view_in_ar": "Nayta omassa tilassasi",
-        "load_image": "Lataa kuva {{ index }}"
+        "load_image": "Lataa kuva {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "Atur ulang tampilan model 3D",
         "view_in_ar": "Lihat di ruangan Anda",
-        "load_image": "Muat gambar {{ index }}"
+        "load_image": "Muat gambar {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {

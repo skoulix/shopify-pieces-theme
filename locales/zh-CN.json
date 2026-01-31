@@ -290,7 +290,8 @@
       "media": {
         "reset_3d_model": "重置3D模型视图",
         "view_in_ar": "在您的空间中查看",
-        "load_image": "加载图片 {{ index }}"
+        "load_image": "加载图片 {{ index }}",
+        "video": "Product video"
       }
     },
     "inventory": {
