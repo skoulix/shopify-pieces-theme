@@ -226,6 +226,11 @@
       "remove": "Kunde inte ta bort artikeln. Försök igen.",
       "out_of_stock": "Denna artikel är för närvarande slut i lager.",
       "quantity_error_html": "Du kan bara lägga till [quantity] av denna artikel i din varukorg."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

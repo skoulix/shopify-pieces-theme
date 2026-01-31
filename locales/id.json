@@ -226,6 +226,11 @@
       "remove": "Tidak dapat menghapus item. Silakan coba lagi.",
       "out_of_stock": "Item ini sedang habis.",
       "quantity_error_html": "Anda hanya dapat menambahkan [quantity] item ini ke keranjang Anda."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

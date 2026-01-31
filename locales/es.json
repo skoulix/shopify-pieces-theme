@@ -226,6 +226,11 @@
       "remove": "No se pudo eliminar el artículo. Inténtalo de nuevo.",
       "out_of_stock": "Este artículo está agotado actualmente.",
       "quantity_error_html": "Solo puedes añadir [quantity] de este artículo a tu carrito."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

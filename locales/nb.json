@@ -226,6 +226,11 @@
       "remove": "Kunne ikke fjerne varen. Vennligst prøv igjen.",
       "out_of_stock": "Denne varen er for øyeblikket utsolgt.",
       "quantity_error_html": "Du kan bare legge til [quantity] av denne varen i handlekurven."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

@@ -226,6 +226,11 @@
       "remove": "Не удалось удалить товар. Попробуйте снова.",
       "out_of_stock": "Этот товар сейчас отсутствует на складе.",
       "quantity_error_html": "Вы можете добавить в корзину только [quantity] шт. этого товара."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

@@ -226,6 +226,11 @@
       "remove": "無法移除商品，請重試。",
       "out_of_stock": "此商品目前缺貨。",
       "quantity_error_html": "此商品最多只能添加 [quantity] 件到購物車。"
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

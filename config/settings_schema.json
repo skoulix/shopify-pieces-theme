@@ -677,6 +677,17 @@
       },
       {
         "type": "header",
+        "content": "Cart notifications"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_success_notifications",
+        "default": true,
+        "label": "Show success notifications",
+        "info": "Display toast notifications when items are added, updated, or removed from cart"
+      },
+      {
+        "type": "header",
         "content": "Free shipping progress"
       },
       {

@@ -226,6 +226,11 @@
       "remove": "Kunne ikke fjerne vare. Prøv igen.",
       "out_of_stock": "Denne vare er i øjeblikket ikke på lager.",
       "quantity_error_html": "Du kan kun tilføje [quantity] af denne vare til din kurv."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

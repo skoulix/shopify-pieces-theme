@@ -226,6 +226,11 @@
       "remove": "Nu s-a putut elimina articolul. Te rugam sa incerci din nou.",
       "out_of_stock": "Acest articol nu este disponibil in stoc momentan.",
       "quantity_error_html": "Poti adauga doar [quantity] din acest articol in cosul tau."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

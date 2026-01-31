@@ -226,6 +226,11 @@
       "remove": "商品を削除できませんでした。もう一度お試しください。",
       "out_of_stock": "この商品は現在在庫切れです。",
       "quantity_error_html": "この商品は[quantity]個までカートに追加できます。"
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

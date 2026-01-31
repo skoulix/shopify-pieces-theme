@@ -134,6 +134,17 @@ class CartState {
         document.dispatchEvent(new CustomEvent('cart:updated', {
           detail: { cart: this.cart, sections: data.sections }
         }));
+        // Add success toast for quantity updates (if enabled in settings)
+        const settings = window.themeSettings || {};
+        if (settings.enableCartSuccessNotifications !== false) {
+          const strings = window.themeStrings || {};
+          const isRemoval = quantity === 0;
+          if (isRemoval) {
+            toast.success(strings.cartSuccessRemoved || 'Item removed from cart', 3000);
+          } else {
+            toast.success(strings.cartSuccessUpdated || 'Cart updated', 3000);
+          }
+        }
         return { cart: this.cart, sections: data.sections };
       } else {
         await this.handleErrorResponse(response, defaultError);
@@ -176,6 +187,12 @@ class CartState {
         // Fetch full cart after adding
         await this.fetch();
         document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart: this.cart } }));
+        // Add success toast for item additions (if enabled in settings)
+        const settings = window.themeSettings || {};
+        if (settings.enableCartSuccessNotifications !== false) {
+          const strings = window.themeStrings || {};
+          toast.success(strings.cartSuccessAdded || 'Added to cart', 3000);
+        }
       } else {
         await this.handleErrorResponse(response, defaultError);
       }

@@ -226,6 +226,11 @@
       "remove": "Kon artikel niet verwijderen. Probeer het opnieuw.",
       "out_of_stock": "Dit artikel is momenteel niet op voorraad.",
       "quantity_error_html": "U kunt slechts [quantity] van dit artikel aan uw winkelwagen toevoegen."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

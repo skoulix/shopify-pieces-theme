@@ -226,6 +226,11 @@
       "remove": "ไม่สามารถลบสินค้าได้ กรุณาลองอีกครั้ง",
       "out_of_stock": "สินค้านี้หมดสต็อกในขณะนี้",
       "quantity_error_html": "คุณสามารถเพิ่มสินค้านี้ได้เพียง [quantity] ชิ้นในตะกร้าของคุณ"
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

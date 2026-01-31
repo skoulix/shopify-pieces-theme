@@ -226,6 +226,11 @@
       "remove": "Δεν ήταν δυνατή η αφαίρεση. Δοκιμάστε ξανά.",
       "out_of_stock": "Αυτό το προϊόν δεν είναι διαθέσιμο αυτή τη στιγμή.",
       "quantity_error_html": "Μπορείτε να προσθέσετε μόνο [quantity] από αυτό το προϊόν στο καλάθι σας."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

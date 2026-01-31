@@ -226,6 +226,11 @@
       "remove": "Tuotetta ei voitu poistaa. Yrita uudelleen.",
       "out_of_stock": "Tama tuote on talla hetkella loppu.",
       "quantity_error_html": "Voit lisata tata tuotetta ostoskoriin vain [quantity] kappaletta."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

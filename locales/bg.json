@@ -226,6 +226,11 @@
       "remove": "Артикулът не можа да бъде премахнат. Моля, опитайте отново.",
       "out_of_stock": "Този артикул в момента не е наличен.",
       "quantity_error_html": "Можете да добавите само [quantity] от този артикул в кошницата си."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

@@ -226,6 +226,11 @@
       "remove": "상품을 제거할 수 없습니다. 다시 시도해 주세요.",
       "out_of_stock": "이 상품은 현재 품절입니다.",
       "quantity_error_html": "이 상품은 장바구니에 [quantity]개까지만 추가할 수 있습니다."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

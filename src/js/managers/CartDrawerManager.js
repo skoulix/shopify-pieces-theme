@@ -623,7 +623,7 @@ class CartDrawerManager {
               placeholder="${notePlaceholder}"
               maxlength="5000"
               data-cart-note
-            >${cart.note || ''}</textarea>
+            >${escapeHTML(cart.note || '')}</textarea>
           </div>
         </details>
 

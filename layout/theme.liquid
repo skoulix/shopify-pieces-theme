@@ -95,6 +95,7 @@
         enablePageTransitions: {{ settings.enable_page_transitions }},
         pageTransitionStyle: '{{ settings.page_transition_style | default: "slide" }}',
         cartType: '{{ settings.cart_type | default: "drawer" }}',
+        enableCartSuccessNotifications: {{ settings.enable_cart_success_notifications }},
         moneyFormat: {{ shop.money_format | json }},
       };
 
@@ -288,6 +289,12 @@
           // Dispatch cart updated event for reactive components (e.g., free shipping bar)
           document.dispatchEvent(new CustomEvent('cart:updated', { detail: { cart } }));
 
+          // Add success toast for quick add (if enabled in settings)
+          if (window.themeSettings?.enableCartSuccessNotifications !== false) {
+            const successMsg = window.themeStrings?.cartSuccessAdded || 'Added to cart';
+            toast.success(successMsg, 3000);
+          }
+
           // Show success state
           if (addingText) addingText.classList.add('hidden');
           if (addedText) addedText.classList.remove('hidden');
@@ -366,6 +373,9 @@
         removeItem: `{{ 'cart.remove_item' | t }}`,
         error: `{{ 'cart.errors.update' | t }}`,
         quantityError: `{{ 'cart.errors.quantity_error_html' | t: quantity: '[quantity]' }}`,
+        cartSuccessAdded: `{{ 'cart.success.added' | t }}`,
+        cartSuccessUpdated: `{{ 'cart.success.updated' | t }}`,
+        cartSuccessRemoved: `{{ 'cart.success.removed' | t }}`,
         // Product
         addToCart: `{{ 'products.product.add_to_cart' | t }}`,
         soldOut: `{{ 'products.product.sold_out' | t }}`,

@@ -226,6 +226,11 @@
       "remove": "Ürün kaldırılamadı. Lütfen tekrar deneyin.",
       "out_of_stock": "Bu ürün şu anda stokta yok.",
       "quantity_error_html": "Bu üründen sepetinize yalnızca [quantity] adet ekleyebilirsiniz."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

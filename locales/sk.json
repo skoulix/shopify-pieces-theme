@@ -226,6 +226,11 @@
       "remove": "Položku sa nepodarilo odstrániť. Skúste to znova.",
       "out_of_stock": "Táto položka momentálne nie je na sklade.",
       "quantity_error_html": "Do košíka môžete pridať iba [quantity] kusov tejto položky."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

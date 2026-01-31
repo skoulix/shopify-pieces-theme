@@ -226,6 +226,11 @@
       "remove": "Không thể xóa sản phẩm. Vui lòng thử lại.",
       "out_of_stock": "Sản phẩm này hiện đã hết hàng.",
       "quantity_error_html": "Bạn chỉ có thể thêm [quantity] sản phẩm này vào giỏ hàng."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

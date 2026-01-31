@@ -226,6 +226,11 @@
       "remove": "Položku se nepodařilo odebrat. Zkuste to prosím znovu.",
       "out_of_stock": "Tato položka je momentálně vyprodána.",
       "quantity_error_html": "Do košíku můžete přidat pouze [quantity] kusů této položky."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

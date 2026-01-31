@@ -226,6 +226,11 @@
       "remove": "Nem sikerült a termék eltávolítása. Kérjük, próbálja újra.",
       "out_of_stock": "Ez a termék jelenleg nincs raktáron.",
       "quantity_error_html": "Ebből a termékből legfeljebb [quantity] darabot adhat a kosarába."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

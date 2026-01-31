@@ -226,6 +226,11 @@
       "remove": "Nije moguće ukloniti artikl. Pokušajte ponovo.",
       "out_of_stock": "Ovaj artikl trenutno nije na zalihi.",
       "quantity_error_html": "Možete dodati samo [quantity] ovog artikla u košaricu."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

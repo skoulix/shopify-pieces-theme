@@ -226,6 +226,11 @@
       "remove": "Nepavyko pašalinti prekės. Bandykite dar kartą.",
       "out_of_stock": "Šios prekės šiuo metu nėra sandėlyje.",
       "quantity_error_html": "Į krepšelį galite pridėti tik [quantity] šios prekės vnt."
+    },
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
     }
   },
   "sections": {

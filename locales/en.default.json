@@ -214,6 +214,11 @@
     "adding": "Adding...",
     "added": "Added!",
     "error": "Error",
+    "success": {
+      "added": "Added to cart",
+      "updated": "Cart updated",
+      "removed": "Item removed from cart"
+    },
     "free_shipping": {
       "qualified": "You've unlocked free shipping!",
       "remaining_html": "Add €{{ remaining }} more for free shipping",
