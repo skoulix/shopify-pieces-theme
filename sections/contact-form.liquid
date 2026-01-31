@@ -137,8 +137,14 @@
 
       {%- comment -%} Right on desktop, below on mobile: Social Links {%- endcomment -%}
       {% if section.settings.show_social_links %}
+        {%- liquid
+          assign has_social_links = false
+          if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_instagram_link != blank or settings.social_tiktok_link != blank or settings.social_youtube_link != blank or settings.social_pinterest_link != blank or settings.social_linkedin_link != blank
+            assign has_social_links = true
+          endif
+        -%}
         <div class="contact-social flex flex-col lg:col-span-4 xl:col-span-5 lg:justify-center" data-tween data-tween-type="fade-up">
-          {% if section.settings.social_heading != blank %}
+          {% if section.settings.social_heading != blank and has_social_links %}
             <h3 class="text-label-sm text-(--color-text-secondary) mb-6">{{ section.settings.social_heading }}</h3>
           {% endif %}
 
