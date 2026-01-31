@@ -9,6 +9,7 @@
   - style: {String} 'accordion' or 'slide' (default: 'accordion')
   - show_search: {Boolean} Show search link in footer
   - show_cart: {Boolean} Show cart link in footer
+  - show_wishlist: {Boolean} Show wishlist link in footer
   - nav_uppercase: {Boolean} Uppercase navigation text
   - enable_country_selector: {Boolean} Show country/region selector
   - enable_language_selector: {Boolean} Show language selector
@@ -19,6 +20,7 @@
     style: section.settings.mobile_menu_style,
     show_search: section.settings.show_search,
     show_cart: section.settings.show_cart,
+    show_wishlist: section.settings.show_wishlist,
     nav_uppercase: section.settings.nav_uppercase,
     enable_country_selector: section.settings.enable_country_selector,
     enable_language_selector: section.settings.enable_language_selector
@@ -306,6 +308,12 @@
           <a href="{{ routes.account_url }}" class="mobile-nav__footer-link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--color-text)" data-mobile-nav-close>
             <i class="ph ph-user text-base"></i>
             <span>{{ 'accessibility.account' | t }}</span>
+          </a>
+        {% endif %}
+        {% if show_wishlist %}
+          <a href="#" class="mobile-nav__footer-link inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-(--color-text-secondary) no-underline transition-colors duration-200 hover:text-(--color-text)" data-wishlist-open data-mobile-nav-close>
+            <i class="ph ph-heart text-base"></i>
+            <span>{{ 'accessibility.wishlist' | t | default: 'Wishlist' }}</span>
           </a>
         {% endif %}
         {% if show_search %}

@@ -163,10 +163,16 @@
   }
   .compare-drawer__footer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 1rem;
     padding-top: 1rem;
     border-top: 1px solid var(--color-border);
+  }
+  @media (min-width: 769px) {
+    .compare-drawer__footer {
+      justify-content: flex-end;
+    }
   }
   .compare-drawer__compare-btn {
     display: inline-flex;
@@ -176,6 +182,22 @@
   .compare-drawer__compare-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+  .compare-drawer__clear {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    .compare-drawer__clear {
+      display: inline-flex;
+    }
+    .compare-drawer__header .compare-drawer__clear-desktop {
+      display: none;
+    }
+  }
+  @media (min-width: 769px) {
+    .compare-drawer__footer .compare-drawer__clear {
+      display: none;
+    }
   }
 
   /* Floating compare button */
@@ -291,7 +313,7 @@
       </h3>
       <div class="compare-drawer__actions">
         {%- assign clear_text = 'products.compare.clear_all' | t | default: 'Clear all' -%}
-        <button type="button" class="text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-(--color-text) opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer p-0" data-compare-clear>
+        <button type="button" class="compare-drawer__clear-desktop text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-(--color-text) opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer p-0" data-compare-clear>
           <span data-hover="{{ clear_text }}">{{ clear_text }}</span>
         </button>
         <span class="w-px h-4 bg-(--color-border) mx-2"></span>
@@ -306,6 +328,10 @@
     </div>
 
     <div class="compare-drawer__footer">
+      {%- assign clear_text = 'products.compare.clear_all' | t | default: 'Clear all' -%}
+      <button type="button" class="compare-drawer__clear text-hover-reveal inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-(--color-text) opacity-70 hover:opacity-100 transition-opacity duration-300 bg-transparent border-none cursor-pointer p-0!" data-compare-clear-mobile>
+        <span data-hover="{{ clear_text }}">{{ clear_text }}</span>
+      </button>
       {%- assign btn_view_comparison = 'products.compare.view_comparison' | t | default: 'View Comparison' -%}
       <a href="{{ pages['compare'].url | default: '/pages/compare' }}" class="btn btn--primary btn--xs compare-drawer__compare-btn" data-compare-view-btn>
         {% render 'button-text', text: btn_view_comparison %}
@@ -330,6 +356,7 @@
   const countEl = document.querySelector('[data-compare-count]');
   const drawerCountEl = document.querySelector('[data-compare-drawer-count]');
   const clearBtn = document.querySelector('[data-compare-clear]');
+  const clearBtnMobile = document.querySelector('[data-compare-clear-mobile]');
   const closeBtn = document.querySelector('[data-compare-drawer-close]');
   const viewBtn = document.querySelector('[data-compare-view-btn]');
 
@@ -559,6 +586,7 @@
 
     closeBtn?.addEventListener('click', closeDrawer);
     clearBtn?.addEventListener('click', clearProducts);
+    clearBtnMobile?.addEventListener('click', clearProducts);
   }
 
   // Handle drawer toggle buttons (like facets toolbar) - outside hasDrawer check

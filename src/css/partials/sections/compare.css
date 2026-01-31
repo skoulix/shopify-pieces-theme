@@ -226,8 +226,23 @@
   /* Actions */
   .compare-actions {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+  }
+
+  .compare-actions .btn {
+    width: 100%;
+  }
+
+  @media (min-width: 769px) {
+    .compare-actions {
+      flex-direction: row;
+    }
+
+    .compare-actions .btn {
+      width: auto;
+    }
   }
 }

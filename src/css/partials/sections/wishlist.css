@@ -63,9 +63,24 @@
   /* Actions */
   .wishlist-actions {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 1rem;
     margin-top: 3rem;
+  }
+
+  .wishlist-actions .btn {
+    width: 100%;
+  }
+
+  @media (min-width: 769px) {
+    .wishlist-actions {
+      flex-direction: row;
+    }
+
+    .wishlist-actions .btn {
+      width: auto;
+    }
   }
 
   /* Button overrides - reset to use global styles */

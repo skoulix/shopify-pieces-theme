@@ -508,6 +508,12 @@
 
   .group:hover .card-action-btn { transform: scale(1); }
 
+  /* Always show toolbar buttons on mobile/touch devices */
+  @media (max-width: 1023px) {
+    .card-action-btn { transform: scale(1); }
+    .product-card-actions { opacity: 1 !important; }
+  }
+
   .card-action-btn[data-wishlist-toggle].is-active {
     background-color: var(--color-sale);
     color: white;
